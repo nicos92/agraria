@@ -41,8 +41,8 @@ partial class Form1
         label3 = new Label();
         TxtUsuario = new TextBox();
         LblUsuario = new Label();
-        LblTitulo = new Label();
         LblOlvide = new LinkLabel();
+        LblTitulo = new Label();
         TLPFondo.SuspendLayout();
         TLPLogo.SuspendLayout();
         ((System.ComponentModel.ISupportInitialize)Logo).BeginInit();
@@ -103,8 +103,8 @@ partial class Form1
         TLPInicio.Controls.Add(label3, 1, 4);
         TLPInicio.Controls.Add(TxtUsuario, 1, 3);
         TLPInicio.Controls.Add(LblUsuario, 1, 2);
-        TLPInicio.Controls.Add(LblTitulo, 1, 1);
         TLPInicio.Controls.Add(LblOlvide, 1, 8);
+        TLPInicio.Controls.Add(LblTitulo, 0, 1);
         TLPInicio.Dock = DockStyle.Fill;
         TLPInicio.ForeColor = Color.FromArgb(255, 255, 255);
         TLPInicio.Location = new Point(310, 3);
@@ -145,11 +145,11 @@ partial class Form1
         LblInicioError.AutoSize = true;
         LblInicioError.BackColor = Color.FromArgb(255, 218, 214);
         LblInicioError.ForeColor = Color.FromArgb(65, 0, 2);
-        LblInicioError.Location = new Point(114, 257);
+        LblInicioError.Location = new Point(106, 257);
         LblInicioError.Name = "LblInicioError";
-        LblInicioError.Size = new Size(237, 21);
+        LblInicioError.Size = new Size(254, 21);
         LblInicioError.TabIndex = 7;
-        LblInicioError.Text = "Usuario o contraseña incorrectas";
+        LblInicioError.Text = "Usuario y/o Contraseña Incorrectas";
         // 
         // TxtContrasenia
         // 
@@ -189,33 +189,33 @@ partial class Form1
         LblUsuario.TabIndex = 1;
         LblUsuario.Text = "Usuario:";
         // 
-        // LblTitulo
-        // 
-        LblTitulo.Anchor = AnchorStyles.None;
-        LblTitulo.AutoSize = true;
-        LblTitulo.Font = new Font("Segoe UI", 24F, FontStyle.Bold, GraphicsUnit.Point, 0);
-        LblTitulo.ForeColor = AppColorPalette.Light.OnPrimary;
-        LblTitulo.Location = new Point(108, 23);
-        LblTitulo.Name = "LblTitulo";
-        LblTitulo.Size = new Size(249, 45);
-        LblTitulo.TabIndex = 0;
-        LblTitulo.Text = "inicio de sesión";
-        LblTitulo.Click += label1_Click;
-        // 
         // LblOlvide
         // 
         LblOlvide.ActiveLinkColor = Color.FromArgb(92, 87, 151);
         LblOlvide.Anchor = AnchorStyles.None;
         LblOlvide.AutoSize = true;
         LblOlvide.LinkColor = Color.FromArgb(255, 255, 255);
-        LblOlvide.Location = new Point(139, 381);
+        LblOlvide.Location = new Point(138, 381);
         LblOlvide.Name = "LblOlvide";
-        LblOlvide.Size = new Size(187, 42);
+        LblOlvide.Size = new Size(190, 42);
         LblOlvide.TabIndex = 8;
         LblOlvide.TabStop = true;
-        LblOlvide.Text = "¿Olvidaste tu contraseña?\r\nhaz click aquí";
+        LblOlvide.Text = "¿Olvidaste tu Contraseña?\r\nHaz click aquí";
         LblOlvide.TextAlign = ContentAlignment.MiddleCenter;
         LblOlvide.VisitedLinkColor = Color.FromArgb(255, 216, 232);
+        LblOlvide.LinkClicked += LblOlvide_LinkClicked;
+        // 
+        // LblTitulo
+        // 
+        LblTitulo.Anchor = AnchorStyles.None;
+        TLPInicio.SetColumnSpan(LblTitulo, 3);
+        LblTitulo.Font = new Font("Segoe UI", 24F, FontStyle.Bold, GraphicsUnit.Point, 0);
+        LblTitulo.ForeColor = Color.FromArgb(255, 255, 255);
+        LblTitulo.Location = new Point(83, 23);
+        LblTitulo.Name = "LblTitulo";
+        LblTitulo.Size = new Size(301, 45);
+        LblTitulo.TabIndex = 0;
+        LblTitulo.Text = "INICIO DE SESIÓN";
         // 
         // Form1
         // 
