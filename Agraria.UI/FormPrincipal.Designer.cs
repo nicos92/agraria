@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormPrincipal));
             PanelMenu = new Panel();
             BtnProveedores = new Button();
             BtnUsuarios = new Button();
@@ -64,6 +65,7 @@
             // 
             // BtnProveedores
             // 
+            BtnProveedores.Cursor = Cursors.Hand;
             BtnProveedores.Dock = DockStyle.Top;
             BtnProveedores.FlatAppearance.BorderSize = 0;
             BtnProveedores.FlatStyle = FlatStyle.Flat;
@@ -83,6 +85,7 @@
             // 
             // BtnUsuarios
             // 
+            BtnUsuarios.Cursor = Cursors.Hand;
             BtnUsuarios.Dock = DockStyle.Top;
             BtnUsuarios.FlatAppearance.BorderSize = 0;
             BtnUsuarios.FlatStyle = FlatStyle.Flat;
@@ -102,6 +105,7 @@
             // 
             // BtnReporte
             // 
+            BtnReporte.Cursor = Cursors.Hand;
             BtnReporte.Dock = DockStyle.Top;
             BtnReporte.FlatAppearance.BorderSize = 0;
             BtnReporte.FlatStyle = FlatStyle.Flat;
@@ -121,6 +125,7 @@
             // 
             // BtnVenta
             // 
+            BtnVenta.Cursor = Cursors.Hand;
             BtnVenta.Dock = DockStyle.Top;
             BtnVenta.FlatAppearance.BorderSize = 0;
             BtnVenta.FlatStyle = FlatStyle.Flat;
@@ -140,6 +145,7 @@
             // 
             // BtnIndustrial
             // 
+            BtnIndustrial.Cursor = Cursors.Hand;
             BtnIndustrial.Dock = DockStyle.Top;
             BtnIndustrial.FlatAppearance.BorderSize = 0;
             BtnIndustrial.FlatStyle = FlatStyle.Flat;
@@ -159,6 +165,7 @@
             // 
             // BtnVegetal
             // 
+            BtnVegetal.Cursor = Cursors.Hand;
             BtnVegetal.Dock = DockStyle.Top;
             BtnVegetal.FlatAppearance.BorderSize = 0;
             BtnVegetal.FlatStyle = FlatStyle.Flat;
@@ -178,6 +185,7 @@
             // 
             // BtnAnimal
             // 
+            BtnAnimal.Cursor = Cursors.Hand;
             BtnAnimal.Dock = DockStyle.Top;
             BtnAnimal.FlatAppearance.BorderSize = 0;
             BtnAnimal.FlatStyle = FlatStyle.Flat;
@@ -197,6 +205,7 @@
             // 
             // BtnActividad
             // 
+            BtnActividad.Cursor = Cursors.Hand;
             BtnActividad.Dock = DockStyle.Top;
             BtnActividad.FlatAppearance.BorderSize = 0;
             BtnActividad.FlatStyle = FlatStyle.Flat;
@@ -242,6 +251,7 @@
             ClientSize = new Size(1024, 579);
             Controls.Add(PanelMenu);
             Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             IsMdiContainer = true;
             Margin = new Padding(4);
             MinimumSize = new Size(1040, 600);
