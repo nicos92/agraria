@@ -2,7 +2,7 @@
 
 namespace Agraria.Login;
 
-partial class Form1
+partial class FormLogin
 {
     /// <summary>
     ///  Required designer variable.
@@ -30,7 +30,7 @@ partial class Form1
     /// </summary>
     private void InitializeComponent()
     {
-        System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+        System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormLogin));
         TLPFondo = new TableLayoutPanel();
         TLPLogo = new TableLayoutPanel();
         Logo = new PictureBox();
@@ -138,6 +138,7 @@ partial class Form1
         BtnIngresar.TabIndex = 6;
         BtnIngresar.Text = "INGRESAR";
         BtnIngresar.UseVisualStyleBackColor = true;
+        BtnIngresar.Click += BtnIngresar_Click;
         // 
         // LblInicioError
         // 
@@ -217,7 +218,7 @@ partial class Form1
         LblTitulo.TabIndex = 0;
         LblTitulo.Text = "INICIO DE SESIÓN";
         // 
-        // Form1
+        // FormLogin
         // 
         AutoScaleMode = AutoScaleMode.None;
         ClientSize = new Size(780, 457);
@@ -227,7 +228,7 @@ partial class Form1
         Icon = (Icon)resources.GetObject("$this.Icon");
         MaximizeBox = false;
         MinimizeBox = false;
-        Name = "Form1";
+        Name = "FormLogin";
         StartPosition = FormStartPosition.CenterScreen;
         Text = "Escuela Agraria";
         TLPFondo.ResumeLayout(false);

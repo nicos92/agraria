@@ -1,3 +1,12 @@
+using Agraria.UI;
+using Agraria.UI.Actividad;
+using Agraria.UI.Animal;
+using Agraria.UI.Industrial;
+using Agraria.UI.Proveedores;
+using Agraria.UI.Reporte;
+using Agraria.UI.Usuarios;
+using Agraria.UI.Vegetal;
+using Agraria.UI.Venta;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Agraria.Login;
@@ -19,17 +28,34 @@ static class Program
         ConfigureServices(services);
         ServiceProvider = services.BuildServiceProvider();
 
-        var mainForm = ServiceProvider.GetRequiredService<Form1>();
+        var mainForm = ServiceProvider.GetRequiredService<FormLogin>();
         Application.Run(mainForm);
     }
     private static void ConfigureServices(ServiceCollection services)
     {
         // Registrar formularios
-        services.AddTransient<Form1>();      // Este Form estaría en Agraria.Login
+        services.AddTransient<FormLogin>();      // Este Form estaría en Agraria.Login
 
         services.AddTransient<FormRecuperarContra>();     // Este Form estaría en Agraria.Login
 
 
+        services.AddTransient<FormPrincipal>();   // Este Form estaría en Agraria.UI.Principal
+
+        services.AddTransient<FormActividad>();   // Este Form estaría en Agraria.UI.Actividad
+
+        services.AddTransient<FormAnimal>();     // Este Form estaría en Agraria.UI.Animal
+
+        services.AddTransient<FormVegetal>();     // Este Form estaría en Agraria.UI.Vegetal
+
+        services.AddTransient<FormIndustrial>(); // Este Form estaría en Agraria.UI.Industrial
+
+        services.AddTransient<FormVenta>();       // Este Form estaría en Agraria.UI.Venta
+
+        services.AddTransient<FormReporte>();    // Este Form estaría en Agraria.UI.Reporte
+
+        services.AddTransient<FormUsuarios>();  // Este Form estaría en Agraria.UI.Usuarios
+
+        services.AddTransient<FormProveedores>(); // Este Form estaría en Agraria.UI.Proveedores
 
         // Registrar servicios (ejemplo)
 
