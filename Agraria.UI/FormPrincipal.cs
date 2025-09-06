@@ -18,7 +18,11 @@ namespace Agraria.UI
         private IServiceProvider _serviceProvider;
 
         private Button _btnActivo;
-        private Form _formactividad;    
+
+        /// <summary>
+        /// Inicializa una nueva instancia del formulario principal.
+        /// </summary>
+        /// <param name="serviceProvider">El proveedor de servicios para la inyección de dependencias.</param>
         public FormPrincipal(IServiceProvider serviceProvider)
         {
             _serviceProvider = serviceProvider;
@@ -26,8 +30,13 @@ namespace Agraria.UI
             _btnActivo = BtnActividad;
         }
 
+        /// <summary>
+        /// Maneja el evento de clic de los botones del menú para abrir el formulario correspondiente.
+        /// </summary>
+        /// <param name="sender">El objeto que originó el evento (se espera que sea un botón).</param>
+        /// <param name="e">Los datos del evento.</param>
         private void BtnActividad_Click(object sender, EventArgs e)
-        { 
+        {
             // Usamos el operador 'is' con patrón para verificar si el 'sender' es un botón
             if (sender is Button btn)
             {
@@ -56,16 +65,22 @@ namespace Agraria.UI
             }
         }
 
-        // Método para restablecer el estilo de un botón
-        private void ResetearEstiloBoton(Button btn)
+        /// <summary>
+        /// Restablece el estilo visual de un botón a su estado predeterminado.
+        /// </summary>
+        /// <param name="btn">El botón cuyo estilo se va a restablecer.</param>
+        private static void ResetearEstiloBoton(Button btn)
         {
             btn.BackColor = AppColorPalette.Light.Primary;
             btn.ForeColor = AppColorPalette.Light.OnPrimary;
             btn.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
         }
 
-        // Método para aplicar el estilo de botón activo
-        private void AplicarEstiloActivo(Button btn)
+        /// <summary>
+        /// Aplica el estilo visual de "activo" a un botón.
+        /// </summary>
+        /// <param name="btn">El botón al que se le aplicará el estilo.</param>
+        private static void AplicarEstiloActivo(Button btn)
         {
             btn.BackColor = AppColorPalette.Light.OnPrimaryContainer;
             btn.ForeColor = AppColorPalette.Light.PrimaryContainer;
@@ -73,6 +88,11 @@ namespace Agraria.UI
         }
 
 
+        /// <summary>
+        /// Gestiona la visualización de formularios secundarios dentro del contenedor MDI.
+        /// Si un formulario del tipo especificado ya existe, lo muestra. De lo contrario, crea una nueva instancia.
+        /// </summary>
+        /// <param name="tipoForm">El tipo (Type) del formulario que se debe mostrar.</param>
         private void SeleccionarForm(Type tipoForm)
         {
             // 1. Validar el tipo de formulario antes de cualquier operación
@@ -99,24 +119,35 @@ namespace Agraria.UI
                     childForm.Hide();
                 }
             }
-
             // 4. Crear el formulario si no estaba abierto
-            // Usar 'var' para inferencia de tipo, hace el código más limpio
-            var form = (Form)_serviceProvider.GetRequiredService(tipoForm);
+            // Usar 'var' para inferencia de tipo hace el código más limpio
 
             // 5. Configurar el nuevo formulario
-            form.MdiParent = this;
-            form.FormBorderStyle = FormBorderStyle.None;
-            form.Dock = DockStyle.Fill;
-            form.Show();
+            if (_serviceProvider.GetRequiredService(tipoForm) is Form form)
+            {
+                form.MdiParent = this;
+                form.FormBorderStyle = FormBorderStyle.None; // Asegura que no se muestre la barra de títulos del formulario
+                form.Dock = DockStyle.Fill; // Establece el formulario en lleno
+                form.Show();
+            }
+
+
         }
 
+        /// <summary>
+        /// Maneja el evento de carga del formulario principal.
+        /// </summary>
+        /// <param name="sender">El objeto que originó el evento.</param>
+        /// <param name="e">Los datos del evento.</param>
         private void FormPrincipal_Load(object sender, EventArgs e)
         {
             ConfigBtnsMenu();
             BtnActividad_Click(_btnActivo, e);
         }
 
+        /// <summary>
+        /// Configura la propiedad 'Tag' de cada botón del menú con el tipo de formulario que debe abrir.
+        /// </summary>
         private void ConfigBtnsMenu()
         {
             BtnActividad.Tag = typeof(Actividad.FormActividad);
