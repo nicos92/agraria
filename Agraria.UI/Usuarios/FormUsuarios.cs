@@ -7,19 +7,24 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Agraria.UI.Usuarios
 {
     public partial class FormUsuarios : Form
     {
-        public FormUsuarios()
+        private readonly IServiceProvider _serviceProvider;
+
+        public FormUsuarios(IServiceProvider serviceProvider)
         {
+            _serviceProvider = serviceProvider;
             InitializeComponent();
-            LoadUserControl(new ucIngresoUsuarios());
+            LoadUserControl<ucIngresoUsuarios>();
         }
 
-        private void LoadUserControl(UserControl userControl)
+        private void LoadUserControl<T>() where T : UserControl
         {
+            var userControl = _serviceProvider.GetRequiredService<T>();
             panelContainer.Controls.Clear();
             userControl.Dock = DockStyle.Fill;
             panelContainer.Controls.Add(userControl);
@@ -27,12 +32,12 @@ namespace Agraria.UI.Usuarios
 
         private void btnIngreso_Click(object sender, EventArgs e)
         {
-            LoadUserControl(new ucIngresoUsuarios());
+            LoadUserControl<ucIngresoUsuarios>();
         }
 
         private void btnConsulta_Click(object sender, EventArgs e)
         {
-            LoadUserControl(new ucConsultaUsuarios());
+            LoadUserControl<ucConsultaUsuarios>();
         }
     }
 }

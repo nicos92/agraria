@@ -7,20 +7,24 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Agraria.UI.Actividad
 {
-    public partial class FormActividad: Form
+    public partial class FormActividad : Form
     {
-        public FormActividad()
+        private readonly IServiceProvider _serviceProvider;
+
+        public FormActividad(IServiceProvider serviceProvider)
         {
+            _serviceProvider = serviceProvider;
             InitializeComponent();
-            // Load the default user control on startup
-            LoadUserControl(new ucIngresoActividad());
+            LoadUserControl<ucIngresoActividad>();
         }
 
-        private void LoadUserControl(UserControl userControl)
+        private void LoadUserControl<T>() where T : UserControl
         {
+            var userControl = _serviceProvider.GetRequiredService<T>();
             panelContainer.Controls.Clear();
             userControl.Dock = DockStyle.Fill;
             panelContainer.Controls.Add(userControl);
@@ -28,12 +32,12 @@ namespace Agraria.UI.Actividad
 
         private void btnIngreso_Click(object sender, EventArgs e)
         {
-            LoadUserControl(new ucIngresoActividad());
+            LoadUserControl<ucIngresoActividad>();
         }
 
         private void btnConsulta_Click(object sender, EventArgs e)
         {
-            LoadUserControl(new ucConsultaActividad());
+            LoadUserControl<ucConsultaActividad>();
         }
     }
 }

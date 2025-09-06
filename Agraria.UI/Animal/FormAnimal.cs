@@ -7,20 +7,24 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Agraria.UI.Animal
 {
     public partial class FormAnimal : Form
     {
-        public FormAnimal()
+        private readonly IServiceProvider _serviceProvider;
+
+        public FormAnimal(IServiceProvider serviceProvider)
         {
+            _serviceProvider = serviceProvider;
             InitializeComponent();
-            // Load the default user control on startup
-            LoadUserControl(new ucIngresoAnimal());
+            LoadUserControl<ucIngresoAnimal>();
         }
 
-        private void LoadUserControl(UserControl userControl)
+        private void LoadUserControl<T>() where T : UserControl
         {
+            var userControl = _serviceProvider.GetRequiredService<T>();
             panelContainer.Controls.Clear();
             userControl.Dock = DockStyle.Fill;
             panelContainer.Controls.Add(userControl);
@@ -28,12 +32,12 @@ namespace Agraria.UI.Animal
 
         private void btnIngreso_Click(object sender, EventArgs e)
         {
-            LoadUserControl(new ucIngresoAnimal());
+            LoadUserControl<ucIngresoAnimal>();
         }
 
         private void btnConsulta_Click(object sender, EventArgs e)
         {
-            LoadUserControl(new ucConsultaAnimal());
+            LoadUserControl<ucConsultaAnimal>();
         }
     }
 }
