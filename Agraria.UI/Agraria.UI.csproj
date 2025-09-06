@@ -61,4 +61,82 @@
     </Compile>
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Update="Animal\ucConsultaAnimal.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Animal\ucConsultaAnimal.Designer.cs">
+      <DependentUpon>ucConsultaAnimal.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Animal\ucIngresoAnimal.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Animal\ucIngresoAnimal.Designer.cs">
+      <DependentUpon>ucIngresoAnimal.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Industrial\ucConsultaIndustrial.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Industrial\ucConsultaIndustrial.Designer.cs">
+      <DependentUpon>ucConsultaIndustrial.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Industrial\ucIngresoIndustrial.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Industrial\ucIngresoIndustrial.Designer.cs">
+      <DependentUpon>ucIngresoIndustrial.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Proveedores\ucConsultaProveedores.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Proveedores\ucConsultaProveedores.Designer.cs">
+      <DependentUpon>ucConsultaProveedores.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Proveedores\ucIngresoProveedores.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Proveedores\ucIngresoProveedores.Designer.cs">
+      <DependentUpon>ucIngresoProveedores.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Usuarios\ucConsultaUsuarios.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Usuarios\ucConsultaUsuarios.Designer.cs">
+      <DependentUpon>ucConsultaUsuarios.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Usuarios\ucIngresoUsuarios.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Usuarios\ucIngresoUsuarios.Designer.cs">
+      <DependentUpon>ucIngresoUsuarios.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Vegetal\ucConsultaVegetal.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Vegetal\ucConsultaVegetal.Designer.cs">
+      <DependentUpon>ucConsultaVegetal.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Vegetal\ucIngresoVegetal.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Vegetal\ucIngresoVegetal.Designer.cs">
+      <DependentUpon>ucIngresoVegetal.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Venta\ucConsultaVenta.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Venta\ucConsultaVenta.Designer.cs">
+      <DependentUpon>ucConsultaVenta.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Venta\ucIngresoVenta.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Venta\ucIngresoVenta.Designer.cs">
+      <DependentUpon>ucIngresoVenta.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
 </Project>

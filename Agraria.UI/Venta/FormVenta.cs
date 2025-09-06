@@ -10,11 +10,29 @@ using System.Windows.Forms;
 
 namespace Agraria.UI.Venta
 {
-    public partial class FormVenta: Form
+    public partial class FormVenta : Form
     {
         public FormVenta()
         {
             InitializeComponent();
+            LoadUserControl(new ucIngresoVenta());
+        }
+
+        private void LoadUserControl(UserControl userControl)
+        {
+            panelContainer.Controls.Clear();
+            userControl.Dock = DockStyle.Fill;
+            panelContainer.Controls.Add(userControl);
+        }
+
+        private void btnIngreso_Click(object sender, EventArgs e)
+        {
+            LoadUserControl(new ucIngresoVenta());
+        }
+
+        private void btnConsulta_Click(object sender, EventArgs e)
+        {
+            LoadUserControl(new ucConsultaVenta());
         }
     }
 }

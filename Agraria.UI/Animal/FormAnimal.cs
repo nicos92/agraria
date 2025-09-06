@@ -10,11 +10,30 @@ using System.Windows.Forms;
 
 namespace Agraria.UI.Animal
 {
-    public partial class FormAnimal: Form
+    public partial class FormAnimal : Form
     {
         public FormAnimal()
         {
             InitializeComponent();
+            // Load the default user control on startup
+            LoadUserControl(new ucIngresoAnimal());
+        }
+
+        private void LoadUserControl(UserControl userControl)
+        {
+            panelContainer.Controls.Clear();
+            userControl.Dock = DockStyle.Fill;
+            panelContainer.Controls.Add(userControl);
+        }
+
+        private void btnIngreso_Click(object sender, EventArgs e)
+        {
+            LoadUserControl(new ucIngresoAnimal());
+        }
+
+        private void btnConsulta_Click(object sender, EventArgs e)
+        {
+            LoadUserControl(new ucConsultaAnimal());
         }
     }
 }
