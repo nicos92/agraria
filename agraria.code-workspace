@@ -1,0 +1,20 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {},
+	"extensions": {
+		"recommendations": [
+			"ms-dotnettools.csharp",
+			"ms-dotnettools.csdevkit"
+		],
+		"unwantedRecommendations": [
+			"ms-toolsai.jupyter",
+			"devsense.profiler-php-vscode",
+			"ms-python.python",
+			"ms-python.vscode-pylance"
+		]
+	}
+}
