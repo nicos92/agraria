@@ -15,6 +15,25 @@ namespace Agraria.UI.Actividad
         public FormActividad()
         {
             InitializeComponent();
+            // Load the default user control on startup
+            LoadUserControl(new ucIngresoActividad());
+        }
+
+        private void LoadUserControl(UserControl userControl)
+        {
+            panelContainer.Controls.Clear();
+            userControl.Dock = DockStyle.Fill;
+            panelContainer.Controls.Add(userControl);
+        }
+
+        private void btnIngreso_Click(object sender, EventArgs e)
+        {
+            LoadUserControl(new ucIngresoActividad());
+        }
+
+        private void btnConsulta_Click(object sender, EventArgs e)
+        {
+            LoadUserControl(new ucConsultaActividad());
         }
     }
 }

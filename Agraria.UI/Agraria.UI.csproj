@@ -46,4 +46,19 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Update="Actividad\ucConsultaActividad.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Actividad\ucConsultaActividad.Designer.cs">
+      <DependentUpon>ucConsultaActividad.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Actividad\ucIngresoActividad.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Actividad\ucIngresoActividad.Designer.cs">
+      <DependentUpon>ucIngresoActividad.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
 </Project>
