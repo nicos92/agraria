@@ -78,7 +78,6 @@ static class Program
             Log.CloseAndFlush();
         }
 
-        ApplicationConfiguration.Initialize();
 
        
        
