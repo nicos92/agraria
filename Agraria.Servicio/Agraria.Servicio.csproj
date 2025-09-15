@@ -2,6 +2,11 @@
 
 
   <ItemGroup>
+    <Compile Remove="Implementaciones\Usuarios_TipoService.cs" />
+  </ItemGroup>
+
+
+  <ItemGroup>
     <ProjectReference Include="..\Agraria.Modelo\Agraria.Modelo.csproj" />
     <ProjectReference Include="..\Agraria.Contrato\Agraria.Contrato.csproj" />
   </ItemGroup>

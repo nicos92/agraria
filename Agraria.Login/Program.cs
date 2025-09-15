@@ -72,8 +72,8 @@ static class Program
         services.AddTransient<UCIngresoProveedores>();
         services.AddTransient<UCConsultaProveedor>();
 
-        services.AddTransient<ucIngresoUsuarios>();
-        services.AddTransient<ucConsultaUsuarios>();
+        services.AddTransient<UCIngresoUsuarios>();
+        services.AddTransient<USConsultaUsuario>();
         services.AddTransient<ucIngresoVegetal>();
         services.AddTransient<ucConsultaVegetal>();
         services.AddTransient<ucIngresoVenta>();
@@ -83,6 +83,12 @@ static class Program
 
         services.AddScoped<IProveedoresService, ProveedoresService>();
         services.AddScoped<IProveedoresRepository, ProveedoresRepository>();
+
+        services.AddScoped<IUsuariosService, UsuariosService>();
+        services.AddScoped<IUsuariosRepository, UsuariosRepository>();
+
+        services.AddScoped<IUsuariosTipoService, UsuariosTipoService>();
+        services.AddScoped<IUsuariosTipoRepository, UsuariosTipoRepository>();
 
     }
 }

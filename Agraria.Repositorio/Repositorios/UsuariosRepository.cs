@@ -1,0 +1,173 @@
+using System;
+using System.Collections.Generic;
+using System.Data.Common;
+using System.Data.OleDb;
+using System.Linq;
+using System.Runtime.Versioning;
+using System.Threading.Tasks;
+using Agraria.Contrato.Repositorios;
+using Agraria.Modelo.Entidades;
+using Agraria.Util;
+
+namespace Agraria.Repositorio.Repositorios
+{
+    [SupportedOSPlatform("windows")]
+    public class UsuariosRepository : BaseRepositorio, IUsuariosRepository
+    {
+        public async Task<Result<List<Usuarios>>> GetAll()
+        {
+            try
+            {
+                using OleDbConnection conn = Conexion();
+                using OleDbCommand cmd = new("SELECT Id_Usuario, DNI, Nombre, Apellido, Tel, Mail, Id_Tipo FROM Usuarios", conn);
+                await conn.OpenAsync();
+                using DbDataReader reader = await cmd.ExecuteReaderAsync();
+                List<Usuarios> usuarios = [];
+                while (await reader.ReadAsync())
+                {
+                    Usuarios usuario = new()
+                    {
+                        Id_Usuario = reader.GetInt32(0),
+                        DNI =  reader.GetString(1),
+                        Nombre = reader.GetString(2),
+                        Apellido = reader.GetString(3),
+                        Tel = reader.GetString(4),
+                        Mail =  reader.GetString(5),
+                        Id_Tipo = reader.GetInt32(6)
+                    };
+                    usuarios.Add(usuario);
+                }
+                return Result<List<Usuarios>>.Success(usuarios);
+            }
+            catch (OleDbException ex)
+            {
+                return Result<List<Usuarios>>.Failure("Error en la base de datos al obtener los usuarios: " + ex.Message);
+            }
+            catch (System.Exception ex)
+            {
+                return Result<List<Usuarios>>.Failure("Error inesperado al obtener los usuarios: " + ex.Message);
+            }
+        }
+
+        public async Task<Result<Usuarios>> GetById(int id)
+        {
+            try
+            {
+                using OleDbConnection conn = Conexion();
+                using OleDbCommand cmd = new("SELECT Id_Usuario, DNI, Nombre, Apellido, Tel, Mail, Id_Tipo FROM Usuarios WHERE Id_Usuario = @Id", conn);
+                cmd.Parameters.AddWithValue("@Id", id);
+                await conn.OpenAsync();
+                using DbDataReader reader = await cmd.ExecuteReaderAsync();
+                if (await reader.ReadAsync())
+                {
+                    Usuarios usuario = new()
+                    {
+                        Id_Usuario = reader.GetInt32(0),
+                        DNI = reader.GetString(1),
+                        Nombre = reader.GetString(2),
+                        Apellido = reader.GetString(3),
+                        Tel = reader.GetString(4),
+                        Mail = reader.GetString(5),
+                        Id_Tipo = reader.GetInt32(6)
+                    };
+                    return Result<Usuarios>.Success(usuario);
+                }
+                return Result<Usuarios>.Failure("Usuario no encontrado");
+            }
+            catch (OleDbException ex)
+            {
+                return Result<Usuarios>.Failure("Error en la base de datos al obtener el usuario: " + ex.Message);
+            }
+            catch (System.Exception ex)
+            {
+                return Result<Usuarios>.Failure("Error inesperado al obtener el usuario: " + ex.Message);
+            }
+        }
+
+        public Result<Usuarios> Add(Usuarios usuario)
+        {
+            try
+            {
+                using OleDbConnection conn = Conexion();
+                using OleDbCommand cmd = new("INSERT INTO Usuarios (DNI, Nombre, Apellido, Tel, Mail, Id_Tipo) VALUES (@DNI, @Nombre, @Apellido, @Tel, @Mail, @Id_Tipo)", conn);
+                cmd.Parameters.AddWithValue("@DNI", usuario.DNI ?? (object)DBNull.Value);
+                cmd.Parameters.AddWithValue("@Nombre", usuario.Nombre ?? (object)DBNull.Value);
+                cmd.Parameters.AddWithValue("@Apellido", usuario.Apellido ?? (object)DBNull.Value);
+                cmd.Parameters.AddWithValue("@Tel", usuario.Tel ?? (object)DBNull.Value);
+                cmd.Parameters.AddWithValue("@Mail", usuario.Mail ?? (object)DBNull.Value);
+                cmd.Parameters.AddWithValue("@Id_Tipo", usuario.Id_Tipo);
+                conn.Open();
+                int rowsAffected = cmd.ExecuteNonQuery();
+                if (rowsAffected > 0)
+                {
+                    return Result<Usuarios>.Success(usuario);
+                }
+                return Result<Usuarios>.Failure("repositorio: No se pudo agregar el usuario");
+            }
+            catch (OleDbException ex)
+            {
+                return Result<Usuarios>.Failure("Error en la base de datos al agregar el usuario: " + ex.Message);
+            }
+            catch (System.Exception ex)
+            {
+                return Result<Usuarios>.Failure("Error inesperado al agregar el usuario: " + ex.Message);
+            }
+        }
+
+        public Result<Usuarios> Update(Usuarios usuario)
+        {
+            try
+            {
+                using OleDbConnection conn = Conexion();
+                using OleDbCommand cmd = new("UPDATE Usuarios SET DNI = @DNI, Nombre = @Nombre, Apellido = @Apellido, Tel = @Tel, Mail = @Mail, Id_Tipo = @Id_Tipo WHERE Id_Usuario = @Id", conn);
+                cmd.Parameters.AddWithValue("@DNI", usuario.DNI ?? (object)DBNull.Value);
+                cmd.Parameters.AddWithValue("@Nombre", usuario.Nombre ?? (object)DBNull.Value);
+                cmd.Parameters.AddWithValue("@Apellido", usuario.Apellido ?? (object)DBNull.Value);
+                cmd.Parameters.AddWithValue("@Tel", usuario.Tel ?? (object)DBNull.Value);
+                cmd.Parameters.AddWithValue("@Mail", usuario.Mail ?? (object)DBNull.Value);
+                cmd.Parameters.AddWithValue("@Id_Tipo", usuario.Id_Tipo);
+                cmd.Parameters.AddWithValue("@Id", usuario.Id_Usuario);
+                conn.Open();
+                int rowsAffected = cmd.ExecuteNonQuery();
+                if (rowsAffected > 0)
+                {
+                    return Result<Usuarios>.Success(usuario);
+                }
+                return Result<Usuarios>.Failure("No se pudo actualizar el usuario");
+            }
+            catch (OleDbException ex)
+            {
+                return Result<Usuarios>.Failure("Error en la base de datos al actualizar el usuario: " + ex.Message);
+            }
+            catch (System.Exception ex)
+            {
+                return Result<Usuarios>.Failure("Error inesperado al actualizar el usuario: " + ex.Message);
+            }
+        }
+        
+        public Result<bool> Delete(int id)
+        {
+            try
+            {
+                using OleDbConnection conn = Conexion();
+                using OleDbCommand cmd = new("DELETE FROM Usuarios WHERE Id_Usuario = @Id", conn);
+                cmd.Parameters.AddWithValue("@Id", id);
+                conn.Open();
+                int rowsAffected = cmd.ExecuteNonQuery();
+                if (rowsAffected > 0)
+                {
+                    return Result<bool>.Success(true);
+                }
+                return Result<bool>.Failure("No se pudo eliminar el usuario");
+            }
+            catch (OleDbException ex)
+            {
+                return Result<bool>.Failure("Error en la base de datos al eliminar el usuario: " + ex.Message);
+            }
+            catch (System.Exception ex)
+            {
+                return Result<bool>.Failure("Error inesperado al eliminar el usuario: " + ex.Message);
+            }
+        }
+    }
+}
