@@ -16,7 +16,7 @@ public partial class FormLogin : Form
 
     private void LblOlvide_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
     {
-        // Aca llamo al formulario principal que esta en PrimeSystem.UI
+        // Aca llamo al formulario principal que esta en Agraria.UI
         Form _formHijo = _serviceProvider.GetRequiredService<FormRecuperarContra>();
         _formHijo.Closed += (s, e) =>
         {
@@ -30,7 +30,7 @@ public partial class FormLogin : Form
 
     private void BtnIngresar_Click(object sender, EventArgs e)
     {
-        // Aca llamo al formulario principal que esta en PrimeSystem.UI
+        // Aca llamo al formulario principal que esta en Agraria.UI
         Form _formHijo = _serviceProvider.GetRequiredService<FormPrincipal>();
         _formHijo.Closed += (s, e) =>
         {

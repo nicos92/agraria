@@ -151,7 +151,7 @@ namespace Agraria.UI
         private void ConfigBtnsMenu()
         {
             BtnActividad.Tag = typeof(Actividad.FormActividad);
-            BtnAnimal.Tag = typeof(Animal.FormAnimal);
+            BtnAnimal.Tag = typeof(Articulos.FormArticulos);
             BtnVegetal.Tag = typeof(Vegetal.FormVegetal);
             BtnIndustrial.Tag = typeof(Industrial.FormIndustrial);
             BtnVenta.Tag = typeof(Venta.FormVenta);

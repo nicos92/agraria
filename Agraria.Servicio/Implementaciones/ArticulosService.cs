@@ -1,0 +1,49 @@
+using System.Collections.Generic;
+using Agraria.Modelo.Entidades;
+using Agraria.Util;
+using Agraria.Contrato.Servicios;
+using Agraria.Contrato.Repositorios;
+
+namespace Agraria.Servicio.Implementaciones
+{
+    public class ArticulosService : IArticulosService
+    {
+        private readonly IArticulosRepository _repo;
+
+        public ArticulosService(IArticulosRepository repo)
+        {
+            _repo = repo;
+        }
+       
+
+        public async Task<Result<List<Articulos>>> GetAll()
+        {
+            return await _repo.GetAll();
+        }
+
+        public Result<Articulos> GetById(int id)
+        {
+            return _repo.GetById(id);
+        }
+
+        public Result<Articulos> Add(Articulos articulo)
+        {
+            return _repo.Add(articulo);
+        }
+
+        public async Task<Result<Articulos>> Update(Articulos articulo)
+        {
+            return await _repo.Update(articulo);
+        }
+
+        public Result<bool> Delete(int id)
+        {
+            return _repo.Delete(id);
+        }
+
+        public async Task<Result<int>> GetMaxCodArt()
+        {
+            return await  _repo.GetMaxCodArt();
+        }
+    }
+}

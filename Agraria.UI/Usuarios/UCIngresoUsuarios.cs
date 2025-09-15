@@ -91,7 +91,6 @@ namespace Agraria.UI.Usuarios
         /// </summary>
         private async Task CargarTiposUsuarios()
         {
-            CMBTipoUsuario.Items.Clear();
             var tiposUsuarios = await _usuariosTipoService.GetAll();
 
             if (tiposUsuarios.IsSuccess && tiposUsuarios.Value != null)
