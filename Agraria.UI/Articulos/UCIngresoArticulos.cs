@@ -37,6 +37,7 @@ namespace Agraria.UI.Articulos
         private readonly ErrorProvider _epTxtCantidad;
         private readonly ErrorProvider _epTxtCosto;
         private readonly ErrorProvider _epTxtGanancia;
+        private readonly CultureInfo cultureArg = new ("es-AR");
 
         private List<Modelo.Entidades.Entornos> ListaCategorias { get; set; } = [];
         private List<Modelo.Entidades.Proveedores> ListaProveedores { get; set; } = [];
@@ -269,5 +270,17 @@ namespace Agraria.UI.Articulos
         }
 
         #endregion Otros Metodos
+
+        private void TxtCosto_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (string.IsNullOrEmpty(TxtCosto.Text) || string.IsNullOrEmpty(TxtGanancia.Text))
+            {
+                return;
+            }
+            decimal costo = Convert.ToDecimal(TxtCosto.Text);
+            decimal ganancia = Convert.ToDecimal(TxtGanancia.Text);
+            
+            LblPrecio.Text = "$" + (costo + (costo * ganancia / 100)).ToString(cultureArg);
+        }
     }
 }

@@ -88,7 +88,7 @@
             BtnOpcionCategorias.Name = "BtnOpcionCategorias";
             BtnOpcionCategorias.Size = new Size(242, 64);
             BtnOpcionCategorias.TabIndex = 2;
-            BtnOpcionCategorias.Text = "Categorías";
+            BtnOpcionCategorias.Text = "Entornos";
             BtnOpcionCategorias.TextAlign = ContentAlignment.MiddleRight;
             BtnOpcionCategorias.TextImageRelation = TextImageRelation.TextBeforeImage;
             BtnOpcionCategorias.UseVisualStyleBackColor = false;

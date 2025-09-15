@@ -15,6 +15,7 @@ namespace Agraria.UI.Articulos
 {
     public partial class FormArticulos : Form
     {
+        // TODO: AGREGAR UN CRUD DE INVENTARIOS
         private Button _btnActual;
         private readonly IServiceProvider _serviceProvider;
 

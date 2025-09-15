@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Runtime.Versioning;
 using System.Text;
@@ -46,6 +47,8 @@ namespace Agraria.UI.Articulos
         private List<Stock> _listaStock;
 
         private int _indiceSeleccionado;
+        private readonly CultureInfo cultureArg = new("es-AR");
+
 
         #endregion
 
@@ -62,9 +65,9 @@ namespace Agraria.UI.Articulos
             InitializeComponent();
 
             // Inyección de dependencias
-            _articulosService = articulosService ;
-            _categoriasService = categoriasService ;
-            _subcategoriasService = subcategoriaService ;
+            _articulosService = articulosService;
+            _categoriasService = categoriasService;
+            _subcategoriasService = subcategoriaService;
             _proveedoresService = proveedoresService;
             _stockService = stockService;
             _articuloStockService = articuloStockService;
@@ -109,9 +112,9 @@ namespace Agraria.UI.Articulos
             ConfigurarBotones();
         }
 
-       
 
-       
+
+
 
         /// <summary>
         /// Configura las propiedades iniciales de los botones en el formulario.
@@ -231,6 +234,7 @@ namespace Agraria.UI.Articulos
             {
                 LimpiarFormulario();
             }
+            CalcularPrecioVenta();
         }
 
         /// <summary>
@@ -320,8 +324,8 @@ namespace Agraria.UI.Articulos
             CMBProveedor.ValueMember = "Id_Proveedor";
 
             CMBCategoria.DataSource = _listaCategorias ?? [];
-            CMBCategoria.DisplayMember = "Categoria";
-            CMBCategoria.ValueMember = "Id_Categoria";
+            CMBCategoria.DisplayMember = "Entorno";
+            CMBCategoria.ValueMember = "Id_Entorno";
 
             CargarArticulosDataGridView();
             if (Util.Util.CalcularDGVVacio(ListBArticulos, LblLista, "Articulos"))
@@ -403,20 +407,20 @@ namespace Agraria.UI.Articulos
         /// <summary>
         /// Carga las subcategorías de una categoría específica de forma asíncrona.
         /// </summary>
-        /// <param name="idCategoria">El ID de la categoría.</param>
-        private async Task CargarSubCategorias(int idCategoria)
+        /// <param name="idEntorno">El ID de la categoría.</param>
+        private async Task CargarSubCategorias(int idEntorno)
         {
-            var resultado = await _subcategoriasService.GetAllxEntorno(idCategoria);
+            var resultado = await _subcategoriasService.GetAllxEntorno(idEntorno);
 
             if (resultado.IsSuccess)
             {
                 CMBSubcategoria.DataSource = resultado.Value;
-                CMBSubcategoria.DisplayMember = "Sub_categoria";
-                CMBSubcategoria.ValueMember = "Id_Subcategoria";
+                CMBSubcategoria.DisplayMember = "Sub_Entorno";
+                CMBSubcategoria.ValueMember = "Id_SubEntorno";
             }
             else
             {
-                MostrarMensaje(resultado.Error, "Error al cargar subcategorías", MessageBoxIcon.Error);
+                MostrarMensaje(resultado.Error, "Error al cargar subEntornos", MessageBoxIcon.Error);
             }
         }
 
@@ -701,5 +705,24 @@ namespace Agraria.UI.Articulos
         }
 
         #endregion
+
+        private void TxtCosto_KeyUp(object sender, KeyEventArgs e)
+        {
+            CalcularPrecioVenta();
+        }
+
+        private void CalcularPrecioVenta()
+        {
+            if (string.IsNullOrEmpty(TxtCosto.Text) || string.IsNullOrEmpty(TxtGanancia.Text))
+            {
+                return;
+            }
+            decimal costo = Convert.ToDecimal(TxtCosto.Text);
+            decimal ganancia = Convert.ToDecimal(TxtGanancia.Text);
+
+            LblPrecio.Text = "$" + (costo + (costo * ganancia / 100)).ToString(cultureArg);
+        }
+
+        
     }
 }

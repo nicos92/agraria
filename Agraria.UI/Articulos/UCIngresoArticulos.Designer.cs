@@ -41,12 +41,14 @@
             label4 = new Label();
             label2 = new Label();
             BtnIngresar = new Button();
-            CMBProveedor = new ComboBox();
             CMBSubcategoria = new ComboBox();
             CMBCategoria = new ComboBox();
-            label6 = new Label();
+            CMBProveedor = new ComboBox();
             label5 = new Label();
             label1 = new Label();
+            label6 = new Label();
+            label7 = new Label();
+            LblPrecio = new Label();
             ProgressBar = new ProgressBar();
             PanelMedio.SuspendLayout();
             TLPMedio.SuspendLayout();
@@ -96,9 +98,9 @@
             // 
             TLPForm.BackColor = Color.FromArgb(249, 249, 251);
             TLPForm.ColumnCount = 3;
-            TLPForm.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 17.5759983F));
-            TLPForm.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 67.7474747F));
-            TLPForm.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 14.6765184F));
+            TLPForm.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 20.0956936F));
+            TLPForm.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 65.07177F));
+            TLPForm.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 14.6765194F));
             TLPForm.Controls.Add(label3, 0, 4);
             TLPForm.Controls.Add(LblCuit, 0, 1);
             TLPForm.Controls.Add(TxtGanancia, 1, 4);
@@ -107,28 +109,31 @@
             TLPForm.Controls.Add(TxtDescripcion, 1, 1);
             TLPForm.Controls.Add(label4, 0, 2);
             TLPForm.Controls.Add(label2, 0, 3);
-            TLPForm.Controls.Add(BtnIngresar, 1, 8);
-            TLPForm.Controls.Add(CMBProveedor, 1, 5);
-            TLPForm.Controls.Add(CMBSubcategoria, 1, 7);
-            TLPForm.Controls.Add(CMBCategoria, 1, 6);
-            TLPForm.Controls.Add(label6, 0, 5);
-            TLPForm.Controls.Add(label5, 0, 7);
-            TLPForm.Controls.Add(label1, 0, 6);
+            TLPForm.Controls.Add(BtnIngresar, 1, 9);
+            TLPForm.Controls.Add(CMBSubcategoria, 1, 8);
+            TLPForm.Controls.Add(CMBCategoria, 1, 7);
+            TLPForm.Controls.Add(CMBProveedor, 1, 6);
+            TLPForm.Controls.Add(label5, 0, 8);
+            TLPForm.Controls.Add(label1, 0, 7);
+            TLPForm.Controls.Add(label6, 0, 6);
+            TLPForm.Controls.Add(label7, 0, 5);
+            TLPForm.Controls.Add(LblPrecio, 1, 5);
             TLPForm.Dock = DockStyle.Fill;
             TLPForm.ForeColor = Color.FromArgb(26, 28, 30);
             TLPForm.Location = new Point(3, 29);
             TLPForm.Name = "TLPForm";
-            TLPForm.RowCount = 10;
-            TLPForm.RowStyles.Add(new RowStyle(SizeType.Percent, 2.323359F));
-            TLPForm.RowStyles.Add(new RowStyle(SizeType.Percent, 11.6167955F));
-            TLPForm.RowStyles.Add(new RowStyle(SizeType.Percent, 11.6167955F));
-            TLPForm.RowStyles.Add(new RowStyle(SizeType.Percent, 11.6167955F));
-            TLPForm.RowStyles.Add(new RowStyle(SizeType.Percent, 11.6167955F));
-            TLPForm.RowStyles.Add(new RowStyle(SizeType.Percent, 11.6167955F));
-            TLPForm.RowStyles.Add(new RowStyle(SizeType.Percent, 11.6167955F));
-            TLPForm.RowStyles.Add(new RowStyle(SizeType.Percent, 11.6167955F));
-            TLPForm.RowStyles.Add(new RowStyle(SizeType.Percent, 14.0357161F));
-            TLPForm.RowStyles.Add(new RowStyle(SizeType.Percent, 2.323359F));
+            TLPForm.RowCount = 11;
+            TLPForm.RowStyles.Add(new RowStyle(SizeType.Percent, 9.090909F));
+            TLPForm.RowStyles.Add(new RowStyle(SizeType.Percent, 9.090909F));
+            TLPForm.RowStyles.Add(new RowStyle(SizeType.Percent, 9.090909F));
+            TLPForm.RowStyles.Add(new RowStyle(SizeType.Percent, 9.090909F));
+            TLPForm.RowStyles.Add(new RowStyle(SizeType.Percent, 9.090909F));
+            TLPForm.RowStyles.Add(new RowStyle(SizeType.Percent, 9.090909F));
+            TLPForm.RowStyles.Add(new RowStyle(SizeType.Percent, 9.090909F));
+            TLPForm.RowStyles.Add(new RowStyle(SizeType.Percent, 9.090909F));
+            TLPForm.RowStyles.Add(new RowStyle(SizeType.Percent, 9.090909F));
+            TLPForm.RowStyles.Add(new RowStyle(SizeType.Percent, 9.090909F));
+            TLPForm.RowStyles.Add(new RowStyle(SizeType.Percent, 9.090909F));
             TLPForm.Size = new Size(627, 385);
             TLPForm.TabIndex = 0;
             // 
@@ -137,7 +142,7 @@
             label3.Anchor = AnchorStyles.Right;
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI", 12F);
-            label3.Location = new Point(13, 151);
+            label3.Location = new Point(29, 142);
             label3.Name = "label3";
             label3.Size = new Size(94, 21);
             label3.TabIndex = 3;
@@ -148,7 +153,7 @@
             LblCuit.Anchor = AnchorStyles.Right;
             LblCuit.AutoSize = true;
             LblCuit.Font = new Font("Segoe UI", 12F);
-            LblCuit.Location = new Point(13, 19);
+            LblCuit.Location = new Point(29, 40);
             LblCuit.Name = "LblCuit";
             LblCuit.Size = new Size(94, 21);
             LblCuit.TabIndex = 0;
@@ -160,12 +165,13 @@
             TxtGanancia.BackColor = Color.FromArgb(238, 237, 240);
             TxtGanancia.Font = new Font("Segoe UI", 12F);
             TxtGanancia.ForeColor = Color.FromArgb(26, 28, 30);
-            TxtGanancia.Location = new Point(113, 147);
+            TxtGanancia.Location = new Point(129, 139);
             TxtGanancia.MaxLength = 12;
             TxtGanancia.Name = "TxtGanancia";
-            TxtGanancia.Size = new Size(418, 29);
+            TxtGanancia.Size = new Size(402, 29);
             TxtGanancia.TabIndex = 8;
             TxtGanancia.TextChanged += TxtDescripcion_TextChanged;
+            TxtGanancia.KeyUp += TxtCosto_KeyUp;
             // 
             // TxtCosto
             // 
@@ -173,12 +179,13 @@
             TxtCosto.BackColor = Color.FromArgb(238, 237, 240);
             TxtCosto.Font = new Font("Segoe UI", 12F);
             TxtCosto.ForeColor = Color.FromArgb(26, 28, 30);
-            TxtCosto.Location = new Point(113, 103);
+            TxtCosto.Location = new Point(129, 105);
             TxtCosto.MaxLength = 12;
             TxtCosto.Name = "TxtCosto";
-            TxtCosto.Size = new Size(418, 29);
+            TxtCosto.Size = new Size(402, 29);
             TxtCosto.TabIndex = 7;
             TxtCosto.TextChanged += TxtDescripcion_TextChanged;
+            TxtCosto.KeyUp += TxtCosto_KeyUp;
             // 
             // TxtCantidad
             // 
@@ -186,10 +193,10 @@
             TxtCantidad.BackColor = Color.FromArgb(238, 237, 240);
             TxtCantidad.Font = new Font("Segoe UI", 12F);
             TxtCantidad.ForeColor = Color.FromArgb(26, 28, 30);
-            TxtCantidad.Location = new Point(113, 59);
+            TxtCantidad.Location = new Point(129, 71);
             TxtCantidad.MaxLength = 12;
             TxtCantidad.Name = "TxtCantidad";
-            TxtCantidad.Size = new Size(418, 29);
+            TxtCantidad.Size = new Size(402, 29);
             TxtCantidad.TabIndex = 6;
             TxtCantidad.TextChanged += TxtDescripcion_TextChanged;
             // 
@@ -199,10 +206,10 @@
             TxtDescripcion.BackColor = Color.FromArgb(238, 237, 240);
             TxtDescripcion.Font = new Font("Segoe UI", 12F);
             TxtDescripcion.ForeColor = Color.FromArgb(26, 28, 30);
-            TxtDescripcion.Location = new Point(113, 15);
+            TxtDescripcion.Location = new Point(129, 37);
             TxtDescripcion.MaxLength = 50;
             TxtDescripcion.Name = "TxtDescripcion";
-            TxtDescripcion.Size = new Size(418, 29);
+            TxtDescripcion.Size = new Size(402, 29);
             TxtDescripcion.TabIndex = 5;
             TxtDescripcion.TextChanged += TxtDescripcion_TextChanged;
             // 
@@ -211,7 +218,7 @@
             label4.Anchor = AnchorStyles.Right;
             label4.AutoSize = true;
             label4.Font = new Font("Segoe UI", 12F);
-            label4.Location = new Point(32, 63);
+            label4.Location = new Point(48, 74);
             label4.Name = "label4";
             label4.Size = new Size(75, 21);
             label4.TabIndex = 4;
@@ -222,7 +229,7 @@
             label2.Anchor = AnchorStyles.Right;
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 12F);
-            label2.Location = new Point(41, 107);
+            label2.Location = new Point(57, 108);
             label2.Name = "label2";
             label2.Size = new Size(66, 21);
             label2.TabIndex = 2;
@@ -238,27 +245,15 @@
             BtnIngresar.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             BtnIngresar.ForeColor = Color.FromArgb(255, 255, 255);
             BtnIngresar.Image = Properties.Resources.ingresar;
-            BtnIngresar.Location = new Point(226, 319);
+            BtnIngresar.Location = new Point(234, 306);
             BtnIngresar.Margin = new Padding(0);
             BtnIngresar.Name = "BtnIngresar";
-            BtnIngresar.Size = new Size(192, 48);
+            BtnIngresar.Size = new Size(192, 34);
             BtnIngresar.TabIndex = 12;
             BtnIngresar.Text = "INGRESAR";
             BtnIngresar.TextImageRelation = TextImageRelation.TextBeforeImage;
             BtnIngresar.UseVisualStyleBackColor = false;
             BtnIngresar.Click += BtnIngresar_Click;
-            // 
-            // CMBProveedor
-            // 
-            CMBProveedor.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            CMBProveedor.DropDownStyle = ComboBoxStyle.DropDownList;
-            CMBProveedor.Font = new Font("Segoe UI", 12F);
-            CMBProveedor.FormattingEnabled = true;
-            CMBProveedor.Location = new Point(113, 191);
-            CMBProveedor.Name = "CMBProveedor";
-            CMBProveedor.Size = new Size(418, 29);
-            CMBProveedor.TabIndex = 9;
-            CMBProveedor.Visible = false;
             // 
             // CMBSubcategoria
             // 
@@ -266,9 +261,9 @@
             CMBSubcategoria.DropDownStyle = ComboBoxStyle.DropDownList;
             CMBSubcategoria.Font = new Font("Segoe UI", 12F);
             CMBSubcategoria.FormattingEnabled = true;
-            CMBSubcategoria.Location = new Point(113, 279);
+            CMBSubcategoria.Location = new Point(129, 275);
             CMBSubcategoria.Name = "CMBSubcategoria";
-            CMBSubcategoria.Size = new Size(418, 29);
+            CMBSubcategoria.Size = new Size(402, 29);
             CMBSubcategoria.TabIndex = 11;
             // 
             // CMBCategoria
@@ -277,30 +272,29 @@
             CMBCategoria.DropDownStyle = ComboBoxStyle.DropDownList;
             CMBCategoria.Font = new Font("Segoe UI", 12F);
             CMBCategoria.FormattingEnabled = true;
-            CMBCategoria.Location = new Point(113, 235);
+            CMBCategoria.Location = new Point(129, 241);
             CMBCategoria.Name = "CMBCategoria";
-            CMBCategoria.Size = new Size(418, 29);
+            CMBCategoria.Size = new Size(402, 29);
             CMBCategoria.TabIndex = 10;
             CMBCategoria.SelectedIndexChanged += CMBCategoria_SelectedIndexChanged;
             // 
-            // label6
+            // CMBProveedor
             // 
-            label6.Anchor = AnchorStyles.Right;
-            label6.AutoSize = true;
-            label6.Font = new Font("Segoe UI", 12F);
-            label6.Location = new Point(22, 195);
-            label6.Name = "label6";
-            label6.Size = new Size(85, 21);
-            label6.TabIndex = 17;
-            label6.Text = "Proveedor:";
-            label6.Visible = false;
+            CMBProveedor.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            CMBProveedor.DropDownStyle = ComboBoxStyle.DropDownList;
+            CMBProveedor.Font = new Font("Segoe UI", 12F);
+            CMBProveedor.FormattingEnabled = true;
+            CMBProveedor.Location = new Point(129, 207);
+            CMBProveedor.Name = "CMBProveedor";
+            CMBProveedor.Size = new Size(402, 29);
+            CMBProveedor.TabIndex = 9;
             // 
             // label5
             // 
             label5.Anchor = AnchorStyles.Right;
             label5.AutoSize = true;
             label5.Font = new Font("Segoe UI", 12F);
-            label5.Location = new Point(8, 283);
+            label5.Location = new Point(24, 278);
             label5.Name = "label5";
             label5.Size = new Size(99, 21);
             label5.TabIndex = 12;
@@ -311,11 +305,44 @@
             label1.Anchor = AnchorStyles.Right;
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 12F);
-            label1.Location = new Point(39, 239);
+            label1.Location = new Point(55, 244);
             label1.Name = "label1";
             label1.Size = new Size(68, 21);
             label1.TabIndex = 1;
             label1.Text = "Entorno:";
+            // 
+            // label6
+            // 
+            label6.Anchor = AnchorStyles.Right;
+            label6.AutoSize = true;
+            label6.Font = new Font("Segoe UI", 12F);
+            label6.Location = new Point(38, 210);
+            label6.Name = "label6";
+            label6.Size = new Size(85, 21);
+            label6.TabIndex = 17;
+            label6.Text = "Proveedor:";
+            // 
+            // label7
+            // 
+            label7.Anchor = AnchorStyles.Right;
+            label7.AutoSize = true;
+            label7.Font = new Font("Segoe UI", 12F);
+            label7.Location = new Point(4, 176);
+            label7.Name = "label7";
+            label7.Size = new Size(119, 21);
+            label7.TabIndex = 18;
+            label7.Text = "Precio de venta:";
+            // 
+            // LblPrecio
+            // 
+            LblPrecio.Anchor = AnchorStyles.Left;
+            LblPrecio.AutoSize = true;
+            LblPrecio.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            LblPrecio.Location = new Point(129, 176);
+            LblPrecio.Name = "LblPrecio";
+            LblPrecio.Size = new Size(19, 21);
+            LblPrecio.TabIndex = 19;
+            LblPrecio.Text = "0";
             // 
             // ProgressBar
             // 
@@ -367,5 +394,7 @@
         private ComboBox CMBCategoria;
         private Label label6;
         private ProgressBar ProgressBar;
+        private Label label7;
+        private Label LblPrecio;
     }
 }
