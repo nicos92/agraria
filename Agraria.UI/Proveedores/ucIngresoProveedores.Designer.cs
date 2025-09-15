@@ -1,9 +1,18 @@
+﻿using Agraria.Util;
+
 namespace Agraria.UI.Proveedores
 {
-    partial class ucIngresoProveedores
+    partial class UCIngresoProveedores
     {
+        /// <summary> 
+        /// Variable del diseñador necesaria.
+        /// </summary>
         private System.ComponentModel.IContainer components = null;
 
+        /// <summary> 
+        /// Limpiar los recursos que se estén usando.
+        /// </summary>
+        /// <param name="disposing">true si los recursos administrados se deben desechar; false en caso contrario.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -13,31 +22,282 @@ namespace Agraria.UI.Proveedores
             base.Dispose(disposing);
         }
 
+        #region Código generado por el Diseñador de componentes
+
+        /// <summary> 
+        /// Método necesario para admitir el Diseñador. No se puede modificar
+        /// el contenido de este método con el editor de código.
+        /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
-            this.SuspendLayout();
-            //
+            BtnIngresar = new Button();
+            PanelForm = new Panel();
+            tableLayoutPanel4 = new TableLayoutPanel();
+            GBFormProveedores = new GroupBox();
+            TLPForm = new TableLayoutPanel();
+            TxtEmail = new TextBox();
+            label1 = new Label();
+            label3 = new Label();
+            label4 = new Label();
+            label2 = new Label();
+            LblCuit = new Label();
+            TxtTel = new TextBox();
+            TxtNombre = new TextBox();
+            TxtProveedor = new TextBox();
+            TxtCuit = new TextBox();
+            PanelForm.SuspendLayout();
+            tableLayoutPanel4.SuspendLayout();
+            GBFormProveedores.SuspendLayout();
+            TLPForm.SuspendLayout();
+            SuspendLayout();
+            // 
+            // BtnIngresar
+            // 
+            BtnIngresar.Anchor = AnchorStyles.None;
+            BtnIngresar.BackColor = Color.FromArgb(83, 96, 108);
+            BtnIngresar.Enabled = false;
+            BtnIngresar.FlatAppearance.BorderColor = Color.FromArgb(203, 230, 255);
+            BtnIngresar.FlatStyle = FlatStyle.Flat;
+            BtnIngresar.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            BtnIngresar.ForeColor = Color.FromArgb(255, 255, 255);
+            BtnIngresar.Image = Properties.Resources.ingresar;
+            BtnIngresar.Location = new Point(209, 302);
+            BtnIngresar.Margin = new Padding(0);
+            BtnIngresar.Name = "BtnIngresar";
+            TLPForm.SetRowSpan(BtnIngresar, 2);
+            BtnIngresar.Size = new Size(192, 64);
+            BtnIngresar.TabIndex = 5;
+            BtnIngresar.Text = "INGRESAR";
+            BtnIngresar.TextImageRelation = TextImageRelation.TextBeforeImage;
+            BtnIngresar.UseVisualStyleBackColor = false;
+            BtnIngresar.EnabledChanged += BtnIngresar_EnabledChanged;
+            BtnIngresar.Click += BtnIngresar_Click;
+            // 
+            // PanelForm
+            // 
+            PanelForm.Controls.Add(tableLayoutPanel4);
+            PanelForm.Dock = DockStyle.Fill;
+            PanelForm.Location = new Point(0, 0);
+            PanelForm.Name = "PanelForm";
+            PanelForm.Size = new Size(804, 561);
+            PanelForm.TabIndex = 2;
+            // 
+            // tableLayoutPanel4
+            // 
+            tableLayoutPanel4.BackColor = Color.FromArgb(218, 218, 220);
+            tableLayoutPanel4.ColumnCount = 1;
+            tableLayoutPanel4.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tableLayoutPanel4.Controls.Add(GBFormProveedores, 0, 0);
+            tableLayoutPanel4.Dock = DockStyle.Fill;
+            tableLayoutPanel4.Location = new Point(0, 0);
+            tableLayoutPanel4.Name = "tableLayoutPanel4";
+            tableLayoutPanel4.RowCount = 1;
+            tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            tableLayoutPanel4.Size = new Size(804, 561);
+            tableLayoutPanel4.TabIndex = 1;
+            // 
+            // GBFormProveedores
+            // 
+            GBFormProveedores.Anchor = AnchorStyles.None;
+            GBFormProveedores.Controls.Add(TLPForm);
+            GBFormProveedores.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            GBFormProveedores.ForeColor = Color.FromArgb(7, 100, 147);
+            GBFormProveedores.Location = new Point(92, 70);
+            GBFormProveedores.Name = "GBFormProveedores";
+            GBFormProveedores.Size = new Size(619, 420);
+            GBFormProveedores.TabIndex = 6;
+            GBFormProveedores.TabStop = false;
+            GBFormProveedores.Text = "Formulario de Ingreso de Proveedores";
+            // 
+            // TLPForm
+            // 
+            TLPForm.BackColor = Color.FromArgb(249, 249, 251);
+            TLPForm.ColumnCount = 3;
+            TLPForm.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 20F));
+            TLPForm.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 60F));
+            TLPForm.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 20F));
+            TLPForm.Controls.Add(TxtEmail, 1, 5);
+            TLPForm.Controls.Add(label1, 0, 5);
+            TLPForm.Controls.Add(label3, 0, 4);
+            TLPForm.Controls.Add(label4, 0, 3);
+            TLPForm.Controls.Add(label2, 0, 2);
+            TLPForm.Controls.Add(LblCuit, 0, 1);
+            TLPForm.Controls.Add(TxtTel, 1, 4);
+            TLPForm.Controls.Add(TxtNombre, 1, 3);
+            TLPForm.Controls.Add(TxtProveedor, 1, 2);
+            TLPForm.Controls.Add(TxtCuit, 1, 1);
+            TLPForm.Controls.Add(BtnIngresar, 1, 6);
+            TLPForm.Dock = DockStyle.Fill;
+            TLPForm.ForeColor = Color.FromArgb(26, 28, 30);
+            TLPForm.Location = new Point(3, 29);
+            TLPForm.Name = "TLPForm";
+            TLPForm.RowCount = 8;
+            TLPForm.RowStyles.Add(new RowStyle(SizeType.Percent, 5.40540552F));
+            TLPForm.RowStyles.Add(new RowStyle(SizeType.Percent, 13.5135136F));
+            TLPForm.RowStyles.Add(new RowStyle(SizeType.Percent, 13.5135136F));
+            TLPForm.RowStyles.Add(new RowStyle(SizeType.Percent, 13.5135136F));
+            TLPForm.RowStyles.Add(new RowStyle(SizeType.Percent, 13.5135136F));
+            TLPForm.RowStyles.Add(new RowStyle(SizeType.Percent, 13.5135136F));
+            TLPForm.RowStyles.Add(new RowStyle(SizeType.Percent, 13.5135136F));
+            TLPForm.RowStyles.Add(new RowStyle(SizeType.Percent, 13.5135136F));
+            TLPForm.Size = new Size(613, 388);
+            TLPForm.TabIndex = 0;
+            // 
+            // TxtEmail
+            // 
+            TxtEmail.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            TxtEmail.BackColor = Color.FromArgb(238, 237, 240);
+            TxtEmail.Font = new Font("Segoe UI", 12F);
+            TxtEmail.ForeColor = Color.FromArgb(26, 28, 30);
+            TxtEmail.Location = new Point(125, 239);
+            TxtEmail.MaxLength = 255;
+            TxtEmail.Name = "TxtEmail";
+            TxtEmail.Size = new Size(361, 29);
+            TxtEmail.TabIndex = 4;
+            TxtEmail.TextChanged += TxtCuit_TextChanged;
+            // 
             // label1
-            //
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(28, 36);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(100, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Ingreso Proveedores";
-            //
-            // ucIngresoProveedores
-            //
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.label1);
-            this.Name = "ucIngresoProveedores";
-            this.Size = new System.Drawing.Size(150, 150);
-            this.ResumeLayout(false);
-            this.PerformLayout();
+            // 
+            label1.Anchor = AnchorStyles.Right;
+            label1.AutoSize = true;
+            label1.Font = new Font("Segoe UI", 12F);
+            label1.Location = new Point(68, 243);
+            label1.Name = "label1";
+            label1.Size = new Size(51, 21);
+            label1.TabIndex = 1;
+            label1.Text = "Email:";
+            // 
+            // label3
+            // 
+            label3.Anchor = AnchorStyles.Right;
+            label3.AutoSize = true;
+            label3.Font = new Font("Segoe UI", 12F);
+            label3.Location = new Point(85, 191);
+            label3.Name = "label3";
+            label3.Size = new Size(34, 21);
+            label3.TabIndex = 3;
+            label3.Text = "Tel.:";
+            // 
+            // label4
+            // 
+            label4.Anchor = AnchorStyles.Right;
+            label4.AutoSize = true;
+            label4.Font = new Font("Segoe UI", 12F);
+            label4.Location = new Point(48, 139);
+            label4.Name = "label4";
+            label4.Size = new Size(71, 21);
+            label4.TabIndex = 4;
+            label4.Text = "Nombre:";
+            // 
+            // label2
+            // 
+            label2.Anchor = AnchorStyles.Right;
+            label2.AutoSize = true;
+            label2.Font = new Font("Segoe UI", 12F);
+            label2.Location = new Point(34, 87);
+            label2.Name = "label2";
+            label2.Size = new Size(85, 21);
+            label2.TabIndex = 2;
+            label2.Text = "Proveedor:";
+            // 
+            // LblCuit
+            // 
+            LblCuit.Anchor = AnchorStyles.Right;
+            LblCuit.AutoSize = true;
+            LblCuit.Font = new Font("Segoe UI", 12F);
+            LblCuit.Location = new Point(73, 35);
+            LblCuit.Name = "LblCuit";
+            LblCuit.Size = new Size(46, 21);
+            LblCuit.TabIndex = 0;
+            LblCuit.Text = "CUIT:";
+            // 
+            // TxtTel
+            // 
+            TxtTel.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            TxtTel.BackColor = Color.FromArgb(238, 237, 240);
+            TxtTel.Font = new Font("Segoe UI", 12F);
+            TxtTel.ForeColor = Color.FromArgb(26, 28, 30);
+            TxtTel.Location = new Point(125, 187);
+            TxtTel.MaxLength = 11;
+            TxtTel.Name = "TxtTel";
+            TxtTel.Size = new Size(361, 29);
+            TxtTel.TabIndex = 3;
+            TxtTel.TextChanged += TxtCuit_TextChanged;
+            // 
+            // TxtNombre
+            // 
+            TxtNombre.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            TxtNombre.BackColor = Color.FromArgb(238, 237, 240);
+            TxtNombre.Font = new Font("Segoe UI", 12F);
+            TxtNombre.ForeColor = Color.FromArgb(26, 28, 30);
+            TxtNombre.Location = new Point(125, 135);
+            TxtNombre.MaxLength = 50;
+            TxtNombre.Name = "TxtNombre";
+            TxtNombre.Size = new Size(361, 29);
+            TxtNombre.TabIndex = 2;
+            TxtNombre.TextChanged += TxtCuit_TextChanged;
+            // 
+            // TxtProveedor
+            // 
+            TxtProveedor.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            TxtProveedor.BackColor = Color.FromArgb(238, 237, 240);
+            TxtProveedor.Font = new Font("Segoe UI", 12F);
+            TxtProveedor.ForeColor = Color.FromArgb(26, 28, 30);
+            TxtProveedor.Location = new Point(125, 83);
+            TxtProveedor.MaxLength = 50;
+            TxtProveedor.Name = "TxtProveedor";
+            TxtProveedor.Size = new Size(361, 29);
+            TxtProveedor.TabIndex = 1;
+            TxtProveedor.TextChanged += TxtCuit_TextChanged;
+            // 
+            // TxtCuit
+            // 
+            TxtCuit.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            TxtCuit.BackColor = Color.FromArgb(238, 237, 240);
+            TxtCuit.Font = new Font("Segoe UI", 12F);
+            TxtCuit.ForeColor = Color.FromArgb(26, 28, 30);
+            TxtCuit.Location = new Point(125, 31);
+            TxtCuit.MaxLength = 11;
+            TxtCuit.Name = "TxtCuit";
+            TxtCuit.Size = new Size(361, 29);
+            TxtCuit.TabIndex = 0;
+            TxtCuit.TextChanged += TxtCuit_TextChanged;
+            // 
+            // UCIngresoProveedores
+            // 
+            AutoScaleDimensions = new SizeF(7F, 17F);
+            AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.FromArgb(55, 71, 79);
+            Controls.Add(PanelForm);
+            Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            ForeColor = Color.FromArgb(236, 239, 241);
+            Name = "UCIngresoProveedores";
+            Size = new Size(804, 561);
+            Load += UCIngresoProveedores_Load;
+            PanelForm.ResumeLayout(false);
+            tableLayoutPanel4.ResumeLayout(false);
+            GBFormProveedores.ResumeLayout(false);
+            TLPForm.ResumeLayout(false);
+            TLPForm.PerformLayout();
+            ResumeLayout(false);
         }
 
-        private System.Windows.Forms.Label label1;
+        #endregion
+        private Panel PanelForm;
+        private TableLayoutPanel TLPForm;
+        private Label label4;
+        private Label label2;
+        private Label LblCuit;
+        private Label label3;
+        private Label label1;
+        private TextBox TxtCuit;
+        private TextBox TxtEmail;
+        private TextBox TxtTel;
+        private TextBox TxtNombre;
+        private TextBox TxtProveedor;
+        private Button BtnIngresar;
+        private TableLayoutPanel tableLayoutPanel4;
+        private GroupBox GBFormProveedores;
     }
 }

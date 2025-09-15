@@ -1,6 +1,16 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
+    <None Remove="basedatos.accdb" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="basedatos.accdb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Agraria.UI\Agraria.UI.csproj" />
     <ProjectReference Include="..\Agraria.Contrato\Agraria.Contrato.csproj" />
     <ProjectReference Include="..\Agraria.Servicio\Agraria.Servicio.csproj" />

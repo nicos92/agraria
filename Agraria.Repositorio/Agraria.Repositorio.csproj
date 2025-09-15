@@ -1,14 +1,23 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <ItemGroup>
-    <ProjectReference Include="..\Agraria.Contrato\Agraria.Contrato.csproj" />
-    <ProjectReference Include="..\Agraria.Modelo\Agraria.Modelo.csproj" />
-  </ItemGroup>
+ 
 
   <PropertyGroup>
     <TargetFramework>net9.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
+
+ 
+
+  <ItemGroup>
+    <PackageReference Include="System.Data.OleDb" Version="9.0.9" />
+  </ItemGroup>
+
+ 
+
+  <ItemGroup>
+    <ProjectReference Include="..\Agraria.Contrato\Agraria.Contrato.csproj" />
+  </ItemGroup>
 
 </Project>

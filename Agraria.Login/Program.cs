@@ -1,3 +1,4 @@
+using Agraria.Contrato.Servicios;
 using Agraria.UI;
 using Agraria.UI.Actividad;
 using Agraria.UI.Animal;
@@ -7,7 +8,10 @@ using Agraria.UI.Reporte;
 using Agraria.UI.Usuarios;
 using Agraria.UI.Vegetal;
 using Agraria.UI.Venta;
+using Agraria.Servicio.Implementaciones;
 using Microsoft.Extensions.DependencyInjection;
+using Agraria.Contrato.Repositorios;
+using Agraria.Repositorio.Repositorios;
 
 namespace Agraria.Login;
 
@@ -64,8 +68,10 @@ static class Program
         services.AddTransient<ucConsultaAnimal>();
         services.AddTransient<ucIngresoIndustrial>();
         services.AddTransient<ucConsultaIndustrial>();
-        services.AddTransient<ucIngresoProveedores>();
-        services.AddTransient<ucConsultaProveedores>();
+
+        services.AddTransient<UCIngresoProveedores>();
+        services.AddTransient<UCConsultaProveedor>();
+
         services.AddTransient<ucIngresoUsuarios>();
         services.AddTransient<ucConsultaUsuarios>();
         services.AddTransient<ucIngresoVegetal>();
@@ -75,7 +81,8 @@ static class Program
 
         // Registrar servicios (ejemplo)
 
-
+        services.AddScoped<IProveedoresService, ProveedoresService>();
+        services.AddScoped<IProveedoresRepository, ProveedoresRepository>();
 
     }
 }

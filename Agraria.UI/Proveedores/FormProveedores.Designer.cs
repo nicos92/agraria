@@ -1,9 +1,18 @@
-﻿namespace Agraria.UI.Proveedores
+﻿using Agraria.Util;
+
+namespace Agraria.UI.Proveedores
 {
     partial class FormProveedores
     {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
         private System.ComponentModel.IContainer components = null;
 
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -15,75 +24,120 @@
 
         #region Windows Form Designer generated code
 
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
         private void InitializeComponent()
         {
-            this.panelMenu = new System.Windows.Forms.Panel();
-            this.btnConsulta = new System.Windows.Forms.Button();
-            this.btnIngreso = new System.Windows.Forms.Button();
-            this.panelContainer = new System.Windows.Forms.Panel();
-            this.panelMenu.SuspendLayout();
-            this.SuspendLayout();
+            PanelOpcion = new Panel();
+            tableLayoutPanel2 = new TableLayoutPanel();
+            BtnOpcionEditar = new Button();
+            BtnOpcionIngresar = new Button();
+            PanelMedio = new Panel();
+            PanelOpcion.SuspendLayout();
+            tableLayoutPanel2.SuspendLayout();
+            SuspendLayout();
             // 
-            // panelMenu
+            // PanelOpcion
             // 
-            this.panelMenu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(203)))), ((int)(((byte)(230)))), ((int)(((byte)(255)))));
-            this.panelMenu.Controls.Add(this.btnConsulta);
-            this.panelMenu.Controls.Add(this.btnIngreso);
-            this.panelMenu.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelMenu.Location = new System.Drawing.Point(0, 0);
-            this.panelMenu.Name = "panelMenu";
-            this.panelMenu.Size = new System.Drawing.Size(824, 60);
-            this.panelMenu.TabIndex = 0;
+            PanelOpcion.Controls.Add(tableLayoutPanel2);
+            PanelOpcion.Dock = DockStyle.Top;
+            PanelOpcion.Location = new Point(0, 0);
+            PanelOpcion.Name = "PanelOpcion";
+            PanelOpcion.Size = new Size(724, 64);
+            PanelOpcion.TabIndex = 4;
             // 
-            // btnConsulta
+            // tableLayoutPanel2
             // 
-            this.btnConsulta.Location = new System.Drawing.Point(142, 12);
-            this.btnConsulta.Name = "btnConsulta";
-            this.btnConsulta.Size = new System.Drawing.Size(124, 34);
-            this.btnConsulta.TabIndex = 1;
-            this.btnConsulta.Text = "Consulta";
-            this.btnConsulta.UseVisualStyleBackColor = true;
-            this.btnConsulta.Click += new System.EventHandler(this.btnConsulta_Click);
+            tableLayoutPanel2.ColumnCount = 2;
+            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tableLayoutPanel2.Controls.Add(BtnOpcionEditar, 1, 0);
+            tableLayoutPanel2.Controls.Add(BtnOpcionIngresar, 0, 0);
+            tableLayoutPanel2.Dock = DockStyle.Fill;
+            tableLayoutPanel2.Location = new Point(0, 0);
+            tableLayoutPanel2.Name = "tableLayoutPanel2";
+            tableLayoutPanel2.RowCount = 1;
+            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            tableLayoutPanel2.Size = new Size(724, 64);
+            tableLayoutPanel2.TabIndex = 1;
             // 
-            // btnIngreso
+            // BtnOpcionEditar
             // 
-            this.btnIngreso.Location = new System.Drawing.Point(12, 12);
-            this.btnIngreso.Name = "btnIngreso";
-            this.btnIngreso.Size = new System.Drawing.Size(124, 34);
-            this.btnIngreso.TabIndex = 0;
-            this.btnIngreso.Text = "Ingreso";
-            this.btnIngreso.UseVisualStyleBackColor = true;
-            this.btnIngreso.Click += new System.EventHandler(this.btnIngreso_Click);
+            BtnOpcionEditar.BackColor = Color.FromArgb(83, 96, 108);
+            BtnOpcionEditar.Dock = DockStyle.Fill;
+            BtnOpcionEditar.FlatAppearance.BorderColor = Color.FromArgb(59, 72, 84);
+            BtnOpcionEditar.FlatStyle = FlatStyle.Flat;
+            BtnOpcionEditar.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            BtnOpcionEditar.ForeColor = Color.FromArgb(255, 255, 255);
+            BtnOpcionEditar.Image = Properties.Resources.pen;
+            BtnOpcionEditar.ImageAlign = ContentAlignment.MiddleLeft;
+            BtnOpcionEditar.Location = new Point(362, 0);
+            BtnOpcionEditar.Margin = new Padding(0);
+            BtnOpcionEditar.Name = "BtnOpcionEditar";
+            BtnOpcionEditar.Size = new Size(362, 64);
+            BtnOpcionEditar.TabIndex = 1;
+            BtnOpcionEditar.Text = "Editar Proveedor";
+            BtnOpcionEditar.TextAlign = ContentAlignment.MiddleRight;
+            BtnOpcionEditar.TextImageRelation = TextImageRelation.TextBeforeImage;
+            BtnOpcionEditar.UseVisualStyleBackColor = false;
+            BtnOpcionEditar.Click += BtnOpcionIngresar_Click;
             // 
-            // panelContainer
+            // BtnOpcionIngresar
             // 
-            this.panelContainer.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelContainer.Location = new System.Drawing.Point(0, 60);
-            this.panelContainer.Name = "panelContainer";
-            this.panelContainer.Size = new System.Drawing.Size(824, 519);
-            this.panelContainer.TabIndex = 1;
+            BtnOpcionIngresar.BackColor = Color.FromArgb(7, 100, 147);
+            BtnOpcionIngresar.Dock = DockStyle.Fill;
+            BtnOpcionIngresar.FlatAppearance.BorderColor = Color.FromArgb(203, 230, 255);
+            BtnOpcionIngresar.FlatStyle = FlatStyle.Flat;
+            BtnOpcionIngresar.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            BtnOpcionIngresar.ForeColor = Color.FromArgb(255, 255, 255);
+            BtnOpcionIngresar.Image = Properties.Resources.ingresar;
+            BtnOpcionIngresar.ImageAlign = ContentAlignment.MiddleLeft;
+            BtnOpcionIngresar.Location = new Point(0, 0);
+            BtnOpcionIngresar.Margin = new Padding(0);
+            BtnOpcionIngresar.Name = "BtnOpcionIngresar";
+            BtnOpcionIngresar.Size = new Size(362, 64);
+            BtnOpcionIngresar.TabIndex = 0;
+            BtnOpcionIngresar.Text = "Ingresar Proveedor";
+            BtnOpcionIngresar.TextAlign = ContentAlignment.MiddleRight;
+            BtnOpcionIngresar.TextImageRelation = TextImageRelation.TextBeforeImage;
+            BtnOpcionIngresar.UseVisualStyleBackColor = false;
+            BtnOpcionIngresar.Click += BtnOpcionIngresar_Click;
+            // 
+            // PanelMedio
+            // 
+            PanelMedio.BackColor = Color.FromArgb(218, 218, 220);
+            PanelMedio.Dock = DockStyle.Fill;
+            PanelMedio.Location = new Point(0, 64);
+            PanelMedio.Name = "PanelMedio";
+            PanelMedio.Size = new Size(724, 497);
+            PanelMedio.TabIndex = 6;
             // 
             // FormProveedores
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(203)))), ((int)(((byte)(230)))), ((int)(((byte)(255)))));
-            this.ClientSize = new System.Drawing.Size(824, 579);
-            this.Controls.Add(this.panelContainer);
-            this.Controls.Add(this.panelMenu);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Name = "FormProveedores";
-            this.Text = "FormProveedores";
-            this.panelMenu.ResumeLayout(false);
-            this.ResumeLayout(false);
-
+            AutoScaleMode = AutoScaleMode.None;
+            BackColor = Color.FromArgb(249, 249, 251);
+            ClientSize = new Size(724, 561);
+            Controls.Add(PanelMedio);
+            Controls.Add(PanelOpcion);
+            Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            ForeColor = Color.FromArgb(26, 28, 30);
+            FormBorderStyle = FormBorderStyle.None;
+            Name = "FormProveedores";
+            Text = "FormProveedores";
+            Activated += FormProveedores_Activated;
+            Load += FormProveedores_Load;
+            PanelOpcion.ResumeLayout(false);
+            tableLayoutPanel2.ResumeLayout(false);
+            ResumeLayout(false);
         }
 
         #endregion
-
-        private System.Windows.Forms.Panel panelMenu;
-        private System.Windows.Forms.Button btnConsulta;
-        private System.Windows.Forms.Button btnIngreso;
-        private System.Windows.Forms.Panel panelContainer;
+        private Panel PanelOpcion;
+        private TableLayoutPanel tableLayoutPanel2;
+        private Button BtnOpcionEditar;
+        private Button BtnOpcionIngresar;
+        private Panel PanelMedio;
     }
 }
