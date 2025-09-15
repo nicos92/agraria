@@ -103,7 +103,7 @@ static class Program
         services.AddTransient<FormAnimal>();     // Este Form estaría en Agraria.UI.Animal
 
         services.AddTransient<FormArticulos>();  // Este Form estaría en Agraria.UI.Articulos
-        services.AddTransient<UCGestionCategorias>(); // Este UserControl estaría en Agraria.UI.Articulos
+        services.AddTransient<UCGestionEntornos>(); // Este UserControl estaría en Agraria.UI.Articulos
         services.AddTransient<UCConsultaArticulos>();
         services.AddTransient<UCIngresoArticulos>();
         services.AddTransient<FormVegetal>();     // Este Form estaría en Agraria.UI.Vegetal
@@ -153,13 +153,13 @@ static class Program
         services.AddScoped<IArticuloStockService, ArticuloStockService>();
         services.AddScoped<IArticuloStockRepository, ArticuloStockRepository>();
 
-        services.AddScoped<ICategoriasService, CategoriasService>();
+        services.AddScoped<IEntornosService, CategoriasService>();
         services.AddScoped<ICategoriasRepository, CategoriasRepository>();
 
         services.AddScoped<IStockService, StockService>();
         services.AddScoped<IStockRepository, StockRepository>();
 
-        services.AddScoped<ISubcategoriaService, SubcategoriaService>();
+        services.AddScoped<ISubEntornoService, SubcategoriaService>();
         services.AddScoped<ISubcategoriaRepository, SubCategoriaRepository>();
 
     }

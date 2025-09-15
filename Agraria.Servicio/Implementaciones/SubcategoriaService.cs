@@ -6,7 +6,7 @@ using Agraria.Contrato.Repositorios;
 
 namespace Agraria.Servicio.Implementaciones
 {
-    public class SubcategoriaService : ISubcategoriaService
+    public class SubcategoriaService : ISubEntornoService
     {
         private readonly ISubcategoriaRepository _repo;
 
@@ -15,13 +15,13 @@ namespace Agraria.Servicio.Implementaciones
             _repo = repo;
         }
 
-        public Task<Result<List<Subcategoria>>> GetAll() => _repo.GetAll();
-        public Result<Subcategoria> GetById(int id) => _repo.GetById(id);
-        public Result<Subcategoria> Add(Subcategoria subcategoria) => _repo.Add(subcategoria);
-        public Result<Subcategoria> Update(Subcategoria subcategoria) => _repo.Update(subcategoria);
+        public Task<Result<List<SubEntornos>>> GetAll() => _repo.GetAll();
+        public Result<SubEntornos> GetById(int id) => _repo.GetById(id);
+        public Result<SubEntornos> Add(SubEntornos subcategoria) => _repo.Add(subcategoria);
+        public Result<SubEntornos> Update(SubEntornos subcategoria) => _repo.Update(subcategoria);
         public Result<bool> Delete(int id) => _repo.Delete(id);
 
-        public async Task<Result<List<Subcategoria>>> GetAllxCategoria(int idcategoria)
+        public async Task<Result<List<SubEntornos>>> GetAllxEntorno(int idcategoria)
         {
             return await _repo.GetAllxCategoria(idcategoria);
         }

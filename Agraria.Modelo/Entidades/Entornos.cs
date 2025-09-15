@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace Agraria.Modelo.Entidades
 {
-    public class Categorias
+    public class Entornos
     {
-        public int Id_categoria { get; set; }
-        public string? Categoria { get; set; }
-        public Categorias()
+        public int Id_entorno { get; set; }
+        public string? Entorno { get; set; }
+        public Entornos()
         {
             
         }

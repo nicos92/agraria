@@ -198,7 +198,7 @@
             BtnAnimal.Padding = new Padding(8, 0, 0, 0);
             BtnAnimal.Size = new Size(200, 64);
             BtnAnimal.TabIndex = 2;
-            BtnAnimal.Text = "Animal";
+            BtnAnimal.Text = "Articulos";
             BtnAnimal.TextImageRelation = TextImageRelation.ImageBeforeText;
             BtnAnimal.UseVisualStyleBackColor = true;
             BtnAnimal.Click += BtnActividad_Click;

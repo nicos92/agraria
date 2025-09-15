@@ -2,12 +2,12 @@ using System.Collections.Generic;
 using Agraria.Modelo.Entidades;
 using Agraria.Util;
 
-namespace Agraria.Contrato.Repositorios
+namespace Agraria.Contrato.Servicios
 {
-    public interface ISubcategoriaRepository
+    public interface ISubEntornoService
     {
         Task<Result<List<SubEntornos>>> GetAll();
-        Task<Result<List<SubEntornos>>> GetAllxCategoria(int id);
+        Task<Result<List<SubEntornos>>> GetAllxEntorno(int id);
         Result<SubEntornos> GetById(int id);
         Result<SubEntornos> Add(SubEntornos subcategoria);
         Result<SubEntornos> Update(SubEntornos subcategoria);

@@ -56,7 +56,7 @@ namespace Agraria.UI.Articulos
         {
             BtnOpcionIngresar.Tag = typeof(UCIngresoArticulos);
             BtnOpcionEditar.Tag = typeof(UCConsultaArticulos);
-            BtnOpcionCategorias.Tag = typeof(UCGestionCategorias);
+            BtnOpcionCategorias.Tag = typeof(UCGestionEntornos);
         }
 
         /// <summary>

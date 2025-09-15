@@ -258,6 +258,7 @@
             CMBProveedor.Name = "CMBProveedor";
             CMBProveedor.Size = new Size(418, 29);
             CMBProveedor.TabIndex = 9;
+            CMBProveedor.Visible = false;
             // 
             // CMBSubcategoria
             // 
@@ -292,28 +293,29 @@
             label6.Size = new Size(85, 21);
             label6.TabIndex = 17;
             label6.Text = "Proveedor:";
+            label6.Visible = false;
             // 
             // label5
             // 
             label5.Anchor = AnchorStyles.Right;
             label5.AutoSize = true;
             label5.Font = new Font("Segoe UI", 12F);
-            label5.Location = new Point(3, 283);
+            label5.Location = new Point(8, 283);
             label5.Name = "label5";
-            label5.Size = new Size(104, 21);
+            label5.Size = new Size(99, 21);
             label5.TabIndex = 12;
-            label5.Text = "Subcategoria:";
+            label5.Text = "Sub Entorno:";
             // 
             // label1
             // 
             label1.Anchor = AnchorStyles.Right;
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 12F);
-            label1.Location = new Point(27, 239);
+            label1.Location = new Point(39, 239);
             label1.Name = "label1";
-            label1.Size = new Size(80, 21);
+            label1.Size = new Size(68, 21);
             label1.TabIndex = 1;
-            label1.Text = "Categoria:";
+            label1.Text = "Entorno:";
             // 
             // ProgressBar
             // 

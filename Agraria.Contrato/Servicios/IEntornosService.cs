@@ -2,9 +2,9 @@ using System.Collections.Generic;
 using Agraria.Modelo.Entidades;
 using Agraria.Util;
 
-namespace Agraria.Contrato.Repositorios
+namespace Agraria.Contrato.Servicios
 {
-    public interface ICategoriasRepository
+    public interface IEntornosService
     {
         Task<Result<List<Entornos>>> GetAll();
         Result<Entornos> GetById(int id);

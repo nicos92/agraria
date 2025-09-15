@@ -11,11 +11,11 @@ namespace Agraria.Repositorio.Repositorios
     [SupportedOSPlatform("windows")]
     public class CategoriasRepository : BaseRepositorio, ICategoriasRepository
     {
-        public async Task<Result<List<Categorias>>> GetAll()
+        public async Task<Result<List<Entornos>>> GetAll()
         {
             try
             {
-                var categorias = new List<Categorias>();
+                var categorias = new List<Entornos>();
                 using (OleDbConnection conexion = Conexion())
                 {
                     await conexion.OpenAsync();
@@ -23,25 +23,25 @@ namespace Agraria.Repositorio.Repositorios
                     using var reader = await cmd.ExecuteReaderAsync();
                     while (await reader.ReadAsync())
                     {
-                        categorias.Add(new Categorias
+                        categorias.Add(new Entornos
                         {
-                            Id_categoria = reader.GetInt32(0),
-                            Categoria = reader.GetString(1)
+                            Id_entorno = reader.GetInt32(0),
+                            Entorno = reader.GetString(1)
                         });
                     }
                 }
-                return Result<List<Categorias>>.Success(categorias);
+                return Result<List<Entornos>>.Success(categorias);
             }catch(OleDbException ix)
             {
-                return Result<List<Categorias>>.Failure($"Error de base de dtos al obtener categorías: {ix.Message}");
+                return Result<List<Entornos>>.Failure($"Error de base de dtos al obtener categorías: {ix.Message}");
             }
             catch (Exception ex)
             {
-                return Result<List<Categorias>>.Failure($"Error inesperado al obtener categorías: {ex.Message}");
+                return Result<List<Entornos>>.Failure($"Error inesperado al obtener categorías: {ex.Message}");
             }
         }
 
-        public Result<Categorias> GetById(int id)
+        public Result<Entornos> GetById(int id)
         {
             try
             {
@@ -53,23 +53,23 @@ namespace Agraria.Repositorio.Repositorios
                     using var reader = cmd.ExecuteReader();
                     if (reader.Read())
                     {
-                        var categoria = new Categorias
+                        var categoria = new Entornos
                         {
-                            Id_categoria = reader.GetInt32(0),
-                            Categoria = reader.GetString(1)
+                            Id_entorno = reader.GetInt32(0),
+                            Entorno = reader.GetString(1)
                         };
-                        return Result<Categorias>.Success(categoria);
+                        return Result<Entornos>.Success(categoria);
                     }
                 }
-                return Result<Categorias>.Failure("Categoría no encontrada");
+                return Result<Entornos>.Failure("Categoría no encontrada");
             }
             catch (Exception ex)
             {
-                return Result<Categorias>.Failure($"Error al obtener categoría: {ex.Message}");
+                return Result<Entornos>.Failure($"Error al obtener categoría: {ex.Message}");
             }
         }
 
-        public Result<Categorias> Add(Categorias categoria)
+        public Result<Entornos> Add(Entornos categoria)
         {
             try
             {
@@ -78,23 +78,23 @@ namespace Agraria.Repositorio.Repositorios
                     conexion.Open();
                     using var cmd = new OleDbCommand(
                         "INSERT INTO Categorias (Categoria) VALUES (?)", conexion);
-                    cmd.Parameters.AddWithValue("?", categoria.Categoria);
+                    cmd.Parameters.AddWithValue("?", categoria.Entorno);
                     cmd.ExecuteNonQuery();
 
                     // Obtener el ID de la categoría insertada
                     using var cmdId = new OleDbCommand("SELECT @@IDENTITY", conexion);
                     var newId = Convert.ToInt32(cmdId.ExecuteScalar());
-                    categoria.Id_categoria = newId;
+                    categoria.Id_entorno = newId;
                 }
-                return Result<Categorias>.Success(categoria);
+                return Result<Entornos>.Success(categoria);
             }
             catch (Exception ex)
             {
-                return Result<Categorias>.Failure($"Error al agregar categoría: {ex.Message}");
+                return Result<Entornos>.Failure($"Error al agregar categoría: {ex.Message}");
             }
         }
 
-        public Result<Categorias> Update(Categorias categoria)
+        public Result<Entornos> Update(Entornos categoria)
         {
             try
             {
@@ -102,22 +102,22 @@ namespace Agraria.Repositorio.Repositorios
                 conexion.Open();
                 using var cmd = new OleDbCommand(
                     "UPDATE Categorias SET Categoria = ? WHERE Id_categoria = ?", conexion);
-                cmd.Parameters.AddWithValue("?", categoria.Categoria);
-                cmd.Parameters.AddWithValue("?", categoria.Id_categoria);
+                cmd.Parameters.AddWithValue("?", categoria.Entorno);
+                cmd.Parameters.AddWithValue("?", categoria.Id_entorno);
 
                 int rowsAffected = cmd.ExecuteNonQuery();
                 if (rowsAffected > 0)
                 {
-                    return Result<Categorias>.Success(categoria);
+                    return Result<Entornos>.Success(categoria);
                 }
                 else
                 {
-                    return Result<Categorias>.Failure("No se encontró la categoría a actualizar");
+                    return Result<Entornos>.Failure("No se encontró la categoría a actualizar");
                 }
             }
             catch (Exception ex)
             {
-                return Result<Categorias>.Failure($"Error al actualizar categoría: {ex.Message}");
+                return Result<Entornos>.Failure($"Error al actualizar categoría: {ex.Message}");
             }
         }
 

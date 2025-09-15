@@ -20,8 +20,8 @@ namespace Agraria.UI.Articulos
         #region Atributos y Propiedades
 
         private readonly IArticulosService _articulosService;
-        private readonly ICategoriasService _categoriasService;
-        private readonly ISubcategoriaService _subcategoriasService;
+        private readonly IEntornosService _entornoService;
+        private readonly ISubEntornoService _subEntornoService;
         private readonly IProveedoresService _proveedoresService;
         private readonly IArticuloStockService _articuloStockService;
 
@@ -38,7 +38,7 @@ namespace Agraria.UI.Articulos
         private readonly ErrorProvider _epTxtCosto;
         private readonly ErrorProvider _epTxtGanancia;
 
-        private List<Modelo.Entidades.Categorias> ListaCategorias { get; set; } = [];
+        private List<Modelo.Entidades.Entornos> ListaCategorias { get; set; } = [];
         private List<Modelo.Entidades.Proveedores> ListaProveedores { get; set; } = [];
 
         #endregion Atributos y Propiedades
@@ -46,16 +46,11 @@ namespace Agraria.UI.Articulos
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="UCIngresoArticulos"/>.
         /// </summary>
-        /// <param name="articulosService">El servicio de artículos.</param>
-        /// <param name="categoriasService">El servicio de categorías.</param>
-        /// <param name="subcategoriaService">El servicio de subcategorías.</param>
-        /// <param name="proveedoresService">El servicio de proveedores.</param>
-        /// <param name="articuloStockService">El servicio de stock de artículos.</param>
-        public UCIngresoArticulos(IArticulosService articulosService, ICategoriasService categoriasService, ISubcategoriaService subcategoriaService, IProveedoresService proveedoresService, IArticuloStockService articuloStockService)
+        public UCIngresoArticulos(IArticulosService articulosService, IEntornosService entornoService, ISubEntornoService subEntornoService, IProveedoresService proveedoresService, IArticuloStockService articuloStockService)
         {
             _articulosService = articulosService;
-            _categoriasService = categoriasService;
-            _subcategoriasService = subcategoriaService;
+            _entornoService = entornoService;
+            _subEntornoService = subEntornoService;
             _proveedoresService = proveedoresService;
             _articuloStockService = articuloStockService;
 
@@ -96,8 +91,8 @@ namespace Agraria.UI.Articulos
         /// <param name="e">El <see cref="EventArgs"/> instancia que contiene los datos del evento.</param>
         private async void CMBCategoria_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (CMBCategoria.SelectedItem is Categorias categoria)
-                await CargarSubCategorias(categoria.Id_categoria);
+            if (CMBCategoria.SelectedItem is Entornos categoria)
+                await CargarSubCategorias(categoria.Id_entorno);
         }
 
         #endregion Eventos
@@ -116,13 +111,13 @@ namespace Agraria.UI.Articulos
                 return false;
             }
 
-            if (CMBCategoria.SelectedItem is not Modelo.Entidades.Categorias categoria)
+            if (CMBCategoria.SelectedItem is not Modelo.Entidades.Entornos categoria)
             {
                 MessageBox.Show("El tipo de Categoria seleccionado no es válido.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
 
-            if (CMBSubcategoria.SelectedItem is not Modelo.Entidades.Subcategoria subcategoria)
+            if (CMBSubcategoria.SelectedItem is not Modelo.Entidades.SubEntornos subcategoria)
             {
                 MessageBox.Show("El tipo de Sub-Categoria seleccionado no es válido.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
@@ -130,8 +125,8 @@ namespace Agraria.UI.Articulos
 
             _articuloSeleccionado.Art_Desc = TxtDescripcion.Text;
             _articuloSeleccionado.Id_Proveedor = proveedor.Id_Proveedor;
-            _articuloSeleccionado.Cod_Categoria = categoria.Id_categoria;
-            _articuloSeleccionado.Cod_Subcat = subcategoria.Id_Subcategoria;
+            _articuloSeleccionado.Cod_Categoria = categoria.Id_entorno;
+            _articuloSeleccionado.Cod_Subcat = subcategoria.Id_SubEntorno;
 
             return true;
         }
@@ -176,8 +171,8 @@ namespace Agraria.UI.Articulos
             CMBProveedor.ValueMember = "Id_Proveedor";
 
             CMBCategoria.DataSource = ListaCategorias;
-            CMBCategoria.DisplayMember = "Categoria";
-            CMBCategoria.ValueMember = "Id_Categoria";
+            CMBCategoria.DisplayMember = "Entorno";
+            CMBCategoria.ValueMember = "Id_Entorno";
         }
 
         /// <summary>
@@ -200,7 +195,7 @@ namespace Agraria.UI.Articulos
         {
             try
             {
-                var datos = await _subcategoriasService.GetAllxCategoria(id);
+                var datos = await _subEntornoService.GetAllxEntorno(id);
                 if (!datos.IsSuccess)
                     MessageBox.Show(datos.Error, "Error en UI", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 else
@@ -208,8 +203,8 @@ namespace Agraria.UI.Articulos
                     var subcategorias = datos.Value;
                     CMBSubcategoria.DataSource = null;
                     CMBSubcategoria.DataSource = subcategorias;
-                    CMBSubcategoria.DisplayMember = "Sub_categoria";
-                    CMBSubcategoria.ValueMember = "Id_Subcategoria";
+                    CMBSubcategoria.DisplayMember = "Sub_Entorno";
+                    CMBSubcategoria.ValueMember = "Id_SubEntorno";
                 }
             }
             catch (Exception ex)
@@ -223,7 +218,7 @@ namespace Agraria.UI.Articulos
         /// </summary>
         private async Task CargarCategorias()
         {
-            var datos = await _categoriasService.GetAll();
+            var datos = await _entornoService.GetAll();
             if (!datos.IsSuccess)
                 MessageBox.Show(datos.Error, "Error en UI", MessageBoxButtons.OK, MessageBoxIcon.Error);
             else

@@ -21,8 +21,8 @@ namespace Agraria.UI.Articulos
         #region Campos y Servicios
 
         private readonly IArticulosService _articulosService;
-        private readonly ICategoriasService _categoriasService;
-        private readonly ISubcategoriaService _subcategoriasService;
+        private readonly IEntornosService _categoriasService;
+        private readonly ISubEntornoService _subcategoriasService;
         private readonly IProveedoresService _proveedoresService;
         private readonly IStockService _stockService;
         private readonly IArticuloStockService _articuloStockService;
@@ -40,7 +40,7 @@ namespace Agraria.UI.Articulos
         private readonly ErrorProvider _errorProviderCosto;
         private readonly ErrorProvider _errorProviderGanancia;
 
-        private List<Categorias> _listaCategorias;
+        private List<Entornos> _listaCategorias;
         private List<Modelo.Entidades.Proveedores> _listaProveedores;
         private List<Modelo.Entidades.Articulos> _listaArticulos;
         private List<Stock> _listaStock;
@@ -53,8 +53,8 @@ namespace Agraria.UI.Articulos
 
         public UCConsultaArticulos(
             IArticulosService articulosService,
-            ICategoriasService categoriasService,
-            ISubcategoriaService subcategoriaService,
+            IEntornosService categoriasService,
+            ISubEntornoService subcategoriaService,
             IProveedoresService proveedoresService,
             IStockService stockService,
             IArticuloStockService articuloStockService)
@@ -255,9 +255,9 @@ namespace Agraria.UI.Articulos
         /// <param name="e">Los datos del evento.</param>
         private async void CMBCategoria_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (CMBCategoria.SelectedItem is Categorias categoria)
+            if (CMBCategoria.SelectedItem is Entornos categoria)
             {
-                await CargarSubCategorias(categoria.Id_categoria);
+                await CargarSubCategorias(categoria.Id_entorno);
             }
         }
 
@@ -406,7 +406,7 @@ namespace Agraria.UI.Articulos
         /// <param name="idCategoria">El ID de la categoría.</param>
         private async Task CargarSubCategorias(int idCategoria)
         {
-            var resultado = await _subcategoriasService.GetAllxCategoria(idCategoria);
+            var resultado = await _subcategoriasService.GetAllxEntorno(idCategoria);
 
             if (resultado.IsSuccess)
             {
@@ -472,13 +472,13 @@ namespace Agraria.UI.Articulos
                 return false;
             }
 
-            if (CMBCategoria.SelectedItem is not Categorias categoria)
+            if (CMBCategoria.SelectedItem is not Entornos categoria)
             {
                 MostrarMensaje("La categoría seleccionada no es válida", "Error", MessageBoxIcon.Error);
                 return false;
             }
 
-            if (CMBSubcategoria.SelectedItem is not Subcategoria subcategoria)
+            if (CMBSubcategoria.SelectedItem is not SubEntornos subcategoria)
             {
                 MostrarMensaje("La subcategoría seleccionada no es válida", "Error", MessageBoxIcon.Error);
                 return false;
@@ -486,8 +486,8 @@ namespace Agraria.UI.Articulos
 
             _articuloSeleccionado.Art_Desc = TxtDescripcion.Text;
             _articuloSeleccionado.Id_Proveedor = proveedor.Id_Proveedor;
-            _articuloSeleccionado.Cod_Categoria = categoria.Id_categoria;
-            _articuloSeleccionado.Cod_Subcat = subcategoria.Id_Subcategoria;
+            _articuloSeleccionado.Cod_Categoria = categoria.Id_entorno;
+            _articuloSeleccionado.Cod_Subcat = subcategoria.Id_SubEntorno;
 
             return true;
         }
