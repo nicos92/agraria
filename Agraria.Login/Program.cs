@@ -7,6 +7,7 @@ using Agraria.UI.Actividad;
 using Agraria.UI.Animal;
 using Agraria.UI.Articulos;
 using Agraria.UI.Industrial;
+using Agraria.UI.Inventario;
 using Agraria.UI.Proveedores;
 using Agraria.UI.Reporte;
 using Agraria.UI.Usuarios;
@@ -107,6 +108,10 @@ static class Program
         services.AddTransient<UCConsultaArticulos>();
         services.AddTransient<UCIngresoArticulos>();
         services.AddTransient<FormVegetal>();     // Este Form estaría en Agraria.UI.Vegetal
+
+        services.AddTransient<FormInventario>(); // Este Form estaría en Agraria.UI.Inventario
+        services.AddTransient<UCIngresoInventario>();
+        services.AddTransient<UCConsultaInventario>();
 
         services.AddTransient<FormIndustrial>(); // Este Form estaría en Agraria.UI.Industrial
 
