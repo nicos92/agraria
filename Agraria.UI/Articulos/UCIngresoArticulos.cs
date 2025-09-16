@@ -17,6 +17,7 @@ namespace Agraria.UI.Articulos
 {
     public partial class UCIngresoArticulos : UserControl
     {
+        // todo: ver la herramienta web browser para mostrar el html del ticket
         #region Atributos y Propiedades
 
         private readonly IArticulosService _articulosService;

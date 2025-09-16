@@ -158,7 +158,7 @@
             BtnIndustrial.Padding = new Padding(8, 0, 0, 0);
             BtnIndustrial.Size = new Size(200, 64);
             BtnIndustrial.TabIndex = 4;
-            BtnIndustrial.Text = "Industrial";
+            BtnIndustrial.Text = "Inventario";
             BtnIndustrial.TextImageRelation = TextImageRelation.ImageBeforeText;
             BtnIndustrial.UseVisualStyleBackColor = true;
             BtnIndustrial.Click += BtnActividad_Click;
@@ -198,7 +198,7 @@
             BtnAnimal.Padding = new Padding(8, 0, 0, 0);
             BtnAnimal.Size = new Size(200, 64);
             BtnAnimal.TabIndex = 2;
-            BtnAnimal.Text = "Articulos";
+            BtnAnimal.Text = "Productos";
             BtnAnimal.TextImageRelation = TextImageRelation.ImageBeforeText;
             BtnAnimal.UseVisualStyleBackColor = true;
             BtnAnimal.Click += BtnActividad_Click;

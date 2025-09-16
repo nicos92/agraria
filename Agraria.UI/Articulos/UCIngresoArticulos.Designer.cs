@@ -92,7 +92,7 @@
             groupBox1.Size = new Size(633, 417);
             groupBox1.TabIndex = 15;
             groupBox1.TabStop = false;
-            groupBox1.Text = "Formulario de Ingreso de Articulos";
+            groupBox1.Text = "Formulario de Ingreso de Productos";
             // 
             // TLPForm
             // 
@@ -245,10 +245,11 @@
             BtnIngresar.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             BtnIngresar.ForeColor = Color.FromArgb(255, 255, 255);
             BtnIngresar.Image = Properties.Resources.ingresar;
-            BtnIngresar.Location = new Point(234, 306);
+            BtnIngresar.Location = new Point(234, 322);
             BtnIngresar.Margin = new Padding(0);
             BtnIngresar.Name = "BtnIngresar";
-            BtnIngresar.Size = new Size(192, 34);
+            TLPForm.SetRowSpan(BtnIngresar, 2);
+            BtnIngresar.Size = new Size(192, 47);
             BtnIngresar.TabIndex = 12;
             BtnIngresar.Text = "INGRESAR";
             BtnIngresar.TextImageRelation = TextImageRelation.TextBeforeImage;
@@ -340,9 +341,9 @@
             LblPrecio.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             LblPrecio.Location = new Point(129, 176);
             LblPrecio.Name = "LblPrecio";
-            LblPrecio.Size = new Size(19, 21);
+            LblPrecio.Size = new Size(28, 21);
             LblPrecio.TabIndex = 19;
-            LblPrecio.Text = "0";
+            LblPrecio.Text = "$0";
             // 
             // ProgressBar
             // 
