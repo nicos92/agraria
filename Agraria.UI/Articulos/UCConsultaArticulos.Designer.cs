@@ -434,22 +434,22 @@
             label5.Anchor = AnchorStyles.Right;
             label5.AutoSize = true;
             label5.Font = new Font("Segoe UI", 12F);
-            label5.Location = new Point(23, 298);
+            label5.Location = new Point(32, 298);
             label5.Name = "label5";
-            label5.Size = new Size(104, 21);
+            label5.Size = new Size(95, 21);
             label5.TabIndex = 12;
-            label5.Text = "Subcategoria:";
+            label5.Text = "SubEntorno:";
             // 
             // label1
             // 
             label1.Anchor = AnchorStyles.Right;
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 12F);
-            label1.Location = new Point(47, 258);
+            label1.Location = new Point(59, 258);
             label1.Name = "label1";
-            label1.Size = new Size(80, 21);
+            label1.Size = new Size(68, 21);
             label1.TabIndex = 1;
-            label1.Text = "Categoria:";
+            label1.Text = "Entorno:";
             // 
             // label6
             // 

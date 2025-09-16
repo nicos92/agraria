@@ -40,7 +40,7 @@ namespace Agraria.UI.Articulos
         private readonly ErrorProvider _epTxtGanancia;
         private readonly CultureInfo cultureArg = new("es-AR");
 
-        private List<Modelo.Entidades.Entornos> ListaCategorias { get; set; } = [];
+        private List<Entornos> ListaCategorias { get; set; } = [];
         private List<Modelo.Entidades.Proveedores> ListaProveedores { get; set; } = [];
 
         #endregion Atributos y Propiedades

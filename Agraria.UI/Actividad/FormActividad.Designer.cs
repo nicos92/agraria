@@ -28,73 +28,112 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.panelMenu = new System.Windows.Forms.Panel();
-            this.btnConsulta = new System.Windows.Forms.Button();
-            this.btnIngreso = new System.Windows.Forms.Button();
-            this.panelContainer = new System.Windows.Forms.Panel();
-            this.panelMenu.SuspendLayout();
-            this.SuspendLayout();
+            PanelMedio = new Panel();
+            PanelOpcion = new Panel();
+            tableLayoutPanel2 = new TableLayoutPanel();
+            BtnOpcionEditar = new Button();
+            BtnOpcionIngresar = new Button();
+            PanelOpcion.SuspendLayout();
+            tableLayoutPanel2.SuspendLayout();
+            SuspendLayout();
             // 
-            // panelMenu
+            // PanelMedio
             // 
-            this.panelMenu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(203)))), ((int)(((byte)(230)))), ((int)(((byte)(255)))));
-            this.panelMenu.Controls.Add(this.btnConsulta);
-            this.panelMenu.Controls.Add(this.btnIngreso);
-            this.panelMenu.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelMenu.Location = new System.Drawing.Point(0, 0);
-            this.panelMenu.Name = "panelMenu";
-            this.panelMenu.Size = new System.Drawing.Size(824, 60);
-            this.panelMenu.TabIndex = 0;
+            PanelMedio.Dock = DockStyle.Fill;
+            PanelMedio.Location = new Point(0, 64);
+            PanelMedio.Name = "PanelMedio";
+            PanelMedio.Size = new Size(824, 515);
+            PanelMedio.TabIndex = 1;
             // 
-            // btnConsulta
+            // PanelOpcion
             // 
-            this.btnConsulta.Location = new System.Drawing.Point(142, 12);
-            this.btnConsulta.Name = "btnConsulta";
-            this.btnConsulta.Size = new System.Drawing.Size(124, 34);
-            this.btnConsulta.TabIndex = 1;
-            this.btnConsulta.Text = "Consulta";
-            this.btnConsulta.UseVisualStyleBackColor = true;
-            this.btnConsulta.Click += new System.EventHandler(this.btnConsulta_Click);
+            PanelOpcion.Controls.Add(tableLayoutPanel2);
+            PanelOpcion.Dock = DockStyle.Top;
+            PanelOpcion.Location = new Point(0, 0);
+            PanelOpcion.Name = "PanelOpcion";
+            PanelOpcion.Size = new Size(824, 64);
+            PanelOpcion.TabIndex = 10;
             // 
-            // btnIngreso
+            // tableLayoutPanel2
             // 
-            this.btnIngreso.Location = new System.Drawing.Point(12, 12);
-            this.btnIngreso.Name = "btnIngreso";
-            this.btnIngreso.Size = new System.Drawing.Size(124, 34);
-            this.btnIngreso.TabIndex = 0;
-            this.btnIngreso.Text = "Ingreso";
-            this.btnIngreso.UseVisualStyleBackColor = true;
-            this.btnIngreso.Click += new System.EventHandler(this.btnIngreso_Click);
+            tableLayoutPanel2.ColumnCount = 2;
+            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.33333F));
+            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.33333F));
+            tableLayoutPanel2.Controls.Add(BtnOpcionEditar, 1, 0);
+            tableLayoutPanel2.Controls.Add(BtnOpcionIngresar, 0, 0);
+            tableLayoutPanel2.Dock = DockStyle.Fill;
+            tableLayoutPanel2.Location = new Point(0, 0);
+            tableLayoutPanel2.Name = "tableLayoutPanel2";
+            tableLayoutPanel2.RowCount = 1;
+            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            tableLayoutPanel2.Size = new Size(824, 64);
+            tableLayoutPanel2.TabIndex = 1;
             // 
-            // panelContainer
+            // BtnOpcionEditar
             // 
-            this.panelContainer.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelContainer.Location = new System.Drawing.Point(0, 60);
-            this.panelContainer.Name = "panelContainer";
-            this.panelContainer.Size = new System.Drawing.Size(824, 519);
-            this.panelContainer.TabIndex = 1;
+            BtnOpcionEditar.BackColor = Color.FromArgb(83, 96, 108);
+            BtnOpcionEditar.Dock = DockStyle.Fill;
+            BtnOpcionEditar.FlatAppearance.BorderColor = Color.FromArgb(59, 72, 84);
+            BtnOpcionEditar.FlatStyle = FlatStyle.Flat;
+            BtnOpcionEditar.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            BtnOpcionEditar.ForeColor = Color.FromArgb(255, 255, 255);
+            BtnOpcionEditar.Image = Properties.Resources.pen;
+            BtnOpcionEditar.ImageAlign = ContentAlignment.MiddleLeft;
+            BtnOpcionEditar.Location = new Point(412, 0);
+            BtnOpcionEditar.Margin = new Padding(0);
+            BtnOpcionEditar.Name = "BtnOpcionEditar";
+            BtnOpcionEditar.Size = new Size(412, 64);
+            BtnOpcionEditar.TabIndex = 1;
+            BtnOpcionEditar.Text = "Consultar Actividades";
+            BtnOpcionEditar.TextAlign = ContentAlignment.MiddleRight;
+            BtnOpcionEditar.TextImageRelation = TextImageRelation.TextBeforeImage;
+            BtnOpcionEditar.UseVisualStyleBackColor = false;
+            BtnOpcionEditar.Click += BtnOpcionIngresar_Click;
+            // 
+            // BtnOpcionIngresar
+            // 
+            BtnOpcionIngresar.BackColor = Color.FromArgb(7, 100, 147);
+            BtnOpcionIngresar.Dock = DockStyle.Fill;
+            BtnOpcionIngresar.FlatAppearance.BorderColor = Color.FromArgb(203, 230, 255);
+            BtnOpcionIngresar.FlatStyle = FlatStyle.Flat;
+            BtnOpcionIngresar.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            BtnOpcionIngresar.ForeColor = Color.FromArgb(255, 255, 255);
+            BtnOpcionIngresar.Image = Properties.Resources.ingresar;
+            BtnOpcionIngresar.ImageAlign = ContentAlignment.MiddleLeft;
+            BtnOpcionIngresar.Location = new Point(0, 0);
+            BtnOpcionIngresar.Margin = new Padding(0);
+            BtnOpcionIngresar.Name = "BtnOpcionIngresar";
+            BtnOpcionIngresar.Size = new Size(412, 64);
+            BtnOpcionIngresar.TabIndex = 0;
+            BtnOpcionIngresar.Text = "Ingresar Actividad";
+            BtnOpcionIngresar.TextAlign = ContentAlignment.MiddleRight;
+            BtnOpcionIngresar.TextImageRelation = TextImageRelation.TextBeforeImage;
+            BtnOpcionIngresar.UseVisualStyleBackColor = false;
+            BtnOpcionIngresar.Click += BtnOpcionIngresar_Click;
             // 
             // FormActividad
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(203)))), ((int)(((byte)(230)))), ((int)(((byte)(255)))));
-            this.ClientSize = new System.Drawing.Size(824, 579);
-            this.Controls.Add(this.panelContainer);
-            this.Controls.Add(this.panelMenu);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Name = "FormActividad";
-            this.Text = "FormActividad";
-            this.panelMenu.ResumeLayout(false);
-            this.ResumeLayout(false);
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.FromArgb(203, 230, 255);
+            ClientSize = new Size(824, 579);
+            Controls.Add(PanelMedio);
+            Controls.Add(PanelOpcion);
+            FormBorderStyle = FormBorderStyle.None;
+            Name = "FormActividad";
+            Text = "FormActividad";
+            Load += FormActividad_Load;
+            PanelOpcion.ResumeLayout(false);
+            tableLayoutPanel2.ResumeLayout(false);
+            ResumeLayout(false);
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Panel panelMenu;
-        private System.Windows.Forms.Button btnConsulta;
-        private System.Windows.Forms.Button btnIngreso;
-        private System.Windows.Forms.Panel panelContainer;
+        private System.Windows.Forms.Panel PanelMedio;
+        private Panel PanelOpcion;
+        private TableLayoutPanel tableLayoutPanel2;
+        private Button BtnOpcionEditar;
+        private Button BtnOpcionIngresar;
     }
 }

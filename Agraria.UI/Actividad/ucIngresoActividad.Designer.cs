@@ -15,6 +15,7 @@ namespace Agraria.UI.Actividad
 
         private void InitializeComponent()
         {
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             PanelMedio = new Panel();
             TLPMedio = new TableLayoutPanel();
             groupBox1 = new GroupBox();
@@ -28,13 +29,17 @@ namespace Agraria.UI.Actividad
             LblCuit = new Label();
             TxtDescripcion = new TextBox();
             BtnIngresar = new Button();
-            dataGridView1 = new DataGridView();
             ProgressBar = new ProgressBar();
+            ListBArticulos = new DataGridView();
+            Cantidad = new DataGridViewTextBoxColumn();
+            Fecha_Hora = new DataGridViewTextBoxColumn();
+            Entorno = new DataGridViewTextBoxColumn();
+            Descripcion = new DataGridViewTextBoxColumn();
             PanelMedio.SuspendLayout();
             TLPMedio.SuspendLayout();
             groupBox1.SuspendLayout();
             TLPForm.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)ListBArticulos).BeginInit();
             SuspendLayout();
             // 
             // PanelMedio
@@ -91,7 +96,7 @@ namespace Agraria.UI.Actividad
             TLPForm.Controls.Add(LblCuit, 0, 3);
             TLPForm.Controls.Add(TxtDescripcion, 1, 3);
             TLPForm.Controls.Add(BtnIngresar, 1, 4);
-            TLPForm.Controls.Add(dataGridView1, 0, 5);
+            TLPForm.Controls.Add(ListBArticulos, 0, 5);
             TLPForm.Dock = DockStyle.Fill;
             TLPForm.ForeColor = Color.FromArgb(26, 28, 30);
             TLPForm.Location = new Point(3, 29);
@@ -103,6 +108,8 @@ namespace Agraria.UI.Actividad
             TLPForm.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
             TLPForm.RowStyles.Add(new RowStyle());
             TLPForm.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            TLPForm.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            TLPForm.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
             TLPForm.Size = new Size(627, 446);
             TLPForm.TabIndex = 0;
             // 
@@ -116,7 +123,6 @@ namespace Agraria.UI.Actividad
             label4.Size = new Size(101, 21);
             label4.TabIndex = 4;
             label4.Text = "Fecha y hora:";
-            label4.Click += label4_Click;
             // 
             // label1
             // 
@@ -218,19 +224,6 @@ namespace Agraria.UI.Actividad
             BtnIngresar.TextImageRelation = TextImageRelation.TextBeforeImage;
             BtnIngresar.UseVisualStyleBackColor = false;
             // 
-            // dataGridView1
-            // 
-            dataGridView1.AllowUserToAddRows = false;
-            dataGridView1.AllowUserToDeleteRows = false;
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            TLPForm.SetColumnSpan(dataGridView1, 3);
-            dataGridView1.Dock = DockStyle.Fill;
-            dataGridView1.Location = new Point(3, 303);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.ReadOnly = true;
-            dataGridView1.Size = new Size(621, 140);
-            dataGridView1.TabIndex = 21;
-            // 
             // ProgressBar
             // 
             ProgressBar.Dock = DockStyle.Fill;
@@ -239,6 +232,63 @@ namespace Agraria.UI.Actividad
             ProgressBar.Name = "ProgressBar";
             ProgressBar.Size = new Size(804, 16);
             ProgressBar.TabIndex = 16;
+            // 
+            // ListBArticulos
+            // 
+            ListBArticulos.AllowUserToAddRows = false;
+            ListBArticulos.AllowUserToDeleteRows = false;
+            ListBArticulos.AllowUserToResizeColumns = false;
+            ListBArticulos.AllowUserToResizeRows = false;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = SystemColors.Control;
+            dataGridViewCellStyle1.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            ListBArticulos.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            ListBArticulos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            ListBArticulos.Columns.AddRange(new DataGridViewColumn[] { Cantidad, Fecha_Hora, Entorno, Descripcion });
+            TLPForm.SetColumnSpan(ListBArticulos, 3);
+            ListBArticulos.Dock = DockStyle.Fill;
+            ListBArticulos.Location = new Point(4, 303);
+            ListBArticulos.Margin = new Padding(4, 3, 4, 3);
+            ListBArticulos.Name = "ListBArticulos";
+            ListBArticulos.ReadOnly = true;
+            ListBArticulos.RowHeadersVisible = false;
+            ListBArticulos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            ListBArticulos.Size = new Size(619, 140);
+            ListBArticulos.TabIndex = 21;
+            // 
+            // Cantidad
+            // 
+            Cantidad.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            Cantidad.DataPropertyName = "Cod_Articulo";
+            Cantidad.HeaderText = "CÓDIGO";
+            Cantidad.Name = "Cantidad";
+            Cantidad.ReadOnly = true;
+            Cantidad.Visible = false;
+            Cantidad.Width = 77;
+            // 
+            // Fecha_Hora
+            // 
+            Fecha_Hora.HeaderText = "Fecha_Hora";
+            Fecha_Hora.Name = "Fecha_Hora";
+            Fecha_Hora.ReadOnly = true;
+            // 
+            // Entorno
+            // 
+            Entorno.HeaderText = "Entorno";
+            Entorno.Name = "Entorno";
+            Entorno.ReadOnly = true;
+            // 
+            // Descripcion
+            // 
+            Descripcion.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            Descripcion.DataPropertyName = "Art_Desc";
+            Descripcion.HeaderText = "DESCRIPCIÓN";
+            Descripcion.Name = "Descripcion";
+            Descripcion.ReadOnly = true;
             // 
             // ucIngresoActividad
             // 
@@ -253,7 +303,7 @@ namespace Agraria.UI.Actividad
             groupBox1.ResumeLayout(false);
             TLPForm.ResumeLayout(false);
             TLPForm.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)ListBArticulos).EndInit();
             ResumeLayout(false);
         }
         private Panel PanelMedio;
@@ -270,6 +320,10 @@ namespace Agraria.UI.Actividad
         private ComboBox CMBSubcategoria;
         private ProgressBar ProgressBar;
         private DateTimePicker dateTimePicker1;
-        private DataGridView dataGridView1;
+        private DataGridView ListBArticulos;
+        private DataGridViewTextBoxColumn Cantidad;
+        private DataGridViewTextBoxColumn Fecha_Hora;
+        private DataGridViewTextBoxColumn Entorno;
+        private DataGridViewTextBoxColumn Descripcion;
     }
 }

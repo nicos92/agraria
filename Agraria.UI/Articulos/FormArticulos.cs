@@ -52,8 +52,7 @@ namespace Agraria.UI.Articulos
             }
 
             // Buscar si el UserControl ya existe en el panel
-            UserControl ucExistente = PanelMedio.Controls.OfType<UserControl>()
-                                                 .FirstOrDefault(uc => uc.GetType() == tipoForm);
+            UserControl? ucExistente = PanelMedio.Controls.OfType<UserControl>().FirstOrDefault(uc => uc.GetType() == tipoForm);
 
             if (ucExistente != null)
             {
