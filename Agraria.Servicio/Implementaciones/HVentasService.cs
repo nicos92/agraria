@@ -1,0 +1,26 @@
+using System;
+using System.Collections.Generic;
+using Agraria.Modelo.Entidades;
+using Agraria.Util;
+using Agraria.Contrato.Servicios;
+using Agraria.Contrato.Repositorios;
+
+namespace Agraria.Servicio.Implementaciones
+{
+    public class HVentasService : IHVentasService
+    {
+        private readonly IHVentasRepository _repo;
+
+        public HVentasService(IHVentasRepository repo)
+        {
+            _repo = repo;
+        }
+
+        public Result<List<HVentas>> GetAll() => _repo.GetAll();
+        public Result<HVentas> GetById(int id) => _repo.GetById(id);
+        public Result<HVentas> Add(HVentas venta) => _repo.Add(venta);
+        public Result<HVentas> Update(HVentas venta) => _repo.Update(venta);
+        public Result<bool> Delete(int id) => _repo.Delete(id);
+        public Result<List<HVentas>> GetFiltered(DateTime fechaDesde, DateTime fechaHasta, string cliente, int? idRemito) => _repo.GetFiltered(fechaDesde, fechaHasta, cliente, idRemito);
+    }
+}

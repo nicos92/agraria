@@ -9,6 +9,7 @@ namespace Agraria.Modelo.Enums
     public enum Sexo
     {
         Macho,
-        Hembra
+        Hembra,
+        Otro
     }
 }

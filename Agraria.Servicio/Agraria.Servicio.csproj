@@ -2,6 +2,8 @@
 
 
   <ItemGroup>
+    <Compile Remove="Implementaciones\H_VentasService.cs" />
+    <Compile Remove="Implementaciones\H_Ventas_DetalleService.cs" />
     <Compile Remove="Implementaciones\Usuarios_TipoService.cs" />
   </ItemGroup>
 

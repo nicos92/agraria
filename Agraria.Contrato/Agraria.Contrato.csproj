@@ -3,6 +3,13 @@
 
 
   <ItemGroup>
+    <Compile Remove="Servicios\IH_VentasService.cs" />
+    <Compile Remove="Servicios\IH_Ventas_DetalleService.cs" />
+  </ItemGroup>
+
+
+
+  <ItemGroup>
     <Folder Include="Repositorios\NewFolder\" />
   </ItemGroup>
 

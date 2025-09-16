@@ -196,9 +196,8 @@ namespace Agraria.Repositorio.Repositorios
                                     reader.GetInt32(3),
                                     reader.GetInt32(4),
                                     reader.GetInt32(5),
-                                    reader.GetDouble(6),
-                                    reader.GetDouble(7),
-                                    reader.GetDouble(8)
+                                    reader.GetDecimal(7),
+                                    reader.GetDecimal(8)
 
                                
 

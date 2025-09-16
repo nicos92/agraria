@@ -7,6 +7,10 @@
     <Compile Remove="Proveedores\ucConsultaProveedores.Designer.cs" />
     <Compile Remove="Usuarios\ucConsultaUsuarios.cs" />
     <Compile Remove="Usuarios\ucConsultaUsuarios.Designer.cs" />
+    <Compile Remove="Venta\FormVenta.cs" />
+    <Compile Remove="Venta\FormVenta.Designer.cs" />
+    <Compile Remove="Venta\ucConsultaVenta.cs" />
+    <Compile Remove="Venta\ucConsultaVenta.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -15,6 +19,8 @@
     <EmbeddedResource Remove="Usuarios\FormUsuarios.resx" />
     <EmbeddedResource Remove="Usuarios\ucConsultaUsuarios.resx" />
     <EmbeddedResource Remove="Usuarios\ucIngresoUsuarios.resx" />
+    <EmbeddedResource Remove="Venta\FormVenta.resx" />
+    <EmbeddedResource Remove="Venta\ucConsultaVenta.resx" />
   </ItemGroup>
 
   <ItemGroup>
@@ -24,6 +30,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Agraria.Contrato\Agraria.Contrato.csproj" />
     <ProjectReference Include="..\Agraria.Modelo\Agraria.Modelo.csproj" />
+    <ProjectReference Include="..\Agraria.Servicio\Agraria.Servicio.csproj" />
     <ProjectReference Include="..\Agraria.Util\Agraria.Util.csproj" />
   </ItemGroup>
 
@@ -109,18 +116,6 @@
     </Compile>
     <Compile Update="Vegetal\ucIngresoVegetal.Designer.cs">
       <DependentUpon>ucIngresoVegetal.cs</DependentUpon>
-    </Compile>
-    <Compile Update="Venta\ucConsultaVenta.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Update="Venta\ucConsultaVenta.Designer.cs">
-      <DependentUpon>ucConsultaVenta.cs</DependentUpon>
-    </Compile>
-    <Compile Update="Venta\ucIngresoVenta.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Update="Venta\ucIngresoVenta.Designer.cs">
-      <DependentUpon>ucIngresoVenta.cs</DependentUpon>
     </Compile>
   </ItemGroup>
 

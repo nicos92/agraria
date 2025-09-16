@@ -14,6 +14,7 @@ using Agraria.UI.Reporte;
 using Agraria.UI.Usuarios;
 using Agraria.UI.Vegetal;
 using Agraria.UI.Venta;
+using Agraria.UI.Ventas;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 using Serilog.Sinks.Map;
@@ -40,13 +41,13 @@ static class Program
               if (logEvent.Properties.TryGetValue("SourceContext", out var sourceContext))
               {
                   var namespaceStr = sourceContext.ToString().Trim('"');
-                  if (namespaceStr.StartsWith("PrimeSystem.UI.Articulos")) return "Articulos";
-                  if (namespaceStr.StartsWith("PrimeSystem.UI.Clientes")) return "Clientes";
-                  if (namespaceStr.StartsWith("PrimeSystem.UI.Compras")) return "Compras";
-                  if (namespaceStr.StartsWith("PrimeSystem.UI.Proveedores")) return "Proveedores";
-                  if (namespaceStr.StartsWith("PrimeSystem.UI.Usuarios")) return "Usuarios";
-                  if (namespaceStr.StartsWith("PrimeSystem.UI.Ventas")) return "Ventas";
-                  if (namespaceStr.StartsWith("PrimeSystem.UI.EstadoContable")) return "EstadoContable";
+                  if (namespaceStr.StartsWith("Agraria.UI.Articulos")) return "Articulos";
+                  if (namespaceStr.StartsWith("Agraria.UI.Clientes")) return "Clientes";
+                  if (namespaceStr.StartsWith("Agraria.UI.Compras")) return "Compras";
+                  if (namespaceStr.StartsWith("Agraria.UI.Proveedores")) return "Proveedores";
+                  if (namespaceStr.StartsWith("Agraria.UI.Usuarios")) return "Usuarios";
+                  if (namespaceStr.StartsWith("Agraria.UI.Ventas")) return "Ventas";
+                  if (namespaceStr.StartsWith("Agraria.UI.EstadoContable")) return "EstadoContable";
               }
 
               return "General";
@@ -59,7 +60,7 @@ static class Program
           .CreateLogger();
         try
         {
-            Log.Information("Iniciando la aplicación PrimeSystem.");
+            Log.Information("Iniciando la aplicación Agraria.");
 
             ApplicationConfiguration.Initialize();
 
@@ -120,7 +121,9 @@ static class Program
 
         services.AddTransient<FormIndustrial>(); // Este Form estaría en Agraria.UI.Industrial
 
-        services.AddTransient<FormVenta>();       // Este Form estaría en Agraria.UI.Venta
+        services.AddTransient<FormVentaPrincipal>();       // Este Form estaría en Agraria.UI.Venta
+        services.AddTransient<UCIngresoVenta>();       // Este Form estaría en Agraria.UI.Venta
+        services.AddTransient<UCConsultaVentas>();       // Este Form estaría en Agraria.UI.Venta
 
         services.AddTransient<FormReporte>();    // Este Form estaría en Agraria.UI.Reporte
 
@@ -143,8 +146,6 @@ static class Program
         services.AddTransient<USConsultaUsuario>();
         services.AddTransient<ucIngresoVegetal>();
         services.AddTransient<ucConsultaVegetal>();
-        services.AddTransient<ucIngresoVenta>();
-        services.AddTransient<ucConsultaVenta>();
 
         // Registrar servicios (ejemplo)
 
@@ -172,5 +173,13 @@ static class Program
         services.AddScoped<ISubEntornoService, SubcategoriaService>();
         services.AddScoped<ISubcategoriaRepository, SubCategoriaRepository>();
 
+        services.AddScoped<IVentaService, VentaService>();
+        services.AddScoped<IVentaRepository, VentaRepository>();
+        
+        services.AddScoped<IHVentasService, HVentasService>();
+        services.AddScoped<IHVentasRepository, HVentasRepository>();
+
+        services.AddScoped<IHVentasDetalleService, HVentasDetalleService>();
+        services.AddScoped<IHVentasDetalleRepository, HVentasDetalleRepository>();
     }
 }

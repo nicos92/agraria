@@ -150,7 +150,7 @@
             BtnIndustrial.FlatAppearance.BorderSize = 0;
             BtnIndustrial.FlatStyle = FlatStyle.Flat;
             BtnIndustrial.ForeColor = SystemColors.ButtonHighlight;
-            BtnIndustrial.Image = Properties.Resources.industrial;
+            BtnIndustrial.Image = Properties.Resources.inventario;
             BtnIndustrial.ImageAlign = ContentAlignment.MiddleLeft;
             BtnIndustrial.Location = new Point(0, 256);
             BtnIndustrial.Margin = new Padding(4);
@@ -170,7 +170,7 @@
             BtnVegetal.FlatAppearance.BorderSize = 0;
             BtnVegetal.FlatStyle = FlatStyle.Flat;
             BtnVegetal.ForeColor = SystemColors.ButtonHighlight;
-            BtnVegetal.Image = Properties.Resources.vegetal;
+            BtnVegetal.Image = Properties.Resources.hojadevida;
             BtnVegetal.ImageAlign = ContentAlignment.MiddleLeft;
             BtnVegetal.Location = new Point(0, 192);
             BtnVegetal.Margin = new Padding(4);

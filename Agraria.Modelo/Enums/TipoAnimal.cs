@@ -8,6 +8,7 @@ namespace Agraria.Modelo.Enums
 {
     public enum TipoAnimal
     {
+        Abeja,
         Vaca,
         Oveja,
         Conejo,
