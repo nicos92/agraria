@@ -178,7 +178,7 @@
             BtnVegetal.Padding = new Padding(8, 0, 0, 0);
             BtnVegetal.Size = new Size(200, 64);
             BtnVegetal.TabIndex = 3;
-            BtnVegetal.Text = "Vegetal";
+            BtnVegetal.Text = "Hoja de Vida";
             BtnVegetal.TextImageRelation = TextImageRelation.ImageBeforeText;
             BtnVegetal.UseVisualStyleBackColor = true;
             BtnVegetal.Click += BtnActividad_Click;

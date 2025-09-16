@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Agraria.Contrato.Servicios;
 using Agraria.Modelo.Entidades;
+using Agraria.Modelo.Enums;
 using Agraria.Util;
 using Agraria.Util.Validaciones;
 
@@ -40,21 +41,6 @@ namespace Agraria.UI.Inventario
 
         private int _indiceSeleccionado;
         private readonly CultureInfo cultureArg = new("es-AR");
-
-        // Lista de unidades de medida comunes
-        private readonly List<string> _unidadesMedida = new()
-        {
-            "Unidad",
-            "Kilogramo",
-            "Gramo",
-            "Litro",
-            "Metro",
-            "Centímetro",
-            "Mililitro",
-            "Caja",
-            "Paquete",
-            "Docena"
-        };
 
         #endregion
 
@@ -302,7 +288,7 @@ namespace Agraria.UI.Inventario
         /// </summary>
         private void CargarCMB()
         {
-            CMBUnidadMedida.DataSource = _unidadesMedida;
+            CMBUnidadMedida.DataSource = Enum.GetValues(typeof(UnidadMedida)).Cast<UnidadMedida>().ToList();
         }
 
         /// <summary>
@@ -391,7 +377,7 @@ namespace Agraria.UI.Inventario
         private bool CrearArticuloDesdeFormulario()
         {
             _articuloSeleccionado.Art_Nombre = TxtNombre.Text;
-            _articuloSeleccionado.Art_Uni_Med = CMBUnidadMedida.SelectedItem?.ToString() ?? string.Empty;
+            _articuloSeleccionado.Art_Uni_Med = CMBUnidadMedida.SelectedItem?.ToString() ?? UnidadMedida.Unidad.ToString();
             _articuloSeleccionado.Art_Descripcion = TxtDescripcion.Text;
 
             return true;
@@ -443,11 +429,14 @@ namespace Agraria.UI.Inventario
                 // Seleccionar la unidad de medida en el ComboBox
                 if (!string.IsNullOrEmpty(_articuloSeleccionado.Art_Uni_Med))
                 {
-                    int index = _unidadesMedida.IndexOf(_articuloSeleccionado.Art_Uni_Med);
-                    if (index >= 0)
-                        CMBUnidadMedida.SelectedIndex = index;
+                    if (Enum.TryParse<UnidadMedida>(_articuloSeleccionado.Art_Uni_Med, out UnidadMedida unidadMedida))
+                    {
+                        CMBUnidadMedida.SelectedItem = unidadMedida;
+                    }
                     else
+                    {
                         CMBUnidadMedida.SelectedIndex = 0; // Seleccionar el primero por defecto
+                    }
                 }
                 else
                 {

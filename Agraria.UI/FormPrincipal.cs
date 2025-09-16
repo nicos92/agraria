@@ -152,7 +152,7 @@ namespace Agraria.UI
         {
             BtnActividad.Tag = typeof(Actividad.FormActividad);
             BtnAnimal.Tag = typeof(Articulos.FormArticulos);
-            BtnVegetal.Tag = typeof(Vegetal.FormVegetal);
+            BtnVegetal.Tag = typeof(HojadeVida.FormHojadeVida);
             BtnIndustrial.Tag = typeof(Inventario.FormInventario);
             BtnVenta.Tag = typeof(Venta.FormVenta);
             BtnReporte.Tag = typeof(Reporte.FormReporte);

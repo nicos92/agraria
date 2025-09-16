@@ -1,5 +1,6 @@
 using Agraria.Contrato.Servicios;
 using Agraria.Modelo.Entidades;
+using Agraria.Modelo.Enums;
 using Agraria.Util;
 using Agraria.Util.Validaciones;
 using System;
@@ -33,21 +34,6 @@ namespace Agraria.UI.Inventario
         private readonly ErrorProvider _epTxtCantidad;
         private readonly ErrorProvider _epTxtPrecio;
         private readonly CultureInfo cultureArg = new("es-AR");
-
-        // Lista de unidades de medida comunes
-        private readonly List<string> _unidadesMedida = new()
-        {
-            "Unidad",
-            "Kilogramo",
-            "Gramo",
-            "Litro",
-            "Metro",
-            "Centímetro",
-            "Mililitro",
-            "Caja",
-            "Paquete",
-            "Docena"
-        };
 
         #endregion Atributos y Propiedades
 
@@ -97,7 +83,7 @@ namespace Agraria.UI.Inventario
         private bool CrearArticulo()
         {
             _articuloSeleccionado.Art_Nombre = TxtNombre.Text;
-            _articuloSeleccionado.Art_Uni_Med = CMBUnidadMedida.SelectedItem?.ToString() ?? string.Empty;
+            _articuloSeleccionado.Art_Uni_Med = CMBUnidadMedida.SelectedItem?.ToString() ?? UnidadMedida.Unidad.ToString();
             _articuloSeleccionado.Art_Descripcion = TxtDescripcion.Text;
 
             return true;
@@ -138,7 +124,7 @@ namespace Agraria.UI.Inventario
         /// </summary>
         private void CargarCMB()
         {
-            CMBUnidadMedida.DataSource = _unidadesMedida;
+            CMBUnidadMedida.DataSource = Enum.GetValues(typeof(UnidadMedida)).Cast<UnidadMedida>().ToList();
         }
 
         #endregion Métodos Privados

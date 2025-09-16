@@ -6,6 +6,7 @@ using Agraria.UI;
 using Agraria.UI.Actividad;
 using Agraria.UI.Animal;
 using Agraria.UI.Articulos;
+using Agraria.UI.HojadeVida;
 using Agraria.UI.Industrial;
 using Agraria.UI.Inventario;
 using Agraria.UI.Proveedores;
@@ -107,6 +108,10 @@ static class Program
         services.AddTransient<UCGestionEntornos>(); // Este UserControl estaría en Agraria.UI.Articulos
         services.AddTransient<UCConsultaArticulos>();
         services.AddTransient<UCIngresoArticulos>();
+
+        services.AddTransient<FormHojadeVida>(); // Este Form estaría en Agraria.UI.HojadeVida
+        services.AddTransient<UCIngresoHojadeVida>();
+        services.AddTransient<UCConsultaHojadeVida>();
         services.AddTransient<FormVegetal>();     // Este Form estaría en Agraria.UI.Vegetal
 
         services.AddTransient<FormInventario>(); // Este Form estaría en Agraria.UI.Inventario
