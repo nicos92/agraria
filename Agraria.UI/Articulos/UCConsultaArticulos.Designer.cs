@@ -123,7 +123,7 @@
             LblLista.Name = "LblLista";
             LblLista.Size = new Size(309, 21);
             LblLista.TabIndex = 1;
-            LblLista.Text = "Lista de Articulos";
+            LblLista.Text = "Lista de Productos";
             LblLista.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // ListBArticulos
@@ -197,7 +197,7 @@
             groupBox1.Size = new Size(471, 417);
             groupBox1.TabIndex = 16;
             groupBox1.TabStop = false;
-            groupBox1.Text = "Formulario de Edición de Articulos";
+            groupBox1.Text = "Formulario de Edición de Productos";
             // 
             // TLPForm
             // 
@@ -505,6 +505,7 @@
             Name = "UCConsultaArticulos";
             Size = new Size(804, 561);
             Load += UCConsultaArticulos_Load;
+            VisibleChanged += UCConsultaArticulos_VisibleChanged;
             tableLayoutPanel3.ResumeLayout(false);
             PanelLista.ResumeLayout(false);
             tableLayoutPanel1.ResumeLayout(false);

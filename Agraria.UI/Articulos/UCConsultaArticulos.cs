@@ -328,7 +328,7 @@ namespace Agraria.UI.Articulos
             CMBCategoria.ValueMember = "Id_Entorno";
 
             CargarArticulosDataGridView();
-            if (Util.Util.CalcularDGVVacio(ListBArticulos, LblLista, "Articulos"))
+            if (Util.Util.CalcularDGVVacio(ListBArticulos, LblLista, "Productos"))
             {
                 Util.Util.LimpiarForm(TLPForm, TxtDescripcion);
                 Util.Util.BloquearBtns(ListBArticulos, TLPForm);
@@ -723,6 +723,14 @@ namespace Agraria.UI.Articulos
             LblPrecio.Text = "$" + (costo + (costo * ganancia / 100)).ToString(cultureArg);
         }
 
-        
+        private void UCConsultaArticulos_VisibleChanged(object sender, EventArgs e)
+        {
+            var taskHelper = new TareasLargas(
+               PanelMedio,
+               ProgressBar,
+               CargaInicial,
+               CargarCombosYDataGrid);
+            taskHelper.Iniciar();
+        }
     }
 }

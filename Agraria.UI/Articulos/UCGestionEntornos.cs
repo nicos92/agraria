@@ -78,7 +78,7 @@ namespace Agraria.UI.Articulos
         private void AplicarEstilos()
         {
             // Aplicar colores consistentes con la aplicación
-            this.BackColor = Color.FromArgb(249, 249, 251);
+            this.BackColor = Color.FromArgb(238, 237, 240);
 
             // Estilo para los GroupBox
             GNEntornos.ForeColor = Color.FromArgb(7, 100, 147);
@@ -271,12 +271,12 @@ namespace Agraria.UI.Articulos
             nombreEntorno = nombreEntorno.Trim();
 
             // Verificar si ya existe una categoría con el mismo nombre
-            var entornoExistente = _entornos.FirstOrDefault(c => 
+            var entornoExistente = _entornos.FirstOrDefault(c =>
                 c.Entorno.Equals(nombreEntorno, StringComparison.OrdinalIgnoreCase));
 
             if (entornoExistente != null)
             {
-                MessageBox.Show($"Ya existe una categoría con el nombre '{nombreEntorno}'.", 
+                MessageBox.Show($"Ya existe una categoría con el nombre '{nombreEntorno}'.",
                     "Categoría existente", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
@@ -468,12 +468,12 @@ namespace Agraria.UI.Articulos
             nombreSubEntorno = nombreSubEntorno.Trim();
 
             // Verificar si ya existe una subcategoría con el mismo nombre en la misma categoría
-            var subEntornoExistente = _subEntornos.FirstOrDefault(s => 
+            var subEntornoExistente = _subEntornos.FirstOrDefault(s =>
                 s.Sub_Entorno.Equals(nombreSubEntorno, StringComparison.OrdinalIgnoreCase));
 
             if (subEntornoExistente != null)
             {
-                MessageBox.Show($"Ya existe una subEntorno con el nombre '{nombreSubEntorno}' en este Entorno.", 
+                MessageBox.Show($"Ya existe una subEntorno con el nombre '{nombreSubEntorno}' en este Entorno.",
                     "SubEntorno existente", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
@@ -499,7 +499,7 @@ namespace Agraria.UI.Articulos
                     MessageBox.Show("SubEntorno agregado correctamente.", "Éxito",
                         MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                    
+
                     await CargarSubEntornosAsync();
                 }
                 else
@@ -645,6 +645,21 @@ namespace Agraria.UI.Articulos
         private async void BtnActualizar_Click(object sender, EventArgs e)
         {
             await CargarEntornosAsync();
+        }
+
+        private async void UCGestionEntornos_VisibleChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                ConfigurarControles();
+                await CargarEntornosAsync();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error al cargar el control de gestión de Entornos");
+                MessageBox.Show($"Error al cargar los Entornos: {ex.Message}", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 

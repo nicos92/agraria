@@ -84,9 +84,9 @@ namespace Agraria.UI.Articulos
             GNEntornos.Controls.Add(tableLayoutPanel1);
             GNEntornos.Dock = DockStyle.Fill;
             GNEntornos.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            GNEntornos.Location = new Point(0, 0);
+            GNEntornos.Location = new Point(8, 8);
             GNEntornos.Name = "GNEntornos";
-            GNEntornos.Size = new Size(410, 493);
+            GNEntornos.Size = new Size(394, 461);
             GNEntornos.TabIndex = 0;
             GNEntornos.TabStop = false;
             GNEntornos.Text = "Entornos";
@@ -105,7 +105,7 @@ namespace Agraria.UI.Articulos
             tableLayoutPanel1.RowStyles.Add(new RowStyle());
             tableLayoutPanel1.RowStyles.Add(new RowStyle());
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanel1.Size = new Size(404, 465);
+            tableLayoutPanel1.Size = new Size(388, 433);
             tableLayoutPanel1.TabIndex = 0;
             // 
             // BtnActualizar
@@ -115,7 +115,7 @@ namespace Agraria.UI.Articulos
             BtnActualizar.FlatStyle = FlatStyle.Flat;
             BtnActualizar.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             BtnActualizar.ForeColor = Color.White;
-            BtnActualizar.Location = new Point(117, 3);
+            BtnActualizar.Location = new Point(109, 3);
             BtnActualizar.Name = "BtnActualizar";
             BtnActualizar.Size = new Size(170, 32);
             BtnActualizar.TabIndex = 4;
@@ -152,7 +152,7 @@ namespace Agraria.UI.Articulos
             DgvEntornos.ReadOnly = true;
             DgvEntornos.RowHeadersVisible = false;
             DgvEntornos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            DgvEntornos.Size = new Size(398, 253);
+            DgvEntornos.Size = new Size(382, 221);
             DgvEntornos.TabIndex = 0;
             DgvEntornos.SelectionChanged += DgvEntornos_SelectionChanged;
             // 
@@ -163,7 +163,7 @@ namespace Agraria.UI.Articulos
             GBFormEntornos.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             GBFormEntornos.Location = new Point(3, 41);
             GBFormEntornos.Name = "GBFormEntornos";
-            GBFormEntornos.Size = new Size(398, 162);
+            GBFormEntornos.Size = new Size(382, 162);
             GBFormEntornos.TabIndex = 2;
             GBFormEntornos.TabStop = false;
             GBFormEntornos.Text = "Formulario de Entorno";
@@ -182,7 +182,7 @@ namespace Agraria.UI.Articulos
             tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Absolute, 30F));
             tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Absolute, 30F));
             tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanel3.Size = new Size(392, 136);
+            tableLayoutPanel3.Size = new Size(376, 136);
             tableLayoutPanel3.TabIndex = 0;
             // 
             // label1
@@ -192,7 +192,7 @@ namespace Agraria.UI.Articulos
             label1.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label1.Location = new Point(3, 0);
             label1.Name = "label1";
-            label1.Size = new Size(386, 30);
+            label1.Size = new Size(370, 30);
             label1.TabIndex = 0;
             label1.Text = "Nombre del Entorno:";
             label1.TextAlign = ContentAlignment.MiddleLeft;
@@ -203,7 +203,7 @@ namespace Agraria.UI.Articulos
             TxtEntorno.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             TxtEntorno.Location = new Point(3, 33);
             TxtEntorno.Name = "TxtEntorno";
-            TxtEntorno.Size = new Size(386, 29);
+            TxtEntorno.Size = new Size(370, 29);
             TxtEntorno.TabIndex = 1;
             // 
             // tableLayoutPanel4
@@ -220,30 +220,30 @@ namespace Agraria.UI.Articulos
             tableLayoutPanel4.Name = "tableLayoutPanel4";
             tableLayoutPanel4.RowCount = 1;
             tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanel4.Size = new Size(386, 70);
+            tableLayoutPanel4.Size = new Size(370, 70);
             tableLayoutPanel4.TabIndex = 2;
             // 
             // BtnNuevaCategoria
             // 
             BtnNuevaCategoria.Anchor = AnchorStyles.None;
-            BtnNuevaCategoria.BackColor = Color.FromArgb(0, 123, 255);
+            BtnNuevaCategoria.BackColor = Color.FromArgb(7, 100, 147);
             BtnNuevaCategoria.FlatStyle = FlatStyle.Flat;
             BtnNuevaCategoria.ForeColor = Color.White;
-            BtnNuevaCategoria.Location = new Point(6, 19);
+            BtnNuevaCategoria.Location = new Point(4, 19);
             BtnNuevaCategoria.Name = "BtnNuevaCategoria";
             BtnNuevaCategoria.Size = new Size(115, 32);
             BtnNuevaCategoria.TabIndex = 3;
-            BtnNuevaCategoria.Text = "Nueva";
+            BtnNuevaCategoria.Text = "Nuevo";
             BtnNuevaCategoria.UseVisualStyleBackColor = false;
             BtnNuevaCategoria.Click += BtnNuevoEntorno_Click;
             // 
             // BtnEliminarCategoria
             // 
             BtnEliminarCategoria.Anchor = AnchorStyles.None;
-            BtnEliminarCategoria.BackColor = Color.FromArgb(220, 53, 69);
+            BtnEliminarCategoria.BackColor = Color.FromArgb(186, 26, 26);
             BtnEliminarCategoria.FlatStyle = FlatStyle.Flat;
             BtnEliminarCategoria.ForeColor = Color.White;
-            BtnEliminarCategoria.Location = new Point(134, 19);
+            BtnEliminarCategoria.Location = new Point(127, 19);
             BtnEliminarCategoria.Name = "BtnEliminarCategoria";
             BtnEliminarCategoria.Size = new Size(115, 32);
             BtnEliminarCategoria.TabIndex = 1;
@@ -254,10 +254,10 @@ namespace Agraria.UI.Articulos
             // BtnGuardarCategoria
             // 
             BtnGuardarCategoria.Anchor = AnchorStyles.None;
-            BtnGuardarCategoria.BackColor = Color.FromArgb(40, 167, 69);
+            BtnGuardarCategoria.BackColor = Color.FromArgb(101, 89, 119);
             BtnGuardarCategoria.FlatStyle = FlatStyle.Flat;
             BtnGuardarCategoria.ForeColor = Color.White;
-            BtnGuardarCategoria.Location = new Point(263, 19);
+            BtnGuardarCategoria.Location = new Point(250, 19);
             BtnGuardarCategoria.Name = "BtnGuardarCategoria";
             BtnGuardarCategoria.Size = new Size(115, 32);
             BtnGuardarCategoria.TabIndex = 2;
@@ -280,9 +280,9 @@ namespace Agraria.UI.Articulos
             GBSubEntornos.Controls.Add(tableLayoutPanel5);
             GBSubEntornos.Dock = DockStyle.Fill;
             GBSubEntornos.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            GBSubEntornos.Location = new Point(0, 0);
+            GBSubEntornos.Location = new Point(8, 8);
             GBSubEntornos.Name = "GBSubEntornos";
-            GBSubEntornos.Size = new Size(390, 493);
+            GBSubEntornos.Size = new Size(374, 461);
             GBSubEntornos.TabIndex = 2;
             GBSubEntornos.TabStop = false;
             GBSubEntornos.Text = "SubEntornos";
@@ -301,7 +301,7 @@ namespace Agraria.UI.Articulos
             tableLayoutPanel5.RowStyles.Add(new RowStyle());
             tableLayoutPanel5.RowStyles.Add(new RowStyle());
             tableLayoutPanel5.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanel5.Size = new Size(384, 465);
+            tableLayoutPanel5.Size = new Size(368, 433);
             tableLayoutPanel5.TabIndex = 0;
             // 
             // tableLayoutPanel6
@@ -315,7 +315,7 @@ namespace Agraria.UI.Articulos
             tableLayoutPanel6.Name = "tableLayoutPanel6";
             tableLayoutPanel6.RowCount = 1;
             tableLayoutPanel6.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableLayoutPanel6.Size = new Size(378, 31);
+            tableLayoutPanel6.Size = new Size(362, 31);
             tableLayoutPanel6.TabIndex = 3;
             // 
             // label3
@@ -335,11 +335,11 @@ namespace Agraria.UI.Articulos
             LblEntornoSeleccionado.Anchor = AnchorStyles.Left;
             LblEntornoSeleccionado.AutoSize = true;
             LblEntornoSeleccionado.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            LblEntornoSeleccionado.Location = new Point(136, 5);
+            LblEntornoSeleccionado.Location = new Point(131, 5);
             LblEntornoSeleccionado.Name = "LblEntornoSeleccionado";
-            LblEntornoSeleccionado.Size = new Size(77, 21);
+            LblEntornoSeleccionado.Size = new Size(78, 21);
             LblEntornoSeleccionado.TabIndex = 1;
-            LblEntornoSeleccionado.Text = "Ninguna";
+            LblEntornoSeleccionado.Text = "Ninguno";
             LblEntornoSeleccionado.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // DgvSubEntornos
@@ -370,7 +370,7 @@ namespace Agraria.UI.Articulos
             DgvSubEntornos.ReadOnly = true;
             DgvSubEntornos.RowHeadersVisible = false;
             DgvSubEntornos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            DgvSubEntornos.Size = new Size(378, 253);
+            DgvSubEntornos.Size = new Size(362, 221);
             DgvSubEntornos.TabIndex = 0;
             DgvSubEntornos.SelectionChanged += DgvSubEntornos_SelectionChanged;
             // 
@@ -380,7 +380,7 @@ namespace Agraria.UI.Articulos
             GBFormSubEntornos.Controls.Add(tableLayoutPanel7);
             GBFormSubEntornos.Location = new Point(3, 40);
             GBFormSubEntornos.Name = "GBFormSubEntornos";
-            GBFormSubEntornos.Size = new Size(378, 163);
+            GBFormSubEntornos.Size = new Size(362, 163);
             GBFormSubEntornos.TabIndex = 2;
             GBFormSubEntornos.TabStop = false;
             GBFormSubEntornos.Text = "Formulario de SubEntorno";
@@ -399,7 +399,7 @@ namespace Agraria.UI.Articulos
             tableLayoutPanel7.RowStyles.Add(new RowStyle(SizeType.Percent, 21.4814816F));
             tableLayoutPanel7.RowStyles.Add(new RowStyle(SizeType.Percent, 26.666666F));
             tableLayoutPanel7.RowStyles.Add(new RowStyle(SizeType.Percent, 51.8518524F));
-            tableLayoutPanel7.Size = new Size(372, 135);
+            tableLayoutPanel7.Size = new Size(356, 135);
             tableLayoutPanel7.TabIndex = 0;
             // 
             // label2
@@ -409,7 +409,7 @@ namespace Agraria.UI.Articulos
             label2.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label2.Location = new Point(3, 0);
             label2.Name = "label2";
-            label2.Size = new Size(366, 29);
+            label2.Size = new Size(350, 29);
             label2.TabIndex = 0;
             label2.Text = "Nombre del SubEntorno:";
             label2.TextAlign = ContentAlignment.MiddleLeft;
@@ -420,7 +420,7 @@ namespace Agraria.UI.Articulos
             TxtSubEntorno.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             TxtSubEntorno.Location = new Point(3, 32);
             TxtSubEntorno.Name = "TxtSubEntorno";
-            TxtSubEntorno.Size = new Size(366, 29);
+            TxtSubEntorno.Size = new Size(350, 29);
             TxtSubEntorno.TabIndex = 1;
             // 
             // tableLayoutPanel8
@@ -437,18 +437,18 @@ namespace Agraria.UI.Articulos
             tableLayoutPanel8.Name = "tableLayoutPanel8";
             tableLayoutPanel8.RowCount = 1;
             tableLayoutPanel8.RowStyles.Add(new RowStyle());
-            tableLayoutPanel8.Size = new Size(366, 42);
+            tableLayoutPanel8.Size = new Size(350, 42);
             tableLayoutPanel8.TabIndex = 2;
             // 
             // BtnNuevaSubcategoria
             // 
             BtnNuevaSubcategoria.Anchor = AnchorStyles.None;
-            BtnNuevaSubcategoria.BackColor = Color.FromArgb(0, 123, 255);
+            BtnNuevaSubcategoria.BackColor = Color.FromArgb(7, 100, 147);
             BtnNuevaSubcategoria.FlatStyle = FlatStyle.Flat;
             BtnNuevaSubcategoria.ForeColor = Color.White;
-            BtnNuevaSubcategoria.Location = new Point(5, 5);
+            BtnNuevaSubcategoria.Location = new Point(3, 5);
             BtnNuevaSubcategoria.Name = "BtnNuevaSubcategoria";
-            BtnNuevaSubcategoria.Size = new Size(111, 32);
+            BtnNuevaSubcategoria.Size = new Size(110, 32);
             BtnNuevaSubcategoria.TabIndex = 3;
             BtnNuevaSubcategoria.Text = "Nuevo";
             BtnNuevaSubcategoria.UseVisualStyleBackColor = false;
@@ -457,12 +457,12 @@ namespace Agraria.UI.Articulos
             // BtnEliminarSubcategoria
             // 
             BtnEliminarSubcategoria.Anchor = AnchorStyles.None;
-            BtnEliminarSubcategoria.BackColor = Color.FromArgb(220, 53, 69);
+            BtnEliminarSubcategoria.BackColor = Color.FromArgb(186, 26, 26);
             BtnEliminarSubcategoria.FlatStyle = FlatStyle.Flat;
             BtnEliminarSubcategoria.ForeColor = Color.White;
-            BtnEliminarSubcategoria.Location = new Point(127, 5);
+            BtnEliminarSubcategoria.Location = new Point(119, 5);
             BtnEliminarSubcategoria.Name = "BtnEliminarSubcategoria";
-            BtnEliminarSubcategoria.Size = new Size(111, 32);
+            BtnEliminarSubcategoria.Size = new Size(110, 32);
             BtnEliminarSubcategoria.TabIndex = 1;
             BtnEliminarSubcategoria.Text = "Eliminar";
             BtnEliminarSubcategoria.UseVisualStyleBackColor = false;
@@ -471,10 +471,10 @@ namespace Agraria.UI.Articulos
             // BtnGuardarSubcategoria
             // 
             BtnGuardarSubcategoria.Anchor = AnchorStyles.None;
-            BtnGuardarSubcategoria.BackColor = Color.FromArgb(40, 167, 69);
+            BtnGuardarSubcategoria.BackColor = Color.FromArgb(101, 89, 119);
             BtnGuardarSubcategoria.FlatStyle = FlatStyle.Flat;
             BtnGuardarSubcategoria.ForeColor = Color.White;
-            BtnGuardarSubcategoria.Location = new Point(249, 5);
+            BtnGuardarSubcategoria.Location = new Point(235, 5);
             BtnGuardarSubcategoria.Name = "BtnGuardarSubcategoria";
             BtnGuardarSubcategoria.Size = new Size(111, 32);
             BtnGuardarSubcategoria.TabIndex = 2;
@@ -491,11 +491,13 @@ namespace Agraria.UI.Articulos
             // splitContainer1.Panel1
             // 
             splitContainer1.Panel1.Controls.Add(GNEntornos);
+            splitContainer1.Panel1.Padding = new Padding(8);
             // 
             // splitContainer1.Panel2
             // 
             splitContainer1.Panel2.Controls.Add(GBSubEntornos);
-            splitContainer1.Size = new Size(804, 493);
+            splitContainer1.Panel2.Padding = new Padding(8);
+            splitContainer1.Size = new Size(804, 477);
             splitContainer1.SplitterDistance = 410;
             splitContainer1.TabIndex = 1;
             // 
@@ -506,8 +508,10 @@ namespace Agraria.UI.Articulos
             Controls.Add(PbProgreso);
             Controls.Add(splitContainer1);
             Name = "UCGestionEntornos";
+            Padding = new Padding(0, 0, 0, 16);
             Size = new Size(804, 493);
             Load += UCGestionEntornos_Load;
+            VisibleChanged += UCGestionEntornos_VisibleChanged;
             GNEntornos.ResumeLayout(false);
             tableLayoutPanel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)DgvEntornos).EndInit();

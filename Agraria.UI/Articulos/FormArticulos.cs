@@ -37,16 +37,37 @@ namespace Agraria.UI.Articulos
         /// <param name="tipoForm">El tipo de control de usuario a mostrar.</param>
         private void SeleccionarUC(Type tipoForm)
         {
-            // Cerrar el formulario actual si existe
-            PanelMedio.Controls.Clear();
-
-            // Crear el formulario usando el tipo proporcionado en el Tag del botón
-            if (tipoForm != null && typeof(UserControl).IsAssignableFrom(tipoForm))
+            if (tipoForm == null || !typeof(UserControl).IsAssignableFrom(tipoForm))
             {
-                UserControl uc = (UserControl)_serviceProvider.GetRequiredService(tipoForm);
+                return;
+            }
 
-                uc.Dock = DockStyle.Fill;
-                PanelMedio.Controls.Add(uc);
+            // Ocultar todos los UserControl existentes
+            foreach (Control control in PanelMedio.Controls)
+            {
+                if (control is UserControl uc)
+                {
+                    uc.Visible = false;
+                }
+            }
+
+            // Buscar si el UserControl ya existe en el panel
+            UserControl ucExistente = PanelMedio.Controls.OfType<UserControl>()
+                                                 .FirstOrDefault(uc => uc.GetType() == tipoForm);
+
+            if (ucExistente != null)
+            {
+                // Si el UserControl ya existe, simplemente lo hacemos visible
+                ucExistente.Visible = true;
+                ucExistente.BringToFront(); // Opcional: Asegura que esté al frente
+            }
+            else
+            {
+                // Si no existe, lo creamos, lo agregamos y lo hacemos visible
+                UserControl nuevoUC = (UserControl)_serviceProvider.GetRequiredService(tipoForm);
+                nuevoUC.Dock = DockStyle.Fill;
+                PanelMedio.Controls.Add(nuevoUC);
+                nuevoUC.BringToFront(); // Opcional: Asegura que esté al frente
             }
         }
 

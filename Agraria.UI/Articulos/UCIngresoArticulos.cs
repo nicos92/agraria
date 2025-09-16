@@ -38,7 +38,7 @@ namespace Agraria.UI.Articulos
         private readonly ErrorProvider _epTxtCantidad;
         private readonly ErrorProvider _epTxtCosto;
         private readonly ErrorProvider _epTxtGanancia;
-        private readonly CultureInfo cultureArg = new ("es-AR");
+        private readonly CultureInfo cultureArg = new("es-AR");
 
         private List<Modelo.Entidades.Entornos> ListaCategorias { get; set; } = [];
         private List<Modelo.Entidades.Proveedores> ListaProveedores { get; set; } = [];
@@ -280,8 +280,21 @@ namespace Agraria.UI.Articulos
             }
             decimal costo = Convert.ToDecimal(TxtCosto.Text);
             decimal ganancia = Convert.ToDecimal(TxtGanancia.Text);
-            
+
             LblPrecio.Text = "$" + (costo + (costo * ganancia / 100)).ToString(cultureArg);
+        }
+
+
+
+
+        private void LblPrecio_MouseHover(object sender, EventArgs e)
+        {
+            ServicioToolTip.Mostrar(LblPrecio, "El precio de venta no se modifica, es de solo lectura");
+        }
+
+        private void LblPrecio_KeyDown_1(object sender, KeyEventArgs e)
+        {
+            ServicioToolTip.Mostrar(LblPrecio, "El precio de venta no se modifica, es de solo lectura");
         }
     }
 }

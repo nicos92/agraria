@@ -109,7 +109,7 @@
             BtnOpcionEditar.Name = "BtnOpcionEditar";
             BtnOpcionEditar.Size = new Size(241, 64);
             BtnOpcionEditar.TabIndex = 1;
-            BtnOpcionEditar.Text = "Editar Articulo";
+            BtnOpcionEditar.Text = "Editar Producto";
             BtnOpcionEditar.TextAlign = ContentAlignment.MiddleRight;
             BtnOpcionEditar.TextImageRelation = TextImageRelation.TextBeforeImage;
             BtnOpcionEditar.UseVisualStyleBackColor = false;
@@ -130,7 +130,7 @@
             BtnOpcionIngresar.Name = "BtnOpcionIngresar";
             BtnOpcionIngresar.Size = new Size(241, 64);
             BtnOpcionIngresar.TabIndex = 0;
-            BtnOpcionIngresar.Text = "Ingresar Articulo";
+            BtnOpcionIngresar.Text = "Ingresar Producto";
             BtnOpcionIngresar.TextAlign = ContentAlignment.MiddleRight;
             BtnOpcionIngresar.TextImageRelation = TextImageRelation.TextBeforeImage;
             BtnOpcionIngresar.UseVisualStyleBackColor = false;

@@ -48,7 +48,7 @@
             label1 = new Label();
             label6 = new Label();
             label7 = new Label();
-            LblPrecio = new Label();
+            LblPrecio = new TextBox();
             ProgressBar = new ProgressBar();
             PanelMedio.SuspendLayout();
             TLPMedio.SuspendLayout();
@@ -250,7 +250,7 @@
             BtnIngresar.Name = "BtnIngresar";
             TLPForm.SetRowSpan(BtnIngresar, 2);
             BtnIngresar.Size = new Size(192, 47);
-            BtnIngresar.TabIndex = 12;
+            BtnIngresar.TabIndex = 13;
             BtnIngresar.Text = "INGRESAR";
             BtnIngresar.TextImageRelation = TextImageRelation.TextBeforeImage;
             BtnIngresar.UseVisualStyleBackColor = false;
@@ -265,7 +265,7 @@
             CMBSubcategoria.Location = new Point(129, 275);
             CMBSubcategoria.Name = "CMBSubcategoria";
             CMBSubcategoria.Size = new Size(402, 29);
-            CMBSubcategoria.TabIndex = 11;
+            CMBSubcategoria.TabIndex = 12;
             // 
             // CMBCategoria
             // 
@@ -276,7 +276,7 @@
             CMBCategoria.Location = new Point(129, 241);
             CMBCategoria.Name = "CMBCategoria";
             CMBCategoria.Size = new Size(402, 29);
-            CMBCategoria.TabIndex = 10;
+            CMBCategoria.TabIndex = 11;
             CMBCategoria.SelectedIndexChanged += CMBCategoria_SelectedIndexChanged;
             // 
             // CMBProveedor
@@ -288,7 +288,7 @@
             CMBProveedor.Location = new Point(129, 207);
             CMBProveedor.Name = "CMBProveedor";
             CMBProveedor.Size = new Size(402, 29);
-            CMBProveedor.TabIndex = 9;
+            CMBProveedor.TabIndex = 10;
             // 
             // label5
             // 
@@ -336,14 +336,18 @@
             // 
             // LblPrecio
             // 
-            LblPrecio.Anchor = AnchorStyles.Left;
-            LblPrecio.AutoSize = true;
-            LblPrecio.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            LblPrecio.Location = new Point(129, 176);
+            LblPrecio.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            LblPrecio.BackColor = Color.FromArgb(238, 237, 240);
+            LblPrecio.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            LblPrecio.ForeColor = Color.FromArgb(26, 28, 30);
+            LblPrecio.Location = new Point(129, 173);
+            LblPrecio.MaxLength = 12;
             LblPrecio.Name = "LblPrecio";
-            LblPrecio.Size = new Size(28, 21);
-            LblPrecio.TabIndex = 19;
-            LblPrecio.Text = "$0";
+            LblPrecio.ReadOnly = true;
+            LblPrecio.Size = new Size(402, 29);
+            LblPrecio.TabIndex = 9;
+            LblPrecio.KeyDown += LblPrecio_KeyDown_1;
+            LblPrecio.MouseHover += LblPrecio_MouseHover;
             // 
             // ProgressBar
             // 
@@ -396,6 +400,6 @@
         private Label label6;
         private ProgressBar ProgressBar;
         private Label label7;
-        private Label LblPrecio;
+        private TextBox LblPrecio;
     }
 }
