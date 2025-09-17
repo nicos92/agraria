@@ -14,7 +14,39 @@ namespace Agraria.Repositorio.Repositorios
     {
         public Result<HVentas> Add(HVentas venta)
         {
-            throw new NotImplementedException();
+            try
+            {
+                using var conexion = Conexion();
+                using var cmd = new OleDbCommand("INSERT INTO H_Ventas (Cod_Usuario, Id_Cliente, Subtotal, Descu, Total, Fecha_Hora) VALUES (@Cod_Usuario, @Id_Cliente, @Subtotal, @Descu, @Total, @Fecha_Hora)", conexion);
+                cmd.Parameters.AddWithValue("@Cod_Usuario", venta.Cod_Usuario);
+                cmd.Parameters.AddWithValue("@Id_Cliente", venta.Id_Cliente);
+                cmd.Parameters.Add("@Subtotal", OleDbType.Decimal).Value = venta.Subtotal;
+                cmd.Parameters.Add("@Descu", OleDbType.Decimal).Value = venta.Descu;
+                cmd.Parameters.Add("@Total", OleDbType.Decimal).Value = venta.Total;
+                cmd.Parameters.AddWithValue("@Fecha_Hora", venta.Fecha_Hora);
+                conexion.Open();
+                int resultado = cmd.ExecuteNonQuery();
+                if (resultado > 0)
+                {
+                    // Get the ID of the inserted record
+                    using var cmdId = new OleDbCommand("SELECT @@IDENTITY", conexion);
+                    int id = Convert.ToInt32(cmdId.ExecuteScalar());
+                    venta.Id_Remito = id;
+                    return Result<HVentas>.Success(venta);
+                }
+                else
+                {
+                    return Result<HVentas>.Failure("No se pudo agregar la venta.");
+                }
+            }
+            catch (OleDbException ex)
+            {
+                return Result<HVentas>.Failure($"Error al agregar venta: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                return Result<HVentas>.Failure($"Error inesperado al agregar venta: {ex.Message}");
+            }
         }
 
         public Result<bool> Delete(int id)
@@ -89,7 +121,36 @@ namespace Agraria.Repositorio.Repositorios
 
         public Result<HVentas> Update(HVentas venta)
         {
-            throw new NotImplementedException();
+            try
+            {
+                using var conexion = Conexion();
+                using var cmd = new OleDbCommand("UPDATE H_Ventas SET Cod_Usuario = @Cod_Usuario, Id_Cliente = @Id_Cliente, Subtotal = @Subtotal, Descu = @Descu, Total = @Total, Fecha_Hora = @Fecha_Hora WHERE Id_Remito = @Id_Remito", conexion);
+                cmd.Parameters.AddWithValue("@Id_Remito", venta.Id_Remito);
+                cmd.Parameters.AddWithValue("@Cod_Usuario", venta.Cod_Usuario);
+                cmd.Parameters.AddWithValue("@Id_Cliente", venta.Id_Cliente);
+                cmd.Parameters.Add("@Subtotal", OleDbType.Decimal).Value = venta.Subtotal;
+                cmd.Parameters.Add("@Descu", OleDbType.Decimal).Value = venta.Descu;
+                cmd.Parameters.Add("@Total", OleDbType.Decimal).Value = venta.Total;
+                cmd.Parameters.AddWithValue("@Fecha_Hora", venta.Fecha_Hora);
+                conexion.Open();
+                int resultado = cmd.ExecuteNonQuery();
+                if (resultado > 0)
+                {
+                    return Result<HVentas>.Success(venta);
+                }
+                else
+                {
+                    return Result<HVentas>.Failure("No se pudo actualizar la venta.");
+                }
+            }
+            catch (OleDbException ex)
+            {
+                return Result<HVentas>.Failure($"Error al actualizar venta: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                return Result<HVentas>.Failure($"Error inesperado al actualizar venta: {ex.Message}");
+            }
         }
 
         public Result<List<HVentas>> GetFiltered(DateTime fechaDesde, DateTime fechaHasta, string cliente, int? idRemito)

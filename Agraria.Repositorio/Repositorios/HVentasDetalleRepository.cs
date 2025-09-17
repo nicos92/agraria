@@ -23,9 +23,9 @@ namespace Agraria.Repositorio.Repositorios
                 cmd.Parameters.AddWithValue("@Id_Remito", detalle.Id_Remito);
                 cmd.Parameters.AddWithValue("@Cod_Art", detalle.Cod_Art);
                 cmd.Parameters.AddWithValue("@Descr", detalle.Descr);
-                cmd.Parameters.AddWithValue("@P_Unit", detalle.P_Unit);
+                cmd.Parameters.Add("@P_Unit", OleDbType.Decimal).Value = detalle.P_Unit;
                 cmd.Parameters.AddWithValue("@Cant", detalle.Cant);
-                cmd.Parameters.AddWithValue("@P_X_Cant", detalle.P_X_Cant);
+                cmd.Parameters.Add("@P_X_Cant", OleDbType.Decimal).Value = detalle.P_X_Cant;
                 conexion.Open();
                 int resultado = cmd.ExecuteNonQuery();
                 if (resultado > 0)
@@ -158,9 +158,9 @@ namespace Agraria.Repositorio.Repositorios
                 cmd.Parameters.AddWithValue("@Id_Remito", detalle.Id_Remito);
                 cmd.Parameters.AddWithValue("@Cod_Art", detalle.Cod_Art);
                 cmd.Parameters.AddWithValue("@Descr", detalle.Descr);
-                cmd.Parameters.AddWithValue("@P_Unit", detalle.P_Unit);
+                cmd.Parameters.Add("@P_Unit", OleDbType.Decimal).Value = detalle.P_Unit;
                 cmd.Parameters.AddWithValue("@Cant", detalle.Cant);
-                cmd.Parameters.AddWithValue("@P_X_Cant", detalle.P_X_Cant);
+                cmd.Parameters.Add("@P_X_Cant", OleDbType.Decimal).Value = detalle.P_X_Cant;
                 conexion.Open();
                 int resultado = cmd.ExecuteNonQuery();
                 if (resultado > 0)

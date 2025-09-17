@@ -14,7 +14,7 @@ namespace Agraria.Util
         /// Argentina culture used for formatting decimal numbers with comma as decimal separator
         /// and period as thousand separator.
         /// </summary>
-        public static readonly CultureInfo ArgentinaCulture = new CultureInfo("es-AR");
+        public static readonly CultureInfo ArgentinaCulture = new ("es-AR");
 
         /// <summary>
         /// Formats a decimal value as currency using Argentina's culture settings.

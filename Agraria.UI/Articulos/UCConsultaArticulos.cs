@@ -509,7 +509,7 @@ namespace Agraria.UI.Articulos
                 return false;
             }
 
-            _stockSeleccionado.Cantidad = Convert.ToInt32(TxtCantidad.Text);
+            _stockSeleccionado.Cantidad = DecimalFormatter.ParseDecimal(TxtCantidad.Text);
             _stockSeleccionado.Costo = DecimalFormatter.ParseDecimal(TxtCosto.Text);
             _stockSeleccionado.Ganancia = DecimalFormatter.ParseDecimal(TxtGanancia.Text);
 

@@ -21,9 +21,9 @@ namespace Agraria.Repositorio.Repositorios
                 using OleDbConnection conn = Conexion();
                 using OleDbCommand cmd = new("INSERT INTO Stock (Cod_Articulo, Cantidad, Costo, Ganancia) VALUES (@Cod_Articulo, @Cantidad, @Costo, @Ganancia)", conn);
                 cmd.Parameters.AddWithValue("@Cod_Articulo", stock.Cod_Articulo);
-                cmd.Parameters.AddWithValue("@Cantidad", stock.Cantidad);
-                cmd.Parameters.AddWithValue("@Costo", stock.Costo);
-                cmd.Parameters.AddWithValue("@Ganancia", stock.Ganancia);
+                cmd.Parameters.Add("@Cantidad", OleDbType.Decimal).Value = stock.Cantidad;
+                cmd.Parameters.Add("@Costo", OleDbType.Decimal).Value = stock.Costo;
+                cmd.Parameters.Add("@Ganancia", OleDbType.Decimal).Value = stock.Ganancia;
                 conn.Open();
                 int rowsAffected = cmd.ExecuteNonQuery();
                 if (rowsAffected > 0)
@@ -148,9 +148,9 @@ namespace Agraria.Repositorio.Repositorios
             {
                 using OleDbConnection conn = Conexion();
                 using OleDbCommand cmd = new("UPDATE Stock SET Cantidad = @Cantidad, Costo = @Costo, Ganancia = @Ganancia WHERE Cod_Articulo = @Cod_Articulo", conn);
-                cmd.Parameters.AddWithValue("@Cantidad", stock.Cantidad);
-                cmd.Parameters.AddWithValue("@Costo", stock.Costo);
-                cmd.Parameters.AddWithValue("@Ganancia", stock.Ganancia);
+                cmd.Parameters.Add("@Cantidad", OleDbType.Decimal).Value = stock.Cantidad;
+                cmd.Parameters.Add("@Costo", OleDbType.Decimal).Value = stock.Costo;
+                cmd.Parameters.Add("@Ganancia", OleDbType.Decimal).Value = stock.Ganancia;
                 cmd.Parameters.AddWithValue("@Cod_Articulo", stock.Cod_Articulo);
                 conn.Open();
                 int rowsAffected = cmd.ExecuteNonQuery();

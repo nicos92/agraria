@@ -46,9 +46,9 @@ namespace Agraria.Repositorio.Repositorios
                 {
                    
                     cmdStock.Parameters.AddWithValue("?", stock.Cod_Articulo);
-                    cmdStock.Parameters.AddWithValue("?", stock.Cantidad);
-                    cmdStock.Parameters.AddWithValue("?", stock.Costo);
-                    cmdStock.Parameters.AddWithValue("?", stock.Ganancia);
+                    cmdStock.Parameters.Add("?", OleDbType.Decimal).Value = stock.Cantidad;
+                    cmdStock.Parameters.Add("?", OleDbType.Decimal).Value = stock.Costo;
+                    cmdStock.Parameters.Add("?", OleDbType.Decimal).Value = stock.Ganancia;
                     await cmdStock.ExecuteNonQueryAsync();
                 }
 
