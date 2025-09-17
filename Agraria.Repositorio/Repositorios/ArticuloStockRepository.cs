@@ -9,6 +9,7 @@ using System.Linq;
 using System.Runtime.Versioning;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Schema;
 
 namespace Agraria.Repositorio.Repositorios
 {
@@ -196,6 +197,7 @@ namespace Agraria.Repositorio.Repositorios
                                     reader.GetInt32(3),
                                     reader.GetInt32(4),
                                     reader.GetInt32(5),
+                                    reader.GetDecimal(6),
                                     reader.GetDecimal(7),
                                     reader.GetDecimal(8)
 

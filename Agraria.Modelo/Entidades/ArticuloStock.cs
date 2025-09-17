@@ -14,6 +14,7 @@ namespace Agraria.Modelo.Entidades
      int Cod_Subcat,
      int Id_Proveedor,
      decimal Cantidad,
+     decimal Costo,
      decimal Ganancia
  );
 }

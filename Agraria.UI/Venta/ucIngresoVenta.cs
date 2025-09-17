@@ -27,7 +27,7 @@ namespace Agraria.UI.Ventas
         private bool _procesandoSeleccion = false;
         private string? _ultimoCodigoArticuloSeleccionado;
         private int _ultimoIndiceSeleccionado = -1;
-        private readonly BindingList<ProductoResumen> _productosResumen = [];
+        private BindingList<ProductoResumen> _productosResumen = [];
         private List<ArticuloStock> _todosLosProductos = [];
         // Agregar en el inicio de la clase
         private readonly CultureInfo _cultureArgentina = new("es-AR");
@@ -46,42 +46,19 @@ namespace Agraria.UI.Ventas
             this.Disposed += UCIngresoVenta_Disposed;
         }
 
-        private void ListaProductos(List<ArticuloStock> productosSeleccionados)
-        {
-            _productosResumen.Clear();
+        
 
-            var productosAgrupados = productosSeleccionados
-                .GroupBy(p => p.Art_Desc)
-                .Select(g => new ProductoResumen
-                {
-                    Cod_Articulo = g.First().Cod_Articulo,
-                    Producto_Nombre = g.Key,
-                    Producto_Precio = CalcularPrecioVenta(g.First()),
-                    Producto_Cantidad = g.Count(),
-                    Producto_PrecioxCantidad = g.Sum(p => CalcularPrecioVenta(p))
-                });
+        
 
-            foreach (var producto in productosAgrupados)
-            {
-                _productosResumen.Add(producto);
-            }
-        }
-
-        private static decimal CalcularPrecioVenta(ArticuloStock articulo)
-        {
-            // TODO: VALIDAR LOS DATOS DECIMALES
-            return articulo.Costo + (articulo.Costo * (articulo.Ganancia / 100));
-        }
-
-        private string FormatearPesoArgentino(double valor)
+        private string FormatearPesoArgentino(decimal valor)
         {
             return valor.ToString("C", _cultureArgentina);
         }
 
-        private static (int cantidad, double total) CalcularTotales(List<ArticuloStock> productos)
+        private static (int cantidad, decimal total) CalcularTotales(List<ProductoResumen> productos)
         {
             int cantidad = productos.Count;
-            double total = productos.Sum(p => CalcularPrecioVenta(p));
+            decimal total = productos.Sum(p => p.Producto_PrecioxCantidad);
 
             return (cantidad, total);
         }
@@ -199,7 +176,7 @@ namespace Agraria.UI.Ventas
             if (LsvProductos.SelectedItem is ArticuloStock selectedItem)
             {
                 LblProducto.Text = selectedItem.Art_Desc;
-                LblPrecio.Text = FormatearPesoArgentino(CalcularPrecioVenta(selectedItem));
+                LblPrecio.Text = (selectedItem.Costo * ( selectedItem.Costo * selectedItem.Ganancia / 100)).ToString();
 
                 // Seleccionar la fila correspondiente en el DataGridView
                 _evitarBucleEventos = true;
@@ -230,11 +207,11 @@ namespace Agraria.UI.Ventas
             decimal precio = 0m;
             if (LsvProductos.SelectedItem is ArticuloStock selectedItem)
             {
-                precio = (decimal)CalcularPrecioVenta(selectedItem);
+                precio = selectedItem.Costo * (selectedItem.Costo * selectedItem.Ganancia / 100);
             }
 
             decimal total = precio * NumericUpDown1.Value;
-            LblPrecioCant.Text = FormatearPesoArgentino((double)total);
+            LblPrecioCant.Text = FormatearPesoArgentino(total);
         }
 
         private void BtnAceptar_Click(object sender, EventArgs e)
@@ -264,14 +241,21 @@ namespace Agraria.UI.Ventas
             {
                 Cod_Articulo = producto.Cod_Articulo,
                 Producto_Nombre = producto.Art_Desc,
-                Producto_Precio = CalcularPrecioVenta(producto),
+                Producto_Precio = producto.Costo + ( producto.Costo * producto.Ganancia / 100),
                 Producto_Cantidad = cantidad,
-                Producto_PrecioxCantidad = CalcularPrecioVenta(producto)
+                Producto_PrecioxCantidad = producto.Costo + (producto.Costo * producto.Ganancia / 100) * cantidad
             };
-            for (int i = 0; i < cantidad; i++)
+            foreach (var item in SingleListas.Instance.ProductoResumen)
             {
-                SingleListas.Instance.ProductosSeleccionados.Add(producto);
+                if (item.Cod_Articulo == producto.Cod_Articulo)
+                {
+                    item.Producto_Cantidad += cantidad;
+                    item.Producto_PrecioxCantidad += nuevoProducto.Producto_PrecioxCantidad;
+                    return;
+                }
             }
+            SingleListas.Instance.ProductoResumen.Add(nuevoProducto);
+            
         }
 
         private void CargarDataGridView()
@@ -279,12 +263,15 @@ namespace Agraria.UI.Ventas
             string? codigoArticuloSeleccionado = _ultimoCodigoArticuloSeleccionado;
             int indiceSeleccionado = _ultimoIndiceSeleccionado;
 
-            ListaProductos(SingleListas.Instance.ProductosSeleccionados);
+            //ListaProductos(SingleListas.Instance.ProductosSeleccionados);
 
-            var (cantidad, total) = CalcularTotales(SingleListas.Instance.ProductosSeleccionados);
+            var (cantidad, total) = CalcularTotales(SingleListas.Instance.ProductoResumen);
             LblCantProductos.Text = cantidad.ToString();
             LblPrecioTotal.Text = FormatearPesoArgentino(total);
-
+            foreach (var item in SingleListas.Instance.ProductoResumen)
+            {
+                _productosResumen.Add(item);
+            }
             if (_productosResumen.Count == 0)
             {
                 LimpiarSeleccionCompleta();
@@ -628,8 +615,7 @@ namespace Agraria.UI.Ventas
             if (itemASeleccionar != null)
             {
                 LblProducto.Text = itemASeleccionar.Art_Desc;
-                LblPrecio.Text = FormatearPesoArgentino(CalcularPrecioVenta(itemASeleccionar));
-                ActualizarTotalPrecioPorCantidad();
+                LblPrecio.Text = (itemASeleccionar.Costo * (itemASeleccionar.Costo * itemASeleccionar.Ganancia / 100)).ToString();
             }
             else
             {
