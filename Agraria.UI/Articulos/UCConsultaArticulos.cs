@@ -47,7 +47,6 @@ namespace Agraria.UI.Articulos
         private List<Stock> _listaStock;
 
         private int _indiceSeleccionado;
-        private readonly CultureInfo cultureArg = new("es-AR");
 
 
         #endregion
@@ -511,8 +510,8 @@ namespace Agraria.UI.Articulos
             }
 
             _stockSeleccionado.Cantidad = Convert.ToInt32(TxtCantidad.Text);
-            _stockSeleccionado.Costo = Convert.ToDecimal(TxtCosto.Text);
-            _stockSeleccionado.Ganancia = Convert.ToDecimal(TxtGanancia.Text);
+            _stockSeleccionado.Costo = DecimalFormatter.ParseDecimal(TxtCosto.Text);
+            _stockSeleccionado.Ganancia = DecimalFormatter.ParseDecimal(TxtGanancia.Text);
 
             return true;
         }
@@ -543,8 +542,8 @@ namespace Agraria.UI.Articulos
                 // Cargar datos en los controles
                 TxtDescripcion.Text = _articuloSeleccionado.Art_Desc ?? string.Empty;
                 TxtCantidad.Text = _stockSeleccionado.Cantidad.ToString();
-                TxtCosto.Text = _stockSeleccionado.Costo.ToString("F2");
-                TxtGanancia.Text = _stockSeleccionado.Ganancia.ToString("F2");
+                TxtCosto.Text = DecimalFormatter.ToDecimal(_stockSeleccionado.Costo);
+                TxtGanancia.Text = DecimalFormatter.ToDecimal(_stockSeleccionado.Ganancia);
 
                 // Cargar combos
                 CargarCombosSeleccion();
@@ -717,10 +716,10 @@ namespace Agraria.UI.Articulos
             {
                 return;
             }
-            decimal costo = Convert.ToDecimal(TxtCosto.Text);
-            decimal ganancia = Convert.ToDecimal(TxtGanancia.Text);
+            decimal costo = DecimalFormatter.ParseDecimal(TxtCosto.Text);
+            decimal ganancia = DecimalFormatter.ParseDecimal(TxtGanancia.Text);
 
-            LblPrecio.Text = "$" + (costo + (costo * ganancia / 100)).ToString(cultureArg);
+            LblPrecio.Text = DecimalFormatter.ToCurrency(costo + (costo * ganancia / 100));
         }
 
         private void UCConsultaArticulos_VisibleChanged(object sender, EventArgs e)

@@ -30,8 +30,6 @@ namespace Agraria.UI.Ventas
         private int _ultimoIndiceSeleccionado = -1;
         private readonly BindingList<ProductoResumen> _productosResumen = [];
         private List<ArticuloStock> _todosLosProductos = [];
-        // Agregar en el inicio de la clase
-        private readonly CultureInfo _cultureArgentina = new("es-AR");
 
         public UCIngresoVenta(IArticuloStockService articuloStockService,
                              IVentaService ventaService, ILogger<UCIngresoVenta> logger)
@@ -48,12 +46,9 @@ namespace Agraria.UI.Ventas
         }
 
 
-
-
-
         private string FormatearPesoArgentino(decimal valor)
         {
-            return valor.ToString("C", _cultureArgentina);
+            return DecimalFormatter.ToCurrency(valor);
         }
 
         private static (int cantidad, decimal total) CalcularTotales(List<ProductoResumen> productos)
@@ -111,7 +106,7 @@ namespace Agraria.UI.Ventas
             var stylePesos = new DataGridViewCellStyle
             {
                 Format = "C",
-                FormatProvider = _cultureArgentina,
+                FormatProvider = DecimalFormatter.ArgentinaCulture,
                 Alignment = DataGridViewContentAlignment.MiddleRight
             };
 
@@ -179,7 +174,7 @@ namespace Agraria.UI.Ventas
                 LblProducto.Text = selectedItem.Art_Desc;
                 // Corregir el cálculo del precio
                 decimal precio = selectedItem.Costo * (1 + selectedItem.Ganancia / 100);
-                LblPrecio.Text = precio.ToString();
+                LblPrecio.Text = DecimalFormatter.ToCurrency(precio);
 
                 // Seleccionar la fila correspondiente en el DataGridView
                 _evitarBucleEventos = true;
@@ -348,7 +343,7 @@ namespace Agraria.UI.Ventas
             DgvProductosSeleccionados.ClearSelection();
             LblProducto.Text = string.Empty;
             LblPrecio.Text = string.Empty;
-            LblPrecioCant.Text = 0m.ToString("C2");
+            LblPrecioCant.Text = DecimalFormatter.ToCurrency(0m);
             NumericUpDown1.Value = 1;
 
             _evitarBucleEventos = false;
@@ -485,7 +480,7 @@ namespace Agraria.UI.Ventas
             Result<bool>? result = null;
             try
             {
-                decimal subtotal = Convert.ToDecimal(LblPrecioTotal.Text.Split('$')[1], _cultureArgentina);
+                decimal subtotal = DecimalFormatter.ParseDecimal(LblPrecioTotal.Text.Split('$')[1]);
                 decimal descuento = 0;
 
                 var hVentas = new HVentas
@@ -498,7 +493,6 @@ namespace Agraria.UI.Ventas
                 };
 
                 result = await _ventaService.Add(hVentas, [.. _productosResumen]);
-
                 if (result.IsSuccess)
                 {
                     MostrarMensajeExito("Venta procesada correctamente.");
@@ -523,7 +517,7 @@ namespace Agraria.UI.Ventas
             LimpiarSeleccion();
             NumericUpDown1.Value = 1;
             LblCantProductos.Text = "0";
-            LblPrecioTotal.Text = 0m.ToString("C2");
+            LblPrecioTotal.Text = DecimalFormatter.ToCurrency(0m);
 
             // Resetear las variables de seguimiento
             _ultimoCodigoArticuloSeleccionado = null;
@@ -631,7 +625,7 @@ namespace Agraria.UI.Ventas
             {
                 LblProducto.Text = itemASeleccionar.Art_Desc;
                 decimal precio = itemASeleccionar.Costo * (1 + itemASeleccionar.Ganancia / 100);
-                LblPrecio.Text = precio.ToString();
+                LblPrecio.Text = DecimalFormatter.ToCurrency(precio);
             }
             else
             {
@@ -736,5 +730,9 @@ namespace Agraria.UI.Ventas
         }
 
 
+
+
     }
 }
+
+              

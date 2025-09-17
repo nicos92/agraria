@@ -40,7 +40,6 @@ namespace Agraria.UI.Inventario
         private List<Stock> _listaStock;
 
         private int _indiceSeleccionado;
-        private readonly CultureInfo cultureArg = new("es-AR");
 
         #endregion
 
@@ -397,7 +396,7 @@ namespace Agraria.UI.Inventario
             }
 
             _stockSeleccionado.Cantidad = Convert.ToInt32(TxtCantidad.Text);
-            _stockSeleccionado.Costo = Convert.ToDecimal(TxtPrecio.Text);
+            _stockSeleccionado.Costo = DecimalFormatter.ParseDecimal(TxtPrecio.Text);
             _stockSeleccionado.Ganancia = 0; // No se utiliza en este contexto
 
             return true;
@@ -444,7 +443,7 @@ namespace Agraria.UI.Inventario
                 }
                 TxtDescripcion.Text = _articuloSeleccionado.Art_Descripcion ?? string.Empty;
                 TxtCantidad.Text = _stockSeleccionado.Cantidad.ToString();
-                TxtPrecio.Text = _stockSeleccionado.Costo.ToString("F2");
+                TxtPrecio.Text = DecimalFormatter.ToDecimal(_stockSeleccionado.Costo);
             }
             else
             {

@@ -33,7 +33,6 @@ namespace Agraria.UI.Inventario
         private readonly ErrorProvider _epTxtNombre;
         private readonly ErrorProvider _epTxtCantidad;
         private readonly ErrorProvider _epTxtPrecio;
-        private readonly CultureInfo cultureArg = new("es-AR");
 
         #endregion Atributos y Propiedades
 
@@ -95,7 +94,7 @@ namespace Agraria.UI.Inventario
         private void CrearStock()
         {
             _stockSeleccionado.Cantidad = Convert.ToDecimal(TxtCantidad.Text);
-            _stockSeleccionado.Costo = Convert.ToDecimal(TxtPrecio.Text, CultureInfo.InvariantCulture);
+            _stockSeleccionado.Costo = DecimalFormatter.ParseDecimal(TxtPrecio.Text);
             _stockSeleccionado.Ganancia = 0; // No se utiliza en este contexto
         }
 

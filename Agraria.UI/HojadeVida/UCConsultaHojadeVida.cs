@@ -37,7 +37,6 @@ namespace Agraria.UI.HojadeVida
         private List<Modelo.Entidades.HojadeVida> _listaHojasVida;
 
         private int _indiceSeleccionado;
-        private readonly CultureInfo cultureArg = new("es-AR");
 
         #endregion
 
@@ -355,7 +354,7 @@ namespace Agraria.UI.HojadeVida
             _hojaVidaSeleccionada.TipoAnimal = (TipoAnimal)CMBTipoAnimal.SelectedItem;
             _hojaVidaSeleccionada.Sexo = (Sexo)CMBSexo.SelectedItem;
             _hojaVidaSeleccionada.FechaNacimiento = DTPFechaNacimiento.Value;
-            _hojaVidaSeleccionada.Peso = Convert.ToDecimal(TxtPeso.Text);
+            _hojaVidaSeleccionada.Peso = DecimalFormatter.ParseDecimal(TxtPeso.Text);
             _hojaVidaSeleccionada.EstadoSalud = TxtEstadoSalud.Text;
             _hojaVidaSeleccionada.Observaciones = TxtObservaciones.Text;
 
@@ -386,7 +385,7 @@ namespace Agraria.UI.HojadeVida
                 CMBTipoAnimal.SelectedItem = _hojaVidaSeleccionada.TipoAnimal;
                 CMBSexo.SelectedItem = _hojaVidaSeleccionada.Sexo;
                 DTPFechaNacimiento.Value = _hojaVidaSeleccionada.FechaNacimiento;
-                TxtPeso.Text = _hojaVidaSeleccionada.Peso.ToString("F2");
+                TxtPeso.Text = DecimalFormatter.ToDecimal(_hojaVidaSeleccionada.Peso);
                 TxtEstadoSalud.Text = _hojaVidaSeleccionada.EstadoSalud ?? string.Empty;
                 TxtObservaciones.Text = _hojaVidaSeleccionada.Observaciones ?? string.Empty;
             }

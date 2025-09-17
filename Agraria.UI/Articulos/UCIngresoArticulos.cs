@@ -38,7 +38,6 @@ namespace Agraria.UI.Articulos
         private readonly ErrorProvider _epTxtCantidad;
         private readonly ErrorProvider _epTxtCosto;
         private readonly ErrorProvider _epTxtGanancia;
-        private readonly CultureInfo cultureArg = new("es-AR");
 
         private List<Entornos> ListaCategorias { get; set; } = [];
         private List<Modelo.Entidades.Proveedores> ListaProveedores { get; set; } = [];
@@ -139,8 +138,8 @@ namespace Agraria.UI.Articulos
         private void CrearStock()
         {
             _stockSeleccionado.Cantidad = Convert.ToDecimal(TxtCantidad.Text);
-            _stockSeleccionado.Costo = Convert.ToDecimal(TxtCosto.Text, CultureInfo.InvariantCulture);
-            _stockSeleccionado.Ganancia = Convert.ToDecimal(TxtGanancia.Text, CultureInfo.InvariantCulture);
+            _stockSeleccionado.Costo = DecimalFormatter.ParseDecimal(TxtCosto.Text);
+            _stockSeleccionado.Ganancia = DecimalFormatter.ParseDecimal(TxtGanancia.Text);
         }
 
         /// <summary>
@@ -278,10 +277,10 @@ namespace Agraria.UI.Articulos
             {
                 return;
             }
-            decimal costo = Convert.ToDecimal(TxtCosto.Text);
-            decimal ganancia = Convert.ToDecimal(TxtGanancia.Text);
+            decimal costo = DecimalFormatter.ParseDecimal(TxtCosto.Text);
+            decimal ganancia = DecimalFormatter.ParseDecimal(TxtGanancia.Text);
 
-            LblPrecio.Text = "$" + (costo + (costo * ganancia / 100)).ToString(cultureArg);
+            LblPrecio.Text = DecimalFormatter.ToCurrency(costo + (costo * ganancia / 100));
         }
 
 

@@ -21,7 +21,6 @@ namespace Agraria.UI.Ventas
         private readonly IHVentasDetalleService _hVentasDetalleService;
         private readonly IUsuariosService _usuariosService;
         private readonly ILogger<UCConsultaVentas> _logger;
-        private readonly CultureInfo _cultureArgentina = new("es-AR");
         private List<HVentas> _ventas = [];
         private List<HVentasDetalle> _detallesVenta = [];
         private int _selectedVentaId = -1;
@@ -113,9 +112,9 @@ namespace Agraria.UI.Ventas
             }
             
             // Configurar formato de moneda para las etiquetas de totales
-            LblSubtotal.Text = (0).ToString("C", _cultureArgentina);
-            LblDescuento.Text = (0).ToString("C", _cultureArgentina);
-            LblTotal.Text = (0).ToString("C", _cultureArgentina);
+            LblSubtotal.Text = DecimalFormatter.ToCurrency(0);
+            LblDescuento.Text = DecimalFormatter.ToCurrency(0);
+            LblTotal.Text = DecimalFormatter.ToCurrency(0);
         }
 
         private async Task CargarVentasAsync()
@@ -173,7 +172,7 @@ namespace Agraria.UI.Ventas
             {
                 DgvVentas.Columns["Total"].HeaderText = "Total";
                 DgvVentas.Columns["Total"].DefaultCellStyle.Format = "C2";
-                DgvVentas.Columns["Total"].DefaultCellStyle.FormatProvider = _cultureArgentina;
+                DgvVentas.Columns["Total"].DefaultCellStyle.FormatProvider = DecimalFormatter.ArgentinaCulture;
                 DgvVentas.Columns["Total"].FillWeight = 25;
             }
 
@@ -256,7 +255,7 @@ namespace Agraria.UI.Ventas
             {
                 DgvDetalles.Columns["P_Unit"].HeaderText = "Precio Unit.";
                 DgvDetalles.Columns["P_Unit"].DefaultCellStyle.Format = "C2";
-                DgvDetalles.Columns["P_Unit"].DefaultCellStyle.FormatProvider = _cultureArgentina;
+                DgvDetalles.Columns["P_Unit"].DefaultCellStyle.FormatProvider = DecimalFormatter.ArgentinaCulture;
                 DgvDetalles.Columns["P_Unit"].FillWeight = 15;
             }
                 
@@ -270,7 +269,7 @@ namespace Agraria.UI.Ventas
             {
                 DgvDetalles.Columns["P_X_Cant"].HeaderText = "Total";
                 DgvDetalles.Columns["P_X_Cant"].DefaultCellStyle.Format = "C2";
-                DgvDetalles.Columns["P_X_Cant"].DefaultCellStyle.FormatProvider = _cultureArgentina;
+                DgvDetalles.Columns["P_X_Cant"].DefaultCellStyle.FormatProvider = DecimalFormatter.ArgentinaCulture;
                 DgvDetalles.Columns["P_X_Cant"].FillWeight = 15;
             }
         }
@@ -279,9 +278,9 @@ namespace Agraria.UI.Ventas
         {
             LblIdRemito.Text = venta.Id_Remito.ToString();
             LblFecha.Text = venta.Fecha_Hora.ToString("dd/MM/yyyy HH:mm");
-            LblSubtotal.Text = venta.Subtotal.ToString("C", _cultureArgentina);
-            LblDescuento.Text = venta.Descu.ToString("C", _cultureArgentina);
-            LblTotal.Text = venta.Total.ToString("C", _cultureArgentina);
+            LblSubtotal.Text = DecimalFormatter.ToCurrency(venta.Subtotal);
+            LblDescuento.Text = DecimalFormatter.ToCurrency(venta.Descu);
+            LblTotal.Text = DecimalFormatter.ToCurrency(venta.Total);
 
             // Cargar información adicional (cliente, usuario) de forma asíncrona
             // TODO: Descomentar cuando los servicios estén disponibles

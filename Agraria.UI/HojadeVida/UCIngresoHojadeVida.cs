@@ -31,7 +31,6 @@ namespace Agraria.UI.HojadeVida
         private readonly ErrorProvider _epTxtCodigo;
         private readonly ErrorProvider _epTxtPeso;
         private readonly ErrorProvider _epTxtEstadoSalud;
-        private readonly CultureInfo cultureArg = new("es-AR");
 
         #endregion Atributos y Propiedades
 
@@ -82,7 +81,7 @@ namespace Agraria.UI.HojadeVida
             _hojaVidaSeleccionada.TipoAnimal = (TipoAnimal)CMBTipoAnimal.SelectedItem;
             _hojaVidaSeleccionada.Sexo = (Sexo)CMBSexo.SelectedItem;
             _hojaVidaSeleccionada.FechaNacimiento = DTPFechaNacimiento.Value;
-            _hojaVidaSeleccionada.Peso = Convert.ToDecimal(TxtPeso.Text);
+            _hojaVidaSeleccionada.Peso = DecimalFormatter.ParseDecimal(TxtPeso.Text);
             _hojaVidaSeleccionada.EstadoSalud = TxtEstadoSalud.Text;
             _hojaVidaSeleccionada.Observaciones = TxtObservaciones.Text;
 

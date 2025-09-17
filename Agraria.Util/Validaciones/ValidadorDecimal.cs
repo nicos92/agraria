@@ -29,18 +29,18 @@ namespace Agraria.Util.Validaciones
         protected override void ValidarKeyPress(object sender, KeyPressEventArgs e)
         {
 
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && e.KeyChar != (char)Keys.Back && e.KeyChar != '.')
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && e.KeyChar != (char)Keys.Back && e.KeyChar != ',')
             {
                 e.Handled = true; // Ignora la entrada de la tecla
             }
-            if (e.KeyChar == '.' && ((TextBox)sender).Text.Contains('.'))
+            if (e.KeyChar == ',' && ((TextBox)sender).Text.Contains(','))
             {
                 e.Handled = true; // Ignora la entrada de la tecla
 
             }
         }
 
-        [GeneratedRegex(@"^\d+(.\d{1,3})?$", RegexOptions.Compiled)]
+        [GeneratedRegex(@"^\d+(,\d{1,3})?$", RegexOptions.Compiled)]
         private static partial Regex DecimalRegex();
     }
 }
