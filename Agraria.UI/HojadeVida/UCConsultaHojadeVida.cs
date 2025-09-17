@@ -207,7 +207,7 @@ namespace Agraria.UI.HojadeVida
         private void TxtCodigo_TextChanged(object sender, EventArgs e)
         {
             ValidadorMultiple.ValidacionMultiple(
-                [BtnGuardar],
+                BtnGuardar,
                 _validadorCodigo,
                 _validadorPeso,
                 _validadorEstadoSalud);

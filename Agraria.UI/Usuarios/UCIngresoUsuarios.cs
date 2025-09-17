@@ -25,11 +25,17 @@ namespace Agraria.UI.Usuarios
         private readonly ValidadorTextBox _vTxtNombre;
         private readonly ValidadorTextBox _vTxtTel;
         private readonly ValidadorTextBox _vTxtEmail;
+        private readonly ValidadorTextBox _vTxtContra;
+        private readonly ValidadorTextBox _vTxtContraDos;
+        private readonly ValidadorTextBox _vTxtRespues;
         private readonly ErrorProvider _epDni;
         private readonly ErrorProvider _epApellido;
         private readonly ErrorProvider _epNombre;
         private readonly ErrorProvider _epTel;
         private readonly ErrorProvider _epEmail;
+        private readonly ErrorProvider _epContra;
+        private readonly ErrorProvider _epContraDos;
+        private readonly ErrorProvider _epRespues;
 
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="UCIngresoUsuarios"/>.
@@ -72,6 +78,17 @@ namespace Agraria.UI.Usuarios
             {
                 MensajeError = "El email ingresado no es válido."
             };
+
+            _epContra = new ErrorProvider();
+            _vTxtContra = new ValidadorPassword(TxtContra, _epContra);
+            _epContraDos = new ErrorProvider();
+            _vTxtContraDos = new ValidadorPassword(TxtContraDos, _epContraDos);
+            _epRespues = new ErrorProvider();
+            _vTxtRespues = new ValidadorNombre(TxtRespues, _epRespues)
+            {
+                MensajeError = "La respuesta no puede estar vacía."
+            };
+
         }
 
         /// <summary>
@@ -84,6 +101,12 @@ namespace Agraria.UI.Usuarios
             TxtDni.Focus();
             ConfigBtns();
             await CargarTiposUsuarios();
+            
+            // Establecer un valor predeterminado para el combo box de preguntas
+            if (CMBPregunta.Items.Count > 0)
+            {
+                CMBPregunta.SelectedIndex = 0;
+            }
         }
 
         /// <summary>
@@ -114,7 +137,15 @@ namespace Agraria.UI.Usuarios
         /// <param name="e">Los datos del evento.</param>
         private void TxtDni_TextChanged(object sender, EventArgs e)
         {
-            ValidadorMultiple.ValidacionMultiple([BtnIngresar], _vTxtDni, _vTxtApellido, _vTxtNombre, _vTxtTel, _vTxtEmail);
+            ValidadorMultiple.ValidacionMultiple(BtnIngresar, _vTxtDni, _vTxtApellido, _vTxtNombre, _vTxtTel, _vTxtEmail, _vTxtContra, _vTxtContraDos, _vTxtRespues);
+            if (TxtContra.Text != TxtContraDos.Text)
+            {
+                LblError.Visible = true;
+            }
+            else
+            {
+                LblError.Visible = false;
+            }
         }
 
         /// <summary>
@@ -135,7 +166,9 @@ namespace Agraria.UI.Usuarios
                 Nombre = TxtNombre.Text,
                 Tel = TxtTel.Text,
                 Mail = TxtEmail.Text,
-                Id_Tipo = tipoUsuario
+                Id_Tipo = tipoUsuario,
+                Contra = "123456", // Contraseña por defecto al crear un nuevo usuario
+                Respues = TxtRespues.Text
             };
         }
 
@@ -188,5 +221,6 @@ namespace Agraria.UI.Usuarios
                 }
             }
         }
+
     }
 }

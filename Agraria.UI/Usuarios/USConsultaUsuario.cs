@@ -122,7 +122,7 @@ namespace Agraria.UI.Usuarios
         /// <param name="e">La instancia de <see cref="EventArgs"/> que contiene los datos del evento.</param>
         private void TxtDni_TextChanged(object sender, EventArgs e)
         {
-            ValidadorMultiple.ValidacionMultiple([BtnGuardar], _vTxtDni, _vTxtApellido, _vTxtNombre, _vTxtTel, _vTxtEmail);
+            ValidadorMultiple.ValidacionMultiple(BtnGuardar, _vTxtDni, _vTxtApellido, _vTxtNombre, _vTxtTel, _vTxtEmail);
         }
 
         /// <summary>

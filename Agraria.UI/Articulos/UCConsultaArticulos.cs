@@ -244,7 +244,7 @@ namespace Agraria.UI.Articulos
         private void TxtDescripcion_TextChanged(object sender, EventArgs e)
         {
             ValidadorMultiple.ValidacionMultiple(
-                [BtnGuardar],
+                BtnGuardar,
                 _validadorDescripcion,
                 _validadorCantidad,
                 _validadorCosto,

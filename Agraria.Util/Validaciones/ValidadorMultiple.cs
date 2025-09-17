@@ -11,10 +11,10 @@ namespace Agraria.Util.Validaciones
     [SupportedOSPlatform("windows")]
     public static class ValidadorMultiple
     {
-        public static void ValidacionMultiple(Button[] btn, params ValidadorTextBox[] validaciones )
+        public static void ValidacionMultiple(Button btn, params ValidadorTextBox[] validaciones )
         {
 
-            btn.ToList().ForEach(b => b.Enabled = validaciones.All(a => a.Validar()));
+             btn.Enabled = validaciones.All(a => a.Validar());
             
         }
     }

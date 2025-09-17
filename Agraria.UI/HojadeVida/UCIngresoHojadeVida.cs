@@ -64,7 +64,7 @@ namespace Agraria.UI.HojadeVida
         /// <param name="e">El <see cref="EventArgs"/> instancia que contiene los datos del evento.</param>
         private void TxtCodigo_TextChanged(object sender, EventArgs e)
         {
-            ValidadorMultiple.ValidacionMultiple([BtnIngresar], _vTxtCodigo, _vTxtPeso, _vTxtEstadoSalud);
+            ValidadorMultiple.ValidacionMultiple(BtnIngresar, _vTxtCodigo, _vTxtPeso, _vTxtEstadoSalud);
         }
 
         #endregion Eventos

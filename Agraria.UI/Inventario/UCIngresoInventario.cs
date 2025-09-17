@@ -68,7 +68,7 @@ namespace Agraria.UI.Inventario
         /// <param name="e">El <see cref="EventArgs"/> instancia que contiene los datos del evento.</param>
         private void TxtNombre_TextChanged(object sender, EventArgs e)
         {
-            ValidadorMultiple.ValidacionMultiple([BtnIngresar], _vTxtNombre, _vTxtCantidad, _vTxtPrecio);
+            ValidadorMultiple.ValidacionMultiple(BtnIngresar, _vTxtNombre, _vTxtCantidad, _vTxtPrecio);
         }
 
         #endregion Eventos

@@ -82,7 +82,7 @@ namespace Agraria.UI.Articulos
         /// <param name="e">El <see cref="EventArgs"/> instancia que contiene los datos del evento.</param>
         private void TxtDescripcion_TextChanged(object sender, EventArgs e)
         {
-            ValidadorMultiple.ValidacionMultiple([BtnIngresar], _vTxtDescripcion, _vTxtCantidad, _vTxtCosto, _vTxtGanancia);
+            ValidadorMultiple.ValidacionMultiple(BtnIngresar, _vTxtDescripcion, _vTxtCantidad, _vTxtCosto, _vTxtGanancia);
         }
 
         /// <summary>

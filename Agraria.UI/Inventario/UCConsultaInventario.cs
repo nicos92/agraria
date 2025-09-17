@@ -216,7 +216,7 @@ namespace Agraria.UI.Inventario
         private void TxtNombre_TextChanged(object sender, EventArgs e)
         {
             ValidadorMultiple.ValidacionMultiple(
-                [BtnGuardar],
+                BtnGuardar,
                 _validadorNombre,
                 _validadorCantidad,
                 _validadorPrecio);

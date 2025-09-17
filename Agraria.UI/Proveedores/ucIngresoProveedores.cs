@@ -139,7 +139,7 @@ namespace Agraria.UI.Proveedores
         /// <param name="e">Los datos del evento.</param>
         private void TxtCuit_TextChanged(object sender, EventArgs e)
         {
-            ValidadorMultiple.ValidacionMultiple([BtnIngresar], _vTxtCuit, _vTxtProveedor, _vTxtNombre, _vTxtTel, _vTxtEmail);
+            ValidadorMultiple.ValidacionMultiple(BtnIngresar, _vTxtCuit, _vTxtProveedor, _vTxtNombre, _vTxtTel, _vTxtEmail);
         }
 
         /// <summary>
