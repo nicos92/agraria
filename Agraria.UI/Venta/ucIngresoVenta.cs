@@ -19,7 +19,7 @@ namespace Agraria.UI.Ventas
 {
     public partial class UCIngresoVenta : UserControl
     {
-        // TODO: REVISAR POR QUE NO SE PUEDE EFECUTAR LA VENTA QUE NO ENCUENTRA ARTICULOS EN LA LISTA
+        
         private readonly IArticuloStockService _articuloStockService;
         private readonly IVentaService _ventaService;
         private readonly ILogger<UCIngresoVenta> _logger;
@@ -465,7 +465,7 @@ namespace Agraria.UI.Ventas
 
         private async Task ConfirmarVentaAsync()
         {
-            if (SingleListas.Instance.ProductosSeleccionados.Count == 0)
+            if (SingleListas.Instance.ProductoResumen.Count == 0)
             {
                 MostrarMensajeAdvertencia("No hay productos seleccionados para la venta.");
                 return;
@@ -517,7 +517,7 @@ namespace Agraria.UI.Ventas
 
         private void LimpiarFormulario()
         {
-            SingleListas.Instance.ProductosSeleccionados.Clear();
+            SingleListas.Instance.ProductoResumen.Clear();
             _productosResumen.Clear();
 
             LimpiarSeleccion();
@@ -555,12 +555,12 @@ namespace Agraria.UI.Ventas
                 return;
             }
 
-            var articuloQuitar = SingleListas.Instance.ProductosSeleccionados
+            var articuloQuitar = SingleListas.Instance.ProductoResumen
                 .FirstOrDefault(p => p.Cod_Articulo == articulo.Cod_Articulo);
 
             if (articuloQuitar != null)
             {
-                SingleListas.Instance.ProductosSeleccionados.Remove(articuloQuitar);
+                SingleListas.Instance.ProductoResumen.Remove(articuloQuitar);
                 CargarDataGridView();
 
             }
@@ -573,12 +573,12 @@ namespace Agraria.UI.Ventas
                 return;
             }
 
-            var articuloQuitar = SingleListas.Instance.ProductosSeleccionados
+            var articuloQuitar = SingleListas.Instance.ProductoResumen
                 .FirstOrDefault(p => p.Cod_Articulo == articulo.Cod_Articulo);
 
             if (articuloQuitar != null)
             {
-                SingleListas.Instance.ProductosSeleccionados.RemoveAll(p => p.Cod_Articulo == articulo.Cod_Articulo);
+                SingleListas.Instance.ProductoResumen.RemoveAll(p => p.Cod_Articulo == articulo.Cod_Articulo);
                 CargarDataGridView();
 
             }
@@ -686,7 +686,6 @@ namespace Agraria.UI.Ventas
         private void UCIngresoVenta_Disposed(object sender, EventArgs e)
         {
             SingleListas.Instance.ProductoResumen.Clear();
-            SingleListas.Instance.ProductosSeleccionados.Clear();
         }
 
         private void TxtBuscardor_TextChanged(object sender, EventArgs e)
