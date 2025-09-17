@@ -288,7 +288,7 @@ namespace Agraria.UI.Ventas
             //async CargarInformacionAdicionalAsync(venta);
         }
 
-        private async Task CargarInformacionAdicionalAsync(HVentas venta)
+        private static async Task CargarInformacionAdicionalAsync(HVentas venta)
         {
             // TODO: Descomentar cuando los servicios estén disponibles
             //try

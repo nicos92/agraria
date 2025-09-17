@@ -300,10 +300,10 @@ namespace Agraria.UI.HojadeVida
         private void CargarCMB()
         {
             // Cargar tipos de animal
-            CMBTipoAnimal.DataSource = Enum.GetValues(typeof(TipoAnimal)).Cast<TipoAnimal>().ToList();
+            CMBTipoAnimal.DataSource = Enum.GetValues<TipoAnimal>().Cast<TipoAnimal>().ToList();
 
             // Cargar sexos
-            CMBSexo.DataSource = Enum.GetValues(typeof(Sexo)).Cast<Sexo>().ToList();
+            CMBSexo.DataSource = Enum.GetValues<Sexo>().Cast<Sexo>().ToList();
         }
 
         #endregion

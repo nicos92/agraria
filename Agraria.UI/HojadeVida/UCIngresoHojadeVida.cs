@@ -115,10 +115,10 @@ namespace Agraria.UI.HojadeVida
         private void CargarCMB()
         {
             // Cargar tipos de animal
-            CMBTipoAnimal.DataSource = Enum.GetValues(typeof(TipoAnimal)).Cast<TipoAnimal>().ToList();
+            CMBTipoAnimal.DataSource = Enum.GetValues<TipoAnimal>().Cast<TipoAnimal>().ToList();
 
             // Cargar sexos
-            CMBSexo.DataSource = Enum.GetValues(typeof(Sexo)).Cast<Sexo>().ToList();
+            CMBSexo.DataSource = Enum.GetValues<Sexo>().Cast<Sexo>().ToList();
         }
 
         #endregion Métodos Privados
@@ -145,7 +145,7 @@ namespace Agraria.UI.HojadeVida
         /// <summary>
         /// Inserta una nueva hoja de vida en la base de datos.
         /// </summary>
-        public async Task InsertarHojadeVida()
+        public static async Task InsertarHojadeVida()
         {
             // TODO: Implementar la lógica para insertar HojadeVida en la base de datos
             // Esta implementación es un placeholder ya que no hay un servicio específico para HojadeVida

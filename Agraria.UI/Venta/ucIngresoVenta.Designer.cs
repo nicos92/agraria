@@ -169,9 +169,9 @@ namespace Agraria.UI.Ventas
             NumericUpDown1.DecimalPlaces = 2;
             NumericUpDown1.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             NumericUpDown1.ForeColor = Color.FromArgb(26, 28, 30);
-            NumericUpDown1.Increment = new decimal(new int[] { 1, 0, 0, 65536 });
+            NumericUpDown1.Increment = new decimal(new int[] { 5, 0, 0, 131072 });
             NumericUpDown1.Location = new Point(84, 7);
-            NumericUpDown1.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
+            NumericUpDown1.Maximum = new decimal(new int[] { 10000, 0, 0, 0 });
             NumericUpDown1.Name = "NumericUpDown1";
             NumericUpDown1.Size = new Size(198, 29);
             NumericUpDown1.TabIndex = 3;

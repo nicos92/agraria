@@ -28,7 +28,7 @@ namespace Agraria.UI.Ventas
         private bool _procesandoSeleccion = false;
         private string? _ultimoCodigoArticuloSeleccionado;
         private int _ultimoIndiceSeleccionado = -1;
-        private BindingList<ProductoResumen> _productosResumen = [];
+        private readonly BindingList<ProductoResumen> _productosResumen = [];
         private List<ArticuloStock> _todosLosProductos = [];
         // Agregar en el inicio de la clase
         private readonly CultureInfo _cultureArgentina = new("es-AR");
@@ -238,7 +238,7 @@ namespace Agraria.UI.Ventas
             }
         }
 
-        private void AgregarProductosAlCarrito(ArticuloStock producto, decimal cantidad)
+        private static void AgregarProductosAlCarrito(ArticuloStock producto, decimal cantidad)
         {
             // Calcular el precio unitario correctamente
             decimal precioUnitario = producto.Costo * (1 + producto.Ganancia / 100);
@@ -327,7 +327,7 @@ namespace Agraria.UI.Ventas
                 DgvProductosSeleccionados.Rows[indiceParaSeleccionar].Selected = true;
                 DgvProductosSeleccionados.CurrentCell = DgvProductosSeleccionados.Rows[indiceParaSeleccionar].Cells[1];
 
-                if (DgvProductosSeleccionados.Rows[indiceParaSeleccionar].DataBoundItem is ProductoResumen productoSeleccionado)
+                if (DgvProductosSeleccionados.Rows[indiceParaSeleccionar].DataBoundItem is ProductoResumen productoSeleccionado && productoSeleccionado.Cod_Articulo != null)
                 {
                     SeleccionarProductoEnListBox(productoSeleccionado.Cod_Articulo);
                     _ultimoCodigoArticuloSeleccionado = productoSeleccionado.Cod_Articulo;
