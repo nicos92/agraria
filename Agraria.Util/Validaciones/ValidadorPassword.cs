@@ -10,7 +10,7 @@ namespace Agraria.Util.Validaciones
         public ValidadorPassword(TextBox textBox, ErrorProvider errorProvider)
             : base(textBox, errorProvider)
         {
-            MensajeError = "La contraseña debe tener al menos 8 caracteres, incluyendo mayúsculas, minúsculas, números y caracteres especiales.";
+            MensajeError = "La contraseña debe tener al menos 8 caracteres, incluyendo mayúsculas, minúsculas, números y caracteres especiales @$!%*?&";
         }
 
         public override bool Validar()
