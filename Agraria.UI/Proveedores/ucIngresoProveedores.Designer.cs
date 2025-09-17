@@ -45,6 +45,8 @@ namespace Agraria.UI.Proveedores
             TxtNombre = new TextBox();
             TxtProveedor = new TextBox();
             TxtCuit = new TextBox();
+            label5 = new Label();
+            TxtObservacion = new TextBox();
             PanelForm.SuspendLayout();
             tableLayoutPanel4.SuspendLayout();
             GBFormProveedores.SuspendLayout();
@@ -61,11 +63,10 @@ namespace Agraria.UI.Proveedores
             BtnIngresar.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             BtnIngresar.ForeColor = Color.FromArgb(255, 255, 255);
             BtnIngresar.Image = Properties.Resources.ingresar;
-            BtnIngresar.Location = new Point(209, 302);
-            BtnIngresar.Margin = new Padding(0);
+            BtnIngresar.Location = new Point(209, 360);
+            BtnIngresar.Margin = new Padding(4);
             BtnIngresar.Name = "BtnIngresar";
-            TLPForm.SetRowSpan(BtnIngresar, 2);
-            BtnIngresar.Size = new Size(192, 64);
+            BtnIngresar.Size = new Size(192, 61);
             BtnIngresar.TabIndex = 5;
             BtnIngresar.Text = "INGRESAR";
             BtnIngresar.TextImageRelation = TextImageRelation.TextBeforeImage;
@@ -103,9 +104,9 @@ namespace Agraria.UI.Proveedores
             GBFormProveedores.Controls.Add(TLPForm);
             GBFormProveedores.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             GBFormProveedores.ForeColor = Color.FromArgb(7, 100, 147);
-            GBFormProveedores.Location = new Point(92, 70);
+            GBFormProveedores.Location = new Point(92, 42);
             GBFormProveedores.Name = "GBFormProveedores";
-            GBFormProveedores.Size = new Size(619, 420);
+            GBFormProveedores.Size = new Size(619, 476);
             GBFormProveedores.TabIndex = 6;
             GBFormProveedores.TabStop = false;
             GBFormProveedores.Text = "Formulario de Ingreso de Proveedores";
@@ -127,21 +128,24 @@ namespace Agraria.UI.Proveedores
             TLPForm.Controls.Add(TxtNombre, 1, 3);
             TLPForm.Controls.Add(TxtProveedor, 1, 2);
             TLPForm.Controls.Add(TxtCuit, 1, 1);
-            TLPForm.Controls.Add(BtnIngresar, 1, 6);
+            TLPForm.Controls.Add(BtnIngresar, 1, 7);
+            TLPForm.Controls.Add(label5, 0, 6);
+            TLPForm.Controls.Add(TxtObservacion, 1, 6);
             TLPForm.Dock = DockStyle.Fill;
             TLPForm.ForeColor = Color.FromArgb(26, 28, 30);
             TLPForm.Location = new Point(3, 29);
             TLPForm.Name = "TLPForm";
-            TLPForm.RowCount = 8;
-            TLPForm.RowStyles.Add(new RowStyle(SizeType.Percent, 5.40540552F));
-            TLPForm.RowStyles.Add(new RowStyle(SizeType.Percent, 13.5135136F));
-            TLPForm.RowStyles.Add(new RowStyle(SizeType.Percent, 13.5135136F));
-            TLPForm.RowStyles.Add(new RowStyle(SizeType.Percent, 13.5135136F));
-            TLPForm.RowStyles.Add(new RowStyle(SizeType.Percent, 13.5135136F));
-            TLPForm.RowStyles.Add(new RowStyle(SizeType.Percent, 13.5135136F));
-            TLPForm.RowStyles.Add(new RowStyle(SizeType.Percent, 13.5135136F));
-            TLPForm.RowStyles.Add(new RowStyle(SizeType.Percent, 13.5135136F));
-            TLPForm.Size = new Size(613, 388);
+            TLPForm.RowCount = 9;
+            TLPForm.RowStyles.Add(new RowStyle(SizeType.Absolute, 16F));
+            TLPForm.RowStyles.Add(new RowStyle());
+            TLPForm.RowStyles.Add(new RowStyle(SizeType.Percent, 20F));
+            TLPForm.RowStyles.Add(new RowStyle(SizeType.Percent, 20F));
+            TLPForm.RowStyles.Add(new RowStyle(SizeType.Percent, 16.1290321F));
+            TLPForm.RowStyles.Add(new RowStyle(SizeType.Percent, 16.1290321F));
+            TLPForm.RowStyles.Add(new RowStyle(SizeType.Percent, 27.7419357F));
+            TLPForm.RowStyles.Add(new RowStyle());
+            TLPForm.RowStyles.Add(new RowStyle(SizeType.Absolute, 16F));
+            TLPForm.Size = new Size(613, 444);
             TLPForm.TabIndex = 0;
             // 
             // TxtEmail
@@ -150,7 +154,7 @@ namespace Agraria.UI.Proveedores
             TxtEmail.BackColor = Color.FromArgb(238, 237, 240);
             TxtEmail.Font = new Font("Segoe UI", 12F);
             TxtEmail.ForeColor = Color.FromArgb(26, 28, 30);
-            TxtEmail.Location = new Point(125, 239);
+            TxtEmail.Location = new Point(125, 232);
             TxtEmail.MaxLength = 255;
             TxtEmail.Name = "TxtEmail";
             TxtEmail.Size = new Size(361, 29);
@@ -162,7 +166,7 @@ namespace Agraria.UI.Proveedores
             label1.Anchor = AnchorStyles.Right;
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 12F);
-            label1.Location = new Point(68, 243);
+            label1.Location = new Point(68, 236);
             label1.Name = "label1";
             label1.Size = new Size(51, 21);
             label1.TabIndex = 1;
@@ -173,7 +177,7 @@ namespace Agraria.UI.Proveedores
             label3.Anchor = AnchorStyles.Right;
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI", 12F);
-            label3.Location = new Point(85, 191);
+            label3.Location = new Point(85, 187);
             label3.Name = "label3";
             label3.Size = new Size(34, 21);
             label3.TabIndex = 3;
@@ -184,7 +188,7 @@ namespace Agraria.UI.Proveedores
             label4.Anchor = AnchorStyles.Right;
             label4.AutoSize = true;
             label4.Font = new Font("Segoe UI", 12F);
-            label4.Location = new Point(48, 139);
+            label4.Location = new Point(48, 132);
             label4.Name = "label4";
             label4.Size = new Size(71, 21);
             label4.TabIndex = 4;
@@ -195,7 +199,7 @@ namespace Agraria.UI.Proveedores
             label2.Anchor = AnchorStyles.Right;
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 12F);
-            label2.Location = new Point(34, 87);
+            label2.Location = new Point(34, 71);
             label2.Name = "label2";
             label2.Size = new Size(85, 21);
             label2.TabIndex = 2;
@@ -206,7 +210,7 @@ namespace Agraria.UI.Proveedores
             LblCuit.Anchor = AnchorStyles.Right;
             LblCuit.AutoSize = true;
             LblCuit.Font = new Font("Segoe UI", 12F);
-            LblCuit.Location = new Point(73, 35);
+            LblCuit.Location = new Point(73, 23);
             LblCuit.Name = "LblCuit";
             LblCuit.Size = new Size(46, 21);
             LblCuit.TabIndex = 0;
@@ -218,7 +222,7 @@ namespace Agraria.UI.Proveedores
             TxtTel.BackColor = Color.FromArgb(238, 237, 240);
             TxtTel.Font = new Font("Segoe UI", 12F);
             TxtTel.ForeColor = Color.FromArgb(26, 28, 30);
-            TxtTel.Location = new Point(125, 187);
+            TxtTel.Location = new Point(125, 183);
             TxtTel.MaxLength = 11;
             TxtTel.Name = "TxtTel";
             TxtTel.Size = new Size(361, 29);
@@ -231,7 +235,7 @@ namespace Agraria.UI.Proveedores
             TxtNombre.BackColor = Color.FromArgb(238, 237, 240);
             TxtNombre.Font = new Font("Segoe UI", 12F);
             TxtNombre.ForeColor = Color.FromArgb(26, 28, 30);
-            TxtNombre.Location = new Point(125, 135);
+            TxtNombre.Location = new Point(125, 128);
             TxtNombre.MaxLength = 50;
             TxtNombre.Name = "TxtNombre";
             TxtNombre.Size = new Size(361, 29);
@@ -244,7 +248,7 @@ namespace Agraria.UI.Proveedores
             TxtProveedor.BackColor = Color.FromArgb(238, 237, 240);
             TxtProveedor.Font = new Font("Segoe UI", 12F);
             TxtProveedor.ForeColor = Color.FromArgb(26, 28, 30);
-            TxtProveedor.Location = new Point(125, 83);
+            TxtProveedor.Location = new Point(125, 67);
             TxtProveedor.MaxLength = 50;
             TxtProveedor.Name = "TxtProveedor";
             TxtProveedor.Size = new Size(361, 29);
@@ -257,12 +261,36 @@ namespace Agraria.UI.Proveedores
             TxtCuit.BackColor = Color.FromArgb(238, 237, 240);
             TxtCuit.Font = new Font("Segoe UI", 12F);
             TxtCuit.ForeColor = Color.FromArgb(26, 28, 30);
-            TxtCuit.Location = new Point(125, 31);
+            TxtCuit.Location = new Point(125, 19);
             TxtCuit.MaxLength = 11;
             TxtCuit.Name = "TxtCuit";
             TxtCuit.Size = new Size(361, 29);
             TxtCuit.TabIndex = 0;
             TxtCuit.TextChanged += TxtCuit_TextChanged;
+            // 
+            // label5
+            // 
+            label5.Anchor = AnchorStyles.Right;
+            label5.AutoSize = true;
+            label5.Font = new Font("Segoe UI", 12F);
+            label5.Location = new Point(19, 303);
+            label5.Name = "label5";
+            label5.Size = new Size(100, 21);
+            label5.TabIndex = 6;
+            label5.Text = "Observación:";
+            // 
+            // TxtObservacion
+            // 
+            TxtObservacion.BackColor = Color.FromArgb(238, 237, 240);
+            TxtObservacion.Dock = DockStyle.Fill;
+            TxtObservacion.Font = new Font("Segoe UI", 12F);
+            TxtObservacion.ForeColor = Color.FromArgb(26, 28, 30);
+            TxtObservacion.Location = new Point(125, 274);
+            TxtObservacion.MaxLength = 400;
+            TxtObservacion.Multiline = true;
+            TxtObservacion.Name = "TxtObservacion";
+            TxtObservacion.Size = new Size(361, 79);
+            TxtObservacion.TabIndex = 7;
             // 
             // UCIngresoProveedores
             // 
@@ -299,5 +327,7 @@ namespace Agraria.UI.Proveedores
         private Button BtnIngresar;
         private TableLayoutPanel tableLayoutPanel4;
         private GroupBox GBFormProveedores;
+        private Label label5;
+        private TextBox TxtObservacion;
     }
 }

@@ -209,7 +209,7 @@ namespace Agraria.UI.Ventas
             }
 
             decimal total = precio * NumericUpDown1.Value;
-            LblPrecioCant.Text = FormatearPesoArgentino(total);
+            LblPrecioCant.Text = DecimalFormatter.ToCurrency(total);
         }
 
         private void BtnAceptar_Click(object sender, EventArgs e)
@@ -273,7 +273,7 @@ namespace Agraria.UI.Ventas
 
             var (cantidad, total) = CalcularTotales(SingleListas.Instance.ProductoResumen);
             LblCantProductos.Text = cantidad.ToString();
-            LblPrecioTotal.Text = FormatearPesoArgentino(total);
+            LblPrecioTotal.Text = DecimalFormatter.ToCurrency(total);
 
             // Limpiar y recargar la lista de productos resumen
             _productosResumen.Clear();

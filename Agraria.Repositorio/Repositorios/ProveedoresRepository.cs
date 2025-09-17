@@ -19,13 +19,14 @@ namespace Agraria.Repositorio.Repositorios
             try
             {
                 using var conn = Conexion();
-                using var cmd = new OleDbCommand("INSERT INTO Proveedores (CUIT, Proveedor, Nombre, Tel, Email) VALUES (@CUIT, @Proveedor, @Nombre, @Telefono, @Email)", conn);
+                using var cmd = new OleDbCommand("INSERT INTO Proveedores (CUIT, Proveedor, Nombre, Tel, Email, observacion) VALUES (@CUIT, @Proveedor, @Nombre, @Telefono, @Email, @Observacion)", conn);
 
                 cmd.Parameters.AddWithValue("@CUIT", Proveedor.CUIT);
                 cmd.Parameters.AddWithValue("@Proveedor", Proveedor.Proveedor);
                 cmd.Parameters.AddWithValue("@Nombre", Proveedor.Nombre);
                 cmd.Parameters.AddWithValue("@Telefono", Proveedor.Tel);
                 cmd.Parameters.AddWithValue("@Email", Proveedor.Email);
+                cmd.Parameters.AddWithValue("@Observacion", Proveedor.Observacion);
                 conn.Open();
                 int inserts = cmd.ExecuteNonQuery();
 
@@ -77,7 +78,7 @@ namespace Agraria.Repositorio.Repositorios
         public async Task<Result<List<Proveedores>>> GetAll(){
             try{
                 using OleDbConnection conn = Conexion();
-                using OleDbCommand cmd = new("SELECT Id_Proveedor, CUIT, Proveedor, Nombre, Tel, Email FROM Proveedores", conn);
+                using OleDbCommand cmd = new("SELECT Id_Proveedor, CUIT, Proveedor, Nombre, Tel, Email, observacion FROM Proveedores", conn);
                 await conn.OpenAsync();
                 using DbDataReader reader = await cmd.ExecuteReaderAsync();
                 List<Proveedores> proveedores = [];
@@ -90,7 +91,8 @@ namespace Agraria.Repositorio.Repositorios
                         Proveedor = reader.IsDBNull(2) ? null : reader.GetString(2),
                         Nombre = reader.IsDBNull(3) ? null : reader.GetString(3),
                         Tel = reader.IsDBNull(4) ? null : reader.GetString(4),
-                        Email = reader.IsDBNull(5) ? null : reader.GetString(5)
+                        Email = reader.IsDBNull(5) ? null : reader.GetString(5),
+                        Observacion = reader.GetString(6)
                     };
                     proveedores.Add(proveedor);
                 }
@@ -116,12 +118,13 @@ namespace Agraria.Repositorio.Repositorios
             try
             {
                 using var conn = Conexion();
-                using var cmd = new OleDbCommand("UPDATE Proveedores SET CUIT = @CUIT, Proveedor = @Proveedor, Nombre = @Nombre, Tel = @Telefono, Email = @Email WHERE Id_Proveedor = @Id_Proveedor", conn);
+                using var cmd = new OleDbCommand("UPDATE Proveedores SET CUIT = @CUIT, Proveedor = @Proveedor, Nombre = @Nombre, Tel = @Telefono, Email = @Email, observacion = @observacion WHERE Id_Proveedor = @Id_Proveedor", conn);
                 cmd.Parameters.AddWithValue("@CUIT", proveedor.CUIT);
                 cmd.Parameters.AddWithValue("@Proveedor", proveedor.Proveedor);
                 cmd.Parameters.AddWithValue("@Nombre", proveedor.Nombre);
                 cmd.Parameters.AddWithValue("@Telefono", proveedor.Tel);
                 cmd.Parameters.AddWithValue("@Email", proveedor.Email);
+                cmd.Parameters.AddWithValue("@observacion", proveedor.Observacion);
                 cmd.Parameters.AddWithValue("@Id_Proveedor", proveedor.Id_Proveedor);
                 conn.Open();
                 int updates = cmd.ExecuteNonQuery();
@@ -150,7 +153,7 @@ namespace Agraria.Repositorio.Repositorios
             try
             {
                 using var conn = Conexion();
-                using var cmd = new OleDbCommand("SELECT Id_Proveedor, CUIT, Proveedor, Nombre, Tel, Email FROM Proveedores WHERE Id_Proveedor = @Id_Proveedor", conn);
+                using var cmd = new OleDbCommand("SELECT Id_Proveedor, CUIT, Proveedor, Nombre, Tel, Email, Observacion FROM Proveedores WHERE Id_Proveedor = @Id_Proveedor", conn);
                 cmd.Parameters.AddWithValue("@Id_Proveedor", id);
                 conn.Open();
                 using var reader = cmd.ExecuteReader();
@@ -163,7 +166,8 @@ namespace Agraria.Repositorio.Repositorios
                         Proveedor = reader.GetString(2),
                         Nombre =  reader.GetString(3),
                         Tel = reader.GetString(4),
-                        Email =  reader.GetString(5)
+                        Email =  reader.GetString(5),
+                        Observacion = reader.GetString(6)
                     };
                     return Result<Proveedores>.Success(proveedor);
                 }
@@ -184,7 +188,7 @@ namespace Agraria.Repositorio.Repositorios
             try
             {
                 using OleDbConnection conn = Conexion();
-                using OleDbCommand cmd = new("SELECT Id_Proveedor, CUIT, Proveedor, Nombre, Tel, Email FROM Proveedores WHERE Nombre LIKE @name", conn);
+                using OleDbCommand cmd = new("SELECT Id_Proveedor, CUIT, Proveedor, Nombre, Tel, Email, observacion FROM Proveedores WHERE Nombre LIKE @name", conn);
                 cmd.Parameters.AddWithValue("@name", $"%{name}%");
                 await conn.OpenAsync();
                 using DbDataReader reader = await cmd.ExecuteReaderAsync();
@@ -194,11 +198,12 @@ namespace Agraria.Repositorio.Repositorios
                     Proveedores proveedor = new()
                     {
                         Id_Proveedor = reader.GetInt32(0),
-                        CUIT = reader.IsDBNull(1) ? null : reader.GetString(1),
-                        Proveedor = reader.IsDBNull(2) ? null : reader.GetString(2),
-                        Nombre = reader.IsDBNull(3) ? null : reader.GetString(3),
-                        Tel = reader.IsDBNull(4) ? null : reader.GetString(4),
-                        Email = reader.IsDBNull(5) ? null : reader.GetString(5)
+                        CUIT =  reader.GetString(1),
+                        Proveedor = reader.GetString(2),
+                        Nombre = reader.GetString(3),
+                        Tel = reader.GetString(4),
+                        Email = reader.GetString(5),
+                        Observacion = reader.GetString(6)
                     };
                     proveedores.Add(proveedor);
                 }

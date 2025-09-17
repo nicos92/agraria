@@ -38,11 +38,11 @@ namespace Agraria.UI.Inventario
             TxtNombre = new TextBox();
             label4 = new Label();
             label2 = new Label();
-            BtnIngresar = new Button();
             CMBUnidadMedida = new ComboBox();
             label1 = new Label();
             TxtDescripcion = new TextBox();
             label5 = new Label();
+            BtnIngresar = new Button();
             ProgressBar = new ProgressBar();
             PanelMedio.SuspendLayout();
             TLPMedio.SuspendLayout();
@@ -188,31 +188,11 @@ namespace Agraria.UI.Inventario
             label2.Anchor = AnchorStyles.Right;
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 12F);
-            label2.Location = new Point(67, 178);
+            label2.Location = new Point(70, 178);
             label2.Name = "label2";
-            label2.Size = new Size(56, 21);
+            label2.Size = new Size(53, 21);
             label2.TabIndex = 2;
-            label2.Text = "Precio:";
-            // 
-            // BtnIngresar
-            // 
-            BtnIngresar.Anchor = AnchorStyles.None;
-            BtnIngresar.BackColor = Color.FromArgb(7, 100, 147);
-            BtnIngresar.Enabled = false;
-            BtnIngresar.FlatAppearance.BorderColor = Color.FromArgb(203, 230, 255);
-            BtnIngresar.FlatStyle = FlatStyle.Flat;
-            BtnIngresar.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            BtnIngresar.ForeColor = Color.FromArgb(255, 255, 255);
-            BtnIngresar.Image = Properties.Resources.ingresar;
-            BtnIngresar.Location = new Point(234, 319);
-            BtnIngresar.Margin = new Padding(0);
-            BtnIngresar.Name = "BtnIngresar";
-            BtnIngresar.Size = new Size(192, 42);
-            BtnIngresar.TabIndex = 13;
-            BtnIngresar.Text = "INGRESAR";
-            BtnIngresar.TextImageRelation = TextImageRelation.TextBeforeImage;
-            BtnIngresar.UseVisualStyleBackColor = false;
-            BtnIngresar.Click += BtnIngresar_Click;
+            label2.Text = "Costo:";
             // 
             // CMBUnidadMedida
             // 
@@ -260,6 +240,26 @@ namespace Agraria.UI.Inventario
             label5.Size = new Size(94, 21);
             label5.TabIndex = 12;
             label5.Text = "Descripción:";
+            // 
+            // BtnIngresar
+            // 
+            BtnIngresar.Anchor = AnchorStyles.None;
+            BtnIngresar.BackColor = Color.FromArgb(7, 100, 147);
+            BtnIngresar.Enabled = false;
+            BtnIngresar.FlatAppearance.BorderColor = Color.FromArgb(203, 230, 255);
+            BtnIngresar.FlatStyle = FlatStyle.Flat;
+            BtnIngresar.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            BtnIngresar.ForeColor = Color.FromArgb(255, 255, 255);
+            BtnIngresar.Image = Properties.Resources.ingresar;
+            BtnIngresar.Location = new Point(234, 319);
+            BtnIngresar.Margin = new Padding(0);
+            BtnIngresar.Name = "BtnIngresar";
+            BtnIngresar.Size = new Size(192, 42);
+            BtnIngresar.TabIndex = 13;
+            BtnIngresar.Text = "INGRESAR";
+            BtnIngresar.TextImageRelation = TextImageRelation.TextBeforeImage;
+            BtnIngresar.UseVisualStyleBackColor = false;
+            BtnIngresar.Click += BtnIngresar_Click;
             // 
             // ProgressBar
             // 

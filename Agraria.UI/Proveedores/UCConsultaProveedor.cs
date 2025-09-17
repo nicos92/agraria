@@ -177,6 +177,7 @@ namespace Agraria.UI.Proveedores
                 TxtNombre.Text = _proveedorSeleccionado.Nombre ?? string.Empty;
                 TxtTel.Text = _proveedorSeleccionado.Tel ?? string.Empty;
                 TxtEmail.Text = _proveedorSeleccionado.Email ?? string.Empty;
+                TxtObservacion.Text = _proveedorSeleccionado.Observacion ?? string.Empty;
             }
             else
             {
@@ -200,6 +201,7 @@ namespace Agraria.UI.Proveedores
             _proveedorSeleccionado.Nombre = TxtNombre.Text;
             _proveedorSeleccionado.Tel = TxtTel.Text;
             _proveedorSeleccionado.Email = TxtEmail.Text;
+            _proveedorSeleccionado.Observacion = TxtObservacion.Text;
 
         }
 

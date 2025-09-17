@@ -24,11 +24,13 @@ namespace Agraria.UI.Proveedores
         private readonly ValidadorTextBox _vTxtNombre;
         private readonly ValidadorTextBox _vTxtTel;
         private readonly ValidadorTextBox _vTxtEmail;
+        private readonly ValidadorTextBox _vTxtObservacion;
         private readonly ErrorProvider _epCuit;
         private readonly ErrorProvider _epProveedor;
         private readonly ErrorProvider _epNombre;
         private readonly ErrorProvider _epTel;
         private readonly ErrorProvider _epEmail;
+        private readonly ErrorProvider _epObservacion;
 
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="UCIngresoProveedores"/>.
@@ -69,6 +71,12 @@ namespace Agraria.UI.Proveedores
             {
                 MensajeError = "El email ingresado no es válido."
             };
+
+            _epObservacion = new ErrorProvider();
+            _vTxtObservacion = new ValidadorDireccion(TxtObservacion, _epEmail)
+            {
+                MensajeError = "La Observacion no tiene caracteres válidos"
+            };
         }
 
         /// <summary>
@@ -108,7 +116,8 @@ namespace Agraria.UI.Proveedores
                 CUIT = TxtCuit.Text,
                 Nombre = TxtNombre.Text,
                 Tel = TxtTel.Text,
-                Email = TxtEmail.Text
+                Email = TxtEmail.Text,
+                Observacion = TxtObservacion.Text
             };
         }
 
