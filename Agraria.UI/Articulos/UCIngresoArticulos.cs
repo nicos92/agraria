@@ -138,9 +138,9 @@ namespace Agraria.UI.Articulos
         /// </summary>
         private void CrearStock()
         {
-            _stockSeleccionado.Cantidad = Convert.ToDouble(TxtCantidad.Text);
-            _stockSeleccionado.Costo = Convert.ToDouble(TxtCosto.Text, CultureInfo.InvariantCulture);
-            _stockSeleccionado.Ganancia = Convert.ToDouble(TxtGanancia.Text, CultureInfo.InvariantCulture);
+            _stockSeleccionado.Cantidad = Convert.ToDecimal(TxtCantidad.Text);
+            _stockSeleccionado.Costo = Convert.ToDecimal(TxtCosto.Text, CultureInfo.InvariantCulture);
+            _stockSeleccionado.Ganancia = Convert.ToDecimal(TxtGanancia.Text, CultureInfo.InvariantCulture);
         }
 
         /// <summary>

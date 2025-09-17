@@ -25,7 +25,7 @@ namespace Agraria.Repositorio.Repositorios
                 OleDbConnection conn = Conexion();
                 await conn.OpenAsync();
               
-                 transaction = conn.BeginTransaction();
+                 transaction = (OleDbTransaction)await conn.BeginTransactionAsync();
 
          
                 string sqlArticulos = "INSERT INTO Articulos (Cod_Articulo, Art_Desc, Cod_Categoria, Cod_Subcat, Id_Proveedor) VALUES (?, ?, ?, ?, ?)";
@@ -52,16 +52,24 @@ namespace Agraria.Repositorio.Repositorios
                     await cmdStock.ExecuteNonQueryAsync();
                 }
 
-                transaction.Commit();
+                await transaction.CommitAsync();
                 return Result<bool>.Success(true); 
             }catch(OleDbException ex)
             {
-                transaction?.Rollback();
+                if (transaction != null)
+                {
+
+                await transaction.RollbackAsync();
+                }
                 return Result<bool>.Failure($"Error OleDb al insertar los articulos y los stocks: {ex.Message}");
             }
             catch (Exception ex)
             {
-                transaction?.Rollback();
+                if (transaction != null)
+                {
+
+                    await transaction.RollbackAsync();
+                }
                 return Result<bool>.Failure($"Error inesperado al insertar los articulos y los stocks: {ex.Message}"); 
             }
         }
@@ -74,7 +82,8 @@ namespace Agraria.Repositorio.Repositorios
                 OleDbConnection conn = Conexion();
                 await conn.OpenAsync();
 
-                transaction = conn.BeginTransaction();
+                transaction = (OleDbTransaction)await conn.BeginTransactionAsync();
+
 
                 // Eliminar Stock
                 string sqlStock = "DELETE FROM Stock WHERE Cod_Articulo = ?";
@@ -92,17 +101,25 @@ namespace Agraria.Repositorio.Repositorios
                     await cmdArticulos.ExecuteNonQueryAsync();
                 }
 
-                transaction.Commit();
+                await transaction.CommitAsync();
                 return Result<bool>.Success(true);
             }
             catch (OleDbException ex)
             {
-                transaction?.Rollback();
+                if (transaction != null)
+                {
+
+                    await transaction.RollbackAsync();
+                }
                 return Result<bool>.Failure($"Error OleDb al eliminar los articulos y los stocks: {ex.Message}");
             }
             catch (Exception ex)
             {
-                transaction?.Rollback();
+                if (transaction != null)
+                {
+
+                    await transaction.RollbackAsync();
+                }
                 return Result<bool>.Failure($"Error inesperado al eliminar los articulos y los stocks: {ex.Message}");
             }
 
@@ -151,9 +168,9 @@ namespace Agraria.Repositorio.Repositorios
                             var stock = new Stock
                             {
                                 Cod_Articulo = reader.GetString(0),
-                                Cantidad = reader.GetDouble(1),
-                                Costo = reader.GetDouble(2),
-                                Ganancia = reader.GetDouble(3)
+                                Cantidad = reader.GetDecimal(1),
+                                Costo = reader.GetDecimal(2),
+                                Ganancia = reader.GetDecimal(3)
                             };
                             listaStock.Add(stock);
                         }
@@ -231,7 +248,8 @@ namespace Agraria.Repositorio.Repositorios
                 OleDbConnection conn = Conexion();
                 await conn.OpenAsync();
 
-                transaction = conn.BeginTransaction();
+                transaction = (OleDbTransaction)await conn.BeginTransactionAsync();
+
 
                 // Actualizar Articulos
                 string sqlArticulos = "UPDATE Articulos SET Art_Desc = ?, Cod_Categoria = ?, Cod_Subcat = ?, Id_Proveedor = ? WHERE Cod_Articulo = ?";
@@ -256,17 +274,25 @@ namespace Agraria.Repositorio.Repositorios
                     await cmdStock.ExecuteNonQueryAsync();
                 }
 
-                transaction.Commit();
+                await transaction.CommitAsync();
                 return Result<bool>.Success(true);
             }
             catch (OleDbException ex)
             {
-                transaction?.Rollback();
+                if (transaction != null)
+                {
+
+                    await transaction.RollbackAsync();
+                }
                 return Result<bool>.Failure($"Error OleDb al actualizar los articulos y los stocks: {ex.Message}");
             }
             catch (Exception ex)
             {
-                transaction?.Rollback();
+                if (transaction != null)
+                {
+
+                    await transaction.RollbackAsync();
+                }
                 return Result<bool>.Failure($"Error inesperado al actualizar los articulos y los stocks: {ex.Message}");
             }
 

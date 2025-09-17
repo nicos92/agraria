@@ -397,7 +397,7 @@ namespace Agraria.UI.Inventario
             }
 
             _stockSeleccionado.Cantidad = Convert.ToInt32(TxtCantidad.Text);
-            _stockSeleccionado.Costo = Convert.ToDouble(TxtPrecio.Text);
+            _stockSeleccionado.Costo = Convert.ToDecimal(TxtPrecio.Text);
             _stockSeleccionado.Ganancia = 0; // No se utiliza en este contexto
 
             return true;

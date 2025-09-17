@@ -19,6 +19,7 @@ namespace Agraria.UI.Ventas
 {
     public partial class UCIngresoVenta : UserControl
     {
+        // TODO: REVISAR POR QUE NO SE PUEDE EFECUTAR LA VENTA QUE NO ENCUENTRA ARTICULOS EN LA LISTA
         private readonly IArticuloStockService _articuloStockService;
         private readonly IVentaService _ventaService;
         private readonly ILogger<UCIngresoVenta> _logger;
@@ -46,9 +47,9 @@ namespace Agraria.UI.Ventas
             this.Disposed += UCIngresoVenta_Disposed;
         }
 
-        
 
-        
+
+
 
         private string FormatearPesoArgentino(decimal valor)
         {
@@ -176,7 +177,9 @@ namespace Agraria.UI.Ventas
             if (LsvProductos.SelectedItem is ArticuloStock selectedItem)
             {
                 LblProducto.Text = selectedItem.Art_Desc;
-                LblPrecio.Text = (selectedItem.Costo * ( selectedItem.Costo * selectedItem.Ganancia / 100)).ToString();
+                // Corregir el cálculo del precio
+                decimal precio = selectedItem.Costo * (1 + selectedItem.Ganancia / 100);
+                LblPrecio.Text = precio.ToString();
 
                 // Seleccionar la fila correspondiente en el DataGridView
                 _evitarBucleEventos = true;
@@ -207,7 +210,7 @@ namespace Agraria.UI.Ventas
             decimal precio = 0m;
             if (LsvProductos.SelectedItem is ArticuloStock selectedItem)
             {
-                precio = selectedItem.Costo * (selectedItem.Costo * selectedItem.Ganancia / 100);
+                precio = selectedItem.Costo * (1 + selectedItem.Ganancia / 100);
             }
 
             decimal total = precio * NumericUpDown1.Value;
@@ -235,27 +238,35 @@ namespace Agraria.UI.Ventas
             }
         }
 
-        private static void AgregarProductosAlCarrito(ArticuloStock producto, decimal cantidad)
+        private void AgregarProductosAlCarrito(ArticuloStock producto, decimal cantidad)
         {
-            ProductoResumen nuevoProducto = new()
+            // Calcular el precio unitario correctamente
+            decimal precioUnitario = producto.Costo * (1 + producto.Ganancia / 100);
+            decimal precioTotal = precioUnitario * cantidad;
+
+            // Buscar si el producto ya existe en el carrito
+            var productoExistente = SingleListas.Instance.ProductoResumen
+                .FirstOrDefault(p => p.Cod_Articulo == producto.Cod_Articulo);
+
+            if (productoExistente != null)
             {
-                Cod_Articulo = producto.Cod_Articulo,
-                Producto_Nombre = producto.Art_Desc,
-                Producto_Precio = producto.Costo + ( producto.Costo * producto.Ganancia / 100),
-                Producto_Cantidad = cantidad,
-                Producto_PrecioxCantidad = producto.Costo + (producto.Costo * producto.Ganancia / 100) * cantidad
-            };
-            foreach (var item in SingleListas.Instance.ProductoResumen)
-            {
-                if (item.Cod_Articulo == producto.Cod_Articulo)
-                {
-                    item.Producto_Cantidad += cantidad;
-                    item.Producto_PrecioxCantidad += nuevoProducto.Producto_PrecioxCantidad;
-                    return;
-                }
+                // Si existe, actualizar la cantidad y el precio total
+                productoExistente.Producto_Cantidad += cantidad;
+                productoExistente.Producto_PrecioxCantidad = productoExistente.Producto_Cantidad * productoExistente.Producto_Precio;
             }
-            SingleListas.Instance.ProductoResumen.Add(nuevoProducto);
-            
+            else
+            {
+                // Si no existe, crear un nuevo producto resumen
+                ProductoResumen nuevoProducto = new()
+                {
+                    Cod_Articulo = producto.Cod_Articulo,
+                    Producto_Nombre = producto.Art_Desc,
+                    Producto_Precio = precioUnitario,
+                    Producto_Cantidad = cantidad,
+                    Producto_PrecioxCantidad = precioTotal
+                };
+                SingleListas.Instance.ProductoResumen.Add(nuevoProducto);
+            }
         }
 
         private void CargarDataGridView()
@@ -268,10 +279,14 @@ namespace Agraria.UI.Ventas
             var (cantidad, total) = CalcularTotales(SingleListas.Instance.ProductoResumen);
             LblCantProductos.Text = cantidad.ToString();
             LblPrecioTotal.Text = FormatearPesoArgentino(total);
+
+            // Limpiar y recargar la lista de productos resumen
+            _productosResumen.Clear();
             foreach (var item in SingleListas.Instance.ProductoResumen)
             {
                 _productosResumen.Add(item);
             }
+
             if (_productosResumen.Count == 0)
             {
                 LimpiarSeleccionCompleta();
@@ -615,7 +630,8 @@ namespace Agraria.UI.Ventas
             if (itemASeleccionar != null)
             {
                 LblProducto.Text = itemASeleccionar.Art_Desc;
-                LblPrecio.Text = (itemASeleccionar.Costo * (itemASeleccionar.Costo * itemASeleccionar.Ganancia / 100)).ToString();
+                decimal precio = itemASeleccionar.Costo * (1 + itemASeleccionar.Ganancia / 100);
+                LblPrecio.Text = precio.ToString();
             }
             else
             {

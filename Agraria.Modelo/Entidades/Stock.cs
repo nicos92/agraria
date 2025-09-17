@@ -9,9 +9,9 @@ namespace Agraria.Modelo.Entidades
     public class Stock
     {
         public string? Cod_Articulo { get; set; }
-        public double Cantidad { get; set; }
-        public double Costo { get; set; }
-        public double Ganancia { get; set; }
+        public decimal Cantidad { get; set; }
+        public decimal Costo { get; set; }
+        public decimal Ganancia { get; set; }
         public Stock()
         {
             

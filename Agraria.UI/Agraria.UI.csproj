@@ -1,6 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
+    <Compile Remove="Ventas\**" />
+    <EmbeddedResource Remove="Ventas\**" />
+    <None Remove="Ventas\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Remove="Form1.cs" />
     <Compile Remove="Form1.Designer.cs" />
     <Compile Remove="Proveedores\ucConsultaProveedores.cs" />

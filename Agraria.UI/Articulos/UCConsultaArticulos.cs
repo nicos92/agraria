@@ -511,8 +511,8 @@ namespace Agraria.UI.Articulos
             }
 
             _stockSeleccionado.Cantidad = Convert.ToInt32(TxtCantidad.Text);
-            _stockSeleccionado.Costo = Convert.ToDouble(TxtCosto.Text);
-            _stockSeleccionado.Ganancia = Convert.ToDouble(TxtGanancia.Text);
+            _stockSeleccionado.Costo = Convert.ToDecimal(TxtCosto.Text);
+            _stockSeleccionado.Ganancia = Convert.ToDecimal(TxtGanancia.Text);
 
             return true;
         }
