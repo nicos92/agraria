@@ -130,4 +130,25 @@
     </Compile>
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Update="RemitoProduccion\FormRemitoProduccion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="RemitoProduccion\FormRemitoProduccion.Designer.cs">
+      <DependentUpon>FormRemitoProduccion.cs</DependentUpon>
+    </Compile>
+    <Compile Update="RemitoProduccion\UCIngresoRemito.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="RemitoProduccion\UCIngresoRemito.Designer.cs">
+      <DependentUpon>UCIngresoRemito.cs</DependentUpon>
+    </Compile>
+    <Compile Update="RemitoProduccion\UCConsultaRemitos.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="RemitoProduccion\UCConsultaRemitos.Designer.cs">
+      <DependentUpon>UCConsultaRemitos.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
 </Project>

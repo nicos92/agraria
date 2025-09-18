@@ -31,6 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormPrincipal));
             PanelMenu = new Panel();
             BtnProveedores = new Button();
+            BtnRemitoProduccion = new Button();
             BtnUsuarios = new Button();
             BtnReporte = new Button();
             BtnVenta = new Button();
@@ -48,6 +49,7 @@
             // 
             PanelMenu.BackColor = Color.FromArgb(7, 100, 147);
             PanelMenu.Controls.Add(BtnProveedores);
+            PanelMenu.Controls.Add(BtnRemitoProduccion);
             PanelMenu.Controls.Add(BtnUsuarios);
             PanelMenu.Controls.Add(BtnReporte);
             PanelMenu.Controls.Add(BtnVenta);
@@ -72,7 +74,7 @@
             BtnProveedores.ForeColor = SystemColors.ButtonHighlight;
             BtnProveedores.Image = Properties.Resources.proveedores;
             BtnProveedores.ImageAlign = ContentAlignment.MiddleLeft;
-            BtnProveedores.Location = new Point(0, 512);
+            BtnProveedores.Location = new Point(0, 576);
             BtnProveedores.Margin = new Padding(4);
             BtnProveedores.Name = "BtnProveedores";
             BtnProveedores.Padding = new Padding(8, 0, 0, 0);
@@ -82,6 +84,26 @@
             BtnProveedores.TextImageRelation = TextImageRelation.ImageBeforeText;
             BtnProveedores.UseVisualStyleBackColor = true;
             BtnProveedores.Click += BtnActividad_Click;
+            // 
+            // BtnRemitoProduccion
+            // 
+            BtnRemitoProduccion.Cursor = Cursors.Hand;
+            BtnRemitoProduccion.Dock = DockStyle.Top;
+            BtnRemitoProduccion.FlatAppearance.BorderSize = 0;
+            BtnRemitoProduccion.FlatStyle = FlatStyle.Flat;
+            BtnRemitoProduccion.ForeColor = SystemColors.ButtonHighlight;
+            BtnRemitoProduccion.Image = Properties.Resources.venta;
+            BtnRemitoProduccion.ImageAlign = ContentAlignment.MiddleLeft;
+            BtnRemitoProduccion.Location = new Point(0, 512);
+            BtnRemitoProduccion.Margin = new Padding(4);
+            BtnRemitoProduccion.Name = "BtnRemitoProduccion";
+            BtnRemitoProduccion.Padding = new Padding(8, 0, 0, 0);
+            BtnRemitoProduccion.Size = new Size(200, 64);
+            BtnRemitoProduccion.TabIndex = 9;
+            BtnRemitoProduccion.Text = "Remito Producción";
+            BtnRemitoProduccion.TextImageRelation = TextImageRelation.ImageBeforeText;
+            BtnRemitoProduccion.UseVisualStyleBackColor = true;
+            BtnRemitoProduccion.Click += BtnActividad_Click;
             // 
             // BtnUsuarios
             // 
@@ -270,6 +292,7 @@
         private Button BtnActividad;
         private Panel PanelLblMenu;
         private Button BtnProveedores;
+        private Button BtnRemitoProduccion;
         private Button BtnUsuarios;
         private Button BtnReporte;
         private Button BtnVenta;

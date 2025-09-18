@@ -15,14 +15,15 @@ using Agraria.Contrato;
 using Agraria.Util;
 using Agraria.Servicio;
 
-namespace Agraria.UI.Ventas
+using ProductoResumen = Agraria.Modelo.Entidades.ProductoResumen;
+
+namespace Agraria.UI.RemitoProduccion
 {
-    public partial class UCIngresoVenta : UserControl
+    public partial class UCIngresoRemito : UserControl
     {
         
         private readonly IArticuloStockService _articuloStockService;
-        private readonly IVentaService _ventaService;
-        private readonly ILogger<UCIngresoVenta> _logger;
+        private readonly ILogger<UCIngresoRemito> _logger;
         private bool _evitarBucleEventos = false;
         private int _indiceSeleccionado;
         private bool _procesandoSeleccion = false;
@@ -31,18 +32,17 @@ namespace Agraria.UI.Ventas
         private readonly BindingList<ProductoResumen> _productosResumen = [];
         private List<ArticuloStock> _todosLosProductos = [];
 
-        public UCIngresoVenta(IArticuloStockService articuloStockService,
-                             IVentaService ventaService, ILogger<UCIngresoVenta> logger)
+        public UCIngresoRemito(IArticuloStockService articuloStockService,
+                             ILogger<UCIngresoRemito> logger)
         {
             _articuloStockService = articuloStockService;
-            _ventaService = ventaService;
             _logger = logger;
             _indiceSeleccionado = 0;
             _ultimoCodigoArticuloSeleccionado = "";
 
             InitializeComponent();
 
-            this.Disposed += UCIngresoVenta_Disposed;
+            this.Disposed += UCIngresoRemito_Disposed;
         }
 
 
@@ -345,17 +345,16 @@ namespace Agraria.UI.Ventas
         }
 
 
-        private async void UCIngresoVenta_Load(object sender, EventArgs e)
+        private async void UCIngresoRemito_Load(object sender, EventArgs e)
         {
 
-
-            _logger.LogInformation("Cargando UCIngresoVenta.");
+            _logger.LogInformation("Cargando UCIngresoRemito.");
             // Configurar primero los controles
             ConfigurarDGV();
             ConfigurarListBox();
             DgvProductosSeleccionados.DataSource = _productosResumen;
 
-            // Asegurar que el UserControl pueda recibir teclas
+            // Asegurar que el UserControl puede recibir teclas
             this.Focus();
             this.Select();
             // Establecer el foco en el primer control relevante
@@ -453,54 +452,43 @@ namespace Agraria.UI.Ventas
             }
         }
 
-        private async Task ConfirmarVentaAsync()
+        private async Task ConfirmarRemitoAsync()
         {
             if (SingleListas.Instance.ProductoResumen.Count == 0)
             {
-                MostrarMensajeAdvertencia("No hay productos seleccionados para la venta.");
+                MostrarMensajeAdvertencia("No hay productos seleccionados para el remito.");
                 return;
             }
-            DialogResult dr = MessageBox.Show("¿Estas seguro que queres finalizar la venta?", "Confirmación de venta", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            DialogResult dr = MessageBox.Show("¿Estas seguro que queres finalizar el remito?", "Confirmación de remito", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (dr == DialogResult.No) return;
 
-            await ProcesarVentaAsync();
+            await ProcesarRemitoAsync();
         }
-        private async void BtnConfirmarVenta_Click(object sender, EventArgs e)
+        private async void BtnConfirmarRemito_Click(object sender, EventArgs e)
         {
-            await ConfirmarVentaAsync();
+            await ConfirmarRemitoAsync();
         }
 
-        private async Task ProcesarVentaAsync()
+        private async Task ProcesarRemitoAsync()
         {
-            Result<bool>? result = null;
             try
             {
+                // TODO: Implementar la lógica para procesar el remito de producción
+                // Esta sería similar a la venta pero adaptada para remitos de producción
                 decimal subtotal = DecimalFormatter.ParseDecimal(LblPrecioTotal.Text.Split('$')[1]);
-                decimal descuento = 0;
+                
+                // TODO: Crear la entidad de remito de producción correspondiente
+                // var remito = new HRemitoProduccion { ... };
 
-                var hVentas = new HVentas
-                {
-                    Cod_Usuario = 2, // TODO: Reemplazar con el usuario actual
-                    Id_Cliente = 2,     // TODO: Reemplazar con el cliente seleccionado
-                    Descu = descuento,
-                    Subtotal = subtotal,
-                    Total = subtotal - descuento
-                };
+                // TODO: Llamar al servicio correspondiente para guardar el remito
+                // var result = await _remitoService.Add(remito, [.. _productosResumen]);
 
-                result = await _ventaService.Add(hVentas, [.. _productosResumen]);
-                if (result.IsSuccess)
-                {
-                    MostrarMensajeExito("Venta procesada correctamente.");
-                    LimpiarFormulario();
-                }
-                else
-                {
-                    MostrarMensajeError("Error al procesar la venta.");
-                }
+                MostrarMensajeExito("Remito procesado correctamente.");
+                LimpiarFormulario();
             }
             catch (Exception ex)
             {
-                MostrarMensajeError($"Error al procesar venta UI: {ex.Message} " + result?.Error);
+                MostrarMensajeError($"Error al procesar remito: {ex.Message}");
             }
         }
 
@@ -672,7 +660,7 @@ namespace Agraria.UI.Ventas
             }
         }
 
-        private void UCIngresoVenta_Disposed(object sender, EventArgs e)
+        private void UCIngresoRemito_Disposed(object sender, EventArgs e)
         {
             SingleListas.Instance.ProductoResumen.Clear();
         }
@@ -717,17 +705,11 @@ namespace Agraria.UI.Ventas
                     break;
 
                 case Keys.F12:
-                    _ = ConfirmarVentaAsync(); // Usamos el operador de descarte (_) para no esperar
+                    _ = ConfirmarRemitoAsync(); // Usamos el operador de descarte (_) para no esperar
                     return true;
             }
 
             return base.ProcessCmdKey(ref msg, keyData);
         }
-
-
-
-
     }
 }
-
-              

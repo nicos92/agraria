@@ -10,6 +10,7 @@ using Agraria.UI.HojadeVida;
 using Agraria.UI.Industrial;
 using Agraria.UI.Inventario;
 using Agraria.UI.Proveedores;
+using Agraria.UI.RemitoProduccion;
 using Agraria.UI.Reporte;
 using Agraria.UI.Usuarios;
 using Agraria.UI.Vegetal;
@@ -130,6 +131,10 @@ static class Program
         services.AddTransient<UCIngresoVenta>();       // Este Form estaría en Agraria.UI.Venta
         services.AddTransient<UCConsultaVentas>();       // Este Form estaría en Agraria.UI.Venta
 
+        services.AddTransient<FormRemitoProduccion>();       // Este Form estaría en Agraria.UI.RemitoProduccion
+        services.AddTransient<UCIngresoRemito>();       // Este UserControl estaría en Agraria.UI.RemitoProduccion
+        services.AddTransient<UCConsultaRemitos>();       // Este UserControl estaría en Agraria.UI.RemitoProduccion
+
         services.AddTransient<FormReporte>();    // Este Form estaría en Agraria.UI.Reporte
 
         services.AddTransient<FormUsuarios>();  // Este Form estaría en Agraria.UI.Usuarios
@@ -202,5 +207,11 @@ static class Program
         // Registrar servicios y repositorios para PreguntasSeguridad
         services.AddScoped<IPreguntasSeguridadService, PreguntasSeguridadService>();
         services.AddScoped<IPreguntasSeguridadRepository, PreguntasSeguridadRepository>();
+        
+        // Registrar servicios y repositorios para Remitos de Producción
+        services.AddScoped<IHRemitoProduccionService, HRemitoProduccionService>();
+        services.AddScoped<IHRemitoProduccionRepository, HRemitoProduccionRepository>();
+        services.AddScoped<IHRemitoDetalleProduccionService, HRemitoDetalleProduccionService>();
+        services.AddScoped<IHRemitoDetalleProduccionRepository, HRemitoDetalleProduccionRepository>();
     }
 }

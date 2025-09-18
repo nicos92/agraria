@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Agraria.UI.Actividad;
 using Agraria.UI.Venta;
+using Agraria.UI.RemitoProduccion;
 using Agraria.Util;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -156,6 +157,7 @@ namespace Agraria.UI
             BtnVegetal.Tag = typeof(HojadeVida.FormHojadeVida);
             BtnIndustrial.Tag = typeof(Inventario.FormInventario);
             BtnVenta.Tag = typeof(FormVentaPrincipal);
+            BtnRemitoProduccion.Tag = typeof(FormRemitoProduccion);
             BtnReporte.Tag = typeof(Reporte.FormReporte);
             BtnUsuarios.Tag = typeof(Usuarios.FormUsuarios);
             BtnProveedores.Tag = typeof(Proveedores.FormProveedores);

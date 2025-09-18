@@ -1,6 +1,6 @@
-namespace Agraria.UI.Ventas
+namespace Agraria.UI.RemitoProduccion
 {
-    partial class UCIngresoVenta
+    partial class UCIngresoRemito
     {
         /// <summary> 
         /// Required designer variable.
@@ -55,7 +55,7 @@ namespace Agraria.UI.Ventas
             LblCantProductos = new Label();
             LblPrecioTotal = new Label();
             label6 = new Label();
-            BtnConfirmarVenta = new Button();
+            BtnConfirmarRemito = new Button();
             LblLista = new Label();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
             splitContainer1.Panel1.SuspendLayout();
@@ -106,7 +106,7 @@ namespace Agraria.UI.Ventas
             GBForm.Size = new Size(299, 529);
             GBForm.TabIndex = 0;
             GBForm.TabStop = false;
-            GBForm.Text = "Formulario de Venta";
+            GBForm.Text = "Formulario de Remito";
             // 
             // tableLayoutPanel1
             // 
@@ -385,7 +385,7 @@ namespace Agraria.UI.Ventas
             tableLayoutPanel3.Controls.Add(LblCantProductos, 1, 0);
             tableLayoutPanel3.Controls.Add(LblPrecioTotal, 3, 0);
             tableLayoutPanel3.Controls.Add(label6, 2, 0);
-            tableLayoutPanel3.Controls.Add(BtnConfirmarVenta, 1, 1);
+            tableLayoutPanel3.Controls.Add(BtnConfirmarRemito, 1, 1);
             tableLayoutPanel3.Dock = DockStyle.Fill;
             tableLayoutPanel3.Location = new Point(0, 0);
             tableLayoutPanel3.Name = "tableLayoutPanel3";
@@ -443,21 +443,21 @@ namespace Agraria.UI.Ventas
             label6.TabIndex = 4;
             label6.Text = "PRECIO TOTAL: ";
             // 
-            // BtnConfirmarVenta
+            // BtnConfirmarRemito
             // 
-            BtnConfirmarVenta.Anchor = AnchorStyles.None;
-            BtnConfirmarVenta.BackColor = Color.FromArgb(101, 89, 119);
-            tableLayoutPanel3.SetColumnSpan(BtnConfirmarVenta, 2);
-            BtnConfirmarVenta.FlatAppearance.BorderColor = Color.FromArgb(235, 220, 255);
-            BtnConfirmarVenta.FlatStyle = FlatStyle.Flat;
-            BtnConfirmarVenta.ForeColor = Color.FromArgb(255, 255, 255);
-            BtnConfirmarVenta.Location = new Point(120, 55);
-            BtnConfirmarVenta.Name = "BtnConfirmarVenta";
-            BtnConfirmarVenta.Size = new Size(228, 40);
-            BtnConfirmarVenta.TabIndex = 7;
-            BtnConfirmarVenta.Text = "CONFIRMAR VENTA (F12)";
-            BtnConfirmarVenta.UseVisualStyleBackColor = false;
-            BtnConfirmarVenta.Click += BtnConfirmarVenta_Click;
+            BtnConfirmarRemito.Anchor = AnchorStyles.None;
+            BtnConfirmarRemito.BackColor = Color.FromArgb(101, 89, 119);
+            tableLayoutPanel3.SetColumnSpan(BtnConfirmarRemito, 2);
+            BtnConfirmarRemito.FlatAppearance.BorderColor = Color.FromArgb(235, 220, 255);
+            BtnConfirmarRemito.FlatStyle = FlatStyle.Flat;
+            BtnConfirmarRemito.ForeColor = Color.FromArgb(255, 255, 255);
+            BtnConfirmarRemito.Location = new Point(120, 55);
+            BtnConfirmarRemito.Name = "BtnConfirmarRemito";
+            BtnConfirmarRemito.Size = new Size(228, 40);
+            BtnConfirmarRemito.TabIndex = 7;
+            BtnConfirmarRemito.Text = "CONFIRMAR REMITO (F12)";
+            BtnConfirmarRemito.UseVisualStyleBackColor = false;
+            BtnConfirmarRemito.Click += BtnConfirmarRemito_Click;
             // 
             // LblLista
             // 
@@ -472,17 +472,17 @@ namespace Agraria.UI.Ventas
             LblLista.Text = "Lista de Productos Seleccionados";
             LblLista.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // UCIngresoVenta
+            // UCIngresoRemito
             // 
             AutoScaleMode = AutoScaleMode.None;
             BackColor = Color.FromArgb(218, 218, 220);
             Controls.Add(splitContainer1);
             Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             Margin = new Padding(4);
-            Name = "UCIngresoVenta";
+            Name = "UCIngresoRemito";
             Padding = new Padding(16);
             Size = new Size(804, 561);
-            Load += UCIngresoVenta_Load;
+            Load += UCIngresoRemito_Load;
             splitContainer1.Panel1.ResumeLayout(false);
             splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)splitContainer1).EndInit();
@@ -519,7 +519,7 @@ namespace Agraria.UI.Ventas
         private System.Windows.Forms.Label LblPrecioTotal;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label LblCantProductos;
-        private System.Windows.Forms.Button BtnConfirmarVenta;
+        private System.Windows.Forms.Button BtnConfirmarRemito;
         private System.Windows.Forms.Label LblPrecio;
         private System.Windows.Forms.Label Lbl;
         private System.Windows.Forms.Label LblProducto;
