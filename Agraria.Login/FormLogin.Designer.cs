@@ -37,9 +37,9 @@ partial class FormLogin
         TLPInicio = new TableLayoutPanel();
         BtnIngresar = new Button();
         LblInicioError = new Label();
-        TxtContrasenia = new TextBox();
+        TxtContra = new TextBox();
         label3 = new Label();
-        TxtUsuario = new TextBox();
+        TxtDni = new TextBox();
         LblUsuario = new Label();
         LblOlvide = new LinkLabel();
         LblTitulo = new Label();
@@ -99,9 +99,9 @@ partial class FormLogin
         TLPInicio.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 20F));
         TLPInicio.Controls.Add(BtnIngresar, 1, 7);
         TLPInicio.Controls.Add(LblInicioError, 1, 6);
-        TLPInicio.Controls.Add(TxtContrasenia, 1, 5);
+        TLPInicio.Controls.Add(TxtContra, 1, 5);
         TLPInicio.Controls.Add(label3, 1, 4);
-        TLPInicio.Controls.Add(TxtUsuario, 1, 3);
+        TLPInicio.Controls.Add(TxtDni, 1, 3);
         TLPInicio.Controls.Add(LblUsuario, 1, 2);
         TLPInicio.Controls.Add(LblOlvide, 1, 8);
         TLPInicio.Controls.Add(LblTitulo, 0, 1);
@@ -126,8 +126,9 @@ partial class FormLogin
         // BtnIngresar
         // 
         BtnIngresar.Anchor = AnchorStyles.Top;
-        BtnIngresar.BackColor = Color.FromArgb(203, 230, 255);
+        BtnIngresar.BackColor = Color.FromArgb(83, 96, 108);
         BtnIngresar.Cursor = Cursors.Hand;
+        BtnIngresar.Enabled = false;
         BtnIngresar.FlatAppearance.BorderColor = Color.White;
         BtnIngresar.FlatStyle = FlatStyle.Flat;
         BtnIngresar.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
@@ -137,7 +138,8 @@ partial class FormLogin
         BtnIngresar.Size = new Size(128, 48);
         BtnIngresar.TabIndex = 6;
         BtnIngresar.Text = "INGRESAR";
-        BtnIngresar.UseVisualStyleBackColor = true;
+        BtnIngresar.UseVisualStyleBackColor = false;
+        BtnIngresar.EnabledChanged += BtnIngresar_EnabledChanged;
         BtnIngresar.Click += BtnIngresar_Click;
         // 
         // LblInicioError
@@ -152,14 +154,17 @@ partial class FormLogin
         LblInicioError.TabIndex = 7;
         LblInicioError.Text = "Usuario y/o Contraseña Incorrectas";
         // 
-        // TxtContrasenia
+        // TxtContra
         // 
-        TxtContrasenia.Anchor = AnchorStyles.Top;
-        TxtContrasenia.Cursor = Cursors.Hand;
-        TxtContrasenia.Location = new Point(96, 209);
-        TxtContrasenia.Name = "TxtContrasenia";
-        TxtContrasenia.Size = new Size(274, 29);
-        TxtContrasenia.TabIndex = 5;
+        TxtContra.Anchor = AnchorStyles.Top;
+        TxtContra.Cursor = Cursors.Hand;
+        TxtContra.Location = new Point(96, 209);
+        TxtContra.MaxLength = 255;
+        TxtContra.Name = "TxtContra";
+        TxtContra.Size = new Size(274, 29);
+        TxtContra.TabIndex = 5;
+        TxtContra.TextChanged += TxtDni_TextChanged;
+        TxtContra.KeyPress += TxtContra_KeyPress;
         // 
         // label3
         // 
@@ -171,14 +176,16 @@ partial class FormLogin
         label3.TabIndex = 2;
         label3.Text = "Contraseña:";
         // 
-        // TxtUsuario
+        // TxtDni
         // 
-        TxtUsuario.Anchor = AnchorStyles.Top;
-        TxtUsuario.Cursor = Cursors.Hand;
-        TxtUsuario.Location = new Point(96, 125);
-        TxtUsuario.Name = "TxtUsuario";
-        TxtUsuario.Size = new Size(274, 29);
-        TxtUsuario.TabIndex = 4;
+        TxtDni.Anchor = AnchorStyles.Top;
+        TxtDni.Cursor = Cursors.Hand;
+        TxtDni.Location = new Point(96, 125);
+        TxtDni.MaxLength = 8;
+        TxtDni.Name = "TxtDni";
+        TxtDni.Size = new Size(274, 29);
+        TxtDni.TabIndex = 4;
+        TxtDni.TextChanged += TxtDni_TextChanged;
         // 
         // LblUsuario
         // 
@@ -186,9 +193,9 @@ partial class FormLogin
         LblUsuario.AutoSize = true;
         LblUsuario.Location = new Point(96, 101);
         LblUsuario.Name = "LblUsuario";
-        LblUsuario.Size = new Size(67, 21);
+        LblUsuario.Size = new Size(98, 21);
         LblUsuario.TabIndex = 1;
-        LblUsuario.Text = "Usuario:";
+        LblUsuario.Text = "DNI Usuario:";
         // 
         // LblOlvide
         // 
@@ -246,8 +253,8 @@ partial class FormLogin
     private Label LblTitulo;
     private Label LblUsuario;
     private Label label3;
-    private TextBox TxtUsuario;
-    private TextBox TxtContrasenia;
+    private TextBox TxtDni;
+    private TextBox TxtContra;
     private Button BtnIngresar;
     private Label LblInicioError;
     private PictureBox Logo;

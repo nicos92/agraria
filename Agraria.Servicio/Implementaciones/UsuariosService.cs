@@ -3,6 +3,7 @@ using Agraria.Modelo.Entidades;
 using Agraria.Util;
 using Agraria.Contrato.Servicios;
 using Agraria.Contrato.Repositorios;
+using System.Threading.Tasks;
 
 namespace Agraria.Servicio.Implementaciones
 {
@@ -12,6 +13,7 @@ namespace Agraria.Servicio.Implementaciones
 
         public async Task<Result<List<Usuarios>>> GetAll() => await _repo.GetAll();
         public async Task<Result<Usuarios>> GetById(int id) => await _repo.GetById(id);
+        public async Task<Result<Usuarios>> GetByDniAndPassword(string dni, string password) => await _repo.GetByDniAndPassword(dni, password);
         public Result<Usuarios> Add(Usuarios usuario) => _repo.Add(usuario);
         public Result<Usuarios> Update(Usuarios usuario) => _repo.Update(usuario);
         public Result<bool> Delete(int id) => _repo.Delete(id);
