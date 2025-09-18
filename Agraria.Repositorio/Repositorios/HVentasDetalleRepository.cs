@@ -19,7 +19,7 @@ namespace Agraria.Repositorio.Repositorios
             try
             {
                 using OleDbConnection conexion = Conexion();
-                using OleDbCommand cmd = new OleDbCommand("INSERT INTO H_Ventas_Detalle (Id_Remito, Cod_Art, Descr, P_Unit, Cant, P_X_Cant) VALUES (@Id_Remito, @Cod_Art, @Descr, @P_Unit, @Cant, @P_X_Cant)", conexion);
+                using OleDbCommand cmd = new("INSERT INTO H_Ventas_Detalle (Id_Remito, Cod_Art, Descr, P_Unit, Cant, P_X_Cant) VALUES (@Id_Remito, @Cod_Art, @Descr, @P_Unit, @Cant, @P_X_Cant)", conexion);
                 cmd.Parameters.AddWithValue("@Id_Remito", detalle.Id_Remito);
                 cmd.Parameters.AddWithValue("@Cod_Art", detalle.Cod_Art);
                 cmd.Parameters.AddWithValue("@Descr", detalle.Descr);
@@ -52,7 +52,8 @@ namespace Agraria.Repositorio.Repositorios
             try
             {
                 using OleDbConnection conexion = Conexion();
-                using OleDbCommand cmd = new OleDbCommand("DELETE FROM H_Ventas_Detalle WHERE Id_Det_Remito = @Id_Det_Remito", conexion);
+                using OleDbCommand cmd = new 
+("DELETE FROM H_Ventas_Detalle WHERE Id_Det_Remito = @Id_Det_Remito", conexion);
                 cmd.Parameters.AddWithValue("@Id_Det_Remito", id);
                 conexion.Open();
                 int resultado = cmd.ExecuteNonQuery();
@@ -80,20 +81,20 @@ namespace Agraria.Repositorio.Repositorios
             try
             {
                 using OleDbConnection conexion = Conexion();
-                using OleDbCommand cmd = new OleDbCommand("SELECT * FROM H_Ventas_Detalle", conexion);
+                using OleDbCommand cmd = new("SELECT * FROM H_Ventas_Detalle", conexion);
                 await conexion.OpenAsync();
                 using DbDataReader reader = await cmd.ExecuteReaderAsync();
                 List<HVentasDetalle> detalles = [];
                 while (await reader.ReadAsync())
                 {
-                    HVentasDetalle detalle = new HVentasDetalle
+                    HVentasDetalle detalle = new()
                     {
                         Id_Det_Remito = reader.GetInt32(0),
                         Id_Remito = reader.GetInt32(1),
                         Cod_Art = reader.GetString(2),
                         Descr =  reader.GetString(3),
                         P_Unit = reader.GetDecimal(4),
-                        Cant = reader.GetInt32(5),
+                        Cant = reader.GetDecimal(5),
                         P_X_Cant = reader.GetDecimal(6)
                     };
                     detalles.Add(detalle);
@@ -115,20 +116,21 @@ namespace Agraria.Repositorio.Repositorios
             try
             {
                 using OleDbConnection conexion = Conexion();
-                using OleDbCommand cmd = new OleDbCommand("SELECT * FROM H_Ventas_Detalle WHERE Id_Det_Remito = @Id_Det_Remito", conexion);
+                using OleDbCommand cmd = new 
+("SELECT * FROM H_Ventas_Detalle WHERE Id_Det_Remito = @Id_Det_Remito", conexion);
                 cmd.Parameters.AddWithValue("@Id_Det_Remito", id);
                 conexion.Open();
                 using OleDbDataReader reader = cmd.ExecuteReader();
                 if (reader.Read())
                 {
-                    HVentasDetalle detalle = new HVentasDetalle
+                    HVentasDetalle detalle = new()
                     {
                         Id_Det_Remito = reader.GetInt32(0),
                         Id_Remito = reader.GetInt32(1),
                         Cod_Art = reader.IsDBNull(2) ? null : reader.GetString(2),
                         Descr = reader.IsDBNull(3) ? null : reader.GetString(3),
                         P_Unit = reader.GetDecimal(4),
-                        Cant = reader.GetInt32(5),
+                        Cant = reader.GetDecimal(5),
                         P_X_Cant = reader.GetDecimal(6)
                     };
                     return Result<HVentasDetalle>.Success(detalle);
@@ -187,7 +189,7 @@ namespace Agraria.Repositorio.Repositorios
             try
             {
                 using OleDbConnection conexion = Conexion();
-                using OleDbCommand cmd = new OleDbCommand("SELECT * FROM H_Ventas_Detalle WHERE Id_Remito = @Id_Remito", conexion);
+                using OleDbCommand cmd = new("SELECT * FROM H_Ventas_Detalle WHERE Id_Remito = @Id_Remito", conexion);
                 cmd.Parameters.AddWithValue("@Id_Remito", idRemito);
                 await conexion.OpenAsync();
                 using DbDataReader reader = await cmd.ExecuteReaderAsync();
@@ -201,7 +203,7 @@ namespace Agraria.Repositorio.Repositorios
                         Cod_Art = reader.GetString(2),
                         Descr =  reader.GetString(3),
                         P_Unit = reader.GetDecimal(4),
-                        Cant = reader.GetInt32(5),
+                        Cant = reader.GetDecimal(5),
                         P_X_Cant = reader.GetDecimal(6)
                     };
                     detalles.Add(detalle);

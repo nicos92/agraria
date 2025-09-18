@@ -19,7 +19,7 @@ namespace Agraria.UI.Ventas
 {
     public partial class UCIngresoVenta : UserControl
     {
-        
+
         private readonly IArticuloStockService _articuloStockService;
         private readonly IVentaService _ventaService;
         private readonly ILogger<UCIngresoVenta> _logger;
@@ -74,6 +74,8 @@ namespace Agraria.UI.Ventas
 
             ConfigurarColumnasDataGridView();
         }
+
+ 
 
         private void SeleccionarFilaPorCodigoArticulo(string codigoArticulo)
         {
@@ -187,13 +189,16 @@ namespace Agraria.UI.Ventas
             }
 
             ActualizarTotalPrecioPorCantidad();
-            NumericUpDown1.Value = 1;
+            // Establecer el valor inicial con formato correcto
+            NumeroCantidad.Value = 1;
         }
 
         private void NumericUpDown1_ValueChanged(object sender, EventArgs e)
         {
             ActualizarTotalPrecioPorCantidad();
         }
+
+       
 
         private void ActualizarTotalPrecioPorCantidad()
         {
@@ -203,7 +208,7 @@ namespace Agraria.UI.Ventas
                 precio = selectedItem.Costo * (1 + selectedItem.Ganancia / 100);
             }
 
-            decimal total = precio * NumericUpDown1.Value;
+            decimal total = precio * NumeroCantidad.Value;
             LblPrecioCant.Text = DecimalFormatter.ToCurrency(total);
         }
 
@@ -211,7 +216,8 @@ namespace Agraria.UI.Ventas
         {
             if (LsvProductos.SelectedItem is ArticuloStock producto)
             {
-                decimal cantidad = NumericUpDown1.Value;
+                // Obtener el valor directamente del control NumericUpDown
+                decimal cantidad = NumeroCantidad.Value;
                 AgregarProductosAlCarrito(producto, cantidad);
 
                 _evitarBucleEventos = true;
@@ -339,7 +345,8 @@ namespace Agraria.UI.Ventas
             LblProducto.Text = string.Empty;
             LblPrecio.Text = string.Empty;
             LblPrecioCant.Text = DecimalFormatter.ToCurrency(0m);
-            NumericUpDown1.Value = 1;
+            // Restablecer el valor del NumericUpDown al valor predeterminado
+            NumeroCantidad.Value = 1;
 
             _evitarBucleEventos = false;
         }
@@ -481,7 +488,7 @@ namespace Agraria.UI.Ventas
                 var hVentas = new HVentas
                 {
                     Cod_Usuario = 2, // TODO: Reemplazar con el usuario actual
-                    Id_Cliente = 2,     // TODO: Reemplazar con el cliente seleccionado
+
                     Descu = descuento,
                     Subtotal = subtotal,
                     Total = subtotal - descuento
@@ -510,7 +517,8 @@ namespace Agraria.UI.Ventas
             _productosResumen.Clear();
 
             LimpiarSeleccion();
-            NumericUpDown1.Value = 1;
+            // Restablecer el valor del NumericUpDown al valor predeterminado
+            NumeroCantidad.Value = 1;
             LblCantProductos.Text = "0";
             LblPrecioTotal.Text = DecimalFormatter.ToCurrency(0m);
 
@@ -701,7 +709,7 @@ namespace Agraria.UI.Ventas
                     return true;
 
                 case Keys.Enter:
-                    if (TxtBuscardor.Focused || LsvProductos.Focused || NumericUpDown1.Focused)
+                    if (TxtBuscardor.Focused || LsvProductos.Focused || NumeroCantidad.Focused)
                     {
                         BtnAceptar.PerformClick();
                         return true;
@@ -724,8 +732,7 @@ namespace Agraria.UI.Ventas
             return base.ProcessCmdKey(ref msg, keyData);
         }
 
-
-
+     
 
     }
 }

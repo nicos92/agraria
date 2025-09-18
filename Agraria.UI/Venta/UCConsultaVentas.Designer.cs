@@ -245,6 +245,7 @@ namespace Agraria.UI.Ventas
             label3.Size = new Size(61, 21);
             label3.TabIndex = 4;
             label3.Text = "Cliente";
+            label3.Visible = false;
             // 
             // TxtCliente
             // 
@@ -256,6 +257,7 @@ namespace Agraria.UI.Ventas
             TxtCliente.Name = "TxtCliente";
             TxtCliente.Size = new Size(105, 29);
             TxtCliente.TabIndex = 5;
+            TxtCliente.Visible = false;
             // 
             // DtpFechaHasta
             // 
@@ -628,6 +630,7 @@ namespace Agraria.UI.Ventas
             label6.Size = new Size(70, 21);
             label6.TabIndex = 20;
             label6.Text = "CLIENTE";
+            label6.Visible = false;
             // 
             // LblCliente
             // 
@@ -640,6 +643,7 @@ namespace Agraria.UI.Ventas
             LblCliente.Size = new Size(19, 21);
             LblCliente.TabIndex = 19;
             LblCliente.Text = "0";
+            LblCliente.Visible = false;
             // 
             // tableLayoutPanel11
             // 

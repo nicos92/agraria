@@ -1,8 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 using Agraria.Modelo.Enums;
 
 namespace Agraria.Modelo.Entidades
@@ -14,7 +10,7 @@ namespace Agraria.Modelo.Entidades
         public Sexo Sexo { get; set; }
         public DateTime FechaNacimiento { get; set; }
         public decimal Peso { get; set; }
-        public string EstadoSalud { get; set; }
-        public string Observaciones { get; set; }
+        public string? EstadoSalud { get; set; }
+        public string? Observaciones { get; set; }
     }
 }

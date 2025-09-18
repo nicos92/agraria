@@ -29,7 +29,7 @@ namespace Agraria.Repositorio.Repositorios
 
          
                 string sqlArticulos = "INSERT INTO Articulos (Cod_Articulo, Art_Desc, Cod_Categoria, Cod_Subcat, Id_Proveedor) VALUES (?, ?, ?, ?, ?)";
-                using (OleDbCommand cmdArticulos = new OleDbCommand(sqlArticulos, conn, transaction))
+                using (OleDbCommand cmdArticulos = new(sqlArticulos, conn, transaction))
                 {
                   
                     cmdArticulos.Parameters.AddWithValue("?", articulo.Cod_Articulo);
@@ -42,7 +42,7 @@ namespace Agraria.Repositorio.Repositorios
 
              
                 string sqlStock = "INSERT INTO Stock (Cod_Articulo, Cantidad, Costo, Ganancia) VALUES (?, ?, ?, ?)";
-                using (OleDbCommand cmdStock = new OleDbCommand(sqlStock, conn, transaction))
+                using (OleDbCommand cmdStock = new(sqlStock, conn, transaction))
                 {
                    
                     cmdStock.Parameters.AddWithValue("?", stock.Cod_Articulo);
@@ -87,7 +87,7 @@ namespace Agraria.Repositorio.Repositorios
 
                 // Eliminar Stock
                 string sqlStock = "DELETE FROM Stock WHERE Cod_Articulo = ?";
-                using (OleDbCommand cmdStock = new OleDbCommand(sqlStock, conn, transaction))
+                using (OleDbCommand cmdStock = new(sqlStock, conn, transaction))
                 {
                     cmdStock.Parameters.AddWithValue("?", stock.Cod_Articulo);
                     await cmdStock.ExecuteNonQueryAsync();
@@ -95,7 +95,7 @@ namespace Agraria.Repositorio.Repositorios
 
                 // Eliminar Articulos
                 string sqlArticulos = "DELETE FROM Articulos WHERE Cod_Articulo = ?";
-                using (OleDbCommand cmdArticulos = new OleDbCommand(sqlArticulos, conn, transaction))
+                using (OleDbCommand cmdArticulos = new(sqlArticulos, conn, transaction))
                 {
                     cmdArticulos.Parameters.AddWithValue("?", articulo.Cod_Articulo);
                     await cmdArticulos.ExecuteNonQueryAsync();
@@ -138,29 +138,27 @@ namespace Agraria.Repositorio.Repositorios
 
                     // 1. Obtener datos de la tabla Articulos
                     string sqlArticulos = "SELECT Id_Articulo, Cod_Articulo, Art_Desc, Cod_Categoria, Cod_Subcat, Id_Proveedor FROM Articulos";
-                    using (OleDbCommand cmdArticulos = new OleDbCommand(sqlArticulos, conn))
+                    using (OleDbCommand cmdArticulos = new(sqlArticulos, conn))
                     {
-                        using (DbDataReader reader = await cmdArticulos.ExecuteReaderAsync())
+                        using DbDataReader reader = await cmdArticulos.ExecuteReaderAsync();
+                        while (await reader.ReadAsync())
                         {
-                            while (await reader.ReadAsync())
+                            var articulo = new Articulos
                             {
-                                var articulo = new Articulos
-                                {
-                                    Id_Articulo = reader.GetInt32(0),
-                                    Cod_Articulo = reader.GetString(1),
-                                    Art_Desc = reader.GetString(2),
-                                    Cod_Categoria = reader.GetInt32(3),
-                                    Cod_Subcat = reader.GetInt32(4),
-                                    Id_Proveedor = reader.GetInt32(5)
-                                };
-                                listaArticulos.Add(articulo);
-                            }
+                                Id_Articulo = reader.GetInt32(0),
+                                Cod_Articulo = reader.GetString(1),
+                                Art_Desc = reader.GetString(2),
+                                Cod_Categoria = reader.GetInt32(3),
+                                Cod_Subcat = reader.GetInt32(4),
+                                Id_Proveedor = reader.GetInt32(5)
+                            };
+                            listaArticulos.Add(articulo);
                         }
                     }
 
                     // 2. Obtener datos de la tabla Stock
                     string sqlStock = "SELECT Cod_Articulo, Cantidad, Costo, Ganancia FROM Stock";
-                    using OleDbCommand cmdStock = new OleDbCommand(sqlStock, conn);
+                    using OleDbCommand cmdStock = new(sqlStock, conn);
                     using (DbDataReader reader = await cmdStock.ExecuteReaderAsync())
                     {
                         while (await reader.ReadAsync())
@@ -200,33 +198,29 @@ namespace Agraria.Repositorio.Repositorios
 
                     // 1. Obtener datos de la tabla Articulos
                     string sqlArticulos = "SELECT a.Id_Articulo, a.Cod_Articulo, a.Art_Desc, a.Cod_Categoria, a.Cod_Subcat, a.Id_Proveedor, s.cantidad, s.costo, s.ganancia FROM Articulos a inner join stock s on a.cod_articulo = s.Cod_Articulo ";
-                    using (OleDbCommand cmdArticulos = new OleDbCommand(sqlArticulos, conn))
+                    using OleDbCommand cmdArticulos = new(sqlArticulos, conn);
+                    using DbDataReader reader = await cmdArticulos.ExecuteReaderAsync();
+                    while (await reader.ReadAsync())
                     {
-                        using (DbDataReader reader = await cmdArticulos.ExecuteReaderAsync())
-                        {
-                            while (await reader.ReadAsync())
-                            {
-                                var articulo = new ArticuloStock
-                                (
-                                   reader.GetInt32(0),
-                                     reader.GetString(1),
-                                   reader.GetString(2),
-                                    reader.GetInt32(3),
-                                    reader.GetInt32(4),
-                                    reader.GetInt32(5),
-                                    reader.GetDecimal(6),
-                                    reader.GetDecimal(7),
-                                    reader.GetDecimal(8)
+                        var articulo = new ArticuloStock
+                        (
+                           reader.GetInt32(0),
+                             reader.GetString(1),
+                           reader.GetString(2),
+                            reader.GetInt32(3),
+                            reader.GetInt32(4),
+                            reader.GetInt32(5),
+                            reader.GetDecimal(6),
+                            reader.GetDecimal(7),
+                            reader.GetDecimal(8)
 
-                               
 
-                                );
-                                listaArticulos.Add(articulo);
-                            }
-                        }
+
+                        );
+                        listaArticulos.Add(articulo);
                     }
 
-                   
+
                 }
                 catch (Exception ex)
                 {
@@ -253,7 +247,7 @@ namespace Agraria.Repositorio.Repositorios
 
                 // Actualizar Articulos
                 string sqlArticulos = "UPDATE Articulos SET Art_Desc = ?, Cod_Categoria = ?, Cod_Subcat = ?, Id_Proveedor = ? WHERE Cod_Articulo = ?";
-                using (OleDbCommand cmdArticulos = new OleDbCommand(sqlArticulos, conn, transaction))
+                using (OleDbCommand cmdArticulos = new(sqlArticulos, conn, transaction))
                 {
                     cmdArticulos.Parameters.AddWithValue("?", articulos.Art_Desc);
                     cmdArticulos.Parameters.AddWithValue("?", articulos.Cod_Categoria);
@@ -265,7 +259,7 @@ namespace Agraria.Repositorio.Repositorios
 
                 // Actualizar Stock
                 string sqlStock = "UPDATE Stock SET Cantidad = ?, Costo = ?, Ganancia = ? WHERE Cod_Articulo = ?";
-                using (OleDbCommand cmdStock = new OleDbCommand(sqlStock, conn, transaction))
+                using (OleDbCommand cmdStock = new(sqlStock, conn, transaction))
                 {
                     cmdStock.Parameters.AddWithValue("?", stock.Cantidad);
                     cmdStock.Parameters.AddWithValue("?", stock.Costo);

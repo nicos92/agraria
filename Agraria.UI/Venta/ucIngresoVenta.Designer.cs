@@ -35,7 +35,7 @@ namespace Agraria.UI.Ventas
             tableLayoutPanel1 = new TableLayoutPanel();
             tableLayoutPanel2 = new TableLayoutPanel();
             label5 = new Label();
-            NumericUpDown1 = new NumericUpDown();
+            NumeroCantidad = new NumericUpDown();
             label1 = new Label();
             BtnQuitar = new Button();
             TxtBuscardor = new TextBox();
@@ -64,7 +64,7 @@ namespace Agraria.UI.Ventas
             GBForm.SuspendLayout();
             tableLayoutPanel1.SuspendLayout();
             tableLayoutPanel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)NumericUpDown1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)NumeroCantidad).BeginInit();
             groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)DgvProductosSeleccionados).BeginInit();
             panel1.SuspendLayout();
@@ -142,7 +142,7 @@ namespace Agraria.UI.Ventas
             tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle());
             tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
             tableLayoutPanel2.Controls.Add(label5, 0, 0);
-            tableLayoutPanel2.Controls.Add(NumericUpDown1, 1, 0);
+            tableLayoutPanel2.Controls.Add(NumeroCantidad, 1, 0);
             tableLayoutPanel2.Location = new Point(3, 358);
             tableLayoutPanel2.Name = "tableLayoutPanel2";
             tableLayoutPanel2.RowCount = 1;
@@ -162,23 +162,22 @@ namespace Agraria.UI.Ventas
             label5.TabIndex = 6;
             label5.Text = "Cantidad:";
             // 
-            // NumericUpDown1
+            // NumeroCantidad
             // 
-            NumericUpDown1.Anchor = AnchorStyles.None;
-            NumericUpDown1.BackColor = Color.FromArgb(238, 237, 240);
-            NumericUpDown1.DecimalPlaces = 2;
-            NumericUpDown1.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            NumericUpDown1.ForeColor = Color.FromArgb(26, 28, 30);
-            NumericUpDown1.Increment = new decimal(new int[] { 5, 0, 0, 131072 });
-            NumericUpDown1.Location = new Point(84, 7);
-            NumericUpDown1.Maximum = new decimal(new int[] { 10000, 0, 0, 0 });
-            NumericUpDown1.Name = "NumericUpDown1";
-            NumericUpDown1.Size = new Size(198, 29);
-            NumericUpDown1.TabIndex = 3;
-            NumericUpDown1.TextAlign = HorizontalAlignment.Right;
-            NumericUpDown1.ThousandsSeparator = true;
-            NumericUpDown1.Value = new decimal(new int[] { 1, 0, 0, 0 });
-            NumericUpDown1.ValueChanged += NumericUpDown1_ValueChanged;
+            NumeroCantidad.Anchor = AnchorStyles.None;
+            NumeroCantidad.BackColor = Color.FromArgb(238, 237, 240);
+            NumeroCantidad.DecimalPlaces = 2;
+            NumeroCantidad.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            NumeroCantidad.ForeColor = Color.FromArgb(26, 28, 30);
+            NumeroCantidad.Increment = new decimal(new int[] { 5, 0, 0, 131072 });
+            NumeroCantidad.Location = new Point(84, 7);
+            NumeroCantidad.Maximum = new decimal(new int[] { 10000, 0, 0, 0 });
+            NumeroCantidad.Name = "NumeroCantidad";
+            NumeroCantidad.Size = new Size(198, 29);
+            NumeroCantidad.TabIndex = 3;
+            NumeroCantidad.TextAlign = HorizontalAlignment.Right;
+            NumeroCantidad.Value = new decimal(new int[] { 100, 0, 0, 131072 });
+            NumeroCantidad.ValueChanged += NumericUpDown1_ValueChanged;
             // 
             // label1
             // 
@@ -492,7 +491,7 @@ namespace Agraria.UI.Ventas
             tableLayoutPanel1.PerformLayout();
             tableLayoutPanel2.ResumeLayout(false);
             tableLayoutPanel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)NumericUpDown1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)NumeroCantidad).EndInit();
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)DgvProductosSeleccionados).EndInit();
@@ -512,7 +511,7 @@ namespace Agraria.UI.Ventas
         private System.Windows.Forms.Label LblLista;
         private System.Windows.Forms.DataGridView DgvProductosSeleccionados;
         private System.Windows.Forms.Button BtnAceptar;
-        private System.Windows.Forms.NumericUpDown NumericUpDown1;
+        private System.Windows.Forms.NumericUpDown NumeroCantidad;
         private System.Windows.Forms.TextBox TxtBuscardor;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Panel panel1;

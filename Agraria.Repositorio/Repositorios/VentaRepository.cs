@@ -27,12 +27,11 @@ namespace Agraria.Repositorio.Repositorios
                  transaction =  (OleDbTransaction) await conn.BeginTransactionAsync(); 
 
 
-                string sqlArticulos = "INSERT INTO H_Ventas (Cod_Usuario,  id_cliente, subtotal, descu, total) VALUES (?, ?, ?, ?,?)";
+                string sqlArticulos = "INSERT INTO H_Ventas (Cod_Usuario, subtotal, descu, total) VALUES (?, ?, ?, ?)";
                 using (OleDbCommand cmdArticulos = new(sqlArticulos, conn, transaction)) 
                 {
 
                     cmdArticulos.Parameters.AddWithValue("?", hVentas.Cod_Usuario);
-                    cmdArticulos.Parameters.AddWithValue("?", hVentas.Id_Cliente);
                     cmdArticulos.Parameters.AddWithValue("?", hVentas.Subtotal);
                     cmdArticulos.Parameters.AddWithValue("?", hVentas.Descu);
                     cmdArticulos.Parameters.AddWithValue("?", hVentas.Total);
@@ -102,7 +101,7 @@ namespace Agraria.Repositorio.Repositorios
                 List<HVentasDetalle> detalles = [];
 
                 // Query para obtener todas las ventas (H_Ventas)
-                string sqlVentas = "SELECT id_remito, Cod_Usuario, fecha_hora, id_cliente, subtotal, descu, total FROM H_Ventas";
+                string sqlVentas = "SELECT id_remito, Cod_Usuario, fecha_hora, subtotal, descu, total FROM H_Ventas";
                 using (OleDbCommand cmdVentas = new(sqlVentas, conn))
                 {
                     using DbDataReader reader = await cmdVentas.ExecuteReaderAsync();
@@ -113,10 +112,9 @@ namespace Agraria.Repositorio.Repositorios
                             Id_Remito = reader.GetInt32(0),
                             Cod_Usuario = reader.GetInt32(1),
                             Fecha_Hora = reader.GetDateTime(2),
-                            Id_Cliente = reader.GetInt32(3),
-                            Subtotal = reader.GetDecimal(4),
-                            Descu = reader.GetDecimal(5),
-                            Total = reader.GetDecimal(6)
+                            Subtotal = reader.GetDecimal(3),
+                            Descu = reader.GetDecimal(4),
+                            Total = reader.GetDecimal(5)
                         });
                     }
                 }

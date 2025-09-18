@@ -17,9 +17,8 @@ namespace Agraria.Repositorio.Repositorios
             try
             {
                 using var conexion = Conexion();
-                using var cmd = new OleDbCommand("INSERT INTO H_Ventas (Cod_Usuario, Id_Cliente, Subtotal, Descu, Total, Fecha_Hora) VALUES (@Cod_Usuario, @Id_Cliente, @Subtotal, @Descu, @Total, @Fecha_Hora)", conexion);
+                using var cmd = new OleDbCommand("INSERT INTO H_Ventas (Cod_Usuario,  Subtotal, Descu, Total, Fecha_Hora) VALUES (@Cod_Usuario, @Subtotal, @Descu, @Total, @Fecha_Hora)", conexion);
                 cmd.Parameters.AddWithValue("@Cod_Usuario", venta.Cod_Usuario);
-                cmd.Parameters.AddWithValue("@Id_Cliente", venta.Id_Cliente);
                 cmd.Parameters.Add("@Subtotal", OleDbType.Decimal).Value = venta.Subtotal;
                 cmd.Parameters.Add("@Descu", OleDbType.Decimal).Value = venta.Descu;
                 cmd.Parameters.Add("@Total", OleDbType.Decimal).Value = venta.Total;
@@ -62,7 +61,7 @@ namespace Agraria.Repositorio.Repositorios
                 using (var conexion = Conexion())
                 {
                     conexion.Open();
-                    using var cmd = new OleDbCommand("SELECT Id_Remito,Cod_Usuario,Id_Cliente,Subtotal,Descu,Total, fecha_hora FROM H_Ventas", conexion);
+                    using var cmd = new OleDbCommand("SELECT Id_Remito,Cod_Usuario,Subtotal,Descu,Total, fecha_hora FROM H_Ventas", conexion);
                     using var reader = cmd.ExecuteReader();
                     while (reader.Read())
                     {
@@ -70,11 +69,10 @@ namespace Agraria.Repositorio.Repositorios
                         {
                             Id_Remito = reader.GetInt32(0),
                             Cod_Usuario = reader.GetInt32(1),
-                            Id_Cliente = reader.GetInt32(2),
-                            Subtotal = reader.GetDecimal(3),
-                            Descu = reader.GetDecimal(4),
-                            Total = reader.GetDecimal(5),
-                            Fecha_Hora = reader.GetDateTime(6)
+                            Subtotal = reader.GetDecimal(2),
+                            Descu = reader.GetDecimal(3),
+                            Total = reader.GetDecimal(4),
+                            Fecha_Hora = reader.GetDateTime(5)
                         });
                     }
                 }
@@ -93,7 +91,7 @@ namespace Agraria.Repositorio.Repositorios
                 using (var conexion = Conexion())
                 {
                     conexion.Open();
-                    using var cmd = new OleDbCommand("SELECT Id_Remito,Cod_Usuario,Fecha_Hora,Id_Cliente,Subtotal,Descu,Total FROM H_Ventas WHERE Id_Remito = @id", conexion);
+                    using var cmd = new OleDbCommand("SELECT Id_Remito,Cod_Usuario,Fecha_Hora,Subtotal,Descu,Total FROM H_Ventas WHERE Id_Remito = @id", conexion);
                     cmd.Parameters.AddWithValue("@id", id);
                     using var reader = cmd.ExecuteReader();
                     if (reader.Read())
@@ -103,10 +101,9 @@ namespace Agraria.Repositorio.Repositorios
                             Id_Remito = reader.GetInt32(0),
                             Cod_Usuario = reader.GetInt32(1),
                             Fecha_Hora = reader.GetDateTime(2),
-                            Id_Cliente = reader.GetInt32(3),
-                            Subtotal = reader.GetDecimal(4),
-                            Descu = reader.GetDecimal(5),
-                            Total = reader.GetDecimal(6)
+                            Subtotal = reader.GetDecimal(3),
+                            Descu = reader.GetDecimal(4),
+                            Total = reader.GetDecimal(5)
                         };
                         return Result<HVentas>.Success(venta);
                     }
@@ -124,10 +121,9 @@ namespace Agraria.Repositorio.Repositorios
             try
             {
                 using var conexion = Conexion();
-                using var cmd = new OleDbCommand("UPDATE H_Ventas SET Cod_Usuario = @Cod_Usuario, Id_Cliente = @Id_Cliente, Subtotal = @Subtotal, Descu = @Descu, Total = @Total, Fecha_Hora = @Fecha_Hora WHERE Id_Remito = @Id_Remito", conexion);
+                using var cmd = new OleDbCommand("UPDATE H_Ventas SET Cod_Usuario = @Cod_Usuario, Subtotal = @Subtotal, Descu = @Descu, Total = @Total, Fecha_Hora = @Fecha_Hora WHERE Id_Remito = @Id_Remito", conexion);
                 cmd.Parameters.AddWithValue("@Id_Remito", venta.Id_Remito);
                 cmd.Parameters.AddWithValue("@Cod_Usuario", venta.Cod_Usuario);
-                cmd.Parameters.AddWithValue("@Id_Cliente", venta.Id_Cliente);
                 cmd.Parameters.Add("@Subtotal", OleDbType.Decimal).Value = venta.Subtotal;
                 cmd.Parameters.Add("@Descu", OleDbType.Decimal).Value = venta.Descu;
                 cmd.Parameters.Add("@Total", OleDbType.Decimal).Value = venta.Total;
@@ -158,7 +154,7 @@ namespace Agraria.Repositorio.Repositorios
             try
             {
                 var ventas = new List<HVentas>();
-                var query = new StringBuilder("SELECT v.Id_Remito, v.Cod_Usuario, v.Fecha_Hora, v.Id_Cliente, v.Subtotal, v.Descu, v.Total FROM H_Ventas v");
+                var query = new StringBuilder("SELECT v.Id_Remito, v.Cod_Usuario, v.Fecha_Hora, v.Subtotal, v.Descu, v.Total FROM H_Ventas v");
                 var whereClause = new List<string>();
                 var parameters = new List<OleDbParameter>();
 
@@ -174,15 +170,7 @@ namespace Agraria.Repositorio.Repositorios
                     parameters.Add(new OleDbParameter("@idRemito", OleDbType.Integer) { Value = idRemito.Value });
                 }
 
-                // Filtro por nombre de cliente si se proporciona
-                if (!string.IsNullOrEmpty(cliente))
-                {
-                    query.Append(" INNER JOIN Clientes c ON v.Id_Cliente = c.Id_Cliente");
-                    whereClause.Add("c.Nombre LIKE ?");
-                    parameters.Add(new OleDbParameter("@cliente", OleDbType.VarChar) { Value = $"%{cliente}%" });
-                }
-
-                // Agregar cláusula WHERE si hay filtros
+              // Agregar cláusula WHERE si hay filtros
                 if (whereClause.Count > 0)
                 {
                     query.Append(" WHERE ");
@@ -209,10 +197,9 @@ namespace Agraria.Repositorio.Repositorios
                             Id_Remito = reader.GetInt32(0),
                             Cod_Usuario = reader.GetInt32(1),
                             Fecha_Hora = reader.GetDateTime(2),
-                            Id_Cliente = reader.GetInt32(3),
-                            Subtotal = reader.GetDecimal(4),
-                            Descu = reader.GetDecimal(5),
-                            Total = reader.GetDecimal(6)
+                            Subtotal = reader.GetDecimal(3),
+                            Descu = reader.GetDecimal(4),
+                            Total = reader.GetDecimal(5)
                         });
                     }
                 }

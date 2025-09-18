@@ -6,14 +6,9 @@ using Agraria.Contrato.Repositorios;
 
 namespace Agraria.Servicio.Implementaciones
 {
-    public class HVentasDetalleService : IHVentasDetalleService
+    public class HVentasDetalleService(IHVentasDetalleRepository repo) : IHVentasDetalleService
     {
-        private readonly IHVentasDetalleRepository _repo;
-
-        public HVentasDetalleService(IHVentasDetalleRepository repo)
-        {
-            _repo = repo;
-        }
+        private readonly IHVentasDetalleRepository _repo = repo;
 
         public async Task<Result<List<HVentasDetalle>>> GetAll() => await _repo.GetAll();
         public Result<HVentasDetalle> GetById(int id) => _repo.GetById(id);
