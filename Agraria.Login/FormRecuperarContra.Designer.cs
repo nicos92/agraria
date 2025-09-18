@@ -219,7 +219,6 @@
             CMBPregunta.Anchor = AnchorStyles.Top;
             CMBPregunta.DropDownStyle = ComboBoxStyle.DropDownList;
             CMBPregunta.FormattingEnabled = true;
-            CMBPregunta.Items.AddRange(new object[] { "¿Nombre de tu mascota?", "¿Ciudad de nacimiento?", "¿Apodo de niñes?" });
             CMBPregunta.Location = new Point(96, 286);
             CMBPregunta.Name = "CMBPregunta";
             CMBPregunta.Size = new Size(274, 29);
@@ -276,6 +275,7 @@
             Name = "FormRecuperarContra";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Escuela Agraria";
+            Load += FormRecuperarContra_Load;
             TLPFondo.ResumeLayout(false);
             TLPLogo.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)Logo).EndInit();

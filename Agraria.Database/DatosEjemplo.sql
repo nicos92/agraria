@@ -12,6 +12,12 @@ INSERT INTO Usuarios_Tipo (Tipo, Descripcion) VALUES
 (3, 'Comprador');
 GO
 
+-- Insertar datos de ejemplo en Preguntas_Seguridad
+INSERT INTO Preguntas_Seguridad ( Pregunta ) VALUES 
+('¿Nombre de tu mascota?'),
+('¿Apodo de la niñez?'),
+('¿Ciudad de Nacimiento?');
+GO
 -- Insertar datos de ejemplo en Usuarios
 INSERT INTO Usuarios (DNI, Nombre, Apellido, Tel, Mail, Id_Tipo) VALUES 
 ('12345678', 'Juan', 'Pérez', '123456789', 'juan.perez@email.com', 1),

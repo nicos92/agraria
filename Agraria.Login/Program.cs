@@ -95,7 +95,11 @@ static class Program
         // Registrar formularios
         services.AddTransient<FormLogin>();      // Este Form estaría en Agraria.Login
 
-        services.AddTransient<FormRecuperarContra>();     // Este Form estaría en Agraria.Login
+        services.AddTransient<FormRecuperarContra>(provider =>
+        {
+            var preguntasSeguridadService = provider.GetRequiredService<IPreguntasSeguridadService>();
+            return new FormRecuperarContra(preguntasSeguridadService);
+        });     // Este Form estaría en Agraria.Login
 
 
 
@@ -142,8 +146,20 @@ static class Program
         services.AddTransient<UCIngresoProveedores>();
         services.AddTransient<UCConsultaProveedor>();
 
-        services.AddTransient<UCIngresoUsuarios>();
-        services.AddTransient<USConsultaUsuario>();
+        services.AddTransient<UCIngresoUsuarios>(provider =>
+        {
+            var usuariosService = provider.GetRequiredService<IUsuariosService>();
+            var usuariosTipoService = provider.GetRequiredService<IUsuariosTipoService>();
+            var preguntasSeguridadService = provider.GetRequiredService<IPreguntasSeguridadService>();
+            return new UCIngresoUsuarios(usuariosService, usuariosTipoService, preguntasSeguridadService);
+        });
+        services.AddTransient<USConsultaUsuario>(provider =>
+        {
+            var usuariosService = provider.GetRequiredService<IUsuariosService>();
+            var usuariosTipoService = provider.GetRequiredService<IUsuariosTipoService>();
+            var preguntasSeguridadService = provider.GetRequiredService<IPreguntasSeguridadService>();
+            return new USConsultaUsuario(usuariosService, usuariosTipoService, preguntasSeguridadService);
+        });
         services.AddTransient<ucIngresoVegetal>();
         services.AddTransient<ucConsultaVegetal>();
 
@@ -181,5 +197,9 @@ static class Program
 
         services.AddScoped<IHVentasDetalleService, HVentasDetalleService>();
         services.AddScoped<IHVentasDetalleRepository, HVentasDetalleRepository>();
+        
+        // Registrar servicios y repositorios para PreguntasSeguridad
+        services.AddScoped<IPreguntasSeguridadService, PreguntasSeguridadService>();
+        services.AddScoped<IPreguntasSeguridadRepository, PreguntasSeguridadRepository>();
     }
 }

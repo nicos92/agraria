@@ -18,6 +18,7 @@ namespace Agraria.UI.Usuarios
         
         private readonly IUsuariosService _usuariosService;
         private readonly IUsuariosTipoService _usuariosTipoService;
+        private readonly IPreguntasSeguridadService _preguntasSeguridadService;
 
         private Modelo.Entidades.Usuarios _usuarioSeleccionado;
 
@@ -43,10 +44,12 @@ namespace Agraria.UI.Usuarios
         /// </summary>
         /// <param name="usuariosService">El servicio de usuarios.</param>
         /// <param name="usuariosTipoService">El servicio de tipos de usuario.</param>
-        public UCIngresoUsuarios(IUsuariosService usuariosService, IUsuariosTipoService usuariosTipoService)
+        /// <param name="preguntasSeguridadService">El servicio de preguntas de seguridad.</param>
+        public UCIngresoUsuarios(IUsuariosService usuariosService, IUsuariosTipoService usuariosTipoService, IPreguntasSeguridadService preguntasSeguridadService)
         {
             _usuariosService = usuariosService;
             _usuariosTipoService = usuariosTipoService;
+            _preguntasSeguridadService = preguntasSeguridadService;
             InitializeComponent();
             _usuarioSeleccionado = new Modelo.Entidades.Usuarios();
 
@@ -101,7 +104,12 @@ namespace Agraria.UI.Usuarios
         {
             TxtDni.Focus();
             ConfigBtns();
-            await CargarTiposUsuarios();
+            await Task.WhenAll(
+                
+                CargarTiposUsuarios(),
+                CargarPreguntasSeguridad()
+            );
+           
 
             // Establecer un valor predeterminado para el combo box de preguntas
             if (CMBPregunta.Items.Count > 0)
@@ -129,6 +137,27 @@ namespace Agraria.UI.Usuarios
             else
             {
                 MessageBox.Show("Error al cargar los tipos de usuarios: " + tiposUsuarios.Error, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        /// <summary>
+        /// Carga las preguntas de seguridad en el ComboBox.
+        /// </summary>
+        private async Task CargarPreguntasSeguridad()
+        {
+            var preguntas = await _preguntasSeguridadService.GetAll();
+
+            if (preguntas.IsSuccess && preguntas.Value != null)
+            {
+                CMBPregunta.DataSource = null;
+                CMBPregunta.DataSource = preguntas.Value;
+                CMBPregunta.DisplayMember = "Pregunta";
+                CMBPregunta.ValueMember = "Id_Pregunta";
+
+            }
+            else
+            {
+                MessageBox.Show("Error al cargar las preguntas de seguridad: " + preguntas.Error, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -161,6 +190,12 @@ namespace Agraria.UI.Usuarios
                 return;
             }
 
+            int idPregunta = 0;
+            if (CMBPregunta.SelectedValue is int preguntaId)
+            {
+                idPregunta = preguntaId;
+            }
+
             _usuarioSeleccionado = new Modelo.Entidades.Usuarios
             {
                 Apellido = TxtApellido.Text,
@@ -170,7 +205,8 @@ namespace Agraria.UI.Usuarios
                 Mail = TxtEmail.Text,
                 Id_Tipo = tipoUsuario,
                 Contra = TxtContra.Text, // Contraseña por defecto al crear un nuevo usuario
-                Respues = TxtRespues.Text
+                Respues = TxtRespues.Text,
+                Id_Pregunta = idPregunta
             };
         }
 

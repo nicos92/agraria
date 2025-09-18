@@ -27,6 +27,13 @@ CREATE TABLE Usuarios_Tipo (
 );
 GO
 
+-- Tabla Preguntas de seguridad
+CREATE TABLE Preguntas_Seguridad (
+Id_Pregunta INT IDENTITY(1,1) PRIMARY KEY,
+Pregunta NVARCHAR(255)
+);
+GO
+
 -- Tabla Usuarios
 CREATE TABLE Usuarios (
     Id_Usuario INT IDENTITY(1,1) PRIMARY KEY,
@@ -35,8 +42,12 @@ CREATE TABLE Usuarios (
     Apellido NVARCHAR(255),
     Tel NVARCHAR(255),
     Mail NVARCHAR(255),
+	Contra NVARCHAR(255),
+	Respues NVARCHAR(255),
+	Id_Pregunta INT NOT NULL,
     Id_Tipo INT NOT NULL,
-    CONSTRAINT FK_Usuarios_UsuariosTipo FOREIGN KEY (Id_Tipo) REFERENCES Usuarios_Tipo(Id_Usuario_Tipo)
+    CONSTRAINT FK_Usuarios_UsuariosTipo FOREIGN KEY (Id_Tipo) REFERENCES Usuarios_Tipo(Id_Usuario_Tipo),
+	CONSTRAINT FK_Usuarios_PreguntaSegu FOREIGN KEY (Id_Pregunta) REFERENCES Preguntas_Seguridad(Id_Pregunta)
 );
 GO
 
@@ -63,7 +74,8 @@ CREATE TABLE Proveedores (
     Proveedor NVARCHAR(255),
     Nombre NVARCHAR(255),
     Tel NVARCHAR(255),
-    Email NVARCHAR(255)
+    Email NVARCHAR(255),
+	Observacion NVARCHAR(255)
 );
 GO
 
@@ -109,9 +121,9 @@ CREATE TABLE H_Ventas (
     Cod_Usuario INT NOT NULL,
     Fecha_Hora DATETIME2 NOT NULL,
     Id_Cliente INT NOT NULL,
-    Subtotal DECIMAL(18,0) NOT NULL,
-    Descu DECIMAL(18,0) NOT NULL,
-    Total DECIMAL(18,0) NOT NULL,
+    Subtotal DECIMAL(18,2) NOT NULL,
+    Descu DECIMAL(18,2) NOT NULL,
+    Total DECIMAL(18,2) NOT NULL,
     CONSTRAINT FK_HVentas_Usuarios FOREIGN KEY (Cod_Usuario) REFERENCES Usuarios(Id_Usuario),
     CONSTRAINT FK_HVentas_Clientes FOREIGN KEY (Id_Cliente) REFERENCES Clientes(Id_Cliente)
 );

@@ -447,7 +447,6 @@ namespace Agraria.UI.Usuarios
             CMBPregunta.DropDownStyle = ComboBoxStyle.DropDownList;
             CMBPregunta.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             CMBPregunta.FormattingEnabled = true;
-            CMBPregunta.Items.AddRange(new object[] { "¿Nombre de tu mascota?", "¿Ciudad de nacimiento?", "¿Apodo de niñes?" });
             CMBPregunta.Location = new Point(123, 301);
             CMBPregunta.Margin = new Padding(4);
             CMBPregunta.Name = "CMBPregunta";
