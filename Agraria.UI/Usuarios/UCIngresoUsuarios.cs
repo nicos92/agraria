@@ -15,6 +15,7 @@ namespace Agraria.UI.Usuarios
 {
     public partial class UCIngresoUsuarios : UserControl
     {
+        
         private readonly IUsuariosService _usuariosService;
         private readonly IUsuariosTipoService _usuariosTipoService;
 
@@ -101,12 +102,13 @@ namespace Agraria.UI.Usuarios
             TxtDni.Focus();
             ConfigBtns();
             await CargarTiposUsuarios();
-            
+
             // Establecer un valor predeterminado para el combo box de preguntas
             if (CMBPregunta.Items.Count > 0)
             {
                 CMBPregunta.SelectedIndex = 0;
             }
+            TxtContra_PassqordChar();
         }
 
         /// <summary>
@@ -167,7 +169,7 @@ namespace Agraria.UI.Usuarios
                 Tel = TxtTel.Text,
                 Mail = TxtEmail.Text,
                 Id_Tipo = tipoUsuario,
-                Contra = "123456", // Contraseña por defecto al crear un nuevo usuario
+                Contra = TxtContra.Text, // Contraseña por defecto al crear un nuevo usuario
                 Respues = TxtRespues.Text
             };
         }
@@ -222,5 +224,11 @@ namespace Agraria.UI.Usuarios
             }
         }
 
+        private void TxtContra_PassqordChar()
+        {
+            TxtContra.PasswordChar = '\uFFFD';
+            TxtContraDos.PasswordChar = '\uFFFD';
+
+        }
     }
 }

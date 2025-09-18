@@ -19,7 +19,7 @@ namespace Agraria.Repositorio.Repositorios
             try
             {
                 using OleDbConnection conn = Conexion();
-                using OleDbCommand cmd = new("SELECT Id_Usuario, DNI, Nombre, Apellido, Tel, Mail, Id_Tipo FROM Usuarios", conn);
+                using OleDbCommand cmd = new("SELECT Id_Usuario, DNI, Nombre, Apellido, Tel, Mail, Id_Tipo, contra, respues FROM Usuarios", conn);
                 await conn.OpenAsync();
                 using DbDataReader reader = await cmd.ExecuteReaderAsync();
                 List<Usuarios> usuarios = [];
@@ -33,7 +33,9 @@ namespace Agraria.Repositorio.Repositorios
                         Apellido = reader.GetString(3),
                         Tel = reader.GetString(4),
                         Mail =  reader.GetString(5),
-                        Id_Tipo = reader.GetInt32(6)
+                        Id_Tipo = reader.GetInt32(6),
+                        Contra = reader.GetString(7),
+                        Respues = reader.GetString(8)
                     };
                     usuarios.Add(usuario);
                 }
@@ -54,7 +56,7 @@ namespace Agraria.Repositorio.Repositorios
             try
             {
                 using OleDbConnection conn = Conexion();
-                using OleDbCommand cmd = new("SELECT Id_Usuario, DNI, Nombre, Apellido, Tel, Mail, Id_Tipo FROM Usuarios WHERE Id_Usuario = @Id", conn);
+                using OleDbCommand cmd = new("SELECT Id_Usuario, DNI, Nombre, Apellido, Tel, Mail, Id_Tipo, contra, respues FROM Usuarios WHERE Id_Usuario = @Id", conn);
                 cmd.Parameters.AddWithValue("@Id", id);
                 await conn.OpenAsync();
                 using DbDataReader reader = await cmd.ExecuteReaderAsync();
@@ -68,7 +70,9 @@ namespace Agraria.Repositorio.Repositorios
                         Apellido = reader.GetString(3),
                         Tel = reader.GetString(4),
                         Mail = reader.GetString(5),
-                        Id_Tipo = reader.GetInt32(6)
+                        Id_Tipo = reader.GetInt32(6),
+                        Contra = reader.GetString(7),
+                        Respues = reader.GetString(8)
                     };
                     return Result<Usuarios>.Success(usuario);
                 }
@@ -89,13 +93,15 @@ namespace Agraria.Repositorio.Repositorios
             try
             {
                 using OleDbConnection conn = Conexion();
-                using OleDbCommand cmd = new("INSERT INTO Usuarios (DNI, Nombre, Apellido, Tel, Mail, Id_Tipo) VALUES (@DNI, @Nombre, @Apellido, @Tel, @Mail, @Id_Tipo)", conn);
-                cmd.Parameters.AddWithValue("@DNI", usuario.DNI ?? (object)DBNull.Value);
-                cmd.Parameters.AddWithValue("@Nombre", usuario.Nombre ?? (object)DBNull.Value);
-                cmd.Parameters.AddWithValue("@Apellido", usuario.Apellido ?? (object)DBNull.Value);
-                cmd.Parameters.AddWithValue("@Tel", usuario.Tel ?? (object)DBNull.Value);
-                cmd.Parameters.AddWithValue("@Mail", usuario.Mail ?? (object)DBNull.Value);
+                using OleDbCommand cmd = new("INSERT INTO Usuarios (DNI, Nombre, Apellido, Tel, Mail, Id_Tipo, contra, respues) VALUES (@DNI, @Nombre, @Apellido, @Tel, @Mail, @Id_Tipo, @Contra, @Respues)", conn);
+                cmd.Parameters.AddWithValue("@DNI", usuario.DNI );
+                cmd.Parameters.AddWithValue("@Nombre", usuario.Nombre);
+                cmd.Parameters.AddWithValue("@Apellido", usuario.Apellido);
+                cmd.Parameters.AddWithValue("@Tel", usuario.Tel);
+                cmd.Parameters.AddWithValue("@Mail", usuario.Mail);
                 cmd.Parameters.AddWithValue("@Id_Tipo", usuario.Id_Tipo);
+                cmd.Parameters.AddWithValue("@Contra", usuario.Contra);
+                cmd.Parameters.AddWithValue("@Respues", usuario.Respues);
                 conn.Open();
                 int rowsAffected = cmd.ExecuteNonQuery();
                 if (rowsAffected > 0)
@@ -119,13 +125,15 @@ namespace Agraria.Repositorio.Repositorios
             try
             {
                 using OleDbConnection conn = Conexion();
-                using OleDbCommand cmd = new("UPDATE Usuarios SET DNI = @DNI, Nombre = @Nombre, Apellido = @Apellido, Tel = @Tel, Mail = @Mail, Id_Tipo = @Id_Tipo WHERE Id_Usuario = @Id", conn);
-                cmd.Parameters.AddWithValue("@DNI", usuario.DNI ?? (object)DBNull.Value);
-                cmd.Parameters.AddWithValue("@Nombre", usuario.Nombre ?? (object)DBNull.Value);
-                cmd.Parameters.AddWithValue("@Apellido", usuario.Apellido ?? (object)DBNull.Value);
-                cmd.Parameters.AddWithValue("@Tel", usuario.Tel ?? (object)DBNull.Value);
-                cmd.Parameters.AddWithValue("@Mail", usuario.Mail ?? (object)DBNull.Value);
+                using OleDbCommand cmd = new("UPDATE Usuarios SET DNI = @DNI, Nombre = @Nombre, Apellido = @Apellido, Tel = @Tel, Mail = @Mail, Id_Tipo = @Id_Tipo, contra = @Contra, respues = @Respues WHERE Id_Usuario = @Id", conn);
+                cmd.Parameters.AddWithValue("@DNI", usuario.DNI );
+                cmd.Parameters.AddWithValue("@Nombre", usuario.Nombre );
+                cmd.Parameters.AddWithValue("@Apellido", usuario.Apellido );
+                cmd.Parameters.AddWithValue("@Tel", usuario.Tel);
+                cmd.Parameters.AddWithValue("@Mail", usuario.Mail);
                 cmd.Parameters.AddWithValue("@Id_Tipo", usuario.Id_Tipo);
+                cmd.Parameters.AddWithValue("@Contra", usuario.Contra);
+                cmd.Parameters.AddWithValue("@Respues", usuario.Respues);
                 cmd.Parameters.AddWithValue("@Id", usuario.Id_Usuario);
                 conn.Open();
                 int rowsAffected = cmd.ExecuteNonQuery();

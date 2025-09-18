@@ -13,6 +13,8 @@ namespace Agraria.Util
     [SupportedOSPlatform("windows")]
     public static class Util
     {
+
+        public static readonly char[] simbolosUnicode = ['\u2764', '\u220E', '\u23FA', '\u2599'];
         /// <summary>
         /// Limpia los controles TextBox de un TableLayoutPanel y establece el foco en un TextBox específico.
         /// </summary>

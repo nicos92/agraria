@@ -25,12 +25,17 @@ namespace Agraria.UI.Usuarios
         private readonly ValidadorTextBox _vTxtNombre;
         private readonly ValidadorTextBox _vTxtTel;
         private readonly ValidadorTextBox _vTxtEmail;
+        private readonly ValidadorTextBox _vTxtContra;
+        private readonly ValidadorTextBox _vTxtContraDos;
+        private readonly ValidadorTextBox _vTxtRespues;
         private readonly ErrorProvider _epDni;
         private readonly ErrorProvider _epApellido;
         private readonly ErrorProvider _epNombre;
         private readonly ErrorProvider _epTel;
         private readonly ErrorProvider _epEmail;
-        
+        private readonly ErrorProvider _epContra;
+        private readonly ErrorProvider _epContraDos;
+        private readonly ErrorProvider _epRespues;
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="USConsultaUsuario בו"/>.
         /// </summary>
@@ -72,6 +77,16 @@ namespace Agraria.UI.Usuarios
             {
                 MensajeError = "El email ingresado no es válido."
             };
+
+            _epContra = new ErrorProvider();
+            _vTxtContra = new ValidadorPassword(TxtContra, _epContra);
+            _epContraDos = new ErrorProvider();
+            _vTxtContraDos = new ValidadorPassword(TxtContraDos, _epContraDos);
+            _epRespues = new ErrorProvider();
+            _vTxtRespues = new ValidadorNombre(TxtRespues, _epRespues)
+            {
+                MensajeError = "La respuesta no puede estar vacía."
+            };
         }
 
         /// <summary>
@@ -89,9 +104,15 @@ namespace Agraria.UI.Usuarios
             );
             ConfigBtns();
 
-            Util.Util.BloquearBtns(ListBUsuarios, TLPFormUsuario);
+            Util.Util.BloquearBtns(ListBUsuarios, TLPForm);
             Util.Util.CalcularDGVVacio(ListBUsuarios, LblLista, "Usuarios");
             CargarPermisos();
+            // Establecer un valor predeterminado para el combo box de preguntas
+            if (CMBPregunta.Items.Count > 0)
+            {
+                CMBPregunta.SelectedIndex = 0;
+            }
+            TxtContra_PassqordChar();
         }
 
         /// <summary>
@@ -122,7 +143,15 @@ namespace Agraria.UI.Usuarios
         /// <param name="e">La instancia de <see cref="EventArgs"/> que contiene los datos del evento.</param>
         private void TxtDni_TextChanged(object sender, EventArgs e)
         {
-            ValidadorMultiple.ValidacionMultiple(BtnGuardar, _vTxtDni, _vTxtApellido, _vTxtNombre, _vTxtTel, _vTxtEmail);
+            ValidadorMultiple.ValidacionMultiple(BtnGuardar, _vTxtDni, _vTxtApellido, _vTxtNombre, _vTxtTel, _vTxtEmail, _vTxtContra, _vTxtContraDos, _vTxtRespues);
+            if (TxtContra.Text != TxtContraDos.Text)
+            {
+                LblError.Visible = true;
+            }
+            else
+            {
+                LblError.Visible = false;
+            }
         }
 
         /// <summary>
@@ -136,14 +165,18 @@ namespace Agraria.UI.Usuarios
                 return;
             }
 
-            _usuarioSeleccionado ??= new Modelo.Entidades.Usuarios();
-
-            _usuarioSeleccionado.DNI = TxtDni.Text;
-            _usuarioSeleccionado.Apellido = TxtApellido.Text;
-            _usuarioSeleccionado.Nombre = TxtNombre.Text;
-            _usuarioSeleccionado.Tel = TxtTel.Text;
-            _usuarioSeleccionado.Mail = TxtEmail.Text;
-            _usuarioSeleccionado.Id_Tipo = tipoUsuario;
+            _usuarioSeleccionado = new Modelo.Entidades.Usuarios
+            {
+                Id_Usuario = _usuarioSeleccionado.Id_Usuario, // Mantener el Id_Usuario existente para actualizaciones
+                Apellido = TxtApellido.Text,
+                DNI = TxtDni.Text,
+                Nombre = TxtNombre.Text,
+                Tel = TxtTel.Text,
+                Mail = TxtEmail.Text,
+                Id_Tipo = tipoUsuario,
+                Contra = TxtContra.Text, // Contraseña por defecto al crear un nuevo usuario
+                Respues = TxtRespues.Text
+            };
 
 
         }
@@ -294,9 +327,9 @@ namespace Agraria.UI.Usuarios
 
                 if (Util.Util.CalcularDGVVacio(ListBUsuarios, LblLista, "Usuarios"))
                 {
-                    Util.Util.LimpiarForm(TLPFormUsuario, TxtDni);
+                    Util.Util.LimpiarForm(TLPForm, TxtDni);
 
-                    Util.Util.BloquearBtns(ListBUsuarios, TLPFormUsuario);
+                    Util.Util.BloquearBtns(ListBUsuarios, TLPForm);
 
                 }
 
@@ -337,6 +370,9 @@ namespace Agraria.UI.Usuarios
                 TxtTel.Text = _usuarioSeleccionado.Tel ?? string.Empty;
                 TxtEmail.Text = _usuarioSeleccionado.Mail ?? string.Empty;
                 CMBTipoUsuario.SelectedValue = _usuarioSeleccionado.Id_Tipo;
+                TxtContra.Text = _usuarioSeleccionado.Contra ?? string.Empty;
+                TxtContraDos.Text = _usuarioSeleccionado.Contra ?? string.Empty;
+                TxtRespues.Text = _usuarioSeleccionado.Respues ?? string.Empty;
 
             }
             else
@@ -346,6 +382,10 @@ namespace Agraria.UI.Usuarios
                 TxtNombre.Clear();
                 TxtTel.Clear();
                 TxtEmail.Clear();
+                CMBTipoUsuario.SelectedIndex = -1;
+                TxtContra.Clear();
+                TxtContraDos.Clear();
+                TxtRespues.Clear();
             }
         }
 
@@ -367,6 +407,14 @@ namespace Agraria.UI.Usuarios
         {
             BtnGuardar.Tag = AppColorsBlue.Tertiary;
             BtnEliminar.Tag = AppColorsBlue.Error;
+        }
+
+
+        private void TxtContra_PassqordChar()
+        {
+            TxtContra.PasswordChar = '\uFFFD';
+            TxtContraDos.PasswordChar = '\uFFFD';
+
         }
     }
 

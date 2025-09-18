@@ -284,6 +284,7 @@ namespace Agraria.UI.Usuarios
             TxtContra.Margin = new Padding(4);
             TxtContra.MaxLength = 255;
             TxtContra.Name = "TxtContra";
+            TxtContra.PasswordChar = '*';
             TxtContra.Size = new Size(368, 29);
             TxtContra.TabIndex = 10;
             TxtContra.TextChanged += TxtDni_TextChanged;
@@ -297,6 +298,7 @@ namespace Agraria.UI.Usuarios
             TxtContraDos.Location = new Point(128, 236);
             TxtContraDos.MaxLength = 255;
             TxtContraDos.Name = "TxtContraDos";
+            TxtContraDos.PasswordChar = '*';
             TxtContraDos.Size = new Size(370, 29);
             TxtContraDos.TabIndex = 11;
             TxtContraDos.TextChanged += TxtDni_TextChanged;
