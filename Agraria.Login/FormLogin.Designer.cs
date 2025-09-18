@@ -136,7 +136,7 @@ partial class FormLogin
         BtnIngresar.Location = new Point(169, 290);
         BtnIngresar.Name = "BtnIngresar";
         BtnIngresar.Size = new Size(128, 48);
-        BtnIngresar.TabIndex = 6;
+        BtnIngresar.TabIndex = 3;
         BtnIngresar.Text = "INGRESAR";
         BtnIngresar.UseVisualStyleBackColor = false;
         BtnIngresar.EnabledChanged += BtnIngresar_EnabledChanged;
@@ -161,8 +161,9 @@ partial class FormLogin
         TxtContra.Location = new Point(96, 209);
         TxtContra.MaxLength = 255;
         TxtContra.Name = "TxtContra";
+        TxtContra.PasswordChar = '*';
         TxtContra.Size = new Size(274, 29);
-        TxtContra.TabIndex = 5;
+        TxtContra.TabIndex = 2;
         TxtContra.TextChanged += TxtDni_TextChanged;
         TxtContra.KeyPress += TxtContra_KeyPress;
         // 
@@ -184,8 +185,9 @@ partial class FormLogin
         TxtDni.MaxLength = 8;
         TxtDni.Name = "TxtDni";
         TxtDni.Size = new Size(274, 29);
-        TxtDni.TabIndex = 4;
+        TxtDni.TabIndex = 1;
         TxtDni.TextChanged += TxtDni_TextChanged;
+        TxtDni.KeyPress += TxtContra_KeyPress;
         // 
         // LblUsuario
         // 
@@ -206,7 +208,7 @@ partial class FormLogin
         LblOlvide.Location = new Point(138, 381);
         LblOlvide.Name = "LblOlvide";
         LblOlvide.Size = new Size(190, 42);
-        LblOlvide.TabIndex = 8;
+        LblOlvide.TabIndex = 4;
         LblOlvide.TabStop = true;
         LblOlvide.Text = "¿Olvidaste tu Contraseña?\r\nHaz click aquí";
         LblOlvide.TextAlign = ContentAlignment.MiddleCenter;
@@ -238,6 +240,7 @@ partial class FormLogin
         Name = "FormLogin";
         StartPosition = FormStartPosition.CenterScreen;
         Text = "Escuela Agraria";
+        Activated += FormLogin_Activated;
         TLPFondo.ResumeLayout(false);
         TLPLogo.ResumeLayout(false);
         ((System.ComponentModel.ISupportInitialize)Logo).EndInit();

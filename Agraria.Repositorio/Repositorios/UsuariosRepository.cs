@@ -196,6 +196,46 @@ namespace Agraria.Repositorio.Repositorios
             }
         }
         
+        public async Task<Result<Usuarios>> GetByDniAndQuestionAndAnswer(string dni, int preguntaId, string respuesta)
+        {
+            try
+            {
+                using OleDbConnection conn = Conexion();
+                using OleDbCommand cmd = new("SELECT Id_Usuario, DNI, Nombre, Apellido, Tel, Mail, Id_Tipo, contra, respues, id_pregunta FROM Usuarios WHERE DNI = @Dni AND id_pregunta = @PreguntaId AND respues = @Respuesta", conn);
+                cmd.Parameters.AddWithValue("@Dni", dni);
+                cmd.Parameters.AddWithValue("@PreguntaId", preguntaId);
+                cmd.Parameters.AddWithValue("@Respuesta", respuesta);
+                await conn.OpenAsync();
+                using DbDataReader reader = await cmd.ExecuteReaderAsync();
+                if (await reader.ReadAsync())
+                {
+                    Usuarios usuario = new()
+                    {
+                        Id_Usuario = reader.GetInt32(0),
+                        DNI = reader.GetString(1),
+                        Nombre = reader.GetString(2),
+                        Apellido = reader.GetString(3),
+                        Tel = reader.GetString(4),
+                        Mail = reader.GetString(5),
+                        Id_Tipo = reader.GetInt32(6),
+                        Contra = reader.GetString(7),
+                        Respues = reader.GetString(8),
+                        Id_Pregunta = reader.GetInt32(9)
+                    };
+                    return Result<Usuarios>.Success(usuario);
+                }
+                return Result<Usuarios>.Failure("Usuario no encontrado o datos de seguridad incorrectos");
+            }
+            catch (OleDbException ex)
+            {
+                return Result<Usuarios>.Failure("Error en la base de datos al obtener el usuario: " + ex.Message);
+            }
+            catch (System.Exception ex)
+            {
+                return Result<Usuarios>.Failure("Error inesperado al obtener el usuario: " + ex.Message);
+            }
+        }
+        
         public Result<bool> Delete(int id)
         {
             try

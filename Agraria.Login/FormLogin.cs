@@ -97,6 +97,7 @@ public partial class FormLogin : Form
         TxtDni.Clear();
         TxtContra.Clear();
         LblInicioError.Visible = false;
+        TxtDni.Focus();
     }
 
     private void TxtDni_TextChanged(object sender, EventArgs e)
@@ -123,5 +124,10 @@ public partial class FormLogin : Form
         {
             BtnIngresar.BackColor = AppColorsBlue.Secondary;
         }
+    }
+
+    private void FormLogin_Activated(object sender, EventArgs e)
+    {
+        TxtDni.Focus();
     }
 }

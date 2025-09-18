@@ -98,7 +98,8 @@ static class Program
         services.AddTransient<FormRecuperarContra>(provider =>
         {
             var preguntasSeguridadService = provider.GetRequiredService<IPreguntasSeguridadService>();
-            return new FormRecuperarContra(preguntasSeguridadService);
+            var usuariosService = provider.GetRequiredService<IUsuariosService>();
+            return new FormRecuperarContra(preguntasSeguridadService, usuariosService);
         });     // Este Form estaría en Agraria.Login
 
 
