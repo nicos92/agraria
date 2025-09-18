@@ -183,6 +183,9 @@ static class Program
         services.AddScoped<IArticulosService, ArticulosService>();
         services.AddScoped<IArticulosRepository, ArticulosRepository>();
 
+        services.AddScoped<IArticulosGralService, ArticulosGralService>();
+        services.AddScoped<IArticulosGralRepository, ArticulosGralRepository>();
+
         services.AddScoped<IArticuloStockService, ArticuloStockService>();
         services.AddScoped<IArticuloStockRepository, ArticuloStockRepository>();
 
