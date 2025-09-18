@@ -43,6 +43,18 @@ namespace Agraria.Util.Validaciones
             // Allow digits
             if (char.IsDigit(e.KeyChar))
             {
+                // Check if we're after a comma and already have 2 decimal digits
+                int commaIndex = textBox.Text.IndexOf(',');
+                if (commaIndex != -1 && textBox.SelectionStart > commaIndex)
+                {
+                    // Count digits after comma
+                    string decimalPart = textBox.Text.Substring(commaIndex + 1);
+                    if (decimalPart.Length >= 2)
+                    {
+                        e.Handled = true; // Reject if already 2 decimal digits
+                        return;
+                    }
+                }
                 return;
             }
 
@@ -67,7 +79,7 @@ namespace Agraria.Util.Validaciones
             e.Handled = true;
         }
 
-        [GeneratedRegex(@"^-?(\d{1,3}(\.\d{3})*|\d+)(,\d*)?$", RegexOptions.Compiled)]
+        [GeneratedRegex(@"^-?(\d{1,3}(\.\d{3})*|\d+)(,\d{1,2})?$", RegexOptions.Compiled)]
         private static partial Regex DecimalRegex();
     }
 }

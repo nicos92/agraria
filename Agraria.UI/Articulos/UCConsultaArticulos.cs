@@ -92,7 +92,7 @@ namespace Agraria.UI.Articulos
             };
 
             _errorProviderCantidad = new ErrorProvider();
-            _validadorCantidad = new ValidadorEntero(TxtCantidad, _errorProviderCantidad)
+            _validadorCantidad = new ValidadorNumeroDecimal(TxtCantidad, _errorProviderCantidad)
             {
                 MensajeError = "Número ingresado no válido"
             };
@@ -541,7 +541,7 @@ namespace Agraria.UI.Articulos
 
                 // Cargar datos en los controles
                 TxtDescripcion.Text = _articuloSeleccionado.Art_Desc ?? string.Empty;
-                TxtCantidad.Text = _stockSeleccionado.Cantidad.ToString();
+                TxtCantidad.Text = DecimalFormatter.ToDecimal(_stockSeleccionado.Cantidad);
                 TxtCosto.Text = DecimalFormatter.ToDecimal(_stockSeleccionado.Costo);
                 TxtGanancia.Text = DecimalFormatter.ToDecimal(_stockSeleccionado.Ganancia);
 

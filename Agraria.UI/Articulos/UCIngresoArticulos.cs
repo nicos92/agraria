@@ -64,7 +64,7 @@ namespace Agraria.UI.Articulos
             _vTxtDescripcion = new ValidadorDireccion(TxtDescripcion, _epTxtDescipcion) { MensajeError = "La Descripción no puede estar vacía" };
 
             _epTxtCantidad = new ErrorProvider();
-            _vTxtCantidad = new ValidadorEntero(TxtCantidad, _epTxtCantidad) { MensajeError = "Número ingresado no válido" };
+            _vTxtCantidad = new ValidadorNumeroDecimal(TxtCantidad, _epTxtCantidad) { MensajeError = "Número ingresado no válido" };
 
             _epTxtCosto = new ErrorProvider();
             _vTxtCosto = new ValidadorNumeroDecimal(TxtCosto, _epTxtCosto) { MensajeError = "Número ingresado no válido" };
