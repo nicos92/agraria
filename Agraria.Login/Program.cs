@@ -171,8 +171,16 @@ static class Program
         services.AddTransient<ucConsultaVegetal>();
 
         services.AddTransient<FormPaniol>();
-        services.AddTransient<UCIngresoHerramienta>();
-        services.AddTransient<UCConsultaHerramienta>();
+        services.AddTransient<UCIngresoHerramienta>(provider =>
+        {
+            var herramientasService = provider.GetRequiredService<IHerramientasService>();
+            return new UCIngresoHerramienta(herramientasService);
+        });
+        services.AddTransient<UCConsultaHerramienta>(provider =>
+        {
+            var herramientasService = provider.GetRequiredService<IHerramientasService>();
+            return new UCConsultaHerramienta(herramientasService);
+        });
 
         // Registrar servicios (ejemplo)
 
@@ -221,5 +229,8 @@ static class Program
         services.AddScoped<IHRemitoProduccionRepository, HRemitoProduccionRepository>();
         services.AddScoped<IHRemitoDetalleProduccionService, HRemitoDetalleProduccionService>();
         services.AddScoped<IHRemitoDetalleProduccionRepository, HRemitoDetalleProduccionRepository>();
+
+        services.AddScoped<IHerramientasService, HerramientasService>();
+        services.AddScoped<IHerramientasRepository, HerramientasRepository>();
     }
 }

@@ -211,6 +211,7 @@
             ProgressBar.Name = "ProgressBar";
             ProgressBar.Size = new Size(804, 16);
             ProgressBar.TabIndex = 16;
+            ProgressBar.Visible = false;
             // 
             // UCIngresoHerramienta
             // 

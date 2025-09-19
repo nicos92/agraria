@@ -27,6 +27,15 @@ CREATE TABLE Usuarios_Tipo (
 );
 GO
 
+-- Tabla Herramientas
+CREATE TABLE Herramientas (
+    Id_Herramienta INT IDENTITY(1,1) PRIMARY KEY,
+    Nombre NVARCHAR(255) NOT NULL,
+    Descripcion NVARCHAR(255),
+    Cantidad INT NOT NULL
+);
+GO
+
 -- Tabla Preguntas de seguridad
 CREATE TABLE Preguntas_Seguridad (
 Id_Pregunta INT IDENTITY(1,1) PRIMARY KEY,

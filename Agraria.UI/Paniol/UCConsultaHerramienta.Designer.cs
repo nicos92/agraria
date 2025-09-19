@@ -136,7 +136,7 @@
             // Codigo
             // 
             Codigo.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            Codigo.DataPropertyName = "Art_Id";
+            Codigo.DataPropertyName = "Id_Herramienta";
             Codigo.HeaderText = "CÓDIGO";
             Codigo.Name = "Codigo";
             Codigo.ReadOnly = true;
@@ -145,7 +145,7 @@
             // Nombre
             // 
             Nombre.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            Nombre.DataPropertyName = "Art_Nombre";
+            Nombre.DataPropertyName = "Nombre";
             Nombre.HeaderText = "NOMBRE";
             Nombre.Name = "Nombre";
             Nombre.ReadOnly = true;
@@ -347,6 +347,7 @@
             ProgressBar.Name = "ProgressBar";
             ProgressBar.Size = new Size(804, 16);
             ProgressBar.TabIndex = 4;
+            ProgressBar.Visible = false;
             // 
             // UCConsultaHerramienta
             // 
