@@ -109,9 +109,8 @@ namespace Agraria.UI.Articulos
                 MensajeError = "Número ingresado no válido"
             };
             ConfigurarBotones();
-            
-            // Agregar manejador para el evento Enter
-            this.Enter += UCConsultaArticulos_Enter;
+        
+
         }
 
 
@@ -144,6 +143,7 @@ namespace Agraria.UI.Articulos
                 CargaInicial,
                 CargarCombosYDataGrid);
             taskHelper.Iniciar();
+
         }
 
         /// <summary>
@@ -321,6 +321,26 @@ namespace Agraria.UI.Articulos
         /// </summary>
         private void CargarCombosYDataGrid()
         {
+            CargarCMBs();
+
+            CargarArticulosDataGridView();
+            
+            // Verificar si hay artículos y activar/desactivar formulario según corresponda
+            if (_listaArticulos == null || _listaArticulos.Count == 0)
+            {
+                // No hay artículos, desactivar formulario
+                Utilidades.Util.LimpiarForm(TLPForm, TxtDescripcion);
+                Utilidades.Util.BloquearBtns(ListBArticulos, TLPForm);
+            }
+            else
+            {
+                // Hay artículos, activar formulario
+                Utilidades.Util.DesbloquearTLPForm(TLPForm);
+            }
+        }
+
+        private void CargarCMBs()
+        {
             CMBProveedor.DataSource = _listaProveedores ?? [];
             CMBProveedor.DisplayMember = "Proveedor";
             CMBProveedor.ValueMember = "Id_Proveedor";
@@ -328,14 +348,6 @@ namespace Agraria.UI.Articulos
             CMBCategoria.DataSource = _listaCategorias ?? [];
             CMBCategoria.DisplayMember = "Entorno";
             CMBCategoria.ValueMember = "Id_Entorno";
-
-            CargarArticulosDataGridView();
-            if (Utilidades.Util.CalcularDGVVacio(ListBArticulos, LblLista, "Productos"))
-            {
-                Utilidades.Util.LimpiarForm(TLPForm, TxtDescripcion);
-                Utilidades.Util.BloquearBtns(ListBArticulos, TLPForm);
-
-            }
         }
 
         /// <summary>
@@ -581,6 +593,7 @@ namespace Agraria.UI.Articulos
             TxtCantidad.Clear();
             TxtCosto.Clear();
             TxtGanancia.Clear();
+            LblPrecio.Text = "$0,00";
 
             _articuloSeleccionado = new Modelo.Entidades.Articulos();
             _stockSeleccionado = new Stock();
@@ -727,25 +740,19 @@ namespace Agraria.UI.Articulos
 
         private void UCConsultaArticulos_VisibleChanged(object sender, EventArgs e)
         {
-            var taskHelper = new TareasLargas(
+            if (Visible)
+            {
+                var taskHelper = new TareasLargas(
                PanelMedio,
                ProgressBar,
                CargaInicial,
                CargarCombosYDataGrid);
-            taskHelper.Iniciar();
+                taskHelper.Iniciar();
+            }
+
         }
         
-        private void UCConsultaArticulos_Enter(object sender, EventArgs e)
-        {
-            // Verificar si la lista de artículos está vacía o si necesitamos recargar los datos
-           
-                var taskHelper = new TareasLargas(
-                   PanelMedio,
-                   ProgressBar,
-                   CargaInicial,
-                   CargarCombosYDataGrid);
-                taskHelper.Iniciar();
-            
-        }
+      
+
     }
 }

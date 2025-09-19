@@ -150,6 +150,11 @@ namespace Agraria.Utilidades
 
         }
 
+        public static void DesbloquearTLPForm(TableLayoutPanel tlp)
+        {
+            tlp.Enabled = true;
+        }
+
         /// <summary>
         /// Actualiza un objeto en una lista.
         /// </summary>
