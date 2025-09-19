@@ -482,6 +482,7 @@ namespace Agraria.UI.Ventas
             Padding = new Padding(16);
             Size = new Size(804, 561);
             Load += UCIngresoVenta_Load;
+            Enter += UCIngresoVenta_VisibleChanged;
             splitContainer1.Panel1.ResumeLayout(false);
             splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)splitContainer1).EndInit();

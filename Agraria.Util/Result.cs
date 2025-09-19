@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Agraria.Util
+namespace Agraria.Utilidades
 {
     public class Result<T>
     {

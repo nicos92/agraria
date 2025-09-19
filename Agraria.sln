@@ -13,7 +13,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Agraria.Servicio", "Agraria
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Agraria.Repositorio", "Agraria.Repositorio\Agraria.Repositorio.csproj", "{D4F8A7A1-BB16-4CAA-8B47-F422B148018D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Agraria.Util", "Agraria.Util\Agraria.Util.csproj", "{86086D5E-D93E-4C4E-8BD0-D04EE782EA8A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Agraria.Utilidades", "Agraria.Util\Agraria.Utilidades.csproj", "{86086D5E-D93E-4C4E-8BD0-D04EE782EA8A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Agraria.Modelo", "Agraria.Modelo\Agraria.Modelo.csproj", "{50A4FED6-D396-4A96-B816-0D75321D3298}"
 EndProject

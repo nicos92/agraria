@@ -12,8 +12,8 @@ using System.Windows.Forms;
 using Agraria.Contrato.Servicios;
 using Agraria.Modelo.Entidades;
 using Agraria.Modelo.Enums;
-using Agraria.Util;
 using Agraria.Util.Validaciones;
+using Agraria.Utilidades;
 
 namespace Agraria.UI.Inventario
 {
@@ -174,10 +174,10 @@ namespace Agraria.UI.Inventario
                 {
                     LimpiarFormulario();
                     ActualizarDataGridView();
-                    if (Util.Util.CalcularDGVVacio(ListBArticulos, LblLista, "Articulos"))
+                    if (Utilidades.Util.CalcularDGVVacio(ListBArticulos, LblLista, "Articulos"))
                     {
-                        Util.Util.LimpiarForm(TLPForm, TxtNombre);
-                        Util.Util.BloquearBtns(ListBArticulos, TLPForm);
+                        Utilidades.Util.LimpiarForm(TLPForm, TxtNombre);
+                        Utilidades.Util.BloquearBtns(ListBArticulos, TLPForm);
                     }
                 });
             tarea.Iniciar();
@@ -275,10 +275,10 @@ namespace Agraria.UI.Inventario
         private void CargarDataGrid()
         {
             CargarArticulosDataGridView();
-            if (Util.Util.CalcularDGVVacio(ListBArticulos, LblLista, "Productos"))
+            if (Utilidades.Util.CalcularDGVVacio(ListBArticulos, LblLista, "Productos"))
             {
-                Util.Util.LimpiarForm(TLPForm, TxtNombre);
-                Util.Util.BloquearBtns(ListBArticulos, TLPForm);
+                Utilidades.Util.LimpiarForm(TLPForm, TxtNombre);
+                Utilidades.Util.BloquearBtns(ListBArticulos, TLPForm);
             }
         }
 
@@ -531,8 +531,8 @@ namespace Agraria.UI.Inventario
         /// </summary>
         private void ActualizarListas()
         {
-            Util.Util.ActualizarEnLista(_listaArticulos, _articuloSeleccionado);
-            Util.Util.ActualizarEnLista(_listaStock, _stockSeleccionado);
+            Utilidades.Util.ActualizarEnLista(_listaArticulos, _articuloSeleccionado);
+            Utilidades.Util.ActualizarEnLista(_listaStock, _stockSeleccionado);
             CargarArticulosDataGridView();
         }
 
@@ -541,8 +541,8 @@ namespace Agraria.UI.Inventario
         /// </summary>
         private void EliminarDeListas()
         {
-            Util.Util.EliminarDeLista(_listaArticulos, _articuloSeleccionado);
-            Util.Util.EliminarDeLista(_listaStock, _stockSeleccionado);
+            Utilidades.Util.EliminarDeLista(_listaArticulos, _articuloSeleccionado);
+            Utilidades.Util.EliminarDeLista(_listaStock, _stockSeleccionado);
         }
 
         #endregion

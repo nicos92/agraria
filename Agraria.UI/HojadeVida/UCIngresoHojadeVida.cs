@@ -1,8 +1,8 @@
 using Agraria.Contrato.Servicios;
 using Agraria.Modelo.Entidades;
 using Agraria.Modelo.Enums;
-using Agraria.Util;
 using Agraria.Util.Validaciones;
+using Agraria.Utilidades;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -137,7 +137,7 @@ namespace Agraria.UI.HojadeVida
                 return;
             }
 
-            var tarea = new TareasLargas(PanelMedio, ProgressBar, InsertarHojadeVida, () => Util.Util.LimpiarForm(TLPForm, TxtCodigo));
+            var tarea = new TareasLargas(PanelMedio, ProgressBar, InsertarHojadeVida, () => Utilidades.Util.LimpiarForm(TLPForm, TxtCodigo));
             tarea.Iniciar();
         }
 

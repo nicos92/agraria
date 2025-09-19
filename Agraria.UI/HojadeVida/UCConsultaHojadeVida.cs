@@ -12,8 +12,8 @@ using System.Windows.Forms;
 using Agraria.Contrato.Servicios;
 using Agraria.Modelo.Entidades;
 using Agraria.Modelo.Enums;
-using Agraria.Util;
 using Agraria.Util.Validaciones;
+using Agraria.Utilidades;
 
 namespace Agraria.UI.HojadeVida
 {
@@ -165,10 +165,10 @@ namespace Agraria.UI.HojadeVida
                 {
                     LimpiarFormulario();
                     ActualizarDataGridView();
-                    if (Util.Util.CalcularDGVVacio(ListBHojasVida, LblLista, "Hojas de Vida"))
+                    if (Utilidades.Util.CalcularDGVVacio(ListBHojasVida, LblLista, "Hojas de Vida"))
                     {
-                        Util.Util.LimpiarForm(TLPForm, TxtCodigo);
-                        Util.Util.BloquearBtns(ListBHojasVida, TLPForm);
+                        Utilidades.Util.LimpiarForm(TLPForm, TxtCodigo);
+                        Utilidades.Util.BloquearBtns(ListBHojasVida, TLPForm);
                     }
                 });
             tarea.Iniciar();
@@ -286,10 +286,10 @@ namespace Agraria.UI.HojadeVida
         private void CargarDataGrid()
         {
             CargarHojasVidaDataGridView();
-            if (Util.Util.CalcularDGVVacio(ListBHojasVida, LblLista, "Hojas de Vida"))
+            if (Utilidades.Util.CalcularDGVVacio(ListBHojasVida, LblLista, "Hojas de Vida"))
             {
-                Util.Util.LimpiarForm(TLPForm, TxtCodigo);
-                Util.Util.BloquearBtns(ListBHojasVida, TLPForm);
+                Utilidades.Util.LimpiarForm(TLPForm, TxtCodigo);
+                Utilidades.Util.BloquearBtns(ListBHojasVida, TLPForm);
             }
         }
 
@@ -476,7 +476,7 @@ namespace Agraria.UI.HojadeVida
         /// </summary>
         private void ActualizarListas()
         {
-            Util.Util.ActualizarEnLista(_listaHojasVida, _hojaVidaSeleccionada);
+            Utilidades.Util.ActualizarEnLista(_listaHojasVida, _hojaVidaSeleccionada);
             CargarHojasVidaDataGridView();
         }
 
@@ -485,7 +485,7 @@ namespace Agraria.UI.HojadeVida
         /// </summary>
         private void EliminarDeListas()
         {
-            Util.Util.EliminarDeLista(_listaHojasVida, _hojaVidaSeleccionada);
+            Utilidades.Util.EliminarDeLista(_listaHojasVida, _hojaVidaSeleccionada);
         }
 
         #endregion

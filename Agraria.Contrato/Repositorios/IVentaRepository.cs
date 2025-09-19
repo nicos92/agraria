@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Agraria.Modelo;
 using Agraria.Modelo.Entidades;
-using Agraria.Util;
+using Agraria.Utilidades;
 
 namespace Agraria.Contrato.Repositorios
 {

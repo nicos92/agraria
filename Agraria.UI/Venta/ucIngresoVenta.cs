@@ -12,8 +12,8 @@ using Agraria.Contrato.Servicios;
 using Agraria.Modelo;
 using Agraria.Modelo.Entidades;
 using Agraria.Contrato;
-using Agraria.Util;
 using Agraria.Servicio;
+using Agraria.Utilidades;
 
 namespace Agraria.UI.Ventas
 {
@@ -683,6 +683,14 @@ namespace Agraria.UI.Ventas
         private void UCIngresoVenta_Disposed(object sender, EventArgs e)
         {
             SingleListas.Instance.ProductoResumen.Clear();
+        }
+
+        private void UCIngresoVenta_VisibleChanged(object sender, EventArgs e)
+        {
+            if (this.Visible && SingleListas.Instance.ProductoResumen.Count > 0)
+            {
+                CargarDataGridView();
+            }
         }
 
         private void TxtBuscardor_TextChanged(object sender, EventArgs e)

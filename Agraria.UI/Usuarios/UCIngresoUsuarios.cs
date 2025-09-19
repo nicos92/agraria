@@ -1,6 +1,6 @@
 ﻿using Agraria.Contrato.Servicios;
-using Agraria.Util;
 using Agraria.Util.Validaciones;
+using Agraria.Utilidades;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -228,7 +228,7 @@ namespace Agraria.UI.Usuarios
             if (resultado.IsSuccess)
             {
                 MessageBox.Show("Usuario ingresado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                Util.Util.LimpiarForm(TLPForm, TxtDni);
+                Utilidades.Util.LimpiarForm(TLPForm, TxtDni);
             }
             else
             {

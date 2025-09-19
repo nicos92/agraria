@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Agraria.Util
+namespace Agraria.Utilidades
 {
     /// <summary>
     /// Proporciona servicios estáticos para la gestión y visualización de ToolTips.

@@ -8,7 +8,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Microsoft.Extensions.DependencyInjection;
-using Agraria.Util;
 
 namespace Agraria.UI.Proveedores
 {
@@ -80,7 +79,7 @@ namespace Agraria.UI.Proveedores
             {
                 return;
             }
-            Util.Util.CambioColorBtnsUC(_btnActual, btn);
+            Utilidades.Util.CambioColorBtnsUC(_btnActual, btn);
 
             // Solución: Verificar que btn.Tag no sea nulo antes de llamar a SeleccionarUC
             if (btn.Tag is Type tipoForm)

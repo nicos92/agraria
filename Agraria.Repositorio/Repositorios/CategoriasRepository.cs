@@ -4,7 +4,7 @@ using System.Data.OleDb;
 using System.Runtime.Versioning;
 using Agraria.Contrato.Repositorios;
 using Agraria.Modelo.Entidades;
-using Agraria.Util;
+using Agraria.Utilidades;
 
 namespace Agraria.Repositorio.Repositorios
 {

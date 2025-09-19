@@ -1,8 +1,8 @@
 using Agraria.Contrato.Servicios;
 using Agraria.Modelo.Entidades;
 using Agraria.Modelo.Enums;
-using Agraria.Util;
 using Agraria.Util.Validaciones;
+using Agraria.Utilidades;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -144,7 +144,7 @@ namespace Agraria.UI.Inventario
             }
             CrearStock();
 
-            var tarea = new TareasLargas(PanelMedio, ProgressBar, InsertarArticuloStock, () => Util.Util.LimpiarForm(TLPForm, TxtNombre));
+            var tarea = new TareasLargas(PanelMedio, ProgressBar, InsertarArticuloStock, () => Utilidades.Util.LimpiarForm(TLPForm, TxtNombre));
             tarea.Iniciar();
         }
 

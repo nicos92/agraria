@@ -10,7 +10,7 @@ using System.Windows.Forms;
 using Microsoft.Extensions.Logging;
 using Agraria.Contrato.Servicios;
 using Agraria.Modelo.Entidades;
-using Agraria.Util;
+using Agraria.Utilidades;
 
 namespace Agraria.UI.Articulos
 {

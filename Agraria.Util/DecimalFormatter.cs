@@ -1,7 +1,7 @@
 using System;
 using System.Globalization;
 
-namespace Agraria.Util
+namespace Agraria.Utilidades
 {
     /// <summary>
     /// Provides utilities for formatting decimal numbers according to Argentina's culture (es-AR).

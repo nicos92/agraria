@@ -8,9 +8,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Agraria.Contrato.Servicios;
-using Agraria.Util;
 using Agraria.Modelo.Entidades;
 using Agraria.Util.Validaciones;
+using Agraria.Utilidades;
 
 namespace Agraria.UI.Proveedores
 {
@@ -83,8 +83,8 @@ namespace Agraria.UI.Proveedores
         {
             await CargarProveedores();
             ConfigBtns();
-            Util.Util.BloquearBtns(ListBProveedores, TLPForm);
-            Util.Util.CalcularDGVVacio(ListBProveedores, LblLista, "Proveedores");
+            Utilidades.Util.BloquearBtns(ListBProveedores, TLPForm);
+            Utilidades.Util.CalcularDGVVacio(ListBProveedores, LblLista, "Proveedores");
 
 
             TxtCuit.Focus();
@@ -150,8 +150,8 @@ namespace Agraria.UI.Proveedores
                     string valor = _proveedorSeleccionado.CUIT;
                     await CargarProveedores();
 
-                    Util.Util.CalcularDGVVacio(ListBProveedores, LblLista, "Proveedores");
-                    Util.Util.SeleccionarFilaDGV(ListBProveedores, valor, ListBProveedores.Columns[0].HeaderText, ref indiceSeleccionado);
+                    Utilidades.Util.CalcularDGVVacio(ListBProveedores, LblLista, "Proveedores");
+                    Utilidades.Util.SeleccionarFilaDGV(ListBProveedores, valor, ListBProveedores.Columns[0].HeaderText, ref indiceSeleccionado);
                     CargarSeleccionado();
 
 
@@ -235,10 +235,10 @@ namespace Agraria.UI.Proveedores
                 MessageBox.Show("Proveedor eliminado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 await CargarProveedores();
-                if (Util.Util.CalcularDGVVacio(ListBProveedores, LblLista, "Proveedores"))
+                if (Utilidades.Util.CalcularDGVVacio(ListBProveedores, LblLista, "Proveedores"))
                 {
-                    Util.Util.LimpiarForm(TLPForm, TxtCuit);
-                    Util.Util.BloquearBtns(ListBProveedores, TLPForm);
+                    Utilidades.Util.LimpiarForm(TLPForm, TxtCuit);
+                    Utilidades.Util.BloquearBtns(ListBProveedores, TLPForm);
                 }
 
 

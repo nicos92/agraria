@@ -9,8 +9,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Agraria.Contrato.Servicios;
 using Agraria.Modelo.Entidades;
-using Agraria.Util;
 using Agraria.Util.Validaciones;
+using Agraria.Utilidades;
 
 namespace Agraria.Login
 {

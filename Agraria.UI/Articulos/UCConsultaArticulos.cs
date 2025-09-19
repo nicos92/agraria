@@ -11,8 +11,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Agraria.Contrato.Servicios;
 using Agraria.Modelo.Entidades;
-using Agraria.Util;
 using Agraria.Util.Validaciones;
+using Agraria.Utilidades;
 
 namespace Agraria.UI.Articulos
 {
@@ -109,6 +109,9 @@ namespace Agraria.UI.Articulos
                 MensajeError = "Número ingresado no válido"
             };
             ConfigurarBotones();
+            
+            // Agregar manejador para el evento Enter
+            this.Enter += UCConsultaArticulos_Enter;
         }
 
 
@@ -200,10 +203,10 @@ namespace Agraria.UI.Articulos
                 {
                     LimpiarFormulario();
                     ActualizarDataGridView();
-                    if (Util.Util.CalcularDGVVacio(ListBArticulos, LblLista, "Articulos"))
+                    if (Utilidades.Util.CalcularDGVVacio(ListBArticulos, LblLista, "Articulos"))
                     {
-                        Util.Util.LimpiarForm(TLPForm, TxtDescripcion);
-                        Util.Util.BloquearBtns(ListBArticulos, TLPForm);
+                        Utilidades.Util.LimpiarForm(TLPForm, TxtDescripcion);
+                        Utilidades.Util.BloquearBtns(ListBArticulos, TLPForm);
 
                     }
                 });
@@ -327,10 +330,10 @@ namespace Agraria.UI.Articulos
             CMBCategoria.ValueMember = "Id_Entorno";
 
             CargarArticulosDataGridView();
-            if (Util.Util.CalcularDGVVacio(ListBArticulos, LblLista, "Productos"))
+            if (Utilidades.Util.CalcularDGVVacio(ListBArticulos, LblLista, "Productos"))
             {
-                Util.Util.LimpiarForm(TLPForm, TxtDescripcion);
-                Util.Util.BloquearBtns(ListBArticulos, TLPForm);
+                Utilidades.Util.LimpiarForm(TLPForm, TxtDescripcion);
+                Utilidades.Util.BloquearBtns(ListBArticulos, TLPForm);
 
             }
         }
@@ -636,8 +639,8 @@ namespace Agraria.UI.Articulos
         /// </summary>
         private void ActualizarListas()
         {
-            Util.Util.ActualizarEnLista(_listaArticulos, _articuloSeleccionado);
-            Util.Util.ActualizarEnLista(_listaStock, _stockSeleccionado);
+            Utilidades.Util.ActualizarEnLista(_listaArticulos, _articuloSeleccionado);
+            Utilidades.Util.ActualizarEnLista(_listaStock, _stockSeleccionado);
             CargarArticulosDataGridView();
         }
 
@@ -646,8 +649,8 @@ namespace Agraria.UI.Articulos
         /// </summary>
         private void EliminarDeListas()
         {
-            Util.Util.EliminarDeLista(_listaArticulos, _articuloSeleccionado);
-            Util.Util.EliminarDeLista(_listaStock, _stockSeleccionado);
+            Utilidades.Util.EliminarDeLista(_listaArticulos, _articuloSeleccionado);
+            Utilidades.Util.EliminarDeLista(_listaStock, _stockSeleccionado);
         }
 
         #endregion
@@ -730,6 +733,19 @@ namespace Agraria.UI.Articulos
                CargaInicial,
                CargarCombosYDataGrid);
             taskHelper.Iniciar();
+        }
+        
+        private void UCConsultaArticulos_Enter(object sender, EventArgs e)
+        {
+            // Verificar si la lista de artículos está vacía o si necesitamos recargar los datos
+           
+                var taskHelper = new TareasLargas(
+                   PanelMedio,
+                   ProgressBar,
+                   CargaInicial,
+                   CargarCombosYDataGrid);
+                taskHelper.Iniciar();
+            
         }
     }
 }

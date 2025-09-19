@@ -1,6 +1,6 @@
 using Agraria.Contrato.Servicios;
-using Agraria.Util;
 using Agraria.Util.Validaciones;
+using Agraria.Utilidades;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -108,8 +108,8 @@ namespace Agraria.UI.Usuarios
             );
             ConfigBtns();
 
-            Util.Util.BloquearBtns(ListBUsuarios, TLPForm);
-            Util.Util.CalcularDGVVacio(ListBUsuarios, LblLista, "Usuarios");
+            Utilidades.Util.BloquearBtns(ListBUsuarios, TLPForm);
+            Utilidades.Util.CalcularDGVVacio(ListBUsuarios, LblLista, "Usuarios");
             CargarPermisos();
             // Establecer un valor predeterminado para el combo box de preguntas
             if (CMBPregunta.Items.Count > 0)
@@ -247,9 +247,9 @@ namespace Agraria.UI.Usuarios
 
                     string valor = _usuarioSeleccionado.DNI;
                     await CargarUsuarios();
-                    Util.Util.CalcularDGVVacio(ListBUsuarios, LblLista, "Usuarios");
+                    Utilidades.Util.CalcularDGVVacio(ListBUsuarios, LblLista, "Usuarios");
 
-                    Util.Util.SeleccionarFilaDGV(ListBUsuarios, valor, ListBUsuarios.Columns[0].HeaderText, ref indiceSeleccionado);
+                    Utilidades.Util.SeleccionarFilaDGV(ListBUsuarios, valor, ListBUsuarios.Columns[0].HeaderText, ref indiceSeleccionado);
                     CargarFormularioEdicion();
 
 
@@ -357,11 +357,11 @@ namespace Agraria.UI.Usuarios
 
                 await CargarUsuarios();
 
-                if (Util.Util.CalcularDGVVacio(ListBUsuarios, LblLista, "Usuarios"))
+                if (Utilidades.Util.CalcularDGVVacio(ListBUsuarios, LblLista, "Usuarios"))
                 {
-                    Util.Util.LimpiarForm(TLPForm, TxtDni);
+                    Utilidades.Util.LimpiarForm(TLPForm, TxtDni);
 
-                    Util.Util.BloquearBtns(ListBUsuarios, TLPForm);
+                    Utilidades.Util.BloquearBtns(ListBUsuarios, TLPForm);
 
                 }
 

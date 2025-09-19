@@ -1,6 +1,6 @@
 ﻿using Agraria.Contrato.Repositorios;
 using Agraria.Modelo.Entidades;
-using Agraria.Util;
+using Agraria.Utilidades;
 using System;
 using System.Collections.Generic;
 using System.Data.Common;

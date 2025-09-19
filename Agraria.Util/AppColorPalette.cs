@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
 
-namespace Agraria.Util
+namespace Agraria.Utilidades
 {
 
     public static class AppColorPalette

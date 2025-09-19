@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Agraria.Util
+namespace Agraria.Utilidades
 {
     public static class AppColorsBlue
     {

@@ -16,7 +16,7 @@
 
 
   <ItemGroup>
-    <ProjectReference Include="..\Agraria.Util\Agraria.Util.csproj" />
+    <ProjectReference Include="..\Agraria.Util\Agraria.Utilidades.csproj" />
     <ProjectReference Include="..\Agraria.Modelo\Agraria.Modelo.csproj" />
   </ItemGroup>
 

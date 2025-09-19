@@ -7,7 +7,7 @@ using Agraria.Contrato.Repositorios;
 using Agraria.Contrato.Servicios;
 using Agraria.Modelo;
 using Agraria.Modelo.Entidades;
-using Agraria.Util;
+using Agraria.Utilidades;
 
 namespace Agraria.Servicio.Implementaciones
 {

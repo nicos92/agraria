@@ -98,7 +98,7 @@ namespace Agraria.UI.Paniol
                 return;
             }
 
-            Util.Util.CambioColorBtnsUC(_btnActual, btn);
+            Utilidades.Util.CambioColorBtnsUC(_btnActual, btn);
 
 
             ValidarTag(btn);

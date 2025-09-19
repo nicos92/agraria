@@ -1,6 +1,6 @@
 ﻿using Agraria.Contrato.Servicios;
-using Agraria.Util;
 using Agraria.Util.Validaciones;
+using Agraria.Utilidades;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -97,7 +97,7 @@ namespace Agraria.UI.Proveedores
             if (resultado.IsSuccess)
             {
                 MessageBox.Show("Proveedor ingresado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                Util.Util.LimpiarForm(TLPForm, TxtCuit);
+                Utilidades.Util.LimpiarForm(TLPForm, TxtCuit);
             }
             else
             {

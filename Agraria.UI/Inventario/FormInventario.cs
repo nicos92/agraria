@@ -1,6 +1,5 @@
 using Microsoft.Extensions.DependencyInjection;
 using Agraria.UI.Usuarios;
-using Agraria.Util;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -104,7 +103,7 @@ namespace Agraria.UI.Inventario
                 return;
             }
 
-            Util.Util.CambioColorBtnsUC(_btnActual, btn);
+            Utilidades.Util.CambioColorBtnsUC(_btnActual, btn);
 
 
             ValidarTag(btn);
