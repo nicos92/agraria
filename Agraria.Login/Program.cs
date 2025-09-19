@@ -9,6 +9,7 @@ using Agraria.UI.Articulos;
 using Agraria.UI.HojadeVida;
 using Agraria.UI.Industrial;
 using Agraria.UI.Inventario;
+using Agraria.UI.Paniol;
 using Agraria.UI.Proveedores;
 using Agraria.UI.RemitoProduccion;
 using Agraria.UI.Reporte;
@@ -168,6 +169,10 @@ static class Program
         });
         services.AddTransient<ucIngresoVegetal>();
         services.AddTransient<ucConsultaVegetal>();
+
+        services.AddTransient<FormPaniol>();
+        services.AddTransient<UCIngresoHerramienta>();
+        services.AddTransient<UCConsultaHerramienta>();
 
         // Registrar servicios (ejemplo)
 

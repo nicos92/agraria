@@ -30,6 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormPrincipal));
             PanelMenu = new Panel();
+            BtnPaniol = new Button();
             BtnProveedores = new Button();
             BtnRemitoProduccion = new Button();
             BtnUsuarios = new Button();
@@ -47,7 +48,9 @@
             // 
             // PanelMenu
             // 
+            PanelMenu.AutoScroll = true;
             PanelMenu.BackColor = Color.FromArgb(7, 100, 147);
+            PanelMenu.Controls.Add(BtnPaniol);
             PanelMenu.Controls.Add(BtnProveedores);
             PanelMenu.Controls.Add(BtnRemitoProduccion);
             PanelMenu.Controls.Add(BtnUsuarios);
@@ -65,6 +68,26 @@
             PanelMenu.Size = new Size(200, 579);
             PanelMenu.TabIndex = 0;
             // 
+            // BtnPaniol
+            // 
+            BtnPaniol.Cursor = Cursors.Hand;
+            BtnPaniol.Dock = DockStyle.Top;
+            BtnPaniol.FlatAppearance.BorderSize = 0;
+            BtnPaniol.FlatStyle = FlatStyle.Flat;
+            BtnPaniol.ForeColor = SystemColors.ButtonHighlight;
+            BtnPaniol.Image = Properties.Resources.venta;
+            BtnPaniol.ImageAlign = ContentAlignment.MiddleLeft;
+            BtnPaniol.Location = new Point(0, 640);
+            BtnPaniol.Margin = new Padding(4);
+            BtnPaniol.Name = "BtnPaniol";
+            BtnPaniol.Padding = new Padding(8, 0, 0, 0);
+            BtnPaniol.Size = new Size(183, 64);
+            BtnPaniol.TabIndex = 10;
+            BtnPaniol.Text = "Pañol";
+            BtnPaniol.TextImageRelation = TextImageRelation.ImageBeforeText;
+            BtnPaniol.UseVisualStyleBackColor = true;
+            BtnPaniol.Click += BtnActividad_Click;
+            // 
             // BtnProveedores
             // 
             BtnProveedores.Cursor = Cursors.Hand;
@@ -78,7 +101,7 @@
             BtnProveedores.Margin = new Padding(4);
             BtnProveedores.Name = "BtnProveedores";
             BtnProveedores.Padding = new Padding(8, 0, 0, 0);
-            BtnProveedores.Size = new Size(200, 64);
+            BtnProveedores.Size = new Size(183, 64);
             BtnProveedores.TabIndex = 8;
             BtnProveedores.Text = "Proveedores";
             BtnProveedores.TextImageRelation = TextImageRelation.ImageBeforeText;
@@ -98,7 +121,7 @@
             BtnRemitoProduccion.Margin = new Padding(4);
             BtnRemitoProduccion.Name = "BtnRemitoProduccion";
             BtnRemitoProduccion.Padding = new Padding(8, 0, 0, 0);
-            BtnRemitoProduccion.Size = new Size(200, 64);
+            BtnRemitoProduccion.Size = new Size(183, 64);
             BtnRemitoProduccion.TabIndex = 9;
             BtnRemitoProduccion.Text = "Remito Producción";
             BtnRemitoProduccion.TextImageRelation = TextImageRelation.ImageBeforeText;
@@ -118,7 +141,7 @@
             BtnUsuarios.Margin = new Padding(4);
             BtnUsuarios.Name = "BtnUsuarios";
             BtnUsuarios.Padding = new Padding(8, 0, 0, 0);
-            BtnUsuarios.Size = new Size(200, 64);
+            BtnUsuarios.Size = new Size(183, 64);
             BtnUsuarios.TabIndex = 7;
             BtnUsuarios.Text = "Usuarios";
             BtnUsuarios.TextImageRelation = TextImageRelation.ImageBeforeText;
@@ -138,7 +161,7 @@
             BtnReporte.Margin = new Padding(4);
             BtnReporte.Name = "BtnReporte";
             BtnReporte.Padding = new Padding(8, 0, 0, 0);
-            BtnReporte.Size = new Size(200, 64);
+            BtnReporte.Size = new Size(183, 64);
             BtnReporte.TabIndex = 6;
             BtnReporte.Text = "Reporte";
             BtnReporte.TextImageRelation = TextImageRelation.ImageBeforeText;
@@ -158,7 +181,7 @@
             BtnVenta.Margin = new Padding(4);
             BtnVenta.Name = "BtnVenta";
             BtnVenta.Padding = new Padding(8, 0, 0, 0);
-            BtnVenta.Size = new Size(200, 64);
+            BtnVenta.Size = new Size(183, 64);
             BtnVenta.TabIndex = 5;
             BtnVenta.Text = "Venta";
             BtnVenta.TextImageRelation = TextImageRelation.ImageBeforeText;
@@ -178,7 +201,7 @@
             BtnIndustrial.Margin = new Padding(4);
             BtnIndustrial.Name = "BtnIndustrial";
             BtnIndustrial.Padding = new Padding(8, 0, 0, 0);
-            BtnIndustrial.Size = new Size(200, 64);
+            BtnIndustrial.Size = new Size(183, 64);
             BtnIndustrial.TabIndex = 4;
             BtnIndustrial.Text = "Inventario";
             BtnIndustrial.TextImageRelation = TextImageRelation.ImageBeforeText;
@@ -198,7 +221,7 @@
             BtnVegetal.Margin = new Padding(4);
             BtnVegetal.Name = "BtnVegetal";
             BtnVegetal.Padding = new Padding(8, 0, 0, 0);
-            BtnVegetal.Size = new Size(200, 64);
+            BtnVegetal.Size = new Size(183, 64);
             BtnVegetal.TabIndex = 3;
             BtnVegetal.Text = "Hoja de Vida";
             BtnVegetal.TextImageRelation = TextImageRelation.ImageBeforeText;
@@ -218,7 +241,7 @@
             BtnAnimal.Margin = new Padding(4);
             BtnAnimal.Name = "BtnAnimal";
             BtnAnimal.Padding = new Padding(8, 0, 0, 0);
-            BtnAnimal.Size = new Size(200, 64);
+            BtnAnimal.Size = new Size(183, 64);
             BtnAnimal.TabIndex = 2;
             BtnAnimal.Text = "Productos";
             BtnAnimal.TextImageRelation = TextImageRelation.ImageBeforeText;
@@ -238,7 +261,7 @@
             BtnActividad.Margin = new Padding(4);
             BtnActividad.Name = "BtnActividad";
             BtnActividad.Padding = new Padding(8, 0, 0, 0);
-            BtnActividad.Size = new Size(200, 64);
+            BtnActividad.Size = new Size(183, 64);
             BtnActividad.TabIndex = 1;
             BtnActividad.Text = "Actividad";
             BtnActividad.TextImageRelation = TextImageRelation.ImageBeforeText;
@@ -252,7 +275,7 @@
             PanelLblMenu.Location = new Point(0, 0);
             PanelLblMenu.Margin = new Padding(4);
             PanelLblMenu.Name = "PanelLblMenu";
-            PanelLblMenu.Size = new Size(200, 64);
+            PanelLblMenu.Size = new Size(183, 64);
             PanelLblMenu.TabIndex = 0;
             // 
             // LblEscuelaAgraria
@@ -262,7 +285,7 @@
             LblEscuelaAgraria.ForeColor = SystemColors.ButtonHighlight;
             LblEscuelaAgraria.Location = new Point(0, 0);
             LblEscuelaAgraria.Name = "LblEscuelaAgraria";
-            LblEscuelaAgraria.Size = new Size(200, 64);
+            LblEscuelaAgraria.Size = new Size(183, 64);
             LblEscuelaAgraria.TabIndex = 0;
             LblEscuelaAgraria.Text = "Escuela Agraria";
             LblEscuelaAgraria.TextAlign = ContentAlignment.MiddleCenter;
@@ -300,5 +323,6 @@
         private Button BtnVegetal;
         private Button BtnAnimal;
         private Label LblEscuelaAgraria;
+        private Button BtnPaniol;
     }
 }

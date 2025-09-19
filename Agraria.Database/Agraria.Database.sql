@@ -98,6 +98,8 @@ CREATE TABLE Articulos (
     Cod_Categoria INT NOT NULL,
     Cod_Subcat INT NOT NULL,
     Id_Proveedor INT NOT NULL,
+	Unidad_Medida NVARCHAR(255),
+	En_Venta BIT DEFAULT 1,
     CONSTRAINT FK_Articulos_Categorias FOREIGN KEY (Cod_Categoria) REFERENCES Categorias(Id_Categoria),
     CONSTRAINT FK_Articulos_Subcategoria FOREIGN KEY (Cod_Subcat) REFERENCES Subcategoria(Id_Subcategoria),
     CONSTRAINT FK_Articulos_Proveedores FOREIGN KEY (Id_Proveedor) REFERENCES Proveedores(Id_Proveedor)

@@ -29,12 +29,12 @@ namespace Agraria.UI.Actividad
             LblCuit = new Label();
             TxtDescripcion = new TextBox();
             BtnIngresar = new Button();
-            ProgressBar = new ProgressBar();
             ListBArticulos = new DataGridView();
             Cantidad = new DataGridViewTextBoxColumn();
             Fecha_Hora = new DataGridViewTextBoxColumn();
             Entorno = new DataGridViewTextBoxColumn();
             Descripcion = new DataGridViewTextBoxColumn();
+            ProgressBar = new ProgressBar();
             PanelMedio.SuspendLayout();
             TLPMedio.SuspendLayout();
             groupBox1.SuspendLayout();
@@ -156,7 +156,6 @@ namespace Agraria.UI.Actividad
             label5.Size = new Size(99, 21);
             label5.TabIndex = 12;
             label5.Text = "Sub Entorno:";
-            label5.Visible = false;
             // 
             // CMBSubcategoria
             // 
@@ -168,7 +167,6 @@ namespace Agraria.UI.Actividad
             CMBSubcategoria.Name = "CMBSubcategoria";
             CMBSubcategoria.Size = new Size(402, 29);
             CMBSubcategoria.TabIndex = 11;
-            CMBSubcategoria.Visible = false;
             // 
             // dateTimePicker1
             // 
@@ -224,15 +222,6 @@ namespace Agraria.UI.Actividad
             BtnIngresar.TextImageRelation = TextImageRelation.TextBeforeImage;
             BtnIngresar.UseVisualStyleBackColor = false;
             // 
-            // ProgressBar
-            // 
-            ProgressBar.Dock = DockStyle.Fill;
-            ProgressBar.Location = new Point(0, 0);
-            ProgressBar.Margin = new Padding(0);
-            ProgressBar.Name = "ProgressBar";
-            ProgressBar.Size = new Size(804, 16);
-            ProgressBar.TabIndex = 16;
-            // 
             // ListBArticulos
             // 
             ListBArticulos.AllowUserToAddRows = false;
@@ -268,7 +257,6 @@ namespace Agraria.UI.Actividad
             Cantidad.Name = "Cantidad";
             Cantidad.ReadOnly = true;
             Cantidad.Visible = false;
-            Cantidad.Width = 77;
             // 
             // Fecha_Hora
             // 
@@ -289,6 +277,15 @@ namespace Agraria.UI.Actividad
             Descripcion.HeaderText = "DESCRIPCIÓN";
             Descripcion.Name = "Descripcion";
             Descripcion.ReadOnly = true;
+            // 
+            // ProgressBar
+            // 
+            ProgressBar.Dock = DockStyle.Fill;
+            ProgressBar.Location = new Point(0, 0);
+            ProgressBar.Margin = new Padding(0);
+            ProgressBar.Name = "ProgressBar";
+            ProgressBar.Size = new Size(804, 16);
+            ProgressBar.TabIndex = 16;
             // 
             // ucIngresoActividad
             // 
