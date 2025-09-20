@@ -6,6 +6,7 @@ namespace Agraria.Modelo.Entidades
     public class HojadeVida
     {
         public int Codigo { get; set; }
+        public string? Nombre { get; set; }
         public TipoAnimal TipoAnimal { get; set; }
         public Sexo Sexo { get; set; }
         public DateTime FechaNacimiento { get; set; }

@@ -18,6 +18,7 @@ namespace Agraria.Modelo.Entidades
         public string? Contra { get; set; }
         public string? Respues { get; set; }
         public int Id_Pregunta { get; set; }
+        public string? Descripcion { get; set; }
 
         public Usuarios() { }
         public override string ToString()

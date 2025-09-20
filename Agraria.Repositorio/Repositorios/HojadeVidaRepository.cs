@@ -20,7 +20,7 @@ namespace Agraria.Repositorio.Repositorios
             try
             {
                 using OleDbConnection conn = Conexion();
-                using OleDbCommand cmd = new("SELECT Codigo, TipoAnimal, Sexo, Fecha_Nacimiento, Peso, Estado_Salud, Observaciones, Activo FROM Hoja_Vida", conn);
+                using OleDbCommand cmd = new("SELECT Codigo, Tipo_Animal, Sexo, Fecha_Nacimiento, Peso, Estado_Salud, Observaciones, Activo, nombre FROM Hoja_Vida", conn);
                 await conn.OpenAsync();
                 using DbDataReader reader = await cmd.ExecuteReaderAsync();
                 List<HojadeVida> hojasDeVida = [];
@@ -35,7 +35,8 @@ namespace Agraria.Repositorio.Repositorios
                         Peso = reader.GetDecimal(4),
                         EstadoSalud = reader.GetString(5),
                         Observaciones = reader.GetString(6),
-                        Activo = reader.GetBoolean(7)
+                        Activo = reader.GetBoolean(7),
+                        Nombre = reader.GetString(8)
                     };
                     hojasDeVida.Add(hojaDeVida);
                 }
@@ -56,7 +57,7 @@ namespace Agraria.Repositorio.Repositorios
             try
             {
                 using OleDbConnection conn = Conexion();
-                using OleDbCommand cmd = new("SELECT Codigo, Tipo_Animal, Sexo, Fecha_Nacimiento, Peso, Estado_Salud, Observaciones, Activo FROM Hoja_Vida WHERE Codigo = @Codigo", conn);
+                using OleDbCommand cmd = new("SELECT Codigo, Tipo_Animal, Sexo, Fecha_Nacimiento, Peso, Estado_Salud, Observaciones, Activo, nombre FROM Hoja_Vida WHERE Codigo = @Codigo", conn);
                 cmd.Parameters.AddWithValue("@Codigo", id);
                 await conn.OpenAsync();
                 using DbDataReader reader = await cmd.ExecuteReaderAsync();
@@ -71,7 +72,8 @@ namespace Agraria.Repositorio.Repositorios
                         Peso = reader.GetDecimal(4),
                         EstadoSalud =  reader.GetString(5),
                         Observaciones =reader.GetString(6),
-                        Activo =  reader.GetBoolean(7)
+                        Activo =  reader.GetBoolean(7),
+                        Nombre = reader.GetString(8)
                     };
                     return Result<HojadeVida>.Success(hojaDeVida);
                 }
@@ -92,7 +94,8 @@ namespace Agraria.Repositorio.Repositorios
             try
             {
                 using OleDbConnection conn = Conexion();
-                using OleDbCommand cmd = new("INSERT INTO Hoja_Vida (Tipo_Animal, Sexo, Fecha_Nacimiento, Peso, Estado_Salud, Observaciones, Activo) VALUES (@TipoAnimal, @Sexo, @fechanacimiento, @Peso, @EstadoSalud, @Observaciones, @Activo)", conn);
+                using OleDbCommand cmd = new("INSERT INTO Hoja_Vida (Nombre, Tipo_Animal, Sexo, Fecha_Nacimiento, Peso, Estado_Salud, Observaciones, Activo) VALUES (@Nombre, @TipoAnimal, @Sexo, @fechanacimiento, @Peso, @EstadoSalud, @Observaciones, @Activo)", conn);
+                cmd.Parameters.AddWithValue("@Nombre", hojaDeVida.Nombre);
                 cmd.Parameters.AddWithValue("@TipoAnimal", Convert.ToInt32(hojaDeVida.TipoAnimal));
                 cmd.Parameters.AddWithValue("@Sexo", Convert.ToInt32(hojaDeVida.Sexo));
                 cmd.Parameters.Add(new OleDbParameter("@fechanacimiento", OleDbType.Date) { Value = hojaDeVida.FechaNacimiento });
@@ -123,14 +126,15 @@ namespace Agraria.Repositorio.Repositorios
             try
             {
                 using OleDbConnection conn = Conexion();
-                using OleDbCommand cmd = new("UPDATE Hoja_Vida SET Tipo_Animal = @TipoAnimal, Sexo = @Sexo, Fecha_Nacimiento = @FechaNacimiento, Peso = @Peso, Estado_Salud = @EstadoSalud, Observaciones = @Observaciones, Activo = @Activo WHERE Codigo = @Codigo", conn);
-                cmd.Parameters.AddWithValue("@TipoAnimal", hojaDeVida.TipoAnimal);
-                cmd.Parameters.AddWithValue("@Sexo", hojaDeVida.Sexo);
-                cmd.Parameters.AddWithValue("@FechaNacimiento", hojaDeVida.FechaNacimiento);
+                using OleDbCommand cmd = new("UPDATE Hoja_Vida SET Tipo_Animal = @TipoAnimal, Sexo = @Sexo, Fecha_Nacimiento = @FechaNacimiento, Peso = @Peso, Estado_Salud = @EstadoSalud, Observaciones = @Observaciones, Activo = @Activo, nombre = @nombre WHERE Codigo = @Codigo", conn);
+                cmd.Parameters.AddWithValue("@TipoAnimal", Convert.ToInt32(hojaDeVida.TipoAnimal));
+                cmd.Parameters.AddWithValue("@Sexo", Convert.ToInt32(hojaDeVida.Sexo));
+                cmd.Parameters.Add(new OleDbParameter("@fechanacimiento", OleDbType.Date) { Value = hojaDeVida.FechaNacimiento });
                 cmd.Parameters.AddWithValue("@Peso", hojaDeVida.Peso);
                 cmd.Parameters.AddWithValue("@EstadoSalud", hojaDeVida.EstadoSalud );
                 cmd.Parameters.AddWithValue("@Observaciones", hojaDeVida.Observaciones );
                 cmd.Parameters.AddWithValue("@Activo", hojaDeVida.Activo);
+                cmd.Parameters.AddWithValue("@nombre", hojaDeVida.Nombre);
                 cmd.Parameters.AddWithValue("@Codigo", hojaDeVida.Codigo);
                 await conn.OpenAsync();
                 int rowsAffected = await cmd.ExecuteNonQueryAsync();

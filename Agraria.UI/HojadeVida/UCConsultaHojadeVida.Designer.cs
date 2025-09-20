@@ -33,8 +33,6 @@ namespace Agraria.UI.HojadeVida
             tableLayoutPanel1 = new TableLayoutPanel();
             LblLista = new Label();
             ListBHojasVida = new DataGridView();
-            Codigo = new DataGridViewTextBoxColumn();
-            TipoAnimal = new DataGridViewTextBoxColumn();
             PanelMedio = new Panel();
             tableLayoutPanel4 = new TableLayoutPanel();
             groupBox1 = new GroupBox();
@@ -46,7 +44,7 @@ namespace Agraria.UI.HojadeVida
             label5 = new Label();
             label6 = new Label();
             label7 = new Label();
-            TxtCodigo = new TextBox();
+            TxtNombre = new TextBox();
             CMBTipoAnimal = new ComboBox();
             CMBSexo = new ComboBox();
             DTPFechaNacimiento = new DateTimePicker();
@@ -57,7 +55,10 @@ namespace Agraria.UI.HojadeVida
             tableLayoutPanel2 = new TableLayoutPanel();
             BtnGuardar = new Button();
             BtnEliminar = new Button();
+            label9 = new Label();
             ProgressBar = new ProgressBar();
+            Codigo = new DataGridViewTextBoxColumn();
+            TipoAnimal = new DataGridViewTextBoxColumn();
             tableLayoutPanel3.SuspendLayout();
             PanelLista.SuspendLayout();
             tableLayoutPanel1.SuspendLayout();
@@ -132,7 +133,6 @@ namespace Agraria.UI.HojadeVida
             ListBHojasVida.AllowUserToResizeColumns = false;
             ListBHojasVida.AllowUserToResizeRows = false;
             ListBHojasVida.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            ListBHojasVida.Columns.AddRange(new DataGridViewColumn[] { Codigo, TipoAnimal, Activo });
             ListBHojasVida.Dock = DockStyle.Fill;
             ListBHojasVida.Location = new Point(3, 35);
             ListBHojasVida.Name = "ListBHojasVida";
@@ -144,31 +144,7 @@ namespace Agraria.UI.HojadeVida
             ListBHojasVida.DataError += ListBHojasVida_DataError;
             ListBHojasVida.SelectionChanged += ListBHojasVida_SelectedIndexChanged;
             // 
-            // Codigo
-            // 
-            Codigo.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            Codigo.DataPropertyName = "Codigo";
-            Codigo.HeaderText = "CÓDIGO";
-            Codigo.Name = "Codigo";
-            Codigo.ReadOnly = true;
-            Codigo.Width = 95;
-            // 
-            // TipoAnimal
-            // 
-            TipoAnimal.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            TipoAnimal.DataPropertyName = "TipoAnimal";
-            TipoAnimal.HeaderText = "TIPO ANIMAL";
-            TipoAnimal.Name = "TipoAnimal";
-            TipoAnimal.ReadOnly = true;
-            // 
-            // Activo
-            // 
-            Activo.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            Activo.DataPropertyName = "Activo";
-            Activo.HeaderText = "ACTIVO";
-            Activo.Name = "Activo";
-            Activo.ReadOnly = true;
-            Activo.Width = 80;
+            // PanelMedio
             // 
             PanelMedio.Controls.Add(tableLayoutPanel4);
             PanelMedio.Dock = DockStyle.Fill;
@@ -219,8 +195,7 @@ namespace Agraria.UI.HojadeVida
             TLPForm.Controls.Add(label5, 0, 5);
             TLPForm.Controls.Add(label6, 0, 6);
             TLPForm.Controls.Add(label7, 0, 7);
-            TLPForm.Controls.Add(label8, 0, 8);
-            TLPForm.Controls.Add(TxtCodigo, 1, 1);
+            TLPForm.Controls.Add(TxtNombre, 1, 1);
             TLPForm.Controls.Add(CMBTipoAnimal, 1, 2);
             TLPForm.Controls.Add(CMBSexo, 1, 3);
             TLPForm.Controls.Add(DTPFechaNacimiento, 1, 4);
@@ -229,6 +204,7 @@ namespace Agraria.UI.HojadeVida
             TLPForm.Controls.Add(TxtObservaciones, 1, 7);
             TLPForm.Controls.Add(ChkActivo, 1, 8);
             TLPForm.Controls.Add(tableLayoutPanel2, 1, 9);
+            TLPForm.Controls.Add(label9, 0, 8);
             TLPForm.Dock = DockStyle.Fill;
             TLPForm.ForeColor = Color.FromArgb(26, 28, 30);
             TLPForm.Location = new Point(3, 29);
@@ -241,9 +217,9 @@ namespace Agraria.UI.HojadeVida
             TLPForm.RowStyles.Add(new RowStyle());
             TLPForm.RowStyles.Add(new RowStyle());
             TLPForm.RowStyles.Add(new RowStyle());
-            TLPForm.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            TLPForm.RowStyles.Add(new RowStyle(SizeType.Percent, 48.60335F));
             TLPForm.RowStyles.Add(new RowStyle());
-            TLPForm.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            TLPForm.RowStyles.Add(new RowStyle(SizeType.Percent, 51.39665F));
             TLPForm.Size = new Size(465, 418);
             TLPForm.TabIndex = 0;
             // 
@@ -252,11 +228,11 @@ namespace Agraria.UI.HojadeVida
             label1.Anchor = AnchorStyles.Right;
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 12F);
-            label1.Location = new Point(64, 15);
+            label1.Location = new Point(56, 15);
             label1.Name = "label1";
-            label1.Size = new Size(63, 21);
+            label1.Size = new Size(71, 21);
             label1.TabIndex = 0;
-            label1.Text = "Código:";
+            label1.Text = "Nombre:";
             // 
             // label2
             // 
@@ -318,24 +294,24 @@ namespace Agraria.UI.HojadeVida
             label7.Anchor = AnchorStyles.Right;
             label7.AutoSize = true;
             label7.Font = new Font("Segoe UI", 12F);
-            label7.Location = new Point(27, 257);
+            label7.Location = new Point(27, 250);
             label7.Name = "label7";
             label7.Size = new Size(100, 21);
             label7.TabIndex = 6;
             label7.Text = "Observación:";
             // 
-            // TxtCodigo
+            // TxtNombre
             // 
-            TxtCodigo.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            TxtCodigo.BackColor = Color.FromArgb(238, 237, 240);
-            TxtCodigo.Font = new Font("Segoe UI", 12F);
-            TxtCodigo.ForeColor = Color.FromArgb(26, 28, 30);
-            TxtCodigo.Location = new Point(133, 11);
-            TxtCodigo.MaxLength = 10;
-            TxtCodigo.Name = "TxtCodigo";
-            TxtCodigo.Size = new Size(271, 29);
-            TxtCodigo.TabIndex = 7;
-            TxtCodigo.TextChanged += TxtCodigo_TextChanged;
+            TxtNombre.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            TxtNombre.BackColor = Color.FromArgb(238, 237, 240);
+            TxtNombre.Font = new Font("Segoe UI", 12F);
+            TxtNombre.ForeColor = Color.FromArgb(26, 28, 30);
+            TxtNombre.Location = new Point(133, 11);
+            TxtNombre.MaxLength = 255;
+            TxtNombre.Name = "TxtNombre";
+            TxtNombre.Size = new Size(271, 29);
+            TxtNombre.TabIndex = 7;
+            TxtNombre.TextChanged += TxtCodigo_TextChanged;
             // 
             // CMBTipoAnimal
             // 
@@ -404,26 +380,16 @@ namespace Agraria.UI.HojadeVida
             TxtObservaciones.MaxLength = 200;
             TxtObservaciones.Multiline = true;
             TxtObservaciones.Name = "TxtObservaciones";
-            TxtObservaciones.Size = new Size(271, 94);
+            TxtObservaciones.Size = new Size(271, 79);
             TxtObservaciones.TabIndex = 13;
-            // 
-            // label8
-            // 
-            label8.Anchor = AnchorStyles.Right;
-            label8.AutoSize = true;
-            label8.Font = new Font("Segoe UI", 12F);
-            label8.Location = new Point(70, 324);
-            label8.Name = "label8";
-            label8.Size = new Size(53, 21);
-            label8.TabIndex = 19;
-            label8.Text = "Activo:";
             // 
             // ChkActivo
             // 
             ChkActivo.Anchor = AnchorStyles.Left;
             ChkActivo.AutoSize = true;
-            ChkActivo.Font = new Font("Segoe UI", 12F);
-            ChkActivo.Location = new Point(133, 324);
+            ChkActivo.Font = new Font("Segoe UI", 24F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            ChkActivo.Location = new Point(133, 311);
+            ChkActivo.Margin = new Padding(3, 8, 3, 3);
             ChkActivo.Name = "ChkActivo";
             ChkActivo.Size = new Size(15, 14);
             ChkActivo.TabIndex = 20;
@@ -437,11 +403,11 @@ namespace Agraria.UI.HojadeVida
             tableLayoutPanel2.Controls.Add(BtnGuardar, 0, 0);
             tableLayoutPanel2.Controls.Add(BtnEliminar, 1, 0);
             tableLayoutPanel2.Dock = DockStyle.Fill;
-            tableLayoutPanel2.Location = new Point(133, 345);
+            tableLayoutPanel2.Location = new Point(133, 331);
             tableLayoutPanel2.Name = "tableLayoutPanel2";
             tableLayoutPanel2.RowCount = 1;
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableLayoutPanel2.Size = new Size(271, 94);
+            tableLayoutPanel2.Size = new Size(271, 84);
             tableLayoutPanel2.TabIndex = 18;
             // 
             // BtnGuardar
@@ -454,7 +420,7 @@ namespace Agraria.UI.HojadeVida
             BtnGuardar.ForeColor = Color.FromArgb(255, 255, 255);
             BtnGuardar.Image = Properties.Resources.guardar;
             BtnGuardar.ImageAlign = ContentAlignment.MiddleRight;
-            BtnGuardar.Location = new Point(0, 23);
+            BtnGuardar.Location = new Point(0, 18);
             BtnGuardar.Margin = new Padding(0);
             BtnGuardar.Name = "BtnGuardar";
             BtnGuardar.Size = new Size(135, 48);
@@ -475,14 +441,26 @@ namespace Agraria.UI.HojadeVida
             BtnEliminar.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             BtnEliminar.ForeColor = Color.FromArgb(255, 255, 255);
             BtnEliminar.Image = Properties.Resources.trash;
-            BtnEliminar.Location = new Point(179, 23);
+            BtnEliminar.Location = new Point(179, 18);
             BtnEliminar.Margin = new Padding(0);
             BtnEliminar.Name = "BtnEliminar";
             BtnEliminar.Size = new Size(48, 48);
             BtnEliminar.TabIndex = 15;
             BtnEliminar.UseVisualStyleBackColor = false;
+            BtnEliminar.Visible = false;
             BtnEliminar.EnabledChanged += BtnGuardar_EnabledChanged;
             BtnEliminar.Click += BtnEliminar_Click;
+            // 
+            // label9
+            // 
+            label9.Anchor = AnchorStyles.Right;
+            label9.AutoSize = true;
+            label9.Font = new Font("Segoe UI", 12F);
+            label9.Location = new Point(71, 305);
+            label9.Name = "label9";
+            label9.Size = new Size(56, 21);
+            label9.TabIndex = 21;
+            label9.Text = "Activo:";
             // 
             // ProgressBar
             // 
@@ -493,6 +471,14 @@ namespace Agraria.UI.HojadeVida
             ProgressBar.Name = "ProgressBar";
             ProgressBar.Size = new Size(804, 16);
             ProgressBar.TabIndex = 4;
+            // 
+            // Codigo
+            // 
+            Codigo.Name = "Codigo";
+            // 
+            // TipoAnimal
+            // 
+            TipoAnimal.Name = "TipoAnimal";
             // 
             // UCConsultaHojadeVida
             // 
@@ -536,7 +522,7 @@ namespace Agraria.UI.HojadeVida
         private Label label5;
         private Label label6;
         private Label label7;
-        private TextBox TxtCodigo;
+        private TextBox TxtNombre;
         private ComboBox CMBTipoAnimal;
         private ComboBox CMBSexo;
         private DateTimePicker DTPFechaNacimiento;
@@ -553,5 +539,6 @@ namespace Agraria.UI.HojadeVida
         private DataGridViewTextBoxColumn Codigo;
         private DataGridViewTextBoxColumn TipoAnimal;
         private DataGridViewTextBoxColumn Activo;
+        private Label label9;
     }
 }

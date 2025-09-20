@@ -42,8 +42,17 @@
             BtnActividad = new Button();
             PanelLblMenu = new Panel();
             LblEscuelaAgraria = new Label();
+            panel1 = new Panel();
+            tableLayoutPanel1 = new TableLayoutPanel();
+            label5 = new Label();
+            LblTipoUsuario = new Label();
+            label3 = new Label();
+            LblUsuario = new Label();
+            label1 = new Label();
             PanelMenu.SuspendLayout();
             PanelLblMenu.SuspendLayout();
+            panel1.SuspendLayout();
+            tableLayoutPanel1.SuspendLayout();
             SuspendLayout();
             // 
             // PanelMenu
@@ -65,7 +74,7 @@
             PanelMenu.Location = new Point(0, 0);
             PanelMenu.Margin = new Padding(4);
             PanelMenu.Name = "PanelMenu";
-            PanelMenu.Size = new Size(200, 579);
+            PanelMenu.Size = new Size(200, 601);
             PanelMenu.TabIndex = 0;
             // 
             // BtnPaniol
@@ -75,7 +84,7 @@
             BtnPaniol.FlatAppearance.BorderSize = 0;
             BtnPaniol.FlatStyle = FlatStyle.Flat;
             BtnPaniol.ForeColor = SystemColors.ButtonHighlight;
-            BtnPaniol.Image = Properties.Resources.venta;
+            BtnPaniol.Image = Properties.Resources.paniol32px;
             BtnPaniol.ImageAlign = ContentAlignment.MiddleLeft;
             BtnPaniol.Location = new Point(0, 640);
             BtnPaniol.Margin = new Padding(4);
@@ -115,7 +124,7 @@
             BtnRemitoProduccion.FlatAppearance.BorderSize = 0;
             BtnRemitoProduccion.FlatStyle = FlatStyle.Flat;
             BtnRemitoProduccion.ForeColor = SystemColors.ButtonHighlight;
-            BtnRemitoProduccion.Image = Properties.Resources.venta;
+            BtnRemitoProduccion.Image = Properties.Resources.remito32px;
             BtnRemitoProduccion.ImageAlign = ContentAlignment.MiddleLeft;
             BtnRemitoProduccion.Location = new Point(0, 512);
             BtnRemitoProduccion.Margin = new Padding(4);
@@ -290,10 +299,112 @@
             LblEscuelaAgraria.Text = "Escuela Agraria";
             LblEscuelaAgraria.TextAlign = ContentAlignment.MiddleCenter;
             // 
+            // panel1
+            // 
+            panel1.BackColor = Color.FromArgb(7, 100, 147);
+            panel1.Controls.Add(tableLayoutPanel1);
+            panel1.Dock = DockStyle.Top;
+            panel1.Location = new Point(200, 0);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(824, 32);
+            panel1.TabIndex = 2;
+            // 
+            // tableLayoutPanel1
+            // 
+            tableLayoutPanel1.ColumnCount = 5;
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle());
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle());
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle());
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle());
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle());
+            tableLayoutPanel1.Controls.Add(label5, 4, 0);
+            tableLayoutPanel1.Controls.Add(LblTipoUsuario, 3, 0);
+            tableLayoutPanel1.Controls.Add(label3, 2, 0);
+            tableLayoutPanel1.Controls.Add(LblUsuario, 1, 0);
+            tableLayoutPanel1.Controls.Add(label1, 0, 0);
+            tableLayoutPanel1.Dock = DockStyle.Fill;
+            tableLayoutPanel1.Location = new Point(0, 0);
+            tableLayoutPanel1.Name = "tableLayoutPanel1";
+            tableLayoutPanel1.RowCount = 1;
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            tableLayoutPanel1.Size = new Size(824, 32);
+            tableLayoutPanel1.TabIndex = 0;
+            // 
+            // label5
+            // 
+            label5.Anchor = AnchorStyles.Right;
+            label5.AutoSize = true;
+            label5.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label5.ForeColor = SystemColors.ButtonHighlight;
+            label5.Location = new Point(807, 5);
+            label5.Name = "label5";
+            label5.Size = new Size(14, 21);
+            label5.TabIndex = 5;
+            label5.Text = "|";
+            label5.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // LblTipoUsuario
+            // 
+            LblTipoUsuario.Anchor = AnchorStyles.Left;
+            LblTipoUsuario.AutoSize = true;
+            LblTipoUsuario.Font = new Font("Segoe UI", 12F);
+            LblTipoUsuario.ForeColor = SystemColors.ButtonHighlight;
+            LblTipoUsuario.Location = new Point(380, 5);
+            LblTipoUsuario.Name = "LblTipoUsuario";
+            LblTipoUsuario.Size = new Size(116, 21);
+            LblTipoUsuario.TabIndex = 4;
+            LblTipoUsuario.Text = "Escuela Agraria";
+            LblTipoUsuario.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // label3
+            // 
+            label3.Anchor = AnchorStyles.Right;
+            label3.AutoSize = true;
+            label3.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label3.ForeColor = SystemColors.ButtonHighlight;
+            label3.Image = Properties.Resources.usergear16px;
+            label3.ImageAlign = ContentAlignment.MiddleLeft;
+            label3.Location = new Point(229, 5);
+            label3.Margin = new Padding(16, 0, 3, 0);
+            label3.Name = "label3";
+            label3.Size = new Size(145, 21);
+            label3.TabIndex = 3;
+            label3.Text = "    Tipo de Usuario:";
+            label3.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // LblUsuario
+            // 
+            LblUsuario.Anchor = AnchorStyles.Left;
+            LblUsuario.AutoSize = true;
+            LblUsuario.Font = new Font("Segoe UI", 12F);
+            LblUsuario.ForeColor = SystemColors.ButtonHighlight;
+            LblUsuario.Location = new Point(94, 5);
+            LblUsuario.Name = "LblUsuario";
+            LblUsuario.Size = new Size(116, 21);
+            LblUsuario.TabIndex = 2;
+            LblUsuario.Text = "Escuela Agraria";
+            LblUsuario.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // label1
+            // 
+            label1.Anchor = AnchorStyles.Right;
+            label1.AutoSize = true;
+            label1.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label1.ForeColor = SystemColors.ButtonHighlight;
+            label1.Image = Properties.Resources.user16px;
+            label1.ImageAlign = ContentAlignment.MiddleLeft;
+            label1.Location = new Point(3, 5);
+            label1.Name = "label1";
+            label1.Size = new Size(85, 21);
+            label1.TabIndex = 1;
+            label1.Text = "    Usuario:";
+            label1.TextAlign = ContentAlignment.MiddleCenter;
+            // 
             // FormPrincipal
             // 
             AutoScaleMode = AutoScaleMode.None;
-            ClientSize = new Size(1024, 579);
+            ClientSize = new Size(1024, 601);
+            Controls.Add(panel1);
             Controls.Add(PanelMenu);
             Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             Icon = (Icon)resources.GetObject("$this.Icon");
@@ -306,6 +417,9 @@
             Load += FormPrincipal_Load;
             PanelMenu.ResumeLayout(false);
             PanelLblMenu.ResumeLayout(false);
+            panel1.ResumeLayout(false);
+            tableLayoutPanel1.ResumeLayout(false);
+            tableLayoutPanel1.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -324,5 +438,12 @@
         private Button BtnAnimal;
         private Label LblEscuelaAgraria;
         private Button BtnPaniol;
+        private Panel panel1;
+        private TableLayoutPanel tableLayoutPanel1;
+        private Label LblTipoUsuario;
+        private Label label3;
+        private Label LblUsuario;
+        private Label label1;
+        private Label label5;
     }
 }

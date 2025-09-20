@@ -24,7 +24,7 @@ namespace Agraria.UI.HojadeVida
 
         private readonly Modelo.Entidades.HojadeVida _hojaVidaSeleccionada;
 
-        private readonly ValidadorTextBox _vTxtCodigo;
+        private readonly ValidadorTextBox _vTxtNombre;
         private readonly ValidadorTextBox _vTxtPeso;
         private readonly ValidadorTextBox _vTxtEstadoSalud;
 
@@ -46,7 +46,8 @@ namespace Agraria.UI.HojadeVida
             _hojaVidaSeleccionada = new Modelo.Entidades.HojadeVida();
 
             _epTxtCodigo = new ErrorProvider();
-            _vTxtCodigo = new ValidadorEntero(TxtCodigo, _epTxtCodigo) { MensajeError = "El código debe ser un número válido" };
+            _vTxtNombre = new ValidadorNombre(TxtNombre, _epTxtCodigo);
+            _vTxtNombre.MensajeError = "El nombre debe contener solo letras y espacios, y no puede estar vacío.";
 
             _epTxtPeso = new ErrorProvider();
             _vTxtPeso = new ValidadorNumeroDecimal(TxtPeso, _epTxtPeso) { MensajeError = "El peso debe ser un número válido" };
@@ -64,7 +65,7 @@ namespace Agraria.UI.HojadeVida
         /// <param name="e">El <see cref="EventArgs"/> instancia que contiene los datos del evento.</param>
         private void TxtCodigo_TextChanged(object sender, EventArgs e)
         {
-            ValidadorMultiple.ValidacionMultiple(BtnIngresar, _vTxtCodigo, _vTxtPeso, _vTxtEstadoSalud);
+            ValidadorMultiple.ValidacionMultiple(BtnIngresar, _vTxtNombre, _vTxtPeso, _vTxtEstadoSalud);
         }
 
         #endregion Eventos
@@ -77,10 +78,10 @@ namespace Agraria.UI.HojadeVida
         /// <returns>Verdadero si la hoja de vida se creó correctamente, falso en caso contrario.</returns>
         private bool CrearHojadeVida()
         {
-            if (CMBTipoAnimal.SelectedItem is TipoAnimal tipoAnimal1 && CMBSexo.SelectedItem is Sexo sexo)
+            if (CMBTipoAnimal.SelectedValue is TipoAnimal tipoAnimal1 && CMBSexo.SelectedValue is Sexo sexo)
             {
 
-            _hojaVidaSeleccionada.Codigo = Convert.ToInt32(TxtCodigo.Text);
+            _hojaVidaSeleccionada.Nombre = TxtNombre.Text;
             _hojaVidaSeleccionada.TipoAnimal = tipoAnimal1;
             _hojaVidaSeleccionada.Sexo = sexo;
             _hojaVidaSeleccionada.FechaNacimiento = DTPFechaNacimiento.Value;
@@ -108,7 +109,7 @@ namespace Agraria.UI.HojadeVida
         /// <summary>
         /// Realiza la carga inicial de datos de forma asíncrona.
         /// </summary>
-        private async Task CargaInicial()
+        private static async Task CargaInicial()
         {
             // No se requiere carga inicial para este caso
             await Task.CompletedTask;
@@ -120,10 +121,18 @@ namespace Agraria.UI.HojadeVida
         private void CargarCMB()
         {
             // Cargar tipos de animal
-            CMBTipoAnimal.DataSource = Enum.GetValues<TipoAnimal>().Cast<TipoAnimal>().ToList();
+            CMBTipoAnimal.DataSource = Enum.GetValues<TipoAnimal>()
+                                   .Select(e => new { Value = e, Display = e.ToString() })
+                                   .ToList();
+            CMBTipoAnimal.ValueMember = "Value";
+            CMBTipoAnimal.DisplayMember = "Display";
 
             // Cargar sexos
-            CMBSexo.DataSource = Enum.GetValues<Sexo>().Cast<Sexo>().ToList();
+            CMBSexo.DataSource = Enum.GetValues<Sexo>()
+                               .Select(e => new { Value = e, Display = e.ToString() })
+                               .ToList();
+            CMBSexo.ValueMember = "Value";
+            CMBSexo.DisplayMember = "Display";
         }
 
         #endregion Métodos Privados
@@ -143,7 +152,7 @@ namespace Agraria.UI.HojadeVida
                 return;
             }
 
-            var tarea = new TareasLargas(PanelMedio, ProgressBar, InsertarHojadeVida, () => Utilidades.Util.LimpiarForm(TLPForm, TxtCodigo));
+            var tarea = new TareasLargas(PanelMedio, ProgressBar, InsertarHojadeVida, () => Utilidades.Util.LimpiarForm(TLPForm, TxtNombre));
             tarea.Iniciar();
         }
 

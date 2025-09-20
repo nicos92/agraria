@@ -1,4 +1,5 @@
 using Agraria.Contrato.Servicios;
+using Agraria.Modelo;
 using Agraria.UI;
 using Agraria.Util.Validaciones;
 using Agraria.Utilidades;
@@ -68,6 +69,9 @@ public partial class FormLogin : Form
             if (result.IsSuccess && result.Value != null)
             {
                 // Authentication successful
+                // Store user data in session manager
+                SessionManager.Instance.SetUsuario(result.Value);
+                
                 // Aca llamo al formulario principal que esta en Agraria.UI
                 Form _formHijo = _serviceProvider.GetRequiredService<FormPrincipal>();
                 _formHijo.Closed += (s, e) =>
@@ -84,6 +88,10 @@ public partial class FormLogin : Form
                 // Authentication failed
                 LblInicioError.Visible = true;
             }
+        }catch(InvalidOperationException ex)
+        {
+            MessageBox.Show("Error durante la autenticación: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            LblInicioError.Visible = true;
         }
         catch (Exception ex)
         {

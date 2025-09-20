@@ -10,7 +10,7 @@ namespace Agraria.Util.Validaciones
         public ValidadorPassword(TextBox textBox, ErrorProvider errorProvider)
             : base(textBox, errorProvider)
         {
-            MensajeError = "La contraseña debe tener al menos 8 caracteres, incluyendo mayúsculas, minúsculas, números y caracteres especiales @$!%*?&";
+            MensajeError = "La contraseña debe tener al menos 8 caracteres,\n incluyendo mayúsculas, minúsculas,\n números y caracteres especiales @$!%_-*?&";
         }
 
         public override bool Validar()
@@ -24,7 +24,7 @@ namespace Agraria.Util.Validaciones
             // Permitimos todos los caracteres necesarios para una contraseña segura
         }
 
-        [GeneratedRegex(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$", RegexOptions.Compiled)]
+        [GeneratedRegex(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%_\-*?&])[A-Za-z\d@$!%_\-*?&]{8,}$", RegexOptions.Compiled)]
         private static partial Regex PasswordRegex();
     }
 }

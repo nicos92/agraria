@@ -162,7 +162,7 @@ namespace Agraria.Repositorio.Repositorios
             try
             {
                 using OleDbConnection conn = Conexion();
-                using OleDbCommand cmd = new("SELECT Id_Usuario, DNI, Nombre, Apellido, Tel, Mail, Id_Tipo, contra, respues, id_pregunta FROM Usuarios WHERE DNI = @Dni AND contra = @Password", conn);
+                using OleDbCommand cmd = new("SELECT u.Id_Usuario, u.DNI, u.Nombre, u.Apellido, u.Tel, u.Mail, u.Id_Tipo, u.contra, u.respues, u.id_pregunta, t.descripcion FROM Usuarios u INNER JOIN usuarios_tipo t on u.id_tipo = t.id_usuario_tipo WHERE u.DNI = @Dni AND u.contra = @Password", conn);
                 cmd.Parameters.AddWithValue("@Dni", dni);
                 cmd.Parameters.AddWithValue("@Password", password);
                 await conn.OpenAsync();
@@ -180,7 +180,8 @@ namespace Agraria.Repositorio.Repositorios
                         Id_Tipo = reader.GetInt32(6),
                         Contra = reader.GetString(7),
                         Respues = reader.GetString(8),
-                        Id_Pregunta = reader.GetInt32(9)
+                        Id_Pregunta = reader.GetInt32(9),
+                        Descripcion = reader.GetString(10)
                     };
                     return Result<Usuarios>.Success(usuario);
                 }

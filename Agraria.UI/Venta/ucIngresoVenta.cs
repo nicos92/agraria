@@ -270,7 +270,6 @@ namespace Agraria.UI.Ventas
             string? codigoArticuloSeleccionado = _ultimoCodigoArticuloSeleccionado;
             int indiceSeleccionado = _ultimoIndiceSeleccionado;
 
-            //ListaProductos(SingleListas.Instance.ProductosSeleccionados);
 
             var (cantidad, total) = CalcularTotales(SingleListas.Instance.ProductoResumen);
             LblCantProductos.Text = cantidad.ToString();
@@ -487,7 +486,7 @@ namespace Agraria.UI.Ventas
 
                 var hVentas = new HVentas
                 {
-                    Cod_Usuario = 2, // TODO: Reemplazar con el usuario actual
+                    Cod_Usuario = SessionManager.Instance.Usuario.Id_Usuario,
 
                     Descu = descuento,
                     Subtotal = subtotal,

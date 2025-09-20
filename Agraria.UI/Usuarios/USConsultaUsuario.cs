@@ -124,20 +124,30 @@ namespace Agraria.UI.Usuarios
         /// </summary>
         private async Task CargarTiposUsuarios()
         {
-            CMBTipoUsuario.Items.Clear();
-            var tiposUsuarios = await _usuariosTipoService.GetAll();
-
-            if (tiposUsuarios.IsSuccess && tiposUsuarios.Value != null)
+            try
             {
-                CMBTipoUsuario.DataSource = tiposUsuarios.Value;
-                CMBTipoUsuario.DisplayMember = "Descripcion";
-                CMBTipoUsuario.ValueMember = "Tipo";
+               
+                var tiposUsuarios = await _usuariosTipoService.GetAll();
 
+                if (tiposUsuarios.IsSuccess && tiposUsuarios.Value != null)
+                {
+                    CMBTipoUsuario.DataSource = null;
+                    CMBTipoUsuario.DataSource = tiposUsuarios.Value;
+                    CMBTipoUsuario.DisplayMember = "Descripcion";
+                    CMBTipoUsuario.ValueMember = "Tipo";
+
+                }
+                else
+                {
+                    MessageBox.Show("Error al cargar los tipos de usuarios: " + tiposUsuarios.Error, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
-            else
+            catch (ArgumentException ex)
             {
-                MessageBox.Show("Error al cargar los tipos de usuarios: " + tiposUsuarios.Error, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                MessageBox.Show("Error al cargar la pantalla, intente nuevamente" + ex.Message, "Error de Execucion");
             }
+            
         }
 
         /// <summary>

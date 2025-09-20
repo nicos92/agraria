@@ -26,11 +26,11 @@ namespace Agraria.UI.HojadeVida
 
         private Modelo.Entidades.HojadeVida _hojaVidaSeleccionada;
 
-        private readonly ValidadorTextBox _validadorCodigo;
+        private readonly ValidadorTextBox _validadorNombre;
         private readonly ValidadorTextBox _validadorPeso;
         private readonly ValidadorTextBox _validadorEstadoSalud;
 
-        private readonly ErrorProvider _errorProviderCodigo;
+        private readonly ErrorProvider _errorProviderNombre;
         private readonly ErrorProvider _errorProviderPeso;
         private readonly ErrorProvider _errorProviderEstadoSalud;
 
@@ -56,10 +56,10 @@ namespace Agraria.UI.HojadeVida
             _indiceSeleccionado = -1;
 
             // Inicialización de validadores y configuración de botones
-            _errorProviderCodigo = new ErrorProvider();
-            _validadorCodigo = new ValidadorEntero(TxtCodigo, _errorProviderCodigo)
+            _errorProviderNombre = new ErrorProvider();
+            _validadorNombre = new ValidadorNombre(TxtNombre, _errorProviderNombre)
             {
-                MensajeError = "El código debe ser un número válido"
+                MensajeError = "El nombre debe contener solo letras y espacios, y no puede estar vacío."
             };
 
             _errorProviderPeso = new ErrorProvider();
@@ -97,13 +97,14 @@ namespace Agraria.UI.HojadeVida
         /// <param name="e">Los datos del evento.</param>
         private void UCConsultaHojadeVida_Load(object sender, EventArgs e)
         {
+            ConfigurarDGV();
             var taskHelper = new TareasLargas(
                 PanelMedio,
                 ProgressBar,
                 CargaInicial,
                 () => {
-                    CargarDataGrid();
                     CargarCMB();
+                    CargarDataGrid();
                 });
             taskHelper.Iniciar();
         }
@@ -167,7 +168,7 @@ namespace Agraria.UI.HojadeVida
                     ActualizarDataGridView();
                     if (Utilidades.Util.CalcularDGVVacio(ListBHojasVida, LblLista, "Hojas de Vida"))
                     {
-                        Utilidades.Util.LimpiarForm(TLPForm, TxtCodigo);
+                        Utilidades.Util.LimpiarForm(TLPForm, TxtNombre);
                         Utilidades.Util.BloquearBtns(ListBHojasVida, TLPForm);
                     }
                 });
@@ -208,7 +209,7 @@ namespace Agraria.UI.HojadeVida
         {
             ValidadorMultiple.ValidacionMultiple(
                 BtnGuardar,
-                _validadorCodigo,
+                _validadorNombre,
                 _validadorPeso,
                 _validadorEstadoSalud);
         }
@@ -282,8 +283,12 @@ namespace Agraria.UI.HojadeVida
             CargarHojasVidaDataGridView();
             if (Utilidades.Util.CalcularDGVVacio(ListBHojasVida, LblLista, "Hojas de Vida"))
             {
-                Utilidades.Util.LimpiarForm(TLPForm, TxtCodigo);
+                Utilidades.Util.LimpiarForm(TLPForm, TxtNombre);
                 Utilidades.Util.BloquearBtns(ListBHojasVida, TLPForm);
+            }
+            else
+            {
+                Utilidades.Util.DesbloquearTLPForm(TLPForm);
             }
         }
 
@@ -293,10 +298,18 @@ namespace Agraria.UI.HojadeVida
         private void CargarCMB()
         {
             // Cargar tipos de animal
-            CMBTipoAnimal.DataSource = Enum.GetValues<TipoAnimal>().Cast<TipoAnimal>().ToList();
+            CMBTipoAnimal.DataSource = Enum.GetValues<TipoAnimal>()
+                                   .Select(e => new { Value = e, Display = e.ToString() })
+                                   .ToList();
+            CMBTipoAnimal.ValueMember = "Value";
+            CMBTipoAnimal.DisplayMember = "Display";
 
             // Cargar sexos
-            CMBSexo.DataSource = Enum.GetValues<Sexo>().Cast<Sexo>().ToList();
+            CMBSexo.DataSource = Enum.GetValues<Sexo>()
+                               .Select(e => new { Value = e, Display = e.ToString() })
+                               .ToList();
+            CMBSexo.ValueMember = "Value";
+            CMBSexo.DisplayMember = "Display";
         }
 
         #endregion
@@ -309,7 +322,7 @@ namespace Agraria.UI.HojadeVida
         /// <returns>True si el formulario es válido, de lo contrario False.</returns>
         private bool ValidarFormulario()
         {
-            return _validadorCodigo.Validar() &&
+            return _validadorNombre.Validar() &&
                    _validadorPeso.Validar() &&
                    _validadorEstadoSalud.Validar();
         }
@@ -344,16 +357,21 @@ namespace Agraria.UI.HojadeVida
         /// <returns>True si el objeto se creó o actualizó correctamente, de lo contrario False.</returns>
         private bool CrearHojadeVidaDesdeFormulario()
         {
-            _hojaVidaSeleccionada.Codigo = Convert.ToInt32(TxtCodigo.Text);
-            _hojaVidaSeleccionada.TipoAnimal = (TipoAnimal)CMBTipoAnimal.SelectedItem;
-            _hojaVidaSeleccionada.Sexo = (Sexo)CMBSexo.SelectedItem;
-            _hojaVidaSeleccionada.FechaNacimiento = DTPFechaNacimiento.Value;
-            _hojaVidaSeleccionada.Peso = DecimalFormatter.ParseDecimal(TxtPeso.Text);
-            _hojaVidaSeleccionada.EstadoSalud = TxtEstadoSalud.Text;
-            _hojaVidaSeleccionada.Observaciones = TxtObservaciones.Text;
-            _hojaVidaSeleccionada.Activo = ChkActivo.Checked;
+            if (CMBTipoAnimal.SelectedValue is TipoAnimal tipoAnimal1 && CMBSexo.SelectedValue is Sexo sexo)
+            {
 
-            return true;
+                _hojaVidaSeleccionada.Nombre = TxtNombre.Text;
+                _hojaVidaSeleccionada.TipoAnimal = tipoAnimal1;
+                _hojaVidaSeleccionada.Sexo = sexo;
+                _hojaVidaSeleccionada.FechaNacimiento = DTPFechaNacimiento.Value;
+                _hojaVidaSeleccionada.Peso = DecimalFormatter.ParseDecimal(TxtPeso.Text);
+                _hojaVidaSeleccionada.EstadoSalud = TxtEstadoSalud.Text;
+                _hojaVidaSeleccionada.Observaciones = TxtObservaciones.Text;
+                _hojaVidaSeleccionada.Activo = ChkActivo.Checked;
+                return true;
+            }
+
+            return false;
         }
 
         /// <summary>
@@ -376,9 +394,9 @@ namespace Agraria.UI.HojadeVida
                 _hojaVidaSeleccionada = hojaVida;
 
                 // Cargar datos en los controles
-                TxtCodigo.Text = _hojaVidaSeleccionada.Codigo.ToString();
-                CMBTipoAnimal.SelectedItem = _hojaVidaSeleccionada.TipoAnimal;
-                CMBSexo.SelectedItem = _hojaVidaSeleccionada.Sexo;
+                TxtNombre.Text = _hojaVidaSeleccionada.Nombre;
+                CMBTipoAnimal.SelectedValue = _hojaVidaSeleccionada.TipoAnimal;
+                CMBSexo.SelectedValue = _hojaVidaSeleccionada.Sexo;
                 DTPFechaNacimiento.Value = _hojaVidaSeleccionada.FechaNacimiento;
                 TxtPeso.Text = DecimalFormatter.ToDecimal(_hojaVidaSeleccionada.Peso);
                 TxtEstadoSalud.Text = _hojaVidaSeleccionada.EstadoSalud ?? string.Empty;
@@ -396,7 +414,7 @@ namespace Agraria.UI.HojadeVida
         /// </summary>
         private void LimpiarFormulario()
         {
-            TxtCodigo.Clear();
+            TxtNombre.Clear();
             CMBTipoAnimal.SelectedIndex = 0;
             CMBSexo.SelectedIndex = 0;
             DTPFechaNacimiento.Value = DateTime.Now;
@@ -453,6 +471,68 @@ namespace Agraria.UI.HojadeVida
             else
             {
                 MostrarMensaje(resultado.Error, "Error al eliminar hoja de vida", MessageBoxIcon.Error);
+            }
+        }
+
+        private void ConfigurarDGV()
+        {
+            ListBHojasVida.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            ListBHojasVida.AllowUserToAddRows = false;
+            ListBHojasVida.AllowUserToDeleteRows = false;
+            ListBHojasVida.ReadOnly = true;
+            ListBHojasVida.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            ListBHojasVida.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            ListBHojasVida.MultiSelect = false;
+            ListBHojasVida.RowHeadersVisible = false;
+            ListBHojasVida.AllowUserToResizeRows = false;
+            ListBHojasVida.AllowUserToResizeColumns = true;
+            ListBHojasVida.AutoGenerateColumns = false;
+
+            // Asegurar que el DataGridView puede recibir el foco y selecciones
+            ListBHojasVida.TabStop = true;
+            ListBHojasVida.Enabled = true;
+
+            ConfigurarColumnasDataGridView();
+        }
+
+        private void ConfigurarColumnasDataGridView()
+        {
+            ListBHojasVida.Columns.Clear();
+
+            
+
+            var columns = new[]
+            {
+                new DataGridViewTextBoxColumn
+                {
+                    Name = "Codigo",
+                    DataPropertyName = "Codigo",
+                    HeaderText = "Codigo",
+                    Visible = true
+                },
+                new DataGridViewTextBoxColumn
+                {
+                    Name = "TipoAnimal",
+                    DataPropertyName = "TipoAnimal",
+                    HeaderText = "Tipo Animal",
+                    Width = 200,
+                    AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill,
+
+                },
+                new DataGridViewTextBoxColumn
+                {
+                    Name = "Sexo",
+                    DataPropertyName = "Sexo",
+                    HeaderText = "Sexo",
+                    Width = 80,
+                    AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
+                    DefaultCellStyle = new DataGridViewCellStyle { Alignment = DataGridViewContentAlignment.MiddleRight }
+                }
+            };
+
+            foreach (var column in columns)
+            {
+                ListBHojasVida.Columns.Add(column);
             }
         }
 
@@ -535,8 +615,8 @@ namespace Agraria.UI.HojadeVida
                ProgressBar,
                CargaInicial,
                () => {
-                   CargarDataGrid();
                    CargarCMB();
+                   CargarDataGrid();
                });
             taskHelper.Iniciar();
         }

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Agraria.Modelo;
 using Agraria.UI.Actividad;
 using Agraria.UI.Venta;
 using Agraria.UI.RemitoProduccion;
@@ -30,6 +31,7 @@ namespace Agraria.UI
             _serviceProvider = serviceProvider;
             InitializeComponent();
             _btnActivo = BtnActividad;
+            this.FormClosing += FormPrincipal_FormClosing;
         }
 
         /// <summary>
@@ -144,7 +146,14 @@ namespace Agraria.UI
         private void FormPrincipal_Load(object sender, EventArgs e)
         {
             ConfigBtnsMenu();
+            ConfigUsuario();
             BtnActividad_Click(_btnActivo, e);
+        }
+
+        private void ConfigUsuario()
+        {
+            LblUsuario.Text = SessionManager.Instance.Usuario.Apellido + ", " + SessionManager.Instance.Usuario.Nombre;
+            LblTipoUsuario.Text = SessionManager.Instance.Usuario.Descripcion;
         }
 
         /// <summary>
@@ -162,6 +171,16 @@ namespace Agraria.UI
             BtnUsuarios.Tag = typeof(Usuarios.FormUsuarios);
             BtnProveedores.Tag = typeof(Proveedores.FormProveedores);
             BtnPaniol.Tag = typeof(Paniol.FormPaniol);
+        }
+
+        /// <summary>
+        /// Maneja el evento de cierre del formulario principal para limpiar los datos de sesión.
+        /// </summary>
+        /// <param name="sender">El objeto que originó el evento.</param>
+        /// <param name="e">Los datos del evento.</param>
+        private void FormPrincipal_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            SessionManager.Instance.ClearSession();
         }
     }
 }

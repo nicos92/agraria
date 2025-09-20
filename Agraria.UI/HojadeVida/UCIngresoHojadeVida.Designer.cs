@@ -40,7 +40,7 @@ namespace Agraria.UI.HojadeVida
             label6 = new Label();
             label7 = new Label();
             label8 = new Label();
-            TxtCodigo = new TextBox();
+            TxtNombre = new TextBox();
             CMBTipoAnimal = new ComboBox();
             CMBSexo = new ComboBox();
             DTPFechaNacimiento = new DateTimePicker();
@@ -109,7 +109,7 @@ namespace Agraria.UI.HojadeVida
             TLPForm.Controls.Add(label6, 0, 6);
             TLPForm.Controls.Add(label7, 0, 7);
             TLPForm.Controls.Add(label8, 0, 8);
-            TLPForm.Controls.Add(TxtCodigo, 1, 1);
+            TLPForm.Controls.Add(TxtNombre, 1, 1);
             TLPForm.Controls.Add(CMBTipoAnimal, 1, 2);
             TLPForm.Controls.Add(CMBSexo, 1, 3);
             TLPForm.Controls.Add(DTPFechaNacimiento, 1, 4);
@@ -142,11 +142,11 @@ namespace Agraria.UI.HojadeVida
             label1.Anchor = AnchorStyles.Right;
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 12F);
-            label1.Location = new Point(60, 15);
+            label1.Location = new Point(52, 15);
             label1.Name = "label1";
-            label1.Size = new Size(63, 21);
+            label1.Size = new Size(71, 21);
             label1.TabIndex = 0;
-            label1.Text = "Código:";
+            label1.Text = "Nombre:";
             // 
             // label2
             // 
@@ -225,18 +225,18 @@ namespace Agraria.UI.HojadeVida
             label8.TabIndex = 15;
             label8.Text = "Activo:";
             // 
-            // TxtCodigo
+            // TxtNombre
             // 
-            TxtCodigo.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            TxtCodigo.BackColor = Color.FromArgb(238, 237, 240);
-            TxtCodigo.Font = new Font("Segoe UI", 12F);
-            TxtCodigo.ForeColor = Color.FromArgb(26, 28, 30);
-            TxtCodigo.Location = new Point(129, 11);
-            TxtCodigo.MaxLength = 10;
-            TxtCodigo.Name = "TxtCodigo";
-            TxtCodigo.Size = new Size(402, 29);
-            TxtCodigo.TabIndex = 7;
-            TxtCodigo.TextChanged += TxtCodigo_TextChanged;
+            TxtNombre.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            TxtNombre.BackColor = Color.FromArgb(238, 237, 240);
+            TxtNombre.Font = new Font("Segoe UI", 12F);
+            TxtNombre.ForeColor = Color.FromArgb(26, 28, 30);
+            TxtNombre.Location = new Point(129, 11);
+            TxtNombre.MaxLength = 255;
+            TxtNombre.Name = "TxtNombre";
+            TxtNombre.Size = new Size(402, 29);
+            TxtNombre.TabIndex = 7;
+            TxtNombre.TextChanged += TxtCodigo_TextChanged;
             // 
             // CMBTipoAnimal
             // 
@@ -380,7 +380,7 @@ namespace Agraria.UI.HojadeVida
         private Label label5;
         private Label label6;
         private Label label7;
-        private TextBox TxtCodigo;
+        private TextBox TxtNombre;
         private ComboBox CMBTipoAnimal;
         private ComboBox CMBSexo;
         private DateTimePicker DTPFechaNacimiento;
