@@ -232,5 +232,9 @@ static class Program
 
         services.AddScoped<IHerramientasService, HerramientasService>();
         services.AddScoped<IHerramientasRepository, HerramientasRepository>();
+        
+        // Registrar servicios y repositorios para Hoja de Vida
+        services.AddScoped<IHojadeVidaService, HojadeVidaService>();
+        services.AddScoped<IHojadeVidaRepository, HojadeVidaRepository>();
     }
 }

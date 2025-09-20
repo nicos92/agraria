@@ -20,7 +20,7 @@ namespace Agraria.UI.HojadeVida
     {
         #region Atributos y Propiedades
 
-        //private readonly IHojadeVidaService _hojadeVidaService;
+        private readonly IHojadeVidaService _hojadeVidaService;
 
         private readonly Modelo.Entidades.HojadeVida _hojaVidaSeleccionada;
 
@@ -37,9 +37,9 @@ namespace Agraria.UI.HojadeVida
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="UCIngresoHojadeVida"/>.
         /// </summary>
-        public UCIngresoHojadeVida()
+        public UCIngresoHojadeVida(IHojadeVidaService hojadeVidaService)
         {
-            //_hojadeVidaService = hojadeVidaService;
+            _hojadeVidaService = hojadeVidaService;
 
             InitializeComponent();
 
@@ -77,15 +77,21 @@ namespace Agraria.UI.HojadeVida
         /// <returns>Verdadero si la hoja de vida se creó correctamente, falso en caso contrario.</returns>
         private bool CrearHojadeVida()
         {
+            if (CMBTipoAnimal.SelectedItem is TipoAnimal tipoAnimal1 && CMBSexo.SelectedItem is Sexo sexo)
+            {
+
             _hojaVidaSeleccionada.Codigo = Convert.ToInt32(TxtCodigo.Text);
-            _hojaVidaSeleccionada.TipoAnimal = (TipoAnimal)CMBTipoAnimal.SelectedItem;
-            _hojaVidaSeleccionada.Sexo = (Sexo)CMBSexo.SelectedItem;
+            _hojaVidaSeleccionada.TipoAnimal = tipoAnimal1;
+            _hojaVidaSeleccionada.Sexo = sexo;
             _hojaVidaSeleccionada.FechaNacimiento = DTPFechaNacimiento.Value;
             _hojaVidaSeleccionada.Peso = DecimalFormatter.ParseDecimal(TxtPeso.Text);
             _hojaVidaSeleccionada.EstadoSalud = TxtEstadoSalud.Text;
             _hojaVidaSeleccionada.Observaciones = TxtObservaciones.Text;
+            _hojaVidaSeleccionada.Activo = ChkActivo.Checked;
+                return true;
+            }
 
-            return true;
+            return false;
         }
 
         /// <summary>
@@ -144,20 +150,14 @@ namespace Agraria.UI.HojadeVida
         /// <summary>
         /// Inserta una nueva hoja de vida en la base de datos.
         /// </summary>
-        public static async Task InsertarHojadeVida()
+        public async Task InsertarHojadeVida()
         {
-            // TODO: Implementar la lógica para insertar HojadeVida en la base de datos
-            // Esta implementación es un placeholder ya que no hay un servicio específico para HojadeVida
-            MessageBox.Show("Funcionalidad pendiente de implementación", "Hoja de Vida", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-            /*
             var insercionResult = await _hojadeVidaService.Add(_hojaVidaSeleccionada);
 
             if (!insercionResult.IsSuccess)
                 MessageBox.Show(insercionResult.Error, "Error en la inserción", MessageBoxButtons.OK, MessageBoxIcon.Error);
             else
                 MessageBox.Show("Ingreso correcto", "Hoja de Vida", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            */
         }
 
         #endregion Otros Metodos

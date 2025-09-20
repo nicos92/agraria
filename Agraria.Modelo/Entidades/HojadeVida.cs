@@ -12,5 +12,6 @@ namespace Agraria.Modelo.Entidades
         public decimal Peso { get; set; }
         public string? EstadoSalud { get; set; }
         public string? Observaciones { get; set; }
+        public bool Activo { get; set; }
     }
 }

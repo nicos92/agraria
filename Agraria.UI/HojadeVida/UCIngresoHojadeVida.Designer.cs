@@ -39,6 +39,7 @@ namespace Agraria.UI.HojadeVida
             label5 = new Label();
             label6 = new Label();
             label7 = new Label();
+            label8 = new Label();
             TxtCodigo = new TextBox();
             CMBTipoAnimal = new ComboBox();
             CMBSexo = new ComboBox();
@@ -46,6 +47,7 @@ namespace Agraria.UI.HojadeVida
             TxtPeso = new TextBox();
             TxtEstadoSalud = new TextBox();
             TxtObservaciones = new TextBox();
+            ChkActivo = new CheckBox();
             BtnIngresar = new Button();
             ProgressBar = new ProgressBar();
             PanelMedio.SuspendLayout();
@@ -85,9 +87,9 @@ namespace Agraria.UI.HojadeVida
             groupBox1.Controls.Add(TLPForm);
             groupBox1.Font = new Font("Segoe UI Black", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             groupBox1.ForeColor = Color.FromArgb(7, 100, 147);
-            groupBox1.Location = new Point(85, 80);
+            groupBox1.Location = new Point(85, 63);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(633, 417);
+            groupBox1.Size = new Size(633, 451);
             groupBox1.TabIndex = 15;
             groupBox1.TabStop = false;
             groupBox1.Text = "Formulario de Ingreso de Hoja de Vida";
@@ -106,6 +108,7 @@ namespace Agraria.UI.HojadeVida
             TLPForm.Controls.Add(label5, 0, 5);
             TLPForm.Controls.Add(label6, 0, 6);
             TLPForm.Controls.Add(label7, 0, 7);
+            TLPForm.Controls.Add(label8, 0, 8);
             TLPForm.Controls.Add(TxtCodigo, 1, 1);
             TLPForm.Controls.Add(CMBTipoAnimal, 1, 2);
             TLPForm.Controls.Add(CMBSexo, 1, 3);
@@ -113,12 +116,13 @@ namespace Agraria.UI.HojadeVida
             TLPForm.Controls.Add(TxtPeso, 1, 5);
             TLPForm.Controls.Add(TxtEstadoSalud, 1, 6);
             TLPForm.Controls.Add(TxtObservaciones, 1, 7);
-            TLPForm.Controls.Add(BtnIngresar, 1, 8);
+            TLPForm.Controls.Add(ChkActivo, 1, 8);
+            TLPForm.Controls.Add(BtnIngresar, 1, 9);
             TLPForm.Dock = DockStyle.Fill;
             TLPForm.ForeColor = Color.FromArgb(26, 28, 30);
             TLPForm.Location = new Point(3, 29);
             TLPForm.Name = "TLPForm";
-            TLPForm.RowCount = 10;
+            TLPForm.RowCount = 11;
             TLPForm.RowStyles.Add(new RowStyle(SizeType.Absolute, 8F));
             TLPForm.RowStyles.Add(new RowStyle());
             TLPForm.RowStyles.Add(new RowStyle());
@@ -128,8 +132,9 @@ namespace Agraria.UI.HojadeVida
             TLPForm.RowStyles.Add(new RowStyle());
             TLPForm.RowStyles.Add(new RowStyle());
             TLPForm.RowStyles.Add(new RowStyle());
+            TLPForm.RowStyles.Add(new RowStyle());
             TLPForm.RowStyles.Add(new RowStyle(SizeType.Absolute, 8F));
-            TLPForm.Size = new Size(627, 385);
+            TLPForm.Size = new Size(627, 419);
             TLPForm.TabIndex = 0;
             // 
             // label1
@@ -208,6 +213,17 @@ namespace Agraria.UI.HojadeVida
             label7.Size = new Size(100, 21);
             label7.TabIndex = 6;
             label7.Text = "Observación:";
+            // 
+            // label8
+            // 
+            label8.Anchor = AnchorStyles.Right;
+            label8.AutoSize = true;
+            label8.Font = new Font("Segoe UI", 12F);
+            label8.Location = new Point(67, 327);
+            label8.Name = "label8";
+            label8.Size = new Size(56, 21);
+            label8.TabIndex = 15;
+            label8.Text = "Activo:";
             // 
             // TxtCodigo
             // 
@@ -292,6 +308,17 @@ namespace Agraria.UI.HojadeVida
             TxtObservaciones.Size = new Size(402, 96);
             TxtObservaciones.TabIndex = 13;
             // 
+            // ChkActivo
+            // 
+            ChkActivo.Anchor = AnchorStyles.Left;
+            ChkActivo.AutoSize = true;
+            ChkActivo.Font = new Font("Segoe UI", 12F);
+            ChkActivo.Location = new Point(129, 330);
+            ChkActivo.Name = "ChkActivo";
+            ChkActivo.Size = new Size(15, 14);
+            ChkActivo.TabIndex = 14;
+            ChkActivo.UseVisualStyleBackColor = true;
+            // 
             // BtnIngresar
             // 
             BtnIngresar.Anchor = AnchorStyles.None;
@@ -302,11 +329,11 @@ namespace Agraria.UI.HojadeVida
             BtnIngresar.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             BtnIngresar.ForeColor = Color.FromArgb(255, 255, 255);
             BtnIngresar.Image = Properties.Resources.ingresar;
-            BtnIngresar.Location = new Point(234, 327);
+            BtnIngresar.Location = new Point(234, 348);
             BtnIngresar.Margin = new Padding(0);
             BtnIngresar.Name = "BtnIngresar";
             BtnIngresar.Size = new Size(192, 47);
-            BtnIngresar.TabIndex = 14;
+            BtnIngresar.TabIndex = 15;
             BtnIngresar.Text = "INGRESAR";
             BtnIngresar.TextImageRelation = TextImageRelation.TextBeforeImage;
             BtnIngresar.UseVisualStyleBackColor = false;
@@ -360,6 +387,8 @@ namespace Agraria.UI.HojadeVida
         private TextBox TxtPeso;
         private TextBox TxtEstadoSalud;
         private TextBox TxtObservaciones;
+        private CheckBox ChkActivo;
+        private Label label8;
         private Button BtnIngresar;
         private ProgressBar ProgressBar;
     }

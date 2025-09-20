@@ -22,7 +22,7 @@ namespace Agraria.UI.HojadeVida
     {
         #region Campos y Servicios
 
-        //private readonly IHojadeVidaService _hojadeVidaService;
+        private readonly IHojadeVidaService _hojadeVidaService;
 
         private Modelo.Entidades.HojadeVida _hojaVidaSeleccionada;
 
@@ -42,12 +42,12 @@ namespace Agraria.UI.HojadeVida
 
         #region Constructor
 
-        public UCConsultaHojadeVida()
+        public UCConsultaHojadeVida(IHojadeVidaService hojadeVidaService)
         {
             InitializeComponent();
 
             // Inyección de dependencias
-            //_hojadeVidaService = hojadeVidaService;
+            _hojadeVidaService = hojadeVidaService;
 
             // Inicialización de campos
             _hojaVidaSeleccionada = new Modelo.Entidades.HojadeVida();
@@ -262,11 +262,6 @@ namespace Agraria.UI.HojadeVida
         /// </summary>
         private async Task CargarHojasVida()
         {
-            // TODO: Implementar la lógica para cargar Hojas de Vida desde la base de datos
-            // Esta implementación es un placeholder ya que no hay un servicio específico para HojadeVida
-            _listaHojasVida = [];
-
-            /*
             var resultado = await _hojadeVidaService.GetAll();
 
             if (resultado.IsSuccess)
@@ -277,7 +272,6 @@ namespace Agraria.UI.HojadeVida
             {
                 MostrarMensaje(resultado.Error, "Error al cargar hojas de vida", MessageBoxIcon.Error);
             }
-            */
         }
 
         /// <summary>
@@ -357,6 +351,7 @@ namespace Agraria.UI.HojadeVida
             _hojaVidaSeleccionada.Peso = DecimalFormatter.ParseDecimal(TxtPeso.Text);
             _hojaVidaSeleccionada.EstadoSalud = TxtEstadoSalud.Text;
             _hojaVidaSeleccionada.Observaciones = TxtObservaciones.Text;
+            _hojaVidaSeleccionada.Activo = ChkActivo.Checked;
 
             return true;
         }
@@ -388,6 +383,7 @@ namespace Agraria.UI.HojadeVida
                 TxtPeso.Text = DecimalFormatter.ToDecimal(_hojaVidaSeleccionada.Peso);
                 TxtEstadoSalud.Text = _hojaVidaSeleccionada.EstadoSalud ?? string.Empty;
                 TxtObservaciones.Text = _hojaVidaSeleccionada.Observaciones ?? string.Empty;
+                ChkActivo.Checked = _hojaVidaSeleccionada.Activo;
             }
             else
             {
@@ -407,6 +403,7 @@ namespace Agraria.UI.HojadeVida
             TxtPeso.Clear();
             TxtEstadoSalud.Clear();
             TxtObservaciones.Clear();
+            ChkActivo.Checked = true;
 
             _hojaVidaSeleccionada = new Modelo.Entidades.HojadeVida();
         }
@@ -429,11 +426,6 @@ namespace Agraria.UI.HojadeVida
         /// </summary>
         private async Task GuardarHojadeVida()
         {
-            // TODO: Implementar la lógica para guardar HojadeVida en la base de datos
-            // Esta implementación es un placeholder ya que no hay un servicio específico para HojadeVida
-            MessageBox.Show("Funcionalidad pendiente de implementación", "Hoja de Vida", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-            /*
             var resultado = await _hojadeVidaService.Update(_hojaVidaSeleccionada);
 
             if (resultado.IsSuccess)
@@ -444,7 +436,6 @@ namespace Agraria.UI.HojadeVida
             {
                 MostrarMensaje(resultado.Error, "Error en la actualización", MessageBoxIcon.Error);
             }
-            */
         }
 
         /// <summary>
@@ -452,12 +443,7 @@ namespace Agraria.UI.HojadeVida
         /// </summary>
         private async Task EliminarHojadeVida()
         {
-            // TODO: Implementar la lógica para eliminar HojadeVida de la base de datos
-            // Esta implementación es un placeholder ya que no hay un servicio específico para HojadeVida
-            MessageBox.Show("Funcionalidad pendiente de implementación", "Hoja de Vida", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-            /*
-            var resultado = await _hojadeVidaService.Delete(_hojaVidaSeleccionada);
+            var resultado = await _hojadeVidaService.Delete(_hojaVidaSeleccionada.Codigo);
 
             if (resultado.IsSuccess)
             {
@@ -468,7 +454,6 @@ namespace Agraria.UI.HojadeVida
             {
                 MostrarMensaje(resultado.Error, "Error al eliminar hoja de vida", MessageBoxIcon.Error);
             }
-            */
         }
 
         /// <summary>
