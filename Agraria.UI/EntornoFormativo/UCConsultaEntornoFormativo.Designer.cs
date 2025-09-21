@@ -53,6 +53,8 @@ namespace Agraria.UI.EntornoFormativo
             TxtObservacion = new TextBox();
             flowLayoutPanel1 = new FlowLayoutPanel();
             BtnGuardar = new Button();
+            label7 = new Label();
+            ChkActivo = new CheckBox();
             ProgressBar = new ProgressBar();
             tableLayoutPanel3.SuspendLayout();
             PanelLista.SuspendLayout();
@@ -196,7 +198,9 @@ namespace Agraria.UI.EntornoFormativo
             TLPForm.Controls.Add(TxtCursoGrupo, 1, 5);
             TLPForm.Controls.Add(LblCuit, 0, 6);
             TLPForm.Controls.Add(TxtObservacion, 1, 6);
-            TLPForm.Controls.Add(flowLayoutPanel1, 1, 7);
+            TLPForm.Controls.Add(flowLayoutPanel1, 1, 8);
+            TLPForm.Controls.Add(label7, 0, 7);
+            TLPForm.Controls.Add(ChkActivo, 1, 7);
             TLPForm.Dock = DockStyle.Fill;
             TLPForm.ForeColor = Color.FromArgb(26, 28, 30);
             TLPForm.Location = new Point(3, 29);
@@ -211,6 +215,7 @@ namespace Agraria.UI.EntornoFormativo
             TLPForm.RowStyles.Add(new RowStyle(SizeType.Percent, 29.09091F));
             TLPForm.RowStyles.Add(new RowStyle(SizeType.Percent, 6.49350643F));
             TLPForm.RowStyles.Add(new RowStyle(SizeType.Percent, 9.090909F));
+            TLPForm.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
             TLPForm.Size = new Size(465, 385);
             TLPForm.TabIndex = 1;
             // 
@@ -219,7 +224,7 @@ namespace Agraria.UI.EntornoFormativo
             label1.Anchor = AnchorStyles.Right;
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 12F);
-            label1.Location = new Point(7, 7);
+            label1.Location = new Point(7, 6);
             label1.Name = "label1";
             label1.Size = new Size(123, 21);
             label1.TabIndex = 1;
@@ -242,7 +247,7 @@ namespace Agraria.UI.EntornoFormativo
             label5.Anchor = AnchorStyles.Right;
             label5.AutoSize = true;
             label5.Font = new Font("Segoe UI", 12F);
-            label5.Location = new Point(62, 42);
+            label5.Location = new Point(62, 39);
             label5.Name = "label5";
             label5.Size = new Size(68, 21);
             label5.TabIndex = 12;
@@ -254,7 +259,7 @@ namespace Agraria.UI.EntornoFormativo
             CMBEntorno.DropDownStyle = ComboBoxStyle.DropDownList;
             CMBEntorno.Font = new Font("Segoe UI", 12F);
             CMBEntorno.FormattingEnabled = true;
-            CMBEntorno.Location = new Point(136, 38);
+            CMBEntorno.Location = new Point(136, 36);
             CMBEntorno.Name = "CMBEntorno";
             CMBEntorno.Size = new Size(257, 29);
             CMBEntorno.TabIndex = 12;
@@ -264,7 +269,7 @@ namespace Agraria.UI.EntornoFormativo
             label6.Anchor = AnchorStyles.Right;
             label6.AutoSize = true;
             label6.Font = new Font("Segoe UI", 12F);
-            label6.Location = new Point(29, 77);
+            label6.Location = new Point(29, 72);
             label6.Name = "label6";
             label6.Size = new Size(101, 21);
             label6.TabIndex = 17;
@@ -276,17 +281,17 @@ namespace Agraria.UI.EntornoFormativo
             CMBUsuario.DropDownStyle = ComboBoxStyle.DropDownList;
             CMBUsuario.Font = new Font("Segoe UI", 12F);
             CMBUsuario.FormattingEnabled = true;
-            CMBUsuario.Location = new Point(136, 73);
+            CMBUsuario.Location = new Point(136, 69);
             CMBUsuario.Name = "CMBUsuario";
             CMBUsuario.Size = new Size(257, 29);
-            CMBUsuario.TabIndex = 10;
+            CMBUsuario.TabIndex = 13;
             // 
             // label4
             // 
             label4.Anchor = AnchorStyles.Right;
             label4.AutoSize = true;
             label4.Font = new Font("Segoe UI", 12F);
-            label4.Location = new Point(46, 112);
+            label4.Location = new Point(46, 105);
             label4.Name = "label4";
             label4.Size = new Size(84, 21);
             label4.TabIndex = 4;
@@ -298,18 +303,18 @@ namespace Agraria.UI.EntornoFormativo
             TxtCursoAnio.BackColor = Color.FromArgb(238, 237, 240);
             TxtCursoAnio.Font = new Font("Segoe UI", 12F);
             TxtCursoAnio.ForeColor = Color.FromArgb(26, 28, 30);
-            TxtCursoAnio.Location = new Point(136, 108);
+            TxtCursoAnio.Location = new Point(136, 102);
             TxtCursoAnio.MaxLength = 12;
             TxtCursoAnio.Name = "TxtCursoAnio";
             TxtCursoAnio.Size = new Size(257, 29);
-            TxtCursoAnio.TabIndex = 6;
+            TxtCursoAnio.TabIndex = 14;
             // 
             // label2
             // 
             label2.Anchor = AnchorStyles.Right;
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 12F);
-            label2.Location = new Point(18, 147);
+            label2.Location = new Point(18, 138);
             label2.Name = "label2";
             label2.Size = new Size(112, 21);
             label2.TabIndex = 2;
@@ -321,18 +326,18 @@ namespace Agraria.UI.EntornoFormativo
             TxtCursoDivision.BackColor = Color.FromArgb(238, 237, 240);
             TxtCursoDivision.Font = new Font("Segoe UI", 12F);
             TxtCursoDivision.ForeColor = Color.FromArgb(26, 28, 30);
-            TxtCursoDivision.Location = new Point(136, 143);
+            TxtCursoDivision.Location = new Point(136, 135);
             TxtCursoDivision.MaxLength = 12;
             TxtCursoDivision.Name = "TxtCursoDivision";
             TxtCursoDivision.Size = new Size(257, 29);
-            TxtCursoDivision.TabIndex = 7;
+            TxtCursoDivision.TabIndex = 15;
             // 
             // label3
             // 
             label3.Anchor = AnchorStyles.Right;
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI", 12F);
-            label3.Location = new Point(28, 182);
+            label3.Location = new Point(28, 171);
             label3.Name = "label3";
             label3.Size = new Size(102, 21);
             label3.TabIndex = 3;
@@ -344,18 +349,18 @@ namespace Agraria.UI.EntornoFormativo
             TxtCursoGrupo.BackColor = Color.FromArgb(238, 237, 240);
             TxtCursoGrupo.Font = new Font("Segoe UI", 12F);
             TxtCursoGrupo.ForeColor = Color.FromArgb(26, 28, 30);
-            TxtCursoGrupo.Location = new Point(136, 178);
+            TxtCursoGrupo.Location = new Point(136, 168);
             TxtCursoGrupo.MaxLength = 12;
             TxtCursoGrupo.Name = "TxtCursoGrupo";
             TxtCursoGrupo.Size = new Size(257, 29);
-            TxtCursoGrupo.TabIndex = 8;
+            TxtCursoGrupo.TabIndex = 16;
             // 
             // LblCuit
             // 
             LblCuit.Anchor = AnchorStyles.Right;
             LblCuit.AutoSize = true;
             LblCuit.Font = new Font("Segoe UI", 12F);
-            LblCuit.Location = new Point(30, 255);
+            LblCuit.Location = new Point(30, 241);
             LblCuit.Name = "LblCuit";
             LblCuit.Size = new Size(100, 21);
             LblCuit.TabIndex = 0;
@@ -367,21 +372,21 @@ namespace Agraria.UI.EntornoFormativo
             TxtObservacion.Dock = DockStyle.Fill;
             TxtObservacion.Font = new Font("Segoe UI", 12F);
             TxtObservacion.ForeColor = Color.FromArgb(26, 28, 30);
-            TxtObservacion.Location = new Point(136, 213);
+            TxtObservacion.Location = new Point(136, 201);
             TxtObservacion.MaxLength = 255;
             TxtObservacion.Multiline = true;
             TxtObservacion.Name = "TxtObservacion";
-            TxtObservacion.Size = new Size(257, 106);
-            TxtObservacion.TabIndex = 5;
+            TxtObservacion.Size = new Size(257, 101);
+            TxtObservacion.TabIndex = 17;
             // 
             // flowLayoutPanel1
             // 
             flowLayoutPanel1.Controls.Add(BtnGuardar);
             flowLayoutPanel1.Dock = DockStyle.Fill;
-            flowLayoutPanel1.Location = new Point(136, 325);
+            flowLayoutPanel1.Location = new Point(136, 331);
             flowLayoutPanel1.Name = "flowLayoutPanel1";
             TLPForm.SetRowSpan(flowLayoutPanel1, 2);
-            flowLayoutPanel1.Size = new Size(257, 57);
+            flowLayoutPanel1.Size = new Size(257, 51);
             flowLayoutPanel1.TabIndex = 18;
             // 
             // BtnGuardar
@@ -398,11 +403,29 @@ namespace Agraria.UI.EntornoFormativo
             BtnGuardar.Margin = new Padding(0);
             BtnGuardar.Name = "BtnGuardar";
             BtnGuardar.Size = new Size(192, 47);
-            BtnGuardar.TabIndex = 14;
+            BtnGuardar.TabIndex = 19;
             BtnGuardar.Text = "GUARDAR";
             BtnGuardar.TextImageRelation = TextImageRelation.TextBeforeImage;
             BtnGuardar.UseVisualStyleBackColor = false;
             BtnGuardar.Click += BtnGuardar_Click;
+            // 
+            // label7
+            // 
+            label7.Anchor = AnchorStyles.Right;
+            label7.AutoSize = true;
+            label7.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label7.Location = new Point(74, 306);
+            label7.Name = "label7";
+            label7.Size = new Size(56, 21);
+            label7.TabIndex = 19;
+            label7.Text = "Activo:";
+            // 
+            // ChkActivo
+            // 
+            ChkActivo.Location = new Point(136, 308);
+            ChkActivo.Name = "ChkActivo";
+            ChkActivo.Size = new Size(104, 17);
+            ChkActivo.TabIndex = 18;
             // 
             // ProgressBar
             // 
@@ -467,5 +490,7 @@ namespace Agraria.UI.EntornoFormativo
         private TextBox TxtObservacion;
         private FlowLayoutPanel flowLayoutPanel1;
         private Button BtnGuardar;
+        private Label label7;
+        private CheckBox ChkActivo;
     }
 }

@@ -15,7 +15,7 @@ namespace Agraria.Modelo.Entidades
         public string? Curso_Division {  get; set; }
         public string? Curso_Grupo { get; set; }
         public string? Observaciones { get; set; }
-
+        public bool Activo { get; set; }
         public string? Entorno_Nombre { get; set; }
         public string? Usuario_Nombre {  get; set; }
         public string? Usuario_Apellido { get; set; }

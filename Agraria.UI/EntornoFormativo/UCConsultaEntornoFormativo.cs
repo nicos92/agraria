@@ -105,7 +105,8 @@ namespace Agraria.UI.EntornoFormativo
                 Curso_anio = TxtCursoAnio.Text,
                 Curso_Division = TxtCursoDivision.Text,
                 Curso_Grupo = TxtCursoGrupo.Text,
-                Observaciones = TxtObservacion.Text
+                Observaciones = TxtObservacion.Text,
+                Activo = ChkActivo.Checked
             };
 
             Result<Modelo.Entidades.EntornoFormativo> resultado;
@@ -208,35 +209,19 @@ namespace Agraria.UI.EntornoFormativo
         },
         new DataGridViewTextBoxColumn
         {
-            Name = "Usuario_Nombre",
-            DataPropertyName = "Usuario_Nombre",
-            HeaderText = "Usuario",
+            Name = "Usuario_Apellido",
+            DataPropertyName = "Usuario_Apellido",
+            HeaderText = "Apellido",
             Width = 150,
             AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill,
         },
         new DataGridViewTextBoxColumn
         {
-            Name = "Curso_anio",
-            DataPropertyName = "Curso_anio",
-            HeaderText = "Año",
-            Width = 80,
-            AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
-        },
-        new DataGridViewTextBoxColumn
-        {
-            Name = "Curso_Division",
-            DataPropertyName = "Curso_Division",
-            HeaderText = "División",
-            Width = 80,
-            AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
-        },
-        new DataGridViewTextBoxColumn
-        {
-            Name = "Curso_Grupo",
-            DataPropertyName = "Curso_Grupo",
-            HeaderText = "Grupo",
-            Width = 80,
-            AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
+            Name = "Usuario_Nombre",
+            DataPropertyName = "Usuario_Nombre",
+            HeaderText = "Nombre",
+            Width = 150,
+            AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill,
         }
     };
 
@@ -309,6 +294,7 @@ namespace Agraria.UI.EntornoFormativo
             TxtCursoDivision.Text = entornoFormativo.Curso_Division;
             TxtCursoGrupo.Text = entornoFormativo.Curso_Grupo;
             TxtObservacion.Text = entornoFormativo.Observaciones;
+            ChkActivo.Checked = entornoFormativo.Activo;
         }
 
         private void LimpiarFormulario()
@@ -319,6 +305,7 @@ namespace Agraria.UI.EntornoFormativo
             TxtCursoDivision.Clear();
             TxtCursoGrupo.Clear();
             TxtObservacion.Clear();
+            ChkActivo.Checked = true;
             CMBTipoEntorno.SelectedIndex = -1;
             CMBEntorno.DataSource = null;
             CMBUsuario.SelectedIndex = -1;

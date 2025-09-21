@@ -39,6 +39,9 @@ namespace Agraria.UI.EntornoFormativo
 
             // Cambiar el nombre del botón en el diseñador si es necesario, o aquí:
             BtnIngresar.Text = "GUARDAR";
+            
+            // Initialize Activo checkbox to true by default
+            ChkActivo.Checked = true;
         }
 
         #endregion
@@ -74,7 +77,8 @@ namespace Agraria.UI.EntornoFormativo
                 Curso_anio = TxtCursoAnio.Text,
                 Curso_Division = TxtCursoDivision.Text,
                 Curso_Grupo = TxtCursoGrupo.Text,
-                Observaciones = TxtObservacion.Text
+                Observaciones = TxtObservacion.Text,
+                Activo = ChkActivo.Checked
             };
 
             Result<Modelo.Entidades.EntornoFormativo> resultado;
@@ -115,6 +119,7 @@ namespace Agraria.UI.EntornoFormativo
             TxtCursoDivision.Clear();
             TxtCursoGrupo.Clear();
             TxtObservacion.Clear();
+            ChkActivo.Checked = true;
             
             // Set default selections
             if (_listaUsuarios.Count > 0)

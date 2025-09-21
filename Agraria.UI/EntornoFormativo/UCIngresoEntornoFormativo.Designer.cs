@@ -46,6 +46,8 @@
             TxtCursoGrupo = new TextBox();
             LblCuit = new Label();
             TxtObservacion = new TextBox();
+            label7 = new Label();
+            ChkActivo = new CheckBox();
             BtnIngresar = new Button();
             ProgressBar = new ProgressBar();
             PanelMedio.SuspendLayout();
@@ -113,7 +115,9 @@
             TLPForm.Controls.Add(TxtCursoGrupo, 1, 5);
             TLPForm.Controls.Add(LblCuit, 0, 6);
             TLPForm.Controls.Add(TxtObservacion, 1, 6);
-            TLPForm.Controls.Add(BtnIngresar, 1, 7);
+            TLPForm.Controls.Add(label7, 0, 7);
+            TLPForm.Controls.Add(ChkActivo, 1, 7);
+            TLPForm.Controls.Add(BtnIngresar, 1, 8);
             TLPForm.Dock = DockStyle.Fill;
             TLPForm.ForeColor = Color.FromArgb(26, 28, 30);
             TLPForm.Location = new Point(3, 29);
@@ -128,6 +132,7 @@
             TLPForm.RowStyles.Add(new RowStyle(SizeType.Percent, 29.5871563F));
             TLPForm.RowStyles.Add(new RowStyle(SizeType.Percent, 6.19266033F));
             TLPForm.RowStyles.Add(new RowStyle(SizeType.Percent, 9.090909F));
+            TLPForm.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
             TLPForm.Size = new Size(627, 436);
             TLPForm.TabIndex = 0;
             // 
@@ -136,7 +141,7 @@
             label1.Anchor = AnchorStyles.Right;
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 12F);
-            label1.Location = new Point(11, 9);
+            label1.Location = new Point(11, 8);
             label1.Name = "label1";
             label1.Size = new Size(123, 21);
             label1.TabIndex = 1;
@@ -148,7 +153,7 @@
             CMBTipoEntorno.DropDownStyle = ComboBoxStyle.DropDownList;
             CMBTipoEntorno.Font = new Font("Segoe UI", 12F);
             CMBTipoEntorno.FormattingEnabled = true;
-            CMBTipoEntorno.Location = new Point(140, 5);
+            CMBTipoEntorno.Location = new Point(140, 4);
             CMBTipoEntorno.Name = "CMBTipoEntorno";
             CMBTipoEntorno.Size = new Size(391, 29);
             CMBTipoEntorno.TabIndex = 11;
@@ -159,7 +164,7 @@
             label5.Anchor = AnchorStyles.Right;
             label5.AutoSize = true;
             label5.Font = new Font("Segoe UI", 12F);
-            label5.Location = new Point(66, 48);
+            label5.Location = new Point(66, 46);
             label5.Name = "label5";
             label5.Size = new Size(68, 21);
             label5.TabIndex = 12;
@@ -171,7 +176,7 @@
             CMBEntorno.DropDownStyle = ComboBoxStyle.DropDownList;
             CMBEntorno.Font = new Font("Segoe UI", 12F);
             CMBEntorno.FormattingEnabled = true;
-            CMBEntorno.Location = new Point(140, 44);
+            CMBEntorno.Location = new Point(140, 42);
             CMBEntorno.Name = "CMBEntorno";
             CMBEntorno.Size = new Size(391, 29);
             CMBEntorno.TabIndex = 12;
@@ -181,7 +186,7 @@
             label6.Anchor = AnchorStyles.Right;
             label6.AutoSize = true;
             label6.Font = new Font("Segoe UI", 12F);
-            label6.Location = new Point(33, 87);
+            label6.Location = new Point(33, 84);
             label6.Name = "label6";
             label6.Size = new Size(101, 21);
             label6.TabIndex = 17;
@@ -193,17 +198,17 @@
             CMBUsuario.DropDownStyle = ComboBoxStyle.DropDownList;
             CMBUsuario.Font = new Font("Segoe UI", 12F);
             CMBUsuario.FormattingEnabled = true;
-            CMBUsuario.Location = new Point(140, 83);
+            CMBUsuario.Location = new Point(140, 80);
             CMBUsuario.Name = "CMBUsuario";
             CMBUsuario.Size = new Size(391, 29);
-            CMBUsuario.TabIndex = 10;
+            CMBUsuario.TabIndex = 13;
             // 
             // label4
             // 
             label4.Anchor = AnchorStyles.Right;
             label4.AutoSize = true;
             label4.Font = new Font("Segoe UI", 12F);
-            label4.Location = new Point(50, 126);
+            label4.Location = new Point(50, 122);
             label4.Name = "label4";
             label4.Size = new Size(84, 21);
             label4.TabIndex = 4;
@@ -215,8 +220,8 @@
             TxtCursoAnio.BackColor = Color.FromArgb(238, 237, 240);
             TxtCursoAnio.Font = new Font("Segoe UI", 12F);
             TxtCursoAnio.ForeColor = Color.FromArgb(26, 28, 30);
-            TxtCursoAnio.Location = new Point(140, 122);
-            TxtCursoAnio.MaxLength = 12;
+            TxtCursoAnio.Location = new Point(140, 118);
+            TxtCursoAnio.MaxLength = 14;
             TxtCursoAnio.Name = "TxtCursoAnio";
             TxtCursoAnio.Size = new Size(391, 29);
             TxtCursoAnio.TabIndex = 6;
@@ -227,7 +232,7 @@
             label2.Anchor = AnchorStyles.Right;
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 12F);
-            label2.Location = new Point(22, 165);
+            label2.Location = new Point(22, 160);
             label2.Name = "label2";
             label2.Size = new Size(112, 21);
             label2.TabIndex = 2;
@@ -239,11 +244,11 @@
             TxtCursoDivision.BackColor = Color.FromArgb(238, 237, 240);
             TxtCursoDivision.Font = new Font("Segoe UI", 12F);
             TxtCursoDivision.ForeColor = Color.FromArgb(26, 28, 30);
-            TxtCursoDivision.Location = new Point(140, 161);
+            TxtCursoDivision.Location = new Point(140, 156);
             TxtCursoDivision.MaxLength = 12;
             TxtCursoDivision.Name = "TxtCursoDivision";
             TxtCursoDivision.Size = new Size(391, 29);
-            TxtCursoDivision.TabIndex = 7;
+            TxtCursoDivision.TabIndex = 15;
             TxtCursoDivision.TextChanged += TxtDescripcion_TextChanged;
             // 
             // label3
@@ -251,7 +256,7 @@
             label3.Anchor = AnchorStyles.Right;
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI", 12F);
-            label3.Location = new Point(32, 204);
+            label3.Location = new Point(32, 198);
             label3.Name = "label3";
             label3.Size = new Size(102, 21);
             label3.TabIndex = 3;
@@ -263,11 +268,11 @@
             TxtCursoGrupo.BackColor = Color.FromArgb(238, 237, 240);
             TxtCursoGrupo.Font = new Font("Segoe UI", 12F);
             TxtCursoGrupo.ForeColor = Color.FromArgb(26, 28, 30);
-            TxtCursoGrupo.Location = new Point(140, 200);
+            TxtCursoGrupo.Location = new Point(140, 194);
             TxtCursoGrupo.MaxLength = 12;
             TxtCursoGrupo.Name = "TxtCursoGrupo";
             TxtCursoGrupo.Size = new Size(391, 29);
-            TxtCursoGrupo.TabIndex = 8;
+            TxtCursoGrupo.TabIndex = 16;
             TxtCursoGrupo.TextChanged += TxtDescripcion_TextChanged;
             // 
             // LblCuit
@@ -275,7 +280,7 @@
             LblCuit.Anchor = AnchorStyles.Right;
             LblCuit.AutoSize = true;
             LblCuit.Font = new Font("Segoe UI", 12F);
-            LblCuit.Location = new Point(34, 288);
+            LblCuit.Location = new Point(34, 279);
             LblCuit.Name = "LblCuit";
             LblCuit.Size = new Size(100, 21);
             LblCuit.TabIndex = 0;
@@ -287,13 +292,35 @@
             TxtObservacion.Dock = DockStyle.Fill;
             TxtObservacion.Font = new Font("Segoe UI", 12F);
             TxtObservacion.ForeColor = Color.FromArgb(26, 28, 30);
-            TxtObservacion.Location = new Point(140, 237);
+            TxtObservacion.Location = new Point(140, 231);
             TxtObservacion.MaxLength = 255;
             TxtObservacion.Multiline = true;
             TxtObservacion.Name = "TxtObservacion";
-            TxtObservacion.Size = new Size(391, 123);
-            TxtObservacion.TabIndex = 5;
+            TxtObservacion.Size = new Size(391, 117);
+            TxtObservacion.TabIndex = 17;
             TxtObservacion.TextChanged += TxtDescripcion_TextChanged;
+            // 
+            // label7
+            // 
+            label7.Anchor = AnchorStyles.Right;
+            label7.AutoSize = true;
+            label7.Font = new Font("Segoe UI", 12F);
+            label7.Location = new Point(78, 353);
+            label7.Name = "label7";
+            label7.Size = new Size(56, 21);
+            label7.TabIndex = 18;
+            label7.Text = "Activo:";
+            // 
+            // ChkActivo
+            // 
+            ChkActivo.Anchor = AnchorStyles.Left;
+            ChkActivo.AutoSize = true;
+            ChkActivo.Font = new Font("Segoe UI", 12F);
+            ChkActivo.Location = new Point(140, 356);
+            ChkActivo.Name = "ChkActivo";
+            ChkActivo.Size = new Size(15, 14);
+            ChkActivo.TabIndex = 18;
+            ChkActivo.UseVisualStyleBackColor = true;
             // 
             // BtnIngresar
             // 
@@ -305,12 +332,12 @@
             BtnIngresar.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             BtnIngresar.ForeColor = Color.FromArgb(255, 255, 255);
             BtnIngresar.Image = Properties.Resources.ingresar;
-            BtnIngresar.Location = new Point(239, 376);
+            BtnIngresar.Location = new Point(239, 382);
             BtnIngresar.Margin = new Padding(0);
             BtnIngresar.Name = "BtnIngresar";
             TLPForm.SetRowSpan(BtnIngresar, 2);
             BtnIngresar.Size = new Size(192, 47);
-            BtnIngresar.TabIndex = 13;
+            BtnIngresar.TabIndex = 19;
             BtnIngresar.Text = "INGRESAR";
             BtnIngresar.TextImageRelation = TextImageRelation.TextBeforeImage;
             BtnIngresar.UseVisualStyleBackColor = false;
@@ -366,5 +393,7 @@
         private ComboBox CMBTipoEntorno;
         private Label label6;
         private ProgressBar ProgressBar;
+        private Label label7;
+        private CheckBox ChkActivo;
     }
 }
