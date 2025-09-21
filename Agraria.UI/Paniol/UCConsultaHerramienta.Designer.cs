@@ -40,14 +40,14 @@
             groupBox1 = new GroupBox();
             TLPForm = new TableLayoutPanel();
             LblNombre = new Label();
-            TxtCantidad = new TextBox();
             TxtNombre = new TextBox();
-            label4 = new Label();
             tableLayoutPanel2 = new TableLayoutPanel();
             BtnGuardar = new Button();
             BtnEliminar = new Button();
             TxtDescripcion = new TextBox();
             label5 = new Label();
+            TxtCantidad = new TextBox();
+            label4 = new Label();
             ProgressBar = new ProgressBar();
             tableLayoutPanel3.SuspendLayout();
             PanelLista.SuspendLayout();
@@ -132,6 +132,7 @@
             ListBArticulos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             ListBArticulos.Size = new Size(309, 469);
             ListBArticulos.TabIndex = 2;
+            ListBArticulos.SelectionChanged += ListBArticulos_SelectionChanged;
             // 
             // Codigo
             // 
@@ -228,18 +229,6 @@
             LblNombre.TabIndex = 0;
             LblNombre.Text = "Nombre:";
             // 
-            // TxtCantidad
-            // 
-            TxtCantidad.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            TxtCantidad.BackColor = Color.FromArgb(238, 237, 240);
-            TxtCantidad.Font = new Font("Segoe UI", 12F);
-            TxtCantidad.ForeColor = Color.FromArgb(26, 28, 30);
-            TxtCantidad.Location = new Point(133, 86);
-            TxtCantidad.MaxLength = 12;
-            TxtCantidad.Name = "TxtCantidad";
-            TxtCantidad.Size = new Size(271, 29);
-            TxtCantidad.TabIndex = 7;
-            // 
             // TxtNombre
             // 
             TxtNombre.Anchor = AnchorStyles.Left | AnchorStyles.Right;
@@ -251,17 +240,7 @@
             TxtNombre.Name = "TxtNombre";
             TxtNombre.Size = new Size(271, 29);
             TxtNombre.TabIndex = 5;
-            // 
-            // label4
-            // 
-            label4.Anchor = AnchorStyles.Right;
-            label4.AutoSize = true;
-            label4.Font = new Font("Segoe UI", 12F);
-            label4.Location = new Point(52, 90);
-            label4.Name = "label4";
-            label4.Size = new Size(75, 21);
-            label4.TabIndex = 4;
-            label4.Text = "Cantidad:";
+            TxtNombre.TextChanged += ValidarCamposEdicion;
             // 
             // tableLayoutPanel2
             // 
@@ -297,6 +276,7 @@
             BtnGuardar.TextAlign = ContentAlignment.MiddleRight;
             BtnGuardar.TextImageRelation = TextImageRelation.ImageBeforeText;
             BtnGuardar.UseVisualStyleBackColor = false;
+            BtnGuardar.Click += BtnGuardar_Click;
             // 
             // BtnEliminar
             // 
@@ -313,6 +293,7 @@
             BtnEliminar.Size = new Size(48, 48);
             BtnEliminar.TabIndex = 13;
             BtnEliminar.UseVisualStyleBackColor = false;
+            BtnEliminar.Click += BtnEliminar_Click;
             // 
             // TxtDescripcion
             // 
@@ -326,6 +307,7 @@
             TxtDescripcion.Name = "TxtDescripcion";
             TxtDescripcion.Size = new Size(271, 138);
             TxtDescripcion.TabIndex = 9;
+            TxtDescripcion.TextChanged += ValidarCamposEdicion;
             // 
             // label5
             // 
@@ -337,6 +319,30 @@
             label5.Size = new Size(94, 21);
             label5.TabIndex = 12;
             label5.Text = "Descripción:";
+            // 
+            // TxtCantidad
+            // 
+            TxtCantidad.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            TxtCantidad.BackColor = Color.FromArgb(238, 237, 240);
+            TxtCantidad.Font = new Font("Segoe UI", 12F);
+            TxtCantidad.ForeColor = Color.FromArgb(26, 28, 30);
+            TxtCantidad.Location = new Point(133, 86);
+            TxtCantidad.MaxLength = 12;
+            TxtCantidad.Name = "TxtCantidad";
+            TxtCantidad.Size = new Size(271, 29);
+            TxtCantidad.TabIndex = 7;
+            TxtCantidad.TextChanged += ValidarCamposEdicion;
+            // 
+            // label4
+            // 
+            label4.Anchor = AnchorStyles.Right;
+            label4.AutoSize = true;
+            label4.Font = new Font("Segoe UI", 12F);
+            label4.Location = new Point(52, 90);
+            label4.Name = "label4";
+            label4.Size = new Size(75, 21);
+            label4.TabIndex = 4;
+            label4.Text = "Cantidad:";
             // 
             // ProgressBar
             // 
@@ -359,6 +365,7 @@
             Margin = new Padding(4);
             Name = "UCConsultaHerramienta";
             Size = new Size(804, 561);
+            Load += UCConsultaHerramienta_Load;
             tableLayoutPanel3.ResumeLayout(false);
             PanelLista.ResumeLayout(false);
             tableLayoutPanel1.ResumeLayout(false);

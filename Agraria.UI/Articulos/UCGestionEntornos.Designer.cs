@@ -28,10 +28,10 @@ namespace Agraria.UI.Articulos
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle7 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle8 = new DataGridViewCellStyle();
             GNEntornos = new GroupBox();
             tableLayoutPanel1 = new TableLayoutPanel();
             BtnActualizar = new Button();
@@ -89,7 +89,7 @@ namespace Agraria.UI.Articulos
             GNEntornos.Size = new Size(394, 461);
             GNEntornos.TabIndex = 0;
             GNEntornos.TabStop = false;
-            GNEntornos.Text = "Entornos";
+            GNEntornos.Text = "Tipo de Entorno";
             // 
             // tableLayoutPanel1
             // 
@@ -121,6 +121,7 @@ namespace Agraria.UI.Articulos
             BtnActualizar.TabIndex = 4;
             BtnActualizar.Text = "Actualizar Datos";
             BtnActualizar.UseVisualStyleBackColor = false;
+            BtnActualizar.Visible = false;
             // 
             // DgvEntornos
             // 
@@ -128,21 +129,21 @@ namespace Agraria.UI.Articulos
             DgvEntornos.AllowUserToDeleteRows = false;
             DgvEntornos.AllowUserToResizeColumns = false;
             DgvEntornos.AllowUserToResizeRows = false;
-            dataGridViewCellStyle1.BackColor = Color.FromArgb(240, 240, 245);
-            DgvEntornos.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle5.BackColor = Color.FromArgb(240, 240, 245);
+            DgvEntornos.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle5;
             DgvEntornos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             DgvEntornos.BackgroundColor = Color.White;
             DgvEntornos.BorderStyle = BorderStyle.Fixed3D;
             DgvEntornos.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
             DgvEntornos.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = Color.FromArgb(7, 100, 147);
-            dataGridViewCellStyle2.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            dataGridViewCellStyle2.ForeColor = Color.White;
-            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
-            DgvEntornos.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = Color.FromArgb(7, 100, 147);
+            dataGridViewCellStyle6.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            dataGridViewCellStyle6.ForeColor = Color.White;
+            dataGridViewCellStyle6.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = DataGridViewTriState.True;
+            DgvEntornos.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle6;
             DgvEntornos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             DgvEntornos.Dock = DockStyle.Fill;
             DgvEntornos.EnableHeadersVisualStyles = false;
@@ -166,7 +167,7 @@ namespace Agraria.UI.Articulos
             GBFormEntornos.Size = new Size(382, 162);
             GBFormEntornos.TabIndex = 2;
             GBFormEntornos.TabStop = false;
-            GBFormEntornos.Text = "Formulario de Entorno";
+            GBFormEntornos.Text = "Formulario de Tipo de Entorno";
             // 
             // tableLayoutPanel3
             // 
@@ -194,7 +195,7 @@ namespace Agraria.UI.Articulos
             label1.Name = "label1";
             label1.Size = new Size(370, 30);
             label1.TabIndex = 0;
-            label1.Text = "Nombre del Entorno:";
+            label1.Text = "Nombre del Tipo de Entorno:";
             label1.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // TxtEntorno
@@ -285,7 +286,7 @@ namespace Agraria.UI.Articulos
             GBSubEntornos.Size = new Size(374, 461);
             GBSubEntornos.TabIndex = 2;
             GBSubEntornos.TabStop = false;
-            GBSubEntornos.Text = "SubEntornos";
+            GBSubEntornos.Text = "Entorno";
             // 
             // tableLayoutPanel5
             // 
@@ -307,8 +308,8 @@ namespace Agraria.UI.Articulos
             // tableLayoutPanel6
             // 
             tableLayoutPanel6.ColumnCount = 2;
-            tableLayoutPanel6.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 35.4497337F));
-            tableLayoutPanel6.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 64.55026F));
+            tableLayoutPanel6.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 48.6187859F));
+            tableLayoutPanel6.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 51.3812141F));
             tableLayoutPanel6.Controls.Add(label3, 0, 0);
             tableLayoutPanel6.Controls.Add(LblEntornoSeleccionado, 1, 0);
             tableLayoutPanel6.Location = new Point(3, 3);
@@ -325,9 +326,9 @@ namespace Agraria.UI.Articulos
             label3.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label3.Location = new Point(3, 5);
             label3.Name = "label3";
-            label3.Size = new Size(115, 21);
+            label3.Size = new Size(170, 21);
             label3.TabIndex = 2;
-            label3.Text = "Entorno Actual:";
+            label3.Text = "Tipo de Entorno Actual:";
             label3.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // LblEntornoSeleccionado
@@ -335,7 +336,7 @@ namespace Agraria.UI.Articulos
             LblEntornoSeleccionado.Anchor = AnchorStyles.Left;
             LblEntornoSeleccionado.AutoSize = true;
             LblEntornoSeleccionado.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            LblEntornoSeleccionado.Location = new Point(131, 5);
+            LblEntornoSeleccionado.Location = new Point(179, 5);
             LblEntornoSeleccionado.Name = "LblEntornoSeleccionado";
             LblEntornoSeleccionado.Size = new Size(78, 21);
             LblEntornoSeleccionado.TabIndex = 1;
@@ -346,21 +347,21 @@ namespace Agraria.UI.Articulos
             // 
             DgvSubEntornos.AllowUserToAddRows = false;
             DgvSubEntornos.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle3.BackColor = Color.FromArgb(240, 240, 245);
-            DgvSubEntornos.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle7.BackColor = Color.FromArgb(240, 240, 245);
+            DgvSubEntornos.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle7;
             DgvSubEntornos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             DgvSubEntornos.BackgroundColor = Color.White;
             DgvSubEntornos.BorderStyle = BorderStyle.Fixed3D;
             DgvSubEntornos.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
             DgvSubEntornos.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = Color.FromArgb(7, 100, 147);
-            dataGridViewCellStyle4.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            dataGridViewCellStyle4.ForeColor = Color.White;
-            dataGridViewCellStyle4.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.True;
-            DgvSubEntornos.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle8.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle8.BackColor = Color.FromArgb(7, 100, 147);
+            dataGridViewCellStyle8.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            dataGridViewCellStyle8.ForeColor = Color.White;
+            dataGridViewCellStyle8.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle8.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle8.WrapMode = DataGridViewTriState.True;
+            DgvSubEntornos.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle8;
             DgvSubEntornos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             DgvSubEntornos.Dock = DockStyle.Fill;
             DgvSubEntornos.EnableHeadersVisualStyles = false;
@@ -383,7 +384,7 @@ namespace Agraria.UI.Articulos
             GBFormSubEntornos.Size = new Size(362, 163);
             GBFormSubEntornos.TabIndex = 2;
             GBFormSubEntornos.TabStop = false;
-            GBFormSubEntornos.Text = "Formulario de SubEntorno";
+            GBFormSubEntornos.Text = "Formulario de Entorno";
             // 
             // tableLayoutPanel7
             // 

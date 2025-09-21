@@ -6,22 +6,22 @@ using Agraria.Utilidades;
 
 namespace Agraria.Servicio.Implementaciones
 {
-    public class SubcategoriaService : ISubEntornoService
+    public class SubcategoriaService : IEntornoService
     {
-        private readonly ISubcategoriaRepository _repo;
+        private readonly IEntornoRepository _repo;
 
-        public SubcategoriaService(ISubcategoriaRepository repo)
+        public SubcategoriaService(IEntornoRepository repo)
         {
             _repo = repo;
         }
 
-        public Task<Result<List<SubEntornos>>> GetAll() => _repo.GetAll();
-        public Result<SubEntornos> GetById(int id) => _repo.GetById(id);
-        public Result<SubEntornos> Add(SubEntornos subcategoria) => _repo.Add(subcategoria);
-        public Result<SubEntornos> Update(SubEntornos subcategoria) => _repo.Update(subcategoria);
+        public Task<Result<List<Entorno>>> GetAll() => _repo.GetAll();
+        public Result<Entorno> GetById(int id) => _repo.GetById(id);
+        public Result<Entorno> Add(Entorno subcategoria) => _repo.Add(subcategoria);
+        public Result<Entorno> Update(Entorno subcategoria) => _repo.Update(subcategoria);
         public Result<bool> Delete(int id) => _repo.Delete(id);
 
-        public async Task<Result<List<SubEntornos>>> GetAllxEntorno(int idcategoria)
+        public async Task<Result<List<Entorno>>> GetAllxEntorno(int idcategoria)
         {
             return await _repo.GetAllxCategoria(idcategoria);
         }

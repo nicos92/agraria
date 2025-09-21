@@ -6,6 +6,7 @@ using Agraria.UI;
 using Agraria.UI.Actividad;
 using Agraria.UI.Animal;
 using Agraria.UI.Articulos;
+using Agraria.UI.EntornoFormativo;
 using Agraria.UI.HojadeVida;
 using Agraria.UI.Industrial;
 using Agraria.UI.Inventario;
@@ -142,6 +143,10 @@ static class Program
 
         services.AddTransient<FormProveedores>(); // Este Form estaría en Agraria.UI.Proveedores
 
+        services.AddTransient<FormEntornoFormativo>();
+        services.AddTransient<UCIngresoEntornoFormativo>();
+        services.AddTransient<UCConsultaEntornoFormativo>();
+
         // Registrar UserControls
         services.AddTransient<ucIngresoActividad>();
         services.AddTransient<ucConsultaActividad>();
@@ -182,6 +187,10 @@ static class Program
             return new UCConsultaHerramienta(herramientasService);
         });
 
+        services.AddTransient<FormEntornoFormativo>();
+        services.AddTransient<UCIngresoEntornoFormativo>();
+        services.AddTransient<UCConsultaEntornoFormativo>();
+
         // Registrar servicios (ejemplo)
 
         services.AddScoped<IProveedoresService, ProveedoresService>();
@@ -202,14 +211,14 @@ static class Program
         services.AddScoped<IArticuloStockService, ArticuloStockService>();
         services.AddScoped<IArticuloStockRepository, ArticuloStockRepository>();
 
-        services.AddScoped<IEntornosService, CategoriasService>();
-        services.AddScoped<ICategoriasRepository, CategoriasRepository>();
+        services.AddScoped<ITipoEntornosService, TipoEntornoService>();
+        services.AddScoped<ITipoEntornoRepository, TipoEntornoRepository>();
 
         services.AddScoped<IStockService, StockService>();
         services.AddScoped<IStockRepository, StockRepository>();
 
-        services.AddScoped<ISubEntornoService, SubcategoriaService>();
-        services.AddScoped<ISubcategoriaRepository, SubCategoriaRepository>();
+        services.AddScoped<IEntornoService, SubcategoriaService>();
+        services.AddScoped<IEntornoRepository, EntornoRepository>();
 
         services.AddScoped<IVentaService, VentaService>();
         services.AddScoped<IVentaRepository, VentaRepository>();
@@ -236,5 +245,8 @@ static class Program
         // Registrar servicios y repositorios para Hoja de Vida
         services.AddScoped<IHojadeVidaService, HojadeVidaService>();
         services.AddScoped<IHojadeVidaRepository, HojadeVidaRepository>();
+
+        services.AddScoped<IEntornoFormativoService, EntornoFormativoService>();
+        services.AddScoped<IEntornoFormativoRepository,  EntornoFormativoRepository>();
     }
 }

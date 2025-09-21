@@ -30,10 +30,6 @@ namespace Agraria.UI.Paniol
 
         private void ConfigurarEventos()
         {
-            Load += UCConsultaHerramienta_Load;
-            ListBArticulos.SelectionChanged += ListBArticulos_SelectionChanged;
-            BtnGuardar.Click += BtnGuardar_Click;
-            BtnEliminar.Click += BtnEliminar_Click;
             
             TxtNombre.TextChanged += ValidarCamposEdicion;
             TxtCantidad.TextChanged += ValidarCamposEdicion;

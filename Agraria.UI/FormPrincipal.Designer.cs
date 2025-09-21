@@ -30,6 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormPrincipal));
             PanelMenu = new Panel();
+            BtnEntornos = new Button();
             BtnPaniol = new Button();
             BtnProveedores = new Button();
             BtnRemitoProduccion = new Button();
@@ -59,6 +60,7 @@
             // 
             PanelMenu.AutoScroll = true;
             PanelMenu.BackColor = Color.FromArgb(7, 100, 147);
+            PanelMenu.Controls.Add(BtnEntornos);
             PanelMenu.Controls.Add(BtnPaniol);
             PanelMenu.Controls.Add(BtnProveedores);
             PanelMenu.Controls.Add(BtnRemitoProduccion);
@@ -76,6 +78,26 @@
             PanelMenu.Name = "PanelMenu";
             PanelMenu.Size = new Size(200, 601);
             PanelMenu.TabIndex = 0;
+            // 
+            // BtnEntornos
+            // 
+            BtnEntornos.Cursor = Cursors.Hand;
+            BtnEntornos.Dock = DockStyle.Top;
+            BtnEntornos.FlatAppearance.BorderSize = 0;
+            BtnEntornos.FlatStyle = FlatStyle.Flat;
+            BtnEntornos.ForeColor = SystemColors.ButtonHighlight;
+            BtnEntornos.Image = Properties.Resources.entornos;
+            BtnEntornos.ImageAlign = ContentAlignment.MiddleLeft;
+            BtnEntornos.Location = new Point(0, 704);
+            BtnEntornos.Margin = new Padding(4);
+            BtnEntornos.Name = "BtnEntornos";
+            BtnEntornos.Padding = new Padding(8, 0, 0, 0);
+            BtnEntornos.Size = new Size(183, 64);
+            BtnEntornos.TabIndex = 11;
+            BtnEntornos.Text = "Entornos";
+            BtnEntornos.TextImageRelation = TextImageRelation.ImageBeforeText;
+            BtnEntornos.UseVisualStyleBackColor = true;
+            BtnEntornos.Click += BtnActividad_Click;
             // 
             // BtnPaniol
             // 
@@ -414,6 +436,7 @@
             Name = "FormPrincipal";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "FormPrincipal";
+            WindowState = FormWindowState.Maximized;
             Load += FormPrincipal_Load;
             PanelMenu.ResumeLayout(false);
             PanelLblMenu.ResumeLayout(false);
@@ -445,5 +468,6 @@
         private Label LblUsuario;
         private Label label1;
         private Label label5;
+        private Button BtnEntornos;
     }
 }

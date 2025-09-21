@@ -171,6 +171,7 @@ namespace Agraria.UI
             BtnUsuarios.Tag = typeof(Usuarios.FormUsuarios);
             BtnProveedores.Tag = typeof(Proveedores.FormProveedores);
             BtnPaniol.Tag = typeof(Paniol.FormPaniol);
+            BtnEntornos.Tag = typeof(EntornoFormativo.FormEntornoFormativo);
         }
 
         /// <summary>

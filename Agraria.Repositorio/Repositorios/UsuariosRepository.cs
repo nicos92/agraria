@@ -190,6 +190,9 @@ namespace Agraria.Repositorio.Repositorios
             catch (OleDbException ex)
             {
                 return Result<Usuarios>.Failure("Error en la base de datos al obtener el usuario: " + ex.Message);
+            }catch(ExecutionEngineException ex)
+            {
+                return Result<Usuarios>.Failure("Error en el motor base de datos al obtener el usuario: " + ex.Message);
             }
             catch (System.Exception ex)
             {

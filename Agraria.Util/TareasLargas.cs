@@ -13,6 +13,7 @@ namespace Agraria.Utilidades
         private readonly ProgressBar _barraDeProgreso;
         private readonly Func<Task> _tareaDeLargaDuracion;
         private readonly Action _tareaCompletada;
+        private readonly Action _tareaDeLargaDuracionAction;
 
 
         /// <summary>
@@ -27,6 +28,21 @@ namespace Agraria.Utilidades
             _panelADesactivar = panelADesactivar;
             _barraDeProgreso = barraDeProgreso;
             _tareaDeLargaDuracion = tareaDeLargaDuracion;
+            _tareaCompletada = tareaCompletada;
+
+            WorkerReportsProgress = true;
+            WorkerSupportsCancellation = true;
+
+            DoWork += HacerTrabajo;
+            ProgressChanged += ProgresoCambiado;
+            RunWorkerCompleted += TrabajoCompletado;
+        }
+
+        public TareasLargas(Panel panelADesactivar, ProgressBar barraDeProgreso, Action tareaDeLargaDuracion, Action tareaCompletada)
+        {
+            _panelADesactivar = panelADesactivar;
+            _barraDeProgreso = barraDeProgreso;
+            _tareaDeLargaDuracionAction = tareaDeLargaDuracion;
             _tareaCompletada = tareaCompletada;
 
             WorkerReportsProgress = true;
@@ -91,6 +107,10 @@ namespace Agraria.Utilidades
                 if (_tareaDeLargaDuracion != null)
                 {
                     await _tareaDeLargaDuracion();
+                }
+                else
+                {
+                    _tareaDeLargaDuracionAction();
                 }
             }
             catch (Exception ex)

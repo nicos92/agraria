@@ -16,17 +16,17 @@ namespace Agraria.UI.Articulos
 {
     public partial class UCGestionEntornos : UserControl
     {
-        private readonly IEntornosService _entornoService;
-        private readonly ISubEntornoService _subEntornoService;
+        private readonly ITipoEntornosService _entornoService;
+        private readonly IEntornoService _subEntornoService;
         private readonly ILogger<UCGestionEntornos> _logger;
-        private List<Entornos> _entornos = [];
-        private List<SubEntornos> _subEntornos = [];
+        private List<TipoEntorno> _entornos = [];
+        private List<Entorno> _subEntornos = [];
         private int _selectedEntornoId = -1;
         private int _selectedSubEntornoId = -1;
 
         public UCGestionEntornos(
-            IEntornosService categoriasService,
-            ISubEntornoService subcategoriasService,
+            ITipoEntornosService categoriasService,
+            IEntornoService subcategoriasService,
             ILogger<UCGestionEntornos> logger)
         {
             _entornoService = categoriasService;
@@ -225,11 +225,11 @@ namespace Agraria.UI.Articulos
 
         private async void DgvEntornos_SelectionChanged(object sender, EventArgs e)
         {
-            if (DgvEntornos.CurrentRow?.DataBoundItem is Entornos entorno)
+            if (DgvEntornos.CurrentRow?.DataBoundItem is TipoEntorno entorno)
             {
-                _selectedEntornoId = entorno.Id_entorno;
-                TxtEntorno.Text = entorno.Entorno ?? "";
-                LblEntornoSeleccionado.Text = entorno.Entorno ?? "";
+                _selectedEntornoId = entorno.Id_Tipo_Entorno;
+                TxtEntorno.Text = entorno.Tipo_Entorno ?? "";
+                LblEntornoSeleccionado.Text = entorno.Tipo_Entorno ?? "";
                 await CargarSubEntornosAsync();
             }
             else
@@ -244,10 +244,10 @@ namespace Agraria.UI.Articulos
 
         private void DgvSubEntornos_SelectionChanged(object sender, EventArgs e)
         {
-            if (DgvSubEntornos.CurrentRow?.DataBoundItem is SubEntornos subEntorno)
+            if (DgvSubEntornos.CurrentRow?.DataBoundItem is Entorno subEntorno)
             {
-                _selectedSubEntornoId = subEntorno.Id_SubEntorno;
-                TxtSubEntorno.Text = subEntorno.Sub_Entorno ?? "";
+                _selectedSubEntornoId = subEntorno.Id_Entorno;
+                TxtSubEntorno.Text = subEntorno.Entorno_nombre ?? "";
             }
             else
             {
@@ -272,7 +272,7 @@ namespace Agraria.UI.Articulos
 
             // Verificar si ya existe una categoría con el mismo nombre
             var entornoExistente = _entornos.FirstOrDefault(c =>
-                c.Entorno.Equals(nombreEntorno, StringComparison.OrdinalIgnoreCase));
+                c.Tipo_Entorno.Equals(nombreEntorno, StringComparison.OrdinalIgnoreCase));
 
             if (entornoExistente != null)
             {
@@ -287,9 +287,9 @@ namespace Agraria.UI.Articulos
                 PbProgreso.Style = ProgressBarStyle.Marquee;
 
                 // Crear nueva categoría
-                var entorno = new Entornos
+                var entorno = new TipoEntorno
                 {
-                    Entorno = nombreEntorno
+                    Tipo_Entorno = nombreEntorno
                 };
 
                 var result = await TareasLargas.EjecutarAsync(
@@ -348,10 +348,10 @@ namespace Agraria.UI.Articulos
                 PbProgreso.Style = ProgressBarStyle.Marquee;
 
                 // Actualizar categoría existente
-                var entorno = new Entornos
+                var entorno = new TipoEntorno
                 {
-                    Id_entorno = _selectedEntornoId,
-                    Entorno = nombreEntorno
+                    Id_Tipo_Entorno = _selectedEntornoId,
+                    Tipo_Entorno = nombreEntorno
                 };
 
                 var result = await TareasLargas.EjecutarAsync(
@@ -469,7 +469,7 @@ namespace Agraria.UI.Articulos
 
             // Verificar si ya existe una subcategoría con el mismo nombre en la misma categoría
             var subEntornoExistente = _subEntornos.FirstOrDefault(s =>
-                s.Sub_Entorno.Equals(nombreSubEntorno, StringComparison.OrdinalIgnoreCase));
+                s.Entorno_nombre.Equals(nombreSubEntorno, StringComparison.OrdinalIgnoreCase));
 
             if (subEntornoExistente != null)
             {
@@ -484,10 +484,10 @@ namespace Agraria.UI.Articulos
                 PbProgreso.Style = ProgressBarStyle.Marquee;
 
                 // Crear nueva subcategoría
-                var subEntorno = new SubEntornos
+                var subEntorno = new Entorno
                 {
-                    Sub_Entorno = nombreSubEntorno,
-                    Id_Entorno = _selectedEntornoId
+                    Entorno_nombre = nombreSubEntorno,
+                    Id_TipoEntorno = _selectedEntornoId
                 };
 
                 var result = await TareasLargas.EjecutarAsync(
@@ -552,11 +552,11 @@ namespace Agraria.UI.Articulos
                 PbProgreso.Style = ProgressBarStyle.Marquee;
 
                 // Actualizar subcategoría existente
-                var subEntorno = new SubEntornos
+                var subEntorno = new Entorno
                 {
-                    Id_SubEntorno = _selectedSubEntornoId,
-                    Sub_Entorno = nombreSubEntorno,
-                    Id_Entorno = _selectedEntornoId
+                    Id_Entorno = _selectedSubEntornoId,
+                    Entorno_nombre = nombreSubEntorno,
+                    Id_TipoEntorno = _selectedEntornoId
                 };
 
                 var result = await TareasLargas.EjecutarAsync(

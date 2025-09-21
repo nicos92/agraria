@@ -1,5 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using Agraria.UI.Usuarios;
+﻿using Agraria.UI.Articulos;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -10,11 +10,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Agraria.UI.Articulos
+namespace Agraria.UI.EntornoFormativo
 {
-    public partial class FormArticulos : Form
-    {
-        // TODO: AGREGAR UN CRUD DE INVENTARIOS
+    public partial class FormEntornoFormativo : Form
+    {  // TODO: AGREGAR UN CRUD DE INVENTARIOS
         private Button _btnActual;
         private readonly IServiceProvider _serviceProvider;
 
@@ -22,7 +21,7 @@ namespace Agraria.UI.Articulos
         /// Inicializa una nueva instancia de la clase <see cref="FormArticulos"/>.
         /// </summary>
         /// <param name="serviceProvider">El proveedor de servicios para la inyección de dependencias.</param>
-        public FormArticulos(IServiceProvider serviceProvider)
+        public FormEntornoFormativo(IServiceProvider serviceProvider)
         {
             _serviceProvider = serviceProvider;
             InitializeComponent();
@@ -74,8 +73,9 @@ namespace Agraria.UI.Articulos
         /// </summary>
         private void ConFigBtns()
         {
-            BtnOpcionIngresar.Tag = typeof(UCIngresoArticulos);
-            BtnOpcionEditar.Tag = typeof(UCConsultaArticulos);
+            BtnOpcionIngresar.Tag = typeof(UCIngresoEntornoFormativo);
+            BtnOpcionEditar.Tag = typeof(UCConsultaEntornoFormativo);
+            BtnOpcionCategorias.Tag = typeof(UCGestionEntornos);
         }
 
         /// <summary>

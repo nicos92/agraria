@@ -22,8 +22,8 @@ namespace Agraria.UI.Articulos
         #region Campos y Servicios
 
         private readonly IArticulosService _articulosService;
-        private readonly IEntornosService _categoriasService;
-        private readonly ISubEntornoService _subcategoriasService;
+        private readonly ITipoEntornosService _tipoEntornoService;
+        private readonly IEntornoService _subcategoriasService;
         private readonly IProveedoresService _proveedoresService;
         private readonly IStockService _stockService;
         private readonly IArticuloStockService _articuloStockService;
@@ -41,7 +41,7 @@ namespace Agraria.UI.Articulos
         private readonly ErrorProvider _errorProviderCosto;
         private readonly ErrorProvider _errorProviderGanancia;
 
-        private List<Entornos> _listaCategorias;
+        private List<TipoEntorno> _listaTipoEntorno;
         private List<Modelo.Entidades.Proveedores> _listaProveedores;
         private List<Modelo.Entidades.Articulos> _listaArticulos;
         private List<Stock> _listaStock;
@@ -55,8 +55,8 @@ namespace Agraria.UI.Articulos
 
         public UCConsultaArticulos(
             IArticulosService articulosService,
-            IEntornosService categoriasService,
-            ISubEntornoService subcategoriaService,
+            ITipoEntornosService categoriasService,
+            IEntornoService subcategoriaService,
             IProveedoresService proveedoresService,
             IStockService stockService,
             IArticuloStockService articuloStockService)
@@ -65,7 +65,7 @@ namespace Agraria.UI.Articulos
 
             // Inyección de dependencias
             _articulosService = articulosService;
-            _categoriasService = categoriasService;
+            _tipoEntornoService = categoriasService;
             _subcategoriasService = subcategoriaService;
             _proveedoresService = proveedoresService;
             _stockService = stockService;
@@ -75,7 +75,7 @@ namespace Agraria.UI.Articulos
             _articuloSeleccionado = new Modelo.Entidades.Articulos();
             _stockSeleccionado = new Stock();
 
-            _listaCategorias = [];
+            _listaTipoEntorno = [];
             _listaProveedores = [];
             _listaArticulos = [];
             _listaStock = [];
@@ -261,9 +261,9 @@ namespace Agraria.UI.Articulos
         /// <param name="e">Los datos del evento.</param>
         private async void CMBCategoria_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (CMBCategoria.SelectedItem is Entornos categoria)
+            if (CMBCategoria.SelectedItem is TipoEntorno categoria)
             {
-                await CargarSubCategorias(categoria.Id_entorno);
+                await CargarEntornos(categoria.Id_Tipo_Entorno);
             }
         }
 
@@ -311,7 +311,7 @@ namespace Agraria.UI.Articulos
             await Task.WhenAll(
                 CargarArticulos(),
                 CargarStocks(),
-                CargarCategorias(),
+                CargarTipoEntorno(),
                 CargarProveedores()
             );
         }
@@ -345,9 +345,9 @@ namespace Agraria.UI.Articulos
             CMBProveedor.DisplayMember = "Proveedor";
             CMBProveedor.ValueMember = "Id_Proveedor";
 
-            CMBCategoria.DataSource = _listaCategorias ?? [];
-            CMBCategoria.DisplayMember = "Entorno";
-            CMBCategoria.ValueMember = "Id_Entorno";
+            CMBCategoria.DataSource = _listaTipoEntorno ?? [];
+            CMBCategoria.DisplayMember = "Tipo_Entorno";
+            CMBCategoria.ValueMember = "Id_Tipo_Entorno";
         }
 
         /// <summary>
@@ -385,19 +385,19 @@ namespace Agraria.UI.Articulos
         }
 
         /// <summary>
-        /// Carga la lista de categorías desde el servicio de forma asíncrona.
+        /// Carga la lista de Tipo_Entorno desde el servicio de forma asíncrona.
         /// </summary>
-        private async Task CargarCategorias()
+        private async Task CargarTipoEntorno()
         {
-            var resultado = await _categoriasService.GetAll();
+            var resultado = await _tipoEntornoService.GetAll();
 
             if (resultado.IsSuccess)
             {
-                _listaCategorias = resultado.Value;
+                _listaTipoEntorno = resultado.Value;
             }
             else
             {
-                MostrarMensaje(resultado.Error, "Error al cargar categorías", MessageBoxIcon.Error);
+                MostrarMensaje(resultado.Error, "Error al cargar Tipo_Entorno", MessageBoxIcon.Error);
             }
         }
 
@@ -419,22 +419,22 @@ namespace Agraria.UI.Articulos
         }
 
         /// <summary>
-        /// Carga las subcategorías de una categoría específica de forma asíncrona.
+        /// Carga las entornos de una categoría específica de forma asíncrona.
         /// </summary>
-        /// <param name="idEntorno">El ID de la categoría.</param>
-        private async Task CargarSubCategorias(int idEntorno)
+        /// <param name="idEntorno">El ID del entorno.</param>
+        private async Task CargarEntornos(int idEntorno)
         {
             var resultado = await _subcategoriasService.GetAllxEntorno(idEntorno);
 
             if (resultado.IsSuccess)
             {
-                CMBSubcategoria.DataSource = resultado.Value;
-                CMBSubcategoria.DisplayMember = "Sub_Entorno";
-                CMBSubcategoria.ValueMember = "Id_SubEntorno";
+                CMBEntorno.DataSource = resultado.Value;
+                CMBEntorno.DisplayMember = "Sub_Entorno";
+                CMBEntorno.ValueMember = "Id_SubEntorno";
             }
             else
             {
-                MostrarMensaje(resultado.Error, "Error al cargar subEntornos", MessageBoxIcon.Error);
+                MostrarMensaje(resultado.Error, "Error al cargar Entornos", MessageBoxIcon.Error);
             }
         }
 
@@ -490,13 +490,13 @@ namespace Agraria.UI.Articulos
                 return false;
             }
 
-            if (CMBCategoria.SelectedItem is not Entornos categoria)
+            if (CMBCategoria.SelectedItem is not TipoEntorno categoria)
             {
                 MostrarMensaje("La categoría seleccionada no es válida", "Error", MessageBoxIcon.Error);
                 return false;
             }
 
-            if (CMBSubcategoria.SelectedItem is not SubEntornos subcategoria)
+            if (CMBEntorno.SelectedItem is not Entorno subcategoria)
             {
                 MostrarMensaje("La subcategoría seleccionada no es válida", "Error", MessageBoxIcon.Error);
                 return false;
@@ -504,8 +504,8 @@ namespace Agraria.UI.Articulos
 
             _articuloSeleccionado.Art_Desc = TxtDescripcion.Text;
             _articuloSeleccionado.Id_Proveedor = proveedor.Id_Proveedor;
-            _articuloSeleccionado.Cod_Categoria = categoria.Id_entorno;
-            _articuloSeleccionado.Cod_Subcat = subcategoria.Id_SubEntorno;
+            _articuloSeleccionado.Cod_Categoria = categoria.Id_Tipo_Entorno;
+            _articuloSeleccionado.Cod_Subcat = subcategoria.Id_Entorno;
 
             return true;
         }
@@ -580,8 +580,8 @@ namespace Agraria.UI.Articulos
             if (CMBProveedor.Items.Count > 0)
                 CMBProveedor.SelectedValue = _articuloSeleccionado.Id_Proveedor;
 
-            if (CMBSubcategoria.Items.Count > 0)
-                CMBSubcategoria.SelectedValue = _articuloSeleccionado.Cod_Subcat;
+            if (CMBEntorno.Items.Count > 0)
+                CMBEntorno.SelectedValue = _articuloSeleccionado.Cod_Subcat;
         }
 
         /// <summary>

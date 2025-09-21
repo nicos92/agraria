@@ -57,8 +57,6 @@ namespace Agraria.UI.HojadeVida
             BtnEliminar = new Button();
             label9 = new Label();
             ProgressBar = new ProgressBar();
-            Codigo = new DataGridViewTextBoxColumn();
-            TipoAnimal = new DataGridViewTextBoxColumn();
             tableLayoutPanel3.SuspendLayout();
             PanelLista.SuspendLayout();
             tableLayoutPanel1.SuspendLayout();
@@ -471,14 +469,7 @@ namespace Agraria.UI.HojadeVida
             ProgressBar.Name = "ProgressBar";
             ProgressBar.Size = new Size(804, 16);
             ProgressBar.TabIndex = 4;
-            // 
-            // Codigo
-            // 
-            Codigo.Name = "Codigo";
-            // 
-            // TipoAnimal
-            // 
-            TipoAnimal.Name = "TipoAnimal";
+            
             // 
             // UCConsultaHojadeVida
             // 
@@ -536,9 +527,6 @@ namespace Agraria.UI.HojadeVida
         private Button BtnEliminar;
         private ProgressBar ProgressBar;
         private DataGridView ListBHojasVida;
-        private DataGridViewTextBoxColumn Codigo;
-        private DataGridViewTextBoxColumn TipoAnimal;
-        private DataGridViewTextBoxColumn Activo;
         private Label label9;
     }
 }

@@ -50,7 +50,7 @@
             tableLayoutPanel2 = new TableLayoutPanel();
             BtnGuardar = new Button();
             BtnEliminar = new Button();
-            CMBSubcategoria = new ComboBox();
+            CMBEntorno = new ComboBox();
             CMBCategoria = new ComboBox();
             CMBProveedor = new ComboBox();
             label5 = new Label();
@@ -215,7 +215,7 @@
             TLPForm.Controls.Add(label4, 0, 2);
             TLPForm.Controls.Add(label2, 0, 3);
             TLPForm.Controls.Add(tableLayoutPanel2, 1, 9);
-            TLPForm.Controls.Add(CMBSubcategoria, 1, 8);
+            TLPForm.Controls.Add(CMBEntorno, 1, 8);
             TLPForm.Controls.Add(CMBCategoria, 1, 7);
             TLPForm.Controls.Add(CMBProveedor, 1, 6);
             TLPForm.Controls.Add(label5, 0, 8);
@@ -395,16 +395,16 @@
             BtnEliminar.EnabledChanged += BtnGuardar_EnabledChanged;
             BtnEliminar.Click += BtnEliminar_Click;
             // 
-            // CMBSubcategoria
+            // CMBEntorno
             // 
-            CMBSubcategoria.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            CMBSubcategoria.DropDownStyle = ComboBoxStyle.DropDownList;
-            CMBSubcategoria.Font = new Font("Segoe UI", 12F);
-            CMBSubcategoria.FormattingEnabled = true;
-            CMBSubcategoria.Location = new Point(133, 294);
-            CMBSubcategoria.Name = "CMBSubcategoria";
-            CMBSubcategoria.Size = new Size(271, 29);
-            CMBSubcategoria.TabIndex = 11;
+            CMBEntorno.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            CMBEntorno.DropDownStyle = ComboBoxStyle.DropDownList;
+            CMBEntorno.Font = new Font("Segoe UI", 12F);
+            CMBEntorno.FormattingEnabled = true;
+            CMBEntorno.Location = new Point(133, 294);
+            CMBEntorno.Name = "CMBEntorno";
+            CMBEntorno.Size = new Size(271, 29);
+            CMBEntorno.TabIndex = 11;
             // 
             // CMBCategoria
             // 
@@ -540,7 +540,7 @@
         private Label label2;
         private Label label5;
         private ComboBox CMBProveedor;
-        private ComboBox CMBSubcategoria;
+        private ComboBox CMBEntorno;
         private ComboBox CMBCategoria;
         private Label label6;
         private TableLayoutPanel tableLayoutPanel2;

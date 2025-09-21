@@ -9,67 +9,67 @@ using Agraria.Utilidades;
 namespace Agraria.Repositorio.Repositorios
 {
     [SupportedOSPlatform("windows")]
-    public class CategoriasRepository : BaseRepositorio, ICategoriasRepository
+    public class TipoEntornoRepository : BaseRepositorio, ITipoEntornoRepository
     {
-        public async Task<Result<List<Entornos>>> GetAll()
+        public async Task<Result<List<TipoEntorno>>> GetAll()
         {
             try
             {
-                var categorias = new List<Entornos>();
+                var categorias = new List<TipoEntorno>();
                 using (OleDbConnection conexion = Conexion())
                 {
                     await conexion.OpenAsync();
-                    using var cmd = new OleDbCommand("SELECT Id_Categoria, Categoria FROM Categorias", conexion);
+                    using var cmd = new OleDbCommand("SELECT Id_Categoria, Categoria FROM Tipo_Entorno", conexion);
                     using var reader = await cmd.ExecuteReaderAsync();
                     while (await reader.ReadAsync())
                     {
-                        categorias.Add(new Entornos
+                        categorias.Add(new TipoEntorno
                         {
-                            Id_entorno = reader.GetInt32(0),
-                            Entorno = reader.GetString(1)
+                            Id_Tipo_Entorno = reader.GetInt32(0),
+                            Tipo_Entorno = reader.GetString(1)
                         });
                     }
                 }
-                return Result<List<Entornos>>.Success(categorias);
+                return Result<List<TipoEntorno>>.Success(categorias);
             }catch(OleDbException ix)
             {
-                return Result<List<Entornos>>.Failure($"Error de base de dtos al obtener categorías: {ix.Message}");
+                return Result<List<TipoEntorno>>.Failure($"Error de base de dtos al obtener Tipo_Entorno: {ix.Message}");
             }
             catch (Exception ex)
             {
-                return Result<List<Entornos>>.Failure($"Error inesperado al obtener categorías: {ex.Message}");
+                return Result<List<TipoEntorno>>.Failure($"Error inesperado al obtener Tipo_Entorno: {ex.Message}");
             }
         }
 
-        public Result<Entornos> GetById(int id)
+        public Result<TipoEntorno> GetById(int id)
         {
             try
             {
                 using (var conexion = Conexion())
                 {
                     conexion.Open();
-                    using var cmd = new OleDbCommand("SELECT  Id_Categoria, Categoria FROM Categorias WHERE Id_categoria = ?", conexion);
+                    using var cmd = new OleDbCommand("SELECT  Id_Categoria, Categoria FROM Tipo_Entorno WHERE Id_categoria = ?", conexion);
                     cmd.Parameters.AddWithValue("?", id);
                     using var reader = cmd.ExecuteReader();
                     if (reader.Read())
                     {
-                        var categoria = new Entornos
+                        var categoria = new TipoEntorno
                         {
-                            Id_entorno = reader.GetInt32(0),
-                            Entorno = reader.GetString(1)
+                            Id_Tipo_Entorno = reader.GetInt32(0),
+                            Tipo_Entorno = reader.GetString(1)
                         };
-                        return Result<Entornos>.Success(categoria);
+                        return Result<TipoEntorno>.Success(categoria);
                     }
                 }
-                return Result<Entornos>.Failure("Categoría no encontrada");
+                return Result<TipoEntorno>.Failure("Tipo_Entorno no encontrado");
             }
             catch (Exception ex)
             {
-                return Result<Entornos>.Failure($"Error al obtener categoría: {ex.Message}");
+                return Result<TipoEntorno>.Failure($"Error al obtener Tipo_Entorno: {ex.Message}");
             }
         }
 
-        public Result<Entornos> Add(Entornos categoria)
+        public Result<TipoEntorno> Add(TipoEntorno categoria)
         {
             try
             {
@@ -77,47 +77,47 @@ namespace Agraria.Repositorio.Repositorios
                 {
                     conexion.Open();
                     using var cmd = new OleDbCommand(
-                        "INSERT INTO Categorias (Categoria) VALUES (?)", conexion);
-                    cmd.Parameters.AddWithValue("?", categoria.Entorno);
+                        "INSERT INTO Tipo_Entorno (Categoria) VALUES (?)", conexion);
+                    cmd.Parameters.AddWithValue("?", categoria.Tipo_Entorno);
                     cmd.ExecuteNonQuery();
 
                     // Obtener el ID de la categoría insertada
                     using var cmdId = new OleDbCommand("SELECT @@IDENTITY", conexion);
                     var newId = Convert.ToInt32(cmdId.ExecuteScalar());
-                    categoria.Id_entorno = newId;
+                    categoria.Id_Tipo_Entorno = newId;
                 }
-                return Result<Entornos>.Success(categoria);
+                return Result<TipoEntorno>.Success(categoria);
             }
             catch (Exception ex)
             {
-                return Result<Entornos>.Failure($"Error al agregar categoría: {ex.Message}");
+                return Result<TipoEntorno>.Failure($"Error al agregar Tipo_Entorno: {ex.Message}");
             }
         }
 
-        public Result<Entornos> Update(Entornos categoria)
+        public Result<TipoEntorno> Update(TipoEntorno categoria)
         {
             try
             {
                 using var conexion = Conexion();
                 conexion.Open();
                 using var cmd = new OleDbCommand(
-                    "UPDATE Categorias SET Categoria = ? WHERE Id_categoria = ?", conexion);
-                cmd.Parameters.AddWithValue("?", categoria.Entorno);
-                cmd.Parameters.AddWithValue("?", categoria.Id_entorno);
+                    "UPDATE Tipo_Entorno SET Categoria = ? WHERE Id_categoria = ?", conexion);
+                cmd.Parameters.AddWithValue("?", categoria.Tipo_Entorno);
+                cmd.Parameters.AddWithValue("?", categoria.Id_Tipo_Entorno);
 
                 int rowsAffected = cmd.ExecuteNonQuery();
                 if (rowsAffected > 0)
                 {
-                    return Result<Entornos>.Success(categoria);
+                    return Result<TipoEntorno>.Success(categoria);
                 }
                 else
                 {
-                    return Result<Entornos>.Failure("No se encontró la categoría a actualizar");
+                    return Result<TipoEntorno>.Failure("No se encontró el Tipo_Entorno a actualizar");
                 }
             }
             catch (Exception ex)
             {
-                return Result<Entornos>.Failure($"Error al actualizar categoría: {ex.Message}");
+                return Result<TipoEntorno>.Failure($"Error al actualizar Tipo_Entorno: {ex.Message}");
             }
         }
 
@@ -127,7 +127,7 @@ namespace Agraria.Repositorio.Repositorios
             {
                 using var conexion = Conexion();
                 conexion.Open();
-                using var cmd = new OleDbCommand("DELETE FROM Categorias WHERE Id_categoria = ?", conexion);
+                using var cmd = new OleDbCommand("DELETE FROM Tipo_Entorno WHERE Id_categoria = ?", conexion);
                 cmd.Parameters.AddWithValue("?", id);
                 int rowsAffected = cmd.ExecuteNonQuery();
 
@@ -137,12 +137,12 @@ namespace Agraria.Repositorio.Repositorios
                 }
                 else
                 {
-                    return Result<bool>.Failure("No se encontró la categoría a eliminar");
+                    return Result<bool>.Failure("No se encontró el Tipo_Entorno a eliminar");
                 }
             }
             catch (Exception ex)
             {
-                return Result<bool>.Failure($"Error al eliminar categoría: {ex.Message}");
+                return Result<bool>.Failure($"Error al eliminar Tipo_Entorno: {ex.Message}");
             }
         }
 
