@@ -87,6 +87,7 @@ public partial class FormLogin : Form
             {
                 // Authentication failed
                 LblInicioError.Visible = true;
+                MessageBox.Show(result.Error, "No Se pudo iniciar sesion", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }catch(InvalidOperationException ex)
         {

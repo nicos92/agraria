@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.Data.OleDb;
+using Microsoft.Data.SqlClient;
 using System.Runtime.Versioning;
 using Agraria.Contrato.Repositorios;
 using Agraria.Modelo.Entidades;
@@ -16,10 +16,10 @@ namespace Agraria.Repositorio.Repositorios
             try
             {
                 var categorias = new List<TipoEntorno>();
-                using (OleDbConnection conexion = Conexion())
+                using (SqlConnection conexion = Conexion())
                 {
                     await conexion.OpenAsync();
-                    using var cmd = new OleDbCommand("SELECT Id_Categoria, Categoria FROM Tipo_Entorno", conexion);
+                    using var cmd = new SqlCommand("SELECT Id_Categoria, Categoria FROM Tipo_Entorno", conexion);
                     using var reader = await cmd.ExecuteReaderAsync();
                     while (await reader.ReadAsync())
                     {
@@ -31,7 +31,7 @@ namespace Agraria.Repositorio.Repositorios
                     }
                 }
                 return Result<List<TipoEntorno>>.Success(categorias);
-            }catch(OleDbException ix)
+            }catch(SqlException ix)
             {
                 return Result<List<TipoEntorno>>.Failure($"Error de base de dtos al obtener Tipo_Entorno: {ix.Message}");
             }
@@ -48,7 +48,7 @@ namespace Agraria.Repositorio.Repositorios
                 using (var conexion = Conexion())
                 {
                     conexion.Open();
-                    using var cmd = new OleDbCommand("SELECT  Id_Categoria, Categoria FROM Tipo_Entorno WHERE Id_categoria = ?", conexion);
+                    using var cmd = new SqlCommand("SELECT  Id_Categoria, Categoria FROM Tipo_Entorno WHERE Id_categoria = ?", conexion);
                     cmd.Parameters.AddWithValue("?", id);
                     using var reader = cmd.ExecuteReader();
                     if (reader.Read())
@@ -76,13 +76,13 @@ namespace Agraria.Repositorio.Repositorios
                 using (var conexion = Conexion())
                 {
                     conexion.Open();
-                    using var cmd = new OleDbCommand(
+                    using var cmd = new SqlCommand(
                         "INSERT INTO Tipo_Entorno (Categoria) VALUES (?)", conexion);
                     cmd.Parameters.AddWithValue("?", categoria.Tipo_Entorno);
                     cmd.ExecuteNonQuery();
 
                     // Obtener el ID de la categoría insertada
-                    using var cmdId = new OleDbCommand("SELECT @@IDENTITY", conexion);
+                    using var cmdId = new SqlCommand("SELECT @@IDENTITY", conexion);
                     var newId = Convert.ToInt32(cmdId.ExecuteScalar());
                     categoria.Id_Tipo_Entorno = newId;
                 }
@@ -100,7 +100,7 @@ namespace Agraria.Repositorio.Repositorios
             {
                 using var conexion = Conexion();
                 conexion.Open();
-                using var cmd = new OleDbCommand(
+                using var cmd = new SqlCommand(
                     "UPDATE Tipo_Entorno SET Categoria = ? WHERE Id_categoria = ?", conexion);
                 cmd.Parameters.AddWithValue("?", categoria.Tipo_Entorno);
                 cmd.Parameters.AddWithValue("?", categoria.Id_Tipo_Entorno);
@@ -127,7 +127,7 @@ namespace Agraria.Repositorio.Repositorios
             {
                 using var conexion = Conexion();
                 conexion.Open();
-                using var cmd = new OleDbCommand("DELETE FROM Tipo_Entorno WHERE Id_categoria = ?", conexion);
+                using var cmd = new SqlCommand("DELETE FROM Tipo_Entorno WHERE Id_categoria = ?", conexion);
                 cmd.Parameters.AddWithValue("?", id);
                 int rowsAffected = cmd.ExecuteNonQuery();
 

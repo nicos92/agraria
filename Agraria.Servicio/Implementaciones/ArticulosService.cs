@@ -16,22 +16,22 @@ namespace Agraria.Servicio.Implementaciones
         }
        
 
-        public async Task<Result<List<Articulos>>> GetAll()
+        public async Task<Result<List<Productos>>> GetAll()
         {
             return await _repo.GetAll();
         }
 
-        public Result<Articulos> GetById(int id)
+        public Result<Productos> GetById(int id)
         {
             return _repo.GetById(id);
         }
 
-        public Result<Articulos> Add(Articulos articulo)
+        public Result<Productos> Add(Productos articulo)
         {
             return _repo.Add(articulo);
         }
 
-        public async Task<Result<Articulos>> Update(Articulos articulo)
+        public async Task<Result<Productos>> Update(Productos articulo)
         {
             return await _repo.Update(articulo);
         }

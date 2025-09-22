@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.OleDb;
+using Microsoft.Data.SqlClient;
 using System.Linq;
 using System.Runtime.Versioning;
 using System.Text;
@@ -14,34 +14,34 @@ namespace Agraria.Repositorio.Repositorios
     [SupportedOSPlatform("windows")]
     public class ArticulosRepository : BaseRepositorio, IArticulosRepository
     {
-        public Result<Articulos> Add(Articulos articulo)
+        public Result<Productos> Add(Productos articulo)
         {
             try
             {
                 using var conn = Conexion();
-                using var cmd = new OleDbCommand("INSERT INTO Articulos (Cod_Articulo, Art_Desc, Cod_Categoria, Cod_Subcat, Id_Proveedor) VALUES (@Cod_Articulo, @Art_Desc, @Cod_Categoria, @Cod_Subcat, @Id_Proveedor)", conn);
+                using var cmd = new SqlCommand("INSERT INTO Articulos (Cod_Articulo, Art_Desc, Cod_Categoria, Cod_Subcat, Id_Proveedor) VALUES (@Cod_Articulo, @Art_Desc, @Cod_Categoria, @Cod_Subcat, @Id_Proveedor)", conn);
 
-                cmd.Parameters.AddWithValue("@Cod_Articulo", articulo.Cod_Articulo);
-                cmd.Parameters.AddWithValue("@Art_Desc", articulo.Art_Desc);
-                cmd.Parameters.AddWithValue("@Cod_Categoria", articulo.Cod_Categoria);
-                cmd.Parameters.AddWithValue("@Cod_Subcat", articulo.Cod_Subcat);
+                cmd.Parameters.AddWithValue("@Cod_Articulo", articulo.Cod_Producto);
+                cmd.Parameters.AddWithValue("@Art_Desc", articulo.Producto_Desc);
+                cmd.Parameters.AddWithValue("@Cod_Categoria", articulo.Id_TipoEntorno);
+                cmd.Parameters.AddWithValue("@Cod_Subcat", articulo.Id_Entorno);
                 cmd.Parameters.AddWithValue("@Id_Proveedor", articulo.Id_Proveedor);
                 conn.Open();
                 int inserts = cmd.ExecuteNonQuery();
 
                 if (inserts > 0)
                 {
-                    return Result<Articulos>.Success(articulo);
+                    return Result<Productos>.Success(articulo);
                 }
                 else
                 {
-                    return Result<Articulos>.Failure("No se pudo agregar el artículo.");
+                    return Result<Productos>.Failure("No se pudo agregar el artículo.");
                 }
             }
-            catch (OleDbException ex)
+            catch (SqlException ex)
             {
 
-                return Result<Articulos>.Failure($"Error al agregar el artículo: {ex.Message}");
+                return Result<Productos>.Failure($"Error al agregar el artículo: {ex.Message}");
             }
         }
 
@@ -50,7 +50,7 @@ namespace Agraria.Repositorio.Repositorios
             try
             {
                 using var conn = Conexion();
-                using var cmd = new OleDbCommand("DELETE FROM Articulos WHERE Id_Articulo = @Id_Articulo", conn);
+                using var cmd = new SqlCommand("DELETE FROM Articulos WHERE Id_Articulo = @Id_Articulo", conn);
                 cmd.Parameters.AddWithValue("@Id_Articulo", id);
                 conn.Open();
                 int deletes = cmd.ExecuteNonQuery();
@@ -63,73 +63,73 @@ namespace Agraria.Repositorio.Repositorios
                     return Result<bool>.Failure("No se pudo eliminar el artículo.");
                 }
             }
-            catch (OleDbException ex)
+            catch (SqlException ex)
             {
 
                 return Result<bool>.Failure($"Error al eliminar el araticulo: \n {ex.Message}");
             }
         }
 
-        public async Task<Result<List<Articulos>>> GetAll()
+        public async Task<Result<List<Productos>>> GetAll()
         {
             try
             {
-                List<Articulos> articulos = new List<Articulos>();
+                List<Productos> articulos = [];
                 using var conn = Conexion();
-                using var cmd = new OleDbCommand("SELECT Id_Articulo, Cod_Articulo, Art_Desc, Cod_Categoria, Cod_Subcat, Id_Proveedor FROM Articulos", conn);
+                using var cmd = new SqlCommand("SELECT Id_Articulo, Cod_Articulo, Art_Desc, Cod_Categoria, Cod_Subcat, Id_Proveedor FROM Articulos", conn);
                 await conn.OpenAsync();
                 using var reader = await cmd.ExecuteReaderAsync();
                 while (await reader.ReadAsync())
                 {
-                    Articulos articulo = new Articulos
+                    Productos articulo = new()
                     {
-                        Id_Articulo = reader.GetInt32(0),
-                        Cod_Articulo = reader.GetString(1),
-                        Art_Desc = reader.GetString(2),
-                        Cod_Categoria = reader.GetInt32(3),
-                        Cod_Subcat = reader.GetInt32(4),
+                        Id_Producto = reader.GetInt32(0),
+                        Cod_Producto = reader.GetString(1),
+                        Producto_Desc = reader.GetString(2),
+                        Id_TipoEntorno = reader.GetInt32(3),
+                        Id_Entorno = reader.GetInt32(4),
                         Id_Proveedor = reader.GetInt32(5)
                     };
                     articulos.Add(articulo);
                 }
-                return Result<List<Articulos>>.Success(articulos);
+                return Result<List<Productos>>.Success(articulos);
             }
-            catch (OleDbException ex)
+            catch (SqlException ex)
             {
 
-                return Result<List<Articulos>>.Failure($"Error al obtener los artículos: {ex.Message}");
+                return Result<List<Productos>>.Failure($"Error al obtener los artículos: {ex.Message}");
             }
         }
 
-        public Result<Articulos> GetById(int id)
+        public Result<Productos> GetById(int id)
         {
             try
             {
                 using var conn = Conexion();
-                using var cmd = new OleDbCommand("SELECT Id_Articulo, Cod_Articulo, Art_Desc, Cod_Categoria, Cod_Subcat, Id_Proveedor FROM Articulos WHERE Id_Articulo = @Id_Articulo", conn);
+                using var cmd = new SqlCommand("SELECT Id_Articulo, Cod_Articulo, Art_Desc, Cod_Categoria, Cod_Subcat, Id_Proveedor FROM Articulos WHERE Id_Articulo = @Id_Articulo", conn);
                 cmd.Parameters.AddWithValue("@Id_Articulo", id);
                 conn.Open();
                 using var reader = cmd.ExecuteReader();
                 if (reader.Read())
                 {
-                    Articulos articulo = new Articulos
+                    Productos articulo = new()
                     {
-                        Id_Articulo = (int)reader.GetInt32(0),
-                        Cod_Articulo = reader.GetString(1),
-                        Art_Desc = reader.GetString(2),
-                        Cod_Categoria = reader.GetInt32(3),
-                        Cod_Subcat = reader.GetInt32(4),
+                        Id_Producto = reader.GetInt32(0),
+                        Cod_Producto = reader.GetString(1),
+                        Producto_Desc = reader.GetString(2),
+                        Id_TipoEntorno = reader.GetInt32(3),
+                        Id_Entorno = reader.GetInt32(4),
                         Id_Proveedor = reader.GetInt32(5)
 
                     };
-                    return Result<Articulos>.Success(articulo);
+                    return Result<Productos>.Success(articulo);
                 }
-                return Result<Articulos>.Failure($"No se pude obtener el articulo");
+                return Result<Productos>.Failure($"No se pude obtener el articulo");
             }
-            catch (OleDbException ex)
+            catch (SqlException ex)
             {
 
-                return Result<Articulos>.Failure($"Error al obtener articulo: {ex.Message}");
+                return Result<Productos>.Failure($"Error al obtener articulo: {ex.Message}");
             }
         }
 
@@ -138,7 +138,7 @@ namespace Agraria.Repositorio.Repositorios
             try
             {
                 using var conn = Conexion();
-                using var cmd = new OleDbCommand("SELECT MAX(Cod_Articulo) FROM Articulos", conn);
+                using var cmd = new SqlCommand("SELECT MAX(Cod_Articulo) FROM Articulos", conn);
                 await conn.OpenAsync();
                 using var reader = await cmd.ExecuteReaderAsync();
                 if (await reader.ReadAsync())
@@ -148,7 +148,7 @@ namespace Agraria.Repositorio.Repositorios
                 }
                 return Result<int>.Failure($"No se pude obtener el ultimo codigo de los articulos");
             }
-            catch (OleDbException ex)
+            catch (SqlException ex)
             {
 
                 return Result<int>.Failure($"Error en la base de datos al obtener  el ultimo codigo de los articulos: {ex.Message}");
@@ -159,29 +159,29 @@ namespace Agraria.Repositorio.Repositorios
             }
         }
 
-        public async Task<Result<Articulos>> Update(Articulos articulo)
+        public async Task<Result<Productos>> Update(Productos articulo)
         {
             try
             {
                 using var conn = Conexion();
-                using var cmd = new OleDbCommand("UPDATE articulos set Cod_Articulo=@Cod_Articulo, Art_Desc=@Art_Desc, Cod_Categoria=@Cod_Categoria, Cod_Subcat=@Cod_Sucat, Id_Proveedor = @Id_Proveedor WHERE Id_Articulo = @Id_Articulo", conn);
-                cmd.Parameters.AddWithValue("@Cod_Articulo", articulo.Cod_Articulo);
-                cmd.Parameters.AddWithValue("@Art_Desc", articulo.Art_Desc);
-                cmd.Parameters.AddWithValue("@Cod_Categoria", articulo.Cod_Categoria);
-                cmd.Parameters.AddWithValue("@Cod_Sucat", articulo.Cod_Subcat);
+                using var cmd = new SqlCommand("UPDATE articulos set Cod_Articulo=@Cod_Articulo, Art_Desc=@Art_Desc, Cod_Categoria=@Cod_Categoria, Cod_Subcat=@Cod_Sucat, Id_Proveedor = @Id_Proveedor WHERE Id_Articulo = @Id_Articulo", conn);
+                cmd.Parameters.AddWithValue("@Cod_Articulo", articulo.Cod_Producto);
+                cmd.Parameters.AddWithValue("@Art_Desc", articulo.Producto_Desc);
+                cmd.Parameters.AddWithValue("@Cod_Categoria", articulo.Id_TipoEntorno);
+                cmd.Parameters.AddWithValue("@Cod_Sucat", articulo.Id_Entorno);
                 cmd.Parameters.AddWithValue("@Id_Proveedor", articulo.Id_Proveedor);
-                cmd.Parameters.AddWithValue("@Id_Articulo", articulo.Id_Articulo);
+                cmd.Parameters.AddWithValue("@Id_Articulo", articulo.Id_Producto);
                 await conn.OpenAsync();
                 if (await cmd.ExecuteNonQueryAsync() > 0)
                 {
-                    return Result<Articulos>.Success(articulo);
+                    return Result<Productos>.Success(articulo);
                 }
-                return Result<Articulos>.Failure($"No se actualizo el articulo");
+                return Result<Productos>.Failure($"No se actualizo el articulo");
             }
-            catch (OleDbException ex)
+            catch (SqlException ex)
             {
 
-                return Result<Articulos>.Failure($"Error al actualizar el articulo: \n {ex.Message}");
+                return Result<Productos>.Failure($"Error al actualizar el articulo: \n {ex.Message}");
             }
         }
     }

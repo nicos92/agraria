@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Common;
-using System.Data.OleDb;
+using Microsoft.Data.SqlClient;
 using System.Linq;
 using System.Runtime.Versioning;
 using System.Threading.Tasks;
@@ -18,15 +18,15 @@ namespace Agraria.Repositorio.Repositorios
         {
             try
             {
-                using OleDbConnection conn = Conexion();
-                using OleDbCommand cmd = new OleDbCommand("INSERT INTO Usuarios_Tipo (Tipo, Descripcion) VALUES (@Tipo, @Descripcion)", conn);
+                using SqlConnection conn = Conexion();
+                using SqlCommand cmd = new("INSERT INTO Usuarios_Tipo (Tipo, Descripcion) VALUES (@Tipo, @Descripcion)", conn);
                 cmd.Parameters.AddWithValue("@Tipo", tipo.Tipo);
                 cmd.Parameters.AddWithValue("@Descripcion", tipo.Descripcion ?? (object)DBNull.Value);
                 conn.Open();
                 int result = cmd.ExecuteNonQuery();
                 return result > 0 ? Result<UsuariosTipo>.Success(tipo) : Result<UsuariosTipo>.Failure("Error al agregar el tipo de usuario.");
             }
-            catch (OleDbException ex)
+            catch (SqlException ex)
             {
                 return Result<UsuariosTipo>.Failure($"Error de base de datos al insertar el tipo de usuario: {ex.Message}");
             }
@@ -42,14 +42,14 @@ namespace Agraria.Repositorio.Repositorios
         {
             try
             {
-                using OleDbConnection conn = Conexion();
-                using OleDbCommand cmd = new OleDbCommand("DELETE FROM Usuarios_Tipo WHERE Id_Usuario_Tipo = @Id", conn);
+                using SqlConnection conn = Conexion();
+                using SqlCommand cmd = new("DELETE FROM Usuarios_Tipo WHERE Id_Usuario_Tipo = @Id", conn);
                 cmd.Parameters.AddWithValue("@Id", id);
                 conn.Open();
                 int result = cmd.ExecuteNonQuery();
                 return result > 0 ? Result<bool>.Success(true) : Result<bool>.Failure("Error al eliminar el tipo de usuario.");
             }
-            catch (OleDbException ex)
+            catch (SqlException ex)
             {
                 return Result<bool>.Failure($"Error de base de datos al eliminar el tipo de usuario: {ex.Message}");
             }
@@ -63,11 +63,11 @@ namespace Agraria.Repositorio.Repositorios
         {
             try
             {
-                using OleDbConnection conn = Conexion();
-                using OleDbCommand cmd = new OleDbCommand("SELECT Id_Usuario_Tipo, Tipo, Descripcion FROM Usuarios_Tipo", conn);
+                using SqlConnection conn = Conexion();
+                using SqlCommand cmd = new("SELECT Id_Usuario_Tipo, Tipo, Descripcion FROM Usuarios_Tipo", conn);
                 await conn.OpenAsync();
                 using DbDataReader reader = await cmd.ExecuteReaderAsync();
-                List<UsuariosTipo> tipos = new List<UsuariosTipo>();
+                List<UsuariosTipo> tipos = [];
                 while (await reader.ReadAsync())
                 {
                     tipos.Add(new UsuariosTipo
@@ -79,7 +79,7 @@ namespace Agraria.Repositorio.Repositorios
                 }
                 return Result<List<UsuariosTipo>>.Success(tipos);
             }
-            catch (OleDbException ex)
+            catch (SqlException ex)
             {
                 return Result<List<UsuariosTipo>>.Failure($"Error de base de datos al obtener los tipos de usuario: {ex.Message}");
             }
@@ -94,11 +94,11 @@ namespace Agraria.Repositorio.Repositorios
         {
             try
             {
-                using OleDbConnection conn = Conexion();
-                using OleDbCommand cmd = new OleDbCommand("SELECT Id_Usuario_Tipo, Tipo, Descripcion FROM Usuarios_Tipo WHERE Id_Usuario_Tipo = @Id", conn);
+                using SqlConnection conn = Conexion();
+                using SqlCommand cmd = new("SELECT Id_Usuario_Tipo, Tipo, Descripcion FROM Usuarios_Tipo WHERE Id_Usuario_Tipo = @Id", conn);
                 cmd.Parameters.AddWithValue("@Id", id);
                 conn.Open();
-                using OleDbDataReader reader = cmd.ExecuteReader();
+                using SqlDataReader reader = cmd.ExecuteReader();
                 if (reader.Read())
                 {
                     return Result<UsuariosTipo>.Success(new UsuariosTipo
@@ -110,7 +110,7 @@ namespace Agraria.Repositorio.Repositorios
                 }
                 return Result<UsuariosTipo>.Failure("Tipo de usuario no encontrado.");
             }
-            catch (OleDbException ex)
+            catch (SqlException ex)
             {
                 return Result<UsuariosTipo>.Failure($"Error de base de datos al obtener el tipo de usuario: {ex.Message}");
             }
@@ -124,8 +124,8 @@ namespace Agraria.Repositorio.Repositorios
         {
             try
             {
-                using OleDbConnection conn = Conexion();
-                using OleDbCommand cmd = new OleDbCommand("UPDATE Usuarios_Tipo SET Tipo = @Tipo, Descripcion = @Descripcion WHERE Id_Usuario_Tipo = @Id", conn);
+                using SqlConnection conn = Conexion();
+                using SqlCommand cmd = new("UPDATE Usuarios_Tipo SET Tipo = @Tipo, Descripcion = @Descripcion WHERE Id_Usuario_Tipo = @Id", conn);
                 cmd.Parameters.AddWithValue("@Tipo", tipo.Tipo);
                 cmd.Parameters.AddWithValue("@Descripcion", tipo.Descripcion ?? (object)DBNull.Value);
                 cmd.Parameters.AddWithValue("@Id", tipo.Id_Usuario_Tipo);
@@ -133,7 +133,7 @@ namespace Agraria.Repositorio.Repositorios
                 int result = cmd.ExecuteNonQuery();
                 return result > 0 ? Result<UsuariosTipo>.Success(tipo) : Result<UsuariosTipo>.Failure("Error al actualizar el tipo de usuario.");
             }
-            catch (OleDbException ex)
+            catch (SqlException ex)
             {
                 return Result<UsuariosTipo>.Failure($"Error de base de datos al actualizar el tipo de usuario: {ex.Message}");
             }

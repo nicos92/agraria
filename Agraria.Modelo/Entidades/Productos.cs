@@ -6,18 +6,18 @@ using System.Threading.Tasks;
 
 namespace Agraria.Modelo.Entidades
 {
-    public class Articulos
+    public class Productos
     {
-        public int Id_Articulo { get; set; }
-        public string? Cod_Articulo { get; set; }
-        public string? Art_Desc { get; set; }
-        public int Cod_Categoria { get; set; }
-        public int Cod_Subcat { get; set; }
+        public int Id_Producto { get; set; }
+        public string? Cod_Producto { get; set; }
+        public string? Producto_Desc { get; set; }
+        public int Id_TipoEntorno { get; set; }
+        public int Id_Entorno { get; set; }
         public int Id_Proveedor { get; set; }
         public string? Unidad_Medida { get; set; }
         public bool En_Venta { get; set; }
 
-        public Articulos() { }
+        public Productos() { }
     }
 
 }

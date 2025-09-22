@@ -6,10 +6,10 @@ namespace Agraria.Contrato.Repositorios
 {
     public interface IArticulosRepository
     {
-        Task<Result<List<Articulos>>> GetAll();
-        Result<Articulos> GetById(int id);
-        Result<Articulos> Add(Articulos articulo);
-        Task<Result<Articulos>> Update(Articulos articulo);
+        Task<Result<List<Productos>>> GetAll();
+        Result<Productos> GetById(int id);
+        Result<Productos> Add(Productos articulo);
+        Task<Result<Productos>> Update(Productos articulo);
         Result<bool> Delete(int id);
         Task<Result<int>> GetMaxCodArt();
     }

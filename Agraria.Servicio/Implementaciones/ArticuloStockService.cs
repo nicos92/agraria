@@ -12,17 +12,17 @@ namespace Agraria.Servicio.Implementaciones
 {
     public class ArticuloStockService(IArticuloStockRepository _repo) : IArticuloStockService
     {
-        public async Task<Result<bool>> Add(Articulos articulo, Stock stock)
+        public async Task<Result<bool>> Add(Productos articulo, Stock stock)
         {
             return await _repo.Add(articulo, stock);
         }
 
-        public async Task<Result<bool>> Delete(Articulos articulo, Stock stock)
+        public async Task<Result<bool>> Delete(Productos articulo, Stock stock)
         {
             return await _repo.Delete(articulo,stock);
         }
 
-        public async Task<Result<(List<Articulos> articulos, List<Stock> stock)>> GetAll()
+        public async Task<Result<(List<Productos> articulos, List<Stock> stock)>> GetAll()
         {
             return await _repo.GetAll();
         }
@@ -32,7 +32,7 @@ namespace Agraria.Servicio.Implementaciones
             return await _repo.GetAllArticuloStock();
         }
 
-        public async Task<Result<bool>> Update(Articulos articulos, Stock stock)
+        public async Task<Result<bool>> Update(Productos articulos, Stock stock)
         {
             return await _repo.Update(articulos, stock);
         }

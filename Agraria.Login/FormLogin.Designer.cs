@@ -164,7 +164,7 @@ partial class FormLogin
         TxtContra.PasswordChar = '*';
         TxtContra.Size = new Size(274, 29);
         TxtContra.TabIndex = 2;
-        TxtContra.Text = "@Director123";
+        TxtContra.Text = "@Pass123";
         TxtContra.TextChanged += TxtDni_TextChanged;
         TxtContra.KeyPress += TxtContra_KeyPress;
         // 
@@ -187,7 +187,7 @@ partial class FormLogin
         TxtDni.Name = "TxtDni";
         TxtDni.Size = new Size(274, 29);
         TxtDni.TabIndex = 1;
-        TxtDni.Text = "11111111";
+        TxtDni.Text = "12345678";
         TxtDni.TextChanged += TxtDni_TextChanged;
         TxtDni.KeyPress += TxtContra_KeyPress;
         // 

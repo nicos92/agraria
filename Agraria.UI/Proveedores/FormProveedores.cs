@@ -52,8 +52,8 @@ namespace Agraria.UI.Proveedores
         /// </summary>
         private void ConFigBtns()
         {
-            BtnOpcionIngresar.Tag = typeof(UCIngresoUsuarios);
-            BtnOpcionEditar.Tag = typeof(USConsultaUsuario);
+            BtnOpcionIngresar.Tag = typeof(UCIngresoProveedores);
+            BtnOpcionEditar.Tag = typeof(UCConsultaProveedor);
         }
 
         /// <summary>

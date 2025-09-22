@@ -28,7 +28,7 @@ namespace Agraria.UI.Articulos
         private readonly IStockService _stockService;
         private readonly IArticuloStockService _articuloStockService;
 
-        private Modelo.Entidades.Articulos _articuloSeleccionado;
+        private Modelo.Entidades.Productos _articuloSeleccionado;
         private Stock _stockSeleccionado;
 
         private readonly ValidadorTextBox _validadorDescripcion;
@@ -43,7 +43,7 @@ namespace Agraria.UI.Articulos
 
         private List<TipoEntorno> _listaTipoEntorno;
         private List<Modelo.Entidades.Proveedores> _listaProveedores;
-        private List<Modelo.Entidades.Articulos> _listaArticulos;
+        private List<Modelo.Entidades.Productos> _listaArticulos;
         private List<Stock> _listaStock;
 
         private int _indiceSeleccionado;
@@ -72,7 +72,7 @@ namespace Agraria.UI.Articulos
             _articuloStockService = articuloStockService;
 
             // Inicialización de campos
-            _articuloSeleccionado = new Modelo.Entidades.Articulos();
+            _articuloSeleccionado = new Modelo.Entidades.Productos();
             _stockSeleccionado = new Stock();
 
             _listaTipoEntorno = [];
@@ -460,7 +460,7 @@ namespace Agraria.UI.Articulos
         /// <returns>True si hay un artículo seleccionado, de lo contrario False.</returns>
         private bool ValidarSeleccionParaEliminar()
         {
-            return _articuloSeleccionado != null && _articuloSeleccionado.Id_Articulo != 0;
+            return _articuloSeleccionado != null && _articuloSeleccionado.Id_Producto != 0;
         }
 
         /// <summary>
@@ -502,10 +502,10 @@ namespace Agraria.UI.Articulos
                 return false;
             }
 
-            _articuloSeleccionado.Art_Desc = TxtDescripcion.Text;
+            _articuloSeleccionado.Producto_Desc = TxtDescripcion.Text;
             _articuloSeleccionado.Id_Proveedor = proveedor.Id_Proveedor;
-            _articuloSeleccionado.Cod_Categoria = categoria.Id_Tipo_Entorno;
-            _articuloSeleccionado.Cod_Subcat = subcategoria.Id_Entorno;
+            _articuloSeleccionado.Id_TipoEntorno = categoria.Id_Tipo_Entorno;
+            _articuloSeleccionado.Id_Entorno = subcategoria.Id_Entorno;
 
             return true;
         }
@@ -546,16 +546,16 @@ namespace Agraria.UI.Articulos
 
             var fila = ListBArticulos.Rows[_indiceSeleccionado];
 
-            if (fila.DataBoundItem is Modelo.Entidades.Articulos articulo)
+            if (fila.DataBoundItem is Modelo.Entidades.Productos articulo)
             {
                 _articuloSeleccionado = articulo;
-                string? codigoArticuloNullable = _articuloSeleccionado.Cod_Articulo;
+                string? codigoArticuloNullable = _articuloSeleccionado.Cod_Producto;
                 string codigoArticulo = codigoArticuloNullable ?? string.Empty;
 
                 _stockSeleccionado = _listaStock.FirstOrDefault(s => s.Cod_Articulo == codigoArticulo) ?? new Stock();
 
                 // Cargar datos en los controles
-                TxtDescripcion.Text = _articuloSeleccionado.Art_Desc ?? string.Empty;
+                TxtDescripcion.Text = _articuloSeleccionado.Producto_Desc ?? string.Empty;
                 TxtCantidad.Text = DecimalFormatter.ToDecimal(_stockSeleccionado.Cantidad);
                 TxtCosto.Text = DecimalFormatter.ToDecimal(_stockSeleccionado.Costo);
                 TxtGanancia.Text = DecimalFormatter.ToDecimal(_stockSeleccionado.Ganancia);
@@ -575,13 +575,13 @@ namespace Agraria.UI.Articulos
         private void CargarCombosSeleccion()
         {
             if (CMBCategoria.Items.Count > 0)
-                CMBCategoria.SelectedValue = _articuloSeleccionado.Cod_Categoria;
+                CMBCategoria.SelectedValue = _articuloSeleccionado.Id_TipoEntorno;
 
             if (CMBProveedor.Items.Count > 0)
                 CMBProveedor.SelectedValue = _articuloSeleccionado.Id_Proveedor;
 
             if (CMBEntorno.Items.Count > 0)
-                CMBEntorno.SelectedValue = _articuloSeleccionado.Cod_Subcat;
+                CMBEntorno.SelectedValue = _articuloSeleccionado.Id_Entorno;
         }
 
         /// <summary>
@@ -595,7 +595,7 @@ namespace Agraria.UI.Articulos
             TxtGanancia.Clear();
             LblPrecio.Text = "$0,00";
 
-            _articuloSeleccionado = new Modelo.Entidades.Articulos();
+            _articuloSeleccionado = new Modelo.Entidades.Productos();
             _stockSeleccionado = new Stock();
         }
 

@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Common;
-using System.Data.OleDb;
+using Microsoft.Data.SqlClient;
 using System.Linq;
 using System.Runtime.Versioning;
 using System.Threading.Tasks;
@@ -18,8 +18,8 @@ namespace Agraria.Repositorio.Repositorios
         {
             try
             {
-                using OleDbConnection conn = Conexion();
-                using OleDbCommand cmd = new("SELECT Id_Pregunta, Pregunta FROM Preguntas_Seguridad", conn);
+                using SqlConnection conn = Conexion();
+                using SqlCommand cmd = new("SELECT Id_Pregunta, Pregunta FROM Preguntas_Seguridad", conn);
                 await conn.OpenAsync();
                 using DbDataReader reader = await cmd.ExecuteReaderAsync();
                 List<PreguntasSeguridad> preguntas = [];
@@ -34,7 +34,7 @@ namespace Agraria.Repositorio.Repositorios
                 }
                 return Result<List<PreguntasSeguridad>>.Success(preguntas);
             }
-            catch (OleDbException ex)
+            catch (SqlException ex)
             {
                 return Result<List<PreguntasSeguridad>>.Failure("Error en la base de datos al obtener las preguntas de seguridad: " + ex.Message);
             }
@@ -48,8 +48,8 @@ namespace Agraria.Repositorio.Repositorios
         {
             try
             {
-                using OleDbConnection conn = Conexion();
-                using OleDbCommand cmd = new("SELECT Id_Pregunta, Pregunta FROM Preguntas_Seguridad WHERE Id_Pregunta = @Id", conn);
+                using SqlConnection conn = Conexion();
+                using SqlCommand cmd = new("SELECT Id_Pregunta, Pregunta FROM Preguntas_Seguridad WHERE Id_Pregunta = @Id", conn);
                 cmd.Parameters.AddWithValue("@Id", id);
                 await conn.OpenAsync();
                 using DbDataReader reader = await cmd.ExecuteReaderAsync();
@@ -64,7 +64,7 @@ namespace Agraria.Repositorio.Repositorios
                 }
                 return Result<PreguntasSeguridad>.Failure("Pregunta de seguridad no encontrada");
             }
-            catch (OleDbException ex)
+            catch (SqlException ex)
             {
                 return Result<PreguntasSeguridad>.Failure("Error en la base de datos al obtener la pregunta de seguridad: " + ex.Message);
             }
@@ -78,15 +78,15 @@ namespace Agraria.Repositorio.Repositorios
         {
             try
             {
-                using OleDbConnection conn = Conexion();
-                using OleDbCommand cmd = new("INSERT INTO Preguntas_Seguridad (Pregunta) VALUES (@Pregunta)", conn);
+                using SqlConnection conn = Conexion();
+                using SqlCommand cmd = new("INSERT INTO Preguntas_Seguridad (Pregunta) VALUES (@Pregunta)", conn);
                 cmd.Parameters.AddWithValue("@Pregunta", pregunta.Pregunta);
                 conn.Open();
                 int rowsAffected = cmd.ExecuteNonQuery();
                 if (rowsAffected > 0)
                 {
                     // Get the ID of the inserted record
-                    using OleDbCommand cmdGetId = new("SELECT @@IDENTITY", conn);
+                    using SqlCommand cmdGetId = new("SELECT @@IDENTITY", conn);
                     object idObj = cmdGetId.ExecuteScalar();
                     if (idObj != null && int.TryParse(idObj.ToString(), out int id))
                     {
@@ -96,7 +96,7 @@ namespace Agraria.Repositorio.Repositorios
                 }
                 return Result<PreguntasSeguridad>.Failure("No se pudo agregar la pregunta de seguridad");
             }
-            catch (OleDbException ex)
+            catch (SqlException ex)
             {
                 return Result<PreguntasSeguridad>.Failure("Error en la base de datos al agregar la pregunta de seguridad: " + ex.Message);
             }
@@ -110,8 +110,8 @@ namespace Agraria.Repositorio.Repositorios
         {
             try
             {
-                using OleDbConnection conn = Conexion();
-                using OleDbCommand cmd = new("UPDATE Preguntas_Seguridad SET Pregunta = @Pregunta WHERE Id_Pregunta = @Id", conn);
+                using SqlConnection conn = Conexion();
+                using SqlCommand cmd = new("UPDATE Preguntas_Seguridad SET Pregunta = @Pregunta WHERE Id_Pregunta = @Id", conn);
                 cmd.Parameters.AddWithValue("@Pregunta", pregunta.Pregunta);
                 cmd.Parameters.AddWithValue("@Id", pregunta.Id_Pregunta);
                 conn.Open();
@@ -122,7 +122,7 @@ namespace Agraria.Repositorio.Repositorios
                 }
                 return Result<PreguntasSeguridad>.Failure("No se pudo actualizar la pregunta de seguridad");
             }
-            catch (OleDbException ex)
+            catch (SqlException ex)
             {
                 return Result<PreguntasSeguridad>.Failure("Error en la base de datos al actualizar la pregunta de seguridad: " + ex.Message);
             }
@@ -136,8 +136,8 @@ namespace Agraria.Repositorio.Repositorios
         {
             try
             {
-                using OleDbConnection conn = Conexion();
-                using OleDbCommand cmd = new("DELETE FROM Preguntas_Seguridad WHERE Id_Pregunta = @Id", conn);
+                using SqlConnection conn = Conexion();
+                using SqlCommand cmd = new("DELETE FROM Preguntas_Seguridad WHERE Id_Pregunta = @Id", conn);
                 cmd.Parameters.AddWithValue("@Id", id);
                 conn.Open();
                 int rowsAffected = cmd.ExecuteNonQuery();
@@ -147,7 +147,7 @@ namespace Agraria.Repositorio.Repositorios
                 }
                 return Result<bool>.Failure("No se pudo eliminar la pregunta de seguridad");
             }
-            catch (OleDbException ex)
+            catch (SqlException ex)
             {
                 return Result<bool>.Failure("Error en la base de datos al eliminar la pregunta de seguridad: " + ex.Message);
             }

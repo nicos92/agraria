@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Common;
-using System.Data.OleDb;
+using Microsoft.Data.SqlClient;
 using System.Linq;
 using System.Runtime.Versioning;
 using System.Text;
@@ -18,17 +18,17 @@ namespace Agraria.Repositorio.Repositorios
     {
         public async Task<Result<bool>> Add(HVentas hVentas, List<ProductoResumen> productoResumen)
         {
-            OleDbTransaction? transaction = null;
+            SqlTransaction? transaction = null;
             try
             {
-                using OleDbConnection conn = Conexion();
+                using SqlConnection conn = Conexion();
                 await conn.OpenAsync();
 
-                 transaction =  (OleDbTransaction) await conn.BeginTransactionAsync(); 
+                 transaction =  (SqlTransaction) await conn.BeginTransactionAsync(); 
 
 
                 string sqlArticulos = "INSERT INTO H_Ventas (Cod_Usuario, subtotal, descu, total) VALUES (?, ?, ?, ?)";
-                using (OleDbCommand cmdArticulos = new(sqlArticulos, conn, transaction)) 
+                using (SqlCommand cmdArticulos = new(sqlArticulos, conn, transaction)) 
                 {
 
                     cmdArticulos.Parameters.AddWithValue("?", hVentas.Cod_Usuario);
@@ -39,7 +39,7 @@ namespace Agraria.Repositorio.Repositorios
                     await cmdArticulos.ExecuteNonQueryAsync();
                 }
                 string select = "SELECT MAX(id_remito) FROM H_Ventas";
-                using OleDbCommand oleDbCommand = new(select, conn, transaction);
+                using SqlCommand oleDbCommand = new(select, conn, transaction);
                 using DbDataReader reader = await oleDbCommand.ExecuteReaderAsync();
                 int id_remito = 0;
                 if (await reader.ReadAsync())
@@ -56,7 +56,7 @@ namespace Agraria.Repositorio.Repositorios
                 foreach (var item in productoResumen)
                 {
                     string sqlStock = "INSERT INTO H_Ventas_Detalle (id_remito, cod_art, descr, p_unit, cant, p_x_cant) VALUES (?, ?, ?, ?, ?, ?)";
-                    using OleDbCommand cmdStock = new(sqlStock, conn, transaction);
+                    using SqlCommand cmdStock = new(sqlStock, conn, transaction);
 
                     cmdStock.Parameters.AddWithValue("?", id_remito);
                     cmdStock.Parameters.AddWithValue("?", item.Cod_Articulo);
@@ -68,7 +68,7 @@ namespace Agraria.Repositorio.Repositorios
                     await cmdStock.ExecuteNonQueryAsync();
 
                     string cmdARt = "UPDATE Stock SET cantidad = cantidad - ? WHERE cod_articulo = ?";
-                    using OleDbCommand oleDbCommand1 = new(cmdARt, conn, transaction);
+                    using SqlCommand oleDbCommand1 = new(cmdARt, conn, transaction);
                     oleDbCommand1.Parameters.AddWithValue("?", item.Producto_Cantidad);
                     oleDbCommand1.Parameters.AddWithValue("?", item.Cod_Articulo);
                     await oleDbCommand1.ExecuteNonQueryAsync();
@@ -78,7 +78,7 @@ namespace Agraria.Repositorio.Repositorios
                 await transaction.CommitAsync();
                 return Result<bool>.Success(true);
             }
-            catch (OleDbException ex)
+            catch (SqlException ex)
             {
                  transaction?.RollbackAsync(); 
                 return Result<bool>.Failure($"Error OleDb al insertar la venta y los detalles: {ex.Message}");
@@ -94,7 +94,7 @@ namespace Agraria.Repositorio.Repositorios
         {
             try
             {
-                using OleDbConnection conn = Conexion();
+                using SqlConnection conn = Conexion();
                 await conn.OpenAsync();
 
                 List<HVentas> ventas = [];
@@ -102,7 +102,7 @@ namespace Agraria.Repositorio.Repositorios
 
                 // Query para obtener todas las ventas (H_Ventas)
                 string sqlVentas = "SELECT id_remito, Cod_Usuario, fecha_hora, subtotal, descu, total FROM H_Ventas";
-                using (OleDbCommand cmdVentas = new(sqlVentas, conn))
+                using (SqlCommand cmdVentas = new(sqlVentas, conn))
                 {
                     using DbDataReader reader = await cmdVentas.ExecuteReaderAsync();
                     while (await reader.ReadAsync())
@@ -121,7 +121,7 @@ namespace Agraria.Repositorio.Repositorios
 
                 // Query para obtener todos los detalles de las ventas (H_Ventas_Detalle)
                 string sqlDetalles = "SELECT id_det_remito, id_remito, cod_art, descr, p_unit, cant, p_x_cant FROM H_Ventas_Detalle";
-                using (OleDbCommand cmdDetalles = new(sqlDetalles, conn))
+                using (SqlCommand cmdDetalles = new(sqlDetalles, conn))
                 {
                     using DbDataReader reader = await cmdDetalles.ExecuteReaderAsync();
                     while (await reader.ReadAsync())
@@ -130,7 +130,7 @@ namespace Agraria.Repositorio.Repositorios
                         {
                             Id_Det_Remito = reader.GetInt32(0),
                             Id_Remito = reader.GetInt32(1),
-                            Cod_Art = reader.GetString(2),
+                            Cod_Articulo = reader.GetString(2),
                             Descr = reader.GetString(3),
                             P_Unit = reader.GetDecimal(4),
                             Cant = reader.GetInt32(5),
@@ -142,7 +142,7 @@ namespace Agraria.Repositorio.Repositorios
 
                 return Result<(List<HVentas> ventas, List<HVentasDetalle> detalles)>.Success((ventas, detalles));
             }
-            catch (OleDbException ex)
+            catch (SqlException ex)
             {
                 return Result<(List<HVentas> ventas, List<HVentasDetalle> detalles)>.Failure($"Error OleDb al obtener las ventas: {ex.Message}");
             }

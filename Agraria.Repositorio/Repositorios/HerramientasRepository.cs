@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.Data.OleDb;
+using Microsoft.Data.SqlClient;
 using System.Runtime.Versioning;
 using System.Threading.Tasks;
 using Agraria.Contrato.Repositorios;
@@ -17,7 +17,7 @@ namespace Agraria.Repositorio.Repositorios
             try
             {
                 using var conn = Conexion();
-                using var cmd = new OleDbCommand("INSERT INTO Herramientas (Nombre, Descripcion, Cantidad) VALUES (@Nombre, @Descripcion, @Cantidad)", conn);
+                using var cmd = new SqlCommand("INSERT INTO Herramientas (Nombre, Descripcion, Cantidad) VALUES (@Nombre, @Descripcion, @Cantidad)", conn);
 
                 cmd.Parameters.AddWithValue("@Nombre", herramienta.Nombre);
                 cmd.Parameters.AddWithValue("@Descripcion", herramienta.Descripcion);
@@ -34,7 +34,7 @@ namespace Agraria.Repositorio.Repositorios
                     return Result<Herramientas>.Failure("No se pudo agregar la herramienta.");
                 }
             }
-            catch (OleDbException ex)
+            catch (SqlException ex)
             {
                 return Result<Herramientas>.Failure($"Error al agregar la herramienta: {ex.Message}");
             }
@@ -45,7 +45,7 @@ namespace Agraria.Repositorio.Repositorios
             try
             {
                 using var conn = Conexion();
-                using var cmd = new OleDbCommand("DELETE FROM Herramientas WHERE Id_Herramienta = @Id_Herramienta", conn);
+                using var cmd = new SqlCommand("DELETE FROM Herramientas WHERE Id_Herramienta = @Id_Herramienta", conn);
                 cmd.Parameters.AddWithValue("@Id_Herramienta", id);
                 conn.Open();
                 int deletes = cmd.ExecuteNonQuery();
@@ -58,7 +58,7 @@ namespace Agraria.Repositorio.Repositorios
                     return Result<bool>.Failure("No se pudo eliminar la herramienta.");
                 }
             }
-            catch (OleDbException ex)
+            catch (SqlException ex)
             {
                 return Result<bool>.Failure($"Error al eliminar la herramienta: {ex.Message}");
             }
@@ -70,7 +70,7 @@ namespace Agraria.Repositorio.Repositorios
             {
                 List<Herramientas> herramientas = [];
                 using var conn = Conexion();
-                using var cmd = new OleDbCommand("SELECT Id_Herramienta, Nombre, Descripcion, Cantidad FROM Herramientas", conn);
+                using var cmd = new SqlCommand("SELECT Id_Herramienta, Nombre, Descripcion, Cantidad FROM Herramientas", conn);
                 await conn.OpenAsync();
                 using var reader = await cmd.ExecuteReaderAsync();
                 while (await reader.ReadAsync())
@@ -86,7 +86,7 @@ namespace Agraria.Repositorio.Repositorios
                 }
                 return Result<List<Herramientas>>.Success(herramientas);
             }
-            catch (OleDbException ex)
+            catch (SqlException ex)
             {
                 return Result<List<Herramientas>>.Failure($"Error al obtener las herramientas: {ex.Message}");
             }
@@ -97,7 +97,7 @@ namespace Agraria.Repositorio.Repositorios
             try
             {
                 using var conn = Conexion();
-                using var cmd = new OleDbCommand("SELECT Id_Herramienta, Nombre, Descripcion, Cantidad FROM Herramientas WHERE Id_Herramienta = @Id_Herramienta", conn);
+                using var cmd = new SqlCommand("SELECT Id_Herramienta, Nombre, Descripcion, Cantidad FROM Herramientas WHERE Id_Herramienta = @Id_Herramienta", conn);
                 cmd.Parameters.AddWithValue("@Id_Herramienta", id);
                 conn.Open();
                 using var reader = cmd.ExecuteReader();
@@ -114,7 +114,7 @@ namespace Agraria.Repositorio.Repositorios
                 }
                 return Result<Herramientas>.Failure("No se pudo obtener la herramienta");
             }
-            catch (OleDbException ex)
+            catch (SqlException ex)
             {
                 return Result<Herramientas>.Failure($"Error al obtener la herramienta: {ex.Message}");
             }
@@ -125,7 +125,7 @@ namespace Agraria.Repositorio.Repositorios
             try
             {
                 using var conn = Conexion();
-                using var cmd = new OleDbCommand("UPDATE Herramientas SET Nombre=@Nombre, Descripcion=@Descripcion, Cantidad=@Cantidad WHERE Id_Herramienta = @Id_Herramienta", conn);
+                using var cmd = new SqlCommand("UPDATE Herramientas SET Nombre=@Nombre, Descripcion=@Descripcion, Cantidad=@Cantidad WHERE Id_Herramienta = @Id_Herramienta", conn);
                 cmd.Parameters.AddWithValue("@Nombre", herramienta.Nombre);
                 cmd.Parameters.AddWithValue("@Descripcion", herramienta.Descripcion);
                 cmd.Parameters.AddWithValue("@Cantidad", herramienta.Cantidad);
@@ -137,7 +137,7 @@ namespace Agraria.Repositorio.Repositorios
                 }
                 return Result<Herramientas>.Failure("No se actualizó la herramienta");
             }
-            catch (OleDbException ex)
+            catch (SqlException ex)
             {
                 return Result<Herramientas>.Failure($"Error al actualizar la herramienta: {ex.Message}");
             }

@@ -10,7 +10,7 @@ namespace Agraria.Modelo.Entidades
     {
         public int Id_Det_Remito { get; set; }
         public int Id_Remito { get; set; }
-        public string? Cod_Art { get; set; }
+        public string? Art_Cod { get; set; }
         public string? Descr { get; set; }
         public decimal P_Unit { get; set; }
         public int Cant { get; set; }

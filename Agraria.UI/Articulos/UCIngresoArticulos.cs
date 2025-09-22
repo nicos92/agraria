@@ -26,7 +26,7 @@ namespace Agraria.UI.Articulos
         private readonly IProveedoresService _proveedoresService;
         private readonly IArticuloStockService _articuloStockService;
 
-        private readonly Modelo.Entidades.Articulos _articuloSeleccionado;
+        private readonly Modelo.Entidades.Productos _articuloSeleccionado;
         private readonly Modelo.Entidades.Stock _stockSeleccionado;
 
         private readonly ValidadorTextBox _vTxtDescripcion;
@@ -57,7 +57,7 @@ namespace Agraria.UI.Articulos
 
             InitializeComponent();
 
-            _articuloSeleccionado = new Modelo.Entidades.Articulos();
+            _articuloSeleccionado = new Modelo.Entidades.Productos();
             _stockSeleccionado = new Modelo.Entidades.Stock();
 
             _epTxtDescipcion = new ErrorProvider();
@@ -124,10 +124,10 @@ namespace Agraria.UI.Articulos
                 return false;
             }
 
-            _articuloSeleccionado.Art_Desc = TxtDescripcion.Text;
+            _articuloSeleccionado.Producto_Desc = TxtDescripcion.Text;
             _articuloSeleccionado.Id_Proveedor = proveedor.Id_Proveedor;
-            _articuloSeleccionado.Cod_Categoria = categoria.Id_Tipo_Entorno;
-            _articuloSeleccionado.Cod_Subcat = subcategoria.Id_Entorno;
+            _articuloSeleccionado.Id_TipoEntorno = categoria.Id_Tipo_Entorno;
+            _articuloSeleccionado.Id_Entorno = subcategoria.Id_Entorno;
 
             return true;
         }
@@ -258,7 +258,7 @@ namespace Agraria.UI.Articulos
             int codigo = ultimoCodigoResult.IsSuccess ? ultimoCodigoResult.Value : 100000;
             string nuevoCodigo = (codigo + 1).ToString();
 
-            _articuloSeleccionado.Cod_Articulo = nuevoCodigo;
+            _articuloSeleccionado.Cod_Producto = nuevoCodigo;
             _stockSeleccionado.Cod_Articulo = nuevoCodigo;
 
             var insercionResult = await _articuloStockService.Add(_articuloSeleccionado, _stockSeleccionado);

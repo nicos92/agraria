@@ -22,7 +22,7 @@ namespace Agraria.Servicio
             ProductoResumen = [];
         }
         public List<Proveedores> Proveedores { get; set; }
-        public List<Articulos> Productos { get; set; }
+        public List<Productos> Productos { get; set; }
         public List<HVentas> Ventas { get; set; }
         public List<ArticuloStock> ProductosSeleccionados { get; set; }
         public List<ProductoResumen> ProductoResumen { get; set; }

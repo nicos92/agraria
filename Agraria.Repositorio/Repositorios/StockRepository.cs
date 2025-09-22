@@ -1,13 +1,14 @@
-using System;
-using System.Collections.Generic;
-using System.Data.Common;
-using System.Data.OleDb;
-using System.Linq;
-using System.Runtime.Versioning;
-using System.Threading.Tasks;
 using Agraria.Contrato.Repositorios;
 using Agraria.Modelo.Entidades;
 using Agraria.Utilidades;
+using Microsoft.Data.SqlClient;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.Common;
+using System.Linq;
+using System.Runtime.Versioning;
+using System.Threading.Tasks;
 
 namespace Agraria.Repositorio.Repositorios
 {
@@ -18,12 +19,12 @@ namespace Agraria.Repositorio.Repositorios
         {
             try
             {
-                using OleDbConnection conn = Conexion();
-                using OleDbCommand cmd = new("INSERT INTO Stock (Cod_Articulo, Cantidad, Costo, Ganancia) VALUES (@Cod_Articulo, @Cantidad, @Costo, @Ganancia)", conn);
+                using SqlConnection conn = Conexion();
+                using SqlCommand cmd = new("INSERT INTO Stock (Cod_Articulo, Cantidad, Costo, Ganancia) VALUES (@Cod_Articulo, @Cantidad, @Costo, @Ganancia)", conn);
                 cmd.Parameters.AddWithValue("@Cod_Articulo", stock.Cod_Articulo);
-                cmd.Parameters.Add("@Cantidad", OleDbType.Decimal).Value = stock.Cantidad;
-                cmd.Parameters.Add("@Costo", OleDbType.Decimal).Value = stock.Costo;
-                cmd.Parameters.Add("@Ganancia", OleDbType.Decimal).Value = stock.Ganancia;
+                cmd.Parameters.Add("@Cantidad", SqlDbType.Decimal).Value = stock.Cantidad;
+                cmd.Parameters.Add("@Costo", SqlDbType.Decimal).Value = stock.Costo;
+                cmd.Parameters.Add("@Ganancia", SqlDbType.Decimal).Value = stock.Ganancia;
                 conn.Open();
                 int rowsAffected = cmd.ExecuteNonQuery();
                 if (rowsAffected > 0)
@@ -35,7 +36,7 @@ namespace Agraria.Repositorio.Repositorios
                     return Result<Stock>.Failure("No se pudo agregar el stock.");
                 }
             }
-            catch (OleDbException ex)
+            catch (SqlException ex)
             {
                 return Result<Stock>.Failure($"Error de base de datos al hacer el ingreso: {ex.Message}");
             }
@@ -50,8 +51,8 @@ namespace Agraria.Repositorio.Repositorios
         {
             try
             {
-                using OleDbConnection conn = Conexion();
-                using OleDbCommand cmd = new("DELETE FROM Stock WHERE Cod_Articulo = @Cod_Articulo", conn);
+                using SqlConnection conn = Conexion();
+                using SqlCommand cmd = new("DELETE FROM Stock WHERE Cod_Articulo = @Cod_Articulo", conn);
                 cmd.Parameters.AddWithValue("@Cod_Articulo", id);
                 conn.Open();
                 int rowsAffected = cmd.ExecuteNonQuery();
@@ -64,7 +65,7 @@ namespace Agraria.Repositorio.Repositorios
                     return Result<bool>.Failure("No se encontró el stock para eliminar.");
                 }
             }
-            catch (OleDbException ex)
+            catch (SqlException ex)
             {
                 return Result<bool>.Failure($"Error de base de datos al eliminar: {ex.Message}");
             }
@@ -79,8 +80,8 @@ namespace Agraria.Repositorio.Repositorios
             try
             {
                 List<Stock> stocks = [];
-                using OleDbConnection conn = Conexion();
-                using OleDbCommand cmd = new("SELECT Cod_Articulo, Cantidad, Costo, Ganancia FROM Stock", conn);
+                using SqlConnection conn = Conexion();
+                using SqlCommand cmd = new("SELECT Cod_Articulo, Cantidad, Costo, Ganancia FROM Stock", conn);
                 await conn.OpenAsync();
                 using  DbDataReader reader = await cmd.ExecuteReaderAsync();
                 while (await reader.ReadAsync())
@@ -97,7 +98,7 @@ namespace Agraria.Repositorio.Repositorios
                 }
                 return Result<List<Stock>>.Success(stocks);
             }
-            catch (OleDbException ex)
+            catch (SqlException ex)
             {
                 return Result<List<Stock>>.Failure($"Error de base de datos al obtener los stocks: {ex.Message}");
             }
@@ -111,11 +112,11 @@ namespace Agraria.Repositorio.Repositorios
         {
             try
             {
-                using OleDbConnection conn = Conexion();
-                using OleDbCommand cmd = new("SELECT Cod_Articulo, Cantidad, Costo, Ganancia FROM Stock WHERE Cod_Articulo = @Cod_Articulo", conn);
+                using SqlConnection conn = Conexion();
+                using SqlCommand cmd = new("SELECT Cod_Articulo, Cantidad, Costo, Ganancia FROM Stock WHERE Cod_Articulo = @Cod_Articulo", conn);
                 cmd.Parameters.AddWithValue("@Cod_Articulo", id);
                 conn.Open();
-                using OleDbDataReader reader = cmd.ExecuteReader();
+                using var reader = cmd.ExecuteReader();
                 if (reader.Read())
                 {
                     Stock stock = new()
@@ -132,7 +133,7 @@ namespace Agraria.Repositorio.Repositorios
                     return Result<Stock>.Failure("No se encontró el stock.");
                 }
             }
-            catch (OleDbException ex)
+            catch (SqlException ex)
             {
                 return Result<Stock>.Failure($"Error de base de datos al obtener el stock: {ex.Message}");
             }
@@ -146,11 +147,11 @@ namespace Agraria.Repositorio.Repositorios
         {
             try
             {
-                using OleDbConnection conn = Conexion();
-                using OleDbCommand cmd = new("UPDATE Stock SET Cantidad = @Cantidad, Costo = @Costo, Ganancia = @Ganancia WHERE Cod_Articulo = @Cod_Articulo", conn);
-                cmd.Parameters.Add("@Cantidad", OleDbType.Decimal).Value = stock.Cantidad;
-                cmd.Parameters.Add("@Costo", OleDbType.Decimal).Value = stock.Costo;
-                cmd.Parameters.Add("@Ganancia", OleDbType.Decimal).Value = stock.Ganancia;
+                using SqlConnection conn = Conexion();
+                using SqlCommand cmd = new("UPDATE Stock SET Cantidad = @Cantidad, Costo = @Costo, Ganancia = @Ganancia WHERE Cod_Articulo = @Cod_Articulo", conn);
+                cmd.Parameters.Add("@Cantidad", SqlDbType.Decimal).Value = stock.Cantidad;
+                cmd.Parameters.Add("@Costo", SqlDbType.Decimal).Value = stock.Costo;
+                cmd.Parameters.Add("@Ganancia", SqlDbType.Decimal).Value = stock.Ganancia;
                 cmd.Parameters.AddWithValue("@Cod_Articulo", stock.Cod_Articulo);
                 conn.Open();
                 int rowsAffected = cmd.ExecuteNonQuery();
@@ -163,7 +164,7 @@ namespace Agraria.Repositorio.Repositorios
                     return Result<Stock>.Failure("No se encontró el stock para actualizar.");
                 }
             }
-            catch (OleDbException ex)
+            catch (SqlException ex)
             {
                 return Result<Stock>.Failure($"Error de base de datos al actualizar: {ex.Message}");
             }

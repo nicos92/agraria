@@ -4,7 +4,7 @@ using Agraria.Utilidades;
 using System;
 using System.Collections.Generic;
 using System.Data.Common;
-using System.Data.OleDb;
+using Microsoft.Data.SqlClient;
 using System.Linq;
 using System.Runtime.Versioning;
 using System.Threading.Tasks;
@@ -19,7 +19,7 @@ namespace Agraria.Repositorio.Repositorios
             try
             {
                 using var conn = Conexion();
-                using var cmd = new OleDbCommand("INSERT INTO Proveedores (CUIT, Proveedor, Nombre, Tel, Email, observacion) VALUES (@CUIT, @Proveedor, @Nombre, @Telefono, @Email, @Observacion)", conn);
+                using var cmd = new SqlCommand("INSERT INTO Proveedores (CUIT, Proveedor, Nombre, Tel, Email, observacion) VALUES (@CUIT, @Proveedor, @Nombre, @Telefono, @Email, @Observacion)", conn);
 
                 cmd.Parameters.AddWithValue("@CUIT", Proveedor.CUIT);
                 cmd.Parameters.AddWithValue("@Proveedor", Proveedor.Proveedor);
@@ -39,7 +39,7 @@ namespace Agraria.Repositorio.Repositorios
                     return Result<Proveedores>.Failure("No se pudo agregar el proveedor.");
                 }
             }
-            catch (OleDbException ex)
+            catch (SqlException ex)
             {
                 return Result<Proveedores>.Failure($"Error al agregar el proveedor: {ex.Message}");
             }catch (Exception ex)
@@ -53,7 +53,7 @@ namespace Agraria.Repositorio.Repositorios
             try
             {
                 using var conn = Conexion();
-                using var cmd = new OleDbCommand("DELETE FROM Proveedores WHERE Id_Proveedor = @Id_Proveedor", conn);
+                using var cmd = new SqlCommand("DELETE FROM Proveedores WHERE Id_Proveedor = @Id_Proveedor", conn);
                 cmd.Parameters.AddWithValue("@Id_Proveedor", id);
                 conn.Open();
                 int deletes = cmd.ExecuteNonQuery();
@@ -66,7 +66,7 @@ namespace Agraria.Repositorio.Repositorios
                     return Result<bool>.Failure("No se pudo eliminar el proveedor.");
                 }
             }
-            catch (OleDbException ex)
+            catch (SqlException ex)
             {
                 return Result<bool>.Failure($"Error al eliminar el proveedor: {ex.Message}");
             }catch (Exception ex)
@@ -77,8 +77,8 @@ namespace Agraria.Repositorio.Repositorios
 
         public async Task<Result<List<Proveedores>>> GetAll(){
             try{
-                using OleDbConnection conn = Conexion();
-                using OleDbCommand cmd = new("SELECT Id_Proveedor, CUIT, Proveedor, Nombre, Tel, Email, observacion FROM Proveedores", conn);
+                using SqlConnection conn = Conexion();
+                using SqlCommand cmd = new("SELECT Id_Proveedor, CUIT, Proveedor, Nombre, Tel, Email, observacion FROM Proveedores", conn);
                 await conn.OpenAsync();
                 using DbDataReader reader = await cmd.ExecuteReaderAsync();
                 List<Proveedores> proveedores = [];
@@ -103,7 +103,7 @@ namespace Agraria.Repositorio.Repositorios
                 }
                 return Result<List<Proveedores>>.Success(proveedores);
 
-            }catch (OleDbException ex)
+            }catch (SqlException ex)
             {
                 return Result<List<Proveedores>>.Failure($"Error al obtener los proveedores: {ex.Message}");
             }
@@ -118,7 +118,7 @@ namespace Agraria.Repositorio.Repositorios
             try
             {
                 using var conn = Conexion();
-                using var cmd = new OleDbCommand("UPDATE Proveedores SET CUIT = @CUIT, Proveedor = @Proveedor, Nombre = @Nombre, Tel = @Telefono, Email = @Email, observacion = @observacion WHERE Id_Proveedor = @Id_Proveedor", conn);
+                using var cmd = new SqlCommand("UPDATE Proveedores SET CUIT = @CUIT, Proveedor = @Proveedor, Nombre = @Nombre, Tel = @Telefono, Email = @Email, observacion = @observacion WHERE Id_Proveedor = @Id_Proveedor", conn);
                 cmd.Parameters.AddWithValue("@CUIT", proveedor.CUIT);
                 cmd.Parameters.AddWithValue("@Proveedor", proveedor.Proveedor);
                 cmd.Parameters.AddWithValue("@Nombre", proveedor.Nombre);
@@ -138,7 +138,7 @@ namespace Agraria.Repositorio.Repositorios
                     return Result<Proveedores>.Failure("No se pudo actualizar el proveedor.");
                 }
             }
-            catch (OleDbException ex)
+            catch (SqlException ex)
             {
                 return Result<Proveedores>.Failure($"Error al actualizar el proveedor: {ex.Message}");
             }
@@ -153,7 +153,7 @@ namespace Agraria.Repositorio.Repositorios
             try
             {
                 using var conn = Conexion();
-                using var cmd = new OleDbCommand("SELECT Id_Proveedor, CUIT, Proveedor, Nombre, Tel, Email, Observacion FROM Proveedores WHERE Id_Proveedor = @Id_Proveedor", conn);
+                using var cmd = new SqlCommand("SELECT Id_Proveedor, CUIT, Proveedor, Nombre, Tel, Email, Observacion FROM Proveedores WHERE Id_Proveedor = @Id_Proveedor", conn);
                 cmd.Parameters.AddWithValue("@Id_Proveedor", id);
                 conn.Open();
                 using var reader = cmd.ExecuteReader();
@@ -173,7 +173,7 @@ namespace Agraria.Repositorio.Repositorios
                 }
                 return Result<Proveedores>.Failure("No se pudo obtener el proveedor.");
             }
-            catch (OleDbException ex)
+            catch (SqlException ex)
             {
                 return Result<Proveedores>.Failure($"Error al obtener el proveedor: {ex.Message}");
             }
@@ -187,8 +187,8 @@ namespace Agraria.Repositorio.Repositorios
         {
             try
             {
-                using OleDbConnection conn = Conexion();
-                using OleDbCommand cmd = new("SELECT Id_Proveedor, CUIT, Proveedor, Nombre, Tel, Email, observacion FROM Proveedores WHERE Nombre LIKE @name", conn);
+                using SqlConnection conn = Conexion();
+                using SqlCommand cmd = new("SELECT Id_Proveedor, CUIT, Proveedor, Nombre, Tel, Email, observacion FROM Proveedores WHERE Nombre LIKE @name", conn);
                 cmd.Parameters.AddWithValue("@name", $"%{name}%");
                 await conn.OpenAsync();
                 using DbDataReader reader = await cmd.ExecuteReaderAsync();
@@ -209,7 +209,7 @@ namespace Agraria.Repositorio.Repositorios
                 }
                 return Result<List<Proveedores>>.Success(proveedores);
             }
-            catch (OleDbException ex)
+            catch (SqlException ex)
             {
                 return Result<List<Proveedores>>.Failure($"Error al obtener los proveedores: {ex.Message}");
             }

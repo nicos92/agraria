@@ -7,6 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Entidades\Categorias.cs" />
+    <Compile Remove="Entidades\Clientes.cs" />
+    <Compile Remove="Entidades\HCompras.cs" />
+    <Compile Remove="Entidades\HComprasDetalle.cs" />
+    <Compile Remove="Entidades\HMovimientos.cs" />
+    <Compile Remove="Entidades\InOutVarios.cs" />
+    <Compile Remove="Entidades\Subcategoria.cs" />
     <Compile Remove="Enums\PreguntasSeguridad.cs" />
   </ItemGroup>
 

@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Common;
-using System.Data.OleDb;
+using Microsoft.Data.SqlClient;
 using System.Linq;
 using System.Runtime.Versioning;
 using System.Threading.Tasks;
@@ -9,6 +9,7 @@ using System.Text;
 using Agraria.Contrato.Repositorios;
 using Agraria.Modelo.Entidades;
 using Agraria.Utilidades;
+using System.Data;
 
 namespace Agraria.Repositorio.Repositorios
 {
@@ -19,8 +20,8 @@ namespace Agraria.Repositorio.Repositorios
         {
             try
             {
-                using OleDbConnection conn = Conexion();
-                using OleDbCommand cmd = new("SELECT Id_Remito, Cod_Usuario, Fecha_Hora, Subtotal, Descu, Total FROM H_Remito_Produccion", conn);
+                using SqlConnection conn = Conexion();
+                using SqlCommand cmd = new("SELECT Id_Remito, Cod_Usuario, Fecha_Hora, Subtotal, Descu, Total FROM H_Remito_Produccion", conn);
                 await conn.OpenAsync();
                 using DbDataReader reader = await cmd.ExecuteReaderAsync();
                 List<HRemitoProduccion> remitos = [];
@@ -39,7 +40,7 @@ namespace Agraria.Repositorio.Repositorios
                 }
                 return Result<List<HRemitoProduccion>>.Success(remitos);
             }
-            catch (OleDbException ex)
+            catch (SqlException ex)
             {
                 return Result<List<HRemitoProduccion>>.Failure("Error en la base de datos al obtener los remitos de producción: " + ex.Message);
             }
@@ -53,8 +54,8 @@ namespace Agraria.Repositorio.Repositorios
         {
             try
             {
-                using OleDbConnection conn = Conexion();
-                using OleDbCommand cmd = new("SELECT Id_Remito, Cod_Usuario, Fecha_Hora, Subtotal, Descu, Total FROM H_Remito_Produccion WHERE Id_Remito = @Id", conn);
+                using SqlConnection conn = Conexion();
+                using SqlCommand cmd = new("SELECT Id_Remito, Cod_Usuario, Fecha_Hora, Subtotal, Descu, Total FROM H_Remito_Produccion WHERE Id_Remito = @Id", conn);
                 cmd.Parameters.AddWithValue("@Id", id);
                 await conn.OpenAsync();
                 using DbDataReader reader = await cmd.ExecuteReaderAsync();
@@ -73,7 +74,7 @@ namespace Agraria.Repositorio.Repositorios
                 }
                 return Result<HRemitoProduccion>.Failure("Remito de producción no encontrado");
             }
-            catch (OleDbException ex)
+            catch (SqlException ex)
             {
                 return Result<HRemitoProduccion>.Failure("Error en la base de datos al obtener el remito de producción: " + ex.Message);
             }
@@ -87,8 +88,8 @@ namespace Agraria.Repositorio.Repositorios
         {
             try
             {
-                using OleDbConnection conn = Conexion();
-                using OleDbCommand cmd = new("INSERT INTO H_Remito_Produccion (Cod_Usuario, Fecha_Hora, Subtotal, Descu, Total) VALUES (@Cod_Usuario, @Fecha_Hora, @Subtotal, @Descu, @Total)", conn);
+                using SqlConnection conn = Conexion();
+                using SqlCommand cmd = new("INSERT INTO H_Remito_Produccion (Cod_Usuario, Fecha_Hora, Subtotal, Descu, Total) VALUES (@Cod_Usuario, @Fecha_Hora, @Subtotal, @Descu, @Total)", conn);
                 cmd.Parameters.AddWithValue("@Cod_Usuario", remito.Cod_Usuario);
                 cmd.Parameters.AddWithValue("@Fecha_Hora", remito.Fecha_Hora);
                 cmd.Parameters.AddWithValue("@Subtotal", remito.Subtotal);
@@ -99,7 +100,7 @@ namespace Agraria.Repositorio.Repositorios
                 if (rowsAffected > 0)
                 {
                     // Get the ID of the inserted record
-                    using OleDbCommand cmdGetId = new("SELECT @@IDENTITY", conn);
+                    using SqlCommand cmdGetId = new("SELECT @@IDENTITY", conn);
                     object? idObj = cmdGetId.ExecuteScalar();
                     if (idObj != null && int.TryParse(idObj.ToString(), out int id))
                     {
@@ -109,7 +110,7 @@ namespace Agraria.Repositorio.Repositorios
                 }
                 return Result<HRemitoProduccion>.Failure("No se pudo agregar el remito de producción");
             }
-            catch (OleDbException ex)
+            catch (SqlException ex)
             {
                 return Result<HRemitoProduccion>.Failure("Error en la base de datos al agregar el remito de producción: " + ex.Message);
             }
@@ -123,8 +124,8 @@ namespace Agraria.Repositorio.Repositorios
         {
             try
             {
-                using OleDbConnection conn = Conexion();
-                using OleDbCommand cmd = new("UPDATE H_Remito_Produccion SET Cod_Usuario = @Cod_Usuario, Fecha_Hora = @Fecha_Hora,  Subtotal = @Subtotal, Descu = @Descu, Total = @Total WHERE Id_Remito = @Id", conn);
+                using SqlConnection conn = Conexion();
+                using SqlCommand cmd = new("UPDATE H_Remito_Produccion SET Cod_Usuario = @Cod_Usuario, Fecha_Hora = @Fecha_Hora,  Subtotal = @Subtotal, Descu = @Descu, Total = @Total WHERE Id_Remito = @Id", conn);
                 cmd.Parameters.AddWithValue("@Cod_Usuario", remito.Cod_Usuario);
                 cmd.Parameters.AddWithValue("@Fecha_Hora", remito.Fecha_Hora);
                 cmd.Parameters.AddWithValue("@Subtotal", remito.Subtotal);
@@ -139,7 +140,7 @@ namespace Agraria.Repositorio.Repositorios
                 }
                 return Result<HRemitoProduccion>.Failure("No se pudo actualizar el remito de producción");
             }
-            catch (OleDbException ex)
+            catch (SqlException ex)
             {
                 return Result<HRemitoProduccion>.Failure("Error en la base de datos al actualizar el remito de producción: " + ex.Message);
             }
@@ -155,14 +156,14 @@ namespace Agraria.Repositorio.Repositorios
             {
                 using var conexion = Conexion();
                 conexion.Open();
-                using var cmd = new OleDbCommand("DELETE FROM H_Remito_Produccion WHERE Id_Remito = ?", conexion);
-                cmd.Parameters.Add(new OleDbParameter("@id", OleDbType.Integer) { Value = id });
+                using var cmd = new SqlCommand("DELETE FROM H_Remito_Produccion WHERE Id_Remito = ?", conexion);
+                cmd.Parameters.Add(new SqlParameter("@id", SqlDbType.Int) { Value = id });
                 int rowsAffected = cmd.ExecuteNonQuery();
                 return rowsAffected > 0
                     ? Result<bool>.Success(true)
                     : Result<bool>.Failure("No se encontró el remito de producción para eliminar.");
             }
-            catch (OleDbException ex)
+            catch (SqlException ex)
             {
                 return Result<bool>.Failure($"Error en la base de datos al eliminar el remito de producción: {ex.Message}");
             }
@@ -179,18 +180,18 @@ namespace Agraria.Repositorio.Repositorios
                 var remitos = new List<HRemitoProduccion>();
                 var query = new StringBuilder("SELECT r.Id_Remito, r.Cod_Usuario, r.Fecha_Hora, r.Subtotal, r.Descu, r.Total FROM H_Remito_Produccion r");
                 var whereClause = new List<string>();
-                var parameters = new List<OleDbParameter>();
+                var parameters = new List<SqlParameter>();
 
                 // Filtro por rango de fechas - formato correcto para Access
                 whereClause.Add("r.Fecha_Hora BETWEEN ? AND ?");
-                parameters.Add(new OleDbParameter("@fechaDesde", OleDbType.Date) { Value = fechaDesde });
-                parameters.Add(new OleDbParameter("@fechaHasta", OleDbType.Date) { Value = fechaHasta });
+                parameters.Add(new SqlParameter("@fechaDesde", SqlDbType.Date) { Value = fechaDesde });
+                parameters.Add(new SqlParameter("@fechaHasta", SqlDbType.Date) { Value = fechaHasta });
 
                 // Filtro por ID de remito si se proporciona
                 if (idRemito.HasValue)
                 {
                     whereClause.Add("r.Id_Remito = ?");
-                    parameters.Add(new OleDbParameter("@idRemito", OleDbType.Integer) { Value = idRemito.Value });
+                    parameters.Add(new SqlParameter("@idRemito", SqlDbType.Int) { Value = idRemito.Value });
                 }
 
                 // Filtro por nombre de cliente si se proporciona
@@ -210,7 +211,7 @@ namespace Agraria.Repositorio.Repositorios
                 using (var conexion = Conexion())
                 {
                     conexion.Open();
-                    using var cmd = new OleDbCommand(query.ToString(), conexion);
+                    using var cmd = new SqlCommand(query.ToString(), conexion);
                     foreach (var param in parameters)
                     {
                         cmd.Parameters.Add(param);
@@ -233,7 +234,7 @@ namespace Agraria.Repositorio.Repositorios
 
                 return Result<List<HRemitoProduccion>>.Success(remitos);
             }
-            catch (OleDbException ex)
+            catch (SqlException ex)
             {
                 return Result<List<HRemitoProduccion>>.Failure($"Error al filtrar remitos de producción: {ex.Message}");
             }

@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Common;
-using System.Data.OleDb;
+using Microsoft.Data.SqlClient;
 using System.Linq;
 using System.Runtime.Versioning;
 using System.Threading.Tasks;
@@ -18,8 +18,8 @@ namespace Agraria.Repositorio.Repositorios
         {
             try
             {
-                using OleDbConnection conn = Conexion();
-                using OleDbCommand cmd = new("SELECT Id_Subcategoria, Sub_categoria, Id_Categoria FROM Entorno", conn);
+                using SqlConnection conn = Conexion();
+                using SqlCommand cmd = new("SELECT Id_Subcategoria, Sub_categoria, Id_Categoria FROM Entorno", conn);
                 await conn.OpenAsync();
                 using DbDataReader reader = await cmd.ExecuteReaderAsync();
                 List<Entorno> subcategorias = [];
@@ -35,7 +35,7 @@ namespace Agraria.Repositorio.Repositorios
                 }
                 return Result<List<Entorno>>.Success(subcategorias);
             }
-            catch (OleDbException ex)
+            catch (SqlException ex)
             {
                 // Handle database exceptions and return an appropriate Result
                 return Result<List<Entorno>>.Failure("Error en la base de datos al obtener lo Entornos: " + ex.Message   );
@@ -50,11 +50,11 @@ namespace Agraria.Repositorio.Repositorios
         {
             try
             {
-                using OleDbConnection conn = Conexion();
-                using OleDbCommand cmd = new("SELECT Id_Subcategoria, Sub_categoria, Id_Categoria FROM Entorno WHERE Id_Subcategoria = @Id_Subcategoria", conn);
+                using SqlConnection conn = Conexion();
+                using SqlCommand cmd = new("SELECT Id_Subcategoria, Sub_categoria, Id_Categoria FROM Entorno WHERE Id_Subcategoria = @Id_Subcategoria", conn);
                 cmd.Parameters.AddWithValue("@Id_Subcategoria", id);
                 conn.Open();
-                using OleDbDataReader reader = cmd.ExecuteReader();
+                using SqlDataReader reader = cmd.ExecuteReader();
                 if (reader.Read())
                 {
                     Entorno subcategoria = new()
@@ -66,7 +66,7 @@ namespace Agraria.Repositorio.Repositorios
                     return Result<Entorno>.Success(subcategoria);
                 }
                 return Result<Entorno>.Failure("No se pudo encontrar el Entorno con el ID especificado.");
-            }catch(OleDbException ex)
+            }catch(SqlException ex)
             {
                 return Result<Entorno>.Failure("Error en la base de datos al obtener el Entorno: " + ex.Message);
             }
@@ -80,8 +80,8 @@ namespace Agraria.Repositorio.Repositorios
         {
             try
             {
-                using OleDbConnection conn = Conexion();
-                using OleDbCommand cmd = new("INSERT INTO Entorno (Sub_categoria, Id_Categoria) VALUES (@Sub_categoria, @Id_Categoria)", conn);
+                using SqlConnection conn = Conexion();
+                using SqlCommand cmd = new("INSERT INTO Entorno (Sub_categoria, Id_Categoria) VALUES (@Sub_categoria, @Id_Categoria)", conn);
                 cmd.Parameters.AddWithValue("@Sub_categoria", subcategoria.Entorno_nombre);
                 cmd.Parameters.AddWithValue("@Id_Categoria", subcategoria.Id_TipoEntorno);
                 conn.Open();
@@ -91,7 +91,7 @@ namespace Agraria.Repositorio.Repositorios
                     return Result<Entorno>.Success(subcategoria);
                 }
                 return Result<Entorno>.Failure("No se pudo agregar el Entorno.");
-            }catch (OleDbException ex)
+            }catch (SqlException ex)
             {
                 return Result<Entorno>.Failure("Error en la base de datos al agregar el Entorno: " + ex.Message);
             }
@@ -106,8 +106,8 @@ namespace Agraria.Repositorio.Repositorios
         {
             try
             {
-                using OleDbConnection conn = Conexion();
-                using OleDbCommand cmd = new("UPDATE Entorno SET Sub_categoria = @Sub_categoria, Id_Categoria = @Id_Categoria WHERE Id_Subcategoria = @Id_Subcategoria", conn);
+                using SqlConnection conn = Conexion();
+                using SqlCommand cmd = new("UPDATE Entorno SET Sub_categoria = @Sub_categoria, Id_Categoria = @Id_Categoria WHERE Id_Subcategoria = @Id_Subcategoria", conn);
                 cmd.Parameters.AddWithValue("@Sub_categoria", subcategoria.Entorno_nombre);
                 cmd.Parameters.AddWithValue("@Id_Categoria", subcategoria.Id_TipoEntorno);
                 cmd.Parameters.AddWithValue("@Id_Subcategoria", subcategoria.Id_Entorno);
@@ -118,7 +118,7 @@ namespace Agraria.Repositorio.Repositorios
                     return Result<Entorno>.Success(subcategoria);
                 }
                 return Result<Entorno>.Failure("No se pudo actualizar el Entorno.");
-            }catch (OleDbException ex)
+            }catch (SqlException ex)
             {
                 return Result<Entorno>.Failure("Error en la base de datos al actualizar el Entorno: " + ex.Message);
             }
@@ -132,8 +132,8 @@ namespace Agraria.Repositorio.Repositorios
         {
             try
             {
-                using OleDbConnection conn = Conexion();
-                using OleDbCommand cmd = new ("DELETE FROM Entorno WHERE Id_Subcategoria = @Id_Subcategoria", conn);
+                using SqlConnection conn = Conexion();
+                using SqlCommand cmd = new ("DELETE FROM Entorno WHERE Id_Subcategoria = @Id_Subcategoria", conn);
                 cmd.Parameters.AddWithValue("@Id_Subcategoria", id);
                 conn.Open();
                 int rowsAffected = cmd.ExecuteNonQuery();
@@ -142,7 +142,7 @@ namespace Agraria.Repositorio.Repositorios
                     return Result<bool>.Success(true);
                 }
                 return Result<bool>.Failure("No se pudo eliminar el Entorno.");
-            }catch (OleDbException ex)
+            }catch (SqlException ex)
             {
                 return Result<bool>.Failure("Error en la base de datos al eliminar el Entorno: " + ex.Message);
             }
@@ -156,8 +156,8 @@ namespace Agraria.Repositorio.Repositorios
         {
             try
             {
-                using OleDbConnection conn = Conexion();
-                using OleDbCommand cmd = new ("SELECT Id_Subcategoria, Sub_categoria, Id_Categoria FROM Entorno WHERE Id_Categoria = @Id_Categoria", conn);
+                using SqlConnection conn = Conexion();
+                using SqlCommand cmd = new ("SELECT Id_Subcategoria, Sub_categoria, Id_Categoria FROM Entorno WHERE Id_Categoria = @Id_Categoria", conn);
                 cmd.Parameters.AddWithValue("@Id_Categoria", idcategoria);
                 await conn.OpenAsync();
                 using DbDataReader reader = await cmd.ExecuteReaderAsync();
@@ -174,7 +174,7 @@ namespace Agraria.Repositorio.Repositorios
                 }
                 return Result<List<Entorno>>.Success(subcategorias);
             }
-            catch (OleDbException ex)
+            catch (SqlException ex)
             {
                 // Handle database exceptions and return an appropriate Result
                 return Result<List<Entorno>>.Failure("Error en la base de datos al obtener el Entorno: " + ex.Message);

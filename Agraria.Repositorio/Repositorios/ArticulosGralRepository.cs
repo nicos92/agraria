@@ -1,8 +1,9 @@
 using System;
 using System.Collections.Generic;
-using System.Data.OleDb;
+using Microsoft.Data.SqlClient;
 using System.Runtime.Versioning;
 using System.Threading.Tasks;
+using Microsoft.Data.SqlClient;
 using Agraria.Contrato.Repositorios;
 using Agraria.Modelo.Entidades;
 using Agraria.Utilidades;
@@ -17,7 +18,7 @@ namespace Agraria.Repositorio.Repositorios
             try
             {
                 using var conn = Conexion();
-                using var cmd = new OleDbCommand("INSERT INTO ArticulosGral (Art_Cod, Art_Nombre, Art_Uni_Med, Art_Precio, Art_Descripcion, Art_Stock) VALUES (@Art_Cod, @Art_Nombre, @Art_Uni_Med, @Art_Precio, @Art_Descripcion, @Art_Stock)", conn);
+                using var cmd = new SqlCommand("INSERT INTO ArticulosGral (Art_Cod, Art_Nombre, Art_Unidad_Medida, Art_Precio, Art_Descripcion, Art_Stock) VALUES (@Art_Cod, @Art_Nombre, @Art_Uni_Med, @Art_Precio, @Art_Descripcion, @Art_Stock)", conn);
 
                 cmd.Parameters.AddWithValue("@Art_Cod", articulo.Art_Cod ?? (object)DBNull.Value);
                 cmd.Parameters.AddWithValue("@Art_Nombre", articulo.Art_Nombre ?? (object)DBNull.Value);
@@ -38,7 +39,7 @@ namespace Agraria.Repositorio.Repositorios
                     return Result<ArticulosGral>.Failure("No se pudo agregar el artículo general.");
                 }
             }
-            catch (OleDbException ex)
+            catch (SqlException ex)
             {
                 return Result<ArticulosGral>.Failure($"Error al agregar el artículo general: {ex.Message}");
             }
@@ -49,7 +50,7 @@ namespace Agraria.Repositorio.Repositorios
             try
             {
                 using var conn = Conexion();
-                using var cmd = new OleDbCommand("DELETE FROM ArticulosGral WHERE Art_Id = @Art_Id", conn);
+                using var cmd = new SqlCommand("DELETE FROM ArticulosGral WHERE Art_Id = @Art_Id", conn);
                 cmd.Parameters.AddWithValue("@Art_Id", id);
                 conn.Open();
                 int deletes = cmd.ExecuteNonQuery();
@@ -62,7 +63,7 @@ namespace Agraria.Repositorio.Repositorios
                     return Result<bool>.Failure("No se pudo eliminar el artículo general.");
                 }
             }
-            catch (OleDbException ex)
+            catch (SqlException ex)
             {
                 return Result<bool>.Failure($"Error al eliminar el artículo general: {ex.Message}");
             }
@@ -74,26 +75,26 @@ namespace Agraria.Repositorio.Repositorios
             {
                 List<ArticulosGral> articulos = [];
                 using var conn = Conexion();
-                using var cmd = new OleDbCommand("SELECT Art_Id, Art_Cod, Art_Nombre, Art_Unidad_Media, Art_Precio, Art_Descripcion, Art_Stock FROM ArticulosGral", conn);
+                using var cmd = new SqlCommand("SELECT Art_Id, Art_Cod, Art_Nombre, Art_Unidad_Medida, Art_Precio, Art_Descripcion, Art_Stock FROM ArticulosGral", conn);
                 await conn.OpenAsync();
                 using var reader = await cmd.ExecuteReaderAsync();
                 while (await reader.ReadAsync())
                 {
-                    ArticulosGral articulo = new ArticulosGral
+                    ArticulosGral articulo = new ()
                     {
                         Art_Id = reader.GetInt32(0),
-                        Art_Cod = reader.IsDBNull(1) ? null : reader.GetString(1),
-                        Art_Nombre = reader.IsDBNull(2) ? null : reader.GetString(2),
-                        Art_Uni_Med = reader.IsDBNull(3) ? null : reader.GetString(3),
+                        Art_Cod = reader.GetString(1),
+                        Art_Nombre = reader.GetString(2),
+                        Art_Uni_Med = reader.GetString(3),
                         Art_Precio = reader.GetDecimal(4),
-                        Art_Descripcion = reader.IsDBNull(5) ? null : reader.GetString(5),
+                        Art_Descripcion = reader.GetString(5),
                         Art_Stock = reader.GetInt32(6)
                     };
                     articulos.Add(articulo);
                 }
                 return Result<List<ArticulosGral>>.Success(articulos);
             }
-            catch (OleDbException ex)
+            catch (SqlException ex)
             {
                 return Result<List<ArticulosGral>>.Failure($"Error al obtener los artículos generales: {ex.Message}");
             }
@@ -104,13 +105,13 @@ namespace Agraria.Repositorio.Repositorios
             try
             {
                 using var conn = Conexion();
-                using var cmd = new OleDbCommand("SELECT Art_Id, Art_Cod, Art_Nombre, Art_Uni_Med, Art_Precio, Art_Descripcion, Art_Stock FROM ArticulosGral WHERE Art_Id = @Art_Id", conn);
+                using var cmd = new SqlCommand("SELECT Art_Id, Art_Cod, Art_Nombre, Art_Unidad_Medida, Art_Precio, Art_Descripcion, Art_Stock FROM ArticulosGral WHERE Art_Id = @Art_Id", conn);
                 cmd.Parameters.AddWithValue("@Art_Id", id);
                 conn.Open();
                 using var reader = cmd.ExecuteReader();
                 if (reader.Read())
                 {
-                    ArticulosGral articulo = new ArticulosGral
+                    ArticulosGral articulo = new()
                     {
                         Art_Id = reader.GetInt32(0),
                         Art_Cod = reader.IsDBNull(1) ? null : reader.GetString(1),
@@ -124,7 +125,7 @@ namespace Agraria.Repositorio.Repositorios
                 }
                 return Result<ArticulosGral>.Failure("No se pudo obtener el artículo general");
             }
-            catch (OleDbException ex)
+            catch (SqlException ex)
             {
                 return Result<ArticulosGral>.Failure($"Error al obtener artículo general: {ex.Message}");
             }
@@ -135,7 +136,7 @@ namespace Agraria.Repositorio.Repositorios
             try
             {
                 using var conn = Conexion();
-                using var cmd = new OleDbCommand("SELECT MAX(Art_Cod) FROM ArticulosGral", conn);
+                using var cmd = new SqlCommand("SELECT MAX(Art_Cod) FROM ArticulosGral", conn);
                 await conn.OpenAsync();
                 using var reader = await cmd.ExecuteReaderAsync();
                 if (await reader.ReadAsync())
@@ -152,7 +153,7 @@ namespace Agraria.Repositorio.Repositorios
                 }
                 return Result<int>.Failure("No se pudo obtener el último código de los artículos generales");
             }
-            catch (OleDbException ex)
+            catch (SqlException ex)
             {
                 return Result<int>.Failure($"Error en la base de datos al obtener el último código de los artículos generales: {ex.Message}");
             }
@@ -167,7 +168,7 @@ namespace Agraria.Repositorio.Repositorios
             try
             {
                 using var conn = Conexion();
-                using var cmd = new OleDbCommand("UPDATE ArticulosGral SET Art_Cod=@Art_Cod, Art_Nombre=@Art_Nombre, Art_Uni_Med=@Art_Uni_Med, Art_Precio=@Art_Precio, Art_Descripcion=@Art_Descripcion, Art_Stock=@Art_Stock WHERE Art_Id = @Art_Id", conn);
+                using var cmd = new SqlCommand("UPDATE ArticulosGral SET Art_Cod=@Art_Cod, Art_Nombre=@Art_Nombre, Art_Unidad_Medida=@Art_Uni_Med, Art_Precio=@Art_Precio, Art_Descripcion=@Art_Descripcion, Art_Stock=@Art_Stock WHERE Art_Id = @Art_Id", conn);
                 cmd.Parameters.AddWithValue("@Art_Cod", articulo.Art_Cod ?? (object)DBNull.Value);
                 cmd.Parameters.AddWithValue("@Art_Nombre", articulo.Art_Nombre ?? (object)DBNull.Value);
                 cmd.Parameters.AddWithValue("@Art_Uni_Med", articulo.Art_Uni_Med ?? (object)DBNull.Value);
@@ -182,7 +183,7 @@ namespace Agraria.Repositorio.Repositorios
                 }
                 return Result<ArticulosGral>.Failure("No se actualizó el artículo general");
             }
-            catch (OleDbException ex)
+            catch (SqlException ex)
             {
                 return Result<ArticulosGral>.Failure($"Error al actualizar el artículo general: {ex.Message}");
             }

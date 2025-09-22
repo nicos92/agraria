@@ -9,6 +9,7 @@ namespace Agraria.Modelo.Entidades
     public class HRemitoProduccion
     {
         public int Id_Remito { get; set; }
+        public string? Descripcion { get; set; }
         public int Cod_Usuario { get; set; }
         public DateTime Fecha_Hora { get; set; }
         public decimal Subtotal { get; set; }
