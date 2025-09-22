@@ -18,7 +18,6 @@
   <ItemGroup>
     <EmbeddedResource Remove="Form1.resx" />
     <EmbeddedResource Remove="Proveedores\ucConsultaProveedores.resx" />
-    <EmbeddedResource Remove="Usuarios\FormUsuarios.resx" />
     <EmbeddedResource Remove="Usuarios\ucConsultaUsuarios.resx" />
   </ItemGroup>
 

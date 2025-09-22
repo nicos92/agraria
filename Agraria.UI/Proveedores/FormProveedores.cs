@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Agraria.UI.Usuarios;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Agraria.UI.Proveedores
@@ -17,26 +18,14 @@ namespace Agraria.UI.Proveedores
         private readonly IServiceProvider _serviceProvider;
 
         /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="FormProveedores"/>.
+        /// Inicializa una nueva instancia de la clase <see cref="FormUsuarios"/>.
         /// </summary>
         /// <param name="serviceProvider">El proveedor de servicios para la inyección de dependencias.</param>
         public FormProveedores(IServiceProvider serviceProvider)
         {
-
             _serviceProvider = serviceProvider;
             InitializeComponent();
             _btnActual = BtnOpcionIngresar; // Inicializar con el botón de Ingresar
-        }
-
-        /// <summary>
-        /// Maneja el evento de carga del formulario.
-        /// </summary>
-        /// <param name="sender">El objeto que generó el evento.</param>
-        /// <param name="e">Los datos del evento.</param>
-        private void FormProveedores_Load(object sender, EventArgs e)
-        {
-            ConFigBtns();
-
         }
 
         /// <summary>
@@ -63,8 +52,8 @@ namespace Agraria.UI.Proveedores
         /// </summary>
         private void ConFigBtns()
         {
-            BtnOpcionIngresar.Tag = typeof(UCIngresoProveedores);
-            BtnOpcionEditar.Tag = typeof(UCConsultaProveedor);
+            BtnOpcionIngresar.Tag = typeof(UCIngresoUsuarios);
+            BtnOpcionEditar.Tag = typeof(USConsultaUsuario);
         }
 
         /// <summary>
@@ -79,27 +68,38 @@ namespace Agraria.UI.Proveedores
             {
                 return;
             }
+
             Utilidades.Util.CambioColorBtnsUC(_btnActual, btn);
 
-            // Solución: Verificar que btn.Tag no sea nulo antes de llamar a SeleccionarUC
-            if (btn.Tag is Type tipoForm)
-            {
-                SeleccionarUC(tipoForm);
-            }
+
+            ValidarTag(btn);
             _btnActual = btn;
         }
 
-        
-
         /// <summary>
-        /// Maneja el evento de activación del formulario.
+        /// Maneja el evento de carga del formulario.
         /// </summary>
         /// <param name="sender">El objeto que generó el evento.</param>
         /// <param name="e">Los datos del evento.</param>
-        private void FormProveedores_Activated(object sender, EventArgs e)
+        private void FormProveedores_Load(object sender, EventArgs e)
         {
-            SeleccionarUC(typeof(UCIngresoProveedores));
+            ConFigBtns();
 
+            ValidarTag(_btnActual);
+
+        }
+
+        /// <summary>
+        /// Valida el tag de un botón y muestra el control de usuario correspondiente.
+        /// </summary>
+        /// <param name="btn">El botón a validar.</param>
+        private void ValidarTag(Button btn)
+        {
+            if (btn.Tag is Type type)
+            {
+
+                SeleccionarUC(type);
+            }
         }
     }
 }

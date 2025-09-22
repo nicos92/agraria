@@ -126,7 +126,6 @@ namespace Agraria.UI.Proveedores
             FormBorderStyle = FormBorderStyle.None;
             Name = "FormProveedores";
             Text = "FormProveedores";
-            Activated += FormProveedores_Activated;
             Load += FormProveedores_Load;
             PanelOpcion.ResumeLayout(false);
             tableLayoutPanel2.ResumeLayout(false);
