@@ -55,17 +55,32 @@ namespace Agraria.UI.EntornoFormativo
 
         #region Eventos
 
-        private async void UCConsultaEntornoFormativo_Load(object sender, EventArgs e)
+        private void UCConsultaEntornoFormativo_Load(object sender, EventArgs e)
         {
-
             ConfigurarDGV();
-            await Task.WhenAll(
-                CargaInicial(),
-                CargarGrilla()
-                );
+            TareasLargas tareasLargas = new TareasLargas(TLPForm, ProgressBar, CargaDeDatos, LLenarCMBGrilla);
+            tareasLargas.Iniciar();
 
+            //CargarDGVEntornosFormativos();
 
+            //CargarCMBs();
+            //LimpiarFormulario();
+        }
+
+        private void LLenarCMBGrilla()
+        {
+            CargarDGVEntornosFormativos();
+
+            CargarCMBs();
             LimpiarFormulario();
+        }
+
+        private async Task CargaDeDatos()
+        {
+            await Task.WhenAll(
+                            CargaInicial(),
+                            CargarGrilla()
+                            );
         }
 
         private async void DgvEntornosFormativos_SelectionChanged(object sender, EventArgs e)
@@ -141,7 +156,7 @@ namespace Agraria.UI.EntornoFormativo
                 CargarTiposEntorno(),
                 CargarUsuarios()
             );
-            CargarCMBs();
+            
         }
 
         private async Task CargarGrilla()
@@ -150,9 +165,6 @@ namespace Agraria.UI.EntornoFormativo
             if (resultado.IsSuccess)
             {
                 _listaEntornosFormativos = resultado.Value;
-                DgvEntornosFormativos.DataSource = null;
-
-                DgvEntornosFormativos.DataSource = _listaEntornosFormativos;
             }
             else
             {
@@ -160,8 +172,12 @@ namespace Agraria.UI.EntornoFormativo
             }
         }
 
+        private void CargarDGVEntornosFormativos()
+        {
+            DgvEntornosFormativos.DataSource = null;
 
-
+            DgvEntornosFormativos.DataSource = _listaEntornosFormativos;
+        }
 
         private void ConfigurarDGV()
         {
@@ -328,18 +344,13 @@ namespace Agraria.UI.EntornoFormativo
 
         #endregion
 
-        private async void UCConsultaEntornoFormativo_VisibleChanged(object sender, EventArgs e)
+        private void UCConsultaEntornoFormativo_VisibleChanged(object sender, EventArgs e)
         {
             if (Visible)
             {
-                ConfigurarDGV();
-                await Task.WhenAll(
-                    CargaInicial(),
-                    CargarGrilla()
-                    );
+                TareasLargas tareasLargas = new TareasLargas(TLPForm, ProgressBar, CargaDeDatos, LLenarCMBGrilla);
+                tareasLargas.Iniciar();
 
-
-                LimpiarFormulario();
             }
         }
     }
