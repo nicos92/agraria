@@ -3,6 +3,7 @@ using Agraria.Modelo.Entidades;
 using Agraria.UI.Properties;
 using Agraria.Util.Validaciones;
 using Agraria.Utilidades;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -15,6 +16,7 @@ namespace Agraria.UI.EntornoFormativo
     {
         #region Servicios y Campos
 
+        private readonly ILogger<UCIngresoEntornoFormativo> _logger;
         private readonly ITipoEntornosService _tipoEntornoService;
         private readonly IEntornoService _entornoService;
         private readonly IUsuariosService _usuarioService;
@@ -34,10 +36,11 @@ namespace Agraria.UI.EntornoFormativo
 
         #region Constructor
 
-        public UCIngresoEntornoFormativo(ITipoEntornosService tipoEntornoService, IEntornoService entornoService, IUsuariosService usuarioService, IEntornoFormativoService entornoFormativoService)
+        public UCIngresoEntornoFormativo(ITipoEntornosService tipoEntornoService, IEntornoService entornoService, IUsuariosService usuarioService, IEntornoFormativoService entornoFormativoService, ILogger<UCIngresoEntornoFormativo> logger)
         {
             InitializeComponent();
 
+            _logger = logger;
             _tipoEntornoService = tipoEntornoService;
             _entornoService = entornoService;
             _usuarioService = usuarioService;
@@ -53,6 +56,8 @@ namespace Agraria.UI.EntornoFormativo
             
             // Initialize Activo checkbox to true by default
             ChkActivo.Checked = true;
+            
+            _logger.LogInformation("UCIngresoEntornoFormativo inicializado.");
         }
 
         #endregion
@@ -61,6 +66,7 @@ namespace Agraria.UI.EntornoFormativo
 
         private void UCIngresoEntornoFormativo_Load(object sender, EventArgs e)
         {            
+            _logger.LogInformation("UCIngresoEntornoFormativo cargado.");
             // Iniciar la carga inicial con barra de progreso
             _tareaLarga = new TareasLargas(PanelMedio, ProgressBar, CargaInicialControles, LimpiarFormulario);
             
@@ -69,6 +75,7 @@ namespace Agraria.UI.EntornoFormativo
 
         private async void CMBCategoria_SelectedIndexChanged(object sender, EventArgs e)
         {
+            _logger.LogInformation("Cambio de selección en ComboBox de categoría.");
             if (CMBTipoEntorno.SelectedItem is TipoEntorno tipoEntorno)
             {
                 await CargarEntornos(tipoEntorno.Id_Tipo_Entorno);
@@ -77,9 +84,18 @@ namespace Agraria.UI.EntornoFormativo
 
         private void BtnIngresar_Click(object sender, EventArgs e)
         {
-            if (!ValidarCampos()) return;
+            _logger.LogInformation("Botón Ingresar clickeado.");
+            if (!ValidarCampos()) 
+            {
+                _logger.LogWarning("Validación de campos fallida.");
+                return;
+            }
             DialogResult dialogResult = MessageBox.Show("¿Estas de Acuerdo en Ingresar el Entorno Formativo?", "Ingreso Entorno Formativo", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
-            if (dialogResult != DialogResult.OK) return;
+            if (dialogResult != DialogResult.OK) 
+            {
+                _logger.LogInformation("Operación cancelada por el usuario.");
+                return;
+            }
 
             if (CMBEntorno.SelectedValue is int identorno && CMBUsuario.SelectedValue is int idusuario)
             {
@@ -100,16 +116,19 @@ namespace Agraria.UI.EntornoFormativo
 
                 
                     // Inserción
+                    _logger.LogInformation("Intentando agregar nuevo entorno formativo.");
                     resultado = _entornoFormativoService.Add(entornoFormativo);
                 
 
                 if (resultado.IsSuccess)
                 {
+                    _logger.LogInformation("Entorno formativo agregado exitosamente.");
                     MessageBox.Show("Operación realizada con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     LimpiarFormulario();
                 }
                 else
                 {
+                    _logger.LogError("Error al agregar entorno formativo: {ErrorMessage}", resultado.Error);
                     MessageBox.Show(resultado.Error, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
@@ -123,6 +142,7 @@ namespace Agraria.UI.EntornoFormativo
 
         public void LimpiarFormulario()
         {
+            _logger.LogInformation("Limpiando formulario.");
             _entornoFormativoActual = null;
             TxtCursoAnio.Clear();
             TxtCursoDivision.Clear();
@@ -158,6 +178,7 @@ namespace Agraria.UI.EntornoFormativo
 
         private void CargaInicialControles()
         {
+            _logger.LogInformation("Iniciando carga inicial de controles.");
             // Ejecutar las tareas de carga de forma paralela
             var tareaTipoEntornos = CargarTipoEntornos();
             var tareaUsuarios = CargarUsuarios();
@@ -169,10 +190,12 @@ namespace Agraria.UI.EntornoFormativo
             Invoke((MethodInvoker)delegate {
                 CargarCMBs();
             });
+            _logger.LogInformation("Carga inicial de controles completada.");
         }
 
         private void CargarCMBs()
         {
+            _logger.LogInformation("Cargando ComboBoxes.");
             CMBUsuario.DataSource = _listaUsuarios;
             CMBUsuario.DisplayMember = "Dato"; 
             CMBUsuario.ValueMember = "Id_Usuario";
@@ -194,33 +217,59 @@ namespace Agraria.UI.EntornoFormativo
                 var task = CargarEntornos(defaultTipoEntorno.Id_Tipo_Entorno);
                 task.Wait(); // Wait for the task to complete
             }
+            _logger.LogInformation("ComboBoxes cargados exitosamente.");
         }
 
         private async Task CargarUsuarios()
         {
+            _logger.LogInformation("Cargando usuarios.");
             var result = await _usuarioService.GetAll();
-            if (result.IsSuccess) _listaUsuarios = result.Value;
+            if (result.IsSuccess) 
+            {
+                _listaUsuarios = result.Value;
+                _logger.LogInformation("Usuarios cargados exitosamente. Total: {Count}", _listaUsuarios.Count);
+            }
+            else
+            {
+                _logger.LogError("Error al cargar usuarios: {ErrorMessage}", result.Error);
+            }
         }
 
         private async Task CargarTipoEntornos()
         {
+            _logger.LogInformation("Cargando tipos de entorno.");
             var result = await _tipoEntornoService.GetAll();
-            if (result.IsSuccess) _listaTipoEntorno = result.Value;
+            if (result.IsSuccess) 
+            {
+                _listaTipoEntorno = result.Value;
+                _logger.LogInformation("Tipos de entorno cargados exitosamente. Total: {Count}", _listaTipoEntorno.Count);
+            }
+            else
+            {
+                _logger.LogError("Error al cargar tipos de entorno: {ErrorMessage}", result.Error);
+            }
         }
 
         private async Task CargarEntornos(int idTipoEntorno)
         {
+            _logger.LogInformation("Cargando entornos para tipo de entorno ID: {IdTipoEntorno}", idTipoEntorno);
             var result = await _entornoService.GetAllxEntorno(idTipoEntorno);
             if (result.IsSuccess)
             {
                 CMBEntorno.DataSource = result.Value;
                 CMBEntorno.DisplayMember = "Entorno_Nombre"; // Asumiendo esta propiedad
                 CMBEntorno.ValueMember = "Id_Entorno";
+                _logger.LogInformation("Entornos cargados exitosamente para tipo de entorno ID: {IdTipoEntorno}. Total: {Count}", idTipoEntorno, result.Value.Count);
+            }
+            else
+            {
+                _logger.LogError("Error al cargar entornos para tipo de entorno ID: {IdTipoEntorno}. Error: {ErrorMessage}", idTipoEntorno, result.Error);
             }
         }
 
         private bool ValidarCampos()
         {
+            _logger.LogDebug("Validando campos del formulario.");
             // Habilitar el botón si todos los campos requeridos tienen texto.
             bool camposDeTextoValidos = !string.IsNullOrWhiteSpace(TxtCursoAnio.Text) &&
                                         !string.IsNullOrWhiteSpace(TxtCursoDivision.Text) &&
@@ -232,10 +281,12 @@ namespace Agraria.UI.EntornoFormativo
 
             if (!camposDeTextoValidos || !combosValidos)
             {
+                _logger.LogWarning("Validación de campos fallida. Campos de texto válidos: {CamposDeTextoValidos}, Combos válidos: {CombosValidos}", camposDeTextoValidos, combosValidos);
                 MessageBox.Show("Por favor, complete todos los campos.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;
             }
 
+            _logger.LogDebug("Validación de campos exitosa.");
             return true;
         }
 

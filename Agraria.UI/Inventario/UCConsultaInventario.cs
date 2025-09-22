@@ -297,7 +297,7 @@ namespace Agraria.UI.Inventario
         {
             // TODO: Implementar la lógica para cargar ArticulosGral desde la base de datos
             // Esta implementación es un placeholder ya que no hay un servicio específico para ArticulosGral
-            _listaArticulos = new List<ArticulosGral>();
+            _listaArticulos = [];
             
             /*
             var resultado = await _articulosService.GetAll();
