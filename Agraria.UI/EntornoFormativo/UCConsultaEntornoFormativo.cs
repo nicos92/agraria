@@ -8,6 +8,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.ComponentModel;
+using Agraria.Util.Validaciones;
 
 namespace Agraria.UI.EntornoFormativo
 {
@@ -25,7 +26,14 @@ namespace Agraria.UI.EntornoFormativo
         private List<TipoEntorno> _listaTipoEntorno;
         private List<Modelo.Entidades.Usuarios> _listaUsuarios;
         private List<Modelo.Entidades.EntornoFormativo> _listaEntornosFormativos;
-        private Modelo.Entidades.EntornoFormativo _entornoFormativoSeleccionado;
+        private Modelo.Entidades.EntornoFormativo? _entornoFormativoSeleccionado;
+
+        private readonly ValidadorTextBox _vTxtCursoAnio;
+        private readonly ValidadorTextBox _vTxtCursoDivision;
+        private readonly ValidadorTextBox _vTxtCursoGrupo;
+        private readonly ValidadorTextBox _vTxtObservacion;
+
+
 
         #endregion
 
@@ -47,6 +55,11 @@ namespace Agraria.UI.EntornoFormativo
             _listaTipoEntorno = [];
             _listaUsuarios = [];
             _listaEntornosFormativos = [];
+
+            _vTxtCursoAnio = new ValidadorDireccion(TxtCursoAnio, new ErrorProvider()) { MensajeError = "El curso/año no puede estar vacío y debe tener entre 1 y 10 caracteres." };
+            _vTxtCursoDivision = new ValidadorDireccion(TxtCursoDivision, new ErrorProvider()) { MensajeError = "La división no puede estar vacía y debe tener entre 1 y 10 caracteres." };
+            _vTxtCursoGrupo = new ValidadorDireccion(TxtCursoGrupo, new ErrorProvider()) { MensajeError = "El grupo no puede estar vacío y debe tener entre 1 y 10 caracteres." };
+            _vTxtObservacion = new ValidadorDireccion(TxtObservacion, new ErrorProvider()) { MensajeError = "La observación no puede estar vacía y debe tener entre 1 y 255 caracteres." };
 
 
         }
@@ -113,37 +126,57 @@ namespace Agraria.UI.EntornoFormativo
         {
             if (!ValidarCampos()) return;
 
-            var entornoFormativo = new Modelo.Entidades.EntornoFormativo
+            if (CMBEntorno.SelectedValue is int identorno && CMBUsuario.SelectedValue is int idusuario)
             {
-                Id_Entorno = (int)CMBEntorno.SelectedValue,
-                Id_Usuario = (int)CMBUsuario.SelectedValue,
-                Curso_anio = TxtCursoAnio.Text,
-                Curso_Division = TxtCursoDivision.Text,
-                Curso_Grupo = TxtCursoGrupo.Text,
-                Observaciones = TxtObservacion.Text,
-                Activo = ChkActivo.Checked
-            };
-
-            Result<Modelo.Entidades.EntornoFormativo> resultado;
-
-            if (_entornoFormativoSeleccionado != null && _entornoFormativoSeleccionado.Id_Entorno_Formativo != 0)
-            {
-                entornoFormativo.Id_Entorno_Formativo = _entornoFormativoSeleccionado.Id_Entorno_Formativo;
-                resultado = await _entornoFormativoService.Update(entornoFormativo);
 
 
-
-                if (resultado.IsSuccess)
+                var entornoFormativo = new Modelo.Entidades.EntornoFormativo
                 {
-                    MessageBox.Show("Operación realizada con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    await CargarGrilla();
-                    LimpiarFormulario();
-                }
-                else
+                    Id_Entorno = identorno,
+                    Id_Usuario = idusuario,
+                    Curso_anio = TxtCursoAnio.Text,
+                    Curso_Division = TxtCursoDivision.Text,
+                    Curso_Grupo = TxtCursoGrupo.Text,
+                    Observaciones = TxtObservacion.Text,
+                    Activo = ChkActivo.Checked
+                };
+
+                Result<Modelo.Entidades.EntornoFormativo> resultado;
+
+                if (_entornoFormativoSeleccionado != null && _entornoFormativoSeleccionado.Id_Entorno_Formativo != 0)
                 {
-                    MessageBox.Show(resultado.Error, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    entornoFormativo.Id_Entorno_Formativo = _entornoFormativoSeleccionado.Id_Entorno_Formativo;
+                    resultado = await _entornoFormativoService.Update(entornoFormativo);
+
+
+
+                    if (resultado.IsSuccess)
+                    {
+                        MessageBox.Show("Operación realizada con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        await CargarGrilla();
+                        LimpiarFormulario();
+                    }
+                    else
+                    {
+                        MessageBox.Show(resultado.Error, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
             }
+        }
+
+        private void UCConsultaEntornoFormativo_VisibleChanged(object sender, EventArgs e)
+        {
+            if (Visible)
+            {
+                TareasLargas tareasLargas = new TareasLargas(TLPForm, ProgressBar, CargaDeDatos, LLenarCMBGrilla);
+                tareasLargas.Iniciar();
+
+            }
+        }
+
+        private void TxtCursoAnio_TextChanged(object sender, EventArgs e)
+        {
+            ValidadorMultiple.ValidacionMultiple(BtnGuardar, _vTxtCursoAnio, _vTxtCursoDivision, _vTxtCursoGrupo, _vTxtObservacion);
         }
 
         #endregion
@@ -156,7 +189,7 @@ namespace Agraria.UI.EntornoFormativo
                 CargarTiposEntorno(),
                 CargarUsuarios()
             );
-            
+
         }
 
         private async Task CargarGrilla()
@@ -333,7 +366,7 @@ namespace Agraria.UI.EntornoFormativo
             if (CMBTipoEntorno.SelectedValue == null || CMBEntorno.SelectedValue == null || CMBUsuario.SelectedValue == null ||
                 string.IsNullOrWhiteSpace(TxtCursoAnio.Text) ||
                 string.IsNullOrWhiteSpace(TxtCursoDivision.Text) ||
-                string.IsNullOrWhiteSpace(TxtCursoGrupo.Text) || 
+                string.IsNullOrWhiteSpace(TxtCursoGrupo.Text) ||
               string.IsNullOrWhiteSpace(TxtObservacion.Text))
             {
                 MessageBox.Show("Por favor, complete todos los campos obligatorios.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -344,14 +377,6 @@ namespace Agraria.UI.EntornoFormativo
 
         #endregion
 
-        private void UCConsultaEntornoFormativo_VisibleChanged(object sender, EventArgs e)
-        {
-            if (Visible)
-            {
-                TareasLargas tareasLargas = new TareasLargas(TLPForm, ProgressBar, CargaDeDatos, LLenarCMBGrilla);
-                tareasLargas.Iniciar();
-
-            }
-        }
+      
     }
 }

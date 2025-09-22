@@ -1,12 +1,13 @@
 using Agraria.Contrato.Servicios;
 using Agraria.Modelo.Entidades;
+using Agraria.UI.Properties;
+using Agraria.Util.Validaciones;
 using Agraria.Utilidades;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Agraria.UI.Properties;
-using System.ComponentModel;
 
 namespace Agraria.UI.EntornoFormativo
 {
@@ -24,6 +25,11 @@ namespace Agraria.UI.EntornoFormativo
         private Modelo.Entidades.EntornoFormativo? _entornoFormativoActual;
         private TareasLargas? _tareaLarga;
 
+        private readonly ValidadorTextBox _vTxtCursoAnio;
+        private readonly ValidadorTextBox _vTxtCursoDivision;
+        private readonly ValidadorTextBox _vTxtCursoGrupo;
+        private readonly ValidadorTextBox _vTxtObservacion;
+
         #endregion
 
         #region Constructor
@@ -36,6 +42,11 @@ namespace Agraria.UI.EntornoFormativo
             _entornoService = entornoService;
             _usuarioService = usuarioService;
             _entornoFormativoService = entornoFormativoService;
+
+            _vTxtCursoAnio = new ValidadorDireccion(TxtCursoAnio, new ErrorProvider()) { MensajeError = "El curso/año no puede estar vacío y debe tener entre 1 y 10 caracteres." };
+            _vTxtCursoDivision = new ValidadorDireccion(TxtCursoDivision, new ErrorProvider()) { MensajeError = "La división no puede estar vacía y debe tener entre 1 y 10 caracteres." };
+            _vTxtCursoGrupo = new ValidadorDireccion(TxtCursoGrupo, new ErrorProvider()) { MensajeError = "El grupo no puede estar vacío y debe tener entre 1 y 10 caracteres." };
+            _vTxtObservacion = new ValidadorDireccion(TxtObservacion, new ErrorProvider()) { MensajeError = "La observación no puede estar vacía y debe tener entre 1 y 255 caracteres." };
 
             // Cambiar el nombre del botón en el diseñador si es necesario, o aquí:
             BtnIngresar.Text = "GUARDAR";
@@ -232,13 +243,8 @@ namespace Agraria.UI.EntornoFormativo
 
         private void TxtDescripcion_TextChanged(object sender, EventArgs e)
         {
-            // Habilitar el botón dinámicamente
-            BtnIngresar.Enabled = !string.IsNullOrWhiteSpace(TxtCursoAnio.Text) &&
-                                !string.IsNullOrWhiteSpace(TxtCursoDivision.Text) &&
-                                !string.IsNullOrWhiteSpace(TxtCursoGrupo.Text) &&
-                                CMBTipoEntorno.SelectedValue != null &&
-                                CMBEntorno.SelectedValue != null &&
-                                CMBUsuario.SelectedValue != null;
+            ValidadorMultiple.ValidacionMultiple(BtnIngresar, _vTxtCursoAnio, _vTxtCursoDivision, _vTxtCursoGrupo, _vTxtObservacion);
+            
         }
 
        

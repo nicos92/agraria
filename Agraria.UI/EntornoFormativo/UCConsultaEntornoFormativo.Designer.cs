@@ -308,6 +308,7 @@ namespace Agraria.UI.EntornoFormativo
             TxtCursoAnio.Name = "TxtCursoAnio";
             TxtCursoAnio.Size = new Size(257, 29);
             TxtCursoAnio.TabIndex = 14;
+            TxtCursoAnio.TextChanged += TxtCursoAnio_TextChanged;
             // 
             // label2
             // 
@@ -331,6 +332,7 @@ namespace Agraria.UI.EntornoFormativo
             TxtCursoDivision.Name = "TxtCursoDivision";
             TxtCursoDivision.Size = new Size(257, 29);
             TxtCursoDivision.TabIndex = 15;
+            TxtCursoDivision.TextChanged += TxtCursoAnio_TextChanged;
             // 
             // label3
             // 
@@ -354,6 +356,7 @@ namespace Agraria.UI.EntornoFormativo
             TxtCursoGrupo.Name = "TxtCursoGrupo";
             TxtCursoGrupo.Size = new Size(257, 29);
             TxtCursoGrupo.TabIndex = 16;
+            TxtCursoGrupo.TextChanged += TxtCursoAnio_TextChanged;
             // 
             // LblCuit
             // 
@@ -378,6 +381,7 @@ namespace Agraria.UI.EntornoFormativo
             TxtObservacion.Name = "TxtObservacion";
             TxtObservacion.Size = new Size(257, 101);
             TxtObservacion.TabIndex = 17;
+            TxtObservacion.TextChanged += TxtCursoAnio_TextChanged;
             // 
             // flowLayoutPanel1
             // 
