@@ -20,8 +20,8 @@ namespace Agraria.UI.EntornoFormativo
         private readonly IUsuariosService _usuarioService;
         private readonly IEntornoFormativoService _entornoFormativoService;
 
-        private List<TipoEntorno> _listaTipoEntorno = new List<TipoEntorno>();
-        private List<Modelo.Entidades.Usuarios> _listaUsuarios = new List<Modelo.Entidades.Usuarios>();
+        private List<TipoEntorno> _listaTipoEntorno = [];
+        private List<Modelo.Entidades.Usuarios> _listaUsuarios = [];
         private Modelo.Entidades.EntornoFormativo? _entornoFormativoActual;
         private TareasLargas? _tareaLarga;
 
@@ -75,45 +75,43 @@ namespace Agraria.UI.EntornoFormativo
             }
         }
 
-        private async void BtnIngresar_Click(object sender, EventArgs e)
+        private void BtnIngresar_Click(object sender, EventArgs e)
         {
             if (!ValidarCampos()) return;
             DialogResult dialogResult = MessageBox.Show("¿Estas de Acuerdo en Ingresar el Entorno Formativo?", "Ingreso Entorno Formativo", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
             if (dialogResult != DialogResult.OK) return;
 
-            var entornoFormativo = new Modelo.Entidades.EntornoFormativo
+            if (CMBEntorno.SelectedValue is int identorno && CMBUsuario.SelectedValue is int idusuario)
             {
-                Id_Entorno = (int)CMBEntorno.SelectedValue,
-                Id_Usuario = (int)CMBUsuario.SelectedValue,
-                Curso_anio = TxtCursoAnio.Text,
-                Curso_Division = TxtCursoDivision.Text,
-                Curso_Grupo = TxtCursoGrupo.Text,
-                Observaciones = TxtObservacion.Text,
-                Activo = ChkActivo.Checked
-            };
 
-            Result<Modelo.Entidades.EntornoFormativo> resultado;
 
-            if (_entornoFormativoActual != null && _entornoFormativoActual.Id_Entorno_Formativo != 0)
-            {
-                // Actualización
-                entornoFormativo.Id_Entorno_Formativo = _entornoFormativoActual.Id_Entorno_Formativo;
-                resultado = await _entornoFormativoService.Update(entornoFormativo);
-            }
-            else
-            {
-                // Inserción
-                resultado = _entornoFormativoService.Add(entornoFormativo);
-            }
+                var entornoFormativo = new Modelo.Entidades.EntornoFormativo
+                {
+                    Id_Entorno = identorno,
+                    Id_Usuario = idusuario,
+                    Curso_anio = TxtCursoAnio.Text,
+                    Curso_Division = TxtCursoDivision.Text,
+                    Curso_Grupo = TxtCursoGrupo.Text,
+                    Observaciones = TxtObservacion.Text,
+                    Activo = ChkActivo.Checked
+                };
 
-            if (resultado.IsSuccess)
-            {
-                MessageBox.Show("Operación realizada con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                LimpiarFormulario();
-            }
-            else
-            {
-                MessageBox.Show(resultado.Error, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Result<Modelo.Entidades.EntornoFormativo> resultado;
+
+                
+                    // Inserción
+                    resultado = _entornoFormativoService.Add(entornoFormativo);
+                
+
+                if (resultado.IsSuccess)
+                {
+                    MessageBox.Show("Operación realizada con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    LimpiarFormulario();
+                }
+                else
+                {
+                    MessageBox.Show(resultado.Error, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
 

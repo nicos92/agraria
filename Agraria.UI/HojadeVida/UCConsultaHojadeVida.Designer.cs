@@ -521,7 +521,6 @@ namespace Agraria.UI.HojadeVida
         private TextBox TxtEstadoSalud;
         private TextBox TxtObservaciones;
         private CheckBox ChkActivo;
-        private Label label8;
         private TableLayoutPanel tableLayoutPanel2;
         private Button BtnGuardar;
         private Button BtnEliminar;

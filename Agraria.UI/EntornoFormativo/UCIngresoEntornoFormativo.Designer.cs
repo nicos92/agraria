@@ -221,10 +221,10 @@
             TxtCursoAnio.Font = new Font("Segoe UI", 12F);
             TxtCursoAnio.ForeColor = Color.FromArgb(26, 28, 30);
             TxtCursoAnio.Location = new Point(140, 118);
-            TxtCursoAnio.MaxLength = 14;
+            TxtCursoAnio.MaxLength = 10;
             TxtCursoAnio.Name = "TxtCursoAnio";
             TxtCursoAnio.Size = new Size(391, 29);
-            TxtCursoAnio.TabIndex = 6;
+            TxtCursoAnio.TabIndex = 14;
             TxtCursoAnio.TextChanged += TxtDescripcion_TextChanged;
             // 
             // label2

@@ -71,7 +71,7 @@ namespace Agraria.UI.EntornoFormativo
         private void UCConsultaEntornoFormativo_Load(object sender, EventArgs e)
         {
             ConfigurarDGV();
-            TareasLargas tareasLargas = new TareasLargas(TLPForm, ProgressBar, CargaDeDatos, LLenarCMBGrilla);
+            TareasLargas tareasLargas = new (TLPForm, ProgressBar, CargaDeDatos, LLenarCMBGrilla);
             tareasLargas.Iniciar();
 
             //CargarDGVEntornosFormativos();
@@ -125,7 +125,8 @@ namespace Agraria.UI.EntornoFormativo
         private async void BtnGuardar_Click(object sender, EventArgs e)
         {
             if (!ValidarCampos()) return;
-
+            DialogResult dialogResult = MessageBox.Show("¿Esta seguro que quiere guardar los cambios?", "Guardar Cambios", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+            if (dialogResult != DialogResult.OK) return;
             if (CMBEntorno.SelectedValue is int identorno && CMBUsuario.SelectedValue is int idusuario)
             {
 
@@ -168,7 +169,7 @@ namespace Agraria.UI.EntornoFormativo
         {
             if (Visible)
             {
-                TareasLargas tareasLargas = new TareasLargas(TLPForm, ProgressBar, CargaDeDatos, LLenarCMBGrilla);
+                TareasLargas tareasLargas = new (TLPForm, ProgressBar, CargaDeDatos, LLenarCMBGrilla);
                 tareasLargas.Iniciar();
 
             }
@@ -271,6 +272,30 @@ namespace Agraria.UI.EntornoFormativo
             HeaderText = "Nombre",
             Width = 150,
             AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill,
+        },
+        new DataGridViewTextBoxColumn
+        {
+            Name = "Curso_Anio",
+            DataPropertyName = "Curso_Anio",
+            HeaderText = "Año",
+            Width = 150,
+            AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
+        },
+        new DataGridViewTextBoxColumn
+        {
+            Name = "Curso_Division",
+            DataPropertyName = "Curso_Division",
+            HeaderText = "Division",
+            Width = 150,
+            AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
+        },
+        new DataGridViewTextBoxColumn
+        {
+            Name = "Curso_Grupo",
+            DataPropertyName = "Curso_Grupo",
+            HeaderText = "Grupo",
+            Width = 150,
+            AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
         }
     };
 
@@ -317,7 +342,7 @@ namespace Agraria.UI.EntornoFormativo
         private async Task PoblarFormulario(Modelo.Entidades.EntornoFormativo entornoFormativo)
         {
             // Desactivar evento para evitar recargas no deseadas
-            CMBTipoEntorno.SelectedIndexChanged -= CMBTipoEntorno_SelectedIndexChanged;
+            //CMBTipoEntorno.SelectedIndexChanged -= CMBTipoEntorno_SelectedIndexChanged;
 
             var resultadoEntorno = _entornoService.GetById(entornoFormativo.Id_Entorno);
             if (resultadoEntorno.IsSuccess && resultadoEntorno.Value != null)
@@ -335,7 +360,7 @@ namespace Agraria.UI.EntornoFormativo
             }
 
             // Reactivar el evento
-            CMBTipoEntorno.SelectedIndexChanged += CMBTipoEntorno_SelectedIndexChanged;
+            //CMBTipoEntorno.SelectedIndexChanged += CMBTipoEntorno_SelectedIndexChanged;
 
             // Poblar el resto de los campos
             CMBUsuario.SelectedValue = entornoFormativo.Id_Usuario;

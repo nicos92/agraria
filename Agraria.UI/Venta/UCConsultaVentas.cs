@@ -227,6 +227,7 @@ namespace Agraria.UI.Ventas
 
         private void ActualizarListaDetalles()
         {
+            // TODO: CONFIGURAR COLUMNAS CON LAS PROPIEDADES CORRECTAS
             DgvDetalles.DataSource = null;
             DgvDetalles.DataSource = _detallesVenta;
 

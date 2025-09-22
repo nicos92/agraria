@@ -148,7 +148,7 @@ namespace Agraria.UI.RemitoProduccion
             DgvRemitos.DataSource = null;
             DgvRemitos.DataSource = _remitos;
 
-            // Configurar columnas
+            // TODO: Configurar columnas
             if (DgvRemitos.Columns.Contains("Id_Remito"))
             {
                 DgvRemitos.Columns["Id_Remito"].HeaderText = "Nº Remito";
