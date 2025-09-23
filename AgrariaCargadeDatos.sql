@@ -68,8 +68,8 @@ INSERT INTO Productos (Cod_Producto, Producto_Desc, Id_TipoEntorno, Id_Entorno, 
 
 -- Poblar ArticulosGral
 INSERT INTO ArticulosGral (Art_Cod, Art_Nombre, Art_Unidad_Medida, Art_Precio, Art_Descripcion, Art_Stock) VALUES
-('A0000001', 'Pala', 'Unidad', 1500.00, 'Herramienta de jardinería', 10),
-('A0000002', 'Regadera', 'Unidad', 800.00, 'Para riego manual', 5);
+('A0000001', 'Pala', 1, 1500.00, 'Herramienta de jardinería', 10),
+('A0000002', 'Regadera', 1, 800.00, 'Para riego manual', 5);
 
 -- Poblar Stock
 INSERT INTO Stock (Cod_Producto, Cantidad, Costo, Ganancia) VALUES
@@ -108,9 +108,9 @@ INSERT INTO Herramientas (Nombre, Descripcion, Cantidad) VALUES
 ('Tijera de podar', 'Para cortar ramas', 5);
 
 -- Poblar HojadeVida
-INSERT INTO HojadeVida (Nombre, Tipo_Animal, Sexo, Fecha_Nacimiento, Peso, Estado_Salud, Activo) VALUES
-('Lola', 1, 2, '2023-03-15', 250.00, 'Saludable', 1),
-('Toby', 2, 1, '2022-11-10', 180.00, 'En tratamiento', 1);
+INSERT INTO HojadeVida (Nombre, Tipo_Animal, Sexo, Fecha_Nacimiento, Peso, Estado_Salud, Activo, Observaciones) VALUES
+('Lola', 1, 2, '2023-03-15', 250.00, 'Saludable', 1, 'Observacion'),
+('Toby', 2, 1, '2022-11-10', 180.00, 'En tratamiento', 1, 'Observacion');
 
 -- Poblar EntornoFormativo
 INSERT INTO EntornoFormativo (Id_Entorno, Id_Usuario, Curso_Anio, Curso_Division, Curso_Grupo, Observaciones, Activo) VALUES

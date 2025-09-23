@@ -117,7 +117,7 @@ CREATE TABLE ArticulosGral (
     Art_Id INT IDENTITY(1,1) PRIMARY KEY,
     Art_Cod NVARCHAR(25) NOT NULL UNIQUE,
     Art_Nombre NVARCHAR(255),
-    Art_Unidad_Medida NVARCHAR(255),
+    Art_Unidad_Medida INT NOT NULL,
     Art_Precio DECIMAL(18,2) NOT NULL,
     Art_Descripcion NVARCHAR(255),
     Art_Stock DECIMAL(18,2) NOT NULL

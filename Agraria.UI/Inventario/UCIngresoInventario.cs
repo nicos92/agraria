@@ -125,7 +125,7 @@ namespace Agraria.UI.Inventario
             _articuloSeleccionado.Art_Stock = Convert.ToInt32(TxtCantidad.Text);
             _articuloSeleccionado.Art_Precio = DecimalFormatter.ParseDecimal(TxtPrecio.Text);
             _articuloSeleccionado.Art_Descripcion = TxtDescripcion.Text;
-            _articuloSeleccionado.Art_Uni_Med = unidadMedida.ToString();
+            _articuloSeleccionado.Art_Uni_Med = unidadMedida;
 
             return true;
         }
@@ -148,7 +148,9 @@ namespace Agraria.UI.Inventario
         {
             try
             {
-                var unidades = Enum.GetValues(typeof(UnidadMedida)).Cast<UnidadMedida>().ToList();
+                var unidades = Enum.GetValues<UnidadMedida>()
+                    .Cast<UnidadMedida>()
+                    .ToList();
                 CMBUnidadMedida.DataSource = unidades;
                 CMBUnidadMedida.DisplayMember = "ToString";
             }

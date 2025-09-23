@@ -22,11 +22,9 @@ namespace Agraria.UI.Inventario
     {
         #region Campos y Servicios
 
-        private readonly IProductoService _articulosService;
-        private readonly IStockService _stockService;
+        private readonly IArticulosGralService _articulosService;
 
         private ArticulosGral _articuloSeleccionado;
-        private Stock _stockSeleccionado;
 
         private readonly ValidadorTextBox _validadorNombre;
         private readonly ValidadorTextBox _validadorCantidad;
@@ -37,7 +35,6 @@ namespace Agraria.UI.Inventario
         private readonly ErrorProvider _errorProviderPrecio;
 
         private List<ArticulosGral> _listaArticulos;
-        private List<Stock> _listaStock;
 
         private int _indiceSeleccionado;
 
@@ -45,22 +42,17 @@ namespace Agraria.UI.Inventario
 
         #region Constructor
 
-        public UCConsultaInventario(
-            IProductoService articulosService,
-            IStockService stockService)
+        public UCConsultaInventario(IArticulosGralService articulosService)
         {
             InitializeComponent();
 
             // Inyección de dependencias
             _articulosService = articulosService;
-            _stockService = stockService;
 
             // Inicialización de campos
             _articuloSeleccionado = new ArticulosGral();
-            _stockSeleccionado = new Stock();
 
             _listaArticulos = [];
-            _listaStock = [];
 
             _indiceSeleccionado = -1;
 
@@ -73,7 +65,7 @@ namespace Agraria.UI.Inventario
             };
 
             _errorProviderCantidad = new ErrorProvider();
-            _validadorCantidad = new ValidadorEntero(TxtCantidad, _errorProviderCantidad)
+            _validadorCantidad = new ValidadorNumeroDecimal(TxtCantidad, _errorProviderCantidad)
             {
                 MensajeError = "Número ingresado no válido"
             };
@@ -106,24 +98,18 @@ namespace Agraria.UI.Inventario
         /// <param name="e">Los datos del evento.</param>
         private void UCConsultaInventario_Load(object sender, EventArgs e)
         {
+            CargarUnidadesMedida();
             var taskHelper = new TareasLargas(
                 PanelMedio,
                 ProgressBar,
                 CargaInicial,
-                CargaDatos);
+                CargarDataGrid);
             taskHelper.Iniciar();
         }
 
-        private async void CargaDatos()
-        {
-            await Task.WhenAll(
-                CargarDataGrid(),
-            CargarCMB()
-            );
-            
-        }
+       
         /// <summary>
-        /// Maneja el evento de clic en el botón Guardar. Valida el formulario y guarda los datos del artículo y stock.
+        /// Maneja el evento de clic en el botón Guardar. Valida el formulario y guarda los datos del artículo.
         /// </summary>
         /// <param name="sender">El objeto que generó el evento.</param>
         /// <param name="e">Los datos del evento.</param>
@@ -136,8 +122,11 @@ namespace Agraria.UI.Inventario
                               MessageBoxIcon.Warning);
                 return;
             }
-
-            if (!CrearArticuloDesdeFormulario() || !CrearStockDesdeFormulario())
+            
+            DialogResult dialogResult = MessageBox.Show("¿Estas seguro que queres guardar los cambios?","Guardar Cambios", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (dialogResult == DialogResult.No) return;
+            
+            if (!CrearArticuloDesdeFormulario())
             {
                 return;
             }
@@ -145,21 +134,23 @@ namespace Agraria.UI.Inventario
             var tarea = new TareasLargas(
                 PanelMedio,
                 ProgressBar,
-                GuardarArticuloStock,
+                GuardarArticulo,
                 FinBtnGuardar);
             tarea.Iniciar();
         }
 
-        private async void FinBtnGuardar()
+        private void FinBtnGuardar()
         {
-            await Task.Run(() =>
+            this.Invoke(() =>
             {
                 ActualizarListas();
                 ListBArticulos.Refresh();
             });
+            
         }
+
         /// <summary>
-        /// Maneja el evento de clic en el botón Eliminar. Elimina el artículo y stock seleccionados.
+        /// Maneja el evento de clic en el botón Eliminar. Elimina el artículo seleccionado.
         /// </summary>
         /// <param name="sender">El objeto que generó el evento.</param>
         /// <param name="e">Los datos del evento.</param>
@@ -178,18 +169,23 @@ namespace Agraria.UI.Inventario
             var tarea = new TareasLargas(
                 PanelMedio,
                 ProgressBar,
-                EliminarArticuloStock,
-                () =>
-                {
-                    LimpiarFormulario();
-                    ActualizarDataGridView();
-                    if (Utilidades.Util.CalcularDGVVacio(ListBArticulos, LblLista, "Articulos"))
-                    {
-                        Utilidades.Util.LimpiarForm(TLPForm, TxtNombre);
-                        Utilidades.Util.BloquearBtns(ListBArticulos, TLPForm);
-                    }
-                });
+                EliminarArticulo,
+                FinBtnEliminar);
             tarea.Iniciar();
+        }
+
+        private void FinBtnEliminar()
+        {
+            this.Invoke(() =>
+            {
+                LimpiarFormulario();
+                ActualizarDataGridView();
+                if (Utilidades.Util.CalcularDGVVacio(ListBArticulos, LblLista, "Articulos"))
+                {
+                    Utilidades.Util.LimpiarForm(TLPForm, TxtNombre);
+                    Utilidades.Util.BloquearBtns(ListBArticulos, TLPForm);
+                }
+            });
         }
 
         /// <summary>
@@ -273,42 +269,31 @@ namespace Agraria.UI.Inventario
         private async Task CargaInicial()
         {
             await Task.WhenAll(
-                CargarArticulos(),
-                CargarStocks()
+                CargarArticulos()
+                
             );
+           
         }
 
-        /// <summary>
-        /// Carga el DataGridView con los datos iniciales.
-        /// </summary>
-        private async Task CargarDataGrid()
-        {
-            await Task.Run(
-                () => {
-
-                    this.Invoke(
-                () =>
-                {
-                    CargarArticulosDataGridView();
-                    if (Utilidades.Util.CalcularDGVVacio(ListBArticulos, LblLista, "Productos"))
-                    {
-                        Utilidades.Util.LimpiarForm(TLPForm, TxtNombre);
-                        Utilidades.Util.BloquearBtns(ListBArticulos, TLPForm);
-                    }
-                });
-                });
-
-            
-
-        }
+    
 
         /// <summary>
-        /// Carga los datos en el ComboBox de unidades de medida.
+        /// Carga las unidades de medida en el ComboBox correspondiente.
         /// </summary>
-        private async Task CargarCMB()
+        private void CargarUnidadesMedida()
         {
-            await Task.Run(() => { CMBUnidadMedida.DataSource = Enum.GetValues(typeof(UnidadMedida)).Cast<UnidadMedida>().ToList(); });
-            
+            try
+            {
+                var unidades = Enum.GetValues<UnidadMedida>()
+                    .Cast<UnidadMedida>()
+                    .ToList();
+                CMBUnidadMedida.DataSource = unidades;
+                CMBUnidadMedida.DisplayMember = "ToString";
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ocurrió un error al cargar las unidades de medida: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         /// <summary>
@@ -316,11 +301,6 @@ namespace Agraria.UI.Inventario
         /// </summary>
         private async Task CargarArticulos()
         {
-            // TODO: Implementar la lógica para cargar ArticulosGral desde la base de datos
-            // Esta implementación es un placeholder ya que no hay un servicio específico para ArticulosGral
-            _listaArticulos = [];
-            
-            /*
             var resultado = await _articulosService.GetAll();
 
             if (resultado.IsSuccess)
@@ -331,24 +311,52 @@ namespace Agraria.UI.Inventario
             {
                 MostrarMensaje(resultado.Error, "Error al cargar artículos", MessageBoxIcon.Error);
             }
-            */
         }
 
         /// <summary>
-        /// Carga la lista de stocks desde el servicio de forma asíncrona.
+        /// Carga los datos de los artículos en el DataGridView.
         /// </summary>
-        private async Task CargarStocks()
+        private void CargarDataGrid()
         {
-            var resultado = await _stockService.GetAll();
+            this.Invoke(
+                () =>
+                {
+                    try
+                    {
+                        ListBArticulos.SuspendLayout();
+                        int primeraFilaVisible = ListBArticulos.FirstDisplayedScrollingRowIndex;
 
-            if (resultado.IsSuccess)
-            {
-                _listaStock = resultado.Value;
-            }
-            else
-            {
-                MostrarMensaje(resultado.Error, "Error al cargar stocks", MessageBoxIcon.Error);
-            }
+                        ListBArticulos.AutoGenerateColumns = false;
+                        ListBArticulos.DataSource = null;
+                        ListBArticulos.DataSource = _listaArticulos ?? [];
+
+                        if (primeraFilaVisible >= 0 && primeraFilaVisible < ListBArticulos.Rows.Count)
+                        {
+                            ListBArticulos.FirstDisplayedScrollingRowIndex = primeraFilaVisible;
+                        }
+                        
+                        // Verificar si hay artículos y activar/desactivar formulario según corresponda
+                        if (_listaArticulos == null || _listaArticulos.Count == 0)
+                        {
+                            // No hay artículos, desactivar formulario
+                            Utilidades.Util.LimpiarForm(TLPForm, TxtNombre);
+                            Utilidades.Util.BloquearBtns(ListBArticulos, TLPForm);
+                        }
+                        else
+                        {
+                            // Hay artículos, activar formulario
+                            Utilidades.Util.DesbloquearTLPForm(TLPForm);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MostrarMensaje($"Error al cargar DataGridView: {ex.Message}", "Error", MessageBoxIcon.Error);
+                    }
+                    finally
+                    {
+                        ListBArticulos.ResumeLayout();
+                    }
+                });
         }
 
         #endregion
@@ -396,29 +404,17 @@ namespace Agraria.UI.Inventario
         /// <returns>True si el objeto se creó o actualizó correctamente, de lo contrario False.</returns>
         private bool CrearArticuloDesdeFormulario()
         {
-            _articuloSeleccionado.Art_Nombre = TxtNombre.Text;
-            _articuloSeleccionado.Art_Uni_Med = CMBUnidadMedida.SelectedItem?.ToString() ?? UnidadMedida.Unidad.ToString();
-            _articuloSeleccionado.Art_Descripcion = TxtDescripcion.Text;
-
-            return true;
-        }
-
-        /// <summary>
-        /// Crea o actualiza un objeto de stock a partir de los datos del formulario.
-        /// </summary>
-        /// <returns>True si el objeto se creó o actualizó correctamente, de lo contrario False.</returns>
-        private bool CrearStockDesdeFormulario()
-        {
-            if (string.IsNullOrEmpty(TxtCantidad.Text) ||
-                string.IsNullOrEmpty(TxtPrecio.Text))
+            if (CMBUnidadMedida.SelectedItem is not UnidadMedida unidadMedida)
             {
-                MostrarMensaje("Complete todos los campos de stock", "Datos incompletos", MessageBoxIcon.Error);
+                MostrarMensaje("La unidad de medida seleccionada no es válida", "Error", MessageBoxIcon.Error);
                 return false;
             }
 
-            _stockSeleccionado.Cantidad = Convert.ToInt32(TxtCantidad.Text);
-            _stockSeleccionado.Costo = DecimalFormatter.ParseDecimal(TxtPrecio.Text);
-            _stockSeleccionado.Ganancia = 0; // No se utiliza en este contexto
+            _articuloSeleccionado.Art_Nombre = TxtNombre.Text;
+            _articuloSeleccionado.Art_Stock = DecimalFormatter.ParseDecimal(TxtCantidad.Text);
+            _articuloSeleccionado.Art_Precio = DecimalFormatter.ParseDecimal(TxtPrecio.Text);
+            _articuloSeleccionado.Art_Descripcion = TxtDescripcion.Text;
+            _articuloSeleccionado.Art_Uni_Med = unidadMedida;
 
             return true;
         }
@@ -441,30 +437,15 @@ namespace Agraria.UI.Inventario
             if (fila.DataBoundItem is ArticulosGral articulo)
             {
                 _articuloSeleccionado = articulo;
-                // TODO: Implementar la lógica para obtener el stock asociado
-                _stockSeleccionado = new Stock();
 
                 // Cargar datos en los controles
                 TxtNombre.Text = _articuloSeleccionado.Art_Nombre ?? string.Empty;
-                // Seleccionar la unidad de medida en el ComboBox
-                if (!string.IsNullOrEmpty(_articuloSeleccionado.Art_Uni_Med))
-                {
-                    if (Enum.TryParse<UnidadMedida>(_articuloSeleccionado.Art_Uni_Med, out UnidadMedida unidadMedida))
-                    {
-                        CMBUnidadMedida.SelectedItem = unidadMedida;
-                    }
-                    else
-                    {
-                        CMBUnidadMedida.SelectedIndex = 0; // Seleccionar el primero por defecto
-                    }
-                }
-                else
-                {
-                    CMBUnidadMedida.SelectedIndex = 0; // Seleccionar el primero por defecto
-                }
+                TxtCantidad.Text = DecimalFormatter.ToDecimal(_articuloSeleccionado.Art_Stock);
+                TxtPrecio.Text = DecimalFormatter.ToDecimal(_articuloSeleccionado.Art_Precio);
                 TxtDescripcion.Text = _articuloSeleccionado.Art_Descripcion ?? string.Empty;
-                TxtCantidad.Text = _stockSeleccionado.Cantidad.ToString();
-                TxtPrecio.Text = DecimalFormatter.ToDecimal(_stockSeleccionado.Costo);
+
+                // Cargar combo de unidad de medida
+                CMBUnidadMedida.SelectedItem = _articuloSeleccionado.Art_Uni_Med;
             }
             else
             {
@@ -473,18 +454,20 @@ namespace Agraria.UI.Inventario
         }
 
         /// <summary>
-        /// Limpia los campos del formulario y restablece los objetos de artículo y stock seleccionados.
+        /// Limpia los campos del formulario y restablece los objetos de artículo seleccionados.
         /// </summary>
         private void LimpiarFormulario()
         {
-            TxtNombre.Clear();
-            CMBUnidadMedida.SelectedIndex = 0; // Seleccionar el primer elemento por defecto
-            TxtDescripcion.Clear();
-            TxtCantidad.Clear();
-            TxtPrecio.Clear();
+            this.Invoke(() =>
+            {
+                TxtNombre.Clear();
+                TxtCantidad.Clear();
+                TxtPrecio.Clear();
+                TxtDescripcion.Clear();
 
-            _articuloSeleccionado = new ArticulosGral();
-            _stockSeleccionado = new Stock();
+                _articuloSeleccionado = new ArticulosGral();
+            });
+           
         }
 
         /// <summary>
@@ -501,16 +484,11 @@ namespace Agraria.UI.Inventario
         #region Métodos de Operaciones de Datos
 
         /// <summary>
-        /// Guarda los cambios en el artículo y el stock de forma asíncrona.
+        /// Guarda los cambios en el artículo de forma asíncrona.
         /// </summary>
-        private async Task GuardarArticuloStock()
+        private async Task GuardarArticulo()
         {
-            // TODO: Implementar la lógica para guardar ArticulosGral en la base de datos
-            // Esta implementación es un placeholder ya que no hay un servicio específico para ArticulosGral
-            MessageBox.Show("Funcionalidad pendiente de implementación", "Inventario", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            
-            /*
-            var resultado = await _articuloStockService.Update(_articuloSeleccionado, _stockSeleccionado);
+            var resultado = await _articulosService.Update(_articuloSeleccionado);
 
             if (resultado.IsSuccess)
             {
@@ -520,20 +498,14 @@ namespace Agraria.UI.Inventario
             {
                 MostrarMensaje(resultado.Error, "Error en la actualización", MessageBoxIcon.Error);
             }
-            */
         }
 
         /// <summary>
-        /// Elimina el artículo y el stock seleccionados de forma asíncrona.
+        /// Elimina el artículo seleccionado de forma asíncrona.
         /// </summary>
-        private async Task EliminarArticuloStock()
+        private async Task EliminarArticulo()
         {
-            // TODO: Implementar la lógica para eliminar ArticulosGral de la base de datos
-            // Esta implementación es un placeholder ya que no hay un servicio específico para ArticulosGral
-            MessageBox.Show("Funcionalidad pendiente de implementación", "Inventario", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            
-            /*
-            var resultado = await _articuloStockService.Delete(_articuloSeleccionado, _stockSeleccionado);
+            var resultado = _articulosService.Delete(_articuloSeleccionado.Art_Id);
 
             if (resultado.IsSuccess)
             {
@@ -544,26 +516,23 @@ namespace Agraria.UI.Inventario
             {
                 MostrarMensaje(resultado.Error, "Error al eliminar artículo", MessageBoxIcon.Error);
             }
-            */
         }
 
         /// <summary>
-        /// Actualiza las listas de artículos y stock.
+        /// Actualiza las listas de artículos.
         /// </summary>
         private void ActualizarListas()
         {
             Utilidades.Util.ActualizarEnLista(_listaArticulos, _articuloSeleccionado);
-            Utilidades.Util.ActualizarEnLista(_listaStock, _stockSeleccionado);
-            CargarArticulosDataGridView();
+            CargarDataGrid();
         }
 
         /// <summary>
-        /// Elimina el artículo y el stock seleccionados de las listas.
+        /// Elimina el artículo seleccionado de las listas.
         /// </summary>
         private void EliminarDeListas()
         {
             Utilidades.Util.EliminarDeLista(_listaArticulos, _articuloSeleccionado);
-            Utilidades.Util.EliminarDeLista(_listaStock, _stockSeleccionado);
         }
 
         #endregion
@@ -571,40 +540,11 @@ namespace Agraria.UI.Inventario
         #region Métodos de UI Helpers
 
         /// <summary>
-        /// Carga los datos de los artículos en el DataGridView.
-        /// </summary>
-        private void CargarArticulosDataGridView()
-        {
-            try
-            {
-                ListBArticulos.SuspendLayout();
-                int primeraFilaVisible = ListBArticulos.FirstDisplayedScrollingRowIndex;
-
-                ListBArticulos.AutoGenerateColumns = false;
-                ListBArticulos.DataSource = null;
-                ListBArticulos.DataSource = _listaArticulos ?? [];
-
-                if (primeraFilaVisible >= 0 && primeraFilaVisible < ListBArticulos.Rows.Count)
-                {
-                    ListBArticulos.FirstDisplayedScrollingRowIndex = primeraFilaVisible;
-                }
-            }
-            catch (Exception ex)
-            {
-                MostrarMensaje($"Error al cargar DataGridView: {ex.Message}", "Error", MessageBoxIcon.Error);
-            }
-            finally
-            {
-                ListBArticulos.ResumeLayout();
-            }
-        }
-
-        /// <summary>
         /// Actualiza el DataGridView y borra la selección.
         /// </summary>
         private void ActualizarDataGridView()
         {
-            CargarArticulosDataGridView();
+            CargarDataGrid();
             ListBArticulos.ClearSelection();
         }
 
@@ -623,12 +563,15 @@ namespace Agraria.UI.Inventario
 
         private void UCConsultaInventario_VisibleChanged(object sender, EventArgs e)
         {
-            var taskHelper = new TareasLargas(
+            if (Visible)
+            {
+                var taskHelper = new TareasLargas(
                PanelMedio,
                ProgressBar,
                CargaInicial,
-               CargaDatos);
-            taskHelper.Iniciar();
+               CargarDataGrid);
+                taskHelper.Iniciar();
+            }
         }
     }
 }

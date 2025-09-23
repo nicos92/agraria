@@ -102,11 +102,18 @@ namespace Agraria.UI.HojadeVida
                 PanelMedio,
                 ProgressBar,
                 CargaInicial,
-                () => {
+                CargadeDatos);
+            taskHelper.Iniciar();
+        }
+
+        private void CargadeDatos()
+        {
+            this.Invoke(
+                () =>
+                {
                     CargarCMB();
                     CargarDataGrid();
                 });
-            taskHelper.Iniciar();
         }
 
         /// <summary>
@@ -637,13 +644,10 @@ namespace Agraria.UI.HojadeVida
         private void UCConsultaHojadeVida_VisibleChanged(object sender, EventArgs e)
         {
             var taskHelper = new TareasLargas(
-               PanelMedio,
-               ProgressBar,
-               CargaInicial,
-               () => {
-                   CargarCMB();
-                   CargarDataGrid();
-               });
+                PanelMedio,
+                ProgressBar,
+                CargaInicial,
+                CargadeDatos);
             taskHelper.Iniciar();
         }
     }

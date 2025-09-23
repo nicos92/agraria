@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Agraria.Contrato.Repositorios;
 using Agraria.Modelo.Entidades;
 using Agraria.Utilidades;
+using Agraria.Modelo.Enums;
 
 namespace Agraria.Repositorio.Repositorios
 {
@@ -53,10 +54,10 @@ namespace Agraria.Repositorio.Repositorios
                 using var cmd = new SqlCommand("INSERT INTO ArticulosGral (Art_Cod, Art_Nombre, Art_Unidad_Medida, Art_Precio, Art_Descripcion, Art_Stock) VALUES (@Art_Cod, @Art_Nombre, @Art_Uni_Med, @Art_Precio, @Art_Descripcion, @Art_Stock)", conn, transaction);
 
                 cmd.Parameters.AddWithValue("@Art_Cod", nuevoCodArt);
-                cmd.Parameters.AddWithValue("@Art_Nombre", articulo.Art_Nombre ?? (object)DBNull.Value);
-                cmd.Parameters.AddWithValue("@Art_Uni_Med", articulo.Art_Uni_Med ?? (object)DBNull.Value);
+                cmd.Parameters.AddWithValue("@Art_Nombre", articulo.Art_Nombre );
+                cmd.Parameters.AddWithValue("@Art_Uni_Med", Convert.ToInt32(articulo.Art_Uni_Med) );
                 cmd.Parameters.AddWithValue("@Art_Precio", articulo.Art_Precio);
-                cmd.Parameters.AddWithValue("@Art_Descripcion", articulo.Art_Descripcion ?? (object)DBNull.Value);
+                cmd.Parameters.AddWithValue("@Art_Descripcion", articulo.Art_Descripcion);
                 cmd.Parameters.AddWithValue("@Art_Stock", articulo.Art_Stock);
                 
                 int inserts = await cmd.ExecuteNonQueryAsync();
@@ -126,10 +127,10 @@ namespace Agraria.Repositorio.Repositorios
                         Art_Id = reader.GetInt32(0),
                         Art_Cod = reader.GetString(1),
                         Art_Nombre = reader.GetString(2),
-                        Art_Uni_Med = reader.GetString(3),
+                        Art_Uni_Med = (UnidadMedida) reader.GetInt32(3),
                         Art_Precio = reader.GetDecimal(4),
                         Art_Descripcion = reader.GetString(5),
-                        Art_Stock = reader.GetInt32(6)
+                        Art_Stock = reader.GetDecimal(6)
                     };
                     articulos.Add(articulo);
                 }
@@ -155,11 +156,11 @@ namespace Agraria.Repositorio.Repositorios
                     ArticulosGral articulo = new()
                     {
                         Art_Id = reader.GetInt32(0),
-                        Art_Cod = reader.IsDBNull(1) ? null : reader.GetString(1),
-                        Art_Nombre = reader.IsDBNull(2) ? null : reader.GetString(2),
-                        Art_Uni_Med = reader.IsDBNull(3) ? null : reader.GetString(3),
+                        Art_Cod = reader.GetString(1),
+                        Art_Nombre = reader.GetString(2),
+                        Art_Uni_Med =  (UnidadMedida) reader.GetInt32(3),
                         Art_Precio = reader.GetDecimal(4),
-                        Art_Descripcion = reader.IsDBNull(5) ? null : reader.GetString(5),
+                        Art_Descripcion = reader.GetString(5),
                         Art_Stock = reader.GetInt32(6)
                     };
                     return Result<ArticulosGral>.Success(articulo);
@@ -210,11 +211,11 @@ namespace Agraria.Repositorio.Repositorios
             {
                 using var conn = Conexion();
                 using var cmd = new SqlCommand("UPDATE ArticulosGral SET Art_Cod=@Art_Cod, Art_Nombre=@Art_Nombre, Art_Unidad_Medida=@Art_Uni_Med, Art_Precio=@Art_Precio, Art_Descripcion=@Art_Descripcion, Art_Stock=@Art_Stock WHERE Art_Id = @Art_Id", conn);
-                cmd.Parameters.AddWithValue("@Art_Cod", articulo.Art_Cod ?? (object)DBNull.Value);
-                cmd.Parameters.AddWithValue("@Art_Nombre", articulo.Art_Nombre ?? (object)DBNull.Value);
-                cmd.Parameters.AddWithValue("@Art_Uni_Med", articulo.Art_Uni_Med ?? (object)DBNull.Value);
+                cmd.Parameters.AddWithValue("@Art_Cod", articulo.Art_Cod );
+                cmd.Parameters.AddWithValue("@Art_Nombre", articulo.Art_Nombre );
+                cmd.Parameters.AddWithValue("@Art_Uni_Med", Convert.ToInt32(articulo.Art_Uni_Med ));
                 cmd.Parameters.AddWithValue("@Art_Precio", articulo.Art_Precio);
-                cmd.Parameters.AddWithValue("@Art_Descripcion", articulo.Art_Descripcion ?? (object)DBNull.Value);
+                cmd.Parameters.AddWithValue("@Art_Descripcion", articulo.Art_Descripcion);
                 cmd.Parameters.AddWithValue("@Art_Stock", articulo.Art_Stock);
                 cmd.Parameters.AddWithValue("@Art_Id", articulo.Art_Id);
                 await conn.OpenAsync();
