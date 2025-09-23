@@ -261,7 +261,7 @@ namespace Agraria.UI.Articulos
         /// <param name="e">Los datos del evento.</param>
         private async void CMBCategoria_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (CMBCategoria.SelectedItem is TipoEntorno categoria)
+            if (CMBTipoEntorno.SelectedItem is TipoEntorno categoria)
             {
                 await CargarEntornos(categoria.Id_Tipo_Entorno);
             }
@@ -345,9 +345,9 @@ namespace Agraria.UI.Articulos
             CMBProveedor.DisplayMember = "Proveedor";
             CMBProveedor.ValueMember = "Id_Proveedor";
 
-            CMBCategoria.DataSource = _listaTipoEntorno ?? [];
-            CMBCategoria.DisplayMember = "Tipo_Entorno";
-            CMBCategoria.ValueMember = "Id_Tipo_Entorno";
+            CMBTipoEntorno.DataSource = _listaTipoEntorno ?? [];
+            CMBTipoEntorno.DisplayMember = "Tipo_Entorno";
+            CMBTipoEntorno.ValueMember = "Id_Tipo_Entorno";
         }
 
         /// <summary>
@@ -429,8 +429,8 @@ namespace Agraria.UI.Articulos
             if (resultado.IsSuccess)
             {
                 CMBEntorno.DataSource = resultado.Value;
-                CMBEntorno.DisplayMember = "Sub_Entorno";
-                CMBEntorno.ValueMember = "Id_SubEntorno";
+                CMBEntorno.DisplayMember = "Entorno_nombre";
+                CMBEntorno.ValueMember = "Id_Entorno";
             }
             else
             {
@@ -490,7 +490,7 @@ namespace Agraria.UI.Articulos
                 return false;
             }
 
-            if (CMBCategoria.SelectedItem is not TipoEntorno categoria)
+            if (CMBTipoEntorno.SelectedItem is not TipoEntorno categoria)
             {
                 MostrarMensaje("La categoría seleccionada no es válida", "Error", MessageBoxIcon.Error);
                 return false;
@@ -574,8 +574,8 @@ namespace Agraria.UI.Articulos
         /// </summary>
         private void CargarCombosSeleccion()
         {
-            if (CMBCategoria.Items.Count > 0)
-                CMBCategoria.SelectedValue = _articuloSeleccionado.Id_TipoEntorno;
+            if (CMBTipoEntorno.Items.Count > 0)
+                CMBTipoEntorno.SelectedValue = _articuloSeleccionado.Id_TipoEntorno;
 
             if (CMBProveedor.Items.Count > 0)
                 CMBProveedor.SelectedValue = _articuloSeleccionado.Id_Proveedor;

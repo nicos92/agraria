@@ -142,6 +142,11 @@ namespace Agraria.UI.Paniol
 
             try
             {
+                DialogResult dialogResult = MessageBox.Show("¿Estas Seguro que queres guardar la nueva herramienta?", "Gurdar al pañol", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (dialogResult == DialogResult.No)
+                {
+                    return;
+                }
                 ProgressBar.Visible = true;
                 BtnGuardar.Enabled = false;
 

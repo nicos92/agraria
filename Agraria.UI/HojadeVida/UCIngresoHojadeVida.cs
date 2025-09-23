@@ -146,6 +146,11 @@ namespace Agraria.UI.HojadeVida
         /// <param name="e">El <see cref="EventArgs"/> instancia que contiene los datos del evento.</param>
         private void BtnIngresar_Click(object sender, EventArgs e)
         {
+            DialogResult dialogResult = MessageBox.Show("¿Está seguro de que desea ingresar esta hoja de vida?", "Confirmar Ingreso", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (dialogResult == DialogResult.No)
+            {
+                return; // El usuario canceló la acción
+            }
             if (!CrearHojadeVida())
             {
                 MessageBox.Show("Hoja de vida no creada", "Hoja de Vida", MessageBoxButtons.OK, MessageBoxIcon.Information);

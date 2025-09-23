@@ -1,0 +1,157 @@
+Table TipoEntorno {
+  Id_TipoEntorno integer [primary key]
+  Descripcion varchar [unique]
+}
+
+Table Entorno {
+  Id_Entorno integer [primary key]
+  Nombre varchar [unique]
+  Id_TipoEntorno integer [not null]
+}
+
+Table Usuarios_Tipo {
+  Id_Usuario_Tipo integer [primary key]
+  Tipo integer [not null]
+  Descripcion varchar
+}
+
+Table Preguntas_Seguridad {
+  Id_Pregunta integer [primary key]
+  Pregunta varchar
+}
+
+Table Usuarios {
+  Id_Usuario integer [primary key]
+  DNI varchar [unique]
+  Nombre varchar [not null]
+  Apellido varchar [not null]
+  Tel varchar
+  Mail varchar
+  Contra varchar
+  Respues varchar
+  Id_Pregunta integer [not null]
+  Id_Tipo integer [not null]
+}
+
+Table Proveedores {
+  Id_Proveedor integer [primary key]
+  CUIT varchar [unique]
+  Proveedor varchar [not null]
+  Nombre varchar [not null]
+  Tel varchar
+  Email varchar
+  Observacion varchar
+}
+
+Table Productos {
+  Id_Producto integer [primary key]
+  Cod_Producto varchar [unique, not null]
+  Producto_Desc varchar
+  Id_TipoEntorno integer [not null]
+  Id_Entorno integer [not null]
+  Id_Proveedor integer [not null]
+  Unidad_Medida varchar
+  En_Venta boolean
+}
+
+Table ArticulosGral {
+  Art_Id integer [primary key]
+  Art_Cod varchar [unique, not null]
+  Art_Nombre varchar
+  Art_Unidad_Medida varchar
+  Art_Precio decimal
+  Art_Descripcion varchar
+  Art_Stock decimal
+}
+
+Table Stock {
+  Cod_Producto varchar [unique, not null]
+  Cantidad decimal
+  Costo decimal
+  Ganancia decimal
+}
+
+Table H_Ventas {
+  Id_Remito integer [primary key]
+  Descripcion varchar
+  Cod_Usuario integer [not null]
+  Fecha_Hora timestamp
+  Subtotal decimal
+  Descu decimal
+  Total decimal
+}
+
+Table H_Ventas_Detalle {
+  Id_Det_Remito integer [primary key]
+  Id_Remito integer [not null]
+  Cod_Producto varchar
+  Descr varchar
+  P_Unit decimal
+  Cant decimal
+  P_X_Cant decimal
+}
+
+Table Herramientas {
+  Id_Herramienta integer [primary key]
+  Nombre varchar [not null]
+  Descripcion varchar
+  Cantidad integer [not null]
+}
+
+Table HojadeVida {
+  Id_HojaVida integer [primary key]
+  Nombre varchar [not null]
+  Tipo_Animal integer [not null]
+  Sexo integer [not null]
+  Fecha_Nacimiento date
+  Peso decimal
+  Estado_Salud varchar
+  Activo boolean
+}
+
+Table EntornoFormativo {
+  Id_EntornoFormativo integer [primary key]
+  Id_Entorno integer [not null]
+  Id_Usuario integer [not null]
+  Curso_Anio varchar
+  Curso_Division varchar
+  Curso_Grupo varchar
+  Observaciones varchar
+  Activo boolean
+}
+
+Table HRemitoProduccion {
+  Id_Remito integer [primary key]
+  Descripcion varchar
+  Cod_Usuario integer [not null]
+  Fecha_Hora timestamp
+  Subtotal decimal
+  Descu decimal
+  Total decimal
+}
+
+Table HRemitoDetalleProduccion {
+  Id_Det_Remito integer [primary key]
+  Id_Remito integer [not null]
+  Art_Cod varchar
+  Descr varchar
+  P_Unit decimal
+  Cant decimal
+  P_X_Cant decimal
+}
+
+Ref: Entorno.Id_TipoEntorno > TipoEntorno.Id_TipoEntorno
+Ref: Productos.Id_TipoEntorno > TipoEntorno.Id_TipoEntorno
+Ref: Productos.Id_Entorno > Entorno.Id_Entorno
+Ref: Productos.Id_Proveedor > Proveedores.Id_Proveedor
+Ref: Stock.Cod_Producto > Productos.Cod_Producto
+Ref: Usuarios.Id_Tipo > Usuarios_Tipo.Id_Usuario_Tipo
+Ref: Usuarios.Id_Pregunta > Preguntas_Seguridad.Id_Pregunta
+Ref: H_Ventas.Cod_Usuario > Usuarios.Id_Usuario
+Ref: H_Ventas_Detalle.Id_Remito > H_Ventas.Id_Remito
+Ref: H_Ventas_Detalle.Cod_Producto > Productos.Cod_Producto
+Ref: EntornoFormativo.Id_Entorno > Entorno.Id_Entorno
+Ref: EntornoFormativo.Id_Usuario > Usuarios.Id_Usuario
+Ref: HRemitoProduccion.Cod_Usuario > Usuarios.Id_Usuario
+Ref: HRemitoDetalleProduccion.Id_Remito > HRemitoProduccion.Id_Remito
+Ref: HRemitoDetalleProduccion.Art_Cod > ArticulosGral.Art_Cod

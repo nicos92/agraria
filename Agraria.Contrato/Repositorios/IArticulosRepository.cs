@@ -8,8 +8,8 @@ namespace Agraria.Contrato.Repositorios
     {
         Task<Result<List<Productos>>> GetAll();
         Result<Productos> GetById(int id);
-        Result<Productos> Add(Productos articulo);
-        Task<Result<Productos>> Update(Productos articulo);
+        Result<Productos> Add(Productos producto);
+        Task<Result<Productos>> Update(Productos producto);
         Result<bool> Delete(int id);
         Task<Result<int>> GetMaxCodArt();
     }

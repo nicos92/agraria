@@ -1,3 +1,5 @@
+SELECT @@SERVERNAME;
+USE Agraria;
 -- Poblar TipoEntorno
 INSERT INTO TipoEntorno (Descripcion) VALUES
 ('Rural'),
@@ -15,7 +17,7 @@ INSERT INTO Usuarios_Tipo (Tipo, Descripcion) VALUES
 (1, 'Director'),
 (2, 'Docente'),
 (3, 'Jefe de Area');
-SELECT @@SERVERNAME;
+
 
 
 -- Poblar Preguntas_Seguridad

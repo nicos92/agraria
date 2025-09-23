@@ -16,7 +16,7 @@ namespace Agraria.UI.Paniol
     public partial class UCIngresoHerramienta : UserControl
     {
         private readonly IHerramientasService _herramientasService;
-        
+
         public UCIngresoHerramienta(IHerramientasService herramientasService)
         {
             InitializeComponent();
@@ -39,10 +39,15 @@ namespace Agraria.UI.Paniol
             BtnIngresar.Enabled = nombreValido && cantidadValida;
         }
 
-        private async void BtnIngresar_Click(object sender, EventArgs e)
+        private void BtnIngresar_Click(object sender, EventArgs e)
         {
             try
             {
+                DialogResult dialogResult = MessageBox.Show("¿estas Seguro que queres ingresar la nueva herramienta?", "Ingreso a pañol", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (dialogResult == DialogResult.No)
+                {
+                    return;
+                }
                 ProgressBar.Visible = true;
                 BtnIngresar.Enabled = false;
 
@@ -84,5 +89,7 @@ namespace Agraria.UI.Paniol
             TxtDescripcion.Clear();
             TxtCantidad.Clear();
         }
+
+        
     }
 }

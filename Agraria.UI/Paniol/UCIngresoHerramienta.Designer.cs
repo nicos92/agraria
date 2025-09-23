@@ -33,12 +33,12 @@
             groupBox1 = new GroupBox();
             TLPForm = new TableLayoutPanel();
             LblNombre = new Label();
-            TxtCantidad = new TextBox();
             TxtNombre = new TextBox();
-            label4 = new Label();
             TxtDescripcion = new TextBox();
             label5 = new Label();
             BtnIngresar = new Button();
+            TxtCantidad = new TextBox();
+            label4 = new Label();
             ProgressBar = new ProgressBar();
             PanelMedio.SuspendLayout();
             TLPMedio.SuspendLayout();
@@ -125,18 +125,6 @@
             LblNombre.TabIndex = 0;
             LblNombre.Text = "Nombre:";
             // 
-            // TxtCantidad
-            // 
-            TxtCantidad.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            TxtCantidad.BackColor = Color.FromArgb(238, 237, 240);
-            TxtCantidad.Font = new Font("Segoe UI", 12F);
-            TxtCantidad.ForeColor = Color.FromArgb(26, 28, 30);
-            TxtCantidad.Location = new Point(129, 118);
-            TxtCantidad.MaxLength = 12;
-            TxtCantidad.Name = "TxtCantidad";
-            TxtCantidad.Size = new Size(402, 29);
-            TxtCantidad.TabIndex = 7;
-            // 
             // TxtNombre
             // 
             TxtNombre.Anchor = AnchorStyles.Left | AnchorStyles.Right;
@@ -148,17 +136,6 @@
             TxtNombre.Name = "TxtNombre";
             TxtNombre.Size = new Size(402, 29);
             TxtNombre.TabIndex = 5;
-            // 
-            // label4
-            // 
-            label4.Anchor = AnchorStyles.Right;
-            label4.AutoSize = true;
-            label4.Font = new Font("Segoe UI", 12F);
-            label4.Location = new Point(48, 122);
-            label4.Name = "label4";
-            label4.Size = new Size(75, 21);
-            label4.TabIndex = 4;
-            label4.Text = "Cantidad:";
             // 
             // TxtDescripcion
             // 
@@ -202,6 +179,29 @@
             BtnIngresar.Text = "INGRESAR";
             BtnIngresar.TextImageRelation = TextImageRelation.TextBeforeImage;
             BtnIngresar.UseVisualStyleBackColor = false;
+            // 
+            // TxtCantidad
+            // 
+            TxtCantidad.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            TxtCantidad.BackColor = Color.FromArgb(238, 237, 240);
+            TxtCantidad.Font = new Font("Segoe UI", 12F);
+            TxtCantidad.ForeColor = Color.FromArgb(26, 28, 30);
+            TxtCantidad.Location = new Point(129, 118);
+            TxtCantidad.MaxLength = 12;
+            TxtCantidad.Name = "TxtCantidad";
+            TxtCantidad.Size = new Size(402, 29);
+            TxtCantidad.TabIndex = 7;
+            // 
+            // label4
+            // 
+            label4.Anchor = AnchorStyles.Right;
+            label4.AutoSize = true;
+            label4.Font = new Font("Segoe UI", 12F);
+            label4.Location = new Point(48, 122);
+            label4.Name = "label4";
+            label4.Size = new Size(75, 21);
+            label4.TabIndex = 4;
+            label4.Text = "Cantidad:";
             // 
             // ProgressBar
             // 

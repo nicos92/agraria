@@ -51,7 +51,7 @@
             BtnGuardar = new Button();
             BtnEliminar = new Button();
             CMBEntorno = new ComboBox();
-            CMBCategoria = new ComboBox();
+            CMBTipoEntorno = new ComboBox();
             CMBProveedor = new ComboBox();
             label5 = new Label();
             label1 = new Label();
@@ -148,7 +148,7 @@
             // Cantidad
             // 
             Cantidad.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            Cantidad.DataPropertyName = "Cod_Articulo";
+            Cantidad.DataPropertyName = "Cod_Producto";
             Cantidad.HeaderText = "CÓDIGO";
             Cantidad.Name = "Cantidad";
             Cantidad.ReadOnly = true;
@@ -157,7 +157,7 @@
             // Descripcion
             // 
             Descripcion.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            Descripcion.DataPropertyName = "Art_Desc";
+            Descripcion.DataPropertyName = "Producto_Desc";
             Descripcion.HeaderText = "DESCRIPCIÓN";
             Descripcion.Name = "Descripcion";
             Descripcion.ReadOnly = true;
@@ -216,7 +216,7 @@
             TLPForm.Controls.Add(label2, 0, 3);
             TLPForm.Controls.Add(tableLayoutPanel2, 1, 9);
             TLPForm.Controls.Add(CMBEntorno, 1, 8);
-            TLPForm.Controls.Add(CMBCategoria, 1, 7);
+            TLPForm.Controls.Add(CMBTipoEntorno, 1, 7);
             TLPForm.Controls.Add(CMBProveedor, 1, 6);
             TLPForm.Controls.Add(label5, 0, 8);
             TLPForm.Controls.Add(label1, 0, 7);
@@ -392,6 +392,7 @@
             BtnEliminar.Size = new Size(48, 48);
             BtnEliminar.TabIndex = 13;
             BtnEliminar.UseVisualStyleBackColor = false;
+            BtnEliminar.Visible = false;
             BtnEliminar.EnabledChanged += BtnGuardar_EnabledChanged;
             BtnEliminar.Click += BtnEliminar_Click;
             // 
@@ -406,17 +407,17 @@
             CMBEntorno.Size = new Size(271, 29);
             CMBEntorno.TabIndex = 11;
             // 
-            // CMBCategoria
+            // CMBTipoEntorno
             // 
-            CMBCategoria.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            CMBCategoria.DropDownStyle = ComboBoxStyle.DropDownList;
-            CMBCategoria.Font = new Font("Segoe UI", 12F);
-            CMBCategoria.FormattingEnabled = true;
-            CMBCategoria.Location = new Point(133, 254);
-            CMBCategoria.Name = "CMBCategoria";
-            CMBCategoria.Size = new Size(271, 29);
-            CMBCategoria.TabIndex = 10;
-            CMBCategoria.SelectedIndexChanged += CMBCategoria_SelectedIndexChanged;
+            CMBTipoEntorno.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            CMBTipoEntorno.DropDownStyle = ComboBoxStyle.DropDownList;
+            CMBTipoEntorno.Font = new Font("Segoe UI", 12F);
+            CMBTipoEntorno.FormattingEnabled = true;
+            CMBTipoEntorno.Location = new Point(133, 254);
+            CMBTipoEntorno.Name = "CMBTipoEntorno";
+            CMBTipoEntorno.Size = new Size(271, 29);
+            CMBTipoEntorno.TabIndex = 10;
+            CMBTipoEntorno.SelectedIndexChanged += CMBCategoria_SelectedIndexChanged;
             // 
             // CMBProveedor
             // 
@@ -434,22 +435,22 @@
             label5.Anchor = AnchorStyles.Right;
             label5.AutoSize = true;
             label5.Font = new Font("Segoe UI", 12F);
-            label5.Location = new Point(32, 298);
+            label5.Location = new Point(59, 298);
             label5.Name = "label5";
-            label5.Size = new Size(95, 21);
+            label5.Size = new Size(68, 21);
             label5.TabIndex = 12;
-            label5.Text = "SubEntorno:";
+            label5.Text = "Entorno:";
             // 
             // label1
             // 
             label1.Anchor = AnchorStyles.Right;
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 12F);
-            label1.Location = new Point(59, 258);
+            label1.Location = new Point(4, 258);
             label1.Name = "label1";
-            label1.Size = new Size(68, 21);
+            label1.Size = new Size(123, 21);
             label1.TabIndex = 1;
-            label1.Text = "Entorno:";
+            label1.Text = "Tipo de Entorno:";
             // 
             // label6
             // 
@@ -541,16 +542,16 @@
         private Label label5;
         private ComboBox CMBProveedor;
         private ComboBox CMBEntorno;
-        private ComboBox CMBCategoria;
+        private ComboBox CMBTipoEntorno;
         private Label label6;
         private TableLayoutPanel tableLayoutPanel2;
         private Button BtnGuardar;
         private Button BtnEliminar;
         private ProgressBar ProgressBar;
         private DataGridView ListBArticulos;
-        private DataGridViewTextBoxColumn Cantidad;
-        private DataGridViewTextBoxColumn Descripcion;
         private Label label7;
         private Label LblPrecio;
+        private DataGridViewTextBoxColumn Cantidad;
+        private DataGridViewTextBoxColumn Descripcion;
     }
 }

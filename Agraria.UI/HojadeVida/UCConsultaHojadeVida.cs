@@ -124,6 +124,13 @@ namespace Agraria.UI.HojadeVida
                 return;
             }
 
+            DialogResult dialogResult = MessageBox.Show(
+                "¿Está seguro de que desea guardar los cambios en esta hoja de vida?",
+                "Confirmación de guardado",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question);
+            if (dialogResult != DialogResult.Yes) return;
+
             if (!CrearHojadeVidaDesdeFormulario())
             {
                 return;
