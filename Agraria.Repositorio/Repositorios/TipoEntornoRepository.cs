@@ -19,7 +19,7 @@ namespace Agraria.Repositorio.Repositorios
                 using (SqlConnection conexion = Conexion())
                 {
                     await conexion.OpenAsync();
-                    using var cmd = new SqlCommand("SELECT Id_Categoria, Categoria FROM Tipo_Entorno", conexion);
+                    using var cmd = new SqlCommand("SELECT Id_TipoEntorno, Descripcion FROM TipoEntorno", conexion);
                     using var reader = await cmd.ExecuteReaderAsync();
                     while (await reader.ReadAsync())
                     {
@@ -48,7 +48,7 @@ namespace Agraria.Repositorio.Repositorios
                 using (var conexion = Conexion())
                 {
                     conexion.Open();
-                    using var cmd = new SqlCommand("SELECT  Id_Categoria, Categoria FROM Tipo_Entorno WHERE Id_categoria = ?", conexion);
+                    using var cmd = new SqlCommand("SELECT  Id_TipoEntorno, Descripcion FROM TipoEntorno WHERE Id_TipoEntorno = ?", conexion);
                     cmd.Parameters.AddWithValue("?", id);
                     using var reader = cmd.ExecuteReader();
                     if (reader.Read())
@@ -77,7 +77,7 @@ namespace Agraria.Repositorio.Repositorios
                 {
                     conexion.Open();
                     using var cmd = new SqlCommand(
-                        "INSERT INTO Tipo_Entorno (Categoria) VALUES (?)", conexion);
+                        "INSERT INTO TipoEntorno (Descripcion) VALUES (?)", conexion);
                     cmd.Parameters.AddWithValue("?", categoria.Tipo_Entorno);
                     cmd.ExecuteNonQuery();
 
@@ -101,7 +101,7 @@ namespace Agraria.Repositorio.Repositorios
                 using var conexion = Conexion();
                 conexion.Open();
                 using var cmd = new SqlCommand(
-                    "UPDATE Tipo_Entorno SET Categoria = ? WHERE Id_categoria = ?", conexion);
+                    "UPDATE TipoEntorno SET Descripcion = ? WHERE Id_TipoEntorno = ?", conexion);
                 cmd.Parameters.AddWithValue("?", categoria.Tipo_Entorno);
                 cmd.Parameters.AddWithValue("?", categoria.Id_Tipo_Entorno);
 
@@ -127,7 +127,7 @@ namespace Agraria.Repositorio.Repositorios
             {
                 using var conexion = Conexion();
                 conexion.Open();
-                using var cmd = new SqlCommand("DELETE FROM Tipo_Entorno WHERE Id_categoria = ?", conexion);
+                using var cmd = new SqlCommand("DELETE FROM TipoEntorno WHERE Id_TipoEntorno = ?", conexion);
                 cmd.Parameters.AddWithValue("?", id);
                 int rowsAffected = cmd.ExecuteNonQuery();
 

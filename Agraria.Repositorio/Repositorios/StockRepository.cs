@@ -20,7 +20,7 @@ namespace Agraria.Repositorio.Repositorios
             try
             {
                 using SqlConnection conn = Conexion();
-                using SqlCommand cmd = new("INSERT INTO Stock (Cod_Articulo, Cantidad, Costo, Ganancia) VALUES (@Cod_Articulo, @Cantidad, @Costo, @Ganancia)", conn);
+                using SqlCommand cmd = new("INSERT INTO Stock (Cod_Producto, Cantidad, Costo, Ganancia) VALUES (@Cod_Articulo, @Cantidad, @Costo, @Ganancia)", conn);
                 cmd.Parameters.AddWithValue("@Cod_Articulo", stock.Cod_Articulo);
                 cmd.Parameters.Add("@Cantidad", SqlDbType.Decimal).Value = stock.Cantidad;
                 cmd.Parameters.Add("@Costo", SqlDbType.Decimal).Value = stock.Costo;
@@ -52,8 +52,8 @@ namespace Agraria.Repositorio.Repositorios
             try
             {
                 using SqlConnection conn = Conexion();
-                using SqlCommand cmd = new("DELETE FROM Stock WHERE Cod_Articulo = @Cod_Articulo", conn);
-                cmd.Parameters.AddWithValue("@Cod_Articulo", id);
+                using SqlCommand cmd = new("DELETE FROM Stock WHERE Cod_Producto = @Cod_Producto", conn);
+                cmd.Parameters.AddWithValue("@Cod_Producto", id);
                 conn.Open();
                 int rowsAffected = cmd.ExecuteNonQuery();
                 if (rowsAffected > 0)
@@ -81,7 +81,7 @@ namespace Agraria.Repositorio.Repositorios
             {
                 List<Stock> stocks = [];
                 using SqlConnection conn = Conexion();
-                using SqlCommand cmd = new("SELECT Cod_Articulo, Cantidad, Costo, Ganancia FROM Stock", conn);
+                using SqlCommand cmd = new("SELECT Cod_Producto, Cantidad, Costo, Ganancia FROM Stock", conn);
                 await conn.OpenAsync();
                 using  DbDataReader reader = await cmd.ExecuteReaderAsync();
                 while (await reader.ReadAsync())
@@ -113,8 +113,8 @@ namespace Agraria.Repositorio.Repositorios
             try
             {
                 using SqlConnection conn = Conexion();
-                using SqlCommand cmd = new("SELECT Cod_Articulo, Cantidad, Costo, Ganancia FROM Stock WHERE Cod_Articulo = @Cod_Articulo", conn);
-                cmd.Parameters.AddWithValue("@Cod_Articulo", id);
+                using SqlCommand cmd = new("SELECT Cod_Producto, Cantidad, Costo, Ganancia FROM Stock WHERE Cod_Producto = @Cod_Producto", conn);
+                cmd.Parameters.AddWithValue("@Cod_Producto", id);
                 conn.Open();
                 using var reader = cmd.ExecuteReader();
                 if (reader.Read())
@@ -148,11 +148,11 @@ namespace Agraria.Repositorio.Repositorios
             try
             {
                 using SqlConnection conn = Conexion();
-                using SqlCommand cmd = new("UPDATE Stock SET Cantidad = @Cantidad, Costo = @Costo, Ganancia = @Ganancia WHERE Cod_Articulo = @Cod_Articulo", conn);
+                using SqlCommand cmd = new("UPDATE Stock SET Cantidad = @Cantidad, Costo = @Costo, Ganancia = @Ganancia WHERE Cod_Producto = @Cod_Producto", conn);
                 cmd.Parameters.Add("@Cantidad", SqlDbType.Decimal).Value = stock.Cantidad;
                 cmd.Parameters.Add("@Costo", SqlDbType.Decimal).Value = stock.Costo;
                 cmd.Parameters.Add("@Ganancia", SqlDbType.Decimal).Value = stock.Ganancia;
-                cmd.Parameters.AddWithValue("@Cod_Articulo", stock.Cod_Articulo);
+                cmd.Parameters.AddWithValue("@Cod_Producto", stock.Cod_Articulo);
                 conn.Open();
                 int rowsAffected = cmd.ExecuteNonQuery();
                 if (rowsAffected > 0)

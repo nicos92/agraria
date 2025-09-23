@@ -17,8 +17,12 @@ namespace Agraria.Repositorio
         {
             //cadenaConexion = ConfigurationManager.ConnectionStrings["msaccess"].ConnectionString;
             //cadenaConexion = ConfigurationManager.ConnectionStrings["SqlServerAgraria"].ConnectionString;
-            cadenaConexion = "Server=NICOS\\SQLEXPRESS;Database=Agraria;Trusted_Connection=True;TrustServerCertificate=True;";
 
+            // CONEXION PARA ESCRITORIO
+            //cadenaConexion = "Server=NICOS\\SQLEXPRESS;Database=Agraria;Trusted_Connection=True;TrustServerCertificate=True;";
+
+            // CONEXION PARA T440
+            cadenaConexion = "Server=NicoS92T440;Database=Agraria;Trusted_Connection=True;TrustServerCertificate=True;";
 
         }
 

@@ -21,7 +21,7 @@ namespace Agraria.Repositorio.Repositorios
             try
             {
                 using SqlConnection conn = Conexion();
-                using SqlCommand cmd = new("SELECT Codigo, Tipo_Animal, Sexo, Fecha_Nacimiento, Peso, Estado_Salud, Observaciones, Activo, nombre FROM Hoja_Vida", conn);
+                using SqlCommand cmd = new("SELECT Id_HojaVida, nombre, Tipo_Animal, Sexo, Fecha_Nacimiento, Peso, Estado_Salud, Observaciones, Activo FROM HojadeVida ORDER BY Id_HojaVida DESC", conn);
                 await conn.OpenAsync();
                 using DbDataReader reader = await cmd.ExecuteReaderAsync();
                 List<HojadeVida> hojasDeVida = [];
@@ -30,14 +30,14 @@ namespace Agraria.Repositorio.Repositorios
                     HojadeVida hojaDeVida = new()
                     {
                         Codigo = reader.GetInt32(0),
-                        TipoAnimal = (TipoAnimal)reader.GetInt32(1),
-                        Sexo =  (Sexo)reader.GetInt32(2),
-                        FechaNacimiento = reader.GetDateTime(3),
-                        Peso = reader.GetDecimal(4),
-                        EstadoSalud = reader.GetString(5),
-                        Observaciones = reader.GetString(6),
-                        Activo = reader.GetBoolean(7),
-                        Nombre = reader.GetString(8)
+                        Nombre = reader.GetString(1),
+                        TipoAnimal = (TipoAnimal)reader.GetInt32(2),
+                        Sexo =  (Sexo)reader.GetInt32(3),
+                        FechaNacimiento = reader.GetDateTime(4),
+                        Peso = reader.GetDecimal(5),
+                        EstadoSalud = reader.GetString(6),
+                        Observaciones = reader.GetString(7),
+                        Activo = reader.GetBoolean(8),
                     };
                     hojasDeVida.Add(hojaDeVida);
                 }
@@ -58,7 +58,7 @@ namespace Agraria.Repositorio.Repositorios
             try
             {
                 using SqlConnection conn = Conexion();
-                using SqlCommand cmd = new("SELECT Codigo, Tipo_Animal, Sexo, Fecha_Nacimiento, Peso, Estado_Salud, Observaciones, Activo, nombre FROM Hoja_Vida WHERE Codigo = @Codigo", conn);
+                using SqlCommand cmd = new("SELECT Id_HojaVida, Tipo_Animal, Sexo, Fecha_Nacimiento, Peso, Estado_Salud, Observaciones, Activo, nombre FROM HojadeVida WHERE Codigo = @Codigo", conn);
                 cmd.Parameters.AddWithValue("@Codigo", id);
                 await conn.OpenAsync();
                 using DbDataReader reader = await cmd.ExecuteReaderAsync();
@@ -95,7 +95,7 @@ namespace Agraria.Repositorio.Repositorios
             try
             {
                 using SqlConnection conn = Conexion();
-                using SqlCommand cmd = new("INSERT INTO Hoja_Vida (Nombre, Tipo_Animal, Sexo, Fecha_Nacimiento, Peso, Estado_Salud, Observaciones, Activo) VALUES (@Nombre, @TipoAnimal, @Sexo, @fechanacimiento, @Peso, @EstadoSalud, @Observaciones, @Activo)", conn);
+                using SqlCommand cmd = new("INSERT INTO HojadeVida (Nombre, Tipo_Animal, Sexo, Fecha_Nacimiento, Peso, Estado_Salud, Observaciones, Activo) VALUES (@Nombre, @TipoAnimal, @Sexo, @fechanacimiento, @Peso, @EstadoSalud, @Observaciones, @Activo)", conn);
                 cmd.Parameters.AddWithValue("@Nombre", hojaDeVida.Nombre);
                 cmd.Parameters.AddWithValue("@TipoAnimal", Convert.ToInt32(hojaDeVida.TipoAnimal));
                 cmd.Parameters.AddWithValue("@Sexo", Convert.ToInt32(hojaDeVida.Sexo));
@@ -127,7 +127,7 @@ namespace Agraria.Repositorio.Repositorios
             try
             {
                 using SqlConnection conn = Conexion();
-                using SqlCommand cmd = new("UPDATE Hoja_Vida SET Tipo_Animal = @TipoAnimal, Sexo = @Sexo, Fecha_Nacimiento = @FechaNacimiento, Peso = @Peso, Estado_Salud = @EstadoSalud, Observaciones = @Observaciones, Activo = @Activo, nombre = @nombre WHERE Codigo = @Codigo", conn);
+                using SqlCommand cmd = new("UPDATE HojadeVida SET Tipo_Animal = @TipoAnimal, Sexo = @Sexo, Fecha_Nacimiento = @FechaNacimiento, Peso = @Peso, Estado_Salud = @EstadoSalud, Observaciones = @Observaciones, Activo = @Activo, nombre = @nombre WHERE Id_HojaVida = @Id_HojaVida", conn);
                 cmd.Parameters.AddWithValue("@TipoAnimal", Convert.ToInt32(hojaDeVida.TipoAnimal));
                 cmd.Parameters.AddWithValue("@Sexo", Convert.ToInt32(hojaDeVida.Sexo));
                 cmd.Parameters.Add(new SqlParameter("@fechanacimiento", SqlDbType.Date) { Value = hojaDeVida.FechaNacimiento });
@@ -136,7 +136,7 @@ namespace Agraria.Repositorio.Repositorios
                 cmd.Parameters.AddWithValue("@Observaciones", hojaDeVida.Observaciones );
                 cmd.Parameters.AddWithValue("@Activo", hojaDeVida.Activo);
                 cmd.Parameters.AddWithValue("@nombre", hojaDeVida.Nombre);
-                cmd.Parameters.AddWithValue("@Codigo", hojaDeVida.Codigo);
+                cmd.Parameters.AddWithValue("@Id_HojaVida", hojaDeVida.Codigo);
                 await conn.OpenAsync();
                 int rowsAffected = await cmd.ExecuteNonQueryAsync();
                 if (rowsAffected > 0)
@@ -160,8 +160,8 @@ namespace Agraria.Repositorio.Repositorios
             try
             {
                 using SqlConnection conn = Conexion();
-                using SqlCommand cmd = new("DELETE FROM Hoja_Vida WHERE Codigo = @Codigo", conn);
-                cmd.Parameters.AddWithValue("@Codigo", id);
+                using SqlCommand cmd = new("DELETE FROM HojadeVida WHERE Id_HojaVida = @Id_HojaVida", conn);
+                cmd.Parameters.AddWithValue("@Id_HojaVida", id);
                 await conn.OpenAsync();
                 int rowsAffected = await cmd.ExecuteNonQueryAsync();
                 if (rowsAffected > 0)

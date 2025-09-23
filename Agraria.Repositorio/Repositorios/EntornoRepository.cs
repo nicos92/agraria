@@ -19,7 +19,7 @@ namespace Agraria.Repositorio.Repositorios
             try
             {
                 using SqlConnection conn = Conexion();
-                using SqlCommand cmd = new("SELECT Id_Subcategoria, Sub_categoria, Id_Categoria FROM Entorno", conn);
+                using SqlCommand cmd = new("SELECT Id_Entorno, Nombre, Id_TipoEntorno FROM Entorno", conn);
                 await conn.OpenAsync();
                 using DbDataReader reader = await cmd.ExecuteReaderAsync();
                 List<Entorno> subcategorias = [];
@@ -51,8 +51,8 @@ namespace Agraria.Repositorio.Repositorios
             try
             {
                 using SqlConnection conn = Conexion();
-                using SqlCommand cmd = new("SELECT Id_Subcategoria, Sub_categoria, Id_Categoria FROM Entorno WHERE Id_Subcategoria = @Id_Subcategoria", conn);
-                cmd.Parameters.AddWithValue("@Id_Subcategoria", id);
+                using SqlCommand cmd = new("SELECT Id_Entorno, Nombre, Id_TipoEntorno FROM Entorno WHERE Id_Entorno = @Id_Entorno", conn);
+                cmd.Parameters.AddWithValue("@Id_Entorno", id);
                 conn.Open();
                 using SqlDataReader reader = cmd.ExecuteReader();
                 if (reader.Read())
@@ -81,9 +81,9 @@ namespace Agraria.Repositorio.Repositorios
             try
             {
                 using SqlConnection conn = Conexion();
-                using SqlCommand cmd = new("INSERT INTO Entorno (Sub_categoria, Id_Categoria) VALUES (@Sub_categoria, @Id_Categoria)", conn);
-                cmd.Parameters.AddWithValue("@Sub_categoria", subcategoria.Entorno_nombre);
-                cmd.Parameters.AddWithValue("@Id_Categoria", subcategoria.Id_TipoEntorno);
+                using SqlCommand cmd = new("INSERT INTO Entorno (Nombre, Id_TipoEntorno) VALUES (@Nombre, @Id_TipoEntorno)", conn);
+                cmd.Parameters.AddWithValue("@Nombre", subcategoria.Entorno_nombre);
+                cmd.Parameters.AddWithValue("@Id_TipoEntorno", subcategoria.Id_TipoEntorno);
                 conn.Open();
                 int rowsAffected = cmd.ExecuteNonQuery();
                 if (rowsAffected > 0)
@@ -107,10 +107,10 @@ namespace Agraria.Repositorio.Repositorios
             try
             {
                 using SqlConnection conn = Conexion();
-                using SqlCommand cmd = new("UPDATE Entorno SET Sub_categoria = @Sub_categoria, Id_Categoria = @Id_Categoria WHERE Id_Subcategoria = @Id_Subcategoria", conn);
-                cmd.Parameters.AddWithValue("@Sub_categoria", subcategoria.Entorno_nombre);
-                cmd.Parameters.AddWithValue("@Id_Categoria", subcategoria.Id_TipoEntorno);
-                cmd.Parameters.AddWithValue("@Id_Subcategoria", subcategoria.Id_Entorno);
+                using SqlCommand cmd = new("UPDATE Entorno SET Nombre = @Nombre, Id_TipoEntorno = @Id_TipoEntorno WHERE Id_Entorno = @Id_Entorno", conn);
+                cmd.Parameters.AddWithValue("@Nombre", subcategoria.Entorno_nombre);
+                cmd.Parameters.AddWithValue("@Id_TipoEntorno", subcategoria.Id_TipoEntorno);
+                cmd.Parameters.AddWithValue("@Id_Entorno", subcategoria.Id_Entorno);
                 conn.Open();
                 int rowsAffected = cmd.ExecuteNonQuery();
                 if (rowsAffected > 0)
@@ -133,8 +133,8 @@ namespace Agraria.Repositorio.Repositorios
             try
             {
                 using SqlConnection conn = Conexion();
-                using SqlCommand cmd = new ("DELETE FROM Entorno WHERE Id_Subcategoria = @Id_Subcategoria", conn);
-                cmd.Parameters.AddWithValue("@Id_Subcategoria", id);
+                using SqlCommand cmd = new ("DELETE FROM Entorno WHERE Id_Entorno = @Id_Entorno", conn);
+                cmd.Parameters.AddWithValue("@Id_Entorno", id);
                 conn.Open();
                 int rowsAffected = cmd.ExecuteNonQuery();
                 if (rowsAffected > 0)
@@ -157,8 +157,8 @@ namespace Agraria.Repositorio.Repositorios
             try
             {
                 using SqlConnection conn = Conexion();
-                using SqlCommand cmd = new ("SELECT Id_Subcategoria, Sub_categoria, Id_Categoria FROM Entorno WHERE Id_Categoria = @Id_Categoria", conn);
-                cmd.Parameters.AddWithValue("@Id_Categoria", idcategoria);
+                using SqlCommand cmd = new ("SELECT Id_Entorno, Nombre, Id_TipoEntorno FROM Entorno WHERE Id_TipoEntorno = @Id_TipoEntorno", conn);
+                cmd.Parameters.AddWithValue("@Id_TipoEntorno", idcategoria);
                 await conn.OpenAsync();
                 using DbDataReader reader = await cmd.ExecuteReaderAsync();
                 List<Entorno> subcategorias = [];

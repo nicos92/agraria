@@ -29,27 +29,27 @@ namespace Agraria.Repositorio.Repositorios
                  transaction = (SqlTransaction)await conn.BeginTransactionAsync();
 
          
-                string sqlArticulos = "INSERT INTO Articulos (Cod_Articulo, Art_Desc, Cod_Categoria, Cod_Subcat, Id_Proveedor) VALUES (?, ?, ?, ?, ?)";
+                string sqlArticulos = "INSERT INTO Productos (Cod_Producto, Producto_Desc, Id_Tipoentorno, Id_Entorno, Id_Proveedor) VALUES (@cod, @Desc, @Tipo, @Entorno, @proveedor)";
                 using (SqlCommand cmdArticulos = new(sqlArticulos, conn, transaction))
                 {
                   
-                    cmdArticulos.Parameters.AddWithValue("?", articulo.Cod_Producto);
-                    cmdArticulos.Parameters.AddWithValue("?", articulo.Producto_Desc);
-                    cmdArticulos.Parameters.AddWithValue("?", articulo.Id_TipoEntorno);
-                    cmdArticulos.Parameters.AddWithValue("?", articulo.Id_Entorno);
-                    cmdArticulos.Parameters.AddWithValue("?", articulo.Id_Proveedor);
+                    cmdArticulos.Parameters.AddWithValue("@cod", articulo.Cod_Producto);
+                    cmdArticulos.Parameters.AddWithValue("@Desc", articulo.Producto_Desc);
+                    cmdArticulos.Parameters.AddWithValue("@Tipo", articulo.Id_TipoEntorno);
+                    cmdArticulos.Parameters.AddWithValue("@Entorno", articulo.Id_Entorno);
+                    cmdArticulos.Parameters.AddWithValue("@proveedor", articulo.Id_Proveedor);
                     await cmdArticulos.ExecuteNonQueryAsync();
                 }
 
              
-                string sqlStock = "INSERT INTO Stock (Cod_Articulo, Cantidad, Costo, Ganancia) VALUES (?, ?, ?, ?)";
+                string sqlStock = "INSERT INTO Stock (Cod_Producto, Cantidad, Costo, Ganancia) VALUES (@Cod_Producto, @Cantidad, @costo, @Ganancia)";
                 using (SqlCommand cmdStock = new(sqlStock, conn, transaction))
                 {
                    
-                    cmdStock.Parameters.AddWithValue("?", stock.Cod_Articulo);
-                    cmdStock.Parameters.Add("?", SqlDbType.Decimal).Value = stock.Cantidad;
-                    cmdStock.Parameters.Add("?", SqlDbType.Decimal).Value = stock.Costo;
-                    cmdStock.Parameters.Add("?", SqlDbType.Decimal).Value = stock.Ganancia;
+                    cmdStock.Parameters.AddWithValue("@Cod_Producto", stock.Cod_Articulo);
+                    cmdStock.Parameters.Add("@Cantidad", SqlDbType.Decimal).Value = stock.Cantidad;
+                    cmdStock.Parameters.Add("@costo", SqlDbType.Decimal).Value = stock.Costo;
+                    cmdStock.Parameters.Add("@Ganancia", SqlDbType.Decimal).Value = stock.Ganancia;
                     await cmdStock.ExecuteNonQueryAsync();
                 }
 
@@ -62,7 +62,7 @@ namespace Agraria.Repositorio.Repositorios
 
                 await transaction.RollbackAsync();
                 }
-                return Result<bool>.Failure($"Error OleDb al insertar los articulos y los stocks: {ex.Message}");
+                return Result<bool>.Failure($"Error SqlServer al insertar los Productos y los stocks: {ex.Message}");
             }
             catch (Exception ex)
             {
@@ -71,7 +71,7 @@ namespace Agraria.Repositorio.Repositorios
 
                     await transaction.RollbackAsync();
                 }
-                return Result<bool>.Failure($"Error inesperado al insertar los articulos y los stocks: {ex.Message}"); 
+                return Result<bool>.Failure($"Error inesperado al insertar los Productos y los stocks: {ex.Message}"); 
             }
         }
 
@@ -87,18 +87,18 @@ namespace Agraria.Repositorio.Repositorios
 
 
                 // Eliminar Stock
-                string sqlStock = "DELETE FROM Stock WHERE Cod_Articulo = ?";
+                string sqlStock = "DELETE FROM Stock WHERE Cod_Producto = @Cod_producto";
                 using (SqlCommand cmdStock = new(sqlStock, conn, transaction))
                 {
-                    cmdStock.Parameters.AddWithValue("?", stock.Cod_Articulo);
+                    cmdStock.Parameters.AddWithValue("@Cod_producto", stock.Cod_Articulo);
                     await cmdStock.ExecuteNonQueryAsync();
                 }
 
-                // Eliminar Articulos
-                string sqlArticulos = "DELETE FROM Articulos WHERE Cod_Articulo = ?";
+                // Eliminar Productos
+                string sqlArticulos = "DELETE FROM Productos WHERE Cod_Producto = @Cod_producto";
                 using (SqlCommand cmdArticulos = new(sqlArticulos, conn, transaction))
                 {
-                    cmdArticulos.Parameters.AddWithValue("?", articulo.Cod_Producto);
+                    cmdArticulos.Parameters.AddWithValue("@Cod_producto", articulo.Cod_Producto);
                     await cmdArticulos.ExecuteNonQueryAsync();
                 }
 
@@ -112,7 +112,7 @@ namespace Agraria.Repositorio.Repositorios
 
                     await transaction.RollbackAsync();
                 }
-                return Result<bool>.Failure($"Error OleDb al eliminar los articulos y los stocks: {ex.Message}");
+                return Result<bool>.Failure($"Error SqlServer al eliminar los Productos y los stocks: {ex.Message}");
             }
             catch (Exception ex)
             {
@@ -121,7 +121,7 @@ namespace Agraria.Repositorio.Repositorios
 
                     await transaction.RollbackAsync();
                 }
-                return Result<bool>.Failure($"Error inesperado al eliminar los articulos y los stocks: {ex.Message}");
+                return Result<bool>.Failure($"Error inesperado al eliminar los Productos y los stocks: {ex.Message}");
             }
 
         }
@@ -137,8 +137,8 @@ namespace Agraria.Repositorio.Repositorios
                 {
                     await conn.OpenAsync();
 
-                    // 1. Obtener datos de la tabla Articulos
-                    string sqlArticulos = "SELECT Id_Articulo, Cod_Articulo, Art_Desc, Cod_Categoria, Cod_Subcat, Id_Proveedor FROM Articulos";
+                    // 1. Obtener datos de la tabla Productos
+                    string sqlArticulos = "SELECT Id_Producto, Cod_Producto, Producto_Desc, Id_Tipoentorno, Id_Entorno, Id_Proveedor FROM Productos";
                     using (SqlCommand cmdArticulos = new(sqlArticulos, conn))
                     {
                         using DbDataReader reader = await cmdArticulos.ExecuteReaderAsync();
@@ -158,7 +158,7 @@ namespace Agraria.Repositorio.Repositorios
                     }
 
                     // 2. Obtener datos de la tabla Stock
-                    string sqlStock = "SELECT Cod_Articulo, Cantidad, Costo, Ganancia FROM Stock";
+                    string sqlStock = "SELECT Cod_Producto, Cantidad, Costo, Ganancia FROM Stock";
                     using SqlCommand cmdStock = new(sqlStock, conn);
                     using (DbDataReader reader = await cmdStock.ExecuteReaderAsync())
                     {
@@ -197,8 +197,8 @@ namespace Agraria.Repositorio.Repositorios
                 {
                     await conn.OpenAsync();
 
-                    // 1. Obtener datos de la tabla Articulos
-                    string sqlArticulos = "SELECT a.Id_Articulo, a.Cod_Articulo, a.Art_Desc, a.Cod_Categoria, a.Cod_Subcat, a.Id_Proveedor, s.cantidad, s.costo, s.ganancia FROM Articulos a inner join stock s on a.cod_articulo = s.Cod_Articulo ";
+                    // 1. Obtener datos de la tabla Productos
+                    string sqlArticulos = "SELECT a.Id_Producto, a.Cod_Producto, a.Producto_Desc, a.Id_Tipoentorno, a.Id_Entorno, a.Id_Proveedor, s.cantidad, s.costo, s.ganancia FROM Productos a inner join stock s on a.Cod_Producto = s.Cod_Producto ";
                     using SqlCommand cmdArticulos = new(sqlArticulos, conn);
                     using DbDataReader reader = await cmdArticulos.ExecuteReaderAsync();
                     while (await reader.ReadAsync())
@@ -246,26 +246,26 @@ namespace Agraria.Repositorio.Repositorios
                 transaction = (SqlTransaction)await conn.BeginTransactionAsync();
 
 
-                // Actualizar Articulos
-                string sqlArticulos = "UPDATE Articulos SET Art_Desc = ?, Cod_Categoria = ?, Cod_Subcat = ?, Id_Proveedor = ? WHERE Cod_Articulo = ?";
+                // Actualizar Productos
+                string sqlArticulos = "UPDATE Productos SET Producto_Desc = @Desc, Id_Tipoentorno = @tipo, Id_Entorno = @Entorno, Id_Proveedor = @id_proveedor WHERE Cod_Producto = @cod_producto";
                 using (SqlCommand cmdArticulos = new(sqlArticulos, conn, transaction))
                 {
-                    cmdArticulos.Parameters.AddWithValue("?", articulos.Producto_Desc);
-                    cmdArticulos.Parameters.AddWithValue("?", articulos.Id_TipoEntorno);
-                    cmdArticulos.Parameters.AddWithValue("?", articulos.Id_Entorno);
-                    cmdArticulos.Parameters.AddWithValue("?", articulos.Id_Proveedor);
-                    cmdArticulos.Parameters.AddWithValue("?", articulos.Cod_Producto);
+                    cmdArticulos.Parameters.AddWithValue("@Desc", articulos.Producto_Desc);
+                    cmdArticulos.Parameters.AddWithValue("@tipo", articulos.Id_TipoEntorno);
+                    cmdArticulos.Parameters.AddWithValue("@Entorno", articulos.Id_Entorno);
+                    cmdArticulos.Parameters.AddWithValue("@id_proveedor", articulos.Id_Proveedor);
+                    cmdArticulos.Parameters.AddWithValue("@cod_producto", articulos.Cod_Producto);
                     await cmdArticulos.ExecuteNonQueryAsync();
                 }
 
                 // Actualizar Stock
-                string sqlStock = "UPDATE Stock SET Cantidad = ?, Costo = ?, Ganancia = ? WHERE Cod_Articulo = ?";
+                string sqlStock = "UPDATE Stock SET Cantidad = @cant, Costo = @costo, Ganancia = @ganancia WHERE Cod_Producto = @cod_producto";
                 using (SqlCommand cmdStock = new(sqlStock, conn, transaction))
                 {
-                    cmdStock.Parameters.AddWithValue("?", stock.Cantidad);
-                    cmdStock.Parameters.AddWithValue("?", stock.Costo);
-                    cmdStock.Parameters.AddWithValue("?", stock.Ganancia);
-                    cmdStock.Parameters.AddWithValue("?", stock.Cod_Articulo);
+                    cmdStock.Parameters.AddWithValue("@cant", stock.Cantidad);
+                    cmdStock.Parameters.AddWithValue("@costo", stock.Costo);
+                    cmdStock.Parameters.AddWithValue("@ganancia", stock.Ganancia);
+                    cmdStock.Parameters.AddWithValue("@cod_producto", stock.Cod_Articulo);
                     await cmdStock.ExecuteNonQueryAsync();
                 }
 
@@ -279,7 +279,7 @@ namespace Agraria.Repositorio.Repositorios
 
                     await transaction.RollbackAsync();
                 }
-                return Result<bool>.Failure($"Error OleDb al actualizar los articulos y los stocks: {ex.Message}");
+                return Result<bool>.Failure($"Error SqlServer al actualizar los Productos y los stocks: {ex.Message}");
             }
             catch (Exception ex)
             {
@@ -288,7 +288,7 @@ namespace Agraria.Repositorio.Repositorios
 
                     await transaction.RollbackAsync();
                 }
-                return Result<bool>.Failure($"Error inesperado al actualizar los articulos y los stocks: {ex.Message}");
+                return Result<bool>.Failure($"Error inesperado al actualizar los Productos y los stocks: {ex.Message}");
             }
 
         }

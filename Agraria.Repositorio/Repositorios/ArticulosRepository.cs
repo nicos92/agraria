@@ -19,12 +19,12 @@ namespace Agraria.Repositorio.Repositorios
             try
             {
                 using var conn = Conexion();
-                using var cmd = new SqlCommand("INSERT INTO Articulos (Cod_Articulo, Art_Desc, Cod_Categoria, Cod_Subcat, Id_Proveedor) VALUES (@Cod_Articulo, @Art_Desc, @Cod_Categoria, @Cod_Subcat, @Id_Proveedor)", conn);
+                using var cmd = new SqlCommand("INSERT INTO Productos (Cod_Producto, Producto_Desc, Id_TipoEntorno, Id_Entorno, Id_Proveedor) VALUES (@Cod_Producto, @Producto_Desc, @Id_TipoEntorno, @Id_Entorno, @Id_Proveedor)", conn);
 
-                cmd.Parameters.AddWithValue("@Cod_Articulo", articulo.Cod_Producto);
-                cmd.Parameters.AddWithValue("@Art_Desc", articulo.Producto_Desc);
-                cmd.Parameters.AddWithValue("@Cod_Categoria", articulo.Id_TipoEntorno);
-                cmd.Parameters.AddWithValue("@Cod_Subcat", articulo.Id_Entorno);
+                cmd.Parameters.AddWithValue("@Cod_Producto", articulo.Cod_Producto);
+                cmd.Parameters.AddWithValue("@Producto_Desc", articulo.Producto_Desc);
+                cmd.Parameters.AddWithValue("@Id_TipoEntorno", articulo.Id_TipoEntorno);
+                cmd.Parameters.AddWithValue("@Id_Entorno", articulo.Id_Entorno);
                 cmd.Parameters.AddWithValue("@Id_Proveedor", articulo.Id_Proveedor);
                 conn.Open();
                 int inserts = cmd.ExecuteNonQuery();
@@ -50,7 +50,7 @@ namespace Agraria.Repositorio.Repositorios
             try
             {
                 using var conn = Conexion();
-                using var cmd = new SqlCommand("DELETE FROM Articulos WHERE Id_Articulo = @Id_Articulo", conn);
+                using var cmd = new SqlCommand("DELETE FROM Productos WHERE Id_Articulo = @Id_Articulo", conn);
                 cmd.Parameters.AddWithValue("@Id_Articulo", id);
                 conn.Open();
                 int deletes = cmd.ExecuteNonQuery();
@@ -76,7 +76,7 @@ namespace Agraria.Repositorio.Repositorios
             {
                 List<Productos> articulos = [];
                 using var conn = Conexion();
-                using var cmd = new SqlCommand("SELECT Id_Articulo, Cod_Articulo, Art_Desc, Cod_Categoria, Cod_Subcat, Id_Proveedor FROM Articulos", conn);
+                using var cmd = new SqlCommand("SELECT Id_Producto, Cod_Producto, Producto_Desc, Id_TipoEntorno, Id_Entorno, Id_Proveedor FROM Productos", conn);
                 await conn.OpenAsync();
                 using var reader = await cmd.ExecuteReaderAsync();
                 while (await reader.ReadAsync())
@@ -106,7 +106,7 @@ namespace Agraria.Repositorio.Repositorios
             try
             {
                 using var conn = Conexion();
-                using var cmd = new SqlCommand("SELECT Id_Articulo, Cod_Articulo, Art_Desc, Cod_Categoria, Cod_Subcat, Id_Proveedor FROM Articulos WHERE Id_Articulo = @Id_Articulo", conn);
+                using var cmd = new SqlCommand("SELECT Id_Articulo, Cod_Producto, Producto_Desc, Id_TipoEntorno, Id_Entorno, Id_Proveedor FROM Productos WHERE Id_Articulo = @Id_Articulo", conn);
                 cmd.Parameters.AddWithValue("@Id_Articulo", id);
                 conn.Open();
                 using var reader = cmd.ExecuteReader();
@@ -138,7 +138,7 @@ namespace Agraria.Repositorio.Repositorios
             try
             {
                 using var conn = Conexion();
-                using var cmd = new SqlCommand("SELECT MAX(Cod_Articulo) FROM Articulos", conn);
+                using var cmd = new SqlCommand("SELECT MAX(Cod_Producto) FROM Productos", conn);
                 await conn.OpenAsync();
                 using var reader = await cmd.ExecuteReaderAsync();
                 if (await reader.ReadAsync())
@@ -146,16 +146,16 @@ namespace Agraria.Repositorio.Repositorios
                     int max = Convert.ToInt32(reader.GetString(0));
                     return Result<int>.Success(max);
                 }
-                return Result<int>.Failure($"No se pude obtener el ultimo codigo de los articulos");
+                return Result<int>.Failure($"No se pude obtener el ultimo codigo de los Productos");
             }
             catch (SqlException ex)
             {
 
-                return Result<int>.Failure($"Error en la base de datos al obtener  el ultimo codigo de los articulos: {ex.Message}");
+                return Result<int>.Failure($"Error en la base de datos al obtener  el ultimo codigo de los Productos: {ex.Message}");
             }
             catch (Exception ex)
             {
-                return Result<int>.Failure("Error inesperado al obtener el ultimo codigo de los articulos" + ex.Message);
+                return Result<int>.Failure("Error inesperado al obtener el ultimo codigo de los Productos" + ex.Message);
             }
         }
 
@@ -164,10 +164,10 @@ namespace Agraria.Repositorio.Repositorios
             try
             {
                 using var conn = Conexion();
-                using var cmd = new SqlCommand("UPDATE articulos set Cod_Articulo=@Cod_Articulo, Art_Desc=@Art_Desc, Cod_Categoria=@Cod_Categoria, Cod_Subcat=@Cod_Sucat, Id_Proveedor = @Id_Proveedor WHERE Id_Articulo = @Id_Articulo", conn);
-                cmd.Parameters.AddWithValue("@Cod_Articulo", articulo.Cod_Producto);
-                cmd.Parameters.AddWithValue("@Art_Desc", articulo.Producto_Desc);
-                cmd.Parameters.AddWithValue("@Cod_Categoria", articulo.Id_TipoEntorno);
+                using var cmd = new SqlCommand("UPDATE Productos set Cod_Producto=@Cod_Producto, Producto_Desc=@Producto_Desc, Id_TipoEntorno=@Id_TipoEntorno, Id_Entorno=@Cod_Sucat, Id_Proveedor = @Id_Proveedor WHERE Id_Articulo = @Id_Articulo", conn);
+                cmd.Parameters.AddWithValue("@Cod_Producto", articulo.Cod_Producto);
+                cmd.Parameters.AddWithValue("@Producto_Desc", articulo.Producto_Desc);
+                cmd.Parameters.AddWithValue("@Id_TipoEntorno", articulo.Id_TipoEntorno);
                 cmd.Parameters.AddWithValue("@Cod_Sucat", articulo.Id_Entorno);
                 cmd.Parameters.AddWithValue("@Id_Proveedor", articulo.Id_Proveedor);
                 cmd.Parameters.AddWithValue("@Id_Articulo", articulo.Id_Producto);
