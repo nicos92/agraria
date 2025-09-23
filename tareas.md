@@ -8,6 +8,8 @@
 
 - [ ] investigar por que cuando la computadora esta activo la red de internet pero no hay internet tarda mas en cargar los datos de MS ACCESS
 - [ ] verificar que carguen bien los controles cuando se usan Tareas Largas
+- [ ] mejorar mensajes de errores depende de la excepcion ocurrida
+- [ ] verificar que todos los data grid view solo se seleccionen de a una fila
 
 #### Proveedores
 

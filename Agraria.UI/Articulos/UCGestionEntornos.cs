@@ -385,13 +385,13 @@ namespace Agraria.UI.Articulos
             }
 
             // Verificar si hay subcategorías asociadas
-            var subcategoriasResult = _entornoService.GetAllxEntorno(_selectedTipoEntornoId).Result;
-            if (subcategoriasResult.IsSuccess && subcategoriasResult.Value.Count != 0)
-            {
-                MessageBox.Show("No se puede eliminar el Tipo de Entorno porque tiene Entornos asociados. Elimine primero los Entornos.", "Advertencia",
-                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
+            //var subcategoriasResult = _entornoService.GetAllxEntorno(_selectedTipoEntornoId).Result;
+            //if (subcategoriasResult.IsSuccess && subcategoriasResult.Value.Count != 0)
+            //{
+            //    MessageBox.Show("No se puede eliminar el Tipo de Entorno porque tiene Entornos asociados. Elimine primero los Entornos.", "Advertencia",
+            //        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            //    return;
+            //}
 
             var dr = MessageBox.Show("¿Está seguro que desea eliminar este Entorno? Esta acción no se puede deshacer.",
                 "Confirmar eliminación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);

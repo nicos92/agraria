@@ -251,10 +251,10 @@ namespace Agraria.UI.Inventario
             BtnIngresar.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             BtnIngresar.ForeColor = Color.FromArgb(255, 255, 255);
             BtnIngresar.Image = Properties.Resources.ingresar;
-            BtnIngresar.Location = new Point(234, 319);
+            BtnIngresar.Location = new Point(234, 318);
             BtnIngresar.Margin = new Padding(0);
             BtnIngresar.Name = "BtnIngresar";
-            BtnIngresar.Size = new Size(192, 42);
+            BtnIngresar.Size = new Size(192, 45);
             BtnIngresar.TabIndex = 13;
             BtnIngresar.Text = "INGRESAR";
             BtnIngresar.TextImageRelation = TextImageRelation.TextBeforeImage;
