@@ -28,11 +28,49 @@ namespace Agraria.Repositorio.Repositorios
                     Usuarios usuario = new()
                     {
                         Id_Usuario = reader.GetInt32(0),
-                        DNI =  reader.GetString(1),
+                        DNI = reader.GetString(1),
                         Nombre = reader.GetString(2),
                         Apellido = reader.GetString(3),
                         Tel = reader.GetString(4),
-                        Mail =  reader.GetString(5),
+                        Mail = reader.GetString(5),
+                        Id_Tipo = reader.GetInt32(6),
+                        Contra = reader.GetString(7),
+                        Respues = reader.GetString(8),
+                        Id_Pregunta = reader.GetInt32(9),
+                        Activo = reader.GetBoolean(10)
+                    };
+                    usuarios.Add(usuario);
+                }
+                return Result<List<Usuarios>>.Success(usuarios);
+            }
+            catch (SqlException ex)
+            {
+                return Result<List<Usuarios>>.Failure("Error en la base de datos al obtener los usuarios: " + ex.Message);
+            }
+            catch (System.Exception ex)
+            {
+                return Result<List<Usuarios>>.Failure("Error inesperado al obtener los usuarios: " + ex.Message);
+            }
+        }
+        public async Task<Result<List<Usuarios>>> GetAllActive()
+        {
+            try
+            {
+                using SqlConnection conn = Conexion();
+                using SqlCommand cmd = new("SELECT Id_Usuario, DNI, Nombre, Apellido, Tel, Mail, Id_Tipo, contra, respues, id_pregunta, Activo FROM Usuarios WHERE Activo = 1", conn);
+                await conn.OpenAsync();
+                using DbDataReader reader = await cmd.ExecuteReaderAsync();
+                List<Usuarios> usuarios = [];
+                while (await reader.ReadAsync())
+                {
+                    Usuarios usuario = new()
+                    {
+                        Id_Usuario = reader.GetInt32(0),
+                        DNI = reader.GetString(1),
+                        Nombre = reader.GetString(2),
+                        Apellido = reader.GetString(3),
+                        Tel = reader.GetString(4),
+                        Mail = reader.GetString(5),
                         Id_Tipo = reader.GetInt32(6),
                         Contra = reader.GetString(7),
                         Respues = reader.GetString(8),

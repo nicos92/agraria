@@ -87,12 +87,17 @@ namespace Agraria.UI.EntornoFormativo
 
         private void LLenarCMBGrilla()
         {
-            _logger.LogInformation("Llenando ComboBoxes y grilla.");
-            CargarDGVEntornosFormativos();
+            this.Invoke(
+                () =>
+                {
+                    _logger.LogInformation("Llenando ComboBoxes y grilla.");
+                    CargarDGVEntornosFormativos();
 
-            CargarCMBs();
-            LimpiarFormulario();
-            _logger.LogInformation("ComboBoxes y grilla llenados exitosamente.");
+                    CargarCMBs();
+                    LimpiarFormulario();
+                    _logger.LogInformation("ComboBoxes y grilla llenados exitosamente.");
+                });
+            
         }
 
         private async Task CargaDeDatos()
@@ -384,7 +389,7 @@ namespace Agraria.UI.EntornoFormativo
             if (resultado.IsSuccess)
             {
                 CMBEntorno.DataSource = resultado.Value;
-                CMBEntorno.DisplayMember = "Entorno_nombre";
+                CMBEntorno.DisplayMember = "Entorno_Nombre";
                 CMBEntorno.ValueMember = "Id_Entorno";
                 _logger.LogInformation("Entornos cargados exitosamente para tipo de entorno ID: {IdTipoEntorno}. Total: {Count}", idTipoEntorno, resultado.Value.Count);
             }

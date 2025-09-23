@@ -363,6 +363,7 @@
             Name = "UCIngresoEntornoFormativo";
             Size = new Size(804, 561);
             Load += UCIngresoEntornoFormativo_Load;
+            VisibleChanged += UCIngresoEntornoFormativo_VisibleChanged;
             PanelMedio.ResumeLayout(false);
             TLPMedio.ResumeLayout(false);
             groupBox1.ResumeLayout(false);

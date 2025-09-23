@@ -53,10 +53,10 @@ namespace Agraria.UI.EntornoFormativo
 
             // Cambiar el nombre del botón en el diseñador si es necesario, o aquí:
             BtnIngresar.Text = "GUARDAR";
-            
+
             // Initialize Activo checkbox to true by default
             ChkActivo.Checked = true;
-            
+
             _logger.LogInformation("UCIngresoEntornoFormativo inicializado.");
         }
 
@@ -65,11 +65,11 @@ namespace Agraria.UI.EntornoFormativo
         #region Eventos del Control
 
         private void UCIngresoEntornoFormativo_Load(object sender, EventArgs e)
-        {            
+        {
             _logger.LogInformation("UCIngresoEntornoFormativo cargado.");
             // Iniciar la carga inicial con barra de progreso
-            _tareaLarga = new TareasLargas(PanelMedio, ProgressBar, CargaInicialControles, LimpiarFormulario);
-            
+            _tareaLarga = new TareasLargas(PanelMedio, ProgressBar, CargaInicialControles, CargarCMBs);
+
             _tareaLarga.Iniciar();
         }
 
@@ -85,13 +85,13 @@ namespace Agraria.UI.EntornoFormativo
         private void BtnIngresar_Click(object sender, EventArgs e)
         {
             _logger.LogInformation("Botón Ingresar clickeado.");
-            if (!ValidarCampos()) 
+            if (!ValidarCampos())
             {
                 _logger.LogWarning("Validación de campos fallida.");
                 return;
             }
             DialogResult dialogResult = MessageBox.Show("¿Estas de Acuerdo en Ingresar el Entorno Formativo?", "Ingreso Entorno Formativo", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
-            if (dialogResult != DialogResult.OK) 
+            if (dialogResult != DialogResult.OK)
             {
                 _logger.LogInformation("Operación cancelada por el usuario.");
                 return;
@@ -114,11 +114,11 @@ namespace Agraria.UI.EntornoFormativo
 
                 Result<Modelo.Entidades.EntornoFormativo> resultado;
 
-                
-                    // Inserción
-                    _logger.LogInformation("Intentando agregar nuevo entorno formativo.");
-                    resultado = _entornoFormativoService.Add(entornoFormativo);
-                
+
+                // Inserción
+                _logger.LogInformation("Intentando agregar nuevo entorno formativo.");
+                resultado = _entornoFormativoService.Add(entornoFormativo);
+
 
                 if (resultado.IsSuccess)
                 {
@@ -138,7 +138,7 @@ namespace Agraria.UI.EntornoFormativo
 
         #region Métodos Públicos
 
-       
+
 
         public void LimpiarFormulario()
         {
@@ -149,13 +149,13 @@ namespace Agraria.UI.EntornoFormativo
             TxtCursoGrupo.Clear();
             TxtObservacion.Clear();
             ChkActivo.Checked = true;
-            
+
             // Set default selections
-            if (_listaUsuarios.Count > 0)
-                CMBUsuario.SelectedIndex = 0;
-            else
-                CMBUsuario.SelectedIndex = -1;
-                
+            //if (_listaUsuarios.Count > 0)
+            //    CMBUsuario.SelectedIndex = 0;
+            //else
+            //    CMBUsuario.SelectedIndex = -1;
+
             if (_listaTipoEntorno.Count > 0)
             {
                 CMBTipoEntorno.SelectedIndex = 0;
@@ -168,7 +168,7 @@ namespace Agraria.UI.EntornoFormativo
                 CMBTipoEntorno.SelectedIndex = -1;
                 CMBEntorno.DataSource = null;
             }
-                
+
             BtnIngresar.Enabled = false;
         }
 
@@ -176,55 +176,63 @@ namespace Agraria.UI.EntornoFormativo
 
         #region Métodos Privados
 
-        private void CargaInicialControles()
+        private async void CargaInicialControles()
         {
             _logger.LogInformation("Iniciando carga inicial de controles.");
             // Ejecutar las tareas de carga de forma paralela
-            var tareaTipoEntornos = CargarTipoEntornos();
-            var tareaUsuarios = CargarUsuarios();
-            
+            await Task.WhenAll(
+            CargarTipoEntornos(),
+            CargarUsuarios()
+            );
             // Esperar a que ambas tareas se completen
-            Task.WaitAll(tareaTipoEntornos, tareaUsuarios);
-            
+
+
             // Cargar los ComboBoxes en el hilo de UI
-            Invoke((MethodInvoker)delegate {
-                CargarCMBs();
-            });
+
+
+
             _logger.LogInformation("Carga inicial de controles completada.");
         }
 
         private void CargarCMBs()
         {
             _logger.LogInformation("Cargando ComboBoxes.");
-            CMBUsuario.DataSource = _listaUsuarios;
-            CMBUsuario.DisplayMember = "Dato"; 
-            CMBUsuario.ValueMember = "Id_Usuario";
 
-            CMBTipoEntorno.DataSource = _listaTipoEntorno;
-            CMBTipoEntorno.DisplayMember = "Tipo_Entorno";
-            CMBTipoEntorno.ValueMember = "Id_Tipo_Entorno";
+            this.Invoke(
+                () =>
+            {
+                CMBTipoEntorno.DataSource = _listaTipoEntorno;
+                CMBTipoEntorno.DisplayMember = "Tipo_Entorno";
+                CMBTipoEntorno.ValueMember = "Id_Tipo_Entorno";
+
+
+                CMBUsuario.DataSource = _listaUsuarios;
+                CMBUsuario.DisplayMember = "Dato";
+                CMBUsuario.ValueMember = "Id_Usuario";
+            });
+
 
             // Set default selections
-            if (_listaUsuarios.Count > 0)
-                CMBUsuario.SelectedIndex = 0;
-            
-            if (_listaTipoEntorno.Count > 0)
-            {
-                CMBTipoEntorno.SelectedIndex = 0;
-                // Load entornos for the default selected tipo entorno
-                var defaultTipoEntorno = _listaTipoEntorno[0];
-                // We need to invoke this on the UI thread
-                var task = CargarEntornos(defaultTipoEntorno.Id_Tipo_Entorno);
-                task.Wait(); // Wait for the task to complete
-            }
+            //if (_listaUsuarios.Count > 0)
+            //    CMBUsuario.SelectedIndex = 0;
+
+            //if (_listaTipoEntorno.Count > 0)
+            //{
+            //    CMBTipoEntorno.SelectedIndex = 0;
+            //    // Load entornos for the default selected tipo entorno
+            //    var defaultTipoEntorno = _listaTipoEntorno[0];
+            //    // We need to invoke this on the UI thread
+            //    var task = CargarEntornos(defaultTipoEntorno.Id_Tipo_Entorno);
+            //    task.Wait(); // Wait for the task to complete
+            //}
             _logger.LogInformation("ComboBoxes cargados exitosamente.");
         }
 
         private async Task CargarUsuarios()
         {
             _logger.LogInformation("Cargando usuarios.");
-            var result = await _usuarioService.GetAll();
-            if (result.IsSuccess) 
+            var result = await _usuarioService.GetAllActive();
+            if (result.IsSuccess)
             {
                 _listaUsuarios = result.Value;
                 _logger.LogInformation("Usuarios cargados exitosamente. Total: {Count}", _listaUsuarios.Count);
@@ -239,7 +247,7 @@ namespace Agraria.UI.EntornoFormativo
         {
             _logger.LogInformation("Cargando tipos de entorno.");
             var result = await _tipoEntornoService.GetAll();
-            if (result.IsSuccess) 
+            if (result.IsSuccess)
             {
                 _listaTipoEntorno = result.Value;
                 _logger.LogInformation("Tipos de entorno cargados exitosamente. Total: {Count}", _listaTipoEntorno.Count);
@@ -293,11 +301,23 @@ namespace Agraria.UI.EntornoFormativo
         private void TxtDescripcion_TextChanged(object sender, EventArgs e)
         {
             ValidadorMultiple.ValidacionMultiple(BtnIngresar, _vTxtCursoAnio, _vTxtCursoDivision, _vTxtCursoGrupo, _vTxtObservacion);
-            
+
         }
 
-       
+
 
         #endregion
+
+        private void UCIngresoEntornoFormativo_VisibleChanged(object sender, EventArgs e)
+        {
+            if (Visible)
+            {
+                _logger.LogInformation("UCIngresoEntornoFormativo visible.");
+                // Iniciar la carga inicial con barra de progreso
+                _tareaLarga = new TareasLargas(PanelMedio, ProgressBar, CargaInicialControles, CargarCMBs);
+
+                _tareaLarga.Iniciar();
+            }
+        }
     }
 }

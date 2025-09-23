@@ -167,13 +167,18 @@ namespace Agraria.UI.Articulos
         /// </summary>
         private void CargarCMB()
         {
-            CMBProveedor.DataSource = ListaProveedores;
-            CMBProveedor.DisplayMember = "Proveedor";
-            CMBProveedor.ValueMember = "Id_Proveedor";
+            this.Invoke(
+                () =>
+                {
+                    CMBProveedor.DataSource = ListaProveedores;
+                    CMBProveedor.DisplayMember = "Proveedor";
+                    CMBProveedor.ValueMember = "Id_Proveedor";
 
-            CMBCategoria.DataSource = ListaCategorias;
-            CMBCategoria.DisplayMember = "Tipo_Entorno";
-            CMBCategoria.ValueMember = "Id_Tipo_Entorno";
+                    CMBCategoria.DataSource = ListaCategorias;
+                    CMBCategoria.DisplayMember = "Tipo_Entorno";
+                    CMBCategoria.ValueMember = "Id_Tipo_Entorno";
+                });
+            
         }
 
         /// <summary>

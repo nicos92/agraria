@@ -134,7 +134,7 @@ namespace Agraria.Utilidades
         /// </summary>
         /// <param name="sender">La fuente del evento.</param>
         /// <param name="e">La instancia de <see cref="RunWorkerCompletedEventArgs"/> que contiene los datos del evento.</param>
-        private void TrabajoCompletado(object sender, RunWorkerCompletedEventArgs e)
+        private async void TrabajoCompletado(object sender, RunWorkerCompletedEventArgs e)
         {
             _panelADesactivar.Enabled = true;
             _barraDeProgreso.Visible = false;
@@ -150,7 +150,10 @@ namespace Agraria.Utilidades
             else
             {
                 // Ejecuta la tarea de completado si no hubo errores
-                _tareaCompletada?.Invoke();
+                await Task.Run(
+                    
+                    ()=> { _tareaCompletada?.Invoke(); }
+                    );
             }
         }
     }

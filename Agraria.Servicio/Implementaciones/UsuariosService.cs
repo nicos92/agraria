@@ -18,5 +18,10 @@ namespace Agraria.Servicio.Implementaciones
         public Result<Usuarios> Add(Usuarios usuario) => _repo.Add(usuario);
         public Result<Usuarios> Update(Usuarios usuario) => _repo.Update(usuario);
         public Result<bool> Delete(int id) => _repo.Delete(id);
+
+        public async Task<Result<List<Usuarios>>> GetAllActive()
+        {
+            return await _repo.GetAllActive();
+        }
     }
 }

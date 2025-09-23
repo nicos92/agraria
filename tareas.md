@@ -7,6 +7,7 @@
 #### General
 
 - [ ] investigar por que cuando la computadora esta activo la red de internet pero no hay internet tarda mas en cargar los datos de MS ACCESS
+- [ ] verificar que carguen bien los controles cuando se usan Tareas Largas
 
 #### Proveedores
 
@@ -30,4 +31,5 @@
 
 #### Entorno formativo
 
-- [ ] revisar por que no carga el modulo de entorno formativo, seguramente son las bases de datos
+- [x] revisar por que no carga el modulo de entorno formativo, seguramente son las bases de datos
+- [ ] al modificar entorno formativo bloquear el boton si no esta todo ok

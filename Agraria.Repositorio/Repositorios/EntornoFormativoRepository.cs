@@ -17,7 +17,7 @@ namespace Agraria.Repositorio.Repositorios
             try
             {
                 using var conn = Conexion();
-                using var cmd = new SqlCommand("INSERT INTO Entorno_Formativo (Id_Entorno, Id_Usuario, Curso_anio, Curso_Division, Curso_Grupo, Observaciones, Activo) VALUES (@Id_Entorno, @Id_Usuario, @Curso_anio, @Curso_Division, @Curso_Grupo, @Observaciones, @Activo)", conn);
+                using var cmd = new SqlCommand("INSERT INTO EntornoFormativo (Id_Entorno, Id_Usuario, Curso_anio, Curso_Division, Curso_Grupo, Observaciones, Activo) VALUES (@Id_Entorno, @Id_Usuario, @Curso_anio, @Curso_Division, @Curso_Grupo, @Observaciones, @Activo)", conn);
 
                 cmd.Parameters.AddWithValue("@Id_Entorno", entornoFormativo.Id_Entorno);
                 cmd.Parameters.AddWithValue("@Id_Usuario", entornoFormativo.Id_Usuario);
@@ -50,7 +50,7 @@ namespace Agraria.Repositorio.Repositorios
             try
             {
                 using var conn = Conexion();
-                using var cmd = new SqlCommand("DELETE FROM Entorno_Formativo WHERE Id_Entorno_Formativo = @Id_Entorno_Formativo", conn);
+                using var cmd = new SqlCommand("DELETE FROM EntornoFormativo WHERE Id_EntornoFormativo = @Id_Entorno_Formativo", conn);
                 cmd.Parameters.AddWithValue("@Id_Entorno_Formativo", id);
                 conn.Open();
                 int deletes = cmd.ExecuteNonQuery();
@@ -75,7 +75,7 @@ namespace Agraria.Repositorio.Repositorios
             {
                 List<EntornoFormativo> entornosFormativos = [];
                 using var conn = Conexion();
-                using var cmd = new SqlCommand("SELECT Entorno_Formativo.Id_Entorno_Formativo, Entorno_Formativo.id_Entorno, Entorno_Formativo.id_usuario, Entorno_Formativo.Curso_anio, Entorno_Formativo.Curso_division, Entorno_Formativo.Curso_Grupo, Entorno_Formativo.Observaciones, Entorno_Formativo.Activo, usuarios.nombre, usuarios.apellido, Entorno.sub_categoria FROM Entorno INNER JOIN (Usuarios INNER JOIN Entorno_Formativo ON Usuarios.id_usuario = Entorno_Formativo.id_usuario) ON Entorno.id_subcategoria = Entorno_Formativo.id_entorno;", conn);
+                using var cmd = new SqlCommand("SELECT EntornoFormativo.Id_EntornoFormativo, EntornoFormativo.id_Entorno, EntornoFormativo.id_usuario, EntornoFormativo.Curso_anio, EntornoFormativo.Curso_division, EntornoFormativo.Curso_Grupo, EntornoFormativo.Observaciones, EntornoFormativo.Activo, Usuarios.Nombre, Usuarios.Apellido, Entorno.Nombre FROM Entorno INNER JOIN (Usuarios INNER JOIN EntornoFormativo ON Usuarios.id_usuario = EntornoFormativo.Id_Usuario) ON Entorno.Id_Entorno = EntornoFormativo.id_entorno;", conn);
                 await conn.OpenAsync();
                 using var reader = await cmd.ExecuteReaderAsync();
                 while (await reader.ReadAsync())
@@ -109,7 +109,7 @@ namespace Agraria.Repositorio.Repositorios
             try
             {
                 using var conn = Conexion();
-                using var cmd = new SqlCommand("SELECT Id_Entorno_Formativo, Id_Entorno, Id_Usuario, Curso_anio, Curso_Division, Curso_Grupo, Observaciones, Activo FROM Entorno_Formativo WHERE Id_Entorno_Formativo = @Id_Entorno_Formativo", conn);
+                using var cmd = new SqlCommand("SELECT Id_EntornoFormativo, Id_Entorno, Id_Usuario, Curso_anio, Curso_Division, Curso_Grupo, Observaciones, Activo FROM EntornoFormativo WHERE Id_EntornoFormativo = @Id_Entorno_Formativo", conn);
                 cmd.Parameters.AddWithValue("@Id_Entorno_Formativo", id);
                 conn.Open();
                 using var reader = cmd.ExecuteReader();
@@ -141,7 +141,7 @@ namespace Agraria.Repositorio.Repositorios
             try
             {
                 using var conn = Conexion();
-                using var cmd = new SqlCommand("UPDATE Entorno_Formativo SET Id_Entorno = @Id_Entorno, Id_Usuario = @Id_Usuario, Curso_anio = @Curso_anio, Curso_Division = @Curso_Division, Curso_Grupo = @Curso_Grupo, Observaciones = @Observaciones, Activo = @Activo WHERE Id_Entorno_Formativo = @Id_Entorno_Formativo", conn);
+                using var cmd = new SqlCommand("UPDATE EntornoFormativo SET Id_Entorno = @Id_Entorno, Id_Usuario = @Id_Usuario, Curso_anio = @Curso_anio, Curso_Division = @Curso_Division, Curso_Grupo = @Curso_Grupo, Observaciones = @Observaciones, Activo = @Activo WHERE Id_EntornoFormativo = @Id_Entorno_Formativo", conn);
                 
                 cmd.Parameters.AddWithValue("@Id_Entorno", entornoFormativo.Id_Entorno);
                 cmd.Parameters.AddWithValue("@Id_Usuario", entornoFormativo.Id_Usuario);

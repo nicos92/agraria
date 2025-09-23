@@ -287,16 +287,21 @@ namespace Agraria.UI.HojadeVida
         /// </summary>
         private void CargarDataGrid()
         {
-            CargarHojasVidaDataGridView();
-            if (Utilidades.Util.CalcularDGVVacio(ListBHojasVida, LblLista, "Hojas de Vida"))
-            {
-                Utilidades.Util.LimpiarForm(TLPForm, TxtNombre);
-                Utilidades.Util.BloquearBtns(ListBHojasVida, TLPForm);
-            }
-            else
-            {
-                Utilidades.Util.DesbloquearTLPForm(TLPForm);
-            }
+            this.Invoke(
+                () =>
+                {
+                    CargarHojasVidaDataGridView();
+                    if (Utilidades.Util.CalcularDGVVacio(ListBHojasVida, LblLista, "Hojas de Vida"))
+                    {
+                        Utilidades.Util.LimpiarForm(TLPForm, TxtNombre);
+                        Utilidades.Util.BloquearBtns(ListBHojasVida, TLPForm);
+                    }
+                    else
+                    {
+                        Utilidades.Util.DesbloquearTLPForm(TLPForm);
+                    }
+                });
+            
         }
 
         /// <summary>
@@ -304,19 +309,24 @@ namespace Agraria.UI.HojadeVida
         /// </summary>
         private void CargarCMB()
         {
-            // Cargar tipos de animal
-            CMBTipoAnimal.DataSource = Enum.GetValues<TipoAnimal>()
-                                   .Select(e => new { Value = e, Display = e.ToString() })
-                                   .ToList();
-            CMBTipoAnimal.ValueMember = "Value";
-            CMBTipoAnimal.DisplayMember = "Display";
+            this.Invoke(
+                () =>
+                {
+                    // Cargar tipos de animal
+                    CMBTipoAnimal.DataSource = Enum.GetValues<TipoAnimal>()
+                                           .Select(e => new { Value = e, Display = e.ToString() })
+                                           .ToList();
+                    CMBTipoAnimal.ValueMember = "Value";
+                    CMBTipoAnimal.DisplayMember = "Display";
 
-            // Cargar sexos
-            CMBSexo.DataSource = Enum.GetValues<Sexo>()
-                               .Select(e => new { Value = e, Display = e.ToString() })
-                               .ToList();
-            CMBSexo.ValueMember = "Value";
-            CMBSexo.DisplayMember = "Display";
+                    // Cargar sexos
+                    CMBSexo.DataSource = Enum.GetValues<Sexo>()
+                                       .Select(e => new { Value = e, Display = e.ToString() })
+                                       .ToList();
+                    CMBSexo.ValueMember = "Value";
+                    CMBSexo.DisplayMember = "Display";
+                });
+            
         }
 
         #endregion
@@ -515,7 +525,8 @@ namespace Agraria.UI.HojadeVida
                     Name = "Codigo",
                     DataPropertyName = "Codigo",
                     HeaderText = "Codigo",
-                    Visible = true
+                    Visible = true,
+                    AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
                 },
                 new DataGridViewTextBoxColumn
                 {

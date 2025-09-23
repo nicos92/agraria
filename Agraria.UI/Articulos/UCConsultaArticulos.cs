@@ -321,33 +321,41 @@ namespace Agraria.UI.Articulos
         /// </summary>
         private void CargarCombosYDataGrid()
         {
-            CargarCMBs();
+            this.Invoke(
+                () =>
+                {
+                    CargarCMBs();
 
-            CargarArticulosDataGridView();
+                    CargarArticulosDataGridView();
+
+                    // Verificar si hay artículos y activar/desactivar formulario según corresponda
+                    if (_listaArticulos == null || _listaArticulos.Count == 0)
+                    {
+                        // No hay artículos, desactivar formulario
+                        Utilidades.Util.LimpiarForm(TLPForm, TxtDescripcion);
+                        Utilidades.Util.BloquearBtns(ListBArticulos, TLPForm);
+                    }
+                    else
+                    {
+                        // Hay artículos, activar formulario
+                        Utilidades.Util.DesbloquearTLPForm(TLPForm);
+                    }
+                });
             
-            // Verificar si hay artículos y activar/desactivar formulario según corresponda
-            if (_listaArticulos == null || _listaArticulos.Count == 0)
-            {
-                // No hay artículos, desactivar formulario
-                Utilidades.Util.LimpiarForm(TLPForm, TxtDescripcion);
-                Utilidades.Util.BloquearBtns(ListBArticulos, TLPForm);
-            }
-            else
-            {
-                // Hay artículos, activar formulario
-                Utilidades.Util.DesbloquearTLPForm(TLPForm);
-            }
         }
 
         private void CargarCMBs()
         {
-            CMBProveedor.DataSource = _listaProveedores ?? [];
-            CMBProveedor.DisplayMember = "Proveedor";
-            CMBProveedor.ValueMember = "Id_Proveedor";
+            
+                    CMBProveedor.DataSource = _listaProveedores ?? [];
+                    CMBProveedor.DisplayMember = "Proveedor";
+                    CMBProveedor.ValueMember = "Id_Proveedor";
 
-            CMBTipoEntorno.DataSource = _listaTipoEntorno ?? [];
-            CMBTipoEntorno.DisplayMember = "Tipo_Entorno";
-            CMBTipoEntorno.ValueMember = "Id_Tipo_Entorno";
+                    CMBTipoEntorno.DataSource = _listaTipoEntorno ?? [];
+                    CMBTipoEntorno.DisplayMember = "Tipo_Entorno";
+                    CMBTipoEntorno.ValueMember = "Id_Tipo_Entorno";
+               
+            
         }
 
         /// <summary>

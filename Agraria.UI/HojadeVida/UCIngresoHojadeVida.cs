@@ -120,19 +120,25 @@ namespace Agraria.UI.HojadeVida
         /// </summary>
         private void CargarCMB()
         {
-            // Cargar tipos de animal
-            CMBTipoAnimal.DataSource = Enum.GetValues<TipoAnimal>()
-                                   .Select(e => new { Value = e, Display = e.ToString() })
-                                   .ToList();
-            CMBTipoAnimal.ValueMember = "Value";
-            CMBTipoAnimal.DisplayMember = "Display";
+            this.Invoke(
+                () =>
+                {
+                    // Cargar tipos de animal
+                    CMBTipoAnimal.DataSource = Enum.GetValues<TipoAnimal>()
+                                           .Select(e => new { Value = e, Display = e.ToString() })
+                                           .ToList();
+                    CMBTipoAnimal.ValueMember = "Value";
+                    CMBTipoAnimal.DisplayMember = "Display";
 
-            // Cargar sexos
-            CMBSexo.DataSource = Enum.GetValues<Sexo>()
-                               .Select(e => new { Value = e, Display = e.ToString() })
-                               .ToList();
-            CMBSexo.ValueMember = "Value";
-            CMBSexo.DisplayMember = "Display";
+                    // Cargar sexos
+                    CMBSexo.DataSource = Enum.GetValues<Sexo>()
+                                       .Select(e => new { Value = e, Display = e.ToString() })
+                                       .ToList();
+                    CMBSexo.ValueMember = "Value";
+                    CMBSexo.DisplayMember = "Display";
+                });
+
+           
         }
 
         #endregion Métodos Privados

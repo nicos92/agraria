@@ -6,14 +6,9 @@ using Agraria.Utilidades;
 
 namespace Agraria.Servicio.Implementaciones
 {
-    public class SubcategoriaService : IEntornoService
+    public class SubcategoriaService(IEntornoRepository repo) : IEntornoService
     {
-        private readonly IEntornoRepository _repo;
-
-        public SubcategoriaService(IEntornoRepository repo)
-        {
-            _repo = repo;
-        }
+        private readonly IEntornoRepository _repo = repo;
 
         public Task<Result<List<Entorno>>> GetAll() => _repo.GetAll();
         public Result<Entorno> GetById(int id) => _repo.GetById(id);

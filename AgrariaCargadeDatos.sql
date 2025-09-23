@@ -43,6 +43,29 @@ INSERT INTO Productos (Cod_Producto, Producto_Desc, Id_TipoEntorno, Id_Entorno, 
 ('001', 'Fertilizante Orgánico', 1, 1, 1, 'Litros', 1),
 ('002', 'Semillas de Tomate', 3, 2, 2, 'Gramos', 1);
 
+--
+-- Poblar la tabla 'Productos' con múltiples registros
+--
+INSERT INTO Productos (Cod_Producto, Producto_Desc, Id_TipoEntorno, Id_Entorno, Id_Proveedor, Unidad_Medida, En_Venta) VALUES
+('003', 'Tierra Fértil', 1, 1, 1, 'Kg', 1),
+('004', 'Manguera de Riego', 1, 1, 1, 'Metros', 1),
+('005', 'Kit de Herramientas de Jardinería', 1, 1, 1, 'Unidad', 1),
+('006', 'Malla Sombra', 1, 1, 1, 'Metros', 1),
+('007', 'Semillas de Lechuga', 3, 2, 2, 'Gramos', 1),
+('008', 'Semillas de Zanahoria', 3, 2, 2, 'Gramos', 1),
+('009', 'Abono Compuesto', 3, 2, 2, 'Kg', 1),
+('010', 'Atomizador Manual', 3, 2, 2, 'Litros', 1),
+('011', 'Tutor para Plantas', 1, 1, 1, 'Unidad', 1),
+('012', 'Pala Pequeña', 1, 1, 1, 'Unidad', 1),
+('013', 'Guantes de Jardinería', 1, 1, 1, 'Par', 1),
+('014', 'Regadera Metálica', 3, 2, 2, 'Litros', 1),
+('015', 'Tijeras de Poda', 3, 2, 2, 'Unidad', 1),
+('016', 'Semillas de Pepino', 3, 2, 2, 'Gramos', 1),
+('017', 'Kit de siembra en maceta', 1, 1, 1, 'Unidad', 1),
+('018', 'Insecticida orgánico', 3, 2, 2, 'Litros', 1),
+('019', 'Medidor de humedad del suelo', 1, 1, 1, 'Unidad', 0),
+('020', 'Etiquetas para plantas', 3, 2, 2, 'Paquete', 1);
+
 -- Poblar ArticulosGral
 INSERT INTO ArticulosGral (Art_Cod, Art_Nombre, Art_Unidad_Medida, Art_Precio, Art_Descripcion, Art_Stock) VALUES
 ('001', 'Pala', 'Unidad', 1500.00, 'Herramienta de jardinería', 10),
@@ -74,6 +97,31 @@ INSERT INTO HojadeVida (Nombre, Tipo_Animal, Sexo, Fecha_Nacimiento, Peso, Estad
 -- Poblar EntornoFormativo
 INSERT INTO EntornoFormativo (Id_Entorno, Id_Usuario, Curso_Anio, Curso_Division, Curso_Grupo, Observaciones, Activo) VALUES
 (2, 2, '2025', '3°A', 'Grupo Verde', 'Proyecto huerta escolar', 1);
+--
+-- Poblar la tabla 'EntornoFormativo' con múltiples registros de ejemplo
+--
+
+INSERT INTO EntornoFormativo (Id_Entorno, Id_Usuario, Curso_Anio, Curso_Division, Curso_Grupo, Observaciones, Activo) VALUES
+(1, 1, '2024', '1°A', 'Grupo A', 'Introducción a la programación', 1),
+(2, 2, '2025', '3°B', 'Grupo Rojo', 'Proyecto de robótica educativa', 1),
+(3, 3, '2023', '2°C', 'Grupo Azul', 'Taller de creatividad', 0),
+(4, 4, '2024', '4°A', 'Grupo C', 'Simulacro de empresa', 1),
+(3, 1, '2025', '5°B', 'Grupo Verde', 'Clase de educación física', 1),
+(1, 2, '2023', '1°B', 'Grupo B', 'Taller de fotografía digital', 0),
+(2, 3, '2024', '3°C', 'Grupo Naranja', 'Proyecto de investigación histórica', 1),
+(3, 4, '2025', '2°A', 'Grupo Gris', 'Curso de primeros auxilios', 1),
+(4, 1, '2024', '6°A', 'Grupo E', 'Preparación para el examen final', 1),
+(1,2, '2025', '1°C', 'Grupo F', 'Proyecto de reciclaje', 1),
+(1, 3, '2024', '4°B', 'Grupo D', 'Taller de escritura creativa', 0),
+(1, 4, '2025', '3°D', 'Grupo Marrón', 'Clase de música', 1),
+(1, 1, '2024', '2°B', 'Grupo G', 'Taller de ajedrez', 1),
+(1, 2, '2025', '5°C', 'Grupo Blanco', 'Laboratorio de química', 1),
+(1, 3, '2024', '6°B', 'Grupo H', 'Preparación para la universidad', 1),
+(1, 4, '2023', '1°D', 'Grupo I', 'Introducción a la electrónica', 0),
+(1, 1, '2025', '4°C', 'Grupo J', 'Proyecto de desarrollo web', 1),
+(1, 2, '2024', '3°E', 'Grupo K', 'Taller de teatro', 1),
+(1, 3, '2025', '2°D', 'Grupo L', 'Clase de biología', 1),
+(2, 4, '2024', '5°D', 'Grupo M', 'Proyecto de arte', 1);
 
 -- Poblar HRemitoProduccion
 INSERT INTO HRemitoProduccion (Descripcion, Cod_Usuario, Fecha_Hora, Subtotal, Descu, Total) VALUES
