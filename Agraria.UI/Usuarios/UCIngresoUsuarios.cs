@@ -206,7 +206,8 @@ namespace Agraria.UI.Usuarios
                 Id_Tipo = tipoUsuario,
                 Contra = TxtContra.Text, // Contraseña por defecto al crear un nuevo usuario
                 Respues = TxtRespues.Text,
-                Id_Pregunta = idPregunta
+                Id_Pregunta = idPregunta,
+                Activo = ChkActivo.Checked
             };
         }
 

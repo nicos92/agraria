@@ -34,9 +34,6 @@ namespace Agraria.UI.Usuarios
             tableLayoutPanel4 = new TableLayoutPanel();
             groupBox1 = new GroupBox();
             TLPForm = new TableLayoutPanel();
-            tableLayoutPanel2 = new TableLayoutPanel();
-            BtnGuardar = new Button();
-            BtnEliminar = new Button();
             TxtEmail = new TextBox();
             label1 = new Label();
             label3 = new Label();
@@ -58,6 +55,9 @@ namespace Agraria.UI.Usuarios
             CMBPregunta = new ComboBox();
             label9 = new Label();
             LblError = new Label();
+            tableLayoutPanel2 = new TableLayoutPanel();
+            BtnGuardar = new Button();
+            ChkActivo = new CheckBox();
             PanelLista = new Panel();
             tableLayoutPanel1 = new TableLayoutPanel();
             LblLista = new Label();
@@ -107,9 +107,9 @@ namespace Agraria.UI.Usuarios
             groupBox1.Controls.Add(TLPForm);
             groupBox1.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             groupBox1.ForeColor = Color.FromArgb(7, 100, 147);
-            groupBox1.Location = new Point(3, 25);
+            groupBox1.Location = new Point(3, 14);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(471, 504);
+            groupBox1.Size = new Size(471, 526);
             groupBox1.TabIndex = 16;
             groupBox1.TabStop = false;
             groupBox1.Text = "Formulario de ingreso de Usuario";
@@ -121,7 +121,6 @@ namespace Agraria.UI.Usuarios
             TLPForm.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25.5913982F));
             TLPForm.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 61.5053749F));
             TLPForm.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 12.6881723F));
-            TLPForm.Controls.Add(tableLayoutPanel2, 1, 12);
             TLPForm.Controls.Add(TxtEmail, 1, 5);
             TLPForm.Controls.Add(label1, 0, 5);
             TLPForm.Controls.Add(label3, 0, 4);
@@ -143,11 +142,13 @@ namespace Agraria.UI.Usuarios
             TLPForm.Controls.Add(CMBPregunta, 1, 9);
             TLPForm.Controls.Add(label9, 0, 9);
             TLPForm.Controls.Add(LblError, 1, 8);
+            TLPForm.Controls.Add(tableLayoutPanel2, 1, 13);
+            TLPForm.Controls.Add(ChkActivo, 1, 12);
             TLPForm.Dock = DockStyle.Fill;
             TLPForm.ForeColor = Color.FromArgb(26, 28, 30);
             TLPForm.Location = new Point(3, 29);
             TLPForm.Name = "TLPForm";
-            TLPForm.RowCount = 14;
+            TLPForm.RowCount = 15;
             TLPForm.RowStyles.Add(new RowStyle(SizeType.Absolute, 8F));
             TLPForm.RowStyles.Add(new RowStyle());
             TLPForm.RowStyles.Add(new RowStyle());
@@ -161,62 +162,10 @@ namespace Agraria.UI.Usuarios
             TLPForm.RowStyles.Add(new RowStyle());
             TLPForm.RowStyles.Add(new RowStyle());
             TLPForm.RowStyles.Add(new RowStyle());
+            TLPForm.RowStyles.Add(new RowStyle(SizeType.Absolute, 47F));
             TLPForm.RowStyles.Add(new RowStyle(SizeType.Absolute, 8F));
-            TLPForm.Size = new Size(465, 472);
+            TLPForm.Size = new Size(465, 494);
             TLPForm.TabIndex = 0;
-            // 
-            // tableLayoutPanel2
-            // 
-            tableLayoutPanel2.ColumnCount = 2;
-            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            tableLayoutPanel2.Controls.Add(BtnGuardar, 0, 0);
-            tableLayoutPanel2.Controls.Add(BtnEliminar, 1, 0);
-            tableLayoutPanel2.Dock = DockStyle.Fill;
-            tableLayoutPanel2.Location = new Point(122, 411);
-            tableLayoutPanel2.Name = "tableLayoutPanel2";
-            tableLayoutPanel2.RowCount = 1;
-            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableLayoutPanel2.Size = new Size(280, 56);
-            tableLayoutPanel2.TabIndex = 25;
-            // 
-            // BtnGuardar
-            // 
-            BtnGuardar.Anchor = AnchorStyles.None;
-            BtnGuardar.BackColor = Color.FromArgb(101, 89, 119);
-            BtnGuardar.FlatAppearance.BorderColor = Color.FromArgb(203, 230, 255);
-            BtnGuardar.FlatStyle = FlatStyle.Flat;
-            BtnGuardar.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            BtnGuardar.ForeColor = Color.FromArgb(255, 255, 255);
-            BtnGuardar.Image = Properties.Resources.guardar;
-            BtnGuardar.ImageAlign = ContentAlignment.MiddleRight;
-            BtnGuardar.Location = new Point(2, 4);
-            BtnGuardar.Margin = new Padding(0);
-            BtnGuardar.Name = "BtnGuardar";
-            BtnGuardar.Size = new Size(136, 47);
-            BtnGuardar.TabIndex = 10;
-            BtnGuardar.Text = "Guardar";
-            BtnGuardar.TextAlign = ContentAlignment.MiddleRight;
-            BtnGuardar.TextImageRelation = TextImageRelation.ImageBeforeText;
-            BtnGuardar.UseVisualStyleBackColor = false;
-            BtnGuardar.Click += BtnGuardar_Click;
-            // 
-            // BtnEliminar
-            // 
-            BtnEliminar.Anchor = AnchorStyles.None;
-            BtnEliminar.BackColor = Color.FromArgb(186, 26, 26);
-            BtnEliminar.FlatAppearance.BorderColor = Color.FromArgb(203, 230, 255);
-            BtnEliminar.FlatStyle = FlatStyle.Flat;
-            BtnEliminar.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            BtnEliminar.ForeColor = Color.FromArgb(255, 255, 255);
-            BtnEliminar.Image = Properties.Resources.trash;
-            BtnEliminar.Location = new Point(178, 0);
-            BtnEliminar.Margin = new Padding(0);
-            BtnEliminar.Name = "BtnEliminar";
-            BtnEliminar.Size = new Size(64, 56);
-            BtnEliminar.TabIndex = 11;
-            BtnEliminar.UseVisualStyleBackColor = false;
-            BtnEliminar.Click += BtnEliminar_Click;
             // 
             // TxtEmail
             // 
@@ -479,6 +428,51 @@ namespace Agraria.UI.Usuarios
             LblError.Text = "Las Contraseñas no coinciden";
             LblError.Visible = false;
             // 
+            // tableLayoutPanel2
+            // 
+            tableLayoutPanel2.ColumnCount = 2;
+            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tableLayoutPanel2.Controls.Add(BtnGuardar, 0, 0);
+            tableLayoutPanel2.Location = new Point(122, 442);
+            tableLayoutPanel2.Name = "tableLayoutPanel2";
+            tableLayoutPanel2.RowCount = 1;
+            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            tableLayoutPanel2.Size = new Size(280, 41);
+            tableLayoutPanel2.TabIndex = 25;
+            // 
+            // BtnGuardar
+            // 
+            BtnGuardar.Anchor = AnchorStyles.None;
+            BtnGuardar.BackColor = Color.FromArgb(101, 89, 119);
+            BtnGuardar.FlatAppearance.BorderColor = Color.FromArgb(203, 230, 255);
+            BtnGuardar.FlatStyle = FlatStyle.Flat;
+            BtnGuardar.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            BtnGuardar.ForeColor = Color.FromArgb(255, 255, 255);
+            BtnGuardar.Image = Properties.Resources.guardar;
+            BtnGuardar.ImageAlign = ContentAlignment.MiddleRight;
+            BtnGuardar.Location = new Point(2, 0);
+            BtnGuardar.Margin = new Padding(0);
+            BtnGuardar.Name = "BtnGuardar";
+            BtnGuardar.Size = new Size(136, 41);
+            BtnGuardar.TabIndex = 10;
+            BtnGuardar.Text = "Guardar";
+            BtnGuardar.TextAlign = ContentAlignment.MiddleRight;
+            BtnGuardar.TextImageRelation = TextImageRelation.ImageBeforeText;
+            BtnGuardar.UseVisualStyleBackColor = false;
+            BtnGuardar.Click += BtnGuardar_Click;
+            // 
+            // ChkActivo
+            // 
+            ChkActivo.AutoSize = true;
+            ChkActivo.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            ChkActivo.Location = new Point(122, 411);
+            ChkActivo.Name = "ChkActivo";
+            ChkActivo.Size = new Size(76, 25);
+            ChkActivo.TabIndex = 27;
+            ChkActivo.Text = "Activo";
+            ChkActivo.UseVisualStyleBackColor = true;
+            // 
             // PanelLista
             // 
             PanelLista.BackColor = Color.FromArgb(218, 218, 220);
@@ -641,6 +635,6 @@ namespace Agraria.UI.Usuarios
         private Label LblError;
         private TableLayoutPanel tableLayoutPanel2;
         private Button BtnGuardar;
-        private Button BtnEliminar;
+        private CheckBox ChkActivo;
     }
 }

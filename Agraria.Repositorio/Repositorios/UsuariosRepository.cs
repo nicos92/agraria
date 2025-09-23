@@ -19,7 +19,7 @@ namespace Agraria.Repositorio.Repositorios
             try
             {
                 using SqlConnection conn = Conexion();
-                using SqlCommand cmd = new("SELECT Id_Usuario, DNI, Nombre, Apellido, Tel, Mail, Id_Tipo, contra, respues, id_pregunta FROM Usuarios", conn);
+                using SqlCommand cmd = new("SELECT Id_Usuario, DNI, Nombre, Apellido, Tel, Mail, Id_Tipo, contra, respues, id_pregunta, Activo FROM Usuarios", conn);
                 await conn.OpenAsync();
                 using DbDataReader reader = await cmd.ExecuteReaderAsync();
                 List<Usuarios> usuarios = [];
@@ -36,7 +36,8 @@ namespace Agraria.Repositorio.Repositorios
                         Id_Tipo = reader.GetInt32(6),
                         Contra = reader.GetString(7),
                         Respues = reader.GetString(8),
-                        Id_Pregunta = reader.GetInt32(9)
+                        Id_Pregunta = reader.GetInt32(9),
+                        Activo = reader.GetBoolean(10)
                     };
                     usuarios.Add(usuario);
                 }
@@ -57,7 +58,7 @@ namespace Agraria.Repositorio.Repositorios
             try
             {
                 using SqlConnection conn = Conexion();
-                using SqlCommand cmd = new("SELECT Id_Usuario, DNI, Nombre, Apellido, Tel, Mail, Id_Tipo, contra, respues, id_pregunta FROM Usuarios WHERE Id_Usuario = @Id", conn);
+                using SqlCommand cmd = new("SELECT Id_Usuario, DNI, Nombre, Apellido, Tel, Mail, Id_Tipo, contra, respues, id_pregunta, Activo FROM Usuarios WHERE Id_Usuario = @Id", conn);
                 cmd.Parameters.AddWithValue("@Id", id);
                 await conn.OpenAsync();
                 using DbDataReader reader = await cmd.ExecuteReaderAsync();
@@ -74,7 +75,8 @@ namespace Agraria.Repositorio.Repositorios
                         Id_Tipo = reader.GetInt32(6),
                         Contra = reader.GetString(7),
                         Respues = reader.GetString(8),
-                        Id_Pregunta = reader.GetInt32(9)
+                        Id_Pregunta = reader.GetInt32(9),
+                        Activo = reader.GetBoolean(10)
                     };
                     return Result<Usuarios>.Success(usuario);
                 }
@@ -95,7 +97,7 @@ namespace Agraria.Repositorio.Repositorios
             try
             {
                 using SqlConnection conn = Conexion();
-                using SqlCommand cmd = new("INSERT INTO Usuarios (DNI, Nombre, Apellido, Tel, Mail, Id_Tipo, contra, respues, id_pregunta) VALUES (@DNI, @Nombre, @Apellido, @Tel, @Mail, @Id_Tipo, @Contra, @Respues, @id_pregunta)", conn);
+                using SqlCommand cmd = new("INSERT INTO Usuarios (DNI, Nombre, Apellido, Tel, Mail, Id_Tipo, contra, respues, id_pregunta, Activo) VALUES (@DNI, @Nombre, @Apellido, @Tel, @Mail, @Id_Tipo, @Contra, @Respues, @id_pregunta, @Activo)", conn);
                 cmd.Parameters.AddWithValue("@DNI", usuario.DNI );
                 cmd.Parameters.AddWithValue("@Nombre", usuario.Nombre);
                 cmd.Parameters.AddWithValue("@Apellido", usuario.Apellido);
@@ -105,6 +107,7 @@ namespace Agraria.Repositorio.Repositorios
                 cmd.Parameters.AddWithValue("@Contra", usuario.Contra);
                 cmd.Parameters.AddWithValue("@Respues", usuario.Respues);
                 cmd.Parameters.AddWithValue("@id_pregunta", usuario.Id_Pregunta);
+                cmd.Parameters.AddWithValue("@Activo", usuario.Activo);
                 conn.Open();
                 int rowsAffected = cmd.ExecuteNonQuery();
                 if (rowsAffected > 0)
@@ -128,7 +131,7 @@ namespace Agraria.Repositorio.Repositorios
             try
             {
                 using SqlConnection conn = Conexion();
-                using SqlCommand cmd = new("UPDATE Usuarios SET DNI = @DNI, Nombre = @Nombre, Apellido = @Apellido, Tel = @Tel, Mail = @Mail, Id_Tipo = @Id_Tipo, contra = @Contra, respues = @Respues, id_pregunta = @id_pregunta WHERE Id_Usuario = @Id", conn);
+                using SqlCommand cmd = new("UPDATE Usuarios SET DNI = @DNI, Nombre = @Nombre, Apellido = @Apellido, Tel = @Tel, Mail = @Mail, Id_Tipo = @Id_Tipo, contra = @Contra, respues = @Respues, id_pregunta = @id_pregunta, Activo = @Activo WHERE Id_Usuario = @Id", conn);
                 cmd.Parameters.AddWithValue("@DNI", usuario.DNI );
                 cmd.Parameters.AddWithValue("@Nombre", usuario.Nombre );
                 cmd.Parameters.AddWithValue("@Apellido", usuario.Apellido );
@@ -139,6 +142,7 @@ namespace Agraria.Repositorio.Repositorios
                 cmd.Parameters.AddWithValue("@Respues", usuario.Respues);
                 cmd.Parameters.AddWithValue("@id_pregunta", usuario.Id_Pregunta);
                 cmd.Parameters.AddWithValue("@Id", usuario.Id_Usuario);
+                cmd.Parameters.AddWithValue("@Activo", usuario.Activo);
                 conn.Open();
                 int rowsAffected = cmd.ExecuteNonQuery();
                 if (rowsAffected > 0)
@@ -163,7 +167,7 @@ namespace Agraria.Repositorio.Repositorios
             
             {
                 using SqlConnection conn = Conexion();
-                using SqlCommand cmd = new("SELECT u.Id_Usuario, u.DNI, u.Nombre, u.Apellido, u.Tel, u.Mail, u.Id_Tipo, u.contra, u.respues, u.id_pregunta, t.descripcion FROM Usuarios u INNER JOIN usuarios_tipo t on u.id_tipo = t.id_usuario_tipo WHERE u.DNI = @Dni AND u.contra = @Password", conn);
+                using SqlCommand cmd = new("SELECT u.Id_Usuario, u.DNI, u.Nombre, u.Apellido, u.Tel, u.Mail, u.Id_Tipo, u.contra, u.respues, u.id_pregunta, t.descripcion, u.Activo FROM Usuarios u INNER JOIN usuarios_tipo t on u.id_tipo = t.id_usuario_tipo WHERE u.DNI = @Dni AND u.contra = @Password AND Activo = 1", conn);
                 cmd.Parameters.AddWithValue("@Dni", dni);
                 cmd.Parameters.AddWithValue("@Password", password);
                 await conn.OpenAsync();
@@ -182,7 +186,8 @@ namespace Agraria.Repositorio.Repositorios
                         Contra = reader.GetString(7),
                         Respues = reader.GetString(8),
                         Id_Pregunta = reader.GetInt32(9),
-                        Descripcion = reader.GetString(10)
+                        Descripcion = reader.GetString(10),
+                        Activo = reader.GetBoolean(11)
                     };
                     return Result<Usuarios>.Success(usuario);
                 }
@@ -203,7 +208,7 @@ namespace Agraria.Repositorio.Repositorios
             try
             {
                 using SqlConnection conn = Conexion();
-                using SqlCommand cmd = new("SELECT Id_Usuario, DNI, Nombre, Apellido, Tel, Mail, Id_Tipo, contra, respues, id_pregunta FROM Usuarios WHERE DNI = @Dni AND id_pregunta = @PreguntaId AND respues = @Respuesta", conn);
+                using SqlCommand cmd = new("SELECT Id_Usuario, DNI, Nombre, Apellido, Tel, Mail, Id_Tipo, contra, respues, id_pregunta, Activo FROM Usuarios WHERE DNI = @Dni AND id_pregunta = @PreguntaId AND respues = @Respuesta", conn);
                 cmd.Parameters.AddWithValue("@Dni", dni);
                 cmd.Parameters.AddWithValue("@PreguntaId", preguntaId);
                 cmd.Parameters.AddWithValue("@Respuesta", respuesta);
@@ -222,7 +227,8 @@ namespace Agraria.Repositorio.Repositorios
                         Id_Tipo = reader.GetInt32(6),
                         Contra = reader.GetString(7),
                         Respues = reader.GetString(8),
-                        Id_Pregunta = reader.GetInt32(9)
+                        Id_Pregunta = reader.GetInt32(9),
+                        Activo = reader.GetBoolean(10)
                     };
                     return Result<Usuarios>.Success(usuario);
                 }

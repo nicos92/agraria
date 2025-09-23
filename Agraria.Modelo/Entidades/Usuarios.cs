@@ -19,6 +19,7 @@ namespace Agraria.Modelo.Entidades
         public string? Respues { get; set; }
         public int Id_Pregunta { get; set; }
         public string? Descripcion { get; set; }
+        public bool Activo { get; set; }
         public string? Dato => $"Apellido: {Apellido}, Nombre: {Nombre}";
 
         public Usuarios() { }

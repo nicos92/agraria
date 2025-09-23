@@ -56,6 +56,7 @@ namespace Agraria.UI.Usuarios
             CMBPregunta = new ComboBox();
             label9 = new Label();
             LblError = new Label();
+            ChkActivo = new CheckBox();
             PanelMedio.SuspendLayout();
             tableLayoutPanel4.SuspendLayout();
             groupBox1.SuspendLayout();
@@ -91,9 +92,9 @@ namespace Agraria.UI.Usuarios
             groupBox1.Controls.Add(TLPForm);
             groupBox1.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             groupBox1.ForeColor = Color.FromArgb(7, 100, 147);
-            groupBox1.Location = new Point(85, 34);
+            groupBox1.Location = new Point(85, 9);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(633, 492);
+            groupBox1.Size = new Size(633, 542);
             groupBox1.TabIndex = 15;
             groupBox1.TabStop = false;
             groupBox1.Text = "Formulario de ingreso de Usuario";
@@ -119,7 +120,6 @@ namespace Agraria.UI.Usuarios
             TLPForm.Controls.Add(TxtContraDos, 1, 7);
             TLPForm.Controls.Add(label6, 0, 6);
             TLPForm.Controls.Add(label7, 0, 7);
-            TLPForm.Controls.Add(BtnIngresar, 1, 12);
             TLPForm.Controls.Add(CMBTipoUsuario, 1, 11);
             TLPForm.Controls.Add(label5, 0, 11);
             TLPForm.Controls.Add(label8, 0, 10);
@@ -127,11 +127,13 @@ namespace Agraria.UI.Usuarios
             TLPForm.Controls.Add(CMBPregunta, 1, 9);
             TLPForm.Controls.Add(label9, 0, 9);
             TLPForm.Controls.Add(LblError, 1, 8);
+            TLPForm.Controls.Add(BtnIngresar, 1, 13);
+            TLPForm.Controls.Add(ChkActivo, 1, 12);
             TLPForm.Dock = DockStyle.Fill;
             TLPForm.ForeColor = Color.FromArgb(26, 28, 30);
             TLPForm.Location = new Point(3, 29);
             TLPForm.Name = "TLPForm";
-            TLPForm.RowCount = 13;
+            TLPForm.RowCount = 14;
             TLPForm.RowStyles.Add(new RowStyle(SizeType.Absolute, 8F));
             TLPForm.RowStyles.Add(new RowStyle());
             TLPForm.RowStyles.Add(new RowStyle());
@@ -145,7 +147,8 @@ namespace Agraria.UI.Usuarios
             TLPForm.RowStyles.Add(new RowStyle());
             TLPForm.RowStyles.Add(new RowStyle());
             TLPForm.RowStyles.Add(new RowStyle());
-            TLPForm.Size = new Size(627, 460);
+            TLPForm.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            TLPForm.Size = new Size(627, 510);
             TLPForm.TabIndex = 0;
             // 
             // TxtEmail
@@ -334,7 +337,7 @@ namespace Agraria.UI.Usuarios
             BtnIngresar.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             BtnIngresar.ForeColor = Color.FromArgb(255, 255, 255);
             BtnIngresar.Image = Properties.Resources.ingresar;
-            BtnIngresar.Location = new Point(217, 413);
+            BtnIngresar.Location = new Point(217, 453);
             BtnIngresar.Margin = new Padding(4);
             BtnIngresar.Name = "BtnIngresar";
             BtnIngresar.Size = new Size(192, 42);
@@ -430,6 +433,17 @@ namespace Agraria.UI.Usuarios
             LblError.Text = "Las Contraseñas no coinciden";
             LblError.Visible = false;
             // 
+            // ChkActivo
+            // 
+            ChkActivo.AutoSize = true;
+            ChkActivo.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            ChkActivo.Location = new Point(128, 411);
+            ChkActivo.Name = "ChkActivo";
+            ChkActivo.Size = new Size(76, 25);
+            ChkActivo.TabIndex = 26;
+            ChkActivo.Text = "Activo";
+            ChkActivo.UseVisualStyleBackColor = true;
+            // 
             // UCIngresoUsuarios
             // 
             AutoScaleMode = AutoScaleMode.None;
@@ -476,5 +490,6 @@ namespace Agraria.UI.Usuarios
         private Label label9;
         private ComboBox CMBPregunta;
         private Label LblError;
+        private CheckBox ChkActivo;
     }
 }

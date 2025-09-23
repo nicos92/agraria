@@ -217,7 +217,8 @@ namespace Agraria.UI.Usuarios
                 Id_Tipo = tipoUsuario,
                 Contra = TxtContra.Text, // Contraseña por defecto al crear un nuevo usuario
                 Respues = TxtRespues.Text,
-                Id_Pregunta = idPregunta
+                Id_Pregunta = idPregunta,
+                Activo = ChkActivo.Checked
             };
 
 
@@ -321,7 +322,6 @@ namespace Agraria.UI.Usuarios
         /// </summary>
         private void CargarVisitante()
         {
-            BtnEliminar.Visible = false;
             BtnGuardar.Visible = false;
         }
 
@@ -330,7 +330,6 @@ namespace Agraria.UI.Usuarios
         /// </summary>
         private void CargarAdmin()
         {
-            BtnEliminar.Visible = true;
             BtnGuardar.Visible = true;
         }
 
@@ -416,6 +415,7 @@ namespace Agraria.UI.Usuarios
                 TxtContraDos.Text = _usuarioSeleccionado.Contra ?? string.Empty;
                 TxtRespues.Text = _usuarioSeleccionado.Respues ?? string.Empty;
                 CMBPregunta.SelectedValue = _usuarioSeleccionado.Id_Pregunta;
+                ChkActivo.Checked = _usuarioSeleccionado.Activo;
 
             }
             else
@@ -450,7 +450,6 @@ namespace Agraria.UI.Usuarios
         private void ConfigBtns()
         {
             BtnGuardar.Tag = AppColorsBlue.Tertiary;
-            BtnEliminar.Tag = AppColorsBlue.Error;
         }
 
 
