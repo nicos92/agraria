@@ -11,7 +11,17 @@
 
 #### Proveedores
 
+#### Actividades
+
+- [ ] implementar servicios y repositorios
+
+#### Inventario
+
+- [ ] implementar servicios y repositorios
+
 #### hoja de vida
+
+- [x] mostrar cartel de confirmacion de proceso finalizado al guardar hojadevida
 
 #### Usuarios
 
@@ -33,6 +43,7 @@
 
 - [x] revisar por que no carga el modulo de entorno formativo, seguramente son las bases de datos
 - [ ] al modificar entorno formativo bloquear el boton si no esta todo ok
+- [ ] en tipo y entornos, verificar accion de botones
 
 #### productos
 

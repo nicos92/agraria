@@ -140,12 +140,20 @@ namespace Agraria.UI.HojadeVida
                 PanelMedio,
                 ProgressBar,
                 GuardarHojadeVida,
+                FinBtnGuardar);
+            tarea.Iniciar();
+        }
+
+        private void FinBtnGuardar()
+        {
+            this.Invoke(
                 () =>
                 {
-                    ActualizarListas();
-                    ListBHojasVida.Refresh();
+
+            ActualizarListas();
+            ListBHojasVida.Refresh();
                 });
-            tarea.Iniciar();
+
         }
 
         /// <summary>

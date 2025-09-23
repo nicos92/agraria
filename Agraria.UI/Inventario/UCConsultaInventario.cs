@@ -110,13 +110,18 @@ namespace Agraria.UI.Inventario
                 PanelMedio,
                 ProgressBar,
                 CargaInicial,
-                () => {
-                    CargarDataGrid();
-                    CargarCMB();
-                });
+                CargaDatos);
             taskHelper.Iniciar();
         }
 
+        private async void CargaDatos()
+        {
+            await Task.WhenAll(
+                CargarDataGrid(),
+            CargarCMB()
+            );
+            
+        }
         /// <summary>
         /// Maneja el evento de clic en el botón Guardar. Valida el formulario y guarda los datos del artículo y stock.
         /// </summary>
@@ -141,14 +146,18 @@ namespace Agraria.UI.Inventario
                 PanelMedio,
                 ProgressBar,
                 GuardarArticuloStock,
-                () =>
-                {
-                    ActualizarListas();
-                    ListBArticulos.Refresh();
-                });
+                FinBtnGuardar);
             tarea.Iniciar();
         }
 
+        private async void FinBtnGuardar()
+        {
+            await Task.Run(() =>
+            {
+                ActualizarListas();
+                ListBArticulos.Refresh();
+            });
+        }
         /// <summary>
         /// Maneja el evento de clic en el botón Eliminar. Elimina el artículo y stock seleccionados.
         /// </summary>
@@ -272,22 +281,34 @@ namespace Agraria.UI.Inventario
         /// <summary>
         /// Carga el DataGridView con los datos iniciales.
         /// </summary>
-        private void CargarDataGrid()
+        private async Task CargarDataGrid()
         {
-            CargarArticulosDataGridView();
-            if (Utilidades.Util.CalcularDGVVacio(ListBArticulos, LblLista, "Productos"))
-            {
-                Utilidades.Util.LimpiarForm(TLPForm, TxtNombre);
-                Utilidades.Util.BloquearBtns(ListBArticulos, TLPForm);
-            }
+            await Task.Run(
+                () => {
+
+                    this.Invoke(
+                () =>
+                {
+                    CargarArticulosDataGridView();
+                    if (Utilidades.Util.CalcularDGVVacio(ListBArticulos, LblLista, "Productos"))
+                    {
+                        Utilidades.Util.LimpiarForm(TLPForm, TxtNombre);
+                        Utilidades.Util.BloquearBtns(ListBArticulos, TLPForm);
+                    }
+                });
+                });
+
+            
+
         }
 
         /// <summary>
         /// Carga los datos en el ComboBox de unidades de medida.
         /// </summary>
-        private void CargarCMB()
+        private async Task CargarCMB()
         {
-            CMBUnidadMedida.DataSource = Enum.GetValues(typeof(UnidadMedida)).Cast<UnidadMedida>().ToList();
+            await Task.Run(() => { CMBUnidadMedida.DataSource = Enum.GetValues(typeof(UnidadMedida)).Cast<UnidadMedida>().ToList(); });
+            
         }
 
         /// <summary>
@@ -606,7 +627,7 @@ namespace Agraria.UI.Inventario
                PanelMedio,
                ProgressBar,
                CargaInicial,
-               CargarDataGrid);
+               CargaDatos);
             taskHelper.Iniciar();
         }
     }

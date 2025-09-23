@@ -181,6 +181,7 @@ CREATE TABLE HojadeVida (
     Peso DECIMAL(18,2) NOT NULL,
     Estado_Salud NVARCHAR(255),
     Activo BIT DEFAULT 1,
+	Observaciones NVARCHAR(255)
 
 );
 GO

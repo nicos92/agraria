@@ -163,8 +163,17 @@ namespace Agraria.UI.HojadeVida
                 return;
             }
 
-            var tarea = new TareasLargas(PanelMedio, ProgressBar, InsertarHojadeVida, () => Utilidades.Util.LimpiarForm(TLPForm, TxtNombre));
+            var tarea = new TareasLargas(PanelMedio, ProgressBar, InsertarHojadeVida, LimpiarForm);
             tarea.Iniciar();
+        }
+
+        private void LimpiarForm()
+        {
+            this.Invoke(
+                () =>
+                {
+                    Utilidades.Util.LimpiarForm(TLPForm, TxtNombre);
+                });
         }
 
         /// <summary>
