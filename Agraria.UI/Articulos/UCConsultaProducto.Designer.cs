@@ -1,6 +1,6 @@
 ﻿namespace Agraria.UI.Articulos
 {
-    partial class UCConsultaArticulos
+    partial class UCConsultaProducto
     {
         /// <summary> 
         /// Variable del diseñador necesaria.
@@ -495,7 +495,7 @@
             ProgressBar.Size = new Size(804, 16);
             ProgressBar.TabIndex = 4;
             // 
-            // UCConsultaArticulos
+            // UCConsultaProducto
             // 
             AutoScaleMode = AutoScaleMode.None;
             BackColor = Color.FromArgb(249, 249, 251);
@@ -503,7 +503,7 @@
             Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             ForeColor = Color.FromArgb(26, 28, 30);
             Margin = new Padding(4);
-            Name = "UCConsultaArticulos";
+            Name = "UCConsultaProducto";
             Size = new Size(804, 561);
             Load += UCConsultaArticulos_Load;
             VisibleChanged += UCConsultaArticulos_VisibleChanged;

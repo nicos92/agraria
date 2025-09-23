@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace Agraria.Contrato.Servicios
 {
-    public interface IArticuloStockService
+    public interface IProductoStockService
     {
         Task<Result<(List<Productos> articulos, List<Stock> stock)>> GetAll();
 
-        Task<Result<List<ArticuloStock>>> GetAllArticuloStock();
+        Task<Result<List<ProductoStock>>> GetAllArticuloStock();
         Task<Result<bool>> Add(Productos articulo, Stock stock);
 
         Task<Result<bool>> Update(Productos articulos, Stock stock);

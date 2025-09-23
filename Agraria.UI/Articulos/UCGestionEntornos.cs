@@ -315,7 +315,12 @@ namespace Agraria.UI.Articulos
 
         private async void BtnGuardarEntorno_Click(object sender, EventArgs e)
         {
-            // El botón guardar ahora solo actualizará la categoría seleccionada
+            DialogResult dialogResult = MessageBox.Show("¿Está seguro que desea guardar los cambios en el tipo de Entorno?",
+                "Confirmar guardado", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (dialogResult == DialogResult.No)
+            {
+                return;
+            }
             if (_selectedTipoEntornoId <= 0)
             {
                 MessageBox.Show("Por favor, seleccione un Entorno para actualizar.", "Advertencia",
@@ -513,6 +518,12 @@ namespace Agraria.UI.Articulos
 
         private async void BtnGuardarSubEntorno_Click(object sender, EventArgs e)
         {
+            DialogResult dialogResult = MessageBox.Show("¿Está seguro que desea guardar los cambios en el tipo de Entorno?",
+                "Confirmar guardado", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (dialogResult == DialogResult.No)
+            {
+                return;
+            }
             if (_selectedEntornoId <= 0)
             {
                 MessageBox.Show("Por favor, seleccione un Entorno para actualizar.", "Advertencia",

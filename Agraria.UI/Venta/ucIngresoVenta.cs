@@ -20,7 +20,7 @@ namespace Agraria.UI.Ventas
     public partial class UCIngresoVenta : UserControl
     {
 
-        private readonly IArticuloStockService _articuloStockService;
+        private readonly IProductoStockService _articuloStockService;
         private readonly IVentaService _ventaService;
         private readonly ILogger<UCIngresoVenta> _logger;
         private bool _evitarBucleEventos = false;
@@ -29,9 +29,9 @@ namespace Agraria.UI.Ventas
         private string? _ultimoCodigoArticuloSeleccionado;
         private int _ultimoIndiceSeleccionado = -1;
         private readonly BindingList<ProductoResumen> _productosResumen = [];
-        private List<ArticuloStock> _todosLosProductos = [];
+        private List<ProductoStock> _todosLosProductos = [];
 
-        public UCIngresoVenta(IArticuloStockService articuloStockService,
+        public UCIngresoVenta(IProductoStockService articuloStockService,
                              IVentaService ventaService, ILogger<UCIngresoVenta> logger)
         {
             _articuloStockService = articuloStockService;
@@ -166,7 +166,7 @@ namespace Agraria.UI.Ventas
         {
             if (_evitarBucleEventos) return;
 
-            if (LsvProductos.SelectedItem is ArticuloStock selectedItem)
+            if (LsvProductos.SelectedItem is ProductoStock selectedItem)
             {
                 LblProducto.Text = selectedItem.Art_Desc;
                 // Corregir el cálculo del precio
@@ -175,7 +175,7 @@ namespace Agraria.UI.Ventas
 
                 // Seleccionar la fila correspondiente en el DataGridView
                 _evitarBucleEventos = true;
-                SeleccionarFilaPorCodigoArticulo(selectedItem.Cod_Articulo);
+                SeleccionarFilaPorCodigoArticulo(selectedItem.Cod_Producto);
                 _evitarBucleEventos = false;
             }
             else
@@ -203,7 +203,7 @@ namespace Agraria.UI.Ventas
         private void ActualizarTotalPrecioPorCantidad()
         {
             decimal precio = 0m;
-            if (LsvProductos.SelectedItem is ArticuloStock selectedItem)
+            if (LsvProductos.SelectedItem is ProductoStock selectedItem)
             {
                 precio = selectedItem.Costo * (1 + selectedItem.Ganancia / 100);
             }
@@ -214,7 +214,7 @@ namespace Agraria.UI.Ventas
 
         private void BtnAceptar_Click(object sender, EventArgs e)
         {
-            if (LsvProductos.SelectedItem is ArticuloStock producto)
+            if (LsvProductos.SelectedItem is ProductoStock producto)
             {
                 // Obtener el valor directamente del control NumericUpDown
                 decimal cantidad = NumeroCantidad.Value;
@@ -224,7 +224,7 @@ namespace Agraria.UI.Ventas
                 CargarDataGridView();
 
                 // Después de agregar, seleccionar el producto añadido
-                SeleccionarFilaPorCodigoArticulo(producto.Cod_Articulo);
+                SeleccionarFilaPorCodigoArticulo(producto.Cod_Producto);
 
                 _evitarBucleEventos = false;
             }
@@ -234,7 +234,7 @@ namespace Agraria.UI.Ventas
             }
         }
 
-        private static void AgregarProductosAlCarrito(ArticuloStock producto, decimal cantidad)
+        private static void AgregarProductosAlCarrito(ProductoStock producto, decimal cantidad)
         {
             // Calcular el precio unitario correctamente
             decimal precioUnitario = producto.Costo * (1 + producto.Ganancia / 100);
@@ -242,7 +242,7 @@ namespace Agraria.UI.Ventas
 
             // Buscar si el producto ya existe en el carrito
             var productoExistente = SingleListas.Instance.ProductoResumen
-                .FirstOrDefault(p => p.Cod_Articulo == producto.Cod_Articulo);
+                .FirstOrDefault(p => p.Cod_Articulo == producto.Cod_Producto);
 
             if (productoExistente != null)
             {
@@ -255,7 +255,7 @@ namespace Agraria.UI.Ventas
                 // Si no existe, crear un nuevo producto resumen
                 ProductoResumen nuevoProducto = new()
                 {
-                    Cod_Articulo = producto.Cod_Articulo,
+                    Cod_Articulo = producto.Cod_Producto,
                     Producto_Nombre = producto.Art_Desc,
                     Producto_Precio = precioUnitario,
                     Producto_Cantidad = cantidad,
@@ -389,7 +389,7 @@ namespace Agraria.UI.Ventas
                 string filtro = TxtBuscardor.Text.Trim().ToLowerInvariant();
 
                 var productosFiltrados = _todosLosProductos
-                    .Where(p => string.IsNullOrEmpty(filtro) || p.Art_Desc.Contains(filtro, StringComparison.InvariantCultureIgnoreCase) || p.Cod_Articulo.StartsWith(filtro))
+                    .Where(p => string.IsNullOrEmpty(filtro) || p.Art_Desc.Contains(filtro, StringComparison.InvariantCultureIgnoreCase) || p.Cod_Producto.StartsWith(filtro))
                     .ToList();
 
                 LsvProductos.BeginUpdate();
@@ -616,8 +616,8 @@ namespace Agraria.UI.Ventas
 
             if (_evitarBucleEventos && !_procesandoSeleccion) return;
 
-            var itemASeleccionar = LsvProductos.Items.OfType<ArticuloStock>()
-                .FirstOrDefault(a => a.Cod_Articulo == codigoArticulo);
+            var itemASeleccionar = LsvProductos.Items.OfType<ProductoStock>()
+                .FirstOrDefault(a => a.Cod_Producto == codigoArticulo);
 
             LsvProductos.SelectedIndexChanged -= LsvProductos_SelectedIndexChanged;
 

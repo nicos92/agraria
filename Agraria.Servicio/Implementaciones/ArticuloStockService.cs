@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Agraria.Servicio.Implementaciones
 {
-    public class ArticuloStockService(IArticuloStockRepository _repo) : IArticuloStockService
+    public class ArticuloStockService(IArticuloStockRepository _repo) : IProductoStockService
     {
         public async Task<Result<bool>> Add(Productos articulo, Stock stock)
         {
@@ -27,7 +27,7 @@ namespace Agraria.Servicio.Implementaciones
             return await _repo.GetAll();
         }
 
-        public async Task<Result<List<ArticuloStock>>> GetAllArticuloStock()
+        public async Task<Result<List<ProductoStock>>> GetAllArticuloStock()
         {
             return await _repo.GetAllArticuloStock();
         }

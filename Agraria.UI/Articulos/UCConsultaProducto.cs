@@ -17,16 +17,16 @@ using Agraria.Utilidades;
 namespace Agraria.UI.Articulos
 {
     [SupportedOSPlatform("windows")]
-    public partial class UCConsultaArticulos : UserControl
+    public partial class UCConsultaProducto : UserControl
     {
         #region Campos y Servicios
 
-        private readonly IArticulosService _articulosService;
+        private readonly IProductoService _articulosService;
         private readonly ITipoEntornosService _tipoEntornoService;
         private readonly IEntornoService _subcategoriasService;
         private readonly IProveedoresService _proveedoresService;
         private readonly IStockService _stockService;
-        private readonly IArticuloStockService _articuloStockService;
+        private readonly IProductoStockService _articuloStockService;
 
         private Modelo.Entidades.Productos _articuloSeleccionado;
         private Stock _stockSeleccionado;
@@ -53,13 +53,13 @@ namespace Agraria.UI.Articulos
 
         #region Constructor
 
-        public UCConsultaArticulos(
-            IArticulosService articulosService,
+        public UCConsultaProducto(
+            IProductoService articulosService,
             ITipoEntornosService categoriasService,
             IEntornoService subcategoriaService,
             IProveedoresService proveedoresService,
             IStockService stockService,
-            IArticuloStockService articuloStockService)
+            IProductoStockService articuloStockService)
         {
             InitializeComponent();
 

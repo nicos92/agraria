@@ -15,16 +15,16 @@ using System.Windows.Forms;
 
 namespace Agraria.UI.Articulos
 {
-    public partial class UCIngresoArticulos : UserControl
+    public partial class UCIngresoProducto : UserControl
     {
         // todo: ver la herramienta web browser para mostrar el html del ticket
         #region Atributos y Propiedades
 
-        private readonly IArticulosService _articulosService;
+        private readonly IProductoService _articulosService;
         private readonly ITipoEntornosService _entornoService;
         private readonly IEntornoService _subEntornoService;
         private readonly IProveedoresService _proveedoresService;
-        private readonly IArticuloStockService _articuloStockService;
+        private readonly IProductoStockService _articuloStockService;
 
         private readonly Modelo.Entidades.Productos _articuloSeleccionado;
         private readonly Modelo.Entidades.Stock _stockSeleccionado;
@@ -45,9 +45,9 @@ namespace Agraria.UI.Articulos
         #endregion Atributos y Propiedades
 
         /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="UCIngresoArticulos"/>.
+        /// Inicializa una nueva instancia de la clase <see cref="UCIngresoProducto"/>.
         /// </summary>
-        public UCIngresoArticulos(IArticulosService articulosService, ITipoEntornosService entornoService, IEntornoService subEntornoService, IProveedoresService proveedoresService, IArticuloStockService articuloStockService)
+        public UCIngresoProducto(IProductoService articulosService, ITipoEntornosService entornoService, IEntornoService subEntornoService, IProveedoresService proveedoresService, IProductoStockService articuloStockService)
         {
             _articulosService = articulosService;
             _entornoService = entornoService;

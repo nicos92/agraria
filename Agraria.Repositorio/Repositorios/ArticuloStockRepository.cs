@@ -214,9 +214,9 @@ namespace Agraria.Repositorio.Repositorios
             return Result<(List<Productos> articulos, List<Stock> stock)>.Success((listaArticulos, listaStock));
         }
 
-        public async Task<Result<List<ArticuloStock>>> GetAllArticuloStock()
+        public async Task<Result<List<ProductoStock>>> GetAllArticuloStock()
         {
-            var listaArticulos = new List<ArticuloStock>();
+            var listaArticulos = new List<ProductoStock>();
 
             using (SqlConnection conn = Conexion())
             {
@@ -230,7 +230,7 @@ namespace Agraria.Repositorio.Repositorios
                     using DbDataReader reader = await cmdArticulos.ExecuteReaderAsync();
                     while (await reader.ReadAsync())
                     {
-                        var articulo = new ArticuloStock
+                        var articulo = new ProductoStock
                         (
                            reader.GetInt32(0),
                              reader.GetString(1),
@@ -254,12 +254,12 @@ namespace Agraria.Repositorio.Repositorios
                 {
                     Console.WriteLine($"Error inesperado al obtener datos: {ex.Message}");
 
-                    return Result<List<ArticuloStock>>.Failure("No se pudieron obtener las listas");
+                    return Result<List<ProductoStock>>.Failure("No se pudieron obtener las listas");
                 }
             }
 
 
-            return Result<List<ArticuloStock>>.Success(listaArticulos);
+            return Result<List<ProductoStock>>.Success(listaArticulos);
         }
 
         public async Task<Result<bool>> Update(Productos articulos, Stock stock)

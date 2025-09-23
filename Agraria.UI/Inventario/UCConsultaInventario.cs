@@ -22,7 +22,7 @@ namespace Agraria.UI.Inventario
     {
         #region Campos y Servicios
 
-        private readonly IArticulosService _articulosService;
+        private readonly IProductoService _articulosService;
         private readonly IStockService _stockService;
 
         private ArticulosGral _articuloSeleccionado;
@@ -46,7 +46,7 @@ namespace Agraria.UI.Inventario
         #region Constructor
 
         public UCConsultaInventario(
-            IArticulosService articulosService,
+            IProductoService articulosService,
             IStockService stockService)
         {
             InitializeComponent();

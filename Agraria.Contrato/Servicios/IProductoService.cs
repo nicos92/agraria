@@ -4,7 +4,7 @@ using Agraria.Utilidades;
 
 namespace Agraria.Contrato.Servicios
 {
-    public interface IArticulosService
+    public interface IProductoService
     {
         Task<Result<List<Productos>>> GetAll();
         Result<Productos> GetById(int id);

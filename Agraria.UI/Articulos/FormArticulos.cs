@@ -74,8 +74,8 @@ namespace Agraria.UI.Articulos
         /// </summary>
         private void ConFigBtns()
         {
-            BtnOpcionIngresar.Tag = typeof(UCIngresoArticulos);
-            BtnOpcionEditar.Tag = typeof(UCConsultaArticulos);
+            BtnOpcionIngresar.Tag = typeof(UCIngresoProducto);
+            BtnOpcionEditar.Tag = typeof(UCConsultaProducto);
         }
 
         /// <summary>

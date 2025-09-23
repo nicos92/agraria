@@ -6,7 +6,7 @@ using Agraria.Utilidades;
 
 namespace Agraria.Servicio.Implementaciones
 {
-    public class ArticulosService : IArticulosService
+    public class ArticulosService : IProductoService
     {
         private readonly IArticulosRepository _repo;
 

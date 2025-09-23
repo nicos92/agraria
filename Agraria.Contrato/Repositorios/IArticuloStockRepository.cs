@@ -11,7 +11,7 @@ namespace Agraria.Contrato.Repositorios
     public interface IArticuloStockRepository
     {
         Task<Result<(List<Productos> articulos, List<Stock> stock)>> GetAll();
-        Task<Result<List<ArticuloStock>>> GetAllArticuloStock();
+        Task<Result<List<ProductoStock>>> GetAllArticuloStock();
 
         Task<Result<bool>> Add(Productos articulo, Stock stock);
 

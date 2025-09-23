@@ -6,14 +6,9 @@ using Agraria.Utilidades;
 
 namespace Agraria.Servicio.Implementaciones
 {
-    public class ArticulosGralService : IArticulosGralService
+    public class ArticulosGralService(IArticulosGralRepository repo) : IArticulosGralService
     {
-        private readonly IArticulosGralRepository _repo;
-
-        public ArticulosGralService(IArticulosGralRepository repo)
-        {
-            _repo = repo;
-        }
+        private readonly IArticulosGralRepository _repo = repo;
 
         public async Task<Result<List<ArticulosGral>>> GetAll()
         {
