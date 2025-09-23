@@ -33,3 +33,7 @@
 
 - [x] revisar por que no carga el modulo de entorno formativo, seguramente son las bases de datos
 - [ ] al modificar entorno formativo bloquear el boton si no esta todo ok
+
+#### productos
+
+- [ ] agregar atributo de activo

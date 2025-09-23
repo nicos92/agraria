@@ -243,6 +243,9 @@ namespace Agraria.UI.Articulos
         private void BtnIngresar_Click(object sender, EventArgs e)
         {
             // TODO: consultar si se pueden ingresar articulos sin proveedor
+            DialogResult dialogResult = MessageBox.Show("¿Estas seguro que queres hacer el ingreso?", "Ingreso de Producto", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (dialogResult == DialogResult.No)
+                return;
             if (!CrearArticulo())
             {
                 MessageBox.Show("Artículo no creado", "Artículo", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -250,8 +253,18 @@ namespace Agraria.UI.Articulos
             }
             CrearStock();
 
-            var tarea = new TareasLargas(PanelMedio, ProgressBar, InsertarArticuloStock, () => Utilidades.Util.LimpiarForm(TLPForm, TxtDescripcion));
+            var tarea = new TareasLargas(PanelMedio, ProgressBar, InsertarArticuloStock, LimpiarAsync );
             tarea.Iniciar();
+        }
+
+        private void LimpiarAsync()
+        {
+            this.Invoke(
+                () =>
+                {
+            Utilidades.Util.LimpiarForm(TLPForm, TxtDescripcion);
+
+                });
         }
 
         /// <summary>
@@ -259,12 +272,12 @@ namespace Agraria.UI.Articulos
         /// </summary>
         public async Task InsertarArticuloStock()
         {
-            var ultimoCodigoResult = await _articulosService.GetMaxCodArt();
-            int codigo = ultimoCodigoResult.IsSuccess ? ultimoCodigoResult.Value : 100000;
-            string nuevoCodigo = (codigo + 1).ToString();
+            //var ultimoCodigoResult = await _articulosService.GetMaxCodArt();
+            //int codigo = ultimoCodigoResult.IsSuccess ? ultimoCodigoResult.Value : 100000;
+            //string nuevoCodigo = (codigo + 1).ToString();
 
-            _articuloSeleccionado.Cod_Producto = nuevoCodigo;
-            _stockSeleccionado.Cod_Articulo = nuevoCodigo;
+            //_articuloSeleccionado.Cod_Producto = nuevoCodigo;
+            //_stockSeleccionado.Cod_Articulo = nuevoCodigo;
 
             var insercionResult = await _articuloStockService.Add(_articuloSeleccionado, _stockSeleccionado);
 

@@ -40,41 +40,59 @@ INSERT INTO Proveedores (CUIT, Proveedor, Nombre, Tel, Email, Observacion) VALUE
 
 -- Poblar Productos
 INSERT INTO Productos (Cod_Producto, Producto_Desc, Id_TipoEntorno, Id_Entorno, Id_Proveedor, Unidad_Medida, En_Venta) VALUES
-('001', 'Fertilizante Orgánico', 1, 1, 1, 'Litros', 1),
-('002', 'Semillas de Tomate', 3, 2, 2, 'Gramos', 1);
+('P0000001', 'Fertilizante Orgánico', 1, 1, 1, 'Litros', 1),
+('P0000002', 'Semillas de Tomate', 3, 2, 2, 'Gramos', 1);
 
 --
 -- Poblar la tabla 'Productos' con múltiples registros
 --
 INSERT INTO Productos (Cod_Producto, Producto_Desc, Id_TipoEntorno, Id_Entorno, Id_Proveedor, Unidad_Medida, En_Venta) VALUES
-('003', 'Tierra Fértil', 1, 1, 1, 'Kg', 1),
-('004', 'Manguera de Riego', 1, 1, 1, 'Metros', 1),
-('005', 'Kit de Herramientas de Jardinería', 1, 1, 1, 'Unidad', 1),
-('006', 'Malla Sombra', 1, 1, 1, 'Metros', 1),
-('007', 'Semillas de Lechuga', 3, 2, 2, 'Gramos', 1),
-('008', 'Semillas de Zanahoria', 3, 2, 2, 'Gramos', 1),
-('009', 'Abono Compuesto', 3, 2, 2, 'Kg', 1),
-('010', 'Atomizador Manual', 3, 2, 2, 'Litros', 1),
-('011', 'Tutor para Plantas', 1, 1, 1, 'Unidad', 1),
-('012', 'Pala Pequeña', 1, 1, 1, 'Unidad', 1),
-('013', 'Guantes de Jardinería', 1, 1, 1, 'Par', 1),
-('014', 'Regadera Metálica', 3, 2, 2, 'Litros', 1),
-('015', 'Tijeras de Poda', 3, 2, 2, 'Unidad', 1),
-('016', 'Semillas de Pepino', 3, 2, 2, 'Gramos', 1),
-('017', 'Kit de siembra en maceta', 1, 1, 1, 'Unidad', 1),
-('018', 'Insecticida orgánico', 3, 2, 2, 'Litros', 1),
-('019', 'Medidor de humedad del suelo', 1, 1, 1, 'Unidad', 0),
-('020', 'Etiquetas para plantas', 3, 2, 2, 'Paquete', 1);
+('P0000003', 'Tierra Fértil', 1, 1, 1, 'Kg', 1),
+('P0000004', 'Manguera de Riego', 1, 1, 1, 'Metros', 1),
+('P0000005', 'Kit de Herramientas de Jardinería', 1, 1, 1, 'Unidad', 1),
+('P0000006', 'Malla Sombra', 1, 1, 1, 'Metros', 1),
+('P0000007', 'Semillas de Lechuga', 3, 2, 2, 'Gramos', 1),
+('P0000008', 'Semillas de Zanahoria', 3, 2, 2, 'Gramos', 1),
+('P0000009', 'Abono Compuesto', 3, 2, 2, 'Kg', 1),
+('P0000010', 'Atomizador Manual', 3, 2, 2, 'Litros', 1),
+('P0000011', 'Tutor para Plantas', 1, 1, 1, 'Unidad', 1),
+('P0000012', 'Pala Pequeña', 1, 1, 1, 'Unidad', 1),
+('P0000013', 'Guantes de Jardinería', 1, 1, 1, 'Par', 1),
+('P0000014', 'Regadera Metálica', 3, 2, 2, 'Litros', 1),
+('P0000015', 'Tijeras de Poda', 3, 2, 2, 'Unidad', 1),
+('P0000016', 'Semillas de Pepino', 3, 2, 2, 'Gramos', 1),
+('P0000017', 'Kit de siembra en maceta', 1, 1, 1, 'Unidad', 1),
+('P0000018', 'Insecticida orgánico', 3, 2, 2, 'Litros', 1),
+('P0000019', 'Medidor de humedad del suelo', 1, 1, 1, 'Unidad', 0),
+('P0000020', 'Etiquetas para plantas', 3, 2, 2, 'Paquete', 1);
 
 -- Poblar ArticulosGral
 INSERT INTO ArticulosGral (Art_Cod, Art_Nombre, Art_Unidad_Medida, Art_Precio, Art_Descripcion, Art_Stock) VALUES
-('001', 'Pala', 'Unidad', 1500.00, 'Herramienta de jardinería', 10),
-('002', 'Regadera', 'Unidad', 800.00, 'Para riego manual', 5);
+('1', 'Pala', 'Unidad', 1500.00, 'Herramienta de jardinería', 10),
+('2', 'Regadera', 'Unidad', 800.00, 'Para riego manual', 5);
 
 -- Poblar Stock
 INSERT INTO Stock (Cod_Producto, Cantidad, Costo, Ganancia) VALUES
-('001', 100, 500.00, 200.00),
-('002', 200, 300.00, 150.00);
+('P0000001', 100, 500.00, 200.00),
+('P0000002', 100, 500.00, 200.00),
+('P0000003', 100, 500.00, 200.00),
+('P0000004', 100, 500.00, 200.00),
+('P0000005', 100, 500.00, 200.00),
+('P0000006', 100, 500.00, 200.00),
+('P0000007', 100, 500.00, 200.00),
+('P0000008', 100, 500.00, 200.00),
+('P0000009', 100, 500.00, 200.00),
+('P0000010', 100, 500.00, 200.00),
+('P0000011', 100, 500.00, 200.00),
+('P0000012', 100, 500.00, 200.00),
+('P0000013', 100, 500.00, 200.00),
+('P0000014', 100, 500.00, 200.00),
+('P0000015', 100, 500.00, 200.00),
+('P0000016', 100, 500.00, 200.00),
+('P0000017', 100, 500.00, 200.00),
+('P0000018', 100, 500.00, 200.00),
+('P0000019', 100, 500.00, 200.00),
+('P0000020', 200, 300.00, 150.00);
 
 -- Poblar H_Ventas
 INSERT INTO H_Ventas (Descripcion, Cod_Usuario, Fecha_Hora, Subtotal, Descu, Total) VALUES
@@ -82,7 +100,7 @@ INSERT INTO H_Ventas (Descripcion, Cod_Usuario, Fecha_Hora, Subtotal, Descu, Tot
 
 -- Poblar H_Ventas_Detalle
 INSERT INTO H_Ventas_Detalle (Id_Remito, Cod_Producto, Descr, P_Unit, Cant, P_X_Cant) VALUES
-(1, '001', 'Fertilizante Orgánico', 500.00, 10, 5000.00);
+(1, 'P0000001', 'Fertilizante Orgánico', 500.00, 10, 5000.00);
 
 -- Poblar Herramientas
 INSERT INTO Herramientas (Nombre, Descripcion, Cantidad) VALUES
@@ -96,32 +114,32 @@ INSERT INTO HojadeVida (Nombre, Tipo_Animal, Sexo, Fecha_Nacimiento, Peso, Estad
 
 -- Poblar EntornoFormativo
 INSERT INTO EntornoFormativo (Id_Entorno, Id_Usuario, Curso_Anio, Curso_Division, Curso_Grupo, Observaciones, Activo) VALUES
-(2, 2, '2025', '3°A', 'Grupo Verde', 'Proyecto huerta escolar', 1);
+(2, 2, '2025', '3A', 'Grupo Verde', 'Proyecto huerta escolar', 1);
 --
 -- Poblar la tabla 'EntornoFormativo' con múltiples registros de ejemplo
 --
 
 INSERT INTO EntornoFormativo (Id_Entorno, Id_Usuario, Curso_Anio, Curso_Division, Curso_Grupo, Observaciones, Activo) VALUES
-(1, 1, '2024', '1°A', 'Grupo A', 'Introducción a la programación', 1),
-(2, 2, '2025', '3°B', 'Grupo Rojo', 'Proyecto de robótica educativa', 1),
-(3, 3, '2023', '2°C', 'Grupo Azul', 'Taller de creatividad', 0),
-(4, 4, '2024', '4°A', 'Grupo C', 'Simulacro de empresa', 1),
-(3, 1, '2025', '5°B', 'Grupo Verde', 'Clase de educación física', 1),
-(1, 2, '2023', '1°B', 'Grupo B', 'Taller de fotografía digital', 0),
-(2, 3, '2024', '3°C', 'Grupo Naranja', 'Proyecto de investigación histórica', 1),
-(3, 4, '2025', '2°A', 'Grupo Gris', 'Curso de primeros auxilios', 1),
-(4, 1, '2024', '6°A', 'Grupo E', 'Preparación para el examen final', 1),
-(1,2, '2025', '1°C', 'Grupo F', 'Proyecto de reciclaje', 1),
-(1, 3, '2024', '4°B', 'Grupo D', 'Taller de escritura creativa', 0),
-(1, 4, '2025', '3°D', 'Grupo Marrón', 'Clase de música', 1),
-(1, 1, '2024', '2°B', 'Grupo G', 'Taller de ajedrez', 1),
-(1, 2, '2025', '5°C', 'Grupo Blanco', 'Laboratorio de química', 1),
-(1, 3, '2024', '6°B', 'Grupo H', 'Preparación para la universidad', 1),
-(1, 4, '2023', '1°D', 'Grupo I', 'Introducción a la electrónica', 0),
-(1, 1, '2025', '4°C', 'Grupo J', 'Proyecto de desarrollo web', 1),
-(1, 2, '2024', '3°E', 'Grupo K', 'Taller de teatro', 1),
-(1, 3, '2025', '2°D', 'Grupo L', 'Clase de biología', 1),
-(2, 4, '2024', '5°D', 'Grupo M', 'Proyecto de arte', 1);
+(1, 1, '2024', '1A', 'Grupo A', 'Introducción a la programación', 1),
+(2, 2, '2025', '3B', 'Grupo Rojo', 'Proyecto de robótica educativa', 1),
+(3, 3, '2023', '2C', 'Grupo Azul', 'Taller de creatividad', 0),
+(1, 1, '2024', '4A', 'Grupo C', 'Simulacro de empresa', 1),
+(3, 1, '2025', '5B', 'Grupo Verde', 'Clase de educación física', 1),
+(1, 2, '2023', '1B', 'Grupo B', 'Taller de fotografía digital', 0),
+(2, 3, '2024', '3C', 'Grupo Naranja', 'Proyecto de investigación histórica', 1),
+(3, 1, '2025', '2A', 'Grupo Gris', 'Curso de primeros auxilios', 1),
+(1, 1, '2024', '6A', 'Grupo E', 'Preparación para el examen final', 1),
+(1,2, '2025', '1C', 'Grupo F', 'Proyecto de reciclaje', 1),
+(1, 3, '2024', '4B', 'Grupo D', 'Taller de escritura creativa', 0),
+(1, 1, '2025', '3D', 'Grupo Marrón', 'Clase de música', 1),
+(1, 1, '2024', '2B', 'Grupo G', 'Taller de ajedrez', 1),
+(1, 2, '2025', '5C', 'Grupo Blanco', 'Laboratorio de química', 1),
+(1, 3, '2024', '6B', 'Grupo H', 'Preparación para la universidad', 1),
+(1, 1, '2023', '1D', 'Grupo I', 'Introducción a la electrónica', 0),
+(1, 1, '2025', '4C', 'Grupo J', 'Proyecto de desarrollo web', 1),
+(1, 2, '2024', '3E', 'Grupo K', 'Taller de teatro', 1),
+(1, 3, '2025', '2D', 'Grupo L', 'Clase de biología', 1),
+(2, 1, '2024', '5D', 'Grupo M', 'Proyecto de arte', 1);
 
 -- Poblar HRemitoProduccion
 INSERT INTO HRemitoProduccion (Descripcion, Cod_Usuario, Fecha_Hora, Subtotal, Descu, Total) VALUES
@@ -129,7 +147,7 @@ INSERT INTO HRemitoProduccion (Descripcion, Cod_Usuario, Fecha_Hora, Subtotal, D
 
 -- Poblar HRemitoDetalleProduccion
 INSERT INTO HRemitoDetalleProduccion (Id_Remito, Art_Cod, Descr, P_Unit, Cant, P_X_Cant) VALUES
-(1, '001', 'Pala', 1500.00, 2, 3000.00);
+(1, '1', 'Pala', 1500.00, 2, 3000.00);
 
 DECLARE @i INT = 1;
 
@@ -137,7 +155,7 @@ WHILE @i <= 1000
 BEGIN
     INSERT INTO Herramientas (Nombre, Descripcion, Cantidad)
     VALUES (
-        CONCAT('Herramienta_', @i),
+        CONCAT('Herramienta', @i),
         CONCAT('Descripción de la herramienta número ', @i),
         (RAND() * 10 + 1) -- cantidad aleatoria entre 1 y 10
     );
@@ -147,7 +165,7 @@ END;
 
 DECLARE @p INT = 1;
 
-WHILE @p <= 1000
+WHILE @p <= 10
 BEGIN
     INSERT INTO Proveedores (CUIT, Proveedor, Nombre, Tel, Email, Observacion)
     VALUES (
@@ -164,7 +182,7 @@ END;
 
 DECLARE @u INT = 1;
 
-WHILE @u <= 1000
+WHILE @u <= 10
 BEGIN
     INSERT INTO Usuarios (DNI, Nombre, Apellido, Tel, Mail, Contra, Respues, Id_Pregunta, Id_Tipo)
     VALUES (

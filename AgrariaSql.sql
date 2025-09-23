@@ -1,4 +1,21 @@
+
+
+-- Cambia a la base de datos maestra para realizar la operación
 USE master;
+GO
+
+-- Cierra todas las conexiones a la base de datos y la pone en modo de usuario único
+ALTER DATABASE Agraria
+SET SINGLE_USER
+WITH ROLLBACK IMMEDIATE;
+GO
+
+-- Elimina la base de datos de forma permanente
+DROP DATABASE Agraria;
+GO
+
+USE master;
+GO
 -- Eliminar la base de datos si ya existe
 IF EXISTS (SELECT name FROM sys.databases WHERE name = 'Agraria')
 BEGIN
@@ -60,6 +77,7 @@ CREATE TABLE Usuarios (
     Respues NVARCHAR(255),
     Id_Pregunta INT NOT NULL,
     Id_Tipo INT NOT NULL,
+	Activo BIT DEFAULT 1,
     CONSTRAINT FK_Usuarios_UsuariosTipo FOREIGN KEY (Id_Tipo) REFERENCES Usuarios_Tipo(Id_Usuario_Tipo),
     CONSTRAINT FK_Usuarios_PreguntaSegu FOREIGN KEY (Id_Pregunta) REFERENCES Preguntas_Seguridad(Id_Pregunta)
 );

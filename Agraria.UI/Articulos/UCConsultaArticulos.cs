@@ -160,7 +160,8 @@ namespace Agraria.UI.Articulos
                               MessageBoxIcon.Warning);
                 return;
             }
-
+            DialogResult dialogResult = MessageBox.Show("¿Estas seguro que queres guardar los cmabios?","Guardar Cambios", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (dialogResult == DialogResult.No) return;
             if (!CrearArticuloDesdeFormulario() || !CrearStockDesdeFormulario())
             {
                 return;
@@ -170,14 +171,20 @@ namespace Agraria.UI.Articulos
                 PanelMedio,
                 ProgressBar,
                 GuardarArticuloStock,
-                () =>
-                {
-                    ActualizarListas();
-                    ListBArticulos.Refresh();
-                });
+                FinBtnGuardar);
             tarea.Iniciar();
         }
 
+        private void FinBtnGuardar()
+        {
+            this.Invoke(
+                () =>
+                {
+            ActualizarListas();
+            ListBArticulos.Refresh();
+
+                });
+        }
         /// <summary>
         /// Maneja el evento de clic en el botón Eliminar. Elimina el artículo y stock seleccionados.
         /// </summary>

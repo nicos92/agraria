@@ -28,12 +28,39 @@ namespace Agraria.Repositorio.Repositorios
               
                  transaction = (SqlTransaction)await conn.BeginTransactionAsync();
 
-         
+
+                // 1. Obtener el último Cod_Producto de la tabla Productos
+                string sqlSelectMaxCod = "SELECT TOP 1 Cod_Producto FROM Productos WITH (UPDLOCK) ORDER BY Id_Producto DESC";
+                string? ultimoCodProducto = null;
+                using (SqlCommand cmdSelect = new (sqlSelectMaxCod, conn, transaction))
+                {
+                    object? result = await cmdSelect.ExecuteScalarAsync();
+                    if (result != DBNull.Value && result != null)
+                    {
+                        ultimoCodProducto = result.ToString();
+                    }
+                }
+
+                // 2. Generar el nuevo Cod_Producto
+                string nuevoCodProducto;
+                if (string.IsNullOrEmpty(ultimoCodProducto))
+                {
+                    // Si la tabla está vacía, el primer código será 'P001'
+                    nuevoCodProducto = "P001";
+                }
+                else
+                {
+                    // Extraer el número del código, incrementarlo y formatearlo
+                    string numeroStr = ultimoCodProducto.Substring(1); // "001"
+                    int ultimoNumero = int.Parse(numeroStr);
+                    int nuevoNumero = ultimoNumero + 1;
+                    nuevoCodProducto = $"P{nuevoNumero:D7}"; // Formato "P001", "P002", etc.
+                }
                 string sqlArticulos = "INSERT INTO Productos (Cod_Producto, Producto_Desc, Id_Tipoentorno, Id_Entorno, Id_Proveedor) VALUES (@cod, @Desc, @Tipo, @Entorno, @proveedor)";
                 using (SqlCommand cmdArticulos = new(sqlArticulos, conn, transaction))
                 {
                   
-                    cmdArticulos.Parameters.AddWithValue("@cod", articulo.Cod_Producto);
+                    cmdArticulos.Parameters.AddWithValue("@cod", nuevoCodProducto);
                     cmdArticulos.Parameters.AddWithValue("@Desc", articulo.Producto_Desc);
                     cmdArticulos.Parameters.AddWithValue("@Tipo", articulo.Id_TipoEntorno);
                     cmdArticulos.Parameters.AddWithValue("@Entorno", articulo.Id_Entorno);
@@ -46,7 +73,7 @@ namespace Agraria.Repositorio.Repositorios
                 using (SqlCommand cmdStock = new(sqlStock, conn, transaction))
                 {
                    
-                    cmdStock.Parameters.AddWithValue("@Cod_Producto", stock.Cod_Articulo);
+                    cmdStock.Parameters.AddWithValue("@Cod_Producto", nuevoCodProducto);
                     cmdStock.Parameters.Add("@Cantidad", SqlDbType.Decimal).Value = stock.Cantidad;
                     cmdStock.Parameters.Add("@costo", SqlDbType.Decimal).Value = stock.Costo;
                     cmdStock.Parameters.Add("@Ganancia", SqlDbType.Decimal).Value = stock.Ganancia;
@@ -138,7 +165,7 @@ namespace Agraria.Repositorio.Repositorios
                     await conn.OpenAsync();
 
                     // 1. Obtener datos de la tabla Productos
-                    string sqlArticulos = "SELECT Id_Producto, Cod_Producto, Producto_Desc, Id_Tipoentorno, Id_Entorno, Id_Proveedor FROM Productos";
+                    string sqlArticulos = "SELECT Id_Producto, Cod_Producto, Producto_Desc, Id_Tipoentorno, Id_Entorno, Id_Proveedor FROM Productos ORDER BY Id_Producto DESC";
                     using (SqlCommand cmdArticulos = new(sqlArticulos, conn))
                     {
                         using DbDataReader reader = await cmdArticulos.ExecuteReaderAsync();

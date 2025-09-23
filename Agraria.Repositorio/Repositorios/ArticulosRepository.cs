@@ -76,7 +76,7 @@ namespace Agraria.Repositorio.Repositorios
             {
                 List<Productos> articulos = [];
                 using var conn = Conexion();
-                using var cmd = new SqlCommand("SELECT Id_Producto, Cod_Producto, Producto_Desc, Id_TipoEntorno, Id_Entorno, Id_Proveedor FROM Productos", conn);
+                using var cmd = new SqlCommand("SELECT Id_Producto, Cod_Producto, Producto_Desc, Id_TipoEntorno, Id_Entorno, Id_Proveedor FROM Productos ORDER BY Id_Producto DESC", conn);
                 await conn.OpenAsync();
                 using var reader = await cmd.ExecuteReaderAsync();
                 while (await reader.ReadAsync())
