@@ -20,7 +20,7 @@ namespace Agraria.UI.Inventario
     {
         #region Atributos y Propiedades
 
-        
+        private readonly IArticulosGralService _articulosService;
 
         private readonly ArticulosGral _articuloSeleccionado;
 
@@ -37,9 +37,9 @@ namespace Agraria.UI.Inventario
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="UCIngresoInventario"/>.
         /// </summary>
-        public UCIngresoInventario( )
+        public UCIngresoInventario(IArticulosGralService articulosService)
         {
-           
+            _articulosService = articulosService;
 
             InitializeComponent();
 
@@ -65,6 +65,18 @@ namespace Agraria.UI.Inventario
         private void TxtNombre_TextChanged(object sender, EventArgs e)
         {
             ValidadorMultiple.ValidacionMultiple(BtnIngresar, _vTxtNombre, _vTxtCantidad, _vTxtPrecio);
+            ValidarUnidadMedida();
+        }
+
+        /// <summary>
+        /// Controla el evento TextChanged del cuadro de texto de descripción.
+        /// </summary>
+        /// <param name="sender">El origen del evento.</param>
+        /// <param name="e">El <see cref="EventArgs"/> instancia que contiene los datos del evento.</param>
+        private void TxtDescripcion_TextChanged(object sender, EventArgs e)
+        {
+            ValidadorMultiple.ValidacionMultiple(BtnIngresar, _vTxtNombre, _vTxtCantidad, _vTxtPrecio);
+            ValidarUnidadMedida();
         }
 
         #endregion Eventos
@@ -72,14 +84,50 @@ namespace Agraria.UI.Inventario
         #region Métodos Privados
 
         /// <summary>
+        /// Valida que se haya seleccionado una unidad de medida.
+        /// </summary>
+        private void ValidarUnidadMedida()
+        {
+            // Only enable the button if all validations pass AND a unit of measure is selected
+            if (CMBUnidadMedida.SelectedItem != null)
+            {
+                ValidadorMultiple.ValidacionMultiple(BtnIngresar, _vTxtNombre, _vTxtCantidad, _vTxtPrecio);
+            }
+            else
+            {
+                BtnIngresar.Enabled = false;
+            }
+        }
+
+        /// <summary>
+        /// Controla el evento SelectedIndexChanged del ComboBox de unidades de medida.
+        /// </summary>
+        /// <param name="sender">El origen del evento.</param>
+        /// <param name="e">El <see cref="EventArgs"/> instancia que contiene los datos del evento.</param>
+        private void CmbUnidadMedida_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ValidadorMultiple.ValidacionMultiple(BtnIngresar, _vTxtNombre, _vTxtCantidad, _vTxtPrecio);
+        }
+
+        /// <summary>
         /// Crea un nuevo artículo a partir de los datos introducidos por el usuario.
         /// </summary>
         /// <returns>Verdadero si el artículo se creó correctamente, falso en caso contrario.</returns>
         private bool CrearArticulo()
         {
-            
+            if (CMBUnidadMedida.SelectedItem is not UnidadMedida unidadMedida)
+            {
+                MessageBox.Show("Debe seleccionar una unidad de medida.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
 
-           return true;
+            _articuloSeleccionado.Art_Nombre = TxtNombre.Text;
+            _articuloSeleccionado.Art_Stock = Convert.ToInt32(TxtCantidad.Text);
+            _articuloSeleccionado.Art_Precio = DecimalFormatter.ParseDecimal(TxtPrecio.Text);
+            _articuloSeleccionado.Art_Descripcion = TxtDescripcion.Text;
+            _articuloSeleccionado.Art_Uni_Med = unidadMedida.ToString();
+
+            return true;
         }
 
 
@@ -90,8 +138,27 @@ namespace Agraria.UI.Inventario
         /// <param name="e">El <see cref="EventArgs"/> instancia que contiene los datos del evento.</param>
         private void UCIngresoInventario_Load(object sender, EventArgs e)
         {
-            
+            CargarUnidadesMedida();
         }
+
+        /// <summary>
+        /// Carga las unidades de medida en el ComboBox correspondiente.
+        /// </summary>
+        private void CargarUnidadesMedida()
+        {
+            try
+            {
+                var unidades = Enum.GetValues(typeof(UnidadMedida)).Cast<UnidadMedida>().ToList();
+                CMBUnidadMedida.DataSource = unidades;
+                CMBUnidadMedida.DisplayMember = "ToString";
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ocurrió un error al cargar las unidades de medida: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        
 
         
 
@@ -108,15 +175,41 @@ namespace Agraria.UI.Inventario
         /// <param name="e">El <see cref="EventArgs"/> instancia que contiene los datos del evento.</param>
         private void BtnIngresar_Click(object sender, EventArgs e)
         {
-            
+            DialogResult dialogResult = MessageBox.Show("¿Estas seguro que queres hacer el ingreso?", "Ingreso de Artículo", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (dialogResult == DialogResult.No)
+                return;
+            if (!CrearArticulo())
+            {
+                MessageBox.Show("Artículo no creado", "Artículo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            var tarea = new TareasLargas(PanelMedio, ProgressBar, InsertarArticuloStock, LimpiarAsync);
+            tarea.Iniciar();
+        }
+
+        private void LimpiarAsync()
+        {
+            this.Invoke(
+                () =>
+                {
+                    Utilidades.Util.LimpiarForm(TLPForm, TxtNombre);
+
+                });
         }
 
         /// <summary>
         /// Inserta un nuevo artículo en la base de datos.
         /// </summary>
+
         public async Task InsertarArticuloStock()
         {
-            
+            var insercionResult = await _articulosService.Add(_articuloSeleccionado);
+
+            if (!insercionResult.IsSuccess)
+                MessageBox.Show(insercionResult.Error, "Error en la inserción", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            else
+                MessageBox.Show("Ingreso correcto", "Artículo", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         #endregion Otros Metodos

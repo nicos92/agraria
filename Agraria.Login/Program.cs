@@ -203,7 +203,7 @@ static class Program
         services.AddScoped<IUsuariosTipoRepository, UsuariosTipoRepository>();
 
         services.AddScoped<IProductoService, ArticulosService>();
-        services.AddScoped<IArticulosRepository, ArticulosRepository>();
+        services.AddScoped<IArticulosRepository, ProductoRepository>();
 
         services.AddScoped<IArticulosGralService, ArticulosGralService>();
         services.AddScoped<IArticulosGralRepository, ArticulosGralRepository>();

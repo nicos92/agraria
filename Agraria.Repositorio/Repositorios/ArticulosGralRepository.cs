@@ -12,34 +12,76 @@ namespace Agraria.Repositorio.Repositorios
     [SupportedOSPlatform("windows")]
     public class ArticulosGralRepository : BaseRepositorio, IArticulosGralRepository
     {
-        public Result<ArticulosGral> Add(ArticulosGral articulo)
+        public async  Task<Result<ArticulosGral>> Add(ArticulosGral articulo)
         {
+            SqlTransaction? transaction = null;
+
             try
             {
                 using var conn = Conexion();
-                using var cmd = new SqlCommand("INSERT INTO ArticulosGral (Art_Cod, Art_Nombre, Art_Unidad_Medida, Art_Precio, Art_Descripcion, Art_Stock) VALUES (@Art_Cod, @Art_Nombre, @Art_Uni_Med, @Art_Precio, @Art_Descripcion, @Art_Stock)", conn);
+                await conn.OpenAsync();
 
-                cmd.Parameters.AddWithValue("@Art_Cod", articulo.Art_Cod ?? (object)DBNull.Value);
+                transaction = (SqlTransaction)await conn.BeginTransactionAsync();
+
+                // 1. Obtener el último Cod_Producto de la tabla Productos
+                string sqlSelectMaxCod = "SELECT TOP 1 Art_Cod FROM ArticulosGral WITH (UPDLOCK) ORDER BY Art_Id DESC";
+                string? ultimoCodArt = null;
+                using (SqlCommand cmdSelect = new(sqlSelectMaxCod, conn, transaction))
+                {
+                    object? result = await cmdSelect.ExecuteScalarAsync();
+                    if (result != DBNull.Value && result != null)
+                    {
+                        ultimoCodArt = result.ToString();
+                    }
+                }
+
+                // 2. Generar el nuevo Cod_Producto
+                string? nuevoCodArt;
+                if (string.IsNullOrEmpty(ultimoCodArt))
+                {
+                    // Si la tabla está vacía, el primer código será 'P001'
+                    nuevoCodArt = "A0000001";
+                }
+                else
+                {
+                    // Extraer el número del código, incrementarlo y formatearlo
+                    string numeroStr = ultimoCodArt.Substring(1); // "001"
+                    int ultimoNumero = int.Parse(numeroStr);
+                    int nuevoNumero = ultimoNumero + 1;
+                    nuevoCodArt = $"A{nuevoNumero:D7}"; 
+                }
+                using var cmd = new SqlCommand("INSERT INTO ArticulosGral (Art_Cod, Art_Nombre, Art_Unidad_Medida, Art_Precio, Art_Descripcion, Art_Stock) VALUES (@Art_Cod, @Art_Nombre, @Art_Uni_Med, @Art_Precio, @Art_Descripcion, @Art_Stock)", conn, transaction);
+
+                cmd.Parameters.AddWithValue("@Art_Cod", nuevoCodArt);
                 cmd.Parameters.AddWithValue("@Art_Nombre", articulo.Art_Nombre ?? (object)DBNull.Value);
                 cmd.Parameters.AddWithValue("@Art_Uni_Med", articulo.Art_Uni_Med ?? (object)DBNull.Value);
                 cmd.Parameters.AddWithValue("@Art_Precio", articulo.Art_Precio);
                 cmd.Parameters.AddWithValue("@Art_Descripcion", articulo.Art_Descripcion ?? (object)DBNull.Value);
                 cmd.Parameters.AddWithValue("@Art_Stock", articulo.Art_Stock);
                 
-                conn.Open();
-                int inserts = cmd.ExecuteNonQuery();
-
+                int inserts = await cmd.ExecuteNonQueryAsync();
+                await transaction.CommitAsync();
                 if (inserts > 0)
                 {
                     return Result<ArticulosGral>.Success(articulo);
                 }
                 else
                 {
+                    if (transaction != null)
+                    {
+
+                        await transaction.RollbackAsync();
+                    }
                     return Result<ArticulosGral>.Failure("No se pudo agregar el artículo general.");
                 }
             }
             catch (SqlException ex)
             {
+                if (transaction != null)
+                {
+
+                    await transaction.RollbackAsync();
+                }
                 return Result<ArticulosGral>.Failure($"Error al agregar el artículo general: {ex.Message}");
             }
         }

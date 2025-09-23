@@ -68,8 +68,8 @@ INSERT INTO Productos (Cod_Producto, Producto_Desc, Id_TipoEntorno, Id_Entorno, 
 
 -- Poblar ArticulosGral
 INSERT INTO ArticulosGral (Art_Cod, Art_Nombre, Art_Unidad_Medida, Art_Precio, Art_Descripcion, Art_Stock) VALUES
-('1', 'Pala', 'Unidad', 1500.00, 'Herramienta de jardinería', 10),
-('2', 'Regadera', 'Unidad', 800.00, 'Para riego manual', 5);
+('A0000001', 'Pala', 'Unidad', 1500.00, 'Herramienta de jardinería', 10),
+('A0000002', 'Regadera', 'Unidad', 800.00, 'Para riego manual', 5);
 
 -- Poblar Stock
 INSERT INTO Stock (Cod_Producto, Cantidad, Costo, Ganancia) VALUES
@@ -147,7 +147,7 @@ INSERT INTO HRemitoProduccion (Descripcion, Cod_Usuario, Fecha_Hora, Subtotal, D
 
 -- Poblar HRemitoDetalleProduccion
 INSERT INTO HRemitoDetalleProduccion (Id_Remito, Art_Cod, Descr, P_Unit, Cant, P_X_Cant) VALUES
-(1, '1', 'Pala', 1500.00, 2, 3000.00);
+(1, 'A0000001', 'Pala', 1500.00, 2, 3000.00);
 
 DECLARE @i INT = 1;
 

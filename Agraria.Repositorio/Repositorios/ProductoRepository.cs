@@ -12,7 +12,7 @@ using Agraria.Utilidades;
 namespace Agraria.Repositorio.Repositorios
 {
     [SupportedOSPlatform("windows")]
-    public class ArticulosRepository : BaseRepositorio, IArticulosRepository
+    public class ProductoRepository : BaseRepositorio, IArticulosRepository
     {
         public Result<Productos> Add(Productos articulo)
         {

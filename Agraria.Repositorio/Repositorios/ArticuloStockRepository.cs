@@ -46,7 +46,7 @@ namespace Agraria.Repositorio.Repositorios
                 if (string.IsNullOrEmpty(ultimoCodProducto))
                 {
                     // Si la tabla está vacía, el primer código será 'P001'
-                    nuevoCodProducto = "P001";
+                    nuevoCodProducto = "P0000001";
                 }
                 else
                 {

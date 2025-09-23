@@ -20,9 +20,9 @@ namespace Agraria.Servicio.Implementaciones
             return _repo.GetById(id);
         }
 
-        public Result<ArticulosGral> Add(ArticulosGral articulo)
+        public async Task<Result<ArticulosGral>> Add(ArticulosGral articulo)
         {
-            return _repo.Add(articulo);
+            return await _repo.Add(articulo);
         }
 
         public async Task<Result<ArticulosGral>> Update(ArticulosGral articulo)
