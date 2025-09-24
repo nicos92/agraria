@@ -1,5 +1,6 @@
 ﻿using Agraria.Contrato.Servicios;
 using Agraria.Modelo.Entidades;
+using Agraria.Util.Validaciones;
 using Agraria.Utilidades;
 using System;
 using System.Collections.Generic;
@@ -31,6 +32,8 @@ namespace Agraria.UI.Actividad
 
         private int _indiceSeleccionado;
 
+        private readonly ValidadorTextBox _vTxtDescripcion;
+
         #endregion
 
         public ucConsultaActividad(IActividadService actividadService, ITipoEntornosService tipoEntornoService, IEntornoService entornoService, IEntornoFormativoService entornoFormativoService)
@@ -55,8 +58,8 @@ namespace Agraria.UI.Actividad
 
             // Configurar el DataGridView
             ConfigurarDGV();
+            _vTxtDescripcion = new ValidadorDireccion(TxtDescripcion, new ErrorProvider()) { MensajeError = "La Descripción no puede estar vacía" };
 
-           
         }
 
         private void ucConsultaActividad_Load(object sender, EventArgs e)
@@ -567,6 +570,16 @@ namespace Agraria.UI.Actividad
 
         #endregion
 
-      
+
+        private void TxtDescripcion_TextChanged(object sender, EventArgs e)
+        {
+            ValidadorMultiple.ValidacionMultiple(BtnGuardar, _vTxtDescripcion);
+
+        }
+
+        private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
+        {
+            TxtDescripcion_TextChanged(sender, e);
+        }
     }
 }

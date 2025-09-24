@@ -251,6 +251,7 @@
             dateTimePicker1.Name = "dateTimePicker1";
             dateTimePicker1.Size = new Size(274, 29);
             dateTimePicker1.TabIndex = 20;
+            dateTimePicker1.ValueChanged += dateTimePicker1_ValueChanged;
             // 
             // TxtDescripcion
             // 
@@ -264,6 +265,7 @@
             TxtDescripcion.Name = "TxtDescripcion";
             TxtDescripcion.Size = new Size(274, 188);
             TxtDescripcion.TabIndex = 5;
+            TxtDescripcion.TextChanged += TxtDescripcion_TextChanged;
             // 
             // BtnGuardar
             // 
