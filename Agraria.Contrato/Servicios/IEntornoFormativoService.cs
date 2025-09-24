@@ -8,7 +8,7 @@ namespace Agraria.Contrato.Servicios
     public interface IEntornoFormativoService
     {
         Task<Result<List<EntornoFormativo>>> GetAll();
-
+        Task<Result<List<EntornoFormativo>>> GetAllByIdEntorno(int idEntorno);
         
         Result<EntornoFormativo> GetById(int id);
         Result<EntornoFormativo> Add(EntornoFormativo entornoFormativo);

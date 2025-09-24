@@ -3,23 +3,10 @@
 -- Cambia a la base de datos maestra para realizar la operación
 USE master;
 GO
-
--- Cierra todas las conexiones a la base de datos y la pone en modo de usuario único
-ALTER DATABASE Agraria
-SET SINGLE_USER
-WITH ROLLBACK IMMEDIATE;
-GO
-
--- Elimina la base de datos de forma permanente
-DROP DATABASE Agraria;
-GO
-
-USE master;
-GO
 -- Eliminar la base de datos si ya existe
 IF EXISTS (SELECT name FROM sys.databases WHERE name = 'Agraria')
 BEGIN
-    ALTER DATABASE Agraria SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
+    ALTER DATABASE Agraria SET SINGLE_USER WITH ROLLBACK IMMEDIATE; -- Cierra todas las conexiones a la base de datos y la pone en modo de usuario único
     DROP DATABASE Agraria;
 END
 GO
@@ -203,14 +190,26 @@ CREATE TABLE EntornoFormativo (
 );
 GO
 
-
+-- Tabla Actividad
+CREATE TABLE Actividad (
+	Id_Actividad INT IDENTITY(1,1) PRIMARY KEY,
+	Id_TipoEntorno INT NOT NULL,
+	Id_Entorno INT NOT NULL,
+	Id_EntornoFormativo INT NOT NULL,
+	Fecha_Actividad DATETIME2(7) DEFAULT SYSDATETIME(),
+	Descripcion_Actividad NVARCHAR(255) NOT NULL,
+	CONSTRAINT FK_Actividad_TipoEntorno FOREIGN KEY (Id_TipoEntorno) REFERENCES TipoEntorno(Id_TipoEntorno),
+	CONSTRAINT FK_Actividad_Entorno FOREIGN KEY (Id_Entorno) REFERENCES Entorno (Id_Entorno),
+	CONSTRAINT FK_Actividad_Entornoformativo FOREIGN KEY (Id_EntornoFormativo) REFERENCES EntornoFormativo(Id_EntornoFormativo)
+);
+GO
 
 -- Tabla HRemitoProduccion
 CREATE TABLE HRemitoProduccion (
     Id_Remito INT IDENTITY(1,1) PRIMARY KEY,
     Descripcion NVARCHAR(255),
     Cod_Usuario INT NOT NULL,
-    Fecha_Hora DATETIME2 NOT NULL,
+    Fecha_Hora DATETIME2(7) DEFAULT SYSDATETIME(),
     Subtotal DECIMAL(18,2) NOT NULL,
     Descu DECIMAL(18,2) NOT NULL,
     Total DECIMAL(18,2) NOT NULL,

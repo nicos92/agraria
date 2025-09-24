@@ -20,23 +20,23 @@ namespace Agraria.UI.Actividad
             TLPMedio = new TableLayoutPanel();
             groupBox1 = new GroupBox();
             TLPForm = new TableLayoutPanel();
-            label4 = new Label();
             label1 = new Label();
             CMBTipoEntorno = new ComboBox();
             label5 = new Label();
             CMBEntorno = new ComboBox();
             dateTimePicker1 = new DateTimePicker();
-            LblCuit = new Label();
             TxtDescripcion = new TextBox();
-            BtnIngresar = new Button();
             ListBArticulos = new DataGridView();
             Cantidad = new DataGridViewTextBoxColumn();
             Fecha_Hora = new DataGridViewTextBoxColumn();
             Entorno = new DataGridViewTextBoxColumn();
             Descripcion = new DataGridViewTextBoxColumn();
-            ProgressBar = new ProgressBar();
+            BtnIngresar = new Button();
+            LblCuit = new Label();
+            label4 = new Label();
             CMBEntornoFormativo = new ComboBox();
             label2 = new Label();
+            ProgressBar = new ProgressBar();
             PanelMedio.SuspendLayout();
             TLPMedio.SuspendLayout();
             groupBox1.SuspendLayout();
@@ -116,17 +116,6 @@ namespace Agraria.UI.Actividad
             TLPForm.Size = new Size(627, 476);
             TLPForm.TabIndex = 0;
             // 
-            // label4
-            // 
-            label4.Anchor = AnchorStyles.Right;
-            label4.AutoSize = true;
-            label4.Font = new Font("Segoe UI", 12F);
-            label4.Location = new Point(22, 112);
-            label4.Name = "label4";
-            label4.Size = new Size(101, 21);
-            label4.TabIndex = 4;
-            label4.Text = "Fecha y hora:";
-            // 
             // label1
             // 
             label1.Anchor = AnchorStyles.Right;
@@ -148,6 +137,7 @@ namespace Agraria.UI.Actividad
             CMBTipoEntorno.Name = "CMBTipoEntorno";
             CMBTipoEntorno.Size = new Size(402, 29);
             CMBTipoEntorno.TabIndex = 10;
+            CMBTipoEntorno.SelectedIndexChanged += CMBTipoEntorno_SelectedIndexChanged;
             // 
             // label5
             // 
@@ -170,6 +160,7 @@ namespace Agraria.UI.Actividad
             CMBEntorno.Name = "CMBEntorno";
             CMBEntorno.Size = new Size(402, 29);
             CMBEntorno.TabIndex = 11;
+            CMBEntorno.SelectedIndexChanged += CMBEntorno_SelectedIndexChanged;
             // 
             // dateTimePicker1
             // 
@@ -183,17 +174,6 @@ namespace Agraria.UI.Actividad
             dateTimePicker1.TabIndex = 20;
             dateTimePicker1.ValueChanged += dateTimePicker1_ValueChanged;
             // 
-            // LblCuit
-            // 
-            LblCuit.Anchor = AnchorStyles.Right;
-            LblCuit.AutoSize = true;
-            LblCuit.Font = new Font("Segoe UI", 12F);
-            LblCuit.Location = new Point(29, 202);
-            LblCuit.Name = "LblCuit";
-            LblCuit.Size = new Size(94, 21);
-            LblCuit.TabIndex = 0;
-            LblCuit.Text = "Descripción:";
-            // 
             // TxtDescripcion
             // 
             TxtDescripcion.BackColor = Color.FromArgb(238, 237, 240);
@@ -206,25 +186,7 @@ namespace Agraria.UI.Actividad
             TxtDescripcion.Name = "TxtDescripcion";
             TxtDescripcion.Size = new Size(402, 140);
             TxtDescripcion.TabIndex = 5;
-            // 
-            // BtnIngresar
-            // 
-            BtnIngresar.Anchor = AnchorStyles.None;
-            BtnIngresar.BackColor = Color.FromArgb(7, 100, 147);
-            BtnIngresar.Enabled = false;
-            BtnIngresar.FlatAppearance.BorderColor = Color.FromArgb(203, 230, 255);
-            BtnIngresar.FlatStyle = FlatStyle.Flat;
-            BtnIngresar.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            BtnIngresar.ForeColor = Color.FromArgb(255, 255, 255);
-            BtnIngresar.Image = Properties.Resources.ingresar;
-            BtnIngresar.Location = new Point(234, 294);
-            BtnIngresar.Margin = new Padding(0);
-            BtnIngresar.Name = "BtnIngresar";
-            BtnIngresar.Size = new Size(192, 49);
-            BtnIngresar.TabIndex = 12;
-            BtnIngresar.Text = "INGRESAR";
-            BtnIngresar.TextImageRelation = TextImageRelation.TextBeforeImage;
-            BtnIngresar.UseVisualStyleBackColor = false;
+            TxtDescripcion.TextChanged += TxtDescripcion_TextChanged;
             // 
             // ListBArticulos
             // 
@@ -257,7 +219,7 @@ namespace Agraria.UI.Actividad
             // 
             Cantidad.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             Cantidad.DataPropertyName = "Cod_Articulo";
-            Cantidad.HeaderText = "CÓDIGO";
+            Cantidad.HeaderText = "Cï¿½DIGO";
             Cantidad.Name = "Cantidad";
             Cantidad.ReadOnly = true;
             Cantidad.Visible = false;
@@ -278,18 +240,51 @@ namespace Agraria.UI.Actividad
             // 
             Descripcion.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             Descripcion.DataPropertyName = "Art_Desc";
-            Descripcion.HeaderText = "DESCRIPCIÓN";
+            Descripcion.HeaderText = "DESCRIPCIï¿½N";
             Descripcion.Name = "Descripcion";
             Descripcion.ReadOnly = true;
             // 
-            // ProgressBar
+            // BtnIngresar
             // 
-            ProgressBar.Dock = DockStyle.Fill;
-            ProgressBar.Location = new Point(0, 0);
-            ProgressBar.Margin = new Padding(0);
-            ProgressBar.Name = "ProgressBar";
-            ProgressBar.Size = new Size(804, 16);
-            ProgressBar.TabIndex = 16;
+            BtnIngresar.Anchor = AnchorStyles.None;
+            BtnIngresar.BackColor = Color.FromArgb(7, 100, 147);
+            BtnIngresar.Enabled = false;
+            BtnIngresar.FlatAppearance.BorderColor = Color.FromArgb(203, 230, 255);
+            BtnIngresar.FlatStyle = FlatStyle.Flat;
+            BtnIngresar.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            BtnIngresar.ForeColor = Color.FromArgb(255, 255, 255);
+            BtnIngresar.Image = Properties.Resources.ingresar;
+            BtnIngresar.Location = new Point(234, 294);
+            BtnIngresar.Margin = new Padding(0);
+            BtnIngresar.Name = "BtnIngresar";
+            BtnIngresar.Size = new Size(192, 49);
+            BtnIngresar.TabIndex = 12;
+            BtnIngresar.Text = "INGRESAR";
+            BtnIngresar.TextImageRelation = TextImageRelation.TextBeforeImage;
+            BtnIngresar.UseVisualStyleBackColor = false;
+            BtnIngresar.Click += BtnIngresar_Click;
+            // 
+            // LblCuit
+            // 
+            LblCuit.Anchor = AnchorStyles.Right;
+            LblCuit.AutoSize = true;
+            LblCuit.Font = new Font("Segoe UI", 12F);
+            LblCuit.Location = new Point(29, 202);
+            LblCuit.Name = "LblCuit";
+            LblCuit.Size = new Size(94, 21);
+            LblCuit.TabIndex = 0;
+            LblCuit.Text = "DescripciÃ³n:";
+            // 
+            // label4
+            // 
+            label4.Anchor = AnchorStyles.Right;
+            label4.AutoSize = true;
+            label4.Font = new Font("Segoe UI", 12F);
+            label4.Location = new Point(22, 112);
+            label4.Name = "label4";
+            label4.Size = new Size(101, 21);
+            label4.TabIndex = 4;
+            label4.Text = "Fecha y hora:";
             // 
             // CMBEntornoFormativo
             // 
@@ -313,6 +308,15 @@ namespace Agraria.UI.Actividad
             label2.TabIndex = 23;
             label2.Text = "Grupo:";
             // 
+            // ProgressBar
+            // 
+            ProgressBar.Dock = DockStyle.Fill;
+            ProgressBar.Location = new Point(0, 0);
+            ProgressBar.Margin = new Padding(0);
+            ProgressBar.Name = "ProgressBar";
+            ProgressBar.Size = new Size(804, 16);
+            ProgressBar.TabIndex = 16;
+            // 
             // ucIngresoActividad
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -321,6 +325,7 @@ namespace Agraria.UI.Actividad
             Margin = new Padding(4, 3, 4, 3);
             Name = "ucIngresoActividad";
             Size = new Size(804, 561);
+            Load += ucIngresoActividad_Load;
             PanelMedio.ResumeLayout(false);
             TLPMedio.ResumeLayout(false);
             groupBox1.ResumeLayout(false);

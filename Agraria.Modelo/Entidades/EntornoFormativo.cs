@@ -19,5 +19,13 @@ namespace Agraria.Modelo.Entidades
         public string? Entorno_Nombre { get; set; }
         public string? Usuario_Nombre {  get; set; }
         public string? Usuario_Apellido { get; set; }
+
+        public string? Curso_Completo
+        {
+            get
+            {
+                return $"{Curso_anio} {Curso_Division} {Curso_Grupo}";
+            }
+        }
     }
 }

@@ -11,9 +11,9 @@ namespace Agraria.Servicio.Implementaciones
     {
         private readonly IActividadRepository _repo = repo;
 
-        public Result<Actividad> Add(Actividad actividad)
+        public async Task<Result<Actividad>> Add(Actividad actividad)
         {
-            return _repo.Add(actividad);
+            return await _repo.Add(actividad);
         }
 
         public Result<bool> Delete(int id)

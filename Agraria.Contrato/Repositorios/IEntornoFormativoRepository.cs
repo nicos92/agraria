@@ -8,6 +8,7 @@ namespace Agraria.Contrato.Repositorios
     public interface IEntornoFormativoRepository
     {
         Task<Result<List<EntornoFormativo>>> GetAll();
+        Task<Result<List<EntornoFormativo>>> GetAllByIdEntorno(int idEntorno);
         Result<EntornoFormativo> GetById(int id);
         Result<EntornoFormativo> Add(EntornoFormativo entornoFormativo);
         Task<Result<EntornoFormativo>> Update(EntornoFormativo entornoFormativo);

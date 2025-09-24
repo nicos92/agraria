@@ -110,6 +110,8 @@ static class Program
         services.AddTransient<FormPrincipal>();   // Este Form estaría en Agraria.UI.Principal
 
         services.AddTransient<FormActividad>();   // Este Form estaría en Agraria.UI.Actividad
+        services.AddTransient<ucIngresoActividad>();
+        services.AddTransient<ucConsultaActividad>();
 
         services.AddTransient<FormAnimal>();     // Este Form estaría en Agraria.UI.Animal
 
@@ -248,5 +250,8 @@ static class Program
 
         services.AddScoped<IEntornoFormativoService, EntornoFormativoService>();
         services.AddScoped<IEntornoFormativoRepository,  EntornoFormativoRepository>();
+
+        services.AddScoped<IActividadService, ActividadService>();
+        services.AddScoped<IActividadRepository, ActividadRepository>();
     }
 }

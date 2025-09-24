@@ -322,6 +322,7 @@
             BtnGuardar.TextAlign = ContentAlignment.MiddleRight;
             BtnGuardar.TextImageRelation = TextImageRelation.ImageBeforeText;
             BtnGuardar.UseVisualStyleBackColor = false;
+            BtnGuardar.Click += BtnGuardar_Click;
             // 
             // BtnEliminar
             // 
@@ -338,6 +339,7 @@
             BtnEliminar.Size = new Size(56, 55);
             BtnEliminar.TabIndex = 13;
             BtnEliminar.UseVisualStyleBackColor = false;
+            BtnEliminar.Click += BtnEliminar_Click;
             // 
             // CMBCategoria
             // 
@@ -441,6 +443,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             Controls.Add(tableLayoutPanel3);
             Controls.Add(label1);
+            Load += ucConsultaActividad_Load;
             Margin = new Padding(4, 3, 4, 3);
             Name = "ucConsultaActividad";
             Size = new Size(804, 561);

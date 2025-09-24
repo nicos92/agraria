@@ -82,7 +82,7 @@ namespace Agraria.Repositorio.Repositorios
             }
         }
 
-        public Result<Actividad> Add(Actividad actividad)
+        public async Task<Result<Actividad>> Add(Actividad actividad)
         {
             try
             {
@@ -93,8 +93,8 @@ namespace Agraria.Repositorio.Repositorios
                 cmd.Parameters.AddWithValue("@id_EntornoFormativo", actividad.id_EntornoFormativo);
                 cmd.Parameters.AddWithValue("@Fecha_Actividad", actividad.Fecha_Actividad);
                 cmd.Parameters.AddWithValue("@Descripcion_Actividad", actividad.Descripcion_Actividad ?? (object)DBNull.Value);
-                conn.Open();
-                int rowsAffected = cmd.ExecuteNonQuery();
+                await conn.OpenAsync();
+                int rowsAffected = await cmd.ExecuteNonQueryAsync();
                 if (rowsAffected > 0)
                 {
                     return Result<Actividad>.Success(actividad);

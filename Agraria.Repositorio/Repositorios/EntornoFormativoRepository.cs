@@ -3,6 +3,7 @@ using Agraria.Modelo.Entidades;
 using Agraria.Utilidades;
 using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using Microsoft.Data.SqlClient;
 using System.Runtime.Versioning;
 using System.Threading.Tasks;
@@ -49,23 +50,61 @@ namespace Agraria.Repositorio.Repositorios
         {
             try
             {
-                using var conn = Conexion();
-                using var cmd = new SqlCommand("DELETE FROM EntornoFormativo WHERE Id_EntornoFormativo = @Id_Entorno_Formativo", conn);
+                using SqlConnection conn = Conexion();
+                using SqlCommand cmd = new ("DELETE FROM EntornoFormativo WHERE Id_Entorno_Formativo = @Id_Entorno_Formativo", conn);
                 cmd.Parameters.AddWithValue("@Id_Entorno_Formativo", id);
                 conn.Open();
-                int deletes = cmd.ExecuteNonQuery();
-                if (deletes > 0)
+                int rowsAffected = cmd.ExecuteNonQuery();
+                if (rowsAffected > 0)
                 {
                     return Result<bool>.Success(true);
                 }
-                else
-                {
-                    return Result<bool>.Failure("No se pudo eliminar el entorno formativo.");
-                }
+                return Result<bool>.Failure("No se pudo eliminar el Entorno Formativo.");
             }
             catch (SqlException ex)
             {
-                return Result<bool>.Failure($"Error al eliminar el entorno formativo: \n {ex.Message}");
+                return Result<bool>.Failure("Error en la base de datos al eliminar el Entorno Formativo: " + ex.Message);
+            }
+            catch (System.Exception ex)
+            {
+                return Result<bool>.Failure("Error inesperado al eliminar el Entorno Formativo: " + ex.Message);
+            }
+        }
+
+        public async Task<Result<List<EntornoFormativo>>> GetAllByIdEntorno(int idEntorno)
+        {
+            try
+            {
+                using SqlConnection conn = Conexion();
+                using SqlCommand cmd = new ("SELECT Id_EntornoFormativo, id_Entorno, id_usuario, Curso_anio, Curso_division, Curso_Grupo, Observaciones, Activo FROM EntornoFormativo WHERE id_entorno = @Id_Entorno AND Activo = 1", conn);
+                cmd.Parameters.AddWithValue("@Id_Entorno", idEntorno);
+                await conn.OpenAsync();
+                using DbDataReader reader = await cmd.ExecuteReaderAsync();
+                List<EntornoFormativo> entornosFormativos = [];
+                while (await reader.ReadAsync())
+                {
+                    EntornoFormativo entornoFormativo = new ()
+                    {
+                        Id_Entorno_Formativo = reader.GetInt32(0),
+                        Id_Entorno = reader.GetInt32(1),
+                        Id_Usuario = reader.GetInt32(2),
+                        Curso_anio = reader.IsDBNull(3) ? null : reader.GetString(3),
+                        Curso_Division = reader.IsDBNull(4) ? null : reader.GetString(4),
+                        Curso_Grupo = reader.IsDBNull(5) ? null : reader.GetString(5),
+                        Observaciones = reader.IsDBNull(6) ? null : reader.GetString(6),
+                        Activo = reader.GetBoolean(7)
+                    };
+                    entornosFormativos.Add(entornoFormativo);
+                }
+                return Result<List<EntornoFormativo>>.Success(entornosFormativos);
+            }
+            catch (SqlException ex)
+            {
+                return Result<List<EntornoFormativo>>.Failure("Error en la base de datos al obtener los Entornos Formativos: " + ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return Result<List<EntornoFormativo>>.Failure("Error al obtener los Entornos Formativos: " + ex.Message);
             }
         }
 

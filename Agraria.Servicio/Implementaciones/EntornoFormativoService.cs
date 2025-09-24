@@ -35,5 +35,10 @@ namespace Agraria.Servicio.Implementaciones
         {
             return await _repo.Update(entornoFormativo);
         }
+
+        public async Task<Result<List<EntornoFormativo>>> GetAllByIdEntorno(int idEntorno)
+        {
+            return await _repo.GetAllByIdEntorno(idEntorno);
+        }
     }
 }
