@@ -139,7 +139,7 @@ CREATE TABLE H_Ventas (
     Id_Remito INT IDENTITY(1,1) PRIMARY KEY,
     Descripcion NVARCHAR(255),
     Cod_Usuario INT NOT NULL,
-    Fecha_Hora DATETIME2 NOT NULL,
+    Fecha_Hora DATETIME2(7) DEFAULT SYSDATETIME(),
     Subtotal DECIMAL(18,2) NOT NULL,
     Descu DECIMAL(18,2) NOT NULL,
     Total DECIMAL(18,2) NOT NULL,

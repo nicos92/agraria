@@ -29,14 +29,61 @@ INSERT INTO Preguntas_Seguridad (Pregunta) VALUES
 -- Poblar Usuarios
 INSERT INTO Usuarios (DNI, Nombre, Apellido, Tel, Mail, Contra, Respues, Id_Pregunta, Id_Tipo) VALUES
 ('12345678', 'Lucía', 'Gómez', '1122334455', 'lucia@mail.com', '@Pass123', 'Firulais', 1, 2),
-('87654321', 'Martín', 'Pérez', '1199887766', 'martin@mail.com', 'pass456', 'Buenos Aires', 2, 3),
-('11111111','Director','Dire','11111111','director@director.com','@Director123','director',1,1);
+('87654321', 'Martín', 'Martinez', '1199887766', 'martin@mail.com', 'pass456', 'Buenos Aires', 2, 3),
+('11111181','Director','Dire','11111111','director@director.com','@Director123','director',1,1),
+('22222222', 'Ana', 'Pérez', '1155443322', 'ana.perez@mail.com', 'AnaPass789', 'El Sol', 3, 2),
+('33353333', 'Carlos', 'López', '1177665544', 'carlos.lopez@mail.com', 'carlos_pass', 'Verano', 3, 3),
+('44444444', 'Sofía', 'Ramírez', '1122998877', 'sofia.ramirez@mail.com', 'Sofia@987', 'Gato', 1, 2),
+('55555555', 'Diego', 'Hernández', '1133445566', 'diego.h@mail.com', 'DiegoPass', 'Azul', 2, 3),
+('66666666', 'Valeria', 'Díaz', '1188776655', 'valeria.d@mail.com', 'Valeria123', 'Luna', 3, 2),
+('77777777', 'Pablo', 'Sánchez', '1144556677', 'pablo.s@mail.com', 'Pablo_Pass', 'Marte', 3, 3),
+('88888888', 'Laura', 'Torres', '1166778899', 'laura.t@mail.com', 'LauraPass', 'Playa', 1, 2),
+('99999999', 'Manuel', 'Ruiz', '1100998877', 'manuel.r@mail.com', 'Manuel_1', 'Cielo', 2, 3),
+('10101010', 'Andrea', 'Flores', '1122113344', 'andrea.f@mail.com', 'Andrea_2', 'Montaña', 3, 2),
+('12121212', 'Felipe', 'Guerra', '1144332211', 'felipe.g@mail.com', 'Felipe3', 'Nieve', 3, 3),
+('13131313', 'Silvia', 'Cruz', '1155667788', 'silvia.c@mail.com', 'Silvia_4', 'Río', 1, 2),
+('14141414', 'Javier', 'Reyes', '1199887766', 'javier.r@mail.com', 'Javier_5', 'Perro', 2, 3),
+('15151515', 'Marina', 'Ortiz', '1133557799', 'marina.o@mail.com', 'Marina_6', 'Gato', 3, 2),
+('16161616', 'Raúl', 'Castro', '1122446688', 'raul.c@mail.com', 'Raul_7', 'Elefante', 3, 3),
+('17171717', 'Natalia', 'Paz', '1155887744', 'natalia.p@mail.com', 'Natalia_8', 'León', 1, 2),
+('18181818', 'Pedro', 'Molina', '1133669922', 'pedro.m@mail.com', 'Pedro_9', 'Tigre', 2, 3),
+('19191919', 'Carla', 'Morales', '1177558833', 'carla.m@mail.com', 'Carla_10', 'Zorro', 3, 2),
+('20202020', 'Alejandro', 'Silva', '1199447711', 'alejandro.s@mail.com', 'Alejandro11', 'Oso', 3, 3),
+('21212121', 'Daniela', 'Vargas', '1166339922', 'daniela.v@mail.com', 'Daniela12', 'Mono', 1, 2),
+('22224222', 'Ricardo', 'Juarez', '1188552211', 'ricardo.j@mail.com', 'Ricardo13', 'Cebra', 2, 3),
+('23232323', 'Gabriela', 'Lara', '1177441188', 'gabriela.l@mail.com', 'Gabriela14', 'Jirafa', 3, 2),
+('24242424', 'Fernando', 'Mena', '1199223344', 'fernando.m@mail.com', 'Fernando15', 'Pato', 3, 3),
+('25252525', 'Rocio', 'Velasquez', '1155331166', 'rocio.v@mail.com', 'Rocio16', 'Búho', 1, 2),
+('26262626', 'José', 'Arias', '1122884455', 'jose.a@mail.com', 'Jose17', 'Halcón', 2, 3),
+('27272727', 'Veronica', 'Ortega', '1133775566', 'veronica.o@mail.com', 'Veronica18', 'Cuervo', 3, 2),
+('28282828', 'Marcos', 'Peralta', '1144991122', 'marcos.p@mail.com', 'Marcos19', 'Paloma', 3, 3),
+('29292929', 'Esther', 'Romero', '1188229933', 'esther.r@mail.com', 'Esther20', 'Gaviota', 1, 2),
+('30303030', 'Miguel', 'García', '1166554477', 'miguel.g@mail.com', 'Miguel21', 'Golondrina', 2, 3),
+('31313131', 'Julia', 'Herrera', '1155223344', 'julia.h@mail.com', 'Julia22', 'Cisne', 3, 2),
+('32323232', 'David', 'Jiménez', '1188449966', 'david.j@mail.com', 'David23', 'Pinguino', 3, 3),
+('33333333', 'Elena', 'Ruiz', '1177665522', 'elena.r@mail.com', 'Elena24', 'Loro', 1, 2),
+('34343434', 'Jorge', 'Soto', '1199332211', 'jorge.s@mail.com', 'Jorge25', 'Canario', 2, 3),
+('35353535', 'Adriana', 'Castañeda', '1144228877', 'adriana.c@mail.com', 'Adriana26', 'Colibrí', 3, 2),
+('36363636', 'Guillermo', 'Luna', '1188665544', 'guillermo.l@mail.com', 'Guillermo27', 'Faisán', 3, 3),
+('37373737', 'Brenda', 'Fuentes', '1199221155', 'brenda.f@mail.com', 'Brenda28', 'Búfalo', 1, 2),
+('38383838', 'Kevin', 'Mendoza', '1155773322', 'kevin.m@mail.com', 'Kevin29', 'Cabra', 2, 3),
+('39393939', 'Luciana', 'Mora', '1122998844', 'luciana.m@mail.com', 'Luciana30', 'Oveja', 3, 2),
+('40404040', 'Francisco', 'Ramos', '1133445588', 'francisco.r@mail.com', 'Francisco31', 'Vaca', 3, 3),
+('41414141', 'Sofia', 'Vega', '1166778822', 'sofia.v@mail.com', 'Sofia32', 'Caballo', 1, 2),
+('42424242', 'Iván', 'León', '1199225588', 'ivan.l@mail.com', 'Ivan33', 'Cerdo', 2, 3),
+('43434343', 'Diana', 'Navarro', '1188447733', 'diana.n@mail.com', 'Diana34', 'Gallina', 3, 2),
+('44464444', 'Héctor', 'Quiroz', '1122336699', 'hector.q@mail.com', 'Hector35', 'Gallo', 3, 3),
+('45454545', 'Susana', 'Cortes', '1144558822', 'susana.c@mail.com', 'Susana36', 'Pato', 1, 2),
+('46464646', 'Arturo', 'Mora', '1155669988', 'arturo.m@mail.com', 'Arturo37', 'Ganso', 2, 3),
+('47474747', 'Cristina', 'Valdez', '1133221188', 'cristina.v@mail.com', 'Cristina38', 'Pavo', 3, 2),
+('48484848', 'Rodrigo', 'Soto', '1122998811', 'rodrigo.s@mail.com', 'Rodrigo39', 'Pavo Real', 3, 3),
+('49494949', 'Paola', 'González', '1177665599', 'paola.g@mail.com', 'Paola40', 'Fénix', 1, 2);
 
 
 -- Poblar Proveedores
 INSERT INTO Proveedores (CUIT, Proveedor, Nombre, Tel, Email, Observacion) VALUES
-('30-12345678-9', 'AgroSur', 'Carlos López', '1133445566', 'agrosur@mail.com', 'Proveedor confiable'),
-('30-98765432-1', 'BioCultivos', 'Ana Torres', '1144556677', 'biocultivos@mail.com', 'Entrega mensual');
+('30123456789', 'AgroSur', 'Carlos López', '1133445566', 'agrosur@mail.com', 'Proveedor confiable'),
+('30987654321', 'BioCultivos', 'Ana Torres', '1144556677', 'biocultivos@mail.com', 'Entrega mensual');
 
 -- Poblar Productos
 INSERT INTO Productos (Cod_Producto, Producto_Desc, Id_TipoEntorno, Id_Entorno, Id_Proveedor, Unidad_Medida, En_Venta) VALUES
@@ -148,7 +195,7 @@ INSERT INTO HRemitoProduccion (Descripcion, Cod_Usuario, Fecha_Hora, Subtotal, D
 -- Poblar HRemitoDetalleProduccion
 INSERT INTO HRemitoDetalleProduccion (Id_Remito, Art_Cod, Descr, P_Unit, Cant, P_X_Cant) VALUES
 (1, 'A0000001', 'Pala', 1500.00, 2, 3000.00);
-
+/*
 DECLARE @i INT = 1;
 
 WHILE @i <= 1000
@@ -162,7 +209,9 @@ BEGIN
 
     SET @i = @i + 1;
 END;
+*/
 
+/*
 DECLARE @p INT = 1;
 
 WHILE @p <= 10
@@ -179,7 +228,9 @@ BEGIN
 
     SET @p = @p + 1;
 END;
+*/
 
+/*
 DECLARE @u INT = 1;
 
 WHILE @u <= 10
@@ -199,3 +250,4 @@ BEGIN
 
     SET @u = @u + 1;
 END;
+*/

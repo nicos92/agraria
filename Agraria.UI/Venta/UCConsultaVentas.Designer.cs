@@ -67,7 +67,7 @@ namespace Agraria.UI.Ventas
             LblFecha = new Label();
             tableLayoutPanel10 = new TableLayoutPanel();
             label6 = new Label();
-            LblCliente = new Label();
+            LblDescripcion = new Label();
             tableLayoutPanel11 = new TableLayoutPanel();
             label8 = new Label();
             LblUsuario = new Label();
@@ -610,7 +610,7 @@ namespace Agraria.UI.Ventas
             tableLayoutPanel10.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 26.8498936F));
             tableLayoutPanel10.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 73.15011F));
             tableLayoutPanel10.Controls.Add(label6, 0, 0);
-            tableLayoutPanel10.Controls.Add(LblCliente, 1, 0);
+            tableLayoutPanel10.Controls.Add(LblDescripcion, 1, 0);
             tableLayoutPanel10.Dock = DockStyle.Fill;
             tableLayoutPanel10.Location = new Point(3, 63);
             tableLayoutPanel10.Name = "tableLayoutPanel10";
@@ -625,25 +625,23 @@ namespace Agraria.UI.Ventas
             label6.AutoSize = true;
             label6.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label6.ForeColor = Color.FromArgb(26, 28, 30);
-            label6.Location = new Point(27, 2);
+            label6.Location = new Point(10, 0);
             label6.Name = "label6";
-            label6.Size = new Size(70, 21);
+            label6.Size = new Size(87, 25);
             label6.TabIndex = 20;
-            label6.Text = "CLIENTE";
-            label6.Visible = false;
+            label6.Text = "DESCRIPCION";
             // 
-            // LblCliente
+            // LblDescripcion
             // 
-            LblCliente.Anchor = AnchorStyles.Left;
-            LblCliente.AutoSize = true;
-            LblCliente.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            LblCliente.ForeColor = Color.FromArgb(26, 28, 30);
-            LblCliente.Location = new Point(103, 2);
-            LblCliente.Name = "LblCliente";
-            LblCliente.Size = new Size(19, 21);
-            LblCliente.TabIndex = 19;
-            LblCliente.Text = "0";
-            LblCliente.Visible = false;
+            LblDescripcion.Anchor = AnchorStyles.Left;
+            LblDescripcion.AutoSize = true;
+            LblDescripcion.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            LblDescripcion.ForeColor = Color.FromArgb(26, 28, 30);
+            LblDescripcion.Location = new Point(103, 2);
+            LblDescripcion.Name = "LblDescripcion";
+            LblDescripcion.Size = new Size(19, 21);
+            LblDescripcion.TabIndex = 19;
+            LblDescripcion.Text = "0";
             // 
             // tableLayoutPanel11
             // 
@@ -796,7 +794,7 @@ namespace Agraria.UI.Ventas
         private Label label8;
         private Label LblUsuario;
         private Label label6;
-        private Label LblCliente;
+        private Label LblDescripcion;
         private Label label4;
         private Label LblFecha;
         private Label label7;

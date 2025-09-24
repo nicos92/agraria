@@ -487,7 +487,7 @@ namespace Agraria.UI.Ventas
                 var hVentas = new HVentas
                 {
                     Cod_Usuario = SessionManager.Instance.Usuario.Id_Usuario,
-
+                    Descripcion = TxtDescripcion.Text.Trim(),
                     Descu = descuento,
                     Subtotal = subtotal,
                     Total = subtotal - descuento
@@ -520,6 +520,7 @@ namespace Agraria.UI.Ventas
             NumeroCantidad.Value = 1;
             LblCantProductos.Text = "0";
             LblPrecioTotal.Text = DecimalFormatter.ToCurrency(0m);
+            TxtDescripcion.Text = string.Empty;
 
             // Resetear las variables de seguimiento
             _ultimoCodigoArticuloSeleccionado = null;

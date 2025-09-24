@@ -14,6 +14,7 @@ namespace Agraria.Modelo.Entidades
         public decimal Subtotal { get; set; }
         public decimal Descu { get; set; }
         public decimal Total { get; set; }
+        public string? Descripcion { get; set; }
 
         public HVentas() { }
     }

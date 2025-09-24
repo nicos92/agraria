@@ -48,7 +48,9 @@ namespace Agraria.UI.Ventas
             LblProducto = new Label();
             label2 = new Label();
             LsvProductos = new ListBox();
+            tableLayoutPanel4 = new TableLayoutPanel();
             DgvProductosSeleccionados = new DataGridView();
+            LblLista = new Label();
             panel1 = new Panel();
             tableLayoutPanel3 = new TableLayoutPanel();
             label3 = new Label();
@@ -56,7 +58,9 @@ namespace Agraria.UI.Ventas
             LblPrecioTotal = new Label();
             label6 = new Label();
             BtnConfirmarVenta = new Button();
-            LblLista = new Label();
+            tableLayoutPanel5 = new TableLayoutPanel();
+            TxtDescripcion = new TextBox();
+            label4 = new Label();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
             splitContainer1.Panel1.SuspendLayout();
             splitContainer1.Panel2.SuspendLayout();
@@ -66,9 +70,11 @@ namespace Agraria.UI.Ventas
             tableLayoutPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)NumeroCantidad).BeginInit();
             groupBox1.SuspendLayout();
+            tableLayoutPanel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)DgvProductosSeleccionados).BeginInit();
             panel1.SuspendLayout();
             tableLayoutPanel3.SuspendLayout();
+            tableLayoutPanel5.SuspendLayout();
             SuspendLayout();
             // 
             // splitContainer1
@@ -85,9 +91,7 @@ namespace Agraria.UI.Ventas
             // 
             // splitContainer1.Panel2
             // 
-            splitContainer1.Panel2.Controls.Add(DgvProductosSeleccionados);
-            splitContainer1.Panel2.Controls.Add(panel1);
-            splitContainer1.Panel2.Controls.Add(LblLista);
+            splitContainer1.Panel2.Controls.Add(tableLayoutPanel4);
             splitContainer1.Size = new Size(772, 529);
             splitContainer1.SplitterDistance = 299;
             splitContainer1.SplitterWidth = 5;
@@ -330,6 +334,25 @@ namespace Agraria.UI.Ventas
             LsvProductos.TabIndex = 2;
             LsvProductos.SelectedIndexChanged += LsvProductos_SelectedIndexChanged;
             // 
+            // tableLayoutPanel4
+            // 
+            tableLayoutPanel4.ColumnCount = 1;
+            tableLayoutPanel4.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            tableLayoutPanel4.Controls.Add(DgvProductosSeleccionados, 0, 2);
+            tableLayoutPanel4.Controls.Add(LblLista, 0, 1);
+            tableLayoutPanel4.Controls.Add(panel1, 0, 3);
+            tableLayoutPanel4.Controls.Add(tableLayoutPanel5, 0, 0);
+            tableLayoutPanel4.Dock = DockStyle.Fill;
+            tableLayoutPanel4.Location = new Point(0, 0);
+            tableLayoutPanel4.Name = "tableLayoutPanel4";
+            tableLayoutPanel4.RowCount = 4;
+            tableLayoutPanel4.RowStyles.Add(new RowStyle());
+            tableLayoutPanel4.RowStyles.Add(new RowStyle());
+            tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            tableLayoutPanel4.RowStyles.Add(new RowStyle());
+            tableLayoutPanel4.Size = new Size(468, 529);
+            tableLayoutPanel4.TabIndex = 7;
+            // 
             // DgvProductosSeleccionados
             // 
             DgvProductosSeleccionados.AllowUserToAddRows = false;
@@ -354,23 +377,36 @@ namespace Agraria.UI.Ventas
             DgvProductosSeleccionados.DefaultCellStyle = dataGridViewCellStyle2;
             DgvProductosSeleccionados.Dock = DockStyle.Fill;
             DgvProductosSeleccionados.GridColor = Color.FromArgb(190, 201, 209);
-            DgvProductosSeleccionados.Location = new Point(0, 26);
+            DgvProductosSeleccionados.Location = new Point(3, 99);
             DgvProductosSeleccionados.Name = "DgvProductosSeleccionados";
             DgvProductosSeleccionados.ReadOnly = true;
             DgvProductosSeleccionados.RowHeadersVisible = false;
-            DgvProductosSeleccionados.Size = new Size(468, 403);
+            DgvProductosSeleccionados.Size = new Size(462, 321);
             DgvProductosSeleccionados.TabIndex = 6;
             DgvProductosSeleccionados.CellClick += DgvProductosSeleccionados_CellClick;
             DgvProductosSeleccionados.SelectionChanged += DgvProductosSeleccionados_SelectionChanged;
+            // 
+            // LblLista
+            // 
+            LblLista.Dock = DockStyle.Top;
+            LblLista.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            LblLista.ForeColor = Color.FromArgb(7, 100, 147);
+            LblLista.Location = new Point(8, 62);
+            LblLista.Margin = new Padding(8);
+            LblLista.Name = "LblLista";
+            LblLista.Size = new Size(452, 26);
+            LblLista.TabIndex = 4;
+            LblLista.Text = "Lista de Productos Seleccionados";
+            LblLista.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // panel1
             // 
             panel1.BackColor = Color.FromArgb(232, 232, 234);
             panel1.Controls.Add(tableLayoutPanel3);
             panel1.Dock = DockStyle.Bottom;
-            panel1.Location = new Point(0, 429);
+            panel1.Location = new Point(3, 426);
             panel1.Name = "panel1";
-            panel1.Size = new Size(468, 100);
+            panel1.Size = new Size(462, 100);
             panel1.TabIndex = 5;
             // 
             // tableLayoutPanel3
@@ -391,7 +427,7 @@ namespace Agraria.UI.Ventas
             tableLayoutPanel3.RowCount = 2;
             tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
             tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableLayoutPanel3.Size = new Size(468, 100);
+            tableLayoutPanel3.Size = new Size(462, 100);
             tableLayoutPanel3.TabIndex = 8;
             // 
             // label3
@@ -400,7 +436,7 @@ namespace Agraria.UI.Ventas
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label3.ForeColor = Color.FromArgb(26, 28, 30);
-            label3.Location = new Point(37, 16);
+            label3.Location = new Point(35, 16);
             label3.Name = "label3";
             label3.Size = new Size(77, 17);
             label3.TabIndex = 8;
@@ -412,7 +448,7 @@ namespace Agraria.UI.Ventas
             LblCantProductos.AutoSize = true;
             LblCantProductos.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             LblCantProductos.ForeColor = Color.FromArgb(26, 28, 30);
-            LblCantProductos.Location = new Point(120, 12);
+            LblCantProductos.Location = new Point(118, 12);
             LblCantProductos.Name = "LblCantProductos";
             LblCantProductos.Size = new Size(23, 25);
             LblCantProductos.TabIndex = 3;
@@ -424,7 +460,7 @@ namespace Agraria.UI.Ventas
             LblPrecioTotal.AutoSize = true;
             LblPrecioTotal.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             LblPrecioTotal.ForeColor = Color.FromArgb(26, 28, 30);
-            LblPrecioTotal.Location = new Point(354, 12);
+            LblPrecioTotal.Location = new Point(348, 12);
             LblPrecioTotal.Name = "LblPrecioTotal";
             LblPrecioTotal.Size = new Size(23, 25);
             LblPrecioTotal.TabIndex = 5;
@@ -436,7 +472,7 @@ namespace Agraria.UI.Ventas
             label6.AutoSize = true;
             label6.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label6.ForeColor = Color.FromArgb(26, 28, 30);
-            label6.Location = new Point(248, 16);
+            label6.Location = new Point(242, 16);
             label6.Name = "label6";
             label6.Size = new Size(100, 17);
             label6.TabIndex = 4;
@@ -450,26 +486,51 @@ namespace Agraria.UI.Ventas
             BtnConfirmarVenta.FlatAppearance.BorderColor = Color.FromArgb(235, 220, 255);
             BtnConfirmarVenta.FlatStyle = FlatStyle.Flat;
             BtnConfirmarVenta.ForeColor = Color.FromArgb(255, 255, 255);
-            BtnConfirmarVenta.Location = new Point(120, 55);
+            BtnConfirmarVenta.Location = new Point(118, 55);
             BtnConfirmarVenta.Name = "BtnConfirmarVenta";
-            BtnConfirmarVenta.Size = new Size(228, 40);
+            BtnConfirmarVenta.Size = new Size(224, 40);
             BtnConfirmarVenta.TabIndex = 7;
             BtnConfirmarVenta.Text = "CONFIRMAR VENTA (F12)";
             BtnConfirmarVenta.UseVisualStyleBackColor = false;
             BtnConfirmarVenta.Click += BtnConfirmarVenta_Click;
             // 
-            // LblLista
+            // tableLayoutPanel5
             // 
-            LblLista.Dock = DockStyle.Top;
-            LblLista.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            LblLista.ForeColor = Color.FromArgb(7, 100, 147);
-            LblLista.Location = new Point(0, 0);
-            LblLista.Margin = new Padding(8);
-            LblLista.Name = "LblLista";
-            LblLista.Size = new Size(468, 26);
-            LblLista.TabIndex = 4;
-            LblLista.Text = "Lista de Productos Seleccionados";
-            LblLista.TextAlign = ContentAlignment.MiddleCenter;
+            tableLayoutPanel5.ColumnCount = 2;
+            tableLayoutPanel5.ColumnStyles.Add(new ColumnStyle());
+            tableLayoutPanel5.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            tableLayoutPanel5.Controls.Add(TxtDescripcion, 1, 0);
+            tableLayoutPanel5.Controls.Add(label4, 0, 0);
+            tableLayoutPanel5.Dock = DockStyle.Fill;
+            tableLayoutPanel5.Location = new Point(3, 3);
+            tableLayoutPanel5.Name = "tableLayoutPanel5";
+            tableLayoutPanel5.RowCount = 1;
+            tableLayoutPanel5.RowStyles.Add(new RowStyle());
+            tableLayoutPanel5.Size = new Size(462, 48);
+            tableLayoutPanel5.TabIndex = 7;
+            // 
+            // TxtDescripcion
+            // 
+            TxtDescripcion.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            TxtDescripcion.BackColor = Color.FromArgb(238, 237, 240);
+            TxtDescripcion.Font = new Font("Segoe UI", 12F);
+            TxtDescripcion.ForeColor = Color.FromArgb(26, 28, 30);
+            TxtDescripcion.Location = new Point(109, 9);
+            TxtDescripcion.Name = "TxtDescripcion";
+            TxtDescripcion.Size = new Size(350, 29);
+            TxtDescripcion.TabIndex = 3;
+            // 
+            // label4
+            // 
+            label4.Anchor = AnchorStyles.Left;
+            label4.AutoSize = true;
+            label4.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label4.ForeColor = Color.FromArgb(7, 100, 147);
+            label4.Location = new Point(3, 13);
+            label4.Name = "label4";
+            label4.Size = new Size(100, 21);
+            label4.TabIndex = 2;
+            label4.Text = "Descripcion:";
             // 
             // UCIngresoVenta
             // 
@@ -495,10 +556,13 @@ namespace Agraria.UI.Ventas
             ((System.ComponentModel.ISupportInitialize)NumeroCantidad).EndInit();
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
+            tableLayoutPanel4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)DgvProductosSeleccionados).EndInit();
             panel1.ResumeLayout(false);
             tableLayoutPanel3.ResumeLayout(false);
             tableLayoutPanel3.PerformLayout();
+            tableLayoutPanel5.ResumeLayout(false);
+            tableLayoutPanel5.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -533,5 +597,9 @@ namespace Agraria.UI.Ventas
         private Label label5;
         private TableLayoutPanel tableLayoutPanel3;
         private Label label3;
+        private TableLayoutPanel tableLayoutPanel4;
+        private TableLayoutPanel tableLayoutPanel5;
+        private TextBox TxtDescripcion;
+        private Label label4;
     }
 }

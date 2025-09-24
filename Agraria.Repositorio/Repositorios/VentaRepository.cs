@@ -27,14 +27,15 @@ namespace Agraria.Repositorio.Repositorios
                  transaction =  (SqlTransaction) await conn.BeginTransactionAsync(); 
 
 
-                string sqlArticulos = "INSERT INTO H_Ventas (Cod_Usuario, subtotal, descu, total) VALUES (?, ?, ?, ?)";
+                string sqlArticulos = "INSERT INTO H_Ventas (Cod_Usuario, subtotal, descu, total, descripcion) VALUES (@cod_usuario, @subtotal, @descu, @total, @descripcion)";
                 using (SqlCommand cmdArticulos = new(sqlArticulos, conn, transaction)) 
                 {
 
-                    cmdArticulos.Parameters.AddWithValue("?", hVentas.Cod_Usuario);
-                    cmdArticulos.Parameters.AddWithValue("?", hVentas.Subtotal);
-                    cmdArticulos.Parameters.AddWithValue("?", hVentas.Descu);
-                    cmdArticulos.Parameters.AddWithValue("?", hVentas.Total);
+                    cmdArticulos.Parameters.AddWithValue("@cod_usuario", hVentas.Cod_Usuario);
+                    cmdArticulos.Parameters.AddWithValue("@subtotal", hVentas.Subtotal);
+                    cmdArticulos.Parameters.AddWithValue("@descu", hVentas.Descu);
+                    cmdArticulos.Parameters.AddWithValue("@total", hVentas.Total);
+                    cmdArticulos.Parameters.AddWithValue("@descripcion", hVentas.Descripcion ?? "");
 
                     await cmdArticulos.ExecuteNonQueryAsync();
                 }
@@ -52,25 +53,25 @@ namespace Agraria.Repositorio.Repositorios
                     await transaction.RollbackAsync();
                     return Result<bool>.Failure("No se pudo obtener el número de remito");
                 }
-
+                await reader.CloseAsync();
                 foreach (var item in productoResumen)
                 {
-                    string sqlStock = "INSERT INTO H_Ventas_Detalle (id_remito, cod_art, descr, p_unit, cant, p_x_cant) VALUES (?, ?, ?, ?, ?, ?)";
+                    string sqlStock = "INSERT INTO H_Ventas_Detalle (id_remito, cod_producto, descr, p_unit, cant, p_x_cant) VALUES (@id_remito, @cor_art, @descr, @p_unit, @cant, @pxcant)";
                     using SqlCommand cmdStock = new(sqlStock, conn, transaction);
 
-                    cmdStock.Parameters.AddWithValue("?", id_remito);
-                    cmdStock.Parameters.AddWithValue("?", item.Cod_Articulo);
-                    cmdStock.Parameters.AddWithValue("?", item.Producto_Nombre);
-                    cmdStock.Parameters.AddWithValue("?", item.Producto_Precio);
-                    cmdStock.Parameters.AddWithValue("?", item.Producto_Cantidad);
-                    cmdStock.Parameters.AddWithValue("?", item.Producto_PrecioxCantidad);
+                    cmdStock.Parameters.AddWithValue("@id_remito", id_remito);
+                    cmdStock.Parameters.AddWithValue("@cor_art", item.Cod_Articulo);
+                    cmdStock.Parameters.AddWithValue("@descr", item.Producto_Nombre);
+                    cmdStock.Parameters.AddWithValue("@p_unit", item.Producto_Precio);
+                    cmdStock.Parameters.AddWithValue("@cant", item.Producto_Cantidad);
+                    cmdStock.Parameters.AddWithValue("@pxcant", item.Producto_PrecioxCantidad);
 
                     await cmdStock.ExecuteNonQueryAsync();
 
-                    string cmdARt = "UPDATE Stock SET cantidad = cantidad - ? WHERE cod_articulo = ?";
+                    string cmdARt = "UPDATE Stock SET cantidad = cantidad - @cant WHERE cod_Producto = @cod_art";
                     using SqlCommand oleDbCommand1 = new(cmdARt, conn, transaction);
-                    oleDbCommand1.Parameters.AddWithValue("?", item.Producto_Cantidad);
-                    oleDbCommand1.Parameters.AddWithValue("?", item.Cod_Articulo);
+                    oleDbCommand1.Parameters.AddWithValue("@cant", item.Producto_Cantidad);
+                    oleDbCommand1.Parameters.AddWithValue("@cod_art", item.Cod_Articulo);
                     await oleDbCommand1.ExecuteNonQueryAsync();
                 }
                
@@ -81,7 +82,7 @@ namespace Agraria.Repositorio.Repositorios
             catch (SqlException ex)
             {
                  transaction?.RollbackAsync(); 
-                return Result<bool>.Failure($"Error OleDb al insertar la venta y los detalles: {ex.Message}");
+                return Result<bool>.Failure($"Error sqlserver al insertar la venta y los detalles: {ex.Message}");
             }
             catch (Exception ex)
             {
@@ -101,7 +102,7 @@ namespace Agraria.Repositorio.Repositorios
                 List<HVentasDetalle> detalles = [];
 
                 // Query para obtener todas las ventas (H_Ventas)
-                string sqlVentas = "SELECT id_remito, Cod_Usuario, fecha_hora, subtotal, descu, total FROM H_Ventas";
+                string sqlVentas = "SELECT id_remito, Cod_Usuario, fecha_hora, subtotal, descu, total, descripcion FROM H_Ventas";
                 using (SqlCommand cmdVentas = new(sqlVentas, conn))
                 {
                     using DbDataReader reader = await cmdVentas.ExecuteReaderAsync();
@@ -114,7 +115,8 @@ namespace Agraria.Repositorio.Repositorios
                             Fecha_Hora = reader.GetDateTime(2),
                             Subtotal = reader.GetDecimal(3),
                             Descu = reader.GetDecimal(4),
-                            Total = reader.GetDecimal(5)
+                            Total = reader.GetDecimal(5),
+                            Descripcion = reader.GetString(6)
                         });
                     }
                 }

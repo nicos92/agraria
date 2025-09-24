@@ -54,9 +54,9 @@ namespace Agraria.UI.Proveedores
             tableLayoutPanel2 = new TableLayoutPanel();
             BtnGuardar = new Button();
             BtnEliminar = new Button();
-            tableLayoutPanel3 = new TableLayoutPanel();
             label5 = new Label();
             TxtObservacion = new TextBox();
+            tableLayoutPanel3 = new TableLayoutPanel();
             PanelLista.SuspendLayout();
             TLPLista.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)ListBProveedores).BeginInit();
@@ -398,6 +398,30 @@ namespace Agraria.UI.Proveedores
             BtnEliminar.EnabledChanged += BtnGuardar_EnabledChanged;
             BtnEliminar.Click += BtnEliminar_Click;
             // 
+            // label5
+            // 
+            label5.Anchor = AnchorStyles.Right;
+            label5.AutoSize = true;
+            label5.Font = new Font("Segoe UI", 12F);
+            label5.Location = new Point(5, 326);
+            label5.Name = "label5";
+            label5.Size = new Size(100, 21);
+            label5.TabIndex = 12;
+            label5.Text = "Observación:";
+            // 
+            // TxtObservacion
+            // 
+            TxtObservacion.BackColor = Color.FromArgb(238, 237, 240);
+            TxtObservacion.Dock = DockStyle.Fill;
+            TxtObservacion.Font = new Font("Segoe UI", 12F);
+            TxtObservacion.ForeColor = Color.FromArgb(26, 28, 30);
+            TxtObservacion.Location = new Point(111, 296);
+            TxtObservacion.MaxLength = 400;
+            TxtObservacion.Multiline = true;
+            TxtObservacion.Name = "TxtObservacion";
+            TxtObservacion.Size = new Size(292, 81);
+            TxtObservacion.TabIndex = 13;
+            // 
             // tableLayoutPanel3
             // 
             tableLayoutPanel3.BackColor = Color.FromArgb(218, 218, 220);
@@ -413,29 +437,6 @@ namespace Agraria.UI.Proveedores
             tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             tableLayoutPanel3.Size = new Size(804, 561);
             tableLayoutPanel3.TabIndex = 2;
-            // 
-            // label5
-            // 
-            label5.Anchor = AnchorStyles.Right;
-            label5.AutoSize = true;
-            label5.Font = new Font("Segoe UI", 12F);
-            label5.Location = new Point(5, 326);
-            label5.Name = "label5";
-            label5.Size = new Size(100, 21);
-            label5.TabIndex = 12;
-            label5.Text = "Observación:";
-            // 
-            // TxtObservacion
-            // 
-            TxtObservacion.BackColor = Color.FromArgb(238, 237, 240);
-            TxtObservacion.Font = new Font("Segoe UI", 12F);
-            TxtObservacion.ForeColor = Color.FromArgb(26, 28, 30);
-            TxtObservacion.Location = new Point(111, 296);
-            TxtObservacion.MaxLength = 400;
-            TxtObservacion.Multiline = true;
-            TxtObservacion.Name = "TxtObservacion";
-            TxtObservacion.Size = new Size(292, 79);
-            TxtObservacion.TabIndex = 13;
             // 
             // UCConsultaProveedor
             // 

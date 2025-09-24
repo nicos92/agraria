@@ -279,9 +279,11 @@ namespace Agraria.UI.Ventas
         {
             LblIdRemito.Text = venta.Id_Remito.ToString();
             LblFecha.Text = venta.Fecha_Hora.ToString("dd/MM/yyyy HH:mm");
+            LblUsuario.Text = venta.Cod_Usuario.ToString(); 
             LblSubtotal.Text = DecimalFormatter.ToCurrency(venta.Subtotal);
             LblDescuento.Text = DecimalFormatter.ToCurrency(venta.Descu);
             LblTotal.Text = DecimalFormatter.ToCurrency(venta.Total);
+            LblDescripcion.Text = venta.Descripcion;
 
             // Cargar información adicional (cliente, usuario) de forma asíncrona
             // TODO: Descomentar cuando los servicios estén disponibles
@@ -327,7 +329,7 @@ namespace Agraria.UI.Ventas
         {
             LblIdRemito.Text = "";
             LblFecha.Text = "";
-            LblCliente.Text = "";
+            LblDescripcion.Text = "";
             LblUsuario.Text = "";
             LblSubtotal.Text = "";
             LblDescuento.Text = "";

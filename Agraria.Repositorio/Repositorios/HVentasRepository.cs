@@ -62,7 +62,7 @@ namespace Agraria.Repositorio.Repositorios
                 using (var conexion = Conexion())
                 {
                     conexion.Open();
-                    using var cmd = new SqlCommand("SELECT Id_Remito,Cod_Usuario,Subtotal,Descu,Total, fecha_hora FROM H_Ventas", conexion);
+                    using var cmd = new SqlCommand("SELECT Id_Remito,Cod_Usuario,Subtotal,Descu,Total, fecha_hora, descripcion FROM H_Ventas ORDER BY id_remito DESC", conexion);
                     using var reader = cmd.ExecuteReader();
                     while (reader.Read())
                     {
@@ -73,7 +73,8 @@ namespace Agraria.Repositorio.Repositorios
                             Subtotal = reader.GetDecimal(2),
                             Descu = reader.GetDecimal(3),
                             Total = reader.GetDecimal(4),
-                            Fecha_Hora = reader.GetDateTime(5)
+                            Fecha_Hora = reader.GetDateTime(5),
+                            Descripcion = reader.IsDBNull(6) ? null : reader.GetString(6)
                         });
                     }
                 }
@@ -155,19 +156,19 @@ namespace Agraria.Repositorio.Repositorios
             try
             {
                 var ventas = new List<HVentas>();
-                var query = new StringBuilder("SELECT v.Id_Remito, v.Cod_Usuario, v.Fecha_Hora, v.Subtotal, v.Descu, v.Total FROM H_Ventas v");
+                var query = new StringBuilder("SELECT v.Id_Remito, v.Cod_Usuario, v.Fecha_Hora, v.Subtotal, v.Descu, v.Total, v.descripcion FROM H_Ventas v");
                 var whereClause = new List<string>();
                 var parameters = new List<SqlParameter>();
 
                 // Filtro por rango de fechas - formato correcto para Access
-                whereClause.Add("v.Fecha_Hora BETWEEN ? AND ?");
+                whereClause.Add("v.Fecha_Hora BETWEEN @fechaDesde AND @fechaHasta");
                 parameters.Add(new SqlParameter("@fechaDesde", SqlDbType.Date) { Value = fechaDesde });
                 parameters.Add(new SqlParameter("@fechaHasta", SqlDbType.Date) { Value = fechaHasta });
 
                 // Filtro por ID de remito si se proporciona
                 if (idRemito.HasValue)
                 {
-                    whereClause.Add("v.Id_Remito = ?");
+                    whereClause.Add("v.Id_Remito = @idRemito");
                     parameters.Add(new SqlParameter("@idRemito", SqlDbType.Int) { Value = idRemito.Value });
                 }
 
@@ -200,7 +201,8 @@ namespace Agraria.Repositorio.Repositorios
                             Fecha_Hora = reader.GetDateTime(2),
                             Subtotal = reader.GetDecimal(3),
                             Descu = reader.GetDecimal(4),
-                            Total = reader.GetDecimal(5)
+                            Total = reader.GetDecimal(5),
+                            Descripcion = reader.IsDBNull(6) ? null : reader.GetString(6)
                         });
                     }
                 }

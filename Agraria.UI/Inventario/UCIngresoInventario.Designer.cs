@@ -188,11 +188,11 @@ namespace Agraria.UI.Inventario
             label2.Anchor = AnchorStyles.Right;
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 12F);
-            label2.Location = new Point(70, 178);
+            label2.Location = new Point(57, 178);
             label2.Name = "label2";
-            label2.Size = new Size(53, 21);
+            label2.Size = new Size(66, 21);
             label2.TabIndex = 2;
-            label2.Text = "Costo:";
+            label2.Text = "Costo: $";
             // 
             // CMBUnidadMedida
             // 
