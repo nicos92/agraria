@@ -162,7 +162,7 @@ namespace Agraria.UI.Actividad
                     // Configurar la fuente de datos del DataGridView con las últimas 10 actividades
                     ListBArticulos.DataSource = ListaActividades;
 
-                    
+
                 });
         }
 
@@ -259,8 +259,8 @@ namespace Agraria.UI.Actividad
             DialogResult dialogResult = MessageBox.Show("¿Estás seguro que quieres registrar la actividad?", "Ingreso de Actividad", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (dialogResult == DialogResult.No)
                 return;
-            
-            if (!CrearActividad()) 
+
+            if (!CrearActividad())
             {
                 MessageBox.Show("Actividad no creada", "Actividad", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
@@ -292,7 +292,7 @@ namespace Agraria.UI.Actividad
             else
             {
                 MessageBox.Show("Registro de actividad correcto", "Actividad", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                
+
                 // Refrescar la lista de últimas actividades y actualizar el DataGridView
                 await CargarUltimasActividades();
                 this.Invoke(() =>
@@ -386,5 +386,13 @@ namespace Agraria.UI.Actividad
             TxtDescripcion_TextChanged(sender, e); // Activar validación cuando cambia la fecha
         }
 
+        private void ucIngresoActividad_VisibleChanged(object sender, EventArgs e)
+        {
+            if (Visible)
+            {
+                var taskHelper = new TareasLargas(PanelMedio, ProgressBar, CargaInicial, CargarCMB);
+                taskHelper.Iniciar();
+            }
+        }
     }
 }

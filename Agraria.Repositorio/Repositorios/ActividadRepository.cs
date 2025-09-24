@@ -1,13 +1,14 @@
-using System;
-using System.Collections.Generic;
-using System.Data.Common;
-using Microsoft.Data.SqlClient;
-using System.Linq;
-using System.Runtime.Versioning;
-using System.Threading.Tasks;
 using Agraria.Contrato.Repositorios;
 using Agraria.Modelo.Entidades;
 using Agraria.Utilidades;
+using Microsoft.Data.SqlClient;
+using System;
+using System.Collections.Generic;
+using System.Data.Common;
+using System.Linq;
+using System.Reflection;
+using System.Runtime.Versioning;
+using System.Threading.Tasks;
 
 namespace Agraria.Repositorio.Repositorios
 {
@@ -53,7 +54,7 @@ namespace Agraria.Repositorio.Repositorios
             try
             {
                 using SqlConnection conn = Conexion();
-                using SqlCommand cmd = new("select e.Curso_Anio, e.Curso_Division, e.Curso_Grupo, a.Fecha_Actividad, a.Descripcion_Actividad from Actividad a inner join EntornoFormativo e on a.Id_EntornoFormativo = e.Id_EntornoFormativo ORDER BY a.Fecha_Actividad DESC", conn);
+                using SqlCommand cmd = new("SELECT TOP 10 e.Curso_Anio, e.Curso_Division, e.Curso_Grupo, a.Fecha_Actividad, a.Descripcion_Actividad FROM Actividad a INNER JOIN EntornoFormativo e ON a.Id_EntornoFormativo = e.Id_EntornoFormativo ORDER BY a.Fecha_Actividad DESC; ", conn);
                 await conn.OpenAsync();
                 using DbDataReader reader = await cmd.ExecuteReaderAsync();
                 List<ActividadesCurso> actividades = [];
@@ -61,11 +62,11 @@ namespace Agraria.Repositorio.Repositorios
                 {
                     ActividadesCurso actividadesCurso = new 
                     (
-                        reader.IsDBNull(0) ? null : reader.GetString(0),
-                        reader.IsDBNull(1) ? null : reader.GetString(1),
-                        reader.IsDBNull(2) ? null : reader.GetString(2),
+                        reader.GetString(0),
+                        reader.GetString(1),
+                        reader.GetString(2),
                         reader.GetDateTime(3),
-                        reader.IsDBNull(4) ? null : reader.GetString(4)
+                        reader.GetString(4)
                     );
                     actividades.Add(actividadesCurso);
                 }

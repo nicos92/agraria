@@ -515,7 +515,7 @@ namespace Agraria.UI.Actividad
             {
                 await CargarEntornos(tipoEntorno.Id_Tipo_Entorno);
                 // Clear the subcategory combo since its contents depend on the selected entorno
-                CMBEntorno.SelectedIndex = -1;
+                //CMBEntorno.SelectedIndex = -1;
             }
         }
 
@@ -577,9 +577,19 @@ namespace Agraria.UI.Actividad
 
         }
 
-        private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
+        private void DateTimePicker1_ValueChanged(object sender, EventArgs e)
         {
             TxtDescripcion_TextChanged(sender, e);
+        }
+
+        private void UCConsultaActividad_VisibleChanged(object sender, EventArgs e)
+        {
+            if (Visible)
+            {
+            var taskHelper = new TareasLargas(PanelMedio, ProgressBar, CargaInicial, CargarGrilla);
+            taskHelper.Iniciar();
+
+            }
         }
     }
 }

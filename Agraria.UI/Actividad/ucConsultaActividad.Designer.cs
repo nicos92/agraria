@@ -251,7 +251,7 @@
             dateTimePicker1.Name = "dateTimePicker1";
             dateTimePicker1.Size = new Size(274, 29);
             dateTimePicker1.TabIndex = 20;
-            dateTimePicker1.ValueChanged += dateTimePicker1_ValueChanged;
+            dateTimePicker1.ValueChanged += DateTimePicker1_ValueChanged;
             // 
             // TxtDescripcion
             // 
@@ -397,6 +397,7 @@
             Name = "ucConsultaActividad";
             Size = new Size(804, 561);
             Load += ucConsultaActividad_Load;
+            VisibleChanged += UCConsultaActividad_VisibleChanged;
             tableLayoutPanel3.ResumeLayout(false);
             PanelLista.ResumeLayout(false);
             tableLayoutPanel1.ResumeLayout(false);

@@ -311,6 +311,7 @@ namespace Agraria.UI.Actividad
             Name = "ucIngresoActividad";
             Size = new Size(804, 561);
             Load += ucIngresoActividad_Load;
+            VisibleChanged += ucIngresoActividad_VisibleChanged;
             PanelMedio.ResumeLayout(false);
             TLPMedio.ResumeLayout(false);
             groupBox1.ResumeLayout(false);
