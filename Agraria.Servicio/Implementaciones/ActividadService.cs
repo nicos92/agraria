@@ -50,5 +50,10 @@ namespace Agraria.Servicio.Implementaciones
         {
             return await _repo.GetByFechaRango(fechaInicio, fechaFin);
         }
+
+        public async Task<Result<List<ActividadesCurso>>> GetTopDiez()
+        {
+            return await _repo.GetTopDiez();
+        }
     }
 }

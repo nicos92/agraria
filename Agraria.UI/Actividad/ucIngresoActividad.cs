@@ -117,7 +117,7 @@ namespace Agraria.UI.Actividad
 
             _actividadSeleccionada.Id_TipoEntorno = tipoEntorno.Id_Tipo_Entorno;
             _actividadSeleccionada.Id_Entorno = entorno.Id_Entorno;
-            _actividadSeleccionada.id_EntornoFormativo = entornoFormativo.Id_Entorno_Formativo;
+            _actividadSeleccionada.Id_EntornoFormativo = entornoFormativo.Id_Entorno_Formativo;
             _actividadSeleccionada.Fecha_Actividad = dateTimePicker1.Value;
             _actividadSeleccionada.Descripcion_Actividad = TxtDescripcion.Text;
 
@@ -131,20 +131,23 @@ namespace Agraria.UI.Actividad
         /// <param name="e">El <see cref="EventArgs"/> instancia que contiene los datos del evento.</param>
         private void ucIngresoActividad_Load(object sender, EventArgs e)
         {
+            ConfigurarDGV();
             var taskHelper = new TareasLargas(PanelMedio, ProgressBar, CargaInicial, CargarCMB);
             taskHelper.Iniciar();
         }
+
+        private List<Modelo.Entidades.ActividadesCurso> ListaActividades { get; set; } = [];
 
         /// <summary>
         /// Realiza la carga inicial de datos de forma asíncrona.
         /// </summary>
         private async Task CargaInicial()
         {
-            await Task.WhenAll(CargarTiposEntorno());
+            await Task.WhenAll(CargarTiposEntorno(), CargarUltimasActividades());
         }
 
         /// <summary>
-        /// Carga los datos de tipos de entorno en los ComboBox correspondientes.
+        /// Carga los datos de tipos de entorno en los ComboBox correspondientes y configura el DataGridView con las últimas actividades.
         /// Se configuran las propiedades DataSource, DisplayMember y ValueMember para cada control.
         /// </summary>
         private void CargarCMB()
@@ -155,6 +158,11 @@ namespace Agraria.UI.Actividad
                     CMBTipoEntorno.DataSource = ListaTiposEntorno;
                     CMBTipoEntorno.DisplayMember = "Tipo_Entorno";
                     CMBTipoEntorno.ValueMember = "Id_Tipo_Entorno";
+
+                    // Configurar la fuente de datos del DataGridView con las últimas 10 actividades
+                    ListBArticulos.DataSource = ListaActividades;
+
+                    
                 });
         }
 
@@ -222,6 +230,21 @@ namespace Agraria.UI.Actividad
             }
         }
 
+        /// <summary>
+        /// Carga las últimas 10 actividades en la lista.
+        /// </summary>
+        private async Task CargarUltimasActividades()
+        {
+            var datos = await _actividadService.GetTopDiez();
+            if (!datos.IsSuccess)
+                MessageBox.Show(datos.Error, "Error en UI", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            else
+            {
+                // Ordenar por fecha descendente y tomar las últimas 10
+                ListaActividades = datos.Value;
+            }
+        }
+
         #endregion Métodos Privados
 
         #region Otros Metodos
@@ -267,10 +290,96 @@ namespace Agraria.UI.Actividad
             if (!insercionResult.IsSuccess)
                 MessageBox.Show(insercionResult.Error, "Error en la inserción", MessageBoxButtons.OK, MessageBoxIcon.Error);
             else
+            {
                 MessageBox.Show("Registro de actividad correcto", "Actividad", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                
+                // Refrescar la lista de últimas actividades y actualizar el DataGridView
+                await CargarUltimasActividades();
+                this.Invoke(() =>
+                {
+                    ListBArticulos.DataSource = ListaActividades;
+                });
+            }
         }
 
         #endregion Otros Metodos
+
+        private void ConfigurarDGV()
+        {
+            ListBArticulos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            ListBArticulos.AllowUserToAddRows = false;
+            ListBArticulos.AllowUserToDeleteRows = false;
+            ListBArticulos.ReadOnly = true;
+            ListBArticulos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            ListBArticulos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            ListBArticulos.MultiSelect = false;
+            ListBArticulos.RowHeadersVisible = false;
+            ListBArticulos.AllowUserToResizeRows = false;
+            ListBArticulos.AllowUserToResizeColumns = true;
+            ListBArticulos.AutoGenerateColumns = false;
+
+            // Asegurar que el DataGridView puede recibir el foco y selecciones
+            ListBArticulos.TabStop = true;
+            ListBArticulos.Enabled = true;
+
+            ConfigurarColumnasDataGridView();
+        }
+
+        private void ConfigurarColumnasDataGridView()
+        {
+            ListBArticulos.Columns.Clear();
+
+            var columns = new[]
+            {
+                new DataGridViewTextBoxColumn
+                {
+                    Name = "Id_Actividad",
+                    DataPropertyName = "Id_Actividad",
+                    HeaderText = "ID",
+                    Visible = false
+                },
+                new DataGridViewTextBoxColumn
+                {
+                    Name = "Fecha_Actividad",
+                    DataPropertyName = "Fecha_Actividad",
+                    HeaderText = "Fecha y Hora",
+                    AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
+                },
+                new DataGridViewTextBoxColumn
+                {
+                    Name = "Curso_Anio",
+                    DataPropertyName = "Curso_Anio",
+                    HeaderText = "Año",
+                    AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
+                },
+                new DataGridViewTextBoxColumn
+                {
+                    Name = "Curso_Division",
+                    DataPropertyName = "Curso_Division",
+                    HeaderText = "Division",
+                    AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
+                },
+                new DataGridViewTextBoxColumn
+                {
+                    Name = "Curso_Grupo",
+                    DataPropertyName = "Curso_Grupo",
+                    HeaderText = "Grupo",
+                    AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
+                },
+                new DataGridViewTextBoxColumn
+                {
+                    Name = "Descripcion_Actividad",
+                    DataPropertyName = "Descripcion_Actividad",
+                    HeaderText = "Descripción",
+                    AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill,
+                }
+            };
+
+            foreach (var column in columns)
+            {
+                ListBArticulos.Columns.Add(column);
+            }
+        }
 
         private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
         {

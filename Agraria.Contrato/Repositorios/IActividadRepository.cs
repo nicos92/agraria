@@ -8,6 +8,8 @@ namespace Agraria.Contrato.Repositorios
     public interface IActividadRepository
     {
         Task<Result<List<Actividad>>> GetAll();
+        Task<Result<List<ActividadesCurso>>> GetTopDiez();
+
         Result<Actividad> GetById(int id);
         Task<Result<Actividad>> Add(Actividad actividad);
         Task<Result<Actividad>> Update(Actividad actividad);

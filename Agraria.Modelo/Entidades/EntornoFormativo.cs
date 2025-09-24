@@ -24,7 +24,7 @@ namespace Agraria.Modelo.Entidades
         {
             get
             {
-                return $"{Curso_anio} {Curso_Division} {Curso_Grupo}";
+                return $"{Usuario_Apellido} {Usuario_Nombre} {Curso_anio} {Curso_Division} {Curso_Grupo}";
             }
         }
     }

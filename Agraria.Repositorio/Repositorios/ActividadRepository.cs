@@ -30,7 +30,7 @@ namespace Agraria.Repositorio.Repositorios
                         Id_Actividad = reader.GetInt32(0),
                         Id_TipoEntorno = reader.GetInt32(1),
                         Id_Entorno = reader.GetInt32(2),
-                        id_EntornoFormativo = reader.GetInt32(3),
+                        Id_EntornoFormativo = reader.GetInt32(3),
                         Fecha_Actividad = reader.GetDateTime(4),
                         Descripcion_Actividad = reader.IsDBNull(5) ? null : reader.GetString(5)
                     };
@@ -45,6 +45,39 @@ namespace Agraria.Repositorio.Repositorios
             catch (Exception ex)
             {
                 return Result<List<Actividad>>.Failure("Error al obtener las Actividades: " + ex.Message);
+            }
+        }
+
+        public async Task<Result<List<ActividadesCurso>>> GetTopDiez()
+        {
+            try
+            {
+                using SqlConnection conn = Conexion();
+                using SqlCommand cmd = new("select e.Curso_Anio, e.Curso_Division, e.Curso_Grupo, a.Fecha_Actividad, a.Descripcion_Actividad from Actividad a inner join EntornoFormativo e on a.Id_EntornoFormativo = e.Id_EntornoFormativo ORDER BY a.Fecha_Actividad DESC", conn);
+                await conn.OpenAsync();
+                using DbDataReader reader = await cmd.ExecuteReaderAsync();
+                List<ActividadesCurso> actividades = [];
+                while (await reader.ReadAsync())
+                {
+                    ActividadesCurso actividadesCurso = new 
+                    (
+                        reader.IsDBNull(0) ? null : reader.GetString(0),
+                        reader.IsDBNull(1) ? null : reader.GetString(1),
+                        reader.IsDBNull(2) ? null : reader.GetString(2),
+                        reader.GetDateTime(3),
+                        reader.IsDBNull(4) ? null : reader.GetString(4)
+                    );
+                    actividades.Add(actividadesCurso);
+                }
+                return Result<List<ActividadesCurso>>.Success(actividades);
+            }
+            catch (SqlException ex)
+            {
+                return Result<List<ActividadesCurso>>.Failure("Error en la base de datos al obtener las Actividades: " + ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return Result<List<ActividadesCurso>>.Failure("Error al obtener las Actividades: " + ex.Message);
             }
         }
 
@@ -64,7 +97,7 @@ namespace Agraria.Repositorio.Repositorios
                         Id_Actividad = reader.GetInt32(0),
                         Id_TipoEntorno = reader.GetInt32(1),
                         Id_Entorno = reader.GetInt32(2),
-                        id_EntornoFormativo = reader.GetInt32(3),
+                        Id_EntornoFormativo = reader.GetInt32(3),
                         Fecha_Actividad = reader.GetDateTime(4),
                         Descripcion_Actividad = reader.IsDBNull(5) ? null : reader.GetString(5)
                     };
@@ -90,7 +123,7 @@ namespace Agraria.Repositorio.Repositorios
                 using SqlCommand cmd = new("INSERT INTO Actividad (Id_TipoEntorno, Id_Entorno, id_EntornoFormativo, Fecha_Actividad, Descripcion_Actividad) VALUES (@Id_TipoEntorno, @Id_Entorno, @id_EntornoFormativo, @Fecha_Actividad, @Descripcion_Actividad)", conn);
                 cmd.Parameters.AddWithValue("@Id_TipoEntorno", actividad.Id_TipoEntorno);
                 cmd.Parameters.AddWithValue("@Id_Entorno", actividad.Id_Entorno);
-                cmd.Parameters.AddWithValue("@id_EntornoFormativo", actividad.id_EntornoFormativo);
+                cmd.Parameters.AddWithValue("@id_EntornoFormativo", actividad.Id_EntornoFormativo);
                 cmd.Parameters.AddWithValue("@Fecha_Actividad", actividad.Fecha_Actividad);
                 cmd.Parameters.AddWithValue("@Descripcion_Actividad", actividad.Descripcion_Actividad ?? (object)DBNull.Value);
                 await conn.OpenAsync();
@@ -119,7 +152,7 @@ namespace Agraria.Repositorio.Repositorios
                 using SqlCommand cmd = new("UPDATE Actividad SET Id_TipoEntorno = @Id_TipoEntorno, Id_Entorno = @Id_Entorno, id_EntornoFormativo = @id_EntornoFormativo, Fecha_Actividad = @Fecha_Actividad, Descripcion_Actividad = @Descripcion_Actividad WHERE Id_Actividad = @Id_Actividad", conn);
                 cmd.Parameters.AddWithValue("@Id_TipoEntorno", actividad.Id_TipoEntorno);
                 cmd.Parameters.AddWithValue("@Id_Entorno", actividad.Id_Entorno);
-                cmd.Parameters.AddWithValue("@id_EntornoFormativo", actividad.id_EntornoFormativo);
+                cmd.Parameters.AddWithValue("@id_EntornoFormativo", actividad.Id_EntornoFormativo);
                 cmd.Parameters.AddWithValue("@Fecha_Actividad", actividad.Fecha_Actividad);
                 cmd.Parameters.AddWithValue("@Descripcion_Actividad", actividad.Descripcion_Actividad ?? (object)DBNull.Value);
                 cmd.Parameters.AddWithValue("@Id_Actividad", actividad.Id_Actividad);
@@ -183,7 +216,7 @@ namespace Agraria.Repositorio.Repositorios
                         Id_Actividad = reader.GetInt32(0),
                         Id_TipoEntorno = reader.GetInt32(1),
                         Id_Entorno = reader.GetInt32(2),
-                        id_EntornoFormativo = reader.GetInt32(3),
+                        Id_EntornoFormativo = reader.GetInt32(3),
                         Fecha_Actividad = reader.GetDateTime(4),
                         Descripcion_Actividad = reader.IsDBNull(5) ? null : reader.GetString(5)
                     };
@@ -218,7 +251,7 @@ namespace Agraria.Repositorio.Repositorios
                         Id_Actividad = reader.GetInt32(0),
                         Id_TipoEntorno = reader.GetInt32(1),
                         Id_Entorno = reader.GetInt32(2),
-                        id_EntornoFormativo = reader.GetInt32(3),
+                        Id_EntornoFormativo = reader.GetInt32(3),
                         Fecha_Actividad = reader.GetDateTime(4),
                         Descripcion_Actividad = reader.IsDBNull(5) ? null : reader.GetString(5)
                     };
@@ -254,7 +287,7 @@ namespace Agraria.Repositorio.Repositorios
                         Id_Actividad = reader.GetInt32(0),
                         Id_TipoEntorno = reader.GetInt32(1),
                         Id_Entorno = reader.GetInt32(2),
-                        id_EntornoFormativo = reader.GetInt32(3),
+                        Id_EntornoFormativo = reader.GetInt32(3),
                         Fecha_Actividad = reader.GetDateTime(4),
                         Descripcion_Actividad = reader.IsDBNull(5) ? null : reader.GetString(5)
                     };
