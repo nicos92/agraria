@@ -36,25 +36,21 @@
             tableLayoutPanel1 = new TableLayoutPanel();
             LblLista = new Label();
             ListBArticulos = new DataGridView();
-            Cantidad = new DataGridViewTextBoxColumn();
-            Fecha_Hora = new DataGridViewTextBoxColumn();
-            Entorno = new DataGridViewTextBoxColumn();
-            Descripcion = new DataGridViewTextBoxColumn();
             PanelMedio = new Panel();
             tableLayoutPanel4 = new TableLayoutPanel();
             groupBox1 = new GroupBox();
             TLPForm = new TableLayoutPanel();
-            TxtDescripcion = new TextBox();
-            tableLayoutPanel2 = new TableLayoutPanel();
-            BtnGuardar = new Button();
-            BtnEliminar = new Button();
-            CMBCategoria = new ComboBox();
-            CMBSubcategoria = new ComboBox();
-            label5 = new Label();
-            label3 = new Label();
-            LblCuit = new Label();
             dateTimePicker1 = new DateTimePicker();
+            TxtDescripcion = new TextBox();
+            BtnGuardar = new Button();
+            LblCuit = new Label();
+            label4 = new Label();
+            label3 = new Label();
+            label5 = new Label();
             label2 = new Label();
+            CMBEntornoFormativo = new ComboBox();
+            CMBEntorno = new ComboBox();
+            CMBTipoEntorno = new ComboBox();
             ProgressBar = new ProgressBar();
             tableLayoutPanel3.SuspendLayout();
             PanelLista.SuspendLayout();
@@ -64,7 +60,6 @@
             tableLayoutPanel4.SuspendLayout();
             groupBox1.SuspendLayout();
             TLPForm.SuspendLayout();
-            tableLayoutPanel2.SuspendLayout();
             SuspendLayout();
             // 
             // label1
@@ -152,7 +147,6 @@
             dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
             ListBArticulos.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             ListBArticulos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            ListBArticulos.Columns.AddRange(new DataGridViewColumn[] { Cantidad, Fecha_Hora, Entorno, Descripcion });
             ListBArticulos.Dock = DockStyle.Fill;
             ListBArticulos.Location = new Point(4, 40);
             ListBArticulos.Margin = new Padding(4, 3, 4, 3);
@@ -170,35 +164,7 @@
             ListBArticulos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             ListBArticulos.Size = new Size(305, 458);
             ListBArticulos.TabIndex = 2;
-            // 
-            // Cantidad
-            // 
-            Cantidad.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            Cantidad.DataPropertyName = "Cod_Articulo";
-            Cantidad.HeaderText = "CÓDIGO";
-            Cantidad.Name = "Cantidad";
-            Cantidad.ReadOnly = true;
-            Cantidad.Visible = false;
-            // 
-            // Fecha_Hora
-            // 
-            Fecha_Hora.HeaderText = "Fecha_Hora";
-            Fecha_Hora.Name = "Fecha_Hora";
-            Fecha_Hora.ReadOnly = true;
-            // 
-            // Entorno
-            // 
-            Entorno.HeaderText = "Entorno";
-            Entorno.Name = "Entorno";
-            Entorno.ReadOnly = true;
-            // 
-            // Descripcion
-            // 
-            Descripcion.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            Descripcion.DataPropertyName = "Art_Desc";
-            Descripcion.HeaderText = "DESCRIPCIÓN";
-            Descripcion.Name = "Descripcion";
-            Descripcion.ReadOnly = true;
+            ListBArticulos.SelectionChanged += ListBArticulos_SelectionChanged;
             // 
             // PanelMedio
             // 
@@ -245,163 +211,35 @@
             // 
             TLPForm.BackColor = Color.FromArgb(249, 249, 251);
             TLPForm.ColumnCount = 3;
-            TLPForm.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 27.95699F));
-            TLPForm.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 59.5698929F));
-            TLPForm.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 12.4731178F));
-            TLPForm.Controls.Add(TxtDescripcion, 1, 4);
-            TLPForm.Controls.Add(tableLayoutPanel2, 1, 5);
-            TLPForm.Controls.Add(CMBCategoria, 1, 1);
-            TLPForm.Controls.Add(CMBSubcategoria, 1, 2);
-            TLPForm.Controls.Add(label5, 0, 2);
+            TLPForm.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 24.1830063F));
+            TLPForm.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 61.00218F));
+            TLPForm.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 14.6994543F));
+            TLPForm.Controls.Add(dateTimePicker1, 1, 4);
+            TLPForm.Controls.Add(TxtDescripcion, 1, 5);
+            TLPForm.Controls.Add(BtnGuardar, 1, 6);
+            TLPForm.Controls.Add(LblCuit, 0, 5);
+            TLPForm.Controls.Add(label4, 0, 4);
             TLPForm.Controls.Add(label3, 0, 3);
-            TLPForm.Controls.Add(LblCuit, 0, 4);
-            TLPForm.Controls.Add(dateTimePicker1, 1, 3);
+            TLPForm.Controls.Add(label5, 0, 2);
             TLPForm.Controls.Add(label2, 0, 1);
+            TLPForm.Controls.Add(CMBEntornoFormativo, 1, 3);
+            TLPForm.Controls.Add(CMBEntorno, 1, 2);
+            TLPForm.Controls.Add(CMBTipoEntorno, 1, 1);
             TLPForm.Dock = DockStyle.Fill;
             TLPForm.ForeColor = Color.FromArgb(26, 28, 30);
             TLPForm.Location = new Point(4, 29);
-            TLPForm.Margin = new Padding(4, 3, 4, 3);
             TLPForm.Name = "TLPForm";
-            TLPForm.RowCount = 7;
-            TLPForm.RowStyles.Add(new RowStyle(SizeType.Absolute, 9F));
+            TLPForm.RowCount = 8;
+            TLPForm.RowStyles.Add(new RowStyle(SizeType.Absolute, 21F));
             TLPForm.RowStyles.Add(new RowStyle());
             TLPForm.RowStyles.Add(new RowStyle());
             TLPForm.RowStyles.Add(new RowStyle());
             TLPForm.RowStyles.Add(new RowStyle());
             TLPForm.RowStyles.Add(new RowStyle());
-            TLPForm.RowStyles.Add(new RowStyle(SizeType.Absolute, 9F));
+            TLPForm.RowStyles.Add(new RowStyle());
+            TLPForm.RowStyles.Add(new RowStyle(SizeType.Absolute, 61F));
             TLPForm.Size = new Size(459, 449);
-            TLPForm.TabIndex = 0;
-            // 
-            // TxtDescripcion
-            // 
-            TxtDescripcion.BackColor = Color.FromArgb(238, 237, 240);
-            TxtDescripcion.Dock = DockStyle.Fill;
-            TxtDescripcion.Font = new Font("Segoe UI", 12F);
-            TxtDescripcion.ForeColor = Color.FromArgb(26, 28, 30);
-            TxtDescripcion.Location = new Point(132, 117);
-            TxtDescripcion.Margin = new Padding(4, 3, 4, 3);
-            TxtDescripcion.MaxLength = 400;
-            TxtDescripcion.Multiline = true;
-            TxtDescripcion.Name = "TxtDescripcion";
-            TxtDescripcion.Size = new Size(265, 228);
-            TxtDescripcion.TabIndex = 19;
-            // 
-            // tableLayoutPanel2
-            // 
-            tableLayoutPanel2.ColumnCount = 2;
-            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            tableLayoutPanel2.Controls.Add(BtnGuardar, 0, 0);
-            tableLayoutPanel2.Controls.Add(BtnEliminar, 1, 0);
-            tableLayoutPanel2.Dock = DockStyle.Fill;
-            tableLayoutPanel2.Location = new Point(132, 351);
-            tableLayoutPanel2.Margin = new Padding(4, 3, 4, 3);
-            tableLayoutPanel2.Name = "tableLayoutPanel2";
-            tableLayoutPanel2.RowCount = 1;
-            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableLayoutPanel2.Size = new Size(265, 58);
-            tableLayoutPanel2.TabIndex = 18;
-            // 
-            // BtnGuardar
-            // 
-            BtnGuardar.Anchor = AnchorStyles.None;
-            BtnGuardar.BackColor = Color.FromArgb(101, 89, 119);
-            BtnGuardar.FlatAppearance.BorderColor = Color.FromArgb(203, 230, 255);
-            BtnGuardar.FlatStyle = FlatStyle.Flat;
-            BtnGuardar.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            BtnGuardar.ForeColor = Color.FromArgb(255, 255, 255);
-            BtnGuardar.Image = Properties.Resources.guardar;
-            BtnGuardar.ImageAlign = ContentAlignment.MiddleRight;
-            BtnGuardar.Location = new Point(0, 1);
-            BtnGuardar.Margin = new Padding(0);
-            BtnGuardar.Name = "BtnGuardar";
-            BtnGuardar.Size = new Size(132, 55);
-            BtnGuardar.TabIndex = 12;
-            BtnGuardar.Text = "Guardar";
-            BtnGuardar.TextAlign = ContentAlignment.MiddleRight;
-            BtnGuardar.TextImageRelation = TextImageRelation.ImageBeforeText;
-            BtnGuardar.UseVisualStyleBackColor = false;
-            BtnGuardar.Click += BtnGuardar_Click;
-            // 
-            // BtnEliminar
-            // 
-            BtnEliminar.Anchor = AnchorStyles.None;
-            BtnEliminar.BackColor = Color.FromArgb(186, 26, 26);
-            BtnEliminar.FlatAppearance.BorderColor = Color.FromArgb(203, 230, 255);
-            BtnEliminar.FlatStyle = FlatStyle.Flat;
-            BtnEliminar.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            BtnEliminar.ForeColor = Color.FromArgb(255, 255, 255);
-            BtnEliminar.Image = Properties.Resources.trash;
-            BtnEliminar.Location = new Point(170, 1);
-            BtnEliminar.Margin = new Padding(0);
-            BtnEliminar.Name = "BtnEliminar";
-            BtnEliminar.Size = new Size(56, 55);
-            BtnEliminar.TabIndex = 13;
-            BtnEliminar.UseVisualStyleBackColor = false;
-            BtnEliminar.Click += BtnEliminar_Click;
-            // 
-            // CMBCategoria
-            // 
-            CMBCategoria.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            CMBCategoria.DropDownStyle = ComboBoxStyle.DropDownList;
-            CMBCategoria.Font = new Font("Segoe UI", 12F);
-            CMBCategoria.FormattingEnabled = true;
-            CMBCategoria.Location = new Point(132, 12);
-            CMBCategoria.Margin = new Padding(4, 3, 4, 3);
-            CMBCategoria.Name = "CMBCategoria";
-            CMBCategoria.Size = new Size(265, 29);
-            CMBCategoria.TabIndex = 10;
-            // 
-            // CMBSubcategoria
-            // 
-            CMBSubcategoria.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            CMBSubcategoria.DropDownStyle = ComboBoxStyle.DropDownList;
-            CMBSubcategoria.Font = new Font("Segoe UI", 12F);
-            CMBSubcategoria.FormattingEnabled = true;
-            CMBSubcategoria.Location = new Point(132, 47);
-            CMBSubcategoria.Margin = new Padding(4, 3, 4, 3);
-            CMBSubcategoria.Name = "CMBSubcategoria";
-            CMBSubcategoria.Size = new Size(265, 29);
-            CMBSubcategoria.TabIndex = 11;
-            CMBSubcategoria.Visible = false;
-            // 
-            // label5
-            // 
-            label5.Anchor = AnchorStyles.Right;
-            label5.AutoSize = true;
-            label5.Font = new Font("Segoe UI", 12F);
-            label5.Location = new Point(29, 51);
-            label5.Margin = new Padding(4, 0, 4, 0);
-            label5.Name = "label5";
-            label5.Size = new Size(95, 21);
-            label5.TabIndex = 12;
-            label5.Text = "SubEntorno:";
-            label5.Visible = false;
-            // 
-            // label3
-            // 
-            label3.Anchor = AnchorStyles.Right;
-            label3.AutoSize = true;
-            label3.Font = new Font("Segoe UI", 12F);
-            label3.Location = new Point(21, 86);
-            label3.Margin = new Padding(4, 0, 4, 0);
-            label3.Name = "label3";
-            label3.Size = new Size(103, 21);
-            label3.TabIndex = 3;
-            label3.Text = "Fecha y Hora:";
-            // 
-            // LblCuit
-            // 
-            LblCuit.Anchor = AnchorStyles.Right;
-            LblCuit.AutoSize = true;
-            LblCuit.Font = new Font("Segoe UI", 12F);
-            LblCuit.Location = new Point(30, 220);
-            LblCuit.Margin = new Padding(4, 0, 4, 0);
-            LblCuit.Name = "LblCuit";
-            LblCuit.Size = new Size(94, 21);
-            LblCuit.TabIndex = 0;
-            LblCuit.Text = "Descripción:";
+            TLPForm.TabIndex = 1;
             // 
             // dateTimePicker1
             // 
@@ -409,23 +247,133 @@
             dateTimePicker1.Dock = DockStyle.Fill;
             dateTimePicker1.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             dateTimePicker1.Format = DateTimePickerFormat.Custom;
-            dateTimePicker1.Location = new Point(132, 82);
-            dateTimePicker1.Margin = new Padding(4, 3, 4, 3);
+            dateTimePicker1.Location = new Point(114, 129);
             dateTimePicker1.Name = "dateTimePicker1";
-            dateTimePicker1.Size = new Size(265, 29);
-            dateTimePicker1.TabIndex = 21;
+            dateTimePicker1.Size = new Size(274, 29);
+            dateTimePicker1.TabIndex = 20;
+            // 
+            // TxtDescripcion
+            // 
+            TxtDescripcion.BackColor = Color.FromArgb(238, 237, 240);
+            TxtDescripcion.Dock = DockStyle.Fill;
+            TxtDescripcion.Font = new Font("Segoe UI", 12F);
+            TxtDescripcion.ForeColor = Color.FromArgb(26, 28, 30);
+            TxtDescripcion.Location = new Point(114, 164);
+            TxtDescripcion.MaxLength = 255;
+            TxtDescripcion.Multiline = true;
+            TxtDescripcion.Name = "TxtDescripcion";
+            TxtDescripcion.Size = new Size(274, 188);
+            TxtDescripcion.TabIndex = 5;
+            // 
+            // BtnGuardar
+            // 
+            BtnGuardar.Anchor = AnchorStyles.None;
+            BtnGuardar.BackColor = Color.FromArgb(7, 100, 147);
+            BtnGuardar.Enabled = false;
+            BtnGuardar.FlatAppearance.BorderColor = Color.FromArgb(203, 230, 255);
+            BtnGuardar.FlatStyle = FlatStyle.Flat;
+            BtnGuardar.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            BtnGuardar.ForeColor = Color.FromArgb(255, 255, 255);
+            BtnGuardar.Image = Properties.Resources.ingresar;
+            BtnGuardar.Location = new Point(155, 363);
+            BtnGuardar.Margin = new Padding(0, 8, 0, 0);
+            BtnGuardar.Name = "BtnGuardar";
+            BtnGuardar.Size = new Size(192, 49);
+            BtnGuardar.TabIndex = 12;
+            BtnGuardar.Text = "GUARDAR";
+            BtnGuardar.TextImageRelation = TextImageRelation.TextBeforeImage;
+            BtnGuardar.UseVisualStyleBackColor = false;
+            BtnGuardar.Click += BtnGuardar_Click;
+            // 
+            // LblCuit
+            // 
+            LblCuit.Anchor = AnchorStyles.Right;
+            LblCuit.AutoSize = true;
+            LblCuit.Font = new Font("Segoe UI", 12F);
+            LblCuit.Location = new Point(14, 247);
+            LblCuit.Name = "LblCuit";
+            LblCuit.Size = new Size(94, 21);
+            LblCuit.TabIndex = 0;
+            LblCuit.Text = "Descripción:";
+            // 
+            // label4
+            // 
+            label4.Anchor = AnchorStyles.Right;
+            label4.AutoSize = true;
+            label4.Font = new Font("Segoe UI", 12F);
+            label4.Location = new Point(7, 133);
+            label4.Name = "label4";
+            label4.Size = new Size(101, 21);
+            label4.TabIndex = 4;
+            label4.Text = "Fecha y hora:";
+            // 
+            // label3
+            // 
+            label3.Anchor = AnchorStyles.Right;
+            label3.AutoSize = true;
+            label3.Font = new Font("Segoe UI", 12F);
+            label3.Location = new Point(51, 98);
+            label3.Name = "label3";
+            label3.Size = new Size(57, 21);
+            label3.TabIndex = 23;
+            label3.Text = "Grupo:";
+            // 
+            // label5
+            // 
+            label5.Anchor = AnchorStyles.Right;
+            label5.AutoSize = true;
+            label5.Font = new Font("Segoe UI", 12F);
+            label5.Location = new Point(40, 63);
+            label5.Name = "label5";
+            label5.Size = new Size(68, 21);
+            label5.TabIndex = 12;
+            label5.Text = "Entorno:";
             // 
             // label2
             // 
             label2.Anchor = AnchorStyles.Right;
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 12F);
-            label2.Location = new Point(56, 16);
-            label2.Margin = new Padding(4, 0, 4, 0);
+            label2.Location = new Point(6, 28);
             label2.Name = "label2";
-            label2.Size = new Size(68, 21);
-            label2.TabIndex = 22;
-            label2.Text = "Entorno:";
+            label2.Size = new Size(102, 21);
+            label2.TabIndex = 1;
+            label2.Text = "Tipo Entorno:";
+            // 
+            // CMBEntornoFormativo
+            // 
+            CMBEntornoFormativo.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            CMBEntornoFormativo.DropDownStyle = ComboBoxStyle.DropDownList;
+            CMBEntornoFormativo.Font = new Font("Segoe UI", 12F);
+            CMBEntornoFormativo.FormattingEnabled = true;
+            CMBEntornoFormativo.Location = new Point(114, 94);
+            CMBEntornoFormativo.Name = "CMBEntornoFormativo";
+            CMBEntornoFormativo.Size = new Size(274, 29);
+            CMBEntornoFormativo.TabIndex = 22;
+            // 
+            // CMBEntorno
+            // 
+            CMBEntorno.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            CMBEntorno.DropDownStyle = ComboBoxStyle.DropDownList;
+            CMBEntorno.Font = new Font("Segoe UI", 12F);
+            CMBEntorno.FormattingEnabled = true;
+            CMBEntorno.Location = new Point(114, 59);
+            CMBEntorno.Name = "CMBEntorno";
+            CMBEntorno.Size = new Size(274, 29);
+            CMBEntorno.TabIndex = 11;
+            CMBEntorno.SelectedIndexChanged += CMBEntorno_SelectedIndexChanged;
+            // 
+            // CMBTipoEntorno
+            // 
+            CMBTipoEntorno.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            CMBTipoEntorno.DropDownStyle = ComboBoxStyle.DropDownList;
+            CMBTipoEntorno.Font = new Font("Segoe UI", 12F);
+            CMBTipoEntorno.FormattingEnabled = true;
+            CMBTipoEntorno.Location = new Point(114, 24);
+            CMBTipoEntorno.Name = "CMBTipoEntorno";
+            CMBTipoEntorno.Size = new Size(274, 29);
+            CMBTipoEntorno.TabIndex = 10;
+            CMBTipoEntorno.SelectedIndexChanged += CMBTipoEntorno_SelectedIndexChanged;
             // 
             // ProgressBar
             // 
@@ -443,10 +391,10 @@
             AutoScaleMode = AutoScaleMode.Font;
             Controls.Add(tableLayoutPanel3);
             Controls.Add(label1);
-            Load += ucConsultaActividad_Load;
             Margin = new Padding(4, 3, 4, 3);
             Name = "ucConsultaActividad";
             Size = new Size(804, 561);
+            Load += ucConsultaActividad_Load;
             tableLayoutPanel3.ResumeLayout(false);
             PanelLista.ResumeLayout(false);
             tableLayoutPanel1.ResumeLayout(false);
@@ -456,7 +404,6 @@
             groupBox1.ResumeLayout(false);
             TLPForm.ResumeLayout(false);
             TLPForm.PerformLayout();
-            tableLayoutPanel2.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -470,24 +417,20 @@
         private Panel PanelMedio;
         private TableLayoutPanel tableLayoutPanel4;
         private GroupBox groupBox1;
-        private TableLayoutPanel TLPForm;
-        private Label label3;
-        private Label LblCuit;
-        private TableLayoutPanel tableLayoutPanel2;
-        private Button BtnGuardar;
-        private Button BtnEliminar;
-        private ComboBox CMBCategoria;
-        private TextBox TxtDescripcion;
-        private ComboBox CMBSubcategoria;
-        private Label label5;
-        private DateTimePicker dateTimePicker1;
         private ProgressBar ProgressBar;
-        #endregion
 
+        #endregion
+        private TableLayoutPanel TLPForm;
+        private DateTimePicker dateTimePicker1;
+        private TextBox TxtDescripcion;
+        private Button BtnGuardar;
+        private Label LblCuit;
+        private Label label4;
+        private Label label3;
+        private Label label5;
         private Label label2;
-        private DataGridViewTextBoxColumn Cantidad;
-        private DataGridViewTextBoxColumn Fecha_Hora;
-        private DataGridViewTextBoxColumn Entorno;
-        private DataGridViewTextBoxColumn Descripcion;
+        private ComboBox CMBEntornoFormativo;
+        private ComboBox CMBEntorno;
+        private ComboBox CMBTipoEntorno;
     }
 }

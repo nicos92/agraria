@@ -19,7 +19,7 @@ namespace Agraria.Repositorio.Repositorios
             try
             {
                 using SqlConnection conn = Conexion();
-                using SqlCommand cmd = new("SELECT Id_Actividad, Id_TipoEntorno, Id_Entorno, id_EntornoFormativo, Fecha_Actividad, Descripcion_Actividad FROM Actividad", conn);
+                using SqlCommand cmd = new("SELECT Id_Actividad, Id_TipoEntorno, Id_Entorno, id_EntornoFormativo, Fecha_Actividad, Descripcion_Actividad FROM Actividad ORDER BY Fecha_Actividad DESC", conn);
                 await conn.OpenAsync();
                 using DbDataReader reader = await cmd.ExecuteReaderAsync();
                 List<Actividad> actividades = [];
