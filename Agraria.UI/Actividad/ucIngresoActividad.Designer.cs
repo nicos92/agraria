@@ -22,9 +22,9 @@ namespace Agraria.UI.Actividad
             TLPForm = new TableLayoutPanel();
             label4 = new Label();
             label1 = new Label();
-            CMBCategoria = new ComboBox();
+            CMBTipoEntorno = new ComboBox();
             label5 = new Label();
-            CMBSubcategoria = new ComboBox();
+            CMBEntorno = new ComboBox();
             dateTimePicker1 = new DateTimePicker();
             LblCuit = new Label();
             TxtDescripcion = new TextBox();
@@ -35,6 +35,8 @@ namespace Agraria.UI.Actividad
             Entorno = new DataGridViewTextBoxColumn();
             Descripcion = new DataGridViewTextBoxColumn();
             ProgressBar = new ProgressBar();
+            CMBEntornoFormativo = new ComboBox();
+            label2 = new Label();
             PanelMedio.SuspendLayout();
             TLPMedio.SuspendLayout();
             groupBox1.SuspendLayout();
@@ -73,9 +75,9 @@ namespace Agraria.UI.Actividad
             groupBox1.Controls.Add(TLPForm);
             groupBox1.Font = new Font("Segoe UI Black", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             groupBox1.ForeColor = Color.FromArgb(7, 100, 147);
-            groupBox1.Location = new Point(85, 49);
+            groupBox1.Location = new Point(85, 34);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(633, 478);
+            groupBox1.Size = new Size(633, 508);
             groupBox1.TabIndex = 15;
             groupBox1.TabStop = false;
             groupBox1.Text = "Formulario de Ingreso de Actividades";
@@ -87,30 +89,31 @@ namespace Agraria.UI.Actividad
             TLPForm.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 20.12709F));
             TLPForm.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 65.1734543F));
             TLPForm.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 14.6994543F));
-            TLPForm.Controls.Add(label4, 0, 2);
             TLPForm.Controls.Add(label1, 0, 0);
-            TLPForm.Controls.Add(CMBCategoria, 1, 0);
+            TLPForm.Controls.Add(CMBTipoEntorno, 1, 0);
             TLPForm.Controls.Add(label5, 0, 1);
-            TLPForm.Controls.Add(CMBSubcategoria, 1, 1);
-            TLPForm.Controls.Add(dateTimePicker1, 1, 2);
-            TLPForm.Controls.Add(LblCuit, 0, 3);
-            TLPForm.Controls.Add(TxtDescripcion, 1, 3);
-            TLPForm.Controls.Add(BtnIngresar, 1, 4);
-            TLPForm.Controls.Add(ListBArticulos, 0, 5);
+            TLPForm.Controls.Add(CMBEntorno, 1, 1);
+            TLPForm.Controls.Add(dateTimePicker1, 1, 3);
+            TLPForm.Controls.Add(TxtDescripcion, 1, 4);
+            TLPForm.Controls.Add(ListBArticulos, 0, 6);
+            TLPForm.Controls.Add(BtnIngresar, 1, 5);
+            TLPForm.Controls.Add(LblCuit, 0, 4);
+            TLPForm.Controls.Add(label4, 0, 3);
+            TLPForm.Controls.Add(CMBEntornoFormativo, 1, 2);
+            TLPForm.Controls.Add(label2, 0, 2);
             TLPForm.Dock = DockStyle.Fill;
             TLPForm.ForeColor = Color.FromArgb(26, 28, 30);
             TLPForm.Location = new Point(3, 29);
             TLPForm.Name = "TLPForm";
-            TLPForm.RowCount = 6;
+            TLPForm.RowCount = 7;
             TLPForm.RowStyles.Add(new RowStyle());
             TLPForm.RowStyles.Add(new RowStyle());
             TLPForm.RowStyles.Add(new RowStyle());
-            TLPForm.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
             TLPForm.RowStyles.Add(new RowStyle());
-            TLPForm.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            TLPForm.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            TLPForm.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            TLPForm.Size = new Size(627, 446);
+            TLPForm.RowStyles.Add(new RowStyle(SizeType.Percent, 43.45238F));
+            TLPForm.RowStyles.Add(new RowStyle(SizeType.Percent, 19.6428566F));
+            TLPForm.RowStyles.Add(new RowStyle(SizeType.Percent, 36.9047623F));
+            TLPForm.Size = new Size(627, 476);
             TLPForm.TabIndex = 0;
             // 
             // label4
@@ -118,7 +121,7 @@ namespace Agraria.UI.Actividad
             label4.Anchor = AnchorStyles.Right;
             label4.AutoSize = true;
             label4.Font = new Font("Segoe UI", 12F);
-            label4.Location = new Point(22, 77);
+            label4.Location = new Point(22, 112);
             label4.Name = "label4";
             label4.Size = new Size(101, 21);
             label4.TabIndex = 4;
@@ -129,44 +132,44 @@ namespace Agraria.UI.Actividad
             label1.Anchor = AnchorStyles.Right;
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 12F);
-            label1.Location = new Point(55, 7);
+            label1.Location = new Point(21, 7);
             label1.Name = "label1";
-            label1.Size = new Size(68, 21);
+            label1.Size = new Size(102, 21);
             label1.TabIndex = 1;
-            label1.Text = "Entorno:";
+            label1.Text = "Tipo Entorno:";
             // 
-            // CMBCategoria
+            // CMBTipoEntorno
             // 
-            CMBCategoria.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            CMBCategoria.DropDownStyle = ComboBoxStyle.DropDownList;
-            CMBCategoria.Font = new Font("Segoe UI", 12F);
-            CMBCategoria.FormattingEnabled = true;
-            CMBCategoria.Location = new Point(129, 3);
-            CMBCategoria.Name = "CMBCategoria";
-            CMBCategoria.Size = new Size(402, 29);
-            CMBCategoria.TabIndex = 10;
+            CMBTipoEntorno.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            CMBTipoEntorno.DropDownStyle = ComboBoxStyle.DropDownList;
+            CMBTipoEntorno.Font = new Font("Segoe UI", 12F);
+            CMBTipoEntorno.FormattingEnabled = true;
+            CMBTipoEntorno.Location = new Point(129, 3);
+            CMBTipoEntorno.Name = "CMBTipoEntorno";
+            CMBTipoEntorno.Size = new Size(402, 29);
+            CMBTipoEntorno.TabIndex = 10;
             // 
             // label5
             // 
             label5.Anchor = AnchorStyles.Right;
             label5.AutoSize = true;
             label5.Font = new Font("Segoe UI", 12F);
-            label5.Location = new Point(24, 42);
+            label5.Location = new Point(55, 42);
             label5.Name = "label5";
-            label5.Size = new Size(99, 21);
+            label5.Size = new Size(68, 21);
             label5.TabIndex = 12;
-            label5.Text = "Sub Entorno:";
+            label5.Text = "Entorno:";
             // 
-            // CMBSubcategoria
+            // CMBEntorno
             // 
-            CMBSubcategoria.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            CMBSubcategoria.DropDownStyle = ComboBoxStyle.DropDownList;
-            CMBSubcategoria.Font = new Font("Segoe UI", 12F);
-            CMBSubcategoria.FormattingEnabled = true;
-            CMBSubcategoria.Location = new Point(129, 38);
-            CMBSubcategoria.Name = "CMBSubcategoria";
-            CMBSubcategoria.Size = new Size(402, 29);
-            CMBSubcategoria.TabIndex = 11;
+            CMBEntorno.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            CMBEntorno.DropDownStyle = ComboBoxStyle.DropDownList;
+            CMBEntorno.Font = new Font("Segoe UI", 12F);
+            CMBEntorno.FormattingEnabled = true;
+            CMBEntorno.Location = new Point(129, 38);
+            CMBEntorno.Name = "CMBEntorno";
+            CMBEntorno.Size = new Size(402, 29);
+            CMBEntorno.TabIndex = 11;
             // 
             // dateTimePicker1
             // 
@@ -174,17 +177,18 @@ namespace Agraria.UI.Actividad
             dateTimePicker1.Dock = DockStyle.Fill;
             dateTimePicker1.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             dateTimePicker1.Format = DateTimePickerFormat.Custom;
-            dateTimePicker1.Location = new Point(129, 73);
+            dateTimePicker1.Location = new Point(129, 108);
             dateTimePicker1.Name = "dateTimePicker1";
             dateTimePicker1.Size = new Size(402, 29);
             dateTimePicker1.TabIndex = 20;
+            dateTimePicker1.ValueChanged += dateTimePicker1_ValueChanged;
             // 
             // LblCuit
             // 
             LblCuit.Anchor = AnchorStyles.Right;
             LblCuit.AutoSize = true;
             LblCuit.Font = new Font("Segoe UI", 12F);
-            LblCuit.Location = new Point(29, 167);
+            LblCuit.Location = new Point(29, 202);
             LblCuit.Name = "LblCuit";
             LblCuit.Size = new Size(94, 21);
             LblCuit.TabIndex = 0;
@@ -196,7 +200,7 @@ namespace Agraria.UI.Actividad
             TxtDescripcion.Dock = DockStyle.Fill;
             TxtDescripcion.Font = new Font("Segoe UI", 12F);
             TxtDescripcion.ForeColor = Color.FromArgb(26, 28, 30);
-            TxtDescripcion.Location = new Point(129, 108);
+            TxtDescripcion.Location = new Point(129, 143);
             TxtDescripcion.MaxLength = 400;
             TxtDescripcion.Multiline = true;
             TxtDescripcion.Name = "TxtDescripcion";
@@ -213,7 +217,7 @@ namespace Agraria.UI.Actividad
             BtnIngresar.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             BtnIngresar.ForeColor = Color.FromArgb(255, 255, 255);
             BtnIngresar.Image = Properties.Resources.ingresar;
-            BtnIngresar.Location = new Point(234, 251);
+            BtnIngresar.Location = new Point(234, 294);
             BtnIngresar.Margin = new Padding(0);
             BtnIngresar.Name = "BtnIngresar";
             BtnIngresar.Size = new Size(192, 49);
@@ -240,13 +244,13 @@ namespace Agraria.UI.Actividad
             ListBArticulos.Columns.AddRange(new DataGridViewColumn[] { Cantidad, Fecha_Hora, Entorno, Descripcion });
             TLPForm.SetColumnSpan(ListBArticulos, 3);
             ListBArticulos.Dock = DockStyle.Fill;
-            ListBArticulos.Location = new Point(4, 303);
+            ListBArticulos.Location = new Point(4, 355);
             ListBArticulos.Margin = new Padding(4, 3, 4, 3);
             ListBArticulos.Name = "ListBArticulos";
             ListBArticulos.ReadOnly = true;
             ListBArticulos.RowHeadersVisible = false;
             ListBArticulos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            ListBArticulos.Size = new Size(619, 140);
+            ListBArticulos.Size = new Size(619, 118);
             ListBArticulos.TabIndex = 21;
             // 
             // Cantidad
@@ -287,6 +291,28 @@ namespace Agraria.UI.Actividad
             ProgressBar.Size = new Size(804, 16);
             ProgressBar.TabIndex = 16;
             // 
+            // CMBEntornoFormativo
+            // 
+            CMBEntornoFormativo.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            CMBEntornoFormativo.DropDownStyle = ComboBoxStyle.DropDownList;
+            CMBEntornoFormativo.Font = new Font("Segoe UI", 12F);
+            CMBEntornoFormativo.FormattingEnabled = true;
+            CMBEntornoFormativo.Location = new Point(129, 73);
+            CMBEntornoFormativo.Name = "CMBEntornoFormativo";
+            CMBEntornoFormativo.Size = new Size(402, 29);
+            CMBEntornoFormativo.TabIndex = 22;
+            // 
+            // label2
+            // 
+            label2.Anchor = AnchorStyles.Right;
+            label2.AutoSize = true;
+            label2.Font = new Font("Segoe UI", 12F);
+            label2.Location = new Point(66, 77);
+            label2.Name = "label2";
+            label2.Size = new Size(57, 21);
+            label2.TabIndex = 23;
+            label2.Text = "Grupo:";
+            // 
             // ucIngresoActividad
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -310,11 +336,11 @@ namespace Agraria.UI.Actividad
         private Label label4;
         private Button BtnIngresar;
         private Label label1;
-        private ComboBox CMBCategoria;
+        private ComboBox CMBTipoEntorno;
         private TextBox TxtDescripcion;
         private Label LblCuit;
         private Label label5;
-        private ComboBox CMBSubcategoria;
+        private ComboBox CMBEntorno;
         private ProgressBar ProgressBar;
         private DateTimePicker dateTimePicker1;
         private DataGridView ListBArticulos;
@@ -322,5 +348,7 @@ namespace Agraria.UI.Actividad
         private DataGridViewTextBoxColumn Fecha_Hora;
         private DataGridViewTextBoxColumn Entorno;
         private DataGridViewTextBoxColumn Descripcion;
+        private ComboBox CMBEntornoFormativo;
+        private Label label2;
     }
 }

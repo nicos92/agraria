@@ -9,5 +9,9 @@ namespace Agraria.UI.Actividad
             InitializeComponent();
         }
 
+        private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
