@@ -23,6 +23,8 @@ namespace Agraria.UI.RemitoProduccion
     {
         
         private readonly IArticulosGralService _articulosGralService;
+        private readonly IHRemitoProduccionService _remitoProduccionService;
+        private readonly IHRemitoDetalleProduccionService _remitoDetalleProduccionService;
         private readonly ILogger<UCIngresoRemito> _logger;
         private bool _evitarBucleEventos = false;
         private int _indiceSeleccionado;
@@ -33,9 +35,13 @@ namespace Agraria.UI.RemitoProduccion
         private List<ArticulosGral> _todosLosProductos = [];
 
         public UCIngresoRemito(IArticulosGralService articulosGralService,
+                             IHRemitoProduccionService remitoProduccionService,
+                             IHRemitoDetalleProduccionService remitoDetalleProduccionService,
                              ILogger<UCIngresoRemito> logger)
         {
             _articulosGralService = articulosGralService;
+            _remitoProduccionService = remitoProduccionService;
+            _remitoDetalleProduccionService = remitoDetalleProduccionService;
             _logger = logger;
             _indiceSeleccionado = 0;
             _ultimoCodigoArticuloSeleccionado = "";
@@ -475,22 +481,45 @@ namespace Agraria.UI.RemitoProduccion
         {
             try
             {
-                // TODO: Implementar la lógica para procesar el remito de producción
-                // Esta sería similar a la venta pero adaptada para remitos de producción
                 decimal subtotal = DecimalFormatter.ParseDecimal(LblPrecioTotal.Text.Split('$')[1]);
+                decimal descuento = 0; // No hay descuento en remitos de producción
+
+                var hRemitoProduccion = CrearEntidadRemito(subtotal, descuento);
                 
-                // TODO: Crear la entidad de remito de producción correspondiente
-                //var remito = new HRemitoProduccion { ... };
-
-                // TODO: Llamar al servicio correspondiente para guardar el remito
-                // var result = await _remitoService.Add(remito, [.. _productosResumen]);
-
-                MostrarMensajeExito("Remito procesado correctamente.");
-                LimpiarFormulario();
+                var addResult = _remitoProduccionService.Add(hRemitoProduccion);
+                if (addResult.IsSuccess)
+                {
+                    // Obtener el ID del remito recién creado
+                    var latestRemito = await ObtenerUltimoRemito();
+                    if (latestRemito != null)
+                    {
+                        // Ahora agregar los detalles del remito
+                        var detalleResult = await AgregarDetallesRemito(latestRemito.Id_Remito);
+                        if (detalleResult.IsSuccess)
+                        {
+                            MostrarMensajeExito("Remito de producción procesado correctamente.");
+                            LimpiarFormulario();
+                        }
+                        else
+                        {
+                            // Si hay error al agregar detalles, hacer rollback
+                            _remitoProduccionService.Delete(latestRemito.Id_Remito);
+                            MostrarMensajeError($"Error al procesar detalles del remito: {detalleResult.Error}");
+                        }
+                    }
+                    else
+                    {
+                        MostrarMensajeError("No se pudo obtener el ID del remito recién creado.");
+                    }
+                }
+                else
+                {
+                    MostrarMensajeError($"Error al procesar el remito: {addResult.Error}");
+                }
             }
             catch (Exception ex)
             {
-                MostrarMensajeError($"Error al procesar remito: {ex.Message}");
+                MostrarMensajeError($"Error al procesar remito UI: {ex.Message}");
             }
         }
 
@@ -712,6 +741,52 @@ namespace Agraria.UI.RemitoProduccion
             }
 
             return base.ProcessCmdKey(ref msg, keyData);
+        }
+
+        private HRemitoProduccion CrearEntidadRemito(decimal subtotal, decimal descuento)
+        {
+            return new HRemitoProduccion
+            {
+                Cod_Usuario = SessionManager.Instance.Usuario.Id_Usuario,
+                Descripcion = "Remito de producción", 
+                Descu = descuento,
+                Subtotal = subtotal,
+                Total = subtotal - descuento,
+                Fecha_Hora = DateTime.Now
+            };
+        }
+
+        private async Task<HRemitoProduccion?> ObtenerUltimoRemito()
+        {
+            var allRemitos = await _remitoProduccionService.GetAll();
+            if (allRemitos.IsSuccess)
+            {
+                return allRemitos.Value.OrderByDescending(r => r.Id_Remito).FirstOrDefault();
+            }
+            return null;
+        }
+
+        private async Task<Result<bool>> AgregarDetallesRemito(int idRemito)
+        {
+            foreach (var productoResumen in _productosResumen)
+            {
+                var detalleRemito = new HRemitoDetalleProduccion
+                {
+                    Id_Remito = idRemito,
+                    Art_Cod = productoResumen.Cod_Articulo,
+                    Descr = productoResumen.Producto_Nombre,
+                    P_Unit = productoResumen.Producto_Precio,
+                    Cant = productoResumen.Producto_Cantidad,
+                    P_X_Cant = productoResumen.Producto_PrecioxCantidad
+                };
+
+                var detalleResult = _remitoDetalleProduccionService.Add(detalleRemito);
+                if (!detalleResult.IsSuccess)
+                {
+                    return Result<bool>.Failure($"Error al agregar detalle: {detalleResult.Error}");
+                }
+            }
+            return Result<bool>.Success(true);
         }
     }
 }
