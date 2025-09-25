@@ -58,23 +58,7 @@ namespace Agraria.UI.Ventas
 
         private void ConfigurarControles()
         {
-            // Configurar DataGridView de ventas
-            DgvVentas.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            DgvVentas.MultiSelect = false;
-            DgvVentas.ReadOnly = true;
-            DgvVentas.AllowUserToAddRows = false;
-            DgvVentas.AllowUserToDeleteRows = false;
-            DgvVentas.RowHeadersVisible = false;
-            DgvVentas.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-
-            // Configurar DataGridView de detalles
-            DgvDetalles.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            DgvDetalles.MultiSelect = false;
-            DgvDetalles.ReadOnly = true;
-            DgvDetalles.AllowUserToAddRows = false;
-            DgvDetalles.AllowUserToDeleteRows = false;
-            DgvDetalles.RowHeadersVisible = false;
-            DgvDetalles.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            ConfigurarDGV();
 
             // Configurar fechas por defecto
             DtpFechaDesde.Value = DateTime.Today.AddDays(-30);
@@ -152,38 +136,28 @@ namespace Agraria.UI.Ventas
 
         private void ActualizarListaVentas()
         {
-            DgvVentas.DataSource = null;
-            DgvVentas.DataSource = _ventas;
+            try
+            {
+                DgvVentas.SuspendLayout();
+                int primeraFilaVisible = DgvVentas.FirstDisplayedScrollingRowIndex;
 
-            // Configurar columnas
-            if (DgvVentas.Columns.Contains("Id_Remito"))
-            {
-                DgvVentas.Columns["Id_Remito"].HeaderText = "Nº Remito";
-                DgvVentas.Columns["Id_Remito"].FillWeight = 20;
-                
-            }
-            
-            if (DgvVentas.Columns.Contains("Fecha_Hora"))
-            {
-                DgvVentas.Columns["Fecha_Hora"].HeaderText = "Fecha";
-                DgvVentas.Columns["Fecha_Hora"].DefaultCellStyle.Format = "dd/MM/yyyy HH:mm";
-                DgvVentas.Columns["Fecha_Hora"].FillWeight = 30;
-            }
-            
-            if (DgvVentas.Columns.Contains("Total"))
-            {
-                DgvVentas.Columns["Total"].HeaderText = "Total";
-                DgvVentas.Columns["Total"].DefaultCellStyle.Format = "C2";
-                DgvVentas.Columns["Total"].DefaultCellStyle.FormatProvider = DecimalFormatter.ArgentinaCulture;
-                DgvVentas.Columns["Total"].FillWeight = 25;
-            }
+                DgvVentas.AutoGenerateColumns = false;
+                DgvVentas.DataSource = null;
+                DgvVentas.DataSource = _ventas ?? [];
 
-            // Ocultar columnas innecesarias
-            var columnasOcultar = new[] { "Cod_Usuario", "Id_Cliente", "Subtotal", "Descu" };
-            foreach (var columna in columnasOcultar)
+                if (primeraFilaVisible >= 0 && primeraFilaVisible < DgvVentas.Rows.Count)
+                {
+                    DgvVentas.FirstDisplayedScrollingRowIndex = primeraFilaVisible;
+                }
+            }
+            catch (Exception ex)
             {
-                if (DgvVentas.Columns.Contains(columna))
-                    DgvVentas.Columns[columna].Visible = false;
+                MessageBox.Show($"Error al cargar DataGridView de Ventas: {ex.Message}", "Error", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                DgvVentas.ResumeLayout();
             }
         }
 
@@ -229,51 +203,28 @@ namespace Agraria.UI.Ventas
 
         private void ActualizarListaDetalles()
         {
-            // TODO: CONFIGURAR COLUMNAS CON LAS PROPIEDADES CORRECTAS
-            DgvDetalles.DataSource = null;
-            DgvDetalles.DataSource = _detallesVenta;
+            try
+            {
+                DgvDetalles.SuspendLayout();
+                int primeraFilaVisible = DgvDetalles.FirstDisplayedScrollingRowIndex;
 
-            // Ocultar columnas innecesarias
-            var columnasOcultar = new[] { "Id_Det_Remito", "Id_Remito" };
-            foreach (var columna in columnasOcultar)
-            {
-                if (DgvDetalles.Columns.Contains(columna))
-                    DgvDetalles.Columns[columna].Visible = false;
+                DgvDetalles.AutoGenerateColumns = false;
+                DgvDetalles.DataSource = null;
+                DgvDetalles.DataSource = _detallesVenta ?? [];
+
+                if (primeraFilaVisible >= 0 && primeraFilaVisible < DgvDetalles.Rows.Count)
+                {
+                    DgvDetalles.FirstDisplayedScrollingRowIndex = primeraFilaVisible;
+                }
             }
-                
-            // Configurar columnas visibles
-            if (DgvDetalles.Columns.Contains("Cod_Art"))
+            catch (Exception ex)
             {
-                DgvDetalles.Columns["Cod_Art"].HeaderText = "Código";
-                DgvDetalles.Columns["Cod_Art"].FillWeight = 15;
+                MessageBox.Show($"Error al cargar DataGridView de Detalles: {ex.Message}", "Error", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-                
-            if (DgvDetalles.Columns.Contains("Descr"))
+            finally
             {
-                DgvDetalles.Columns["Descr"].HeaderText = "Descripción";
-                DgvDetalles.Columns["Descr"].FillWeight = 40;
-            }
-                
-            if (DgvDetalles.Columns.Contains("P_Unit"))
-            {
-                DgvDetalles.Columns["P_Unit"].HeaderText = "Precio Unit.";
-                DgvDetalles.Columns["P_Unit"].DefaultCellStyle.Format = "C2";
-                DgvDetalles.Columns["P_Unit"].DefaultCellStyle.FormatProvider = DecimalFormatter.ArgentinaCulture;
-                DgvDetalles.Columns["P_Unit"].FillWeight = 15;
-            }
-                
-            if (DgvDetalles.Columns.Contains("Cant"))
-            {
-                DgvDetalles.Columns["Cant"].HeaderText = "Cantidad";
-                DgvDetalles.Columns["Cant"].FillWeight = 10;
-            }
-                
-            if (DgvDetalles.Columns.Contains("P_X_Cant"))
-            {
-                DgvDetalles.Columns["P_X_Cant"].HeaderText = "Total";
-                DgvDetalles.Columns["P_X_Cant"].DefaultCellStyle.Format = "C2";
-                DgvDetalles.Columns["P_X_Cant"].DefaultCellStyle.FormatProvider = DecimalFormatter.ArgentinaCulture;
-                DgvDetalles.Columns["P_X_Cant"].FillWeight = 15;
+                DgvDetalles.ResumeLayout();
             }
         }
 
@@ -441,9 +392,214 @@ namespace Agraria.UI.Ventas
 
      
 
-        private void BtnActualizar_Click(object sender, EventArgs e)
+        private void ConfigurarDGV()
         {
-            _ = CargarVentasAsync();
+            // Configurar DataGridView de ventas
+            DgvVentas.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            DgvVentas.MultiSelect = false;
+            DgvVentas.ReadOnly = true;
+            DgvVentas.AllowUserToAddRows = false;
+            DgvVentas.AllowUserToDeleteRows = false;
+            DgvVentas.RowHeadersVisible = false;
+            DgvVentas.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            DgvVentas.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            DgvVentas.AllowUserToResizeRows = false;
+            DgvVentas.AllowUserToResizeColumns = true;
+            DgvVentas.AutoGenerateColumns = false;
+            
+            // Asegurar que el DataGridView puede recibir el foco y selecciones
+            DgvVentas.TabStop = true;
+            DgvVentas.Enabled = true;
+
+            // Configurar DataGridView de detalles
+            DgvDetalles.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            DgvDetalles.MultiSelect = false;
+            DgvDetalles.ReadOnly = true;
+            DgvDetalles.AllowUserToAddRows = false;
+            DgvDetalles.AllowUserToDeleteRows = false;
+            DgvDetalles.RowHeadersVisible = false;
+            DgvDetalles.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            DgvDetalles.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            DgvDetalles.AllowUserToResizeRows = false;
+            DgvDetalles.AllowUserToResizeColumns = true;
+            DgvDetalles.AutoGenerateColumns = false;
+            
+            // Asegurar que el DataGridView puede recibir el foco y selecciones
+            DgvDetalles.TabStop = true;
+            DgvDetalles.Enabled = true;
+
+            ConfigurarColumnasDataGridView();
+        }
+
+        private void ConfigurarColumnasDataGridView()
+        {
+            // Limpiar columnas existentes
+            DgvVentas.Columns.Clear();
+            DgvDetalles.Columns.Clear();
+
+            // Configurar columnas para DgvVentas
+            var ventasColumns = new[]
+            {
+                new DataGridViewTextBoxColumn
+                {
+                    Name = "Id_Remito",
+                    DataPropertyName = "Id_Remito",
+                    HeaderText = "Nº Remito",
+                    Visible = true,
+                    FillWeight = 20f,
+                    AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
+                },
+                new DataGridViewTextBoxColumn
+                {
+                    Name = "Fecha_Hora",
+                    DataPropertyName = "Fecha_Hora",
+                    HeaderText = "Fecha",
+                    Visible = true,
+                    FillWeight = 30f,
+                    DefaultCellStyle = new DataGridViewCellStyle 
+                    { 
+                        Format = "dd/MM/yyyy HH:mm" 
+                    },
+                    AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
+                },
+                new DataGridViewTextBoxColumn
+                {
+                    Name = "Total",
+                    DataPropertyName = "Total",
+                    HeaderText = "Total",
+                    Visible = true,
+                    FillWeight = 25f,
+                    DefaultCellStyle = new DataGridViewCellStyle 
+                    { 
+                        Format = "C2",
+                        FormatProvider = DecimalFormatter.ArgentinaCulture
+                    },
+                    AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
+                },
+                new DataGridViewTextBoxColumn
+                {
+                    Name = "Cod_Usuario",
+                    DataPropertyName = "Cod_Usuario",
+                    HeaderText = "Usuario",
+                    Visible = false
+                },
+                new DataGridViewTextBoxColumn
+                {
+                    Name = "Id_Cliente",
+                    DataPropertyName = "Id_Cliente",
+                    HeaderText = "Cliente",
+                    Visible = false
+                },
+                new DataGridViewTextBoxColumn
+                {
+                    Name = "Subtotal",
+                    DataPropertyName = "Subtotal",
+                    HeaderText = "Subtotal",
+                    Visible = false
+                },
+                new DataGridViewTextBoxColumn
+                {
+                    Name = "Descu",
+                    DataPropertyName = "Descu",
+                    HeaderText = "Descuento",
+                    Visible = false
+                },
+                new DataGridViewTextBoxColumn
+                {
+                    Name = "Descripcion",
+                    DataPropertyName = "Descripcion",
+                    HeaderText = "Descripción",
+                    Visible = true,
+                    AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
+                }
+            };
+
+            foreach (var column in ventasColumns)
+            {
+                DgvVentas.Columns.Add(column);
+            }
+
+            // Configurar columnas para DgvDetalles
+            var detallesColumns = new[]
+            {
+                new DataGridViewTextBoxColumn
+                {
+                    Name = "Id_Det_Remito",
+                    DataPropertyName = "Id_Det_Remito",
+                    HeaderText = "ID Detalle",
+                    Visible = false
+                },
+                new DataGridViewTextBoxColumn
+                {
+                    Name = "Id_Remito",
+                    DataPropertyName = "Id_Remito",
+                    HeaderText = "ID Remito",
+                    Visible = false,
+                    AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
+                },
+                new DataGridViewTextBoxColumn
+                {
+                    Name = "Cod_Art",
+                    DataPropertyName = "Art_Cod",
+                    HeaderText = "Código",
+                    Visible = false,
+                    FillWeight = 15f,
+                    AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
+                },
+                new DataGridViewTextBoxColumn
+                {
+                    Name = "Descr",
+                    DataPropertyName = "Descr",
+                    HeaderText = "Descripción",
+                    Visible = true,
+                    FillWeight = 40f,
+                    AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
+                },
+                new DataGridViewTextBoxColumn
+                {
+                    Name = "P_Unit",
+                    DataPropertyName = "P_Unit",
+                    HeaderText = "Precio Unit.",
+                    Visible = true,
+                    FillWeight = 15f,
+                    DefaultCellStyle = new DataGridViewCellStyle 
+                    { 
+                        Format = "C2",
+                        FormatProvider = DecimalFormatter.ArgentinaCulture
+                    }
+                },
+                new DataGridViewTextBoxColumn
+                {
+                    Name = "Cant",
+                    DataPropertyName = "Cant",
+                    HeaderText = "Cantidad",
+                    Visible = true,
+                    FillWeight = 10f
+                },
+                new DataGridViewTextBoxColumn
+                {
+                    Name = "P_X_Cant",
+                    DataPropertyName = "P_X_Cant",
+                    HeaderText = "Total",
+                    Visible = true,
+                    FillWeight = 15f,
+                    DefaultCellStyle = new DataGridViewCellStyle 
+                    { 
+                        Format = "C2",
+                        FormatProvider = DecimalFormatter.ArgentinaCulture
+                    }
+                }
+            };
+
+            foreach (var column in detallesColumns)
+            {
+                DgvDetalles.Columns.Add(column);
+            }
+        }
+
+        private async void BtnActualizar_Click(object sender, EventArgs e)
+        {
+            await CargarVentasAsync();
         }
     }
 }
