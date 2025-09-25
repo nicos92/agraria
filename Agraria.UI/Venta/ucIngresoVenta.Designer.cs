@@ -254,7 +254,7 @@ namespace Agraria.UI.Ventas
             groupBox1.Size = new Size(285, 97);
             groupBox1.TabIndex = 8;
             groupBox1.TabStop = false;
-            groupBox1.Text = "Producto";
+            groupBox1.Text = "Producto Seleccionado";
             // 
             // LblPrecioCant
             // 
@@ -382,7 +382,7 @@ namespace Agraria.UI.Ventas
             DgvProductosSeleccionados.ReadOnly = true;
             DgvProductosSeleccionados.RowHeadersVisible = false;
             DgvProductosSeleccionados.Size = new Size(462, 321);
-            DgvProductosSeleccionados.TabIndex = 6;
+            DgvProductosSeleccionados.TabIndex = 7;
             DgvProductosSeleccionados.CellClick += DgvProductosSeleccionados_CellClick;
             DgvProductosSeleccionados.SelectionChanged += DgvProductosSeleccionados_SelectionChanged;
             // 
@@ -489,7 +489,7 @@ namespace Agraria.UI.Ventas
             BtnConfirmarVenta.Location = new Point(118, 55);
             BtnConfirmarVenta.Name = "BtnConfirmarVenta";
             BtnConfirmarVenta.Size = new Size(224, 40);
-            BtnConfirmarVenta.TabIndex = 7;
+            BtnConfirmarVenta.TabIndex = 8;
             BtnConfirmarVenta.Text = "CONFIRMAR VENTA (F12)";
             BtnConfirmarVenta.UseVisualStyleBackColor = false;
             BtnConfirmarVenta.Click += BtnConfirmarVenta_Click;
@@ -518,7 +518,7 @@ namespace Agraria.UI.Ventas
             TxtDescripcion.Location = new Point(109, 9);
             TxtDescripcion.Name = "TxtDescripcion";
             TxtDescripcion.Size = new Size(350, 29);
-            TxtDescripcion.TabIndex = 3;
+            TxtDescripcion.TabIndex = 6;
             // 
             // label4
             // 

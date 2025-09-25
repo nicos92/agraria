@@ -12,6 +12,7 @@ using Microsoft.Extensions.Logging;
 using Agraria.Contrato.Servicios;
 using Agraria.Modelo.Entidades;
 using Agraria.Utilidades;
+using System.Windows.Forms.VisualStyles;
 
 namespace Agraria.UI.Ventas
 {
@@ -159,6 +160,7 @@ namespace Agraria.UI.Ventas
             {
                 DgvVentas.Columns["Id_Remito"].HeaderText = "Nº Remito";
                 DgvVentas.Columns["Id_Remito"].FillWeight = 20;
+                
             }
             
             if (DgvVentas.Columns.Contains("Fecha_Hora"))
@@ -401,7 +403,7 @@ namespace Agraria.UI.Ventas
                 PbProgreso.Style = ProgressBarStyle.Marquee;
 
                 DateTime fechaDesde = DtpFechaDesde.Value.Date;
-                DateTime fechaHasta = DtpFechaHasta.Value.Date.AddDays(1).AddTicks(-1); // Fin del día
+                DateTime fechaHasta = DtpFechaHasta.Value.Date.AddDays(1); // Fin del día
                 string cliente = TxtCliente.Text.Trim();
                 string idRemitoText = TxtIdRemito.Text.Trim();
                 
