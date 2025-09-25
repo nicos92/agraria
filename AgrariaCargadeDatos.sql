@@ -156,6 +156,106 @@ INSERT INTO H_Ventas_Detalle (Id_Remito, Cod_Producto, Descr, P_Unit, Cant, P_X_
 INSERT INTO Herramientas (Nombre, Descripcion, Cantidad) VALUES
 ('Azada', 'Herramienta para remover tierra', 3),
 ('Tijera de podar', 'Para cortar ramas', 5);
+INSERT INTO Herramientas (Nombre, Descripcion, Cantidad) VALUES
+('Martillo de carpintero', 'Para clavar y extraer clavos', 15),
+('Destornillador Phillips', 'Para tornillos de cabeza en cruz', 20),
+('Destornillador plano', 'Para tornillos de cabeza ranurada', 20),
+('Cinta métrica', 'Para medir longitudes', 25),
+('Nivel de burbuja', 'Para verificar la horizontalidad y verticalidad', 10),
+('Llave inglesa', 'Llave ajustable para tuercas y pernos', 8),
+('Taladro percutor', 'Para perforar hormigón y mampostería', 5),
+('Sierra de mano', 'Para cortar madera manualmente', 12),
+('Alicate universal', 'Para sujetar, doblar y cortar alambres', 18),
+('Lijadora orbital', 'Para lijar superficies de manera rápida', 7),
+('Rastrillo de jardín', 'Para recoger hojas y escombros', 10),
+('Pala de punta redonda', 'Para excavar en tierra dura', 6),
+('Carretilla', 'Para transportar materiales pesados', 4),
+('Guantes de trabajo', 'Protección para las manos', 50),
+('Gafas de seguridad', 'Protección para los ojos', 30),
+('Mazo de goma', 'Para golpear sin dañar la superficie', 5),
+('Cizalla', 'Para cortar chapa metálica', 2),
+('Brocas para madera set', 'Juego de brocas de diferentes tamaños', 10),
+('Brocas para metal set', 'Juego de brocas para perforar metal', 8),
+('Berbiquí', 'Para taladrar manualmente', 3),
+('Formón', 'Para tallar y dar forma a la madera', 9),
+('Cincel de albañil', 'Para cortar piedra y ladrillo', 6),
+('Espátula', 'Para aplicar masilla o remover materiales', 15),
+('Paleta de albañil', 'Para aplicar mortero', 10),
+('Serrucho de costilla', 'Para cortes precisos en madera', 5),
+('Sierra de calar', 'Para cortes curvos y complicados', 4),
+('Amoladora angular', 'Para cortar y desbastar metal y piedra', 3),
+('Llave de carraca', 'Para apretar tuercas con rapidez', 6),
+('Juego de llaves Allen', 'Llaves hexagonales para tornillos especiales', 10),
+('Compresor de aire', 'Para herramientas neumáticas y pintura', 1),
+('Pistola de calor', 'Para remover pintura y calentar materiales', 2),
+('Decapador', 'Para remover capas de pintura o barniz', 2),
+('Clavadora neumática', 'Para clavar con aire comprimido', 1),
+('Remachadora', 'Para unir piezas con remaches', 4),
+('Pistola de silicona', 'Para aplicar selladores y adhesivos', 10),
+('Alicate de punta fina', 'Para trabajos de precisión y electrónica', 12),
+('Escofina', 'Para desbastar madera', 5),
+('Lima plana', 'Para pulir y dar forma a metales', 7),
+('Tenazas', 'Para extraer clavos y cortar alambres', 9),
+('Manguera de jardín', 'Para regar y limpiar', 10),
+('Cortasetos eléctrico', 'Para podar setos y arbustos', 2),
+('Motosierra', 'Para cortar troncos y ramas grandes', 1),
+('Desbrozadora', 'Para cortar hierba alta y maleza', 1),
+('Lijadora de banda', 'Para un lijado más agresivo', 3),
+('Cepillo de carpintero', 'Para alisar superficies de madera', 5),
+('Sargento de apriete', 'Para sujetar piezas mientras se pegan o se secan', 15),
+('Tornillo de banco', 'Para sujetar firmemente piezas de trabajo', 2),
+('Piqueta de albañil', 'Para romper ladrillos y pequeños muros', 4),
+('Nivel láser', 'Para marcar líneas precisas en la pared', 2),
+('Detector de metales', 'Para encontrar tuberías y cables en muros', 1),
+('Llave dinamométrica', 'Para apretar a un torque específico', 2),
+('Juego de llaves combinadas', 'Llaves fijas y de estrella en un mismo set', 10),
+('Extractores de tornillos', 'Para remover tornillos rotos o dañados', 5),
+('Tester o multímetro', 'Para medir magnitudes eléctricas', 4),
+('Soldador de estaño', 'Para soldar componentes electrónicos', 6),
+('Cortatubos', 'Para cortar tubos de cobre y PVC', 3),
+('Hacha', 'Para cortar madera y talar árboles', 2),
+('Barra de demolición', 'Para demoler estructuras', 3),
+('Martillo de bola', 'Para trabajos de forja y mecánica', 5),
+('Calibrador Pie de rey', 'Para medir con gran precisión', 4),
+('Regla de acero', 'Para mediciones precisas y cortes rectos', 10),
+('Pistola de pintar', 'Para aplicar pintura de manera uniforme', 2),
+('Rodillo de pintura', 'Para pintar grandes superficies', 15),
+('Brocha para pintura', 'Para detalles y esquinas', 20),
+('Escalera de tijera', 'Para alcanzar alturas medias', 5),
+('Arnés de seguridad', 'Para trabajos en altura', 2),
+('Motosierra de poda', 'Versión más pequeña para podar ramas', 1),
+('Rastrillo de césped', 'Para nivelar el terreno', 3),
+('Tijeras de poda', 'Para ramas y flores pequeñas', 12),
+('Horquilla de jardín', 'Para airear la tierra y mover compost', 4),
+('Soplador de hojas', 'Para limpiar jardines y aceras', 2),
+('Bombilla de prueba', 'Para verificar circuitos eléctricos', 5),
+('Prensa de carpintero', 'Para unir piezas de madera', 8),
+('Plomada', 'Para verificar la verticalidad', 4),
+('Llave de tubo', 'Para tuercas en lugares de difícil acceso', 6),
+('Remachadora de tuercas', 'Para crear roscas en materiales finos', 1),
+('Soplete de fontanero', 'Para soldar tuberías de cobre', 2),
+('Cortacables', 'Para cortar cables eléctricos', 6),
+('Juego de llaves de vaso', 'Vasos de diferentes medidas con carraca', 7),
+('Juego de destornilladores de precisión', 'Para electrónica y trabajos pequeños', 5),
+('Pinzas de electricista', 'Para manipular cables con aislamiento', 8),
+('Crimpadora de cables', 'Para terminales eléctricos', 3),
+('Pistola de clavos', 'Clavadora manual para proyectos ligeros', 5),
+('Sierra ingletadora', 'Para cortes angulares y a inglete', 1),
+('Esmeriladora de banco', 'Para afilar y dar forma a herramientas', 1),
+('Taladro de banco', 'Para perforaciones precisas y repetitivas', 1),
+('Dremel Herramienta rotativa', 'Para grabado, pulido y corte', 3),
+('Pulidora de coche', 'Para pulir y encerar vehículos', 2),
+('Hidrolimpiadora', 'Para limpieza a alta presión', 1),
+('Fresadora', 'Para fresar y ranurar madera', 2),
+('Torneadora', 'Para dar forma a piezas de madera y metal', 1),
+('Pistola de espuma', 'Para aplicar espuma de poliuretano', 4),
+('Juego de machos y terrajas', 'Para crear roscas internas y externas', 3),
+('Grapadora manual', 'Para tapizar y fijar materiales', 7),
+('Cizalla de podar', 'Para ramas gruesas', 8),
+('Azadón', 'Para remover y labrar la tierra', 6),
+('Tijeras de hojalatero', 'Para cortar láminas de metal delgadas', 5),
+('Llave de fontanero', 'Llave ajustable de gran apertura', 3),
+('Llave de vaso de impacto', 'Para usar con pistolas de impacto', 4);
 
 -- Poblar HojadeVida
 INSERT INTO HojadeVida (Nombre, Tipo_Animal, Sexo, Fecha_Nacimiento, Peso, Estado_Salud, Activo, Observaciones) VALUES
@@ -194,48 +294,7 @@ INSERT INTO HRemitoProduccion (Descripcion, Cod_Usuario, Fecha_Hora, Subtotal, D
 INSERT INTO HRemitoDetalleProduccion (Id_Remito, Art_Cod, Descr, P_Unit, Cant, P_X_Cant) VALUES
 (1, 'A0000001', 'Pala', 1500.00, 2, 3000.00);
 
-INSERT INTO Actividad (Id_TipoEntorno, Id_Entorno, Id_EntornoFormativo, Descripcion_Actividad) VALUES
-(1, 1, 2, 'Siembra de lechugas en el invernadero'),
-(2, 2, 2, 'Limpieza y mantenimiento del gallinero'),
-(1, 1, 3, 'Riego de plantines de acelga'),
-(1, 1, 4, 'Aplicación de compost en bancales'),
-(1, 1, 5, 'Control de plagas en cultivos de pimiento'),
-(1, 2, 6, 'Mantenimiento de los sistemas de riego'),
-(1, 2, 7, 'Revisión de la sanidad de las plantas de maíz'),
-(2, 2, 8, 'Alimentación de las gallinas ponedoras'),
-(2, 2, 9, 'Recolección y clasificación de huevos'),
-(2, 3, 10, 'Limpieza de corrales de cerdos'),
-(2, 3, 11, 'Vacunación de ovinos'),
-(3, 3, 12, 'Inventario de herramientas y equipos'),
-(3, 3, 13, 'Organización del depósito de insumos'),
-(3, 1, 14, 'Capacitación en el uso de drones para agricultura'),
-(3, 2, 15, 'Taller de producción de forraje'),
-(1, 1, 16, 'Siembra de arboles frutales'),
-(1, 1, 17, 'Podado de arboles'),
-(1, 1, 18, 'Cosecha de zapallos'),
-(2, 2, 19, 'Revisión sanitaria de la majada'),
-(2, 2, 20, 'Clasificación de animales'),
-(1, 1, 1, 'Cosecha de tomates'),
-(1, 1, 1, 'Transplante de plantines de tomate'),
-(1, 1, 2, 'Cosecha y empaque de zanahorias'),
-(1, 1, 3, 'Poda de árboles frutales en el sector sur'),
-(1, 2, 4, 'Fertilización de los cultivos de trigo'),
-(1, 2, 5, 'Control de malezas en el campo de maíz'),
-(2, 2, 6, 'Revisión y mantenimiento de los bebederos del gallinero'),
-(2, 2, 7, 'Reemplazo de nidos en el gallinero'),
-(2, 3, 8, 'Desparasitación de las cabras'),
-(2, 3, 9, 'Clasificación de animales para la venta'),
-(3, 3, 10, 'Inventario de productos de limpieza'),
-(3, 3, 11, 'Recepción y almacenamiento de insumos nuevos'),
-(3, 1, 12, 'Taller de apicultura para estudiantes'),
-(3, 2, 13, 'Clase práctica sobre el cuidado de aves de corral'),
-(1, 1, 14, 'Siembra de ajíes en el invernadero'),
-(1, 1, 15, 'Preparación del suelo para la temporada de invierno'),
-(1, 1, 16, 'Monitoreo de la humedad del suelo en los bancales'),
-(2, 2, 17, 'Pesaje de los cerdos para control de crecimiento'),
-(2, 2, 18, 'Limpieza y desinfección de los gallineros'),
-(3, 3, 19, 'Revisión y calibración de la maquinaria agrícola'),
-(3, 3, 20, 'Inventario de semillas y abonos');
+
 
 -- Ejemplos de inserciones en la tabla Actividad
 INSERT INTO Actividad (Id_TipoEntorno, Id_Entorno, Id_EntornoFormativo, Fecha_Actividad, Descripcion_Actividad) VALUES
@@ -440,33 +499,7 @@ INSERT INTO Actividad (Id_TipoEntorno, Id_Entorno, Id_EntornoFormativo, Fecha_Ac
 (3, 2, 8, '2025-01-30 12:00', 'Investigación interdisciplinaria'),
 (1, 1, 14, '2025-01-31 14:30', 'Campeonato interno de ajedrez');
 
--- Inserción masiva adicional (500 registros más)
-INSERT INTO Actividad (Id_TipoEntorno, Id_Entorno, Id_EntornoFormativo, Fecha_Actividad, Descripcion_Actividad)
-SELECT 
-    (CASE WHEN (id % 3) + 1 = 1 THEN 1 WHEN (id % 3) + 1 = 2 THEN 3 ELSE 2 END) as Id_TipoEntorno,
-    (CASE WHEN (id % 3) + 1 = 1 THEN 1 WHEN (id % 3) + 1 = 2 THEN 2 ELSE 3 END) as Id_Entorno,
-    (CASE WHEN (id % 21) + 1 = 0 THEN 1 ELSE (id % 21) + 1 END) as Id_EntornoFormativo,
-    DATEADD(DAY, (id % 365), '2024-01-01') as Fecha_Actividad,
-    'Actividad programática ' + CAST(id AS VARCHAR(10)) + ' - ' + 
-           CASE (id % 10) 
-             WHEN 0 THEN 'Evaluación de progreso'
-             WHEN 1 THEN 'Taller práctico'
-             WHEN 2 THEN 'Sesión teórica' 
-             WHEN 3 THEN 'Laboratorio especializado'
-             WHEN 4 THEN 'Proyecto grupal'
-             WHEN 5 THEN 'Presentación de resultados'
-             WHEN 6 THEN 'Refuerzo educativo'
-             WHEN 7 THEN 'Innovación aplicada'
-             WHEN 8 THEN 'Investigación guiada'
-             ELSE 'Integración de conocimientos'
-           END as Descripcion_Actividad
-FROM (
-    SELECT a.N + b.N * 10 + c.N * 100 + 1 as id
-    FROM (VALUES (0),(1),(2),(3),(4),(5),(6),(7),(8),(9)) a(N)
-    CROSS JOIN (VALUES (0),(1),(2),(3),(4),(5),(6),(7),(8),(9)) b(N)
-    CROSS JOIN (VALUES (0),(1),(2),(3),(4),(5),(6),(7),(8),(9)) c(N)
-) numbers
-WHERE id BETWEEN 1 AND 500;
+delete from Actividad where Fecha_Actividad > SYSDATETIME();
 
 select count(id_actividad) as 'Cantidad de actividades' from Actividad;
 

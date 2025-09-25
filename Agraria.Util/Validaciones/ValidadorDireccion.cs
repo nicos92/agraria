@@ -27,10 +27,13 @@ namespace Agraria.Util.Validaciones
 
         protected override void ValidarKeyPress(object sender, KeyPressEventArgs e)
         {
-            
+            if (!DireccionRegex().IsMatch(e.KeyChar.ToString()) && e.KeyChar != (char)Keys.Back)
+            {
+                e.Handled = true;
+            }
         }
 
-        [GeneratedRegex(@"^[a-zA-Z0-9áéíóúÁÉÍÓÚÀÈÌÒÙàèìòùñÑ\s.,#-]+$", RegexOptions.Compiled)]
+        [GeneratedRegex(@"^[a-zA-Z0-9áéíóúÁÉÍÓÚÀÈÌÒÙàèìòùñÑ\s.,#:-]+$", RegexOptions.Compiled)]
         private static partial Regex DireccionRegex();
     }
 }

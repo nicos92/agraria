@@ -13,7 +13,7 @@ namespace Agraria.Modelo.Entidades
         public string? Art_Cod { get; set; }
         public string? Descr { get; set; }
         public decimal P_Unit { get; set; }
-        public int Cant { get; set; }
+        public decimal Cant { get; set; }
         public decimal P_X_Cant { get; set; }
 
         public HRemitoDetalleProduccion() { }

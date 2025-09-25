@@ -370,8 +370,8 @@ namespace Agraria.UI.RemitoProduccion
         private void ConfigurarListBox()
         {
             // Configuración del control ListBox que reemplaza al ListView
-            LsvProductos.DisplayMember = "Art_Desc";
-            LsvProductos.ValueMember = "Cod_Articulo";
+            LsvProductos.DisplayMember = "Art_Nombre";
+            LsvProductos.ValueMember = "Art_Cod";
             LsvProductos.SelectionMode = SelectionMode.One;
         }
 
@@ -480,7 +480,7 @@ namespace Agraria.UI.RemitoProduccion
                 decimal subtotal = DecimalFormatter.ParseDecimal(LblPrecioTotal.Text.Split('$')[1]);
                 
                 // TODO: Crear la entidad de remito de producción correspondiente
-                // var remito = new HRemitoProduccion { ... };
+                //var remito = new HRemitoProduccion { ... };
 
                 // TODO: Llamar al servicio correspondiente para guardar el remito
                 // var result = await _remitoService.Add(remito, [.. _productosResumen]);

@@ -136,6 +136,7 @@
             TxtNombre.Name = "TxtNombre";
             TxtNombre.Size = new Size(402, 29);
             TxtNombre.TabIndex = 5;
+            TxtNombre.TextChanged += TxtNombre_TextChanged;
             // 
             // TxtDescripcion
             // 
@@ -149,6 +150,7 @@
             TxtDescripcion.Name = "TxtDescripcion";
             TxtDescripcion.Size = new Size(402, 122);
             TxtDescripcion.TabIndex = 9;
+            TxtDescripcion.TextChanged += TxtNombre_TextChanged;
             // 
             // label5
             // 
@@ -179,6 +181,7 @@
             BtnIngresar.Text = "INGRESAR";
             BtnIngresar.TextImageRelation = TextImageRelation.TextBeforeImage;
             BtnIngresar.UseVisualStyleBackColor = false;
+            BtnIngresar.Click += BtnIngresar_Click;
             // 
             // TxtCantidad
             // 
@@ -191,6 +194,7 @@
             TxtCantidad.Name = "TxtCantidad";
             TxtCantidad.Size = new Size(402, 29);
             TxtCantidad.TabIndex = 7;
+            TxtCantidad.TextChanged += TxtNombre_TextChanged;
             // 
             // label4
             // 

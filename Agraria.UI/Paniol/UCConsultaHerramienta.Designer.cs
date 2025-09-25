@@ -240,7 +240,7 @@
             TxtNombre.Name = "TxtNombre";
             TxtNombre.Size = new Size(271, 29);
             TxtNombre.TabIndex = 5;
-            TxtNombre.TextChanged += ValidarCamposEdicion;
+            TxtNombre.TextChanged += TxtNombre_TextChanged;
             // 
             // tableLayoutPanel2
             // 
@@ -307,7 +307,7 @@
             TxtDescripcion.Name = "TxtDescripcion";
             TxtDescripcion.Size = new Size(271, 138);
             TxtDescripcion.TabIndex = 9;
-            TxtDescripcion.TextChanged += ValidarCamposEdicion;
+            TxtDescripcion.TextChanged += TxtNombre_TextChanged;
             // 
             // label5
             // 
@@ -331,7 +331,7 @@
             TxtCantidad.Name = "TxtCantidad";
             TxtCantidad.Size = new Size(271, 29);
             TxtCantidad.TabIndex = 7;
-            TxtCantidad.TextChanged += ValidarCamposEdicion;
+            TxtCantidad.TextChanged += TxtNombre_TextChanged;
             // 
             // label4
             // 
@@ -366,6 +366,7 @@
             Name = "UCConsultaHerramienta";
             Size = new Size(804, 561);
             Load += UCConsultaHerramienta_Load;
+            VisibleChanged += UCConsultaHerramienta_VisibleChanged;
             tableLayoutPanel3.ResumeLayout(false);
             PanelLista.ResumeLayout(false);
             tableLayoutPanel1.ResumeLayout(false);

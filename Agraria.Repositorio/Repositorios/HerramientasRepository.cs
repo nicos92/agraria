@@ -70,7 +70,7 @@ namespace Agraria.Repositorio.Repositorios
             {
                 List<Herramientas> herramientas = [];
                 using var conn = Conexion();
-                using var cmd = new SqlCommand("SELECT Id_Herramienta, Nombre, Descripcion, Cantidad FROM Herramientas", conn);
+                using var cmd = new SqlCommand("SELECT Id_Herramienta, Nombre, Descripcion, Cantidad FROM Herramientas ORDER BY Id_Herramienta DESC", conn);
                 await conn.OpenAsync();
                 using var reader = await cmd.ExecuteReaderAsync();
                 while (await reader.ReadAsync())

@@ -21,7 +21,7 @@ namespace Agraria.Repositorio.Repositorios
             try
             {
                 using SqlConnection conn = Conexion();
-                using SqlCommand cmd = new("SELECT Id_Remito, Cod_Usuario, Fecha_Hora, Subtotal, Descu, Total FROM H_Remito_Produccion", conn);
+                using SqlCommand cmd = new("SELECT Id_Remito, Cod_Usuario, Fecha_Hora, Subtotal, Descu, Total FROM HRemitoProduccion", conn);
                 await conn.OpenAsync();
                 using DbDataReader reader = await cmd.ExecuteReaderAsync();
                 List<HRemitoProduccion> remitos = [];
@@ -55,7 +55,7 @@ namespace Agraria.Repositorio.Repositorios
             try
             {
                 using SqlConnection conn = Conexion();
-                using SqlCommand cmd = new("SELECT Id_Remito, Cod_Usuario, Fecha_Hora, Subtotal, Descu, Total FROM H_Remito_Produccion WHERE Id_Remito = @Id", conn);
+                using SqlCommand cmd = new("SELECT Id_Remito, Cod_Usuario, Fecha_Hora, Subtotal, Descu, Total FROM HRemitoProduccion WHERE Id_Remito = @Id", conn);
                 cmd.Parameters.AddWithValue("@Id", id);
                 await conn.OpenAsync();
                 using DbDataReader reader = await cmd.ExecuteReaderAsync();
@@ -89,7 +89,7 @@ namespace Agraria.Repositorio.Repositorios
             try
             {
                 using SqlConnection conn = Conexion();
-                using SqlCommand cmd = new("INSERT INTO H_Remito_Produccion (Cod_Usuario, Fecha_Hora, Subtotal, Descu, Total) VALUES (@Cod_Usuario, @Fecha_Hora, @Subtotal, @Descu, @Total)", conn);
+                using SqlCommand cmd = new("INSERT INTO HRemitoProduccion (Cod_Usuario, Fecha_Hora, Subtotal, Descu, Total) VALUES (@Cod_Usuario, @Fecha_Hora, @Subtotal, @Descu, @Total)", conn);
                 cmd.Parameters.AddWithValue("@Cod_Usuario", remito.Cod_Usuario);
                 cmd.Parameters.AddWithValue("@Fecha_Hora", remito.Fecha_Hora);
                 cmd.Parameters.AddWithValue("@Subtotal", remito.Subtotal);
@@ -125,7 +125,7 @@ namespace Agraria.Repositorio.Repositorios
             try
             {
                 using SqlConnection conn = Conexion();
-                using SqlCommand cmd = new("UPDATE H_Remito_Produccion SET Cod_Usuario = @Cod_Usuario, Fecha_Hora = @Fecha_Hora,  Subtotal = @Subtotal, Descu = @Descu, Total = @Total WHERE Id_Remito = @Id", conn);
+                using SqlCommand cmd = new("UPDATE HRemitoProduccion SET Cod_Usuario = @Cod_Usuario, Fecha_Hora = @Fecha_Hora,  Subtotal = @Subtotal, Descu = @Descu, Total = @Total WHERE Id_Remito = @Id", conn);
                 cmd.Parameters.AddWithValue("@Cod_Usuario", remito.Cod_Usuario);
                 cmd.Parameters.AddWithValue("@Fecha_Hora", remito.Fecha_Hora);
                 cmd.Parameters.AddWithValue("@Subtotal", remito.Subtotal);
@@ -156,7 +156,7 @@ namespace Agraria.Repositorio.Repositorios
             {
                 using var conexion = Conexion();
                 conexion.Open();
-                using var cmd = new SqlCommand("DELETE FROM H_Remito_Produccion WHERE Id_Remito = ?", conexion);
+                using var cmd = new SqlCommand("DELETE FROM HRemitoProduccion WHERE Id_Remito = @id", conexion);
                 cmd.Parameters.Add(new SqlParameter("@id", SqlDbType.Int) { Value = id });
                 int rowsAffected = cmd.ExecuteNonQuery();
                 return rowsAffected > 0
@@ -178,19 +178,19 @@ namespace Agraria.Repositorio.Repositorios
             try
             {
                 var remitos = new List<HRemitoProduccion>();
-                var query = new StringBuilder("SELECT r.Id_Remito, r.Cod_Usuario, r.Fecha_Hora, r.Subtotal, r.Descu, r.Total FROM H_Remito_Produccion r");
+                var query = new StringBuilder("SELECT r.Id_Remito, r.Cod_Usuario, r.Fecha_Hora, r.Subtotal, r.Descu, r.Total FROM HRemitoProduccion r");
                 var whereClause = new List<string>();
                 var parameters = new List<SqlParameter>();
 
                 // Filtro por rango de fechas - formato correcto para Access
-                whereClause.Add("r.Fecha_Hora BETWEEN ? AND ?");
+                whereClause.Add("r.Fecha_Hora BETWEEN @fechaDesde AND @fechaHasta");
                 parameters.Add(new SqlParameter("@fechaDesde", SqlDbType.Date) { Value = fechaDesde });
                 parameters.Add(new SqlParameter("@fechaHasta", SqlDbType.Date) { Value = fechaHasta });
 
                 // Filtro por ID de remito si se proporciona
                 if (idRemito.HasValue)
                 {
-                    whereClause.Add("r.Id_Remito = ?");
+                    whereClause.Add("r.Id_Remito = @idRemito");
                     parameters.Add(new SqlParameter("@idRemito", SqlDbType.Int) { Value = idRemito.Value });
                 }
 

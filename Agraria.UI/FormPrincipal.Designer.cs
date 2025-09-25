@@ -76,7 +76,7 @@
             PanelMenu.Location = new Point(0, 0);
             PanelMenu.Margin = new Padding(4);
             PanelMenu.Name = "PanelMenu";
-            PanelMenu.Size = new Size(200, 601);
+            PanelMenu.Size = new Size(200, 661);
             PanelMenu.TabIndex = 0;
             // 
             // BtnEntornos
@@ -328,7 +328,7 @@
             panel1.Dock = DockStyle.Top;
             panel1.Location = new Point(200, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(824, 32);
+            panel1.Size = new Size(884, 32);
             panel1.TabIndex = 2;
             // 
             // tableLayoutPanel1
@@ -349,7 +349,7 @@
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.RowCount = 1;
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanel1.Size = new Size(824, 32);
+            tableLayoutPanel1.Size = new Size(884, 32);
             tableLayoutPanel1.TabIndex = 0;
             // 
             // label5
@@ -358,7 +358,7 @@
             label5.AutoSize = true;
             label5.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label5.ForeColor = SystemColors.ButtonHighlight;
-            label5.Location = new Point(807, 5);
+            label5.Location = new Point(867, 5);
             label5.Name = "label5";
             label5.Size = new Size(14, 21);
             label5.TabIndex = 5;
@@ -425,14 +425,14 @@
             // FormPrincipal
             // 
             AutoScaleMode = AutoScaleMode.None;
-            ClientSize = new Size(1024, 601);
+            ClientSize = new Size(1084, 661);
             Controls.Add(panel1);
             Controls.Add(PanelMenu);
             Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             Icon = (Icon)resources.GetObject("$this.Icon");
             IsMdiContainer = true;
             Margin = new Padding(4);
-            MinimumSize = new Size(1040, 600);
+            MinimumSize = new Size(1100, 700);
             Name = "FormPrincipal";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "FormPrincipal";

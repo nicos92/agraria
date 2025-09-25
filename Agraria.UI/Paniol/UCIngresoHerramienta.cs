@@ -10,34 +10,28 @@ using System.Windows.Forms;
 using Agraria.Modelo.Entidades;
 using Agraria.Contrato.Servicios;
 using Serilog;
+using Agraria.Util.Validaciones;
 
 namespace Agraria.UI.Paniol
 {
     public partial class UCIngresoHerramienta : UserControl
     {
         private readonly IHerramientasService _herramientasService;
+        private readonly ValidadorTextBox _vTxtNombre;
+        private readonly ValidadorTextBox _vTxtCantidad;
+        private readonly ValidadorTextBox _vTxtDescripcion;
 
         public UCIngresoHerramienta(IHerramientasService herramientasService)
         {
             InitializeComponent();
             _herramientasService = herramientasService;
-            ConfigurarEventos();
+
+            _vTxtNombre = new ValidadorNombre(TxtNombre, new ErrorProvider()) { MensajeError = "EL nombre no puede esta vacio" };
+            _vTxtCantidad = new ValidadorEntero(TxtCantidad, new ErrorProvider()) { MensajeError = "La cantidad debe ser un numero mayor o igual a 0" };
+            _vTxtDescripcion = new ValidadorDireccion(TxtDescripcion, new ErrorProvider()) { MensajeError = "La descripcion no puede estar vacia" };
         }
 
-        private void ConfigurarEventos()
-        {
-            TxtNombre.TextChanged += ValidarCampos;
-            TxtCantidad.TextChanged += ValidarCampos;
-            BtnIngresar.Click += BtnIngresar_Click;
-        }
 
-        private void ValidarCampos(object sender, EventArgs e)
-        {
-            bool nombreValido = !string.IsNullOrWhiteSpace(TxtNombre.Text);
-            bool cantidadValida = int.TryParse(TxtCantidad.Text, out int cantidad) && cantidad >= 0;
-
-            BtnIngresar.Enabled = nombreValido && cantidadValida;
-        }
 
         private void BtnIngresar_Click(object sender, EventArgs e)
         {
@@ -90,6 +84,9 @@ namespace Agraria.UI.Paniol
             TxtCantidad.Clear();
         }
 
-        
+        private void TxtNombre_TextChanged(object sender, EventArgs e)
+        {
+            ValidadorMultiple.ValidacionMultiple(BtnIngresar, _vTxtNombre, _vTxtCantidad, _vTxtDescripcion);
+        }
     }
 }

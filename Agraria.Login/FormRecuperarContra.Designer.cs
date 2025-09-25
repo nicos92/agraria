@@ -65,7 +65,7 @@
             TLPFondo.Name = "TLPFondo";
             TLPFondo.RowCount = 1;
             TLPFondo.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            TLPFondo.Size = new Size(780, 457);
+            TLPFondo.Size = new Size(940, 557);
             TLPFondo.TabIndex = 1;
             // 
             // TLPLogo
@@ -79,14 +79,14 @@
             TLPLogo.Name = "TLPLogo";
             TLPLogo.RowCount = 1;
             TLPLogo.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            TLPLogo.Size = new Size(301, 451);
+            TLPLogo.Size = new Size(363, 551);
             TLPLogo.TabIndex = 9;
             // 
             // Logo
             // 
             Logo.Anchor = AnchorStyles.None;
             Logo.Image = Properties.Resources.EA_C_256_;
-            Logo.Location = new Point(22, 97);
+            Logo.Location = new Point(53, 147);
             Logo.Name = "Logo";
             Logo.Size = new Size(256, 256);
             Logo.SizeMode = PictureBoxSizeMode.Zoom;
@@ -104,7 +104,6 @@
             TLPInicio.Controls.Add(label3, 1, 4);
             TLPInicio.Controls.Add(TxtDNI, 1, 3);
             TLPInicio.Controls.Add(LblUsuario, 1, 2);
-            TLPInicio.Controls.Add(LblTitulo, 0, 1);
             TLPInicio.Controls.Add(label1, 1, 6);
             TLPInicio.Controls.Add(TxtContraDos, 1, 7);
             TLPInicio.Controls.Add(BtnIngresar, 1, 13);
@@ -113,12 +112,13 @@
             TLPInicio.Controls.Add(CMBPregunta, 1, 10);
             TLPInicio.Controls.Add(label2, 1, 9);
             TLPInicio.Controls.Add(LblInicioError, 1, 8);
+            TLPInicio.Controls.Add(LblTitulo, 0, 0);
             TLPInicio.Dock = DockStyle.Fill;
             TLPInicio.ForeColor = Color.FromArgb(255, 255, 255);
-            TLPInicio.Location = new Point(310, 3);
+            TLPInicio.Location = new Point(372, 3);
             TLPInicio.Name = "TLPInicio";
             TLPInicio.RowCount = 15;
-            TLPInicio.RowStyles.Add(new RowStyle(SizeType.Absolute, 8F));
+            TLPInicio.RowStyles.Add(new RowStyle(SizeType.Absolute, 130F));
             TLPInicio.RowStyles.Add(new RowStyle());
             TLPInicio.RowStyles.Add(new RowStyle());
             TLPInicio.RowStyles.Add(new RowStyle());
@@ -133,14 +133,14 @@
             TLPInicio.RowStyles.Add(new RowStyle());
             TLPInicio.RowStyles.Add(new RowStyle());
             TLPInicio.RowStyles.Add(new RowStyle(SizeType.Absolute, 8F));
-            TLPInicio.Size = new Size(467, 451);
+            TLPInicio.Size = new Size(565, 551);
             TLPInicio.TabIndex = 0;
             // 
             // TxtContra
             // 
             TxtContra.Anchor = AnchorStyles.Top;
             TxtContra.Cursor = Cursors.Hand;
-            TxtContra.Location = new Point(104, 133);
+            TxtContra.Location = new Point(154, 210);
             TxtContra.MaxLength = 255;
             TxtContra.Name = "TxtContra";
             TxtContra.PasswordChar = '*';
@@ -153,7 +153,7 @@
             // 
             label3.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             label3.AutoSize = true;
-            label3.Location = new Point(96, 109);
+            label3.Location = new Point(115, 186);
             label3.Name = "label3";
             label3.Size = new Size(141, 21);
             label3.TabIndex = 2;
@@ -163,7 +163,7 @@
             // 
             TxtDNI.Anchor = AnchorStyles.Top;
             TxtDNI.Cursor = Cursors.Hand;
-            TxtDNI.Location = new Point(104, 77);
+            TxtDNI.Location = new Point(154, 154);
             TxtDNI.MaxLength = 8;
             TxtDNI.Name = "TxtDNI";
             TxtDNI.Size = new Size(274, 29);
@@ -175,7 +175,7 @@
             // 
             LblUsuario.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             LblUsuario.AutoSize = true;
-            LblUsuario.Location = new Point(96, 53);
+            LblUsuario.Location = new Point(115, 130);
             LblUsuario.Name = "LblUsuario";
             LblUsuario.Size = new Size(98, 21);
             LblUsuario.TabIndex = 1;
@@ -188,7 +188,7 @@
             TLPInicio.SetColumnSpan(LblTitulo, 3);
             LblTitulo.Font = new Font("Segoe UI", 24F, FontStyle.Bold, GraphicsUnit.Point, 0);
             LblTitulo.ForeColor = Color.FromArgb(255, 255, 255);
-            LblTitulo.Location = new Point(20, 8);
+            LblTitulo.Location = new Point(69, 42);
             LblTitulo.Name = "LblTitulo";
             LblTitulo.Size = new Size(427, 45);
             LblTitulo.TabIndex = 0;
@@ -199,7 +199,7 @@
             // 
             label1.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             label1.AutoSize = true;
-            label1.Location = new Point(96, 165);
+            label1.Location = new Point(115, 242);
             label1.Name = "label1";
             label1.Size = new Size(210, 21);
             label1.TabIndex = 8;
@@ -209,7 +209,7 @@
             // 
             TxtContraDos.Anchor = AnchorStyles.Top;
             TxtContraDos.Cursor = Cursors.Hand;
-            TxtContraDos.Location = new Point(104, 189);
+            TxtContraDos.Location = new Point(154, 266);
             TxtContraDos.MaxLength = 255;
             TxtContraDos.Name = "TxtContraDos";
             TxtContraDos.PasswordChar = '*';
@@ -227,7 +227,7 @@
             BtnIngresar.FlatStyle = FlatStyle.Flat;
             BtnIngresar.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             BtnIngresar.ForeColor = Color.FromArgb(0, 75, 113);
-            BtnIngresar.Location = new Point(177, 379);
+            BtnIngresar.Location = new Point(227, 467);
             BtnIngresar.Name = "BtnIngresar";
             TLPInicio.SetRowSpan(BtnIngresar, 2);
             BtnIngresar.Size = new Size(128, 47);
@@ -241,7 +241,7 @@
             // 
             TxtRespues.Anchor = AnchorStyles.Top;
             TxtRespues.Cursor = Cursors.Hand;
-            TxtRespues.Location = new Point(104, 322);
+            TxtRespues.Location = new Point(154, 399);
             TxtRespues.MaxLength = 255;
             TxtRespues.Name = "TxtRespues";
             TxtRespues.Size = new Size(274, 29);
@@ -253,7 +253,7 @@
             // 
             label4.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             label4.AutoSize = true;
-            label4.Location = new Point(96, 298);
+            label4.Location = new Point(115, 375);
             label4.Name = "label4";
             label4.Size = new Size(180, 21);
             label4.TabIndex = 12;
@@ -264,7 +264,7 @@
             CMBPregunta.Anchor = AnchorStyles.Top;
             CMBPregunta.DropDownStyle = ComboBoxStyle.DropDownList;
             CMBPregunta.FormattingEnabled = true;
-            CMBPregunta.Location = new Point(104, 266);
+            CMBPregunta.Location = new Point(154, 343);
             CMBPregunta.Name = "CMBPregunta";
             CMBPregunta.Size = new Size(274, 29);
             CMBPregunta.TabIndex = 4;
@@ -273,7 +273,7 @@
             // 
             label2.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             label2.AutoSize = true;
-            label2.Location = new Point(96, 242);
+            label2.Location = new Point(115, 319);
             label2.Name = "label2";
             label2.Size = new Size(172, 21);
             label2.TabIndex = 10;
@@ -285,9 +285,9 @@
             LblInicioError.BackColor = Color.FromArgb(255, 218, 214);
             LblInicioError.Dock = DockStyle.Fill;
             LblInicioError.ForeColor = Color.FromArgb(65, 0, 2);
-            LblInicioError.Location = new Point(96, 221);
+            LblInicioError.Location = new Point(115, 298);
             LblInicioError.Name = "LblInicioError";
-            LblInicioError.Size = new Size(290, 21);
+            LblInicioError.Size = new Size(353, 21);
             LblInicioError.TabIndex = 14;
             LblInicioError.Text = "Las contraseñas no coinciden";
             LblInicioError.Visible = false;
@@ -295,14 +295,16 @@
             // FormRecuperarContra
             // 
             AutoScaleMode = AutoScaleMode.None;
-            ClientSize = new Size(780, 457);
+            ClientSize = new Size(940, 557);
             Controls.Add(TLPFondo);
             Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             FormBorderStyle = FormBorderStyle.Fixed3D;
             Icon = (Icon)resources.GetObject("$this.Icon");
             Margin = new Padding(4);
             MaximizeBox = false;
+            MaximumSize = new Size(960, 600);
             MinimizeBox = false;
+            MinimumSize = new Size(960, 600);
             Name = "FormRecuperarContra";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Escuela Agraria";

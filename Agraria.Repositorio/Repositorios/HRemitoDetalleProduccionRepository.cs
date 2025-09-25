@@ -19,7 +19,7 @@ namespace Agraria.Repositorio.Repositorios
             try
             {
                 using SqlConnection conn = Conexion();
-                using SqlCommand cmd = new("SELECT Id_Det_Remito, Id_Remito, Cod_Art, Descr, P_Unit, Cant, P_X_Cant FROM H_Remito_Detalle_Produccion", conn);
+                using SqlCommand cmd = new("SELECT Id_Det_Remito, Id_Remito, Art_Cod, Descr, P_Unit, Cant, P_X_Cant FROM HRemitoDetalleProduccion", conn);
                 await conn.OpenAsync();
                 using DbDataReader reader = await cmd.ExecuteReaderAsync();
                 List<HRemitoDetalleProduccion> detalles = [];
@@ -32,7 +32,7 @@ namespace Agraria.Repositorio.Repositorios
                         Art_Cod = reader.IsDBNull(2) ? null : reader.GetString(2),
                         Descr = reader.IsDBNull(3) ? null : reader.GetString(3),
                         P_Unit = reader.GetDecimal(4),
-                        Cant = reader.GetInt32(5),
+                        Cant = reader.GetDecimal(5),
                         P_X_Cant = reader.GetDecimal(6)
                     };
                     detalles.Add(detalle);
@@ -54,7 +54,7 @@ namespace Agraria.Repositorio.Repositorios
             try
             {
                 using SqlConnection conn = Conexion();
-                using SqlCommand cmd = new("SELECT Id_Det_Remito, Id_Remito, Cod_Art, Descr, P_Unit, Cant, P_X_Cant FROM H_Remito_Detalle_Produccion WHERE Id_Det_Remito = @Id", conn);
+                using SqlCommand cmd = new("SELECT Id_Det_Remito, Id_Remito, Art_Cod, Descr, P_Unit, Cant, P_X_Cant FROM HRemitoDetalleProduccion WHERE Id_Det_Remito = @Id", conn);
                 cmd.Parameters.AddWithValue("@Id", id);
                 await conn.OpenAsync();
                 using DbDataReader reader = await cmd.ExecuteReaderAsync();
@@ -67,7 +67,7 @@ namespace Agraria.Repositorio.Repositorios
                         Art_Cod = reader.IsDBNull(2) ? null : reader.GetString(2),
                         Descr = reader.IsDBNull(3) ? null : reader.GetString(3),
                         P_Unit = reader.GetDecimal(4),
-                        Cant = reader.GetInt32(5),
+                        Cant = reader.GetDecimal(5),
                         P_X_Cant = reader.GetDecimal(6)
                     };
                     return Result<HRemitoDetalleProduccion>.Success(detalle);
@@ -89,7 +89,7 @@ namespace Agraria.Repositorio.Repositorios
             try
             {
                 using SqlConnection conn = Conexion();
-                using SqlCommand cmd = new("SELECT Id_Det_Remito, Id_Remito, Cod_Art, Descr, P_Unit, Cant, P_X_Cant FROM H_Remito_Detalle_Produccion WHERE Id_Remito = @RemitoId", conn);
+                using SqlCommand cmd = new("SELECT Id_Det_Remito, Id_Remito, Art_Cod, Descr, P_Unit, Cant, P_X_Cant FROM HRemitoDetalleProduccion WHERE Id_Remito = @RemitoId", conn);
                 cmd.Parameters.AddWithValue("@RemitoId", remitoId);
                 await conn.OpenAsync();
                 using DbDataReader reader = await cmd.ExecuteReaderAsync();
@@ -103,7 +103,7 @@ namespace Agraria.Repositorio.Repositorios
                         Art_Cod = reader.IsDBNull(2) ? null : reader.GetString(2),
                         Descr = reader.IsDBNull(3) ? null : reader.GetString(3),
                         P_Unit = reader.GetDecimal(4),
-                        Cant = reader.GetInt32(5),
+                        Cant = reader.GetDecimal(5),
                         P_X_Cant = reader.GetDecimal(6)
                     };
                     detalles.Add(detalle);
@@ -125,9 +125,9 @@ namespace Agraria.Repositorio.Repositorios
             try
             {
                 using SqlConnection conn = Conexion();
-                using SqlCommand cmd = new("INSERT INTO H_Remito_Detalle_Produccion (Id_Remito, Cod_Art, Descr, P_Unit, Cant, P_X_Cant) VALUES (@Id_Remito, @Cod_Art, @Descr, @P_Unit, @Cant, @P_X_Cant)", conn);
+                using SqlCommand cmd = new("INSERT INTO HRemitoDetalleProduccion (Id_Remito, Art_Cod, Descr, P_Unit, Cant, P_X_Cant) VALUES (@Id_Remito, @Art_Cod, @Descr, @P_Unit, @Cant, @P_X_Cant)", conn);
                 cmd.Parameters.AddWithValue("@Id_Remito", detalle.Id_Remito);
-                cmd.Parameters.AddWithValue("@Cod_Art", (object?)detalle.Art_Cod ?? DBNull.Value);
+                cmd.Parameters.AddWithValue("@Art_Cod", (object?)detalle.Art_Cod ?? DBNull.Value);
                 cmd.Parameters.AddWithValue("@Descr", (object?)detalle.Descr ?? DBNull.Value);
                 cmd.Parameters.AddWithValue("@P_Unit", detalle.P_Unit);
                 cmd.Parameters.AddWithValue("@Cant", detalle.Cant);
@@ -162,9 +162,9 @@ namespace Agraria.Repositorio.Repositorios
             try
             {
                 using SqlConnection conn = Conexion();
-                using SqlCommand cmd = new("UPDATE H_Remito_Detalle_Produccion SET Id_Remito = @Id_Remito, Cod_Art = @Cod_Art, Descr = @Descr, P_Unit = @P_Unit, Cant = @Cant, P_X_Cant = @P_X_Cant WHERE Id_Det_Remito = @Id", conn);
+                using SqlCommand cmd = new("UPDATE HRemitoDetalleProduccion SET Id_Remito = @Id_Remito, Art_Cod = @Art_Cod, Descr = @Descr, P_Unit = @P_Unit, Cant = @Cant, P_X_Cant = @P_X_Cant WHERE Id_Det_Remito = @Id", conn);
                 cmd.Parameters.AddWithValue("@Id_Remito", detalle.Id_Remito);
-                cmd.Parameters.AddWithValue("@Cod_Art", (object?)detalle.Art_Cod ?? DBNull.Value);
+                cmd.Parameters.AddWithValue("@Art_Cod", (object?)detalle.Art_Cod ?? DBNull.Value);
                 cmd.Parameters.AddWithValue("@Descr", (object?)detalle.Descr ?? DBNull.Value);
                 cmd.Parameters.AddWithValue("@P_Unit", detalle.P_Unit);
                 cmd.Parameters.AddWithValue("@Cant", detalle.Cant);
@@ -193,7 +193,7 @@ namespace Agraria.Repositorio.Repositorios
             try
             {
                 using SqlConnection conn = Conexion();
-                using SqlCommand cmd = new("DELETE FROM H_Remito_Detalle_Produccion WHERE Id_Det_Remito = @Id", conn);
+                using SqlCommand cmd = new("DELETE FROM HRemitoDetalleProduccion WHERE Id_Det_Remito = @Id", conn);
                 cmd.Parameters.AddWithValue("@Id", id);
                 conn.Open();
                 int rowsAffected = cmd.ExecuteNonQuery();
@@ -218,7 +218,7 @@ namespace Agraria.Repositorio.Repositorios
             try
             {
                 using SqlConnection conn = Conexion();
-                using SqlCommand cmd = new("DELETE FROM H_Remito_Detalle_Produccion WHERE Id_Remito = @RemitoId", conn);
+                using SqlCommand cmd = new("DELETE FROM HRemitoDetalleProduccion WHERE Id_Remito = @RemitoId", conn);
                 cmd.Parameters.AddWithValue("@RemitoId", remitoId);
                 conn.Open();
                 cmd.ExecuteNonQuery();

@@ -1,15 +1,16 @@
-﻿using System;
+﻿using Agraria.Contrato.Servicios;
+using Agraria.Modelo.Entidades;
+using Agraria.Util.Validaciones;
+using Serilog;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
 using System.Data;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Agraria.Modelo.Entidades;
-using Agraria.Contrato.Servicios;
-using Serilog;
 
 namespace Agraria.UI.Paniol
 {
@@ -18,34 +19,34 @@ namespace Agraria.UI.Paniol
         private readonly IHerramientasService _herramientasService;
         private List<Herramientas> _herramientasList;
         private Herramientas _herramientaSeleccionada;
+        private readonly ValidadorTextBox _vTxtNombre;
+        private readonly ValidadorTextBox _vTxtCantidad;
+        private readonly ValidadorTextBox _vTxtDescripcion;
 
         public UCConsultaHerramienta(IHerramientasService herramientasService)
         {
             InitializeComponent();
             _herramientasService = herramientasService;
             _herramientasList = [];
-            ConfigurarEventos();
             ConfigurarDataGridView();
+            _vTxtNombre = new ValidadorNombre(TxtNombre, new ErrorProvider()) { MensajeError = "EL nombre no puede esta vacio" };
+            _vTxtCantidad = new ValidadorEntero(TxtCantidad, new ErrorProvider()) { MensajeError = "La cantidad debe ser un numero mayor o igual a 0" };
+            _vTxtDescripcion = new ValidadorDireccion(TxtDescripcion, new ErrorProvider()) { MensajeError = "La descripcion no puede estar vacia" };
         }
 
-        private void ConfigurarEventos()
-        {
-            
-            TxtNombre.TextChanged += ValidarCamposEdicion;
-            TxtCantidad.TextChanged += ValidarCamposEdicion;
-        }
+
 
         private void ConfigurarDataGridView()
         {
             // Configurar las columnas del DataGridView
             ListBArticulos.AutoGenerateColumns = false;
-            
+
             // Configurar las columnas existentes
             if (ListBArticulos.Columns["Codigo"] != null)
             {
                 ListBArticulos.Columns["Codigo"].DataPropertyName = "Id_Herramienta";
             }
-            
+
             if (ListBArticulos.Columns["Nombre"] != null)
             {
                 ListBArticulos.Columns["Nombre"].DataPropertyName = "Nombre";
@@ -62,9 +63,9 @@ namespace Agraria.UI.Paniol
             try
             {
                 ProgressBar.Visible = true;
-                
+
                 var resultado = await _herramientasService.GetAll();
-                
+
                 if (resultado.IsSuccess)
                 {
                     _herramientasList = resultado.Value;
@@ -100,8 +101,8 @@ namespace Agraria.UI.Paniol
                 _herramientaSeleccionada = null;
                 LimpiarCamposEdicion();
             }
-            
-            ValidarCamposEdicion(sender, e);
+
+            //ValidarCamposEdicion(sender, e);
         }
 
         private void CargarDatosEnFormulario(Herramientas herramienta)
@@ -131,7 +132,7 @@ namespace Agraria.UI.Paniol
             bool haySeleccion = _herramientaSeleccionada != null;
             bool nombreValido = !string.IsNullOrWhiteSpace(TxtNombre.Text);
             bool cantidadValida = int.TryParse(TxtCantidad.Text, out int cantidad) && cantidad >= 0;
-            
+
             BtnGuardar.Enabled = haySeleccion && nombreValido && cantidadValida;
             BtnEliminar.Enabled = haySeleccion;
         }
@@ -185,9 +186,9 @@ namespace Agraria.UI.Paniol
             if (_herramientaSeleccionada == null) return;
 
             DialogResult resultado = MessageBox.Show(
-                "¿Está seguro que desea eliminar esta herramienta?", 
-                "Confirmar eliminación", 
-                MessageBoxButtons.YesNo, 
+                "¿Está seguro que desea eliminar esta herramienta?",
+                "Confirmar eliminación",
+                MessageBoxButtons.YesNo,
                 MessageBoxIcon.Question);
 
             if (resultado == DialogResult.Yes)
@@ -221,6 +222,17 @@ namespace Agraria.UI.Paniol
                     BtnEliminar.Enabled = true;
                 }
             }
+        }
+
+        private void TxtNombre_TextChanged(object sender, EventArgs e)
+        {
+            ValidadorMultiple.ValidacionMultiple(BtnGuardar, _vTxtNombre, _vTxtCantidad, _vTxtDescripcion);
+        }
+
+        private async void UCConsultaHerramienta_VisibleChanged(object sender, EventArgs e)
+        {
+            if (this.Visible)
+                await CargarHerramientas();
         }
     }
 }
