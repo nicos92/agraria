@@ -76,6 +76,7 @@ namespace Agraria.UI
 
                     // Actualizar el título de la ventana de forma segura
                     this.Text = $"Escuela Agraria - {btn.Text}";
+                    LblModulo.Text = btn.Text;
                     _logger.LogInformation("Formulario {TypeName} seleccionado y título actualizado.", tipoForm.Name);
                 }
                 else
@@ -139,6 +140,7 @@ namespace Agraria.UI
                 if (childForm.GetType() == tipoForm)
                 {
                     _logger.LogDebug("Formulario {TypeName} ya existe, mostrando.", tipoForm.Name);
+
                     // Si el formulario ya está abierto, solo lo mostramos y terminamos
                     childForm.Show();
                     return;

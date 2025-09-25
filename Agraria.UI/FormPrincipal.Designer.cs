@@ -45,7 +45,7 @@
             LblEscuelaAgraria = new Label();
             panel1 = new Panel();
             tableLayoutPanel1 = new TableLayoutPanel();
-            label5 = new Label();
+            LblModulo = new Label();
             LblTipoUsuario = new Label();
             label3 = new Label();
             LblUsuario = new Label();
@@ -334,16 +334,16 @@
             // tableLayoutPanel1
             // 
             tableLayoutPanel1.ColumnCount = 5;
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle());
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle());
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle());
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle());
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle());
-            tableLayoutPanel1.Controls.Add(label5, 4, 0);
-            tableLayoutPanel1.Controls.Add(LblTipoUsuario, 3, 0);
-            tableLayoutPanel1.Controls.Add(label3, 2, 0);
-            tableLayoutPanel1.Controls.Add(LblUsuario, 1, 0);
-            tableLayoutPanel1.Controls.Add(label1, 0, 0);
+            tableLayoutPanel1.Controls.Add(LblModulo, 0, 0);
+            tableLayoutPanel1.Controls.Add(label1, 1, 0);
+            tableLayoutPanel1.Controls.Add(LblUsuario, 2, 0);
+            tableLayoutPanel1.Controls.Add(label3, 3, 0);
+            tableLayoutPanel1.Controls.Add(LblTipoUsuario, 4, 0);
             tableLayoutPanel1.Dock = DockStyle.Fill;
             tableLayoutPanel1.Location = new Point(0, 0);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -352,18 +352,18 @@
             tableLayoutPanel1.Size = new Size(884, 32);
             tableLayoutPanel1.TabIndex = 0;
             // 
-            // label5
+            // LblModulo
             // 
-            label5.Anchor = AnchorStyles.Right;
-            label5.AutoSize = true;
-            label5.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label5.ForeColor = SystemColors.ButtonHighlight;
-            label5.Location = new Point(867, 5);
-            label5.Name = "label5";
-            label5.Size = new Size(14, 21);
-            label5.TabIndex = 5;
-            label5.Text = "|";
-            label5.TextAlign = ContentAlignment.MiddleCenter;
+            LblModulo.Anchor = AnchorStyles.Left;
+            LblModulo.AutoSize = true;
+            LblModulo.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            LblModulo.ForeColor = SystemColors.ButtonHighlight;
+            LblModulo.Location = new Point(3, 5);
+            LblModulo.Name = "LblModulo";
+            LblModulo.Size = new Size(68, 21);
+            LblModulo.TabIndex = 5;
+            LblModulo.Text = "Modulo";
+            LblModulo.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // LblTipoUsuario
             // 
@@ -371,7 +371,7 @@
             LblTipoUsuario.AutoSize = true;
             LblTipoUsuario.Font = new Font("Segoe UI", 12F);
             LblTipoUsuario.ForeColor = SystemColors.ButtonHighlight;
-            LblTipoUsuario.Location = new Point(380, 5);
+            LblTipoUsuario.Location = new Point(765, 5);
             LblTipoUsuario.Name = "LblTipoUsuario";
             LblTipoUsuario.Size = new Size(116, 21);
             LblTipoUsuario.TabIndex = 4;
@@ -386,7 +386,7 @@
             label3.ForeColor = SystemColors.ButtonHighlight;
             label3.Image = Properties.Resources.usergear16px;
             label3.ImageAlign = ContentAlignment.MiddleLeft;
-            label3.Location = new Point(229, 5);
+            label3.Location = new Point(614, 5);
             label3.Margin = new Padding(16, 0, 3, 0);
             label3.Name = "label3";
             label3.Size = new Size(145, 21);
@@ -400,7 +400,7 @@
             LblUsuario.AutoSize = true;
             LblUsuario.Font = new Font("Segoe UI", 12F);
             LblUsuario.ForeColor = SystemColors.ButtonHighlight;
-            LblUsuario.Location = new Point(94, 5);
+            LblUsuario.Location = new Point(479, 5);
             LblUsuario.Name = "LblUsuario";
             LblUsuario.Size = new Size(116, 21);
             LblUsuario.TabIndex = 2;
@@ -415,7 +415,7 @@
             label1.ForeColor = SystemColors.ButtonHighlight;
             label1.Image = Properties.Resources.user16px;
             label1.ImageAlign = ContentAlignment.MiddleLeft;
-            label1.Location = new Point(3, 5);
+            label1.Location = new Point(388, 5);
             label1.Name = "label1";
             label1.Size = new Size(85, 21);
             label1.TabIndex = 1;
@@ -468,7 +468,7 @@
         private Label label3;
         private Label LblUsuario;
         private Label label1;
-        private Label label5;
+        private Label LblModulo;
         private Button BtnEntornos;
     }
 }
