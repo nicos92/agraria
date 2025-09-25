@@ -21,7 +21,7 @@ namespace Agraria.Repositorio.Repositorios
             try
             {
                 using SqlConnection conn = Conexion();
-                using SqlCommand cmd = new("SELECT Id_Remito, Cod_Usuario, Fecha_Hora, Subtotal, Descu, Total FROM HRemitoProduccion", conn);
+                using SqlCommand cmd = new("SELECT Id_Remito, Cod_Usuario, Fecha_Hora, Subtotal, Descu, Total FROM HRemitoProduccion ORDER BY Id_Remito DESC", conn);
                 await conn.OpenAsync();
                 using DbDataReader reader = await cmd.ExecuteReaderAsync();
                 List<HRemitoProduccion> remitos = [];
