@@ -43,6 +43,7 @@ partial class FormLogin
         LblUsuario = new Label();
         LblOlvide = new LinkLabel();
         LblTitulo = new Label();
+        ProgressBar = new ProgressBar();
         TLPFondo.SuspendLayout();
         TLPLogo.SuspendLayout();
         ((System.ComponentModel.ISupportInitialize)Logo).BeginInit();
@@ -58,11 +59,11 @@ partial class FormLogin
         TLPFondo.Controls.Add(TLPLogo, 0, 0);
         TLPFondo.Controls.Add(TLPInicio, 1, 0);
         TLPFondo.Dock = DockStyle.Fill;
-        TLPFondo.Location = new Point(0, 0);
+        TLPFondo.Location = new Point(0, 16);
         TLPFondo.Name = "TLPFondo";
         TLPFondo.RowCount = 1;
         TLPFondo.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-        TLPFondo.Size = new Size(940, 557);
+        TLPFondo.Size = new Size(940, 541);
         TLPFondo.TabIndex = 0;
         // 
         // TLPLogo
@@ -76,14 +77,14 @@ partial class FormLogin
         TLPLogo.Name = "TLPLogo";
         TLPLogo.RowCount = 1;
         TLPLogo.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-        TLPLogo.Size = new Size(363, 551);
+        TLPLogo.Size = new Size(363, 535);
         TLPLogo.TabIndex = 9;
         // 
         // Logo
         // 
         Logo.Anchor = AnchorStyles.None;
         Logo.Image = Properties.Resources.EA_C_256_;
-        Logo.Location = new Point(53, 147);
+        Logo.Location = new Point(53, 139);
         Logo.Name = "Logo";
         Logo.Size = new Size(256, 256);
         Logo.SizeMode = PictureBoxSizeMode.Zoom;
@@ -110,17 +111,17 @@ partial class FormLogin
         TLPInicio.Location = new Point(372, 3);
         TLPInicio.Name = "TLPInicio";
         TLPInicio.RowCount = 10;
-        TLPInicio.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-        TLPInicio.RowStyles.Add(new RowStyle(SizeType.Percent, 20.3155823F));
-        TLPInicio.RowStyles.Add(new RowStyle(SizeType.Percent, 7.88954639F));
-        TLPInicio.RowStyles.Add(new RowStyle(SizeType.Percent, 9.288538F));
-        TLPInicio.RowStyles.Add(new RowStyle(SizeType.Percent, 7.69230747F));
-        TLPInicio.RowStyles.Add(new RowStyle(SizeType.Percent, 9.861933F));
-        TLPInicio.RowStyles.Add(new RowStyle(SizeType.Percent, 14.7928991F));
-        TLPInicio.RowStyles.Add(new RowStyle(SizeType.Percent, 14.7928991F));
-        TLPInicio.RowStyles.Add(new RowStyle(SizeType.Percent, 15.3846149F));
-        TLPInicio.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-        TLPInicio.Size = new Size(565, 551);
+        TLPInicio.RowStyles.Add(new RowStyle(SizeType.Absolute, 64F));
+        TLPInicio.RowStyles.Add(new RowStyle(SizeType.Percent, 12.5F));
+        TLPInicio.RowStyles.Add(new RowStyle(SizeType.Percent, 12.5F));
+        TLPInicio.RowStyles.Add(new RowStyle(SizeType.Percent, 12.5F));
+        TLPInicio.RowStyles.Add(new RowStyle(SizeType.Percent, 7.913669F));
+        TLPInicio.RowStyles.Add(new RowStyle(SizeType.Percent, 14.1486807F));
+        TLPInicio.RowStyles.Add(new RowStyle(SizeType.Percent, 11.7506F));
+        TLPInicio.RowStyles.Add(new RowStyle(SizeType.Percent, 16.3069553F));
+        TLPInicio.RowStyles.Add(new RowStyle(SizeType.Percent, 12.5F));
+        TLPInicio.RowStyles.Add(new RowStyle(SizeType.Absolute, 64F));
+        TLPInicio.Size = new Size(565, 535);
         TLPInicio.TabIndex = 0;
         // 
         // BtnIngresar
@@ -133,7 +134,7 @@ partial class FormLogin
         BtnIngresar.FlatStyle = FlatStyle.Flat;
         BtnIngresar.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
         BtnIngresar.ForeColor = Color.FromArgb(0, 75, 113);
-        BtnIngresar.Location = new Point(218, 377);
+        BtnIngresar.Location = new Point(218, 353);
         BtnIngresar.Name = "BtnIngresar";
         BtnIngresar.Size = new Size(128, 48);
         BtnIngresar.TabIndex = 3;
@@ -144,11 +145,11 @@ partial class FormLogin
         // 
         // LblInicioError
         // 
-        LblInicioError.Anchor = AnchorStyles.None;
+        LblInicioError.Anchor = AnchorStyles.Top;
         LblInicioError.AutoSize = true;
         LblInicioError.BackColor = Color.FromArgb(255, 218, 214);
         LblInicioError.ForeColor = Color.FromArgb(65, 0, 2);
-        LblInicioError.Location = new Point(155, 326);
+        LblInicioError.Location = new Point(155, 303);
         LblInicioError.Name = "LblInicioError";
         LblInicioError.Size = new Size(254, 21);
         LblInicioError.TabIndex = 7;
@@ -158,7 +159,7 @@ partial class FormLogin
         // 
         TxtContra.Anchor = AnchorStyles.Top;
         TxtContra.Cursor = Cursors.Hand;
-        TxtContra.Location = new Point(145, 252);
+        TxtContra.Location = new Point(145, 249);
         TxtContra.MaxLength = 255;
         TxtContra.Name = "TxtContra";
         TxtContra.PasswordChar = '*';
@@ -172,7 +173,7 @@ partial class FormLogin
         // 
         label3.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
         label3.AutoSize = true;
-        label3.Location = new Point(116, 228);
+        label3.Location = new Point(116, 225);
         label3.Name = "label3";
         label3.Size = new Size(92, 21);
         label3.TabIndex = 2;
@@ -182,7 +183,7 @@ partial class FormLogin
         // 
         TxtDni.Anchor = AnchorStyles.Top;
         TxtDni.Cursor = Cursors.Hand;
-        TxtDni.Location = new Point(145, 166);
+        TxtDni.Location = new Point(145, 167);
         TxtDni.MaxLength = 8;
         TxtDni.Name = "TxtDni";
         TxtDni.Size = new Size(274, 29);
@@ -195,7 +196,7 @@ partial class FormLogin
         // 
         LblUsuario.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
         LblUsuario.AutoSize = true;
-        LblUsuario.Location = new Point(116, 142);
+        LblUsuario.Location = new Point(116, 143);
         LblUsuario.Name = "LblUsuario";
         LblUsuario.Size = new Size(98, 21);
         LblUsuario.TabIndex = 1;
@@ -207,7 +208,7 @@ partial class FormLogin
         LblOlvide.Anchor = AnchorStyles.None;
         LblOlvide.AutoSize = true;
         LblOlvide.LinkColor = Color.FromArgb(255, 255, 255);
-        LblOlvide.Location = new Point(187, 467);
+        LblOlvide.Location = new Point(187, 420);
         LblOlvide.Name = "LblOlvide";
         LblOlvide.Size = new Size(190, 42);
         LblOlvide.TabIndex = 4;
@@ -223,17 +224,29 @@ partial class FormLogin
         TLPInicio.SetColumnSpan(LblTitulo, 3);
         LblTitulo.Font = new Font("Segoe UI", 24F, FontStyle.Bold, GraphicsUnit.Point, 0);
         LblTitulo.ForeColor = Color.FromArgb(255, 255, 255);
-        LblTitulo.Location = new Point(132, 49);
+        LblTitulo.Location = new Point(132, 66);
         LblTitulo.Name = "LblTitulo";
         LblTitulo.Size = new Size(301, 45);
         LblTitulo.TabIndex = 0;
         LblTitulo.Text = "INICIO DE SESIÓN";
+        // 
+        // ProgressBar
+        // 
+        ProgressBar.Dock = DockStyle.Top;
+        ProgressBar.Location = new Point(0, 0);
+        ProgressBar.Name = "ProgressBar";
+        ProgressBar.Size = new Size(940, 16);
+        ProgressBar.Step = 20;
+        ProgressBar.Style = ProgressBarStyle.Marquee;
+        ProgressBar.TabIndex = 8;
+        ProgressBar.Visible = false;
         // 
         // FormLogin
         // 
         AutoScaleMode = AutoScaleMode.None;
         ClientSize = new Size(940, 557);
         Controls.Add(TLPFondo);
+        Controls.Add(ProgressBar);
         Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
         FormBorderStyle = FormBorderStyle.Fixed3D;
         Icon = (Icon)resources.GetObject("$this.Icon");
@@ -267,4 +280,5 @@ partial class FormLogin
     private PictureBox Logo;
     private LinkLabel LblOlvide;
     private TableLayoutPanel TLPLogo;
+    private ProgressBar ProgressBar;
 }

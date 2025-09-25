@@ -63,13 +63,13 @@ public partial class FormLogin : Form
 
         try
         {
-            // Authenticate user using the optimized method
+            TLPInicio.Enabled = false;
+            ProgressBar.Visible = true;
             var result = await _usuariosService.GetByDniAndPassword(TxtDni.Text, TxtContra.Text);
 
             if (result.IsSuccess && result.Value != null)
             {
-                // Authentication successful
-                // Store user data in session manager
+               
                 SessionManager.Instance.SetUsuario(result.Value);
                 
                 // Aca llamo al formulario principal que esta en Agraria.UI
@@ -87,9 +87,11 @@ public partial class FormLogin : Form
             {
                 // Authentication failed
                 LblInicioError.Visible = true;
-                MessageBox.Show(result.Error, "No Se pudo iniciar sesion", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(result.Error, "No se pudo iniciar sesion", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-        }catch(InvalidOperationException ex)
+            
+        }
+        catch(InvalidOperationException ex)
         {
             MessageBox.Show("Error durante la autenticación: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             LblInicioError.Visible = true;
@@ -98,6 +100,12 @@ public partial class FormLogin : Form
         {
             MessageBox.Show("Error durante la autenticación: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             LblInicioError.Visible = true;
+        }
+        finally
+        {
+            TLPInicio.Enabled = true;
+            ProgressBar.Visible = false;
+            TxtDni.Focus();
         }
     }
 
