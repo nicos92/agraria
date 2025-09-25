@@ -20,7 +20,7 @@ namespace Agraria.Repositorio.Repositorios
             try
             {
                 using SqlConnection conn = Conexion();
-                using SqlCommand cmd = new("SELECT Id_Actividad, Id_TipoEntorno, Id_Entorno, id_EntornoFormativo, Fecha_Actividad, Descripcion_Actividad FROM Actividad ORDER BY Fecha_Actividad DESC", conn);
+                using SqlCommand cmd = new("SELECT TOP 1000 Id_Actividad, Id_TipoEntorno, Id_Entorno, id_EntornoFormativo, Fecha_Actividad, Descripcion_Actividad FROM Actividad ORDER BY Fecha_Actividad DESC", conn);
                 await conn.OpenAsync();
                 using DbDataReader reader = await cmd.ExecuteReaderAsync();
                 List<Actividad> actividades = [];
@@ -54,7 +54,7 @@ namespace Agraria.Repositorio.Repositorios
             try
             {
                 using SqlConnection conn = Conexion();
-                using SqlCommand cmd = new("SELECT TOP 10 e.Curso_Anio, e.Curso_Division, e.Curso_Grupo, a.Fecha_Actividad, a.Descripcion_Actividad FROM Actividad a INNER JOIN EntornoFormativo e ON a.Id_EntornoFormativo = e.Id_EntornoFormativo ORDER BY a.Fecha_Actividad DESC; ", conn);
+                using SqlCommand cmd = new("SELECT TOP 10 a.Id_Actividad, e.Curso_Anio, e.Curso_Division, e.Curso_Grupo, a.Fecha_Actividad, a.Descripcion_Actividad FROM Actividad a INNER JOIN EntornoFormativo e ON a.Id_EntornoFormativo = e.Id_EntornoFormativo ORDER BY a.Fecha_Actividad DESC; ", conn);
                 await conn.OpenAsync();
                 using DbDataReader reader = await cmd.ExecuteReaderAsync();
                 List<ActividadesCurso> actividades = [];
@@ -62,11 +62,12 @@ namespace Agraria.Repositorio.Repositorios
                 {
                     ActividadesCurso actividadesCurso = new 
                     (
-                        reader.GetString(0),
+                        reader.GetInt32(0),
                         reader.GetString(1),
                         reader.GetString(2),
-                        reader.GetDateTime(3),
-                        reader.GetString(4)
+                        reader.GetString(3),
+                        reader.GetDateTime(4),
+                        reader.GetString(5)
                     );
                     actividades.Add(actividadesCurso);
                 }

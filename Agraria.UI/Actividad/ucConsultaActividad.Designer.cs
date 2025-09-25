@@ -558,8 +558,9 @@
             CMFTipoEntorno.Font = new Font("Segoe UI", 12F);
             CMFTipoEntorno.FormattingEnabled = true;
             CMFTipoEntorno.Location = new Point(988, 11);
+            CMFTipoEntorno.Margin = new Padding(3, 3, 8, 3);
             CMFTipoEntorno.Name = "CMFTipoEntorno";
-            CMFTipoEntorno.Size = new Size(195, 29);
+            CMFTipoEntorno.Size = new Size(190, 29);
             CMFTipoEntorno.TabIndex = 31;
             CMFTipoEntorno.SelectedIndexChanged += CMFTipoEntorno_SelectedIndexChanged;
             // 

@@ -227,6 +227,7 @@ namespace Agraria.UI.RemitoProduccion
             LblSubtotal.Text = DecimalFormatter.ToCurrency(remito.Subtotal);
             LblDescuento.Text = DecimalFormatter.ToCurrency(remito.Descu);
             LblTotal.Text = DecimalFormatter.ToCurrency(remito.Total);
+            LblDescripcion.Text = remito.Descripcion ?? "";
 
             // Cargar información adicional (cliente, usuario) de forma asíncrona
             // TODO: Descomentar cuando los servicios estén disponibles
@@ -272,7 +273,7 @@ namespace Agraria.UI.RemitoProduccion
         {
             LblIdRemito.Text = "";
             LblFecha.Text = "";
-            LblCliente.Text = "";
+            LblDescripcion.Text = "";
             LblUsuario.Text = "";
             LblSubtotal.Text = "";
             LblDescuento.Text = "";
@@ -343,7 +344,7 @@ namespace Agraria.UI.RemitoProduccion
                 PbProgreso.Style = ProgressBarStyle.Marquee;
 
                 DateTime fechaDesde = DtpFechaDesde.Value.Date;
-                DateTime fechaHasta = DtpFechaHasta.Value.Date.AddDays(1).AddTicks(-1); // Fin del día
+                DateTime fechaHasta = DtpFechaHasta.Value.Date.AddDays(1); // Fin del día
                 string cliente = TxtCliente.Text.Trim();
                 string idRemitoText = TxtIdRemito.Text.Trim();
                 

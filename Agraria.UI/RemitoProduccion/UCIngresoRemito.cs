@@ -21,7 +21,7 @@ namespace Agraria.UI.RemitoProduccion
 {
     public partial class UCIngresoRemito : UserControl
     {
-        
+
         private readonly IArticulosGralService _articulosGralService;
         private readonly IHRemitoProduccionService _remitoProduccionService;
         private readonly IHRemitoDetalleProduccionService _remitoDetalleProduccionService;
@@ -215,6 +215,11 @@ namespace Agraria.UI.RemitoProduccion
 
         private void BtnAceptar_Click(object sender, EventArgs e)
         {
+            AgregarItem();
+        }
+
+        private void AgregarItem()
+        {
             if (LsvProductos.SelectedItem is ArticulosGral producto)
             {
                 decimal cantidad = NumericUpDown1.Value;
@@ -388,8 +393,8 @@ namespace Agraria.UI.RemitoProduccion
                 string filtro = TxtBuscardor.Text.Trim().ToLowerInvariant();
 
                 var productosFiltrados = _todosLosProductos
-                    .Where(p => string.IsNullOrEmpty(filtro) || 
-                               (p.Art_Nombre != null && p.Art_Nombre.Contains(filtro, StringComparison.InvariantCultureIgnoreCase)) || 
+                    .Where(p => string.IsNullOrEmpty(filtro) ||
+                               (p.Art_Nombre != null && p.Art_Nombre.Contains(filtro, StringComparison.InvariantCultureIgnoreCase)) ||
                                (p.Art_Cod != null && p.Art_Cod.StartsWith(filtro)))
                     .ToList();
 
@@ -483,9 +488,10 @@ namespace Agraria.UI.RemitoProduccion
             {
                 decimal subtotal = DecimalFormatter.ParseDecimal(LblPrecioTotal.Text.Split('$')[1]);
                 decimal descuento = 0; // No hay descuento en remitos de producción
+                string descripcion = TxtDescripcion.Text;
 
-                var hRemitoProduccion = CrearEntidadRemito(subtotal, descuento);
-                
+                var hRemitoProduccion = CrearEntidadRemito(subtotal, descuento, descripcion);
+
                 var addResult = _remitoProduccionService.Add(hRemitoProduccion);
                 if (addResult.IsSuccess)
                 {
@@ -736,19 +742,19 @@ namespace Agraria.UI.RemitoProduccion
                     break;
 
                 case Keys.F12:
-                    _ = ConfirmarRemitoAsync(); // Usamos el operador de descarte (_) para no esperar
+                     ConfirmarRemitoAsync(); // Usamos el operador de descarte (_) para no esperar
                     return true;
             }
 
             return base.ProcessCmdKey(ref msg, keyData);
         }
 
-        private HRemitoProduccion CrearEntidadRemito(decimal subtotal, decimal descuento)
+        private static HRemitoProduccion CrearEntidadRemito(decimal subtotal, decimal descuento, string descripcion)
         {
             return new HRemitoProduccion
             {
                 Cod_Usuario = SessionManager.Instance.Usuario.Id_Usuario,
-                Descripcion = "Remito de producción", 
+                Descripcion = descripcion,
                 Descu = descuento,
                 Subtotal = subtotal,
                 Total = subtotal - descuento,
@@ -787,6 +793,11 @@ namespace Agraria.UI.RemitoProduccion
                 }
             }
             return Result<bool>.Success(true);
+        }
+
+        private void LsvProductos_DoubleClick(object sender, EventArgs e)
+        {
+            AgregarItem();
         }
     }
 }

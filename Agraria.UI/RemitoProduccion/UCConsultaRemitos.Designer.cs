@@ -67,7 +67,7 @@ namespace Agraria.UI.RemitoProduccion
             LblFecha = new Label();
             tableLayoutPanel10 = new TableLayoutPanel();
             label6 = new Label();
-            LblCliente = new Label();
+            LblDescripcion = new Label();
             tableLayoutPanel11 = new TableLayoutPanel();
             label8 = new Label();
             LblUsuario = new Label();
@@ -245,6 +245,7 @@ namespace Agraria.UI.RemitoProduccion
             label3.Size = new Size(61, 21);
             label3.TabIndex = 4;
             label3.Text = "Cliente";
+            label3.Visible = false;
             // 
             // TxtCliente
             // 
@@ -256,6 +257,7 @@ namespace Agraria.UI.RemitoProduccion
             TxtCliente.Name = "TxtCliente";
             TxtCliente.Size = new Size(105, 29);
             TxtCliente.TabIndex = 5;
+            TxtCliente.Visible = false;
             // 
             // DtpFechaHasta
             // 
@@ -393,9 +395,9 @@ namespace Agraria.UI.RemitoProduccion
             label14.AutoSize = true;
             label14.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label14.ForeColor = Color.FromArgb(26, 28, 30);
-            label14.Location = new Point(74, 2);
+            label14.Location = new Point(65, 2);
             label14.Name = "label14";
-            label14.Size = new Size(109, 21);
+            label14.Size = new Size(118, 21);
             label14.TabIndex = 16;
             label14.Text = "TOTAL REMITO";
             // 
@@ -608,7 +610,7 @@ namespace Agraria.UI.RemitoProduccion
             tableLayoutPanel10.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 26.8498936F));
             tableLayoutPanel10.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 73.15011F));
             tableLayoutPanel10.Controls.Add(label6, 0, 0);
-            tableLayoutPanel10.Controls.Add(LblCliente, 1, 0);
+            tableLayoutPanel10.Controls.Add(LblDescripcion, 1, 0);
             tableLayoutPanel10.Dock = DockStyle.Fill;
             tableLayoutPanel10.Location = new Point(3, 63);
             tableLayoutPanel10.Name = "tableLayoutPanel10";
@@ -623,23 +625,23 @@ namespace Agraria.UI.RemitoProduccion
             label6.AutoSize = true;
             label6.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label6.ForeColor = Color.FromArgb(26, 28, 30);
-            label6.Location = new Point(27, 2);
+            label6.Location = new Point(10, 0);
             label6.Name = "label6";
-            label6.Size = new Size(70, 21);
+            label6.Size = new Size(87, 25);
             label6.TabIndex = 20;
-            label6.Text = "CLIENTE";
+            label6.Text = "DESCRIPCION:";
             // 
-            // LblCliente
+            // LblDescripcion
             // 
-            LblCliente.Anchor = AnchorStyles.Left;
-            LblCliente.AutoSize = true;
-            LblCliente.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            LblCliente.ForeColor = Color.FromArgb(26, 28, 30);
-            LblCliente.Location = new Point(103, 2);
-            LblCliente.Name = "LblCliente";
-            LblCliente.Size = new Size(19, 21);
-            LblCliente.TabIndex = 19;
-            LblCliente.Text = "0";
+            LblDescripcion.Anchor = AnchorStyles.Left;
+            LblDescripcion.AutoSize = true;
+            LblDescripcion.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            LblDescripcion.ForeColor = Color.FromArgb(26, 28, 30);
+            LblDescripcion.Location = new Point(103, 2);
+            LblDescripcion.Name = "LblDescripcion";
+            LblDescripcion.Size = new Size(19, 21);
+            LblDescripcion.TabIndex = 19;
+            LblDescripcion.Text = "0";
             // 
             // tableLayoutPanel11
             // 
@@ -792,7 +794,7 @@ namespace Agraria.UI.RemitoProduccion
         private Label label8;
         private Label LblUsuario;
         private Label label6;
-        private Label LblCliente;
+        private Label LblDescripcion;
         private Label label4;
         private Label LblFecha;
         private Label label7;

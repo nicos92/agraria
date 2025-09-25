@@ -21,7 +21,7 @@ namespace Agraria.Repositorio.Repositorios
             try
             {
                 using SqlConnection conn = Conexion();
-                using SqlCommand cmd = new("SELECT Id_Remito, Cod_Usuario, Fecha_Hora, Subtotal, Descu, Total FROM HRemitoProduccion ORDER BY Id_Remito DESC", conn);
+                using SqlCommand cmd = new("SELECT Id_Remito, Cod_Usuario, Fecha_Hora, Subtotal, Descu, Total, Descripcion FROM HRemitoProduccion ORDER BY Id_Remito DESC", conn);
                 await conn.OpenAsync();
                 using DbDataReader reader = await cmd.ExecuteReaderAsync();
                 List<HRemitoProduccion> remitos = [];
@@ -34,7 +34,8 @@ namespace Agraria.Repositorio.Repositorios
                         Fecha_Hora = reader.GetDateTime(2),
                         Subtotal = reader.GetDecimal(3),
                         Descu = reader.GetDecimal(4),
-                        Total = reader.GetDecimal(5)
+                        Total = reader.GetDecimal(5),
+                        Descripcion = reader.IsDBNull(6) ? null : reader.GetString(6)
                     };
                     remitos.Add(remito);
                 }
@@ -55,7 +56,7 @@ namespace Agraria.Repositorio.Repositorios
             try
             {
                 using SqlConnection conn = Conexion();
-                using SqlCommand cmd = new("SELECT Id_Remito, Cod_Usuario, Fecha_Hora, Subtotal, Descu, Total FROM HRemitoProduccion WHERE Id_Remito = @Id", conn);
+                using SqlCommand cmd = new("SELECT Id_Remito, Cod_Usuario, Fecha_Hora, Subtotal, Descu, Total, Descripcion FROM HRemitoProduccion WHERE Id_Remito = @Id", conn);
                 cmd.Parameters.AddWithValue("@Id", id);
                 await conn.OpenAsync();
                 using DbDataReader reader = await cmd.ExecuteReaderAsync();
@@ -68,7 +69,8 @@ namespace Agraria.Repositorio.Repositorios
                         Fecha_Hora = reader.GetDateTime(2),
                         Subtotal = reader.GetDecimal(3),
                         Descu = reader.GetDecimal(4),
-                        Total = reader.GetDecimal(5)
+                        Total = reader.GetDecimal(5),
+                        Descripcion = reader.IsDBNull(6) ? null : reader.GetString(6)
                     };
                     return Result<HRemitoProduccion>.Success(remito);
                 }
@@ -89,12 +91,13 @@ namespace Agraria.Repositorio.Repositorios
             try
             {
                 using SqlConnection conn = Conexion();
-                using SqlCommand cmd = new("INSERT INTO HRemitoProduccion (Cod_Usuario, Fecha_Hora, Subtotal, Descu, Total) VALUES (@Cod_Usuario, @Fecha_Hora, @Subtotal, @Descu, @Total)", conn);
+                using SqlCommand cmd = new("INSERT INTO HRemitoProduccion (Cod_Usuario, Fecha_Hora, Subtotal, Descu, Total, Descripcion) VALUES (@Cod_Usuario, @Fecha_Hora, @Subtotal, @Descu, @Total, @Descripcion)", conn);
                 cmd.Parameters.AddWithValue("@Cod_Usuario", remito.Cod_Usuario);
                 cmd.Parameters.AddWithValue("@Fecha_Hora", remito.Fecha_Hora);
                 cmd.Parameters.AddWithValue("@Subtotal", remito.Subtotal);
                 cmd.Parameters.AddWithValue("@Descu", remito.Descu);
                 cmd.Parameters.AddWithValue("@Total", remito.Total);
+                cmd.Parameters.AddWithValue("@Descripcion", remito.Descripcion );
                 conn.Open();
                 int rowsAffected = cmd.ExecuteNonQuery();
                 if (rowsAffected > 0)
@@ -178,19 +181,19 @@ namespace Agraria.Repositorio.Repositorios
             try
             {
                 var remitos = new List<HRemitoProduccion>();
-                var query = new StringBuilder("SELECT r.Id_Remito, r.Cod_Usuario, r.Fecha_Hora, r.Subtotal, r.Descu, r.Total FROM HRemitoProduccion r");
+                var query = new StringBuilder("SELECT r.Id_Remito, r.Cod_Usuario, r.Fecha_Hora, r.Subtotal, r.Descu, r.Total, r.Descripcion FROM HRemitoProduccion r");
                 var whereClause = new List<string>();
                 var parameters = new List<SqlParameter>();
 
                 // Filtro por rango de fechas - formato correcto para Access
-                whereClause.Add("r.Fecha_Hora BETWEEN @fechaDesde AND @fechaHasta");
+                whereClause.Add( " r.Fecha_Hora BETWEEN @fechaDesde AND @fechaHasta ");
                 parameters.Add(new SqlParameter("@fechaDesde", SqlDbType.Date) { Value = fechaDesde });
                 parameters.Add(new SqlParameter("@fechaHasta", SqlDbType.Date) { Value = fechaHasta });
 
                 // Filtro por ID de remito si se proporciona
                 if (idRemito.HasValue)
                 {
-                    whereClause.Add("r.Id_Remito = @idRemito");
+                    whereClause.Add(" r.Id_Remito = @idRemito ");
                     parameters.Add(new SqlParameter("@idRemito", SqlDbType.Int) { Value = idRemito.Value });
                 }
 
@@ -225,9 +228,10 @@ namespace Agraria.Repositorio.Repositorios
                             Id_Remito = reader.GetInt32(0),
                             Cod_Usuario = reader.GetInt32(1),
                             Fecha_Hora = reader.GetDateTime(2),
-                            Subtotal = reader.GetDecimal(4),
-                            Descu = reader.GetDecimal(5),
-                            Total = reader.GetDecimal(6)
+                            Subtotal = reader.GetDecimal(3),
+                            Descu = reader.GetDecimal(4),
+                            Total = reader.GetDecimal(5),
+                            Descripcion = reader.IsDBNull(6) ? null : reader.GetString(6)
                         });
                     }
                 }

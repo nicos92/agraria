@@ -8,6 +8,7 @@ namespace Agraria.Modelo.Entidades
 {
     public record ActividadesCurso
     (
+        int Id_Actividad,
         string? Curso_anio,
         string? Curso_Division,
         string? Curso_Grupo,

@@ -336,7 +336,8 @@ namespace Agraria.UI.Actividad
                     Name = "Id_Actividad",
                     DataPropertyName = "Id_Actividad",
                     HeaderText = "ID",
-                    Visible = false
+                    Visible = true,
+                    AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
                 },
                 new DataGridViewTextBoxColumn
                 {
