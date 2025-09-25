@@ -21,6 +21,7 @@ namespace Agraria.UI.Inventario
         #region Atributos y Propiedades
 
         private readonly IArticulosGralService _articulosService;
+        private readonly IProveedoresService _proveedoresService;
 
         private readonly ArticulosGral _articuloSeleccionado;
 
@@ -37,10 +38,10 @@ namespace Agraria.UI.Inventario
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="UCIngresoInventario"/>.
         /// </summary>
-        public UCIngresoInventario(IArticulosGralService articulosService)
+        public UCIngresoInventario(IArticulosGralService articulosService, IProveedoresService proveedoresService)
         {
             _articulosService = articulosService;
-
+            _proveedoresService = proveedoresService;
             InitializeComponent();
 
             _articuloSeleccionado = new ArticulosGral();
@@ -126,6 +127,15 @@ namespace Agraria.UI.Inventario
             _articuloSeleccionado.Art_Precio = DecimalFormatter.ParseDecimal(TxtPrecio.Text);
             _articuloSeleccionado.Art_Descripcion = TxtDescripcion.Text;
             _articuloSeleccionado.Art_Uni_Med = unidadMedida;
+            if (CMBProveedor.SelectedItem is Modelo.Entidades.Proveedores proveedor)
+            {
+                _articuloSeleccionado.Id_Proveedor = proveedor.Id_Proveedor;
+            }
+            else
+            {
+                MessageBox.Show("Debe seleccionar un proveedor.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
 
             return true;
         }
@@ -136,9 +146,24 @@ namespace Agraria.UI.Inventario
         /// </summary>
         /// <param name="sender">El origen del evento.</param>
         /// <param name="e">El <see cref="EventArgs"/> instancia que contiene los datos del evento.</param>
-        private void UCIngresoInventario_Load(object sender, EventArgs e)
+        private async void UCIngresoInventario_Load(object sender, EventArgs e)
         {
             CargarUnidadesMedida();
+            await CargarProveedores();
+        }
+
+        private async Task CargarProveedores()
+        {
+            var result = await _proveedoresService.GetAll();
+            if (!result.IsSuccess)
+            {
+                MessageBox.Show($"Ocurrió un error al cargar los proveedores: {result.Error}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            CMBProveedor.DataSource = null;
+            CMBProveedor.DataSource = result.Value;
+            CMBProveedor.DisplayMember = "Proveedor";
+            CMBProveedor.ValueMember = "Id_Proveedor";
         }
 
         /// <summary>

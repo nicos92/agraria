@@ -1,3 +1,9 @@
+using Agraria.Contrato.Servicios;
+using Agraria.Modelo.Entidades;
+using Agraria.Modelo.Enums;
+using Agraria.Servicio.Implementaciones;
+using Agraria.Util.Validaciones;
+using Agraria.Utilidades;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -9,11 +15,6 @@ using System.Runtime.Versioning;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Agraria.Contrato.Servicios;
-using Agraria.Modelo.Entidades;
-using Agraria.Modelo.Enums;
-using Agraria.Util.Validaciones;
-using Agraria.Utilidades;
 
 namespace Agraria.UI.Inventario
 {
@@ -23,6 +24,7 @@ namespace Agraria.UI.Inventario
         #region Campos y Servicios
 
         private readonly IArticulosGralService _articulosService;
+        private readonly IProveedoresService _proveedoresService ;
 
         private ArticulosGral _articuloSeleccionado;
 
@@ -35,6 +37,7 @@ namespace Agraria.UI.Inventario
         private readonly ErrorProvider _errorProviderPrecio;
 
         private List<ArticulosGral> _listaArticulos;
+        private List<Modelo.Entidades.Proveedores> _listaProveedores;
 
         private int _indiceSeleccionado;
 
@@ -42,7 +45,7 @@ namespace Agraria.UI.Inventario
 
         #region Constructor
 
-        public UCConsultaInventario(IArticulosGralService articulosService)
+        public UCConsultaInventario(IArticulosGralService articulosService, IProveedoresService proveedoresService)
         {
             InitializeComponent();
 
@@ -53,6 +56,7 @@ namespace Agraria.UI.Inventario
             _articuloSeleccionado = new ArticulosGral();
 
             _listaArticulos = [];
+            _listaProveedores = [];
 
             _indiceSeleccionado = -1;
 
@@ -76,6 +80,7 @@ namespace Agraria.UI.Inventario
                 MensajeError = "Número ingresado no válido"
             };
             ConfigurarBotones();
+            _proveedoresService = proveedoresService;
         }
 
         /// <summary>
@@ -269,13 +274,28 @@ namespace Agraria.UI.Inventario
         private async Task CargaInicial()
         {
             await Task.WhenAll(
-                CargarArticulos()
-                
+                CargarArticulos(),
+                CargarProveedores()
+
             );
            
         }
 
-    
+        private async Task CargarProveedores()
+        {
+            var result = await _proveedoresService.GetAll();
+            if (!result.IsSuccess)
+            {
+                MessageBox.Show($"Ocurrió un error al cargar los proveedores: {result.Error}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+           
+            _listaProveedores = result.Value;
+            
+        }
+
+
 
         /// <summary>
         /// Carga las unidades de medida en el ComboBox correspondiente.
@@ -323,12 +343,18 @@ namespace Agraria.UI.Inventario
                 {
                     try
                     {
+                        CMBProveedor.DataSource = null;
+                        CMBProveedor.DataSource = _listaProveedores ?? [];
+                        CMBProveedor.DisplayMember = "Proveedor";
+                        CMBProveedor.ValueMember = "Id_Proveedor";
                         ListBArticulos.SuspendLayout();
                         int primeraFilaVisible = ListBArticulos.FirstDisplayedScrollingRowIndex;
 
                         ListBArticulos.AutoGenerateColumns = false;
                         ListBArticulos.DataSource = null;
                         ListBArticulos.DataSource = _listaArticulos ?? [];
+
+                        
 
                         if (primeraFilaVisible >= 0 && primeraFilaVisible < ListBArticulos.Rows.Count)
                         {
@@ -415,6 +441,14 @@ namespace Agraria.UI.Inventario
             _articuloSeleccionado.Art_Precio = DecimalFormatter.ParseDecimal(TxtPrecio.Text);
             _articuloSeleccionado.Art_Descripcion = TxtDescripcion.Text;
             _articuloSeleccionado.Art_Uni_Med = unidadMedida;
+            if (CMBProveedor.SelectedValue is int idProveedor)
+            {
+                _articuloSeleccionado.Id_Proveedor = idProveedor;
+            }
+            else
+            {
+                _articuloSeleccionado.Id_Proveedor = 0; // O manejarlo como un valor nulo si es necesario
+            }
 
             return true;
         }
@@ -446,6 +480,14 @@ namespace Agraria.UI.Inventario
 
                 // Cargar combo de unidad de medida
                 CMBUnidadMedida.SelectedItem = _articuloSeleccionado.Art_Uni_Med;
+                if (_articuloSeleccionado.Id_Proveedor != 0)
+                {
+                    CMBProveedor.SelectedValue = _articuloSeleccionado.Id_Proveedor;
+                }
+                else
+                {
+                    CMBProveedor.SelectedIndex = -1; // No seleccionado
+                }
             }
             else
             {

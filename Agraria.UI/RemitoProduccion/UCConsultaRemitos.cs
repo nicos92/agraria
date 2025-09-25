@@ -482,7 +482,16 @@ namespace Agraria.UI.RemitoProduccion
                         Format = "C2",
                         FormatProvider = DecimalFormatter.ArgentinaCulture
                     },
+                    AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
+                },
+                new DataGridViewTextBoxColumn
+                {
+                    Name = "Descripcion",
+                    DataPropertyName = "Descripcion",
+                    HeaderText = "Descripcion",
+                    Visible = true,
                     AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
+
                 }
             };
 

@@ -51,7 +51,7 @@ namespace Agraria.Repositorio.Repositorios
                     int nuevoNumero = ultimoNumero + 1;
                     nuevoCodArt = $"A{nuevoNumero:D7}"; 
                 }
-                using var cmd = new SqlCommand("INSERT INTO ArticulosGral (Art_Cod, Art_Nombre, Art_Unidad_Medida, Art_Precio, Art_Descripcion, Art_Stock) VALUES (@Art_Cod, @Art_Nombre, @Art_Uni_Med, @Art_Precio, @Art_Descripcion, @Art_Stock)", conn, transaction);
+                using var cmd = new SqlCommand("INSERT INTO ArticulosGral (Art_Cod, Art_Nombre, Art_Unidad_Medida, Art_Precio, Art_Descripcion, Art_Stock, Id_Proveedor) VALUES (@Art_Cod, @Art_Nombre, @Art_Uni_Med, @Art_Precio, @Art_Descripcion, @Art_Stock, @Id_Proveedor)", conn, transaction);
 
                 cmd.Parameters.AddWithValue("@Art_Cod", nuevoCodArt);
                 cmd.Parameters.AddWithValue("@Art_Nombre", articulo.Art_Nombre );
@@ -59,7 +59,8 @@ namespace Agraria.Repositorio.Repositorios
                 cmd.Parameters.AddWithValue("@Art_Precio", articulo.Art_Precio);
                 cmd.Parameters.AddWithValue("@Art_Descripcion", articulo.Art_Descripcion);
                 cmd.Parameters.AddWithValue("@Art_Stock", articulo.Art_Stock);
-                
+                cmd.Parameters.AddWithValue("@Id_Proveedor", articulo.Id_Proveedor);
+
                 int inserts = await cmd.ExecuteNonQueryAsync();
                 await transaction.CommitAsync();
                 if (inserts > 0)
@@ -117,7 +118,7 @@ namespace Agraria.Repositorio.Repositorios
             {
                 List<ArticulosGral> articulos = [];
                 using var conn = Conexion();
-                using var cmd = new SqlCommand("SELECT Art_Id, Art_Cod, Art_Nombre, Art_Unidad_Medida, Art_Precio, Art_Descripcion, Art_Stock FROM ArticulosGral", conn);
+                using var cmd = new SqlCommand("SELECT Art_Id, Art_Cod, Art_Nombre, Art_Unidad_Medida, Art_Precio, Art_Descripcion, Art_Stock, Id_Proveedor FROM ArticulosGral", conn);
                 await conn.OpenAsync();
                 using var reader = await cmd.ExecuteReaderAsync();
                 while (await reader.ReadAsync())
@@ -130,7 +131,8 @@ namespace Agraria.Repositorio.Repositorios
                         Art_Uni_Med = (UnidadMedida) reader.GetInt32(3),
                         Art_Precio = reader.GetDecimal(4),
                         Art_Descripcion = reader.GetString(5),
-                        Art_Stock = reader.GetDecimal(6)
+                        Art_Stock = reader.GetDecimal(6),
+                        Id_Proveedor = reader.GetInt32(7)
                     };
                     articulos.Add(articulo);
                 }
@@ -147,7 +149,7 @@ namespace Agraria.Repositorio.Repositorios
             try
             {
                 using var conn = Conexion();
-                using var cmd = new SqlCommand("SELECT Art_Id, Art_Cod, Art_Nombre, Art_Unidad_Medida, Art_Precio, Art_Descripcion, Art_Stock FROM ArticulosGral WHERE Art_Id = @Art_Id", conn);
+                using var cmd = new SqlCommand("SELECT Art_Id, Art_Cod, Art_Nombre, Art_Unidad_Medida, Art_Precio, Art_Descripcion, Art_Stock, Id_Proveedor FROM ArticulosGral WHERE Art_Id = @Art_Id", conn);
                 cmd.Parameters.AddWithValue("@Art_Id", id);
                 conn.Open();
                 using var reader = cmd.ExecuteReader();
@@ -161,7 +163,8 @@ namespace Agraria.Repositorio.Repositorios
                         Art_Uni_Med =  (UnidadMedida) reader.GetInt32(3),
                         Art_Precio = reader.GetDecimal(4),
                         Art_Descripcion = reader.GetString(5),
-                        Art_Stock = reader.GetInt32(6)
+                        Art_Stock = reader.GetInt32(6),
+                        Id_Proveedor = reader.GetInt32(7)
                     };
                     return Result<ArticulosGral>.Success(articulo);
                 }
@@ -210,7 +213,7 @@ namespace Agraria.Repositorio.Repositorios
             try
             {
                 using var conn = Conexion();
-                using var cmd = new SqlCommand("UPDATE ArticulosGral SET Art_Cod=@Art_Cod, Art_Nombre=@Art_Nombre, Art_Unidad_Medida=@Art_Uni_Med, Art_Precio=@Art_Precio, Art_Descripcion=@Art_Descripcion, Art_Stock=@Art_Stock WHERE Art_Id = @Art_Id", conn);
+                using var cmd = new SqlCommand("UPDATE ArticulosGral SET Art_Cod=@Art_Cod, Art_Nombre=@Art_Nombre, Art_Unidad_Medida=@Art_Uni_Med, Art_Precio=@Art_Precio, Art_Descripcion=@Art_Descripcion, Art_Stock=@Art_Stock, Id_Proveedor = @Id_Proveedor WHERE Art_Id = @Art_Id", conn);
                 cmd.Parameters.AddWithValue("@Art_Cod", articulo.Art_Cod );
                 cmd.Parameters.AddWithValue("@Art_Nombre", articulo.Art_Nombre );
                 cmd.Parameters.AddWithValue("@Art_Uni_Med", Convert.ToInt32(articulo.Art_Uni_Med ));
@@ -218,6 +221,7 @@ namespace Agraria.Repositorio.Repositorios
                 cmd.Parameters.AddWithValue("@Art_Descripcion", articulo.Art_Descripcion);
                 cmd.Parameters.AddWithValue("@Art_Stock", articulo.Art_Stock);
                 cmd.Parameters.AddWithValue("@Art_Id", articulo.Art_Id);
+                cmd.Parameters.AddWithValue("@Id_Proveedor", articulo.Id_Proveedor);
                 await conn.OpenAsync();
                 if (await cmd.ExecuteNonQueryAsync() > 0)
                 {

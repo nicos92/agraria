@@ -75,7 +75,7 @@ namespace Agraria.UI.Ventas
             ConfigurarColumnasDataGridView();
         }
 
- 
+
 
         private void SeleccionarFilaPorCodigoArticulo(string codigoArticulo)
         {
@@ -198,7 +198,7 @@ namespace Agraria.UI.Ventas
             ActualizarTotalPrecioPorCantidad();
         }
 
-       
+
 
         private void ActualizarTotalPrecioPorCantidad()
         {
@@ -213,6 +213,11 @@ namespace Agraria.UI.Ventas
         }
 
         private void BtnAceptar_Click(object sender, EventArgs e)
+        {
+            AgregarItem();
+        }
+
+        private void AgregarItem()
         {
             if (LsvProductos.SelectedItem is ProductoStock producto)
             {
@@ -740,8 +745,10 @@ namespace Agraria.UI.Ventas
             return base.ProcessCmdKey(ref msg, keyData);
         }
 
-     
-
+        private void LsvProductos_DoubleClick(object sender, EventArgs e)
+        {
+            AgregarItem();
+        }
     }
 }
 

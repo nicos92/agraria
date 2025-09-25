@@ -16,5 +16,6 @@ namespace Agraria.Modelo.Entidades
         public decimal Art_Precio { get; set; }
         public string? Art_Descripcion { get; set; }
         public decimal Art_Stock { get; set; }
+        public int Id_Proveedor { get; set; }
     }
 }

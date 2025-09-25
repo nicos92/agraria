@@ -46,10 +46,10 @@
             panel1 = new Panel();
             tableLayoutPanel1 = new TableLayoutPanel();
             LblModulo = new Label();
-            LblTipoUsuario = new Label();
-            label3 = new Label();
-            LblUsuario = new Label();
             label1 = new Label();
+            LblUsuario = new Label();
+            label3 = new Label();
+            LblTipoUsuario = new Label();
             PanelMenu.SuspendLayout();
             PanelLblMenu.SuspendLayout();
             panel1.SuspendLayout();
@@ -60,16 +60,16 @@
             // 
             PanelMenu.AutoScroll = true;
             PanelMenu.BackColor = Color.FromArgb(7, 100, 147);
-            PanelMenu.Controls.Add(BtnEntornos);
-            PanelMenu.Controls.Add(BtnPaniol);
             PanelMenu.Controls.Add(BtnProveedores);
-            PanelMenu.Controls.Add(BtnRemitoProduccion);
             PanelMenu.Controls.Add(BtnUsuarios);
+            PanelMenu.Controls.Add(BtnPaniol);
+            PanelMenu.Controls.Add(BtnHojaVida);
+            PanelMenu.Controls.Add(BtnRemitoProduccion);
+            PanelMenu.Controls.Add(BtnInventario);
             PanelMenu.Controls.Add(BtnReporte);
             PanelMenu.Controls.Add(BtnVenta);
-            PanelMenu.Controls.Add(BtnInventario);
-            PanelMenu.Controls.Add(BtnHojaVida);
             PanelMenu.Controls.Add(BtnProductos);
+            PanelMenu.Controls.Add(BtnEntornos);
             PanelMenu.Controls.Add(BtnActividad);
             PanelMenu.Controls.Add(PanelLblMenu);
             PanelMenu.Dock = DockStyle.Left;
@@ -88,7 +88,7 @@
             BtnEntornos.ForeColor = SystemColors.ButtonHighlight;
             BtnEntornos.Image = Properties.Resources.entornos;
             BtnEntornos.ImageAlign = ContentAlignment.MiddleLeft;
-            BtnEntornos.Location = new Point(0, 704);
+            BtnEntornos.Location = new Point(0, 128);
             BtnEntornos.Margin = new Padding(4);
             BtnEntornos.Name = "BtnEntornos";
             BtnEntornos.Padding = new Padding(8, 0, 0, 0);
@@ -108,7 +108,7 @@
             BtnPaniol.ForeColor = SystemColors.ButtonHighlight;
             BtnPaniol.Image = Properties.Resources.paniol32px;
             BtnPaniol.ImageAlign = ContentAlignment.MiddleLeft;
-            BtnPaniol.Location = new Point(0, 640);
+            BtnPaniol.Location = new Point(0, 576);
             BtnPaniol.Margin = new Padding(4);
             BtnPaniol.Name = "BtnPaniol";
             BtnPaniol.Padding = new Padding(8, 0, 0, 0);
@@ -128,7 +128,7 @@
             BtnProveedores.ForeColor = SystemColors.ButtonHighlight;
             BtnProveedores.Image = Properties.Resources.proveedores;
             BtnProveedores.ImageAlign = ContentAlignment.MiddleLeft;
-            BtnProveedores.Location = new Point(0, 576);
+            BtnProveedores.Location = new Point(0, 704);
             BtnProveedores.Margin = new Padding(4);
             BtnProveedores.Name = "BtnProveedores";
             BtnProveedores.Padding = new Padding(8, 0, 0, 0);
@@ -148,7 +148,7 @@
             BtnRemitoProduccion.ForeColor = SystemColors.ButtonHighlight;
             BtnRemitoProduccion.Image = Properties.Resources.remito32px;
             BtnRemitoProduccion.ImageAlign = ContentAlignment.MiddleLeft;
-            BtnRemitoProduccion.Location = new Point(0, 512);
+            BtnRemitoProduccion.Location = new Point(0, 448);
             BtnRemitoProduccion.Margin = new Padding(4);
             BtnRemitoProduccion.Name = "BtnRemitoProduccion";
             BtnRemitoProduccion.Padding = new Padding(8, 0, 0, 0);
@@ -168,7 +168,7 @@
             BtnUsuarios.ForeColor = SystemColors.ButtonHighlight;
             BtnUsuarios.Image = Properties.Resources.users2;
             BtnUsuarios.ImageAlign = ContentAlignment.MiddleLeft;
-            BtnUsuarios.Location = new Point(0, 448);
+            BtnUsuarios.Location = new Point(0, 640);
             BtnUsuarios.Margin = new Padding(4);
             BtnUsuarios.Name = "BtnUsuarios";
             BtnUsuarios.Padding = new Padding(8, 0, 0, 0);
@@ -188,7 +188,7 @@
             BtnReporte.ForeColor = SystemColors.ButtonHighlight;
             BtnReporte.Image = Properties.Resources.charts;
             BtnReporte.ImageAlign = ContentAlignment.MiddleLeft;
-            BtnReporte.Location = new Point(0, 384);
+            BtnReporte.Location = new Point(0, 320);
             BtnReporte.Margin = new Padding(4);
             BtnReporte.Name = "BtnReporte";
             BtnReporte.Padding = new Padding(8, 0, 0, 0);
@@ -197,6 +197,7 @@
             BtnReporte.Text = "Reporte";
             BtnReporte.TextImageRelation = TextImageRelation.ImageBeforeText;
             BtnReporte.UseVisualStyleBackColor = true;
+            BtnReporte.Visible = false;
             BtnReporte.Click += BtnActividad_Click;
             // 
             // BtnVenta
@@ -208,7 +209,7 @@
             BtnVenta.ForeColor = SystemColors.ButtonHighlight;
             BtnVenta.Image = Properties.Resources.venta;
             BtnVenta.ImageAlign = ContentAlignment.MiddleLeft;
-            BtnVenta.Location = new Point(0, 320);
+            BtnVenta.Location = new Point(0, 256);
             BtnVenta.Margin = new Padding(4);
             BtnVenta.Name = "BtnVenta";
             BtnVenta.Padding = new Padding(8, 0, 0, 0);
@@ -228,7 +229,7 @@
             BtnInventario.ForeColor = SystemColors.ButtonHighlight;
             BtnInventario.Image = Properties.Resources.inventario;
             BtnInventario.ImageAlign = ContentAlignment.MiddleLeft;
-            BtnInventario.Location = new Point(0, 256);
+            BtnInventario.Location = new Point(0, 384);
             BtnInventario.Margin = new Padding(4);
             BtnInventario.Name = "BtnInventario";
             BtnInventario.Padding = new Padding(8, 0, 0, 0);
@@ -248,7 +249,7 @@
             BtnHojaVida.ForeColor = SystemColors.ButtonHighlight;
             BtnHojaVida.Image = Properties.Resources.hojadevida;
             BtnHojaVida.ImageAlign = ContentAlignment.MiddleLeft;
-            BtnHojaVida.Location = new Point(0, 192);
+            BtnHojaVida.Location = new Point(0, 512);
             BtnHojaVida.Margin = new Padding(4);
             BtnHojaVida.Name = "BtnHojaVida";
             BtnHojaVida.Padding = new Padding(8, 0, 0, 0);
@@ -268,7 +269,7 @@
             BtnProductos.ForeColor = SystemColors.ButtonHighlight;
             BtnProductos.Image = Properties.Resources.animal;
             BtnProductos.ImageAlign = ContentAlignment.MiddleLeft;
-            BtnProductos.Location = new Point(0, 128);
+            BtnProductos.Location = new Point(0, 192);
             BtnProductos.Margin = new Padding(4);
             BtnProductos.Name = "BtnProductos";
             BtnProductos.Padding = new Padding(8, 0, 0, 0);
@@ -365,18 +366,33 @@
             LblModulo.Text = "Modulo";
             LblModulo.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // LblTipoUsuario
+            // label1
             // 
-            LblTipoUsuario.Anchor = AnchorStyles.Left;
-            LblTipoUsuario.AutoSize = true;
-            LblTipoUsuario.Font = new Font("Segoe UI", 12F);
-            LblTipoUsuario.ForeColor = SystemColors.ButtonHighlight;
-            LblTipoUsuario.Location = new Point(765, 5);
-            LblTipoUsuario.Name = "LblTipoUsuario";
-            LblTipoUsuario.Size = new Size(116, 21);
-            LblTipoUsuario.TabIndex = 4;
-            LblTipoUsuario.Text = "Escuela Agraria";
-            LblTipoUsuario.TextAlign = ContentAlignment.MiddleCenter;
+            label1.Anchor = AnchorStyles.Right;
+            label1.AutoSize = true;
+            label1.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label1.ForeColor = SystemColors.ButtonHighlight;
+            label1.Image = Properties.Resources.user16px;
+            label1.ImageAlign = ContentAlignment.MiddleLeft;
+            label1.Location = new Point(388, 5);
+            label1.Name = "label1";
+            label1.Size = new Size(85, 21);
+            label1.TabIndex = 1;
+            label1.Text = "    Usuario:";
+            label1.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // LblUsuario
+            // 
+            LblUsuario.Anchor = AnchorStyles.Left;
+            LblUsuario.AutoSize = true;
+            LblUsuario.Font = new Font("Segoe UI", 12F);
+            LblUsuario.ForeColor = SystemColors.ButtonHighlight;
+            LblUsuario.Location = new Point(479, 5);
+            LblUsuario.Name = "LblUsuario";
+            LblUsuario.Size = new Size(116, 21);
+            LblUsuario.TabIndex = 2;
+            LblUsuario.Text = "Escuela Agraria";
+            LblUsuario.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // label3
             // 
@@ -394,33 +410,18 @@
             label3.Text = "    Tipo de Usuario:";
             label3.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // LblUsuario
+            // LblTipoUsuario
             // 
-            LblUsuario.Anchor = AnchorStyles.Left;
-            LblUsuario.AutoSize = true;
-            LblUsuario.Font = new Font("Segoe UI", 12F);
-            LblUsuario.ForeColor = SystemColors.ButtonHighlight;
-            LblUsuario.Location = new Point(479, 5);
-            LblUsuario.Name = "LblUsuario";
-            LblUsuario.Size = new Size(116, 21);
-            LblUsuario.TabIndex = 2;
-            LblUsuario.Text = "Escuela Agraria";
-            LblUsuario.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // label1
-            // 
-            label1.Anchor = AnchorStyles.Right;
-            label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label1.ForeColor = SystemColors.ButtonHighlight;
-            label1.Image = Properties.Resources.user16px;
-            label1.ImageAlign = ContentAlignment.MiddleLeft;
-            label1.Location = new Point(388, 5);
-            label1.Name = "label1";
-            label1.Size = new Size(85, 21);
-            label1.TabIndex = 1;
-            label1.Text = "    Usuario:";
-            label1.TextAlign = ContentAlignment.MiddleCenter;
+            LblTipoUsuario.Anchor = AnchorStyles.Left;
+            LblTipoUsuario.AutoSize = true;
+            LblTipoUsuario.Font = new Font("Segoe UI", 12F);
+            LblTipoUsuario.ForeColor = SystemColors.ButtonHighlight;
+            LblTipoUsuario.Location = new Point(765, 5);
+            LblTipoUsuario.Name = "LblTipoUsuario";
+            LblTipoUsuario.Size = new Size(116, 21);
+            LblTipoUsuario.TabIndex = 4;
+            LblTipoUsuario.Text = "Escuela Agraria";
+            LblTipoUsuario.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // FormPrincipal
             // 

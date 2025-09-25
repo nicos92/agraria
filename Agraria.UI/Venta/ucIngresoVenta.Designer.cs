@@ -333,6 +333,7 @@ namespace Agraria.UI.Ventas
             LsvProductos.Size = new Size(285, 169);
             LsvProductos.TabIndex = 2;
             LsvProductos.SelectedIndexChanged += LsvProductos_SelectedIndexChanged;
+            LsvProductos.DoubleClick += LsvProductos_DoubleClick;
             // 
             // tableLayoutPanel4
             // 

@@ -44,6 +44,8 @@ namespace Agraria.UI.Inventario
             label5 = new Label();
             BtnIngresar = new Button();
             ProgressBar = new ProgressBar();
+            CMBProveedor = new ComboBox();
+            label3 = new Label();
             PanelMedio.SuspendLayout();
             TLPMedio.SuspendLayout();
             groupBox1.SuspendLayout();
@@ -81,9 +83,9 @@ namespace Agraria.UI.Inventario
             groupBox1.Controls.Add(TLPForm);
             groupBox1.Font = new Font("Segoe UI Black", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             groupBox1.ForeColor = Color.FromArgb(7, 100, 147);
-            groupBox1.Location = new Point(85, 80);
+            groupBox1.Location = new Point(85, 63);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(633, 417);
+            groupBox1.Size = new Size(633, 450);
             groupBox1.TabIndex = 15;
             groupBox1.TabStop = false;
             groupBox1.Text = "Formulario de Ingreso de Inventario";
@@ -92,9 +94,9 @@ namespace Agraria.UI.Inventario
             // 
             TLPForm.BackColor = Color.FromArgb(249, 249, 251);
             TLPForm.ColumnCount = 3;
-            TLPForm.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 20.0956936F));
-            TLPForm.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 65.07177F));
-            TLPForm.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 14.6765194F));
+            TLPForm.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 20.1270924F));
+            TLPForm.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 65.1734543F));
+            TLPForm.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 14.6994543F));
             TLPForm.Controls.Add(LblNombre, 0, 1);
             TLPForm.Controls.Add(TxtPrecio, 1, 4);
             TLPForm.Controls.Add(TxtCantidad, 1, 3);
@@ -105,21 +107,24 @@ namespace Agraria.UI.Inventario
             TLPForm.Controls.Add(label1, 0, 2);
             TLPForm.Controls.Add(TxtDescripcion, 1, 5);
             TLPForm.Controls.Add(label5, 0, 5);
-            TLPForm.Controls.Add(BtnIngresar, 1, 6);
+            TLPForm.Controls.Add(BtnIngresar, 1, 7);
+            TLPForm.Controls.Add(CMBProveedor, 1, 6);
+            TLPForm.Controls.Add(label3, 0, 6);
             TLPForm.Dock = DockStyle.Fill;
             TLPForm.ForeColor = Color.FromArgb(26, 28, 30);
             TLPForm.Location = new Point(3, 29);
             TLPForm.Name = "TLPForm";
-            TLPForm.RowCount = 8;
-            TLPForm.RowStyles.Add(new RowStyle(SizeType.Percent, 11.1111107F));
-            TLPForm.RowStyles.Add(new RowStyle(SizeType.Percent, 11.1111107F));
-            TLPForm.RowStyles.Add(new RowStyle(SizeType.Percent, 11.1111107F));
-            TLPForm.RowStyles.Add(new RowStyle(SizeType.Percent, 11.1111107F));
-            TLPForm.RowStyles.Add(new RowStyle(SizeType.Percent, 11.1111107F));
-            TLPForm.RowStyles.Add(new RowStyle(SizeType.Percent, 26.4935074F));
-            TLPForm.RowStyles.Add(new RowStyle(SizeType.Percent, 16.1038952F));
-            TLPForm.RowStyles.Add(new RowStyle(SizeType.Percent, 3.37662339F));
-            TLPForm.Size = new Size(627, 385);
+            TLPForm.RowCount = 9;
+            TLPForm.RowStyles.Add(new RowStyle(SizeType.Absolute, 16F));
+            TLPForm.RowStyles.Add(new RowStyle());
+            TLPForm.RowStyles.Add(new RowStyle());
+            TLPForm.RowStyles.Add(new RowStyle());
+            TLPForm.RowStyles.Add(new RowStyle());
+            TLPForm.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            TLPForm.RowStyles.Add(new RowStyle());
+            TLPForm.RowStyles.Add(new RowStyle());
+            TLPForm.RowStyles.Add(new RowStyle(SizeType.Absolute, 16F));
+            TLPForm.Size = new Size(627, 418);
             TLPForm.TabIndex = 0;
             // 
             // LblNombre
@@ -127,7 +132,7 @@ namespace Agraria.UI.Inventario
             LblNombre.Anchor = AnchorStyles.Right;
             LblNombre.AutoSize = true;
             LblNombre.Font = new Font("Segoe UI", 12F);
-            LblNombre.Location = new Point(52, 52);
+            LblNombre.Location = new Point(52, 26);
             LblNombre.Name = "LblNombre";
             LblNombre.Size = new Size(71, 21);
             LblNombre.TabIndex = 0;
@@ -139,7 +144,8 @@ namespace Agraria.UI.Inventario
             TxtPrecio.BackColor = Color.FromArgb(238, 237, 240);
             TxtPrecio.Font = new Font("Segoe UI", 12F);
             TxtPrecio.ForeColor = Color.FromArgb(26, 28, 30);
-            TxtPrecio.Location = new Point(129, 174);
+            TxtPrecio.Location = new Point(128, 147);
+            TxtPrecio.Margin = new Padding(2, 8, 4, 4);
             TxtPrecio.MaxLength = 12;
             TxtPrecio.Name = "TxtPrecio";
             TxtPrecio.Size = new Size(402, 29);
@@ -152,7 +158,8 @@ namespace Agraria.UI.Inventario
             TxtCantidad.BackColor = Color.FromArgb(238, 237, 240);
             TxtCantidad.Font = new Font("Segoe UI", 12F);
             TxtCantidad.ForeColor = Color.FromArgb(26, 28, 30);
-            TxtCantidad.Location = new Point(129, 132);
+            TxtCantidad.Location = new Point(128, 106);
+            TxtCantidad.Margin = new Padding(2, 8, 4, 4);
             TxtCantidad.MaxLength = 12;
             TxtCantidad.Name = "TxtCantidad";
             TxtCantidad.Size = new Size(402, 29);
@@ -165,7 +172,8 @@ namespace Agraria.UI.Inventario
             TxtNombre.BackColor = Color.FromArgb(238, 237, 240);
             TxtNombre.Font = new Font("Segoe UI", 12F);
             TxtNombre.ForeColor = Color.FromArgb(26, 28, 30);
-            TxtNombre.Location = new Point(129, 48);
+            TxtNombre.Location = new Point(128, 24);
+            TxtNombre.Margin = new Padding(2, 8, 4, 4);
             TxtNombre.MaxLength = 50;
             TxtNombre.Name = "TxtNombre";
             TxtNombre.Size = new Size(402, 29);
@@ -177,7 +185,7 @@ namespace Agraria.UI.Inventario
             label4.Anchor = AnchorStyles.Right;
             label4.AutoSize = true;
             label4.Font = new Font("Segoe UI", 12F);
-            label4.Location = new Point(48, 136);
+            label4.Location = new Point(48, 108);
             label4.Name = "label4";
             label4.Size = new Size(75, 21);
             label4.TabIndex = 4;
@@ -188,7 +196,7 @@ namespace Agraria.UI.Inventario
             label2.Anchor = AnchorStyles.Right;
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 12F);
-            label2.Location = new Point(57, 178);
+            label2.Location = new Point(57, 149);
             label2.Name = "label2";
             label2.Size = new Size(66, 21);
             label2.TabIndex = 2;
@@ -200,7 +208,8 @@ namespace Agraria.UI.Inventario
             CMBUnidadMedida.DropDownStyle = ComboBoxStyle.DropDownList;
             CMBUnidadMedida.Font = new Font("Segoe UI", 12F);
             CMBUnidadMedida.FormattingEnabled = true;
-            CMBUnidadMedida.Location = new Point(129, 90);
+            CMBUnidadMedida.Location = new Point(128, 65);
+            CMBUnidadMedida.Margin = new Padding(2, 8, 4, 4);
             CMBUnidadMedida.Name = "CMBUnidadMedida";
             CMBUnidadMedida.Size = new Size(402, 29);
             CMBUnidadMedida.TabIndex = 6;
@@ -210,7 +219,7 @@ namespace Agraria.UI.Inventario
             label1.Anchor = AnchorStyles.Right;
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 12F);
-            label1.Location = new Point(4, 94);
+            label1.Location = new Point(4, 67);
             label1.Name = "label1";
             label1.Size = new Size(119, 21);
             label1.TabIndex = 1;
@@ -222,11 +231,12 @@ namespace Agraria.UI.Inventario
             TxtDescripcion.Dock = DockStyle.Fill;
             TxtDescripcion.Font = new Font("Segoe UI", 12F);
             TxtDescripcion.ForeColor = Color.FromArgb(26, 28, 30);
-            TxtDescripcion.Location = new Point(129, 213);
+            TxtDescripcion.Location = new Point(128, 188);
+            TxtDescripcion.Margin = new Padding(2, 8, 4, 4);
             TxtDescripcion.MaxLength = 400;
             TxtDescripcion.Multiline = true;
             TxtDescripcion.Name = "TxtDescripcion";
-            TxtDescripcion.Size = new Size(402, 94);
+            TxtDescripcion.Size = new Size(402, 112);
             TxtDescripcion.TabIndex = 9;
             TxtDescripcion.TextChanged += TxtNombre_TextChanged;
             // 
@@ -235,7 +245,7 @@ namespace Agraria.UI.Inventario
             label5.Anchor = AnchorStyles.Right;
             label5.AutoSize = true;
             label5.Font = new Font("Segoe UI", 12F);
-            label5.Location = new Point(29, 249);
+            label5.Location = new Point(29, 231);
             label5.Name = "label5";
             label5.Size = new Size(94, 21);
             label5.TabIndex = 12;
@@ -251,8 +261,8 @@ namespace Agraria.UI.Inventario
             BtnIngresar.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             BtnIngresar.ForeColor = Color.FromArgb(255, 255, 255);
             BtnIngresar.Image = Properties.Resources.ingresar;
-            BtnIngresar.Location = new Point(234, 318);
-            BtnIngresar.Margin = new Padding(0);
+            BtnIngresar.Location = new Point(233, 353);
+            BtnIngresar.Margin = new Padding(2, 8, 4, 4);
             BtnIngresar.Name = "BtnIngresar";
             BtnIngresar.Size = new Size(192, 45);
             BtnIngresar.TabIndex = 13;
@@ -269,6 +279,29 @@ namespace Agraria.UI.Inventario
             ProgressBar.Name = "ProgressBar";
             ProgressBar.Size = new Size(804, 16);
             ProgressBar.TabIndex = 16;
+            // 
+            // CMBProveedor
+            // 
+            CMBProveedor.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            CMBProveedor.DropDownStyle = ComboBoxStyle.DropDownList;
+            CMBProveedor.Font = new Font("Segoe UI", 12F);
+            CMBProveedor.FormattingEnabled = true;
+            CMBProveedor.Location = new Point(128, 312);
+            CMBProveedor.Margin = new Padding(2, 8, 4, 4);
+            CMBProveedor.Name = "CMBProveedor";
+            CMBProveedor.Size = new Size(402, 29);
+            CMBProveedor.TabIndex = 14;
+            // 
+            // label3
+            // 
+            label3.Anchor = AnchorStyles.Right;
+            label3.AutoSize = true;
+            label3.Font = new Font("Segoe UI", 12F);
+            label3.Location = new Point(38, 314);
+            label3.Name = "label3";
+            label3.Size = new Size(85, 21);
+            label3.TabIndex = 15;
+            label3.Text = "Proveedor:";
             // 
             // UCIngresoInventario
             // 
@@ -307,5 +340,7 @@ namespace Agraria.UI.Inventario
         private ComboBox CMBUnidadMedida;
         private TextBox TxtDescripcion;
         private ProgressBar ProgressBar;
+        private ComboBox CMBProveedor;
+        private Label label3;
     }
 }

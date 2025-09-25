@@ -93,9 +93,9 @@ CREATE TABLE Productos (
     Id_Proveedor INT NOT NULL,
     Unidad_Medida NVARCHAR(255),
     En_Venta BIT DEFAULT 1,
-    CONSTRAINT FK_Articulos_Tipo_Entorno FOREIGN KEY (Id_TipoEntorno) REFERENCES TipoEntorno(Id_TipoEntorno),
-    CONSTRAINT FK_Articulos_Entorno FOREIGN KEY (Id_Entorno) REFERENCES Entorno(Id_Entorno),
-    CONSTRAINT FK_Articulos_Proveedores FOREIGN KEY (Id_Proveedor) REFERENCES Proveedores(Id_Proveedor)
+    CONSTRAINT FK_Productos_Tipo_Entorno FOREIGN KEY (Id_TipoEntorno) REFERENCES TipoEntorno(Id_TipoEntorno),
+    CONSTRAINT FK_Productos_Entorno FOREIGN KEY (Id_Entorno) REFERENCES Entorno(Id_Entorno),
+    CONSTRAINT FK_Productos_Proveedores FOREIGN KEY (Id_Proveedor) REFERENCES Proveedores(Id_Proveedor)
 );
 GO
 
@@ -107,7 +107,9 @@ CREATE TABLE ArticulosGral (
     Art_Unidad_Medida INT NOT NULL,
     Art_Precio DECIMAL(18,2) NOT NULL,
     Art_Descripcion NVARCHAR(255),
-    Art_Stock DECIMAL(18,2) NOT NULL
+    Art_Stock DECIMAL(18,2) NOT NULL,
+	Id_Proveedor INT NOT NULL,
+	CONSTRAINT FK_ArticulosGral_Proveedor FOREIGN KEY (Id_Proveedor) REFERENCES Proveedores (Id_Proveedor)
 );
 GO
 
