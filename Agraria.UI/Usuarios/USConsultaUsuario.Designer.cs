@@ -30,6 +30,7 @@ namespace Agraria.UI.Usuarios
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(USConsultaUsuario));
             PanelMedio = new Panel();
             tableLayoutPanel4 = new TableLayoutPanel();
             groupBox1 = new GroupBox();
@@ -58,6 +59,8 @@ namespace Agraria.UI.Usuarios
             tableLayoutPanel2 = new TableLayoutPanel();
             BtnGuardar = new Button();
             ChkActivo = new CheckBox();
+            LblContra = new Label();
+            LblContraDos = new Label();
             PanelLista = new Panel();
             tableLayoutPanel1 = new TableLayoutPanel();
             LblLista = new Label();
@@ -144,6 +147,8 @@ namespace Agraria.UI.Usuarios
             TLPForm.Controls.Add(LblError, 1, 8);
             TLPForm.Controls.Add(tableLayoutPanel2, 1, 13);
             TLPForm.Controls.Add(ChkActivo, 1, 12);
+            TLPForm.Controls.Add(LblContra, 2, 6);
+            TLPForm.Controls.Add(LblContraDos, 2, 7);
             TLPForm.Dock = DockStyle.Fill;
             TLPForm.ForeColor = Color.FromArgb(26, 28, 30);
             TLPForm.Location = new Point(3, 29);
@@ -473,6 +478,28 @@ namespace Agraria.UI.Usuarios
             ChkActivo.Text = "Activo";
             ChkActivo.UseVisualStyleBackColor = true;
             // 
+            // LblContra
+            // 
+            LblContra.Anchor = AnchorStyles.Left;
+            LblContra.Cursor = Cursors.Hand;
+            LblContra.Image = (Image)resources.GetObject("LblContra.Image");
+            LblContra.Location = new Point(408, 195);
+            LblContra.Name = "LblContra";
+            LblContra.Size = new Size(50, 32);
+            LblContra.TabIndex = 28;
+            LblContra.Click += LblContra_Click;
+            // 
+            // LblContraDos
+            // 
+            LblContraDos.Anchor = AnchorStyles.Left;
+            LblContraDos.Cursor = Cursors.Hand;
+            LblContraDos.Image = Properties.Resources.eyeLowVisionDarkSecondary;
+            LblContraDos.Location = new Point(408, 235);
+            LblContraDos.Name = "LblContraDos";
+            LblContraDos.Size = new Size(50, 32);
+            LblContraDos.TabIndex = 29;
+            LblContraDos.Click += LblContraDos_Click;
+            // 
             // PanelLista
             // 
             PanelLista.BackColor = Color.FromArgb(218, 218, 220);
@@ -636,5 +663,7 @@ namespace Agraria.UI.Usuarios
         private TableLayoutPanel tableLayoutPanel2;
         private Button BtnGuardar;
         private CheckBox ChkActivo;
+        private Label LblContra;
+        private Label LblContraDos;
     }
 }

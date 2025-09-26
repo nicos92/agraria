@@ -143,6 +143,36 @@ namespace Agraria.UI.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap eyeLowVisionDark {
+            get {
+                object obj = ResourceManager.GetObject("eyeLowVisionDark", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap eyeLowVisionDarkSecondary {
+            get {
+                object obj = ResourceManager.GetObject("eyeLowVisionDarkSecondary", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap eyeSecondary {
+            get {
+                object obj = ResourceManager.GetObject("eyeSecondary", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap guardar {
             get {
                 object obj = ResourceManager.GetObject("guardar", resourceCulture);

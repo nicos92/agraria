@@ -117,4 +117,29 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="LblContra.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
+        wQAADsEBuJFr7QAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAQqSURBVFhHxVdL
+        iBxVFG1/+P8giqggCiLBDyioiC6M4C+gY6Y+aIjT9WpGS+l6NUlQ/C8adRNEFFyKLsRVXPghqEQFEVcS
+        HRJETJBBhhiNSIxjnJg4THtOdd3Xt6rfyGSRdnGm37vn3Pt+97560+r1ev8rvMZRwmscJVphYp8NU/th
+        aOwqn+BYoxWafB6D98rfxIY+kQ/r1xdncdLjU9NXx+1HL/ZpVoJWmBbrEGihPwm7FKV2cxzHJzSFxphT
+        wjRPoNkC/F7pNf6IkvydIC2iON50atN/OZR/wnZxHQLMSrDI2M/itDifXJZlJwVJ8RjsPwu/AuyL0uIR
+        30KacI14atO5kSk+UkHmIpM/gN/tyna0mImnOpfrAZuodbrd7vGBsc/DcakRyIe/gJ2hKXbgV47Qh/1R
+        Utypx9HwGqM0vweOvnPm8WwLJ4vb9fayPW7yOzCZT30+wOGobdfoMQRDBgG3rlqdC8Td8Wk1wiTPUU3/
+        aL8KC0Fib2nqax0mHgYpWq3Wcezfm2WnBSZ/WwX5TW/n2EMbLoDtY9wjL7It9nIS9cEFeyS5Ba5BsIwq
+        4Za40zlD7JwUbEcqbhGl9hwnOTb5xJmVDcjng/b0bS4WKmnADYAyf180hGtwZhDsUeJvx9v5FcJz+2Db
+        O+DzD+Bz5aBf2uaDBzdeSD125a46NwBy7D6J6yZAcBux2s+V+IAWMzhsXyielSDtEtjFF6jl/YH+oSZf
+        IrXfseKo6w88aS+SrF7d7Z6I5HtZOSwxqDhUgV9VfA3Y+q3UEdiR730aQnKpFI6bzt0sIZ0gQWrvRzb/
+        6RxwSfGyEr66wg8K75DYT5zG2F1DfIXaBLg6bguIucB0bnABkvyqxipmY9O5VvjY2Gtg2614V6priuJk
+        9Fd2BASItZXgb+zGw2KvvnrvVhyxgNKcED7OsrOZ2cLjCH5iwvZ31fnUAH5M/N0ECGb2QJi/wS9gKULJ
+        wfYUsOj4xL7GfHA83xUDniX7Q9WuYdkyJIZKMbXfxBP2MsXfihX+4nhjv2QCCw9uNWz7FF8DffWFRbiG
+        IEqnb4ZYf1xqt1/c3nAJjugrxe/VV+xas/FS2L5WvABHV9wkOkGtI+CHAw6HlfMiquAZbjV5JhjeCK8r
+        /giqwoo/jw6TelPxPLKXhNcYMgi4ajjurwUxxXtMOtFgkCnYDyn+Lf0a4qMEdiR1yS+xQiT7Ba7hQ/+L
+        aGeqAILdfAeKJpy018P2o+JnannTLm6EbU745n3iBlsOvCGrlfwqQYCDfC2JZl2WnYcE26b4XciFc1wM
+        JDd4/XGa5TOQXG2w/wK3FucYwtk9SrGaV6QUy4ma/EkkmpmYePz0YX8uxG6Gn7y2Fnib1kRHA5Zf+SRX
+        27kS9Bch/wrYA17RsQYGXoUj2Rqk+dNewSjhNY4SXuPo0Gv9C9Nhtj0Fglq2AAAAAElFTkSuQmCC
+</value>
+  </data>
 </root>

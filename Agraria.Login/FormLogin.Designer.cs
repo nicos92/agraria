@@ -107,7 +107,7 @@ partial class FormLogin
         TLPInicio.Controls.Add(LblUsuario, 1, 2);
         TLPInicio.Controls.Add(LblOlvide, 1, 8);
         TLPInicio.Controls.Add(LblTitulo, 0, 1);
-        TLPInicio.Controls.Add(LblEye, 0, 5);
+        TLPInicio.Controls.Add(LblEye, 2, 5);
         TLPInicio.Dock = DockStyle.Fill;
         TLPInicio.ForeColor = Color.FromArgb(255, 255, 255);
         TLPInicio.Location = new Point(372, 3);
@@ -234,12 +234,11 @@ partial class FormLogin
         // 
         // LblEye
         // 
-        LblEye.Anchor = AnchorStyles.Top | AnchorStyles.Right;
         LblEye.Cursor = Cursors.Hand;
         LblEye.Image = Properties.Resources.eyeLowVision;
-        LblEye.Location = new Point(60, 246);
+        LblEye.Location = new Point(455, 246);
         LblEye.Name = "LblEye";
-        LblEye.Size = new Size(50, 32);
+        LblEye.Size = new Size(48, 32);
         LblEye.TabIndex = 8;
         LblEye.Click += LblEye_Click;
         // 

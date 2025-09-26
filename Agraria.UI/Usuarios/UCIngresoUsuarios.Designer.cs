@@ -30,6 +30,7 @@ namespace Agraria.UI.Usuarios
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UCIngresoUsuarios));
             PanelMedio = new Panel();
             tableLayoutPanel4 = new TableLayoutPanel();
             groupBox1 = new GroupBox();
@@ -48,7 +49,6 @@ namespace Agraria.UI.Usuarios
             TxtContraDos = new TextBox();
             label6 = new Label();
             label7 = new Label();
-            BtnIngresar = new Button();
             CMBTipoUsuario = new ComboBox();
             label5 = new Label();
             label8 = new Label();
@@ -56,7 +56,10 @@ namespace Agraria.UI.Usuarios
             CMBPregunta = new ComboBox();
             label9 = new Label();
             LblError = new Label();
+            BtnIngresar = new Button();
             ChkActivo = new CheckBox();
+            LblContra = new Label();
+            LblContraDos = new Label();
             PanelMedio.SuspendLayout();
             tableLayoutPanel4.SuspendLayout();
             groupBox1.SuspendLayout();
@@ -129,6 +132,8 @@ namespace Agraria.UI.Usuarios
             TLPForm.Controls.Add(LblError, 1, 8);
             TLPForm.Controls.Add(BtnIngresar, 1, 13);
             TLPForm.Controls.Add(ChkActivo, 1, 12);
+            TLPForm.Controls.Add(LblContra, 2, 6);
+            TLPForm.Controls.Add(LblContraDos, 2, 7);
             TLPForm.Dock = DockStyle.Fill;
             TLPForm.ForeColor = Color.FromArgb(26, 28, 30);
             TLPForm.Location = new Point(3, 29);
@@ -327,27 +332,6 @@ namespace Agraria.UI.Usuarios
             label7.TabIndex = 19;
             label7.Text = "Repita la\r\nContraseña";
             // 
-            // BtnIngresar
-            // 
-            BtnIngresar.Anchor = AnchorStyles.None;
-            BtnIngresar.BackColor = Color.FromArgb(83, 96, 108);
-            BtnIngresar.Enabled = false;
-            BtnIngresar.FlatAppearance.BorderColor = Color.FromArgb(203, 230, 255);
-            BtnIngresar.FlatStyle = FlatStyle.Flat;
-            BtnIngresar.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            BtnIngresar.ForeColor = Color.FromArgb(255, 255, 255);
-            BtnIngresar.Image = Properties.Resources.ingresar;
-            BtnIngresar.Location = new Point(217, 453);
-            BtnIngresar.Margin = new Padding(4);
-            BtnIngresar.Name = "BtnIngresar";
-            BtnIngresar.Size = new Size(192, 42);
-            BtnIngresar.TabIndex = 15;
-            BtnIngresar.Text = "INGRESAR";
-            BtnIngresar.TextImageRelation = TextImageRelation.TextBeforeImage;
-            BtnIngresar.UseVisualStyleBackColor = false;
-            BtnIngresar.EnabledChanged += BtnIngresar_EnabledChanged;
-            BtnIngresar.Click += BtnIngresar_Click;
-            // 
             // CMBTipoUsuario
             // 
             CMBTipoUsuario.Anchor = AnchorStyles.Left | AnchorStyles.Right;
@@ -433,6 +417,27 @@ namespace Agraria.UI.Usuarios
             LblError.Text = "Las Contraseñas no coinciden";
             LblError.Visible = false;
             // 
+            // BtnIngresar
+            // 
+            BtnIngresar.Anchor = AnchorStyles.None;
+            BtnIngresar.BackColor = Color.FromArgb(83, 96, 108);
+            BtnIngresar.Enabled = false;
+            BtnIngresar.FlatAppearance.BorderColor = Color.FromArgb(203, 230, 255);
+            BtnIngresar.FlatStyle = FlatStyle.Flat;
+            BtnIngresar.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            BtnIngresar.ForeColor = Color.FromArgb(255, 255, 255);
+            BtnIngresar.Image = Properties.Resources.ingresar;
+            BtnIngresar.Location = new Point(217, 453);
+            BtnIngresar.Margin = new Padding(4);
+            BtnIngresar.Name = "BtnIngresar";
+            BtnIngresar.Size = new Size(192, 42);
+            BtnIngresar.TabIndex = 15;
+            BtnIngresar.Text = "INGRESAR";
+            BtnIngresar.TextImageRelation = TextImageRelation.TextBeforeImage;
+            BtnIngresar.UseVisualStyleBackColor = false;
+            BtnIngresar.EnabledChanged += BtnIngresar_EnabledChanged;
+            BtnIngresar.Click += BtnIngresar_Click;
+            // 
             // ChkActivo
             // 
             ChkActivo.AutoSize = true;
@@ -443,6 +448,28 @@ namespace Agraria.UI.Usuarios
             ChkActivo.TabIndex = 26;
             ChkActivo.Text = "Activo";
             ChkActivo.UseVisualStyleBackColor = true;
+            // 
+            // LblContra
+            // 
+            LblContra.Anchor = AnchorStyles.Left;
+            LblContra.Cursor = Cursors.Hand;
+            LblContra.Image = (Image)resources.GetObject("LblContra.Image");
+            LblContra.Location = new Point(504, 195);
+            LblContra.Name = "LblContra";
+            LblContra.Size = new Size(50, 32);
+            LblContra.TabIndex = 27;
+            LblContra.Click += LblContra_Click;
+            // 
+            // LblContraDos
+            // 
+            LblContraDos.Anchor = AnchorStyles.Left;
+            LblContraDos.Cursor = Cursors.Hand;
+            LblContraDos.Image = Properties.Resources.eyeLowVisionDarkSecondary;
+            LblContraDos.Location = new Point(504, 235);
+            LblContraDos.Name = "LblContraDos";
+            LblContraDos.Size = new Size(50, 32);
+            LblContraDos.TabIndex = 28;
+            LblContraDos.Click += LblContraDos_Click;
             // 
             // UCIngresoUsuarios
             // 
@@ -491,5 +518,7 @@ namespace Agraria.UI.Usuarios
         private ComboBox CMBPregunta;
         private Label LblError;
         private CheckBox ChkActivo;
+        private Label LblContra;
+        private Label LblContraDos;
     }
 }

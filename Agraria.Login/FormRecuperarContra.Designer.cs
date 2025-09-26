@@ -115,8 +115,8 @@
             TLPInicio.Controls.Add(label2, 1, 9);
             TLPInicio.Controls.Add(LblInicioError, 1, 8);
             TLPInicio.Controls.Add(LblTitulo, 0, 0);
-            TLPInicio.Controls.Add(LblEye, 0, 7);
-            TLPInicio.Controls.Add(LblContra, 0, 5);
+            TLPInicio.Controls.Add(LblContra, 2, 5);
+            TLPInicio.Controls.Add(LblEye, 2, 7);
             TLPInicio.Dock = DockStyle.Fill;
             TLPInicio.ForeColor = Color.FromArgb(255, 255, 255);
             TLPInicio.Location = new Point(372, 3);
@@ -298,10 +298,9 @@
             // 
             // LblEye
             // 
-            LblEye.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             LblEye.Cursor = Cursors.Hand;
             LblEye.Image = Properties.Resources.eyeLowVision;
-            LblEye.Location = new Point(59, 263);
+            LblEye.Location = new Point(474, 263);
             LblEye.Name = "LblEye";
             LblEye.Size = new Size(50, 32);
             LblEye.TabIndex = 15;
@@ -309,10 +308,9 @@
             // 
             // LblContra
             // 
-            LblContra.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             LblContra.Cursor = Cursors.Hand;
             LblContra.Image = Properties.Resources.eyeLowVision;
-            LblContra.Location = new Point(59, 207);
+            LblContra.Location = new Point(474, 207);
             LblContra.Name = "LblContra";
             LblContra.Size = new Size(50, 32);
             LblContra.TabIndex = 16;

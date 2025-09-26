@@ -116,7 +116,6 @@ namespace Agraria.UI.Usuarios
             {
                 CMBPregunta.SelectedIndex = 0;
             }
-            TxtContra_PassqordChar();
         }
 
         /// <summary>
@@ -126,7 +125,7 @@ namespace Agraria.UI.Usuarios
         {
             try
             {
-               
+
                 var tiposUsuarios = await _usuariosTipoService.GetAll();
 
                 if (tiposUsuarios.IsSuccess && tiposUsuarios.Value != null)
@@ -147,7 +146,7 @@ namespace Agraria.UI.Usuarios
 
                 MessageBox.Show("Error al cargar la pantalla, intente nuevamente" + ex.Message, "Error de Execucion");
             }
-            
+
         }
 
         /// <summary>
@@ -453,11 +452,34 @@ namespace Agraria.UI.Usuarios
         }
 
 
-        private void TxtContra_PassqordChar()
-        {
-            TxtContra.PasswordChar = '\uFFFD';
-            TxtContraDos.PasswordChar = '\uFFFD';
+        
 
+        private void LblContra_Click(object sender, EventArgs e)
+        {
+            if (TxtContra.PasswordChar == '*')
+            {
+                TxtContra.PasswordChar = '\0';
+                LblContra.Image = Properties.Resources.eyeSecondary;
+            }
+            else
+            {
+                TxtContraDos.PasswordChar = '*';
+                LblContra.Image = Properties.Resources.eyeSecondary;
+            }
+        }
+
+        private void LblContraDos_Click(object sender, EventArgs e)
+        {
+            if (TxtContraDos.PasswordChar == '*')
+            {
+                TxtContraDos.PasswordChar = '\0';
+                LblContraDos.Image = Properties.Resources.eyeSecondary;
+            }
+            else
+            {
+                TxtContraDos.PasswordChar = '*';
+                LblContraDos.Image = Properties.Resources.eyeSecondary;
+            }
         }
     }
 

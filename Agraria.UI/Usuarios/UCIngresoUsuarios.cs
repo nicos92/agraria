@@ -15,7 +15,7 @@ namespace Agraria.UI.Usuarios
 {
     public partial class UCIngresoUsuarios : UserControl
     {
-        
+
         private readonly IUsuariosService _usuariosService;
         private readonly IUsuariosTipoService _usuariosTipoService;
         private readonly IPreguntasSeguridadService _preguntasSeguridadService;
@@ -105,11 +105,11 @@ namespace Agraria.UI.Usuarios
             TxtDni.Focus();
             ConfigBtns();
             await Task.WhenAll(
-                
+
                 CargarTiposUsuarios(),
                 CargarPreguntasSeguridad()
             );
-           
+
 
             // Establecer un valor predeterminado para el combo box de preguntas
             if (CMBPregunta.Items.Count > 0)
@@ -266,6 +266,34 @@ namespace Agraria.UI.Usuarios
             TxtContra.PasswordChar = '\uFFFD';
             TxtContraDos.PasswordChar = '\uFFFD';
 
+        }
+
+        private void LblContra_Click(object sender, EventArgs e)
+        {
+            if (TxtContra.PasswordChar == '*')
+            {
+                TxtContra.PasswordChar = '\0';
+                LblContra.Image = Properties.Resources.eyeSecondary;
+            }
+            else
+            {
+                TxtContra.PasswordChar = '*';
+                LblContra.Image = Properties.Resources.eyeLowVisionDarkSecondary;
+            }
+        }
+
+        private void LblContraDos_Click(object sender, EventArgs e)
+        {
+            if (TxtContraDos.PasswordChar == '*')
+            {
+                TxtContraDos.PasswordChar = '\0';
+                LblContraDos.Image = Properties.Resources.eyeSecondary;
+            }
+            else
+            {
+                TxtContraDos.PasswordChar = '*';
+                LblContraDos.Image = Properties.Resources.eyeLowVisionDarkSecondary;
+            }
         }
     }
 }
