@@ -69,9 +69,9 @@ public partial class FormLogin : Form
 
             if (result.IsSuccess && result.Value != null)
             {
-               
+
                 SessionManager.Instance.SetUsuario(result.Value);
-                
+
                 // Aca llamo al formulario principal que esta en Agraria.UI
                 Form _formHijo = _serviceProvider.GetRequiredService<FormPrincipal>();
                 _formHijo.Closed += (s, e) =>
@@ -89,9 +89,9 @@ public partial class FormLogin : Form
                 LblInicioError.Visible = true;
                 MessageBox.Show(result.Error, "No se pudo iniciar sesion", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            
+
         }
-        catch(InvalidOperationException ex)
+        catch (InvalidOperationException ex)
         {
             MessageBox.Show("Error durante la autenticación: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             LblInicioError.Visible = true;
@@ -146,5 +146,19 @@ public partial class FormLogin : Form
     private void FormLogin_Activated(object sender, EventArgs e)
     {
         TxtDni.Focus();
+    }
+
+    private void LblEye_Click(object sender, EventArgs e)
+    {
+        if(TxtContra.PasswordChar == '*')
+        {
+            TxtContra.PasswordChar = '\0';
+            LblEye.Image = Properties.Resources.eye;
+        }
+        else
+        {
+            TxtContra.PasswordChar = '*';
+            LblEye.Image = Properties.Resources.eyeLowVision;
+        }
     }
 }

@@ -180,5 +180,35 @@ namespace Agraria.Login
                 BtnIngresar_Click(sender, e);
             }
         }
+
+        private void LblContra_Click(object sender, EventArgs e)
+        {
+            if (TxtContra.PasswordChar == '*')
+            {
+                TxtContra.PasswordChar = '\0';
+                LblContra.Image = Properties.Resources.eye;
+            }
+            else
+            {
+                TxtContra.PasswordChar = '*';
+                LblContra.Image = Properties.Resources.eyeLowVision;
+            }
+        }
+
+        private void LblEye_Click(object sender, EventArgs e)
+        {
+            if (TxtContraDos.PasswordChar == '*')
+            {
+                TxtContraDos.PasswordChar = '\0';
+                LblEye.Image = Properties.Resources.eye;
+            }
+            else
+            {
+                TxtContraDos.PasswordChar = '*';
+                LblEye.Image = Properties.Resources.eyeLowVision;
+            }
+        }
+
+        
     }
 }

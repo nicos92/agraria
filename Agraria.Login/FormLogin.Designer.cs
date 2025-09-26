@@ -43,6 +43,7 @@ partial class FormLogin
         LblUsuario = new Label();
         LblOlvide = new LinkLabel();
         LblTitulo = new Label();
+        LblEye = new Label();
         ProgressBar = new ProgressBar();
         TLPFondo.SuspendLayout();
         TLPLogo.SuspendLayout();
@@ -106,6 +107,7 @@ partial class FormLogin
         TLPInicio.Controls.Add(LblUsuario, 1, 2);
         TLPInicio.Controls.Add(LblOlvide, 1, 8);
         TLPInicio.Controls.Add(LblTitulo, 0, 1);
+        TLPInicio.Controls.Add(LblEye, 0, 5);
         TLPInicio.Dock = DockStyle.Fill;
         TLPInicio.ForeColor = Color.FromArgb(255, 255, 255);
         TLPInicio.Location = new Point(372, 3);
@@ -159,11 +161,11 @@ partial class FormLogin
         // 
         TxtContra.Anchor = AnchorStyles.Top;
         TxtContra.Cursor = Cursors.Hand;
-        TxtContra.Location = new Point(145, 249);
+        TxtContra.Location = new Point(116, 249);
         TxtContra.MaxLength = 255;
         TxtContra.Name = "TxtContra";
         TxtContra.PasswordChar = '*';
-        TxtContra.Size = new Size(274, 29);
+        TxtContra.Size = new Size(333, 29);
         TxtContra.TabIndex = 2;
         TxtContra.Text = "@Pass123";
         TxtContra.TextChanged += TxtDni_TextChanged;
@@ -183,10 +185,10 @@ partial class FormLogin
         // 
         TxtDni.Anchor = AnchorStyles.Top;
         TxtDni.Cursor = Cursors.Hand;
-        TxtDni.Location = new Point(145, 167);
+        TxtDni.Location = new Point(116, 167);
         TxtDni.MaxLength = 8;
         TxtDni.Name = "TxtDni";
-        TxtDni.Size = new Size(274, 29);
+        TxtDni.Size = new Size(333, 29);
         TxtDni.TabIndex = 1;
         TxtDni.Text = "12345678";
         TxtDni.TextChanged += TxtDni_TextChanged;
@@ -229,6 +231,17 @@ partial class FormLogin
         LblTitulo.Size = new Size(301, 45);
         LblTitulo.TabIndex = 0;
         LblTitulo.Text = "INICIO DE SESIÓN";
+        // 
+        // LblEye
+        // 
+        LblEye.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+        LblEye.Cursor = Cursors.Hand;
+        LblEye.Image = Properties.Resources.eyeLowVision;
+        LblEye.Location = new Point(60, 246);
+        LblEye.Name = "LblEye";
+        LblEye.Size = new Size(50, 32);
+        LblEye.TabIndex = 8;
+        LblEye.Click += LblEye_Click;
         // 
         // ProgressBar
         // 
@@ -281,4 +294,5 @@ partial class FormLogin
     private LinkLabel LblOlvide;
     private TableLayoutPanel TLPLogo;
     private ProgressBar ProgressBar;
+    private Label LblEye;
 }

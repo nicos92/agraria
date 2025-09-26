@@ -37,7 +37,6 @@
             label3 = new Label();
             TxtDNI = new TextBox();
             LblUsuario = new Label();
-            LblTitulo = new Label();
             label1 = new Label();
             TxtContraDos = new TextBox();
             BtnIngresar = new Button();
@@ -46,6 +45,9 @@
             CMBPregunta = new ComboBox();
             label2 = new Label();
             LblInicioError = new Label();
+            LblTitulo = new Label();
+            LblEye = new Label();
+            LblContra = new Label();
             TLPFondo.SuspendLayout();
             TLPLogo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)Logo).BeginInit();
@@ -113,6 +115,8 @@
             TLPInicio.Controls.Add(label2, 1, 9);
             TLPInicio.Controls.Add(LblInicioError, 1, 8);
             TLPInicio.Controls.Add(LblTitulo, 0, 0);
+            TLPInicio.Controls.Add(LblEye, 0, 7);
+            TLPInicio.Controls.Add(LblContra, 0, 5);
             TLPInicio.Dock = DockStyle.Fill;
             TLPInicio.ForeColor = Color.FromArgb(255, 255, 255);
             TLPInicio.Location = new Point(372, 3);
@@ -140,11 +144,11 @@
             // 
             TxtContra.Anchor = AnchorStyles.Top;
             TxtContra.Cursor = Cursors.Hand;
-            TxtContra.Location = new Point(154, 210);
+            TxtContra.Location = new Point(115, 210);
             TxtContra.MaxLength = 255;
             TxtContra.Name = "TxtContra";
             TxtContra.PasswordChar = '*';
-            TxtContra.Size = new Size(274, 29);
+            TxtContra.Size = new Size(353, 29);
             TxtContra.TabIndex = 2;
             TxtContra.TextChanged += TxtDNI_TextChanged;
             TxtContra.KeyPress += TxtDNI_KeyPress;
@@ -163,10 +167,10 @@
             // 
             TxtDNI.Anchor = AnchorStyles.Top;
             TxtDNI.Cursor = Cursors.Hand;
-            TxtDNI.Location = new Point(154, 154);
+            TxtDNI.Location = new Point(115, 154);
             TxtDNI.MaxLength = 8;
             TxtDNI.Name = "TxtDNI";
-            TxtDNI.Size = new Size(274, 29);
+            TxtDNI.Size = new Size(353, 29);
             TxtDNI.TabIndex = 1;
             TxtDNI.TextChanged += TxtDNI_TextChanged;
             TxtDNI.KeyPress += TxtDNI_KeyPress;
@@ -180,20 +184,6 @@
             LblUsuario.Size = new Size(98, 21);
             LblUsuario.TabIndex = 1;
             LblUsuario.Text = "DNI Usuario:";
-            // 
-            // LblTitulo
-            // 
-            LblTitulo.Anchor = AnchorStyles.None;
-            LblTitulo.AutoSize = true;
-            TLPInicio.SetColumnSpan(LblTitulo, 3);
-            LblTitulo.Font = new Font("Segoe UI", 24F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            LblTitulo.ForeColor = Color.FromArgb(255, 255, 255);
-            LblTitulo.Location = new Point(69, 42);
-            LblTitulo.Name = "LblTitulo";
-            LblTitulo.Size = new Size(427, 45);
-            LblTitulo.TabIndex = 0;
-            LblTitulo.Text = "RECUPERAR CONTRASEÑA";
-            LblTitulo.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // label1
             // 
@@ -209,11 +199,11 @@
             // 
             TxtContraDos.Anchor = AnchorStyles.Top;
             TxtContraDos.Cursor = Cursors.Hand;
-            TxtContraDos.Location = new Point(154, 266);
+            TxtContraDos.Location = new Point(115, 266);
             TxtContraDos.MaxLength = 255;
             TxtContraDos.Name = "TxtContraDos";
             TxtContraDos.PasswordChar = '*';
-            TxtContraDos.Size = new Size(274, 29);
+            TxtContraDos.Size = new Size(353, 29);
             TxtContraDos.TabIndex = 3;
             TxtContraDos.TextChanged += TxtDNI_TextChanged;
             TxtContraDos.KeyPress += TxtDNI_KeyPress;
@@ -241,10 +231,10 @@
             // 
             TxtRespues.Anchor = AnchorStyles.Top;
             TxtRespues.Cursor = Cursors.Hand;
-            TxtRespues.Location = new Point(154, 399);
+            TxtRespues.Location = new Point(115, 399);
             TxtRespues.MaxLength = 255;
             TxtRespues.Name = "TxtRespues";
-            TxtRespues.Size = new Size(274, 29);
+            TxtRespues.Size = new Size(353, 29);
             TxtRespues.TabIndex = 5;
             TxtRespues.TextChanged += TxtDNI_TextChanged;
             TxtRespues.KeyPress += TxtDNI_KeyPress;
@@ -264,9 +254,9 @@
             CMBPregunta.Anchor = AnchorStyles.Top;
             CMBPregunta.DropDownStyle = ComboBoxStyle.DropDownList;
             CMBPregunta.FormattingEnabled = true;
-            CMBPregunta.Location = new Point(154, 343);
+            CMBPregunta.Location = new Point(115, 343);
             CMBPregunta.Name = "CMBPregunta";
-            CMBPregunta.Size = new Size(274, 29);
+            CMBPregunta.Size = new Size(353, 29);
             CMBPregunta.TabIndex = 4;
             // 
             // label2
@@ -291,6 +281,42 @@
             LblInicioError.TabIndex = 14;
             LblInicioError.Text = "Las contraseñas no coinciden";
             LblInicioError.Visible = false;
+            // 
+            // LblTitulo
+            // 
+            LblTitulo.Anchor = AnchorStyles.None;
+            LblTitulo.AutoSize = true;
+            TLPInicio.SetColumnSpan(LblTitulo, 3);
+            LblTitulo.Font = new Font("Segoe UI", 24F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            LblTitulo.ForeColor = Color.FromArgb(255, 255, 255);
+            LblTitulo.Location = new Point(69, 42);
+            LblTitulo.Name = "LblTitulo";
+            LblTitulo.Size = new Size(427, 45);
+            LblTitulo.TabIndex = 0;
+            LblTitulo.Text = "RECUPERAR CONTRASEÑA";
+            LblTitulo.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // LblEye
+            // 
+            LblEye.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            LblEye.Cursor = Cursors.Hand;
+            LblEye.Image = Properties.Resources.eyeLowVision;
+            LblEye.Location = new Point(59, 263);
+            LblEye.Name = "LblEye";
+            LblEye.Size = new Size(50, 32);
+            LblEye.TabIndex = 15;
+            LblEye.Click += LblEye_Click;
+            // 
+            // LblContra
+            // 
+            LblContra.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            LblContra.Cursor = Cursors.Hand;
+            LblContra.Image = Properties.Resources.eyeLowVision;
+            LblContra.Location = new Point(59, 207);
+            LblContra.Name = "LblContra";
+            LblContra.Size = new Size(50, 32);
+            LblContra.TabIndex = 16;
+            LblContra.Click += LblContra_Click;
             // 
             // FormRecuperarContra
             // 
@@ -336,5 +362,7 @@
         private Label label4;
         private TextBox TxtRespues;
         private Label LblInicioError;
+        private Label LblEye;
+        private Label LblContra;
     }
 }
