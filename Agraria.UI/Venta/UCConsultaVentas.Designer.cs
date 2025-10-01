@@ -28,15 +28,16 @@ namespace Agraria.UI.Ventas
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle9 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle10 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle11 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle12 = new DataGridViewCellStyle();
             splitContainer1 = new SplitContainer();
             GBLista = new GroupBox();
             tableLayoutPanel1 = new TableLayoutPanel();
             DgvVentas = new DataGridView();
             tableLayoutPanel7 = new TableLayoutPanel();
+            BtnImprimir = new Button();
             label1 = new Label();
             DtpFechaDesde = new DateTimePicker();
             label3 = new Label();
@@ -155,23 +156,23 @@ namespace Agraria.UI.Ventas
             DgvVentas.AllowUserToResizeColumns = false;
             DgvVentas.AllowUserToResizeRows = false;
             DgvVentas.BackgroundColor = Color.FromArgb(249, 249, 251);
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = Color.FromArgb(232, 232, 234);
-            dataGridViewCellStyle1.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold);
-            dataGridViewCellStyle1.ForeColor = Color.FromArgb(69, 71, 73);
-            dataGridViewCellStyle1.SelectionBackColor = Color.FromArgb(203, 230, 255);
-            dataGridViewCellStyle1.SelectionForeColor = Color.FromArgb(0, 75, 113);
-            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
-            DgvVentas.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle9.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle9.BackColor = Color.FromArgb(232, 232, 234);
+            dataGridViewCellStyle9.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold);
+            dataGridViewCellStyle9.ForeColor = Color.FromArgb(69, 71, 73);
+            dataGridViewCellStyle9.SelectionBackColor = Color.FromArgb(203, 230, 255);
+            dataGridViewCellStyle9.SelectionForeColor = Color.FromArgb(0, 75, 113);
+            dataGridViewCellStyle9.WrapMode = DataGridViewTriState.True;
+            DgvVentas.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle9;
             DgvVentas.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = SystemColors.Window;
-            dataGridViewCellStyle2.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle2.ForeColor = Color.FromArgb(7, 100, 147);
-            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
-            DgvVentas.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle10.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle10.BackColor = SystemColors.Window;
+            dataGridViewCellStyle10.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle10.ForeColor = Color.FromArgb(7, 100, 147);
+            dataGridViewCellStyle10.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle10.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle10.WrapMode = DataGridViewTriState.False;
+            DgvVentas.DefaultCellStyle = dataGridViewCellStyle10;
             DgvVentas.Dock = DockStyle.Fill;
             DgvVentas.GridColor = Color.FromArgb(190, 201, 209);
             DgvVentas.Location = new Point(3, 158);
@@ -191,6 +192,7 @@ namespace Agraria.UI.Ventas
             tableLayoutPanel7.ColumnStyles.Add(new ColumnStyle());
             tableLayoutPanel7.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
             tableLayoutPanel7.ColumnStyles.Add(new ColumnStyle());
+            tableLayoutPanel7.Controls.Add(BtnImprimir, 0, 2);
             tableLayoutPanel7.Controls.Add(label1, 0, 0);
             tableLayoutPanel7.Controls.Add(DtpFechaDesde, 1, 0);
             tableLayoutPanel7.Controls.Add(label3, 0, 1);
@@ -209,6 +211,23 @@ namespace Agraria.UI.Ventas
             tableLayoutPanel7.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
             tableLayoutPanel7.Size = new Size(366, 133);
             tableLayoutPanel7.TabIndex = 25;
+            // 
+            // BtnImprimir
+            // 
+            BtnImprimir.Anchor = AnchorStyles.None;
+            BtnImprimir.BackColor = Color.FromArgb(65, 0, 2);
+            tableLayoutPanel7.SetColumnSpan(BtnImprimir, 2);
+            BtnImprimir.FlatAppearance.BorderColor = Color.FromArgb(203, 230, 255);
+            BtnImprimir.FlatStyle = FlatStyle.Flat;
+            BtnImprimir.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            BtnImprimir.ForeColor = Color.FromArgb(255, 218, 214);
+            BtnImprimir.Location = new Point(25, 85);
+            BtnImprimir.Name = "BtnImprimir";
+            BtnImprimir.Size = new Size(128, 32);
+            BtnImprimir.TabIndex = 9;
+            BtnImprimir.Text = "Exportar a PDF";
+            BtnImprimir.UseVisualStyleBackColor = false;
+            BtnImprimir.Click += BtnImprimir_Click;
             // 
             // label1
             // 
@@ -500,23 +519,23 @@ namespace Agraria.UI.Ventas
             DgvDetalles.AllowUserToResizeColumns = false;
             DgvDetalles.AllowUserToResizeRows = false;
             DgvDetalles.BackgroundColor = Color.FromArgb(249, 249, 251);
-            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = Color.FromArgb(232, 232, 234);
-            dataGridViewCellStyle3.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold);
-            dataGridViewCellStyle3.ForeColor = Color.FromArgb(69, 71, 73);
-            dataGridViewCellStyle3.SelectionBackColor = Color.FromArgb(203, 230, 255);
-            dataGridViewCellStyle3.SelectionForeColor = Color.FromArgb(0, 75, 113);
-            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
-            DgvDetalles.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle11.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle11.BackColor = Color.FromArgb(232, 232, 234);
+            dataGridViewCellStyle11.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold);
+            dataGridViewCellStyle11.ForeColor = Color.FromArgb(69, 71, 73);
+            dataGridViewCellStyle11.SelectionBackColor = Color.FromArgb(203, 230, 255);
+            dataGridViewCellStyle11.SelectionForeColor = Color.FromArgb(0, 75, 113);
+            dataGridViewCellStyle11.WrapMode = DataGridViewTriState.True;
+            DgvDetalles.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle11;
             DgvDetalles.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = SystemColors.Window;
-            dataGridViewCellStyle4.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle4.ForeColor = Color.FromArgb(7, 100, 147);
-            dataGridViewCellStyle4.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.False;
-            DgvDetalles.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle12.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle12.BackColor = SystemColors.Window;
+            dataGridViewCellStyle12.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle12.ForeColor = Color.FromArgb(7, 100, 147);
+            dataGridViewCellStyle12.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle12.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle12.WrapMode = DataGridViewTriState.False;
+            DgvDetalles.DefaultCellStyle = dataGridViewCellStyle12;
             DgvDetalles.Dock = DockStyle.Fill;
             DgvDetalles.GridColor = Color.FromArgb(190, 201, 209);
             DgvDetalles.Location = new Point(3, 25);
@@ -815,5 +834,6 @@ namespace Agraria.UI.Ventas
         private TableLayoutPanel tableLayoutPanel9;
         private TableLayoutPanel tableLayoutPanel10;
         private TableLayoutPanel tableLayoutPanel11;
+        private Button BtnImprimir;
     }
 }

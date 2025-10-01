@@ -51,7 +51,7 @@ namespace Agraria.UI.Ventas
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Error al cargar el control de consulta de ventas");
-                MessageBox.Show($"Error al cargar las ventas: {ex.Message}", "Error", 
+                MessageBox.Show($"Error al cargar las ventas: {ex.Message}", "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -72,11 +72,11 @@ namespace Agraria.UI.Ventas
         {
             // Aplicar colores consistentes con la aplicación
             this.BackColor = Color.FromArgb(218, 218, 220);
-            
+
             // Estilo para los GroupBox
             GBLista.ForeColor = Color.FromArgb(7, 100, 147);
             GBForm.ForeColor = Color.FromArgb(7, 100, 147);
-            
+
             // Estilo para las etiquetas
             foreach (Control control in GBForm.Controls)
             {
@@ -95,7 +95,7 @@ namespace Agraria.UI.Ventas
                     }
                 }
             }
-            
+
             // Configurar formato de moneda para las etiquetas de totales
             LblSubtotal.Text = DecimalFormatter.ToCurrency(0);
             LblDescuento.Text = DecimalFormatter.ToCurrency(0);
@@ -152,7 +152,7 @@ namespace Agraria.UI.Ventas
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al cargar DataGridView de Ventas: {ex.Message}", "Error", 
+                MessageBox.Show($"Error al cargar DataGridView de Ventas: {ex.Message}", "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
@@ -219,7 +219,7 @@ namespace Agraria.UI.Ventas
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al cargar DataGridView de Detalles: {ex.Message}", "Error", 
+                MessageBox.Show($"Error al cargar DataGridView de Detalles: {ex.Message}", "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
@@ -232,7 +232,7 @@ namespace Agraria.UI.Ventas
         {
             LblIdRemito.Text = venta.Id_Remito.ToString();
             LblFecha.Text = venta.Fecha_Hora.ToString("dd/MM/yyyy HH:mm");
-            LblUsuario.Text = venta.Cod_Usuario.ToString(); 
+            LblUsuario.Text = venta.Cod_Usuario.ToString();
             LblSubtotal.Text = DecimalFormatter.ToCurrency(venta.Subtotal);
             LblDescuento.Text = DecimalFormatter.ToCurrency(venta.Descu);
             LblTotal.Text = DecimalFormatter.ToCurrency(venta.Total);
@@ -287,7 +287,7 @@ namespace Agraria.UI.Ventas
             LblSubtotal.Text = "";
             LblDescuento.Text = "";
             LblTotal.Text = "";
-            
+
             DgvDetalles.DataSource = null;
             _detallesVenta.Clear();
         }
@@ -317,7 +317,7 @@ namespace Agraria.UI.Ventas
                     {
                         MessageBox.Show("Venta eliminada correctamente.", "Éxito",
                             MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        
+
                         // Recargar la lista de ventas
                         await CargarVentasAsync();
                         LimpiarDetallesVenta();
@@ -357,7 +357,7 @@ namespace Agraria.UI.Ventas
                 DateTime fechaHasta = DtpFechaHasta.Value.Date.AddDays(1); // Fin del día
                 string cliente = TxtCliente.Text.Trim();
                 string idRemitoText = TxtIdRemito.Text.Trim();
-                
+
                 // Intentar parsear el ID de remito si se proporciona
                 int? idRemito = null;
                 if (!string.IsNullOrEmpty(idRemitoText) && int.TryParse(idRemitoText, out int parsedId))
@@ -390,7 +390,7 @@ namespace Agraria.UI.Ventas
             }
         }
 
-     
+
 
         private void ConfigurarDGV()
         {
@@ -406,7 +406,7 @@ namespace Agraria.UI.Ventas
             DgvVentas.AllowUserToResizeRows = false;
             DgvVentas.AllowUserToResizeColumns = true;
             DgvVentas.AutoGenerateColumns = false;
-            
+
             // Asegurar que el DataGridView puede recibir el foco y selecciones
             DgvVentas.TabStop = true;
             DgvVentas.Enabled = true;
@@ -423,7 +423,7 @@ namespace Agraria.UI.Ventas
             DgvDetalles.AllowUserToResizeRows = false;
             DgvDetalles.AllowUserToResizeColumns = true;
             DgvDetalles.AutoGenerateColumns = false;
-            
+
             // Asegurar que el DataGridView puede recibir el foco y selecciones
             DgvDetalles.TabStop = true;
             DgvDetalles.Enabled = true;
@@ -456,9 +456,9 @@ namespace Agraria.UI.Ventas
                     HeaderText = "Fecha",
                     Visible = true,
                     FillWeight = 30f,
-                    DefaultCellStyle = new DataGridViewCellStyle 
-                    { 
-                        Format = "dd/MM/yyyy HH:mm" 
+                    DefaultCellStyle = new DataGridViewCellStyle
+                    {
+                        Format = "dd/MM/yyyy HH:mm"
                     },
                     AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
                 },
@@ -469,8 +469,8 @@ namespace Agraria.UI.Ventas
                     HeaderText = "Total",
                     Visible = true,
                     FillWeight = 25f,
-                    DefaultCellStyle = new DataGridViewCellStyle 
-                    { 
+                    DefaultCellStyle = new DataGridViewCellStyle
+                    {
                         Format = "C2",
                         FormatProvider = DecimalFormatter.ArgentinaCulture
                     },
@@ -562,8 +562,8 @@ namespace Agraria.UI.Ventas
                     HeaderText = "Precio Unit.",
                     Visible = true,
                     FillWeight = 15f,
-                    DefaultCellStyle = new DataGridViewCellStyle 
-                    { 
+                    DefaultCellStyle = new DataGridViewCellStyle
+                    {
                         Format = "C2",
                         FormatProvider = DecimalFormatter.ArgentinaCulture
                     }
@@ -583,8 +583,8 @@ namespace Agraria.UI.Ventas
                     HeaderText = "Total",
                     Visible = true,
                     FillWeight = 15f,
-                    DefaultCellStyle = new DataGridViewCellStyle 
-                    { 
+                    DefaultCellStyle = new DataGridViewCellStyle
+                    {
                         Format = "C2",
                         FormatProvider = DecimalFormatter.ArgentinaCulture
                     }
@@ -601,5 +601,28 @@ namespace Agraria.UI.Ventas
         {
             await CargarVentasAsync();
         }
+
+        private void BtnImprimir_Click(object sender, EventArgs e)
+        {
+            Utilidades.Impresion.ImpresionTicket.ImprimiriTextSharp(
+                productos: _detallesVenta.Select(d => new Utilidades.Impresion.ProductoVenta
+                {
+                    Nombre = d.Descr,
+                    Cantidad = d.Cant,
+                    Precio = d.P_Unit,
+                    Subtotal = d.P_X_Cant, // Asumiendo que P_X_Cant es el subtotal sin IVA ni descuento
+                    IVA = 0, // Ajustar según sea necesario
+                    Descuento = 0, // Ajustar según sea necesario
+                    Total = d.P_X_Cant // Ajustar según sea necesario
+                }).ToList(),
+                
+                numeroOperacion: _selectedVentaId.ToString(),
+                motivo: LblDescripcion.Text,
+                montoTotal: LblTotal.Text,
+                fechaOperacion: LblFecha.Text
+            );
+        }
+
+
     }
 }

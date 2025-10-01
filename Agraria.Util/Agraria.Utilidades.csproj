@@ -1,6 +1,39 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
+    <None Remove="Impresion\6 255.jpg" />
+    <None Remove="Impresion\EAC256.png" />
+    <None Remove="Impresion\impresion.css" />
+    <None Remove="Impresion\Impresion.html" />
+    <None Remove="Impresion\impresionventa.html" />
+    <None Remove="Impresion\impresionventados.html" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Impresion\6 255.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Impresion\EAC256.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Impresion\impresion.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Impresion\Impresion.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Impresion\impresionventa.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Impresion\impresionventados.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="IronPdf" Version="2025.9.4" />
+    <PackageReference Include="iTextSharp" Version="5.5.13.4" />
+    <PackageReference Include="itextsharp.xmlworker" Version="5.5.13.4" />
     <PackageReference Include="System.Drawing.Common" Version="9.0.9" />
   </ItemGroup>
 
