@@ -28,10 +28,10 @@ namespace Agraria.UI.Ventas
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle9 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle10 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle11 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle12 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle7 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle8 = new DataGridViewCellStyle();
             splitContainer1 = new SplitContainer();
             GBLista = new GroupBox();
             tableLayoutPanel1 = new TableLayoutPanel();
@@ -75,6 +75,7 @@ namespace Agraria.UI.Ventas
             BtnEliminar = new Button();
             BtnActualizar = new Button();
             tableLayoutPanel4 = new TableLayoutPanel();
+            helpProvider1 = new HelpProvider();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
             splitContainer1.Panel1.SuspendLayout();
             splitContainer1.Panel2.SuspendLayout();
@@ -156,23 +157,23 @@ namespace Agraria.UI.Ventas
             DgvVentas.AllowUserToResizeColumns = false;
             DgvVentas.AllowUserToResizeRows = false;
             DgvVentas.BackgroundColor = Color.FromArgb(249, 249, 251);
-            dataGridViewCellStyle9.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle9.BackColor = Color.FromArgb(232, 232, 234);
-            dataGridViewCellStyle9.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold);
-            dataGridViewCellStyle9.ForeColor = Color.FromArgb(69, 71, 73);
-            dataGridViewCellStyle9.SelectionBackColor = Color.FromArgb(203, 230, 255);
-            dataGridViewCellStyle9.SelectionForeColor = Color.FromArgb(0, 75, 113);
-            dataGridViewCellStyle9.WrapMode = DataGridViewTriState.True;
-            DgvVentas.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = Color.FromArgb(232, 232, 234);
+            dataGridViewCellStyle5.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold);
+            dataGridViewCellStyle5.ForeColor = Color.FromArgb(69, 71, 73);
+            dataGridViewCellStyle5.SelectionBackColor = Color.FromArgb(203, 230, 255);
+            dataGridViewCellStyle5.SelectionForeColor = Color.FromArgb(0, 75, 113);
+            dataGridViewCellStyle5.WrapMode = DataGridViewTriState.True;
+            DgvVentas.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
             DgvVentas.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle10.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle10.BackColor = SystemColors.Window;
-            dataGridViewCellStyle10.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle10.ForeColor = Color.FromArgb(7, 100, 147);
-            dataGridViewCellStyle10.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle10.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle10.WrapMode = DataGridViewTriState.False;
-            DgvVentas.DefaultCellStyle = dataGridViewCellStyle10;
+            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = SystemColors.Window;
+            dataGridViewCellStyle6.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle6.ForeColor = Color.FromArgb(7, 100, 147);
+            dataGridViewCellStyle6.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = DataGridViewTriState.False;
+            DgvVentas.DefaultCellStyle = dataGridViewCellStyle6;
             DgvVentas.Dock = DockStyle.Fill;
             DgvVentas.GridColor = Color.FromArgb(190, 201, 209);
             DgvVentas.Location = new Point(3, 158);
@@ -192,7 +193,6 @@ namespace Agraria.UI.Ventas
             tableLayoutPanel7.ColumnStyles.Add(new ColumnStyle());
             tableLayoutPanel7.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
             tableLayoutPanel7.ColumnStyles.Add(new ColumnStyle());
-            tableLayoutPanel7.Controls.Add(BtnImprimir, 0, 2);
             tableLayoutPanel7.Controls.Add(label1, 0, 0);
             tableLayoutPanel7.Controls.Add(DtpFechaDesde, 1, 0);
             tableLayoutPanel7.Controls.Add(label3, 0, 1);
@@ -216,12 +216,11 @@ namespace Agraria.UI.Ventas
             // 
             BtnImprimir.Anchor = AnchorStyles.None;
             BtnImprimir.BackColor = Color.FromArgb(65, 0, 2);
-            tableLayoutPanel7.SetColumnSpan(BtnImprimir, 2);
             BtnImprimir.FlatAppearance.BorderColor = Color.FromArgb(203, 230, 255);
             BtnImprimir.FlatStyle = FlatStyle.Flat;
             BtnImprimir.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             BtnImprimir.ForeColor = Color.FromArgb(255, 218, 214);
-            BtnImprimir.Location = new Point(25, 85);
+            BtnImprimir.Location = new Point(241, 6);
             BtnImprimir.Name = "BtnImprimir";
             BtnImprimir.Size = new Size(128, 32);
             BtnImprimir.TabIndex = 9;
@@ -371,18 +370,17 @@ namespace Agraria.UI.Ventas
             tableLayoutPanel3.BackColor = Color.FromArgb(249, 249, 251);
             tableLayoutPanel3.ColumnCount = 1;
             tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            tableLayoutPanel3.Controls.Add(tableLayoutPanel6, 0, 6);
-            tableLayoutPanel3.Controls.Add(tableLayoutPanel5, 0, 5);
-            tableLayoutPanel3.Controls.Add(groupBox1, 0, 7);
-            tableLayoutPanel3.Controls.Add(tableLayoutPanel8, 0, 1);
-            tableLayoutPanel3.Controls.Add(tableLayoutPanel9, 0, 2);
-            tableLayoutPanel3.Controls.Add(tableLayoutPanel10, 0, 3);
-            tableLayoutPanel3.Controls.Add(tableLayoutPanel11, 0, 4);
+            tableLayoutPanel3.Controls.Add(tableLayoutPanel6, 0, 5);
+            tableLayoutPanel3.Controls.Add(tableLayoutPanel5, 0, 4);
+            tableLayoutPanel3.Controls.Add(groupBox1, 0, 6);
+            tableLayoutPanel3.Controls.Add(tableLayoutPanel8, 0, 0);
+            tableLayoutPanel3.Controls.Add(tableLayoutPanel9, 0, 1);
+            tableLayoutPanel3.Controls.Add(tableLayoutPanel10, 0, 2);
+            tableLayoutPanel3.Controls.Add(tableLayoutPanel11, 0, 3);
             tableLayoutPanel3.Dock = DockStyle.Fill;
             tableLayoutPanel3.Location = new Point(4, 30);
             tableLayoutPanel3.Name = "tableLayoutPanel3";
-            tableLayoutPanel3.RowCount = 8;
-            tableLayoutPanel3.RowStyles.Add(new RowStyle());
+            tableLayoutPanel3.RowCount = 7;
             tableLayoutPanel3.RowStyles.Add(new RowStyle());
             tableLayoutPanel3.RowStyles.Add(new RowStyle());
             tableLayoutPanel3.RowStyles.Add(new RowStyle());
@@ -401,11 +399,11 @@ namespace Agraria.UI.Ventas
             tableLayoutPanel6.Controls.Add(label14, 0, 0);
             tableLayoutPanel6.Controls.Add(LblTotal, 1, 0);
             tableLayoutPanel6.Dock = DockStyle.Fill;
-            tableLayoutPanel6.Location = new Point(3, 153);
+            tableLayoutPanel6.Location = new Point(3, 192);
             tableLayoutPanel6.Name = "tableLayoutPanel6";
             tableLayoutPanel6.RowCount = 1;
             tableLayoutPanel6.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanel6.Size = new Size(373, 26);
+            tableLayoutPanel6.Size = new Size(373, 27);
             tableLayoutPanel6.TabIndex = 24;
             // 
             // label14
@@ -414,7 +412,7 @@ namespace Agraria.UI.Ventas
             label14.AutoSize = true;
             label14.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label14.ForeColor = Color.FromArgb(26, 28, 30);
-            label14.Location = new Point(74, 2);
+            label14.Location = new Point(74, 3);
             label14.Name = "label14";
             label14.Size = new Size(109, 21);
             label14.TabIndex = 16;
@@ -426,7 +424,7 @@ namespace Agraria.UI.Ventas
             LblTotal.AutoSize = true;
             LblTotal.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             LblTotal.ForeColor = Color.FromArgb(26, 28, 30);
-            LblTotal.Location = new Point(189, 2);
+            LblTotal.Location = new Point(189, 3);
             LblTotal.Name = "LblTotal";
             LblTotal.Size = new Size(19, 21);
             LblTotal.TabIndex = 17;
@@ -444,11 +442,11 @@ namespace Agraria.UI.Ventas
             tableLayoutPanel5.Controls.Add(label10, 0, 0);
             tableLayoutPanel5.Controls.Add(LblSubtotal, 1, 0);
             tableLayoutPanel5.Dock = DockStyle.Fill;
-            tableLayoutPanel5.Location = new Point(3, 123);
+            tableLayoutPanel5.Location = new Point(3, 158);
             tableLayoutPanel5.Name = "tableLayoutPanel5";
             tableLayoutPanel5.RowCount = 1;
             tableLayoutPanel5.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanel5.Size = new Size(373, 24);
+            tableLayoutPanel5.Size = new Size(373, 28);
             tableLayoutPanel5.TabIndex = 23;
             // 
             // label12
@@ -459,7 +457,7 @@ namespace Agraria.UI.Ventas
             label12.ForeColor = Color.FromArgb(26, 28, 30);
             label12.Location = new Point(197, 0);
             label12.Name = "label12";
-            label12.Size = new Size(79, 24);
+            label12.Size = new Size(79, 28);
             label12.TabIndex = 14;
             label12.Text = "DESCUENTO";
             // 
@@ -469,7 +467,7 @@ namespace Agraria.UI.Ventas
             LblDescuento.AutoSize = true;
             LblDescuento.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             LblDescuento.ForeColor = Color.FromArgb(26, 28, 30);
-            LblDescuento.Location = new Point(282, 1);
+            LblDescuento.Location = new Point(282, 3);
             LblDescuento.Name = "LblDescuento";
             LblDescuento.Size = new Size(19, 21);
             LblDescuento.TabIndex = 15;
@@ -481,7 +479,7 @@ namespace Agraria.UI.Ventas
             label10.AutoSize = true;
             label10.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label10.ForeColor = Color.FromArgb(26, 28, 30);
-            label10.Location = new Point(5, 1);
+            label10.Location = new Point(5, 3);
             label10.Name = "label10";
             label10.Size = new Size(85, 21);
             label10.TabIndex = 12;
@@ -493,7 +491,7 @@ namespace Agraria.UI.Ventas
             LblSubtotal.AutoSize = true;
             LblSubtotal.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             LblSubtotal.ForeColor = Color.FromArgb(26, 28, 30);
-            LblSubtotal.Location = new Point(96, 1);
+            LblSubtotal.Location = new Point(96, 3);
             LblSubtotal.Name = "LblSubtotal";
             LblSubtotal.Size = new Size(19, 21);
             LblSubtotal.TabIndex = 13;
@@ -505,9 +503,9 @@ namespace Agraria.UI.Ventas
             groupBox1.Dock = DockStyle.Fill;
             groupBox1.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             groupBox1.ForeColor = Color.FromArgb(7, 100, 147);
-            groupBox1.Location = new Point(3, 185);
+            groupBox1.Location = new Point(3, 225);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(373, 307);
+            groupBox1.Size = new Size(373, 267);
             groupBox1.TabIndex = 14;
             groupBox1.TabStop = false;
             groupBox1.Text = "Detalles de la Venta";
@@ -519,37 +517,39 @@ namespace Agraria.UI.Ventas
             DgvDetalles.AllowUserToResizeColumns = false;
             DgvDetalles.AllowUserToResizeRows = false;
             DgvDetalles.BackgroundColor = Color.FromArgb(249, 249, 251);
-            dataGridViewCellStyle11.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle11.BackColor = Color.FromArgb(232, 232, 234);
-            dataGridViewCellStyle11.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold);
-            dataGridViewCellStyle11.ForeColor = Color.FromArgb(69, 71, 73);
-            dataGridViewCellStyle11.SelectionBackColor = Color.FromArgb(203, 230, 255);
-            dataGridViewCellStyle11.SelectionForeColor = Color.FromArgb(0, 75, 113);
-            dataGridViewCellStyle11.WrapMode = DataGridViewTriState.True;
-            DgvDetalles.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle11;
+            dataGridViewCellStyle7.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle7.BackColor = Color.FromArgb(232, 232, 234);
+            dataGridViewCellStyle7.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold);
+            dataGridViewCellStyle7.ForeColor = Color.FromArgb(69, 71, 73);
+            dataGridViewCellStyle7.SelectionBackColor = Color.FromArgb(203, 230, 255);
+            dataGridViewCellStyle7.SelectionForeColor = Color.FromArgb(0, 75, 113);
+            dataGridViewCellStyle7.WrapMode = DataGridViewTriState.True;
+            DgvDetalles.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
             DgvDetalles.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle12.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle12.BackColor = SystemColors.Window;
-            dataGridViewCellStyle12.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle12.ForeColor = Color.FromArgb(7, 100, 147);
-            dataGridViewCellStyle12.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle12.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle12.WrapMode = DataGridViewTriState.False;
-            DgvDetalles.DefaultCellStyle = dataGridViewCellStyle12;
+            dataGridViewCellStyle8.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle8.BackColor = SystemColors.Window;
+            dataGridViewCellStyle8.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle8.ForeColor = Color.FromArgb(7, 100, 147);
+            dataGridViewCellStyle8.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle8.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle8.WrapMode = DataGridViewTriState.False;
+            DgvDetalles.DefaultCellStyle = dataGridViewCellStyle8;
             DgvDetalles.Dock = DockStyle.Fill;
             DgvDetalles.GridColor = Color.FromArgb(190, 201, 209);
             DgvDetalles.Location = new Point(3, 25);
             DgvDetalles.Name = "DgvDetalles";
             DgvDetalles.ReadOnly = true;
             DgvDetalles.RowHeadersVisible = false;
-            DgvDetalles.Size = new Size(367, 279);
+            DgvDetalles.Size = new Size(367, 239);
             DgvDetalles.TabIndex = 0;
             // 
             // tableLayoutPanel8
             // 
-            tableLayoutPanel8.ColumnCount = 2;
-            tableLayoutPanel8.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 26.8498936F));
-            tableLayoutPanel8.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 73.15011F));
+            tableLayoutPanel8.ColumnCount = 3;
+            tableLayoutPanel8.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 41.17647F));
+            tableLayoutPanel8.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 58.82353F));
+            tableLayoutPanel8.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 134F));
+            tableLayoutPanel8.Controls.Add(BtnImprimir, 2, 0);
             tableLayoutPanel8.Controls.Add(label7, 0, 0);
             tableLayoutPanel8.Controls.Add(LblIdRemito, 1, 0);
             tableLayoutPanel8.Dock = DockStyle.Fill;
@@ -557,7 +557,8 @@ namespace Agraria.UI.Ventas
             tableLayoutPanel8.Name = "tableLayoutPanel8";
             tableLayoutPanel8.RowCount = 1;
             tableLayoutPanel8.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            tableLayoutPanel8.Size = new Size(373, 23);
+            tableLayoutPanel8.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+            tableLayoutPanel8.Size = new Size(373, 44);
             tableLayoutPanel8.TabIndex = 10;
             // 
             // label7
@@ -566,9 +567,9 @@ namespace Agraria.UI.Ventas
             label7.AutoSize = true;
             label7.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label7.ForeColor = Color.FromArgb(26, 28, 30);
-            label7.Location = new Point(29, 0);
+            label7.Location = new Point(27, 1);
             label7.Name = "label7";
-            label7.Size = new Size(68, 23);
+            label7.Size = new Size(68, 42);
             label7.TabIndex = 16;
             label7.Text = "Nº DE REMITO";
             // 
@@ -578,7 +579,7 @@ namespace Agraria.UI.Ventas
             LblIdRemito.AutoSize = true;
             LblIdRemito.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             LblIdRemito.ForeColor = Color.FromArgb(26, 28, 30);
-            LblIdRemito.Location = new Point(103, 1);
+            LblIdRemito.Location = new Point(101, 11);
             LblIdRemito.Name = "LblIdRemito";
             LblIdRemito.Size = new Size(19, 21);
             LblIdRemito.TabIndex = 15;
@@ -592,11 +593,11 @@ namespace Agraria.UI.Ventas
             tableLayoutPanel9.Controls.Add(label4, 0, 0);
             tableLayoutPanel9.Controls.Add(LblFecha, 1, 0);
             tableLayoutPanel9.Dock = DockStyle.Fill;
-            tableLayoutPanel9.Location = new Point(3, 32);
+            tableLayoutPanel9.Location = new Point(3, 53);
             tableLayoutPanel9.Name = "tableLayoutPanel9";
             tableLayoutPanel9.RowCount = 1;
             tableLayoutPanel9.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableLayoutPanel9.Size = new Size(373, 25);
+            tableLayoutPanel9.Size = new Size(373, 29);
             tableLayoutPanel9.TabIndex = 10;
             // 
             // label4
@@ -605,7 +606,7 @@ namespace Agraria.UI.Ventas
             label4.AutoSize = true;
             label4.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label4.ForeColor = Color.FromArgb(26, 28, 30);
-            label4.Location = new Point(38, 2);
+            label4.Location = new Point(38, 4);
             label4.Name = "label4";
             label4.Size = new Size(59, 21);
             label4.TabIndex = 18;
@@ -617,7 +618,7 @@ namespace Agraria.UI.Ventas
             LblFecha.AutoSize = true;
             LblFecha.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             LblFecha.ForeColor = Color.FromArgb(26, 28, 30);
-            LblFecha.Location = new Point(103, 2);
+            LblFecha.Location = new Point(103, 4);
             LblFecha.Name = "LblFecha";
             LblFecha.Size = new Size(19, 21);
             LblFecha.TabIndex = 17;
@@ -631,11 +632,11 @@ namespace Agraria.UI.Ventas
             tableLayoutPanel10.Controls.Add(label6, 0, 0);
             tableLayoutPanel10.Controls.Add(LblDescripcion, 1, 0);
             tableLayoutPanel10.Dock = DockStyle.Fill;
-            tableLayoutPanel10.Location = new Point(3, 63);
+            tableLayoutPanel10.Location = new Point(3, 88);
             tableLayoutPanel10.Name = "tableLayoutPanel10";
             tableLayoutPanel10.RowCount = 1;
             tableLayoutPanel10.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableLayoutPanel10.Size = new Size(373, 25);
+            tableLayoutPanel10.Size = new Size(373, 29);
             tableLayoutPanel10.TabIndex = 10;
             // 
             // label6
@@ -646,7 +647,7 @@ namespace Agraria.UI.Ventas
             label6.ForeColor = Color.FromArgb(26, 28, 30);
             label6.Location = new Point(10, 0);
             label6.Name = "label6";
-            label6.Size = new Size(87, 25);
+            label6.Size = new Size(87, 29);
             label6.TabIndex = 20;
             label6.Text = "DESCRIPCION";
             // 
@@ -656,7 +657,7 @@ namespace Agraria.UI.Ventas
             LblDescripcion.AutoSize = true;
             LblDescripcion.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             LblDescripcion.ForeColor = Color.FromArgb(26, 28, 30);
-            LblDescripcion.Location = new Point(103, 2);
+            LblDescripcion.Location = new Point(103, 4);
             LblDescripcion.Name = "LblDescripcion";
             LblDescripcion.Size = new Size(19, 21);
             LblDescripcion.TabIndex = 19;
@@ -670,11 +671,11 @@ namespace Agraria.UI.Ventas
             tableLayoutPanel11.Controls.Add(label8, 0, 0);
             tableLayoutPanel11.Controls.Add(LblUsuario, 1, 0);
             tableLayoutPanel11.Dock = DockStyle.Fill;
-            tableLayoutPanel11.Location = new Point(3, 94);
+            tableLayoutPanel11.Location = new Point(3, 123);
             tableLayoutPanel11.Name = "tableLayoutPanel11";
             tableLayoutPanel11.RowCount = 1;
             tableLayoutPanel11.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableLayoutPanel11.Size = new Size(373, 23);
+            tableLayoutPanel11.Size = new Size(373, 29);
             tableLayoutPanel11.TabIndex = 10;
             // 
             // label8
@@ -683,7 +684,7 @@ namespace Agraria.UI.Ventas
             label8.AutoSize = true;
             label8.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label8.ForeColor = Color.FromArgb(26, 28, 30);
-            label8.Location = new Point(18, 1);
+            label8.Location = new Point(18, 4);
             label8.Name = "label8";
             label8.Size = new Size(79, 21);
             label8.TabIndex = 22;
@@ -695,7 +696,7 @@ namespace Agraria.UI.Ventas
             LblUsuario.AutoSize = true;
             LblUsuario.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             LblUsuario.ForeColor = Color.FromArgb(26, 28, 30);
-            LblUsuario.Location = new Point(103, 1);
+            LblUsuario.Location = new Point(103, 4);
             LblUsuario.Name = "LblUsuario";
             LblUsuario.Size = new Size(19, 21);
             LblUsuario.TabIndex = 21;
@@ -835,5 +836,6 @@ namespace Agraria.UI.Ventas
         private TableLayoutPanel tableLayoutPanel10;
         private TableLayoutPanel tableLayoutPanel11;
         private Button BtnImprimir;
+        private HelpProvider helpProvider1;
     }
 }

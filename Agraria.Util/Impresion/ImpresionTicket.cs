@@ -179,45 +179,55 @@ namespace Agraria.Utilidades.Impresion
             saveFileDialog1.DefaultExt = "pdf";
             saveFileDialog1.Filter = "Archivos de texto|*.pdf|Todos los archivos|*.*";
             saveFileDialog1.Title = "Guardar archivo";
+            saveFileDialog1.FileName = "Remito de venta N°" + numeroOperacion;
             saveFileDialog1.ShowDialog();
 
             if (saveFileDialog1.FileName != "")
             {
-
-                // FIN SAVE FILE
-                using (FileStream stream = (FileStream)saveFileDialog1.OpenFile())
+                try
                 {
-
-                    iTextSharp.text.Document pdfDoc = new iTextSharp.text.Document(PageSize.A4, 25, 25, 30, 30);
-
-                    PdfWriter writer = PdfWriter.GetInstance(pdfDoc, stream);
-                    pdfDoc.Open();
-
-                    using (StringReader srHtmlFinal = new StringReader(htmlFinal))
+                    // FIN SAVE FILE
+                    using (FileStream stream = (FileStream)saveFileDialog1.OpenFile())
                     {
 
-                        XMLWorkerHelper.GetInstance().ParseXHtml(writer, pdfDoc, srHtmlFinal);
+                        iTextSharp.text.Document pdfDoc = new iTextSharp.text.Document(PageSize.A4, 25, 25, 30, 30);
 
+                        PdfWriter writer = PdfWriter.GetInstance(pdfDoc, stream);
+                        pdfDoc.Open();
+
+                        using (StringReader srHtmlFinal = new StringReader(htmlFinal))
+                        {
+
+                            XMLWorkerHelper.GetInstance().ParseXHtml(writer, pdfDoc, srHtmlFinal);
+
+                        }
+                        // Creamos la imagen y le ajustamos el tamaño
+                        iTextSharp.text.Image imagen = iTextSharp.text.Image.GetInstance(rutaImg);
+                        imagen.BorderWidth = 0;
+                        imagen.Alignment = Element.ALIGN_LEFT;
+                        float percentage = 0.0f;
+                        percentage = 80 / imagen.Width;
+                        imagen.ScalePercent(percentage * 100);
+
+                        imagen.SetAbsolutePosition(40, pdfDoc.PageSize.Height - 100); // Ajusta la posición según sea necesario
+
+
+
+                        // Insertamos la imagen en el documento
+                        pdfDoc.Add(imagen);
+                        pdfDoc.Close();
+                        writer.Close();
                     }
-                    // Creamos la imagen y le ajustamos el tamaño
-                    iTextSharp.text.Image imagen = iTextSharp.text.Image.GetInstance(rutaImg);
-                    imagen.BorderWidth = 0;
-                    imagen.Alignment = Element.ALIGN_LEFT;
-                    float percentage = 0.0f;
-                    percentage = 80 / imagen.Width;
-                    imagen.ScalePercent(percentage * 100);
-
-                    imagen.SetAbsolutePosition(40, pdfDoc.PageSize.Height - 100); // Ajusta la posición según sea necesario
-
-
-
-                    // Insertamos la imagen en el documento
-                    pdfDoc.Add(imagen);
-                    pdfDoc.Close();
-                    writer.Close();
+                    Console.WriteLine("PDF generation completed successfully.");
+                    
+                }catch(IOException ex)
+                {
+                    MessageBox.Show("El archivo está abierto en otro programa. Por favor, ciérrelo e intente de nuevo.\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-                Console.WriteLine("PDF generation completed successfully.");
-
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error al guardar el archivo: " + ex.StackTrace + " " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
 
             }
 

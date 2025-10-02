@@ -44,14 +44,14 @@ namespace Agraria.Utilidades.Impresion
             var filasHtml = new StringBuilder();
             foreach (var producto in productos)
             {
-                filasHtml.Append("<tr style=' padding-top: .4em;  margin-top: 4px; text-align: start;'>");
-                filasHtml.Append($"<td style='font-size: 14px; padding-top: .4em;  margin-top:4px;' data-label='Producto'>{producto.Nombre}</td>");
-                filasHtml.Append($"<td style='font-size: 14px; padding-top: .4em;  margin-top:4px; text-align: center;' data-label='Cantidad'>{producto.Cantidad}</td>");
-                filasHtml.Append($"<td style='font-size: 14px; padding-top: .4em;  margin-top:4px; text-align: center;' data-label='Precio'>${producto.Precio:N2}</td>");
-                filasHtml.Append($"<td style='font-size: 14px; padding-top: .4em;  margin-top:4px; text-align: center;' data-label='Subtotal'>${producto.Subtotal:N2}</td>");
-                filasHtml.Append($"<td style='font-size: 14px; padding-top: .4em;  margin-top:4px; text-align: center;' data-label='IVA'>${producto.IVA:N2}</td>");
-                filasHtml.Append($"<td style='font-size: 14px; padding-top: .4em;  margin-top:4px; text-align: center;' data-label='Descuento'>${producto.Descuento:N2}</td>");
-                filasHtml.Append($"<td style='font-size: 14px; padding-top: .4em;  margin-top:4px; text-align: center;' data-label='Total'>${producto.Total:N2}</td>");
+                filasHtml.Append("<tr style=' padding: 2px 0px;  margin-top: 4px;'>");
+                filasHtml.Append($"<td style='font-size: 14px; padding: 2px 0px;   margin-top:4px; text-align: left;' data-label='Producto'>{producto.Nombre}</td>");
+                filasHtml.Append($"<td style='font-size: 14px; padding: 2px 0px;  margin-top:4px; text-align: right;' data-label='Cantidad'>{producto.Cantidad}</td>");
+                filasHtml.Append($"<td style='font-size: 14px; padding: 2px 0px;  margin-top:4px; text-align: right;' data-label='Precio'>${producto.Precio:N2}</td>");
+                filasHtml.Append($"<td style='font-size: 14px; padding: 2px 0px;  margin-top:4px; text-align: right;' data-label='Subtotal'>${producto.Subtotal:N2}</td>");
+                filasHtml.Append($"<td style='font-size: 14px; padding: 2px 0px;  margin-top:4px; text-align: right;' data-label='IVA'>${producto.IVA:N2}</td>");
+                filasHtml.Append($"<td style='font-size: 14px; padding: 2px 0px;  margin-top:4px; text-align: right;' data-label='Descuento'>${producto.Descuento:N2}</td>");
+                filasHtml.Append($"<td style='font-size: 14px; padding: 2px 0px;  margin-top:4px; text-align: right;' data-label='Total'>${producto.Total:N2}</td>");
                 filasHtml.Append("</tr>");
             }
 
