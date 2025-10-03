@@ -74,6 +74,7 @@ namespace Agraria.UI.RemitoProduccion
             BtnEliminar = new Button();
             BtnActualizar = new Button();
             tableLayoutPanel4 = new TableLayoutPanel();
+            BtnImprimir = new Button();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
             splitContainer1.Panel1.SuspendLayout();
             splitContainer1.Panel2.SuspendLayout();
@@ -352,19 +353,18 @@ namespace Agraria.UI.RemitoProduccion
             tableLayoutPanel3.BackColor = Color.FromArgb(249, 249, 251);
             tableLayoutPanel3.ColumnCount = 1;
             tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            tableLayoutPanel3.Controls.Add(tableLayoutPanel6, 0, 6);
-            tableLayoutPanel3.Controls.Add(tableLayoutPanel5, 0, 5);
-            tableLayoutPanel3.Controls.Add(groupBox1, 0, 7);
-            tableLayoutPanel3.Controls.Add(tableLayoutPanel8, 0, 1);
-            tableLayoutPanel3.Controls.Add(tableLayoutPanel9, 0, 2);
-            tableLayoutPanel3.Controls.Add(tableLayoutPanel10, 0, 3);
-            tableLayoutPanel3.Controls.Add(tableLayoutPanel11, 0, 4);
+            tableLayoutPanel3.Controls.Add(tableLayoutPanel6, 0, 5);
+            tableLayoutPanel3.Controls.Add(tableLayoutPanel5, 0, 4);
+            tableLayoutPanel3.Controls.Add(groupBox1, 0, 6);
+            tableLayoutPanel3.Controls.Add(tableLayoutPanel8, 0, 0);
+            tableLayoutPanel3.Controls.Add(tableLayoutPanel9, 0, 1);
+            tableLayoutPanel3.Controls.Add(tableLayoutPanel10, 0, 2);
+            tableLayoutPanel3.Controls.Add(tableLayoutPanel11, 0, 3);
             tableLayoutPanel3.Dock = DockStyle.Fill;
             tableLayoutPanel3.Location = new Point(4, 30);
             tableLayoutPanel3.Name = "tableLayoutPanel3";
-            tableLayoutPanel3.RowCount = 8;
-            tableLayoutPanel3.RowStyles.Add(new RowStyle());
-            tableLayoutPanel3.RowStyles.Add(new RowStyle());
+            tableLayoutPanel3.RowCount = 7;
+            tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Absolute, 48F));
             tableLayoutPanel3.RowStyles.Add(new RowStyle());
             tableLayoutPanel3.RowStyles.Add(new RowStyle());
             tableLayoutPanel3.RowStyles.Add(new RowStyle());
@@ -382,7 +382,7 @@ namespace Agraria.UI.RemitoProduccion
             tableLayoutPanel6.Controls.Add(label14, 0, 0);
             tableLayoutPanel6.Controls.Add(LblTotal, 1, 0);
             tableLayoutPanel6.Dock = DockStyle.Fill;
-            tableLayoutPanel6.Location = new Point(3, 153);
+            tableLayoutPanel6.Location = new Point(3, 172);
             tableLayoutPanel6.Name = "tableLayoutPanel6";
             tableLayoutPanel6.RowCount = 1;
             tableLayoutPanel6.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
@@ -425,7 +425,7 @@ namespace Agraria.UI.RemitoProduccion
             tableLayoutPanel5.Controls.Add(label10, 0, 0);
             tableLayoutPanel5.Controls.Add(LblSubtotal, 1, 0);
             tableLayoutPanel5.Dock = DockStyle.Fill;
-            tableLayoutPanel5.Location = new Point(3, 123);
+            tableLayoutPanel5.Location = new Point(3, 142);
             tableLayoutPanel5.Name = "tableLayoutPanel5";
             tableLayoutPanel5.RowCount = 1;
             tableLayoutPanel5.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
@@ -486,7 +486,7 @@ namespace Agraria.UI.RemitoProduccion
             groupBox1.Dock = DockStyle.Fill;
             groupBox1.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             groupBox1.ForeColor = Color.FromArgb(7, 100, 147);
-            groupBox1.Location = new Point(3, 185);
+            groupBox1.Location = new Point(3, 204);
             groupBox1.Name = "groupBox1";
             groupBox1.Size = new Size(373, 307);
             groupBox1.TabIndex = 14;
@@ -528,9 +528,11 @@ namespace Agraria.UI.RemitoProduccion
             // 
             // tableLayoutPanel8
             // 
-            tableLayoutPanel8.ColumnCount = 2;
-            tableLayoutPanel8.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 26.8498936F));
-            tableLayoutPanel8.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 73.15011F));
+            tableLayoutPanel8.ColumnCount = 3;
+            tableLayoutPanel8.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 42.608696F));
+            tableLayoutPanel8.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 57.391304F));
+            tableLayoutPanel8.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 142F));
+            tableLayoutPanel8.Controls.Add(BtnImprimir, 2, 0);
             tableLayoutPanel8.Controls.Add(label7, 0, 0);
             tableLayoutPanel8.Controls.Add(LblIdRemito, 1, 0);
             tableLayoutPanel8.Dock = DockStyle.Fill;
@@ -538,7 +540,7 @@ namespace Agraria.UI.RemitoProduccion
             tableLayoutPanel8.Name = "tableLayoutPanel8";
             tableLayoutPanel8.RowCount = 1;
             tableLayoutPanel8.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            tableLayoutPanel8.Size = new Size(373, 23);
+            tableLayoutPanel8.Size = new Size(373, 42);
             tableLayoutPanel8.TabIndex = 10;
             // 
             // label7
@@ -547,9 +549,9 @@ namespace Agraria.UI.RemitoProduccion
             label7.AutoSize = true;
             label7.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label7.ForeColor = Color.FromArgb(26, 28, 30);
-            label7.Location = new Point(29, 0);
+            label7.Location = new Point(27, 0);
             label7.Name = "label7";
-            label7.Size = new Size(68, 23);
+            label7.Size = new Size(68, 42);
             label7.TabIndex = 16;
             label7.Text = "Nº DE REMITO";
             // 
@@ -559,7 +561,7 @@ namespace Agraria.UI.RemitoProduccion
             LblIdRemito.AutoSize = true;
             LblIdRemito.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             LblIdRemito.ForeColor = Color.FromArgb(26, 28, 30);
-            LblIdRemito.Location = new Point(103, 1);
+            LblIdRemito.Location = new Point(101, 10);
             LblIdRemito.Name = "LblIdRemito";
             LblIdRemito.Size = new Size(19, 21);
             LblIdRemito.TabIndex = 15;
@@ -573,7 +575,7 @@ namespace Agraria.UI.RemitoProduccion
             tableLayoutPanel9.Controls.Add(label4, 0, 0);
             tableLayoutPanel9.Controls.Add(LblFecha, 1, 0);
             tableLayoutPanel9.Dock = DockStyle.Fill;
-            tableLayoutPanel9.Location = new Point(3, 32);
+            tableLayoutPanel9.Location = new Point(3, 51);
             tableLayoutPanel9.Name = "tableLayoutPanel9";
             tableLayoutPanel9.RowCount = 1;
             tableLayoutPanel9.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
@@ -612,7 +614,7 @@ namespace Agraria.UI.RemitoProduccion
             tableLayoutPanel10.Controls.Add(label6, 0, 0);
             tableLayoutPanel10.Controls.Add(LblDescripcion, 1, 0);
             tableLayoutPanel10.Dock = DockStyle.Fill;
-            tableLayoutPanel10.Location = new Point(3, 63);
+            tableLayoutPanel10.Location = new Point(3, 82);
             tableLayoutPanel10.Name = "tableLayoutPanel10";
             tableLayoutPanel10.RowCount = 1;
             tableLayoutPanel10.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
@@ -651,7 +653,7 @@ namespace Agraria.UI.RemitoProduccion
             tableLayoutPanel11.Controls.Add(label8, 0, 0);
             tableLayoutPanel11.Controls.Add(LblUsuario, 1, 0);
             tableLayoutPanel11.Dock = DockStyle.Fill;
-            tableLayoutPanel11.Location = new Point(3, 94);
+            tableLayoutPanel11.Location = new Point(3, 113);
             tableLayoutPanel11.Name = "tableLayoutPanel11";
             tableLayoutPanel11.RowCount = 1;
             tableLayoutPanel11.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
@@ -730,6 +732,22 @@ namespace Agraria.UI.RemitoProduccion
             tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
             tableLayoutPanel4.Size = new Size(200, 100);
             tableLayoutPanel4.TabIndex = 0;
+            // 
+            // BtnImprimir
+            // 
+            BtnImprimir.Anchor = AnchorStyles.None;
+            BtnImprimir.BackColor = Color.FromArgb(65, 0, 2);
+            BtnImprimir.FlatAppearance.BorderColor = Color.FromArgb(203, 230, 255);
+            BtnImprimir.FlatStyle = FlatStyle.Flat;
+            BtnImprimir.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            BtnImprimir.ForeColor = Color.FromArgb(255, 218, 214);
+            BtnImprimir.Location = new Point(237, 3);
+            BtnImprimir.Name = "BtnImprimir";
+            BtnImprimir.Size = new Size(128, 36);
+            BtnImprimir.TabIndex = 17;
+            BtnImprimir.Text = "Exportar a PDF";
+            BtnImprimir.UseVisualStyleBackColor = false;
+            BtnImprimir.Click += BtnImprimir_Click;
             // 
             // UCConsultaRemitos
             // 
@@ -815,5 +833,6 @@ namespace Agraria.UI.RemitoProduccion
         private TableLayoutPanel tableLayoutPanel9;
         private TableLayoutPanel tableLayoutPanel10;
         private TableLayoutPanel tableLayoutPanel11;
+        private Button BtnImprimir;
     }
 }

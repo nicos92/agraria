@@ -45,7 +45,7 @@ namespace Agraria.UI.RemitoProduccion
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al cargar el control de consulta de remitos: {ex.Message}", "Error", 
+                MessageBox.Show($"Error al cargar el control de consulta de remitos: {ex.Message}", "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -66,11 +66,11 @@ namespace Agraria.UI.RemitoProduccion
         {
             // Aplicar colores consistentes con la aplicación
             this.BackColor = Color.FromArgb(218, 218, 220);
-            
+
             // Estilo para los GroupBox
             GBLista.ForeColor = Color.FromArgb(7, 100, 147);
             GBForm.ForeColor = Color.FromArgb(7, 100, 147);
-            
+
             // Estilo para las etiquetas
             foreach (Control control in GBForm.Controls)
             {
@@ -89,7 +89,7 @@ namespace Agraria.UI.RemitoProduccion
                     }
                 }
             }
-            
+
             // Configurar formato de moneda para las etiquetas de totales
             LblSubtotal.Text = DecimalFormatter.ToCurrency(0);
             LblDescuento.Text = DecimalFormatter.ToCurrency(0);
@@ -145,7 +145,7 @@ namespace Agraria.UI.RemitoProduccion
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al cargar DataGridView de Remitos: {ex.Message}", "Error", 
+                MessageBox.Show($"Error al cargar DataGridView de Remitos: {ex.Message}", "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
@@ -187,10 +187,10 @@ namespace Agraria.UI.RemitoProduccion
                 }
             }
             catch (Exception ex)
-                {
-                    MessageBox.Show($"Error al cargar detalles: {ex.Message}", "Error",
-                        MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+            {
+                MessageBox.Show($"Error al cargar detalles: {ex.Message}", "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void ActualizarListaDetalles()
@@ -211,7 +211,7 @@ namespace Agraria.UI.RemitoProduccion
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al cargar DataGridView de Detalles: {ex.Message}", "Error", 
+                MessageBox.Show($"Error al cargar DataGridView de Detalles: {ex.Message}", "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
@@ -278,7 +278,7 @@ namespace Agraria.UI.RemitoProduccion
             LblSubtotal.Text = "";
             LblDescuento.Text = "";
             LblTotal.Text = "";
-            
+
             DgvDetalles.DataSource = null;
             _detallesRemito.Clear();
         }
@@ -308,7 +308,7 @@ namespace Agraria.UI.RemitoProduccion
                     {
                         MessageBox.Show("Remito eliminado correctamente.", "Éxito",
                             MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        
+
                         // Recargar la lista de remitos
                         await CargarRemitosAsync();
                         LimpiarDetallesRemito();
@@ -347,7 +347,7 @@ namespace Agraria.UI.RemitoProduccion
                 DateTime fechaHasta = DtpFechaHasta.Value.Date.AddDays(1); // Fin del día
                 string cliente = TxtCliente.Text.Trim();
                 string idRemitoText = TxtIdRemito.Text.Trim();
-                
+
                 // Intentar parsear el ID de remito si se proporciona
                 int? idRemito = null;
                 if (!string.IsNullOrEmpty(idRemitoText) && int.TryParse(idRemitoText, out int parsedId))
@@ -393,7 +393,7 @@ namespace Agraria.UI.RemitoProduccion
             DgvRemitos.AllowUserToResizeRows = false;
             DgvRemitos.AllowUserToResizeColumns = true;
             DgvRemitos.AutoGenerateColumns = false;
-            
+
             // Asegurar que el DataGridView puede recibir el foco y selecciones
             DgvRemitos.TabStop = true;
             DgvRemitos.Enabled = true;
@@ -410,7 +410,7 @@ namespace Agraria.UI.RemitoProduccion
             DgvDetalles.AllowUserToResizeRows = false;
             DgvDetalles.AllowUserToResizeColumns = true;
             DgvDetalles.AutoGenerateColumns = false;
-            
+
             // Asegurar que el DataGridView puede recibir el foco y selecciones
             DgvDetalles.TabStop = true;
             DgvDetalles.Enabled = true;
@@ -443,9 +443,9 @@ namespace Agraria.UI.RemitoProduccion
                     HeaderText = "Fecha",
                     Visible = true,
                     FillWeight = 30f,
-                    DefaultCellStyle = new DataGridViewCellStyle 
-                    { 
-                        Format = "dd/MM/yyyy HH:mm" 
+                    DefaultCellStyle = new DataGridViewCellStyle
+                    {
+                        Format = "dd/MM/yyyy HH:mm"
                     },
                     AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
                 },
@@ -543,8 +543,8 @@ namespace Agraria.UI.RemitoProduccion
                     HeaderText = "Precio Unit.",
                     Visible = true,
                     FillWeight = 15f,
-                    DefaultCellStyle = new DataGridViewCellStyle 
-                    { 
+                    DefaultCellStyle = new DataGridViewCellStyle
+                    {
                         Format = "C2",
                         FormatProvider = DecimalFormatter.ArgentinaCulture
                     }
@@ -564,8 +564,8 @@ namespace Agraria.UI.RemitoProduccion
                     HeaderText = "Total",
                     Visible = true,
                     FillWeight = 15f,
-                    DefaultCellStyle = new DataGridViewCellStyle 
-                    { 
+                    DefaultCellStyle = new DataGridViewCellStyle
+                    {
                         Format = "C2",
                         FormatProvider = DecimalFormatter.ArgentinaCulture
                     }
@@ -581,6 +581,30 @@ namespace Agraria.UI.RemitoProduccion
         private async void BtnActualizar_Click(object sender, EventArgs e)
         {
             await CargarRemitosAsync();
+        }
+
+        private void BtnImprimir_Click(object sender, EventArgs e)
+        {
+            Utilidades.Impresion.ImpresionTicket imp = new();
+            imp.ImprimiriTextSharp(
+                productos: _detallesRemito.Select(d => new Utilidades.Impresion.ProductoVenta
+                {
+                    Nombre = d.Descr,
+                    Cantidad = d.Cant,
+                    Precio = d.P_Unit,
+                    Subtotal = d.P_X_Cant, // Asumiendo que P_X_Cant es el subtotal sin IVA ni descuento
+                    IVA = 0, // Ajustar según sea necesario
+                    Descuento = 0, // Ajustar según sea necesario
+                    Total = d.P_X_Cant, // Ajustar según sea necesario
+
+                }).ToList(),
+
+                numeroOperacion: LblIdRemito.Text,
+                motivo: LblDescripcion.Text,
+                montoTotal: LblTotal.Text,
+                fechaOperacion: LblFecha.Text,
+                tituloOperacion: "Remito Producción"
+            );
         }
     }
 }
