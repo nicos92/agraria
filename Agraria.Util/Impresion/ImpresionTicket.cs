@@ -20,8 +20,28 @@ using iTextSharp.tool.xml;
 namespace Agraria.Utilidades.Impresion
 {
     [SupportedOSPlatform("windows")]
-    public static class ImpresionTicket
+    public class ImpresionTicket
     {
+        private readonly SaveFileDialog _saveFileDialog1;
+        private readonly string _rutaImg;
+        private string _htmlFinal;
+        public ImpresionTicket() 
+        {
+            _saveFileDialog1 = new SaveFileDialog();
+            _saveFileDialog1.DefaultExt = "pdf";
+            _saveFileDialog1.Filter = "Archivos de texto|*.pdf|Todos los archivos|*.*";
+            _saveFileDialog1.Title = "Guardar archivo";
+            _rutaImg = Path.Combine(Application.StartupPath, "Impresion", "EAC256.png");
+            _htmlFinal = string.Empty;
+            // SAVE FILE
+            _saveFileDialog1.FileOk += (s, e) =>
+            {
+            GenerarPDF(_rutaImg, _htmlFinal, _saveFileDialog1);
+
+            };
+        }
+
+       
         public static void Imprimir(List<ProductoVenta> productos, string numeroOperacion, string motivo, string montoTotal)
         {
             // ... (Pasos para generar htmlFinal se mantienen) ...
@@ -32,7 +52,8 @@ namespace Agraria.Utilidades.Impresion
                 motivo: motivo,
                 numeroOperacion: numeroOperacion,
                 productos: productos,
-                fechaOperacion: DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss")
+                fechaOperacion: DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss"),
+                titulo: "Remito de venta N°" + numeroOperacion
             );
 
             if (htmlFinal.StartsWith("Error:"))
@@ -96,92 +117,42 @@ namespace Agraria.Utilidades.Impresion
             webBrowserParaImprimir.Dispose();
         }
 
-        public static void ImprimirIronPdf(List<ProductoVenta> productos, string numeroOperacion, string motivo, string montoTotal)
-        {
-            // ... (Pasos para generar htmlFinal se mantienen) ...
-            string rutaPlantilla = Path.Combine(Application.StartupPath, "Impresion", "Impresion.html");
-            var generador = new GeneradorTickets(rutaPlantilla);
-            string htmlFinal = generador.GenerarHtmlTicket(
-                montoTotal: montoTotal,
-                motivo: motivo,
-                numeroOperacion: numeroOperacion,
-                productos: productos,
-                fechaOperacion: DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss")
-            );
-
-            if (htmlFinal.StartsWith("Error:"))
-            {
-                MessageBox.Show(htmlFinal, "Error de Impresión", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-            // 7. Código de impresión con IronPdf (comentado por si se desea usar en el futuro) sale que es obsoleto
-            //try
-            //{
-            //    // Configura las opciones de impresión
-            //    var renderer = new IronPdf.HtmlToPdf
-            //    {
-            //        PrintOptions = new IronPdf.PrintOptions
-            //        {
-            //            PaperSize = IronPdf.PdfPrintOptions.PdfPaperSize.Custom,
-            //            PaperWidth = 80, // Ancho en mm para tickets
-            //            PaperHeight = 200, // Alto en mm (ajustable según necesidad)
-            //            MarginTop = 0,
-            //            MarginBottom = 0,
-            //            MarginLeft = 0,
-            //            MarginRight = 0,
-            //            FitToPaperWidth = true,
-            //            FitToPaperHeight = false,
-            //            ShowHeader = false,
-            //            ShowFooter = false
-            //        }
-            //    };
-            //    // Renderiza el HTML a PDF
-            //    var pdfDocument = renderer.RenderHtmlAsPdf(htmlFinal);
-            //    // Envía el PDF directamente a la impresora predeterminada
-            //    pdfDocument.Print();
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show($"Error al imprimir con IronPdf: {ex.Message}", "Error de Impresión", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //}
-            var renderer = new ChromePdfRenderer();
-            var pdf = renderer.RenderHtmlAsPdf(htmlFinal);
-            pdf.SaveAs("pixel-perfect.pdf");
-
-        }
-
-        public static void ImprimiriTextSharp(List<ProductoVenta> productos, string numeroOperacion, string motivo, string montoTotal, string fechaOperacion)
+       
+        public void ImprimiriTextSharp(List<ProductoVenta> productos, string numeroOperacion, string motivo, string montoTotal, string fechaOperacion, string tituloOperacion)
         {
             // ... (Pasos para generar htmlFinal se mantienen) ...
             string rutaPlantillaHtml = Path.Combine(Application.StartupPath, "Impresion", "impresionventados.html");
 
-            string rutaPlantillaCss = Path.Combine(Application.StartupPath, "Impresion", "Impresion.css");
-
-            string rutaImg = Path.Combine(Application.StartupPath, "Impresion", "EAC256.png");
             var generador = new GeneradorTickets(rutaPlantillaHtml);
-            string htmlFinal = generador.GenerarHtmlTicket(
+             _htmlFinal = generador.GenerarHtmlTicket(
                 montoTotal: montoTotal,
                 motivo: motivo,
                 numeroOperacion: numeroOperacion,
                 productos: productos,
-                fechaOperacion: fechaOperacion
+                fechaOperacion: fechaOperacion,
+                titulo: tituloOperacion
             );
 
-            if (htmlFinal.StartsWith("Error:"))
+            if (_htmlFinal.StartsWith("Error:"))
             {
-                MessageBox.Show(htmlFinal, "Error de Impresión", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(_htmlFinal, "Error de Impresión", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            // SAVE FILE
-            SaveFileDialog saveFileDialog1 = new SaveFileDialog();
-            saveFileDialog1.DefaultExt = "pdf";
-            saveFileDialog1.Filter = "Archivos de texto|*.pdf|Todos los archivos|*.*";
-            saveFileDialog1.Title = "Guardar archivo";
-            saveFileDialog1.FileName = "Remito de venta N°" + numeroOperacion;
-            saveFileDialog1.ShowDialog();
 
+
+            _saveFileDialog1.FileName = "Remito de venta N°" + numeroOperacion;
+            _saveFileDialog1.ShowDialog();
+            
+
+
+
+
+        }
+
+        private static void GenerarPDF(string rutaImg, string htmlFinal, SaveFileDialog saveFileDialog1)
+        {
+            // Aquí puedes manejar cualquier lógica adicional cuando el usuario selecciona un archivo
             if (saveFileDialog1.FileName != "")
             {
                 try
@@ -217,10 +188,15 @@ namespace Agraria.Utilidades.Impresion
                         pdfDoc.Add(imagen);
                         pdfDoc.Close();
                         writer.Close();
+                        DialogResult dialogResult = MessageBox.Show($"¿Desea abrir el archivo PDF guardado?", "Abrir carpeta", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                        if (dialogResult == DialogResult.Yes)
+                            AbrirCarpetaPdf(Path.GetFullPath(saveFileDialog1.FileName));
+                        Console.WriteLine("PDF generation completed successfully.");
                     }
-                    Console.WriteLine("PDF generation completed successfully.");
-                    
-                }catch(IOException ex)
+
+
+                }
+                catch (IOException ex)
                 {
                     MessageBox.Show("El archivo está abierto en otro programa. Por favor, ciérrelo e intente de nuevo.\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
@@ -230,43 +206,22 @@ namespace Agraria.Utilidades.Impresion
                 }
 
             }
-
         }
 
-
-        public static void ImprimirITextSharpDos(List<ProductoVenta> productos, string numeroOperacion, string motivo, string montoTotal)
+        public static void AbrirCarpetaPdf(string ruta)
         {
-            // ... (Pasos para generar htmlFinal se mantienen) ...
-            string rutaPlantilla = Path.Combine(Application.StartupPath, "Impresion", "impresionventa.html");
-            var generador = new GeneradorTickets(rutaPlantilla);
-            string htmlFinal = generador.GenerarHtmlTicket(
-                montoTotal: montoTotal,
-                motivo: motivo,
-                numeroOperacion: numeroOperacion,
-                productos: productos,
-                fechaOperacion: DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss")
-            );
-
-            if (htmlFinal.StartsWith("Error:"))
+            try
             {
-                MessageBox.Show(htmlFinal, "Error de Impresión", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                // Abre el explorador de archivos en la ruta especificada
+                System.Diagnostics.Process.Start("explorer.exe", ruta);
             }
-            using (var fs = new FileStream("ticket.pdf", FileMode.Create))
-            using (var doc = new iTextSharp.text.Document(PageSize.A4))
+            catch (Exception ex)
             {
-                PdfWriter writer = PdfWriter.GetInstance(doc, fs);
-                doc.Open();
-
-                string html = File.ReadAllText("ticket.html");
-
-                using (var sr = new StringReader(html))
-                {
-                    XMLWorkerHelper.GetInstance().ParseXHtml(writer, doc, sr);
-                }
-
-                doc.Close();
+                MessageBox.Show("Error al abrir la carpeta: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+
+      
     }
 }

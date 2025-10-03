@@ -604,7 +604,8 @@ namespace Agraria.UI.Ventas
 
         private void BtnImprimir_Click(object sender, EventArgs e)
         {
-            Utilidades.Impresion.ImpresionTicket.ImprimiriTextSharp(
+            Utilidades.Impresion.ImpresionTicket imp = new();
+            imp.ImprimiriTextSharp(
                 productos: _detallesVenta.Select(d => new Utilidades.Impresion.ProductoVenta
                 {
                     Nombre = d.Descr,
@@ -613,13 +614,15 @@ namespace Agraria.UI.Ventas
                     Subtotal = d.P_X_Cant, // Asumiendo que P_X_Cant es el subtotal sin IVA ni descuento
                     IVA = 0, // Ajustar según sea necesario
                     Descuento = 0, // Ajustar según sea necesario
-                    Total = d.P_X_Cant // Ajustar según sea necesario
+                    Total = d.P_X_Cant, // Ajustar según sea necesario
+
                 }).ToList(),
                 
                 numeroOperacion: _selectedVentaId.ToString(),
                 motivo: LblDescripcion.Text,
                 montoTotal: LblTotal.Text,
-                fechaOperacion: LblFecha.Text
+                fechaOperacion: LblFecha.Text,
+                tituloOperacion: "Remito Venta"
             );
         }
 

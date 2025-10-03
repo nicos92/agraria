@@ -25,7 +25,7 @@ namespace Agraria.Utilidades.Impresion
             }
         }
 
-        public string GenerarHtmlTicket(string montoTotal, string motivo, string numeroOperacion, List<ProductoVenta> productos, string fechaOperacion)
+        public string GenerarHtmlTicket(string montoTotal, string motivo, string numeroOperacion, List<ProductoVenta> productos, string fechaOperacion, string titulo)
         {
             if (string.IsNullOrEmpty(plantillaHtml))
             {
@@ -34,6 +34,7 @@ namespace Agraria.Utilidades.Impresion
 
             // 1. Reemplazar los valores simples
             string htmlProcesado = plantillaHtml;
+            htmlProcesado = htmlProcesado.Replace("{{titulo_operacion}}", titulo);
             htmlProcesado = htmlProcesado.Replace("{{fecha_hora}}", DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss"));
             htmlProcesado = htmlProcesado.Replace("{{monto_total}}", montoTotal);
             htmlProcesado = htmlProcesado.Replace("{{motivo}}", motivo);

@@ -53,6 +53,20 @@ namespace Agraria.Utilidades
             RunWorkerCompleted += TrabajoCompletado;
         }
 
+        public TareasLargas( Action tareaDeLargaDuracion)
+        {
+            
+            _tareaDeLargaDuracionAction = tareaDeLargaDuracion;
+            
+
+            WorkerReportsProgress = true;
+            WorkerSupportsCancellation = true;
+
+            DoWork += HacerTrabajo;
+            ProgressChanged += ProgresoCambiado;
+            RunWorkerCompleted += TrabajoCompletado;
+        }
+
         /// <summary>
         /// Inicializa una nueva instancia de la clase <see cref="TareasLargas"/> para ejecutar una función que devuelve un resultado.
         /// </summary>
@@ -76,6 +90,7 @@ namespace Agraria.Utilidades
         /// </summary>
         public void Iniciar()
         {
+
             _panelADesactivar.Enabled = false;
             _barraDeProgreso.Visible = true;
             _barraDeProgreso.Style = ProgressBarStyle.Marquee;
