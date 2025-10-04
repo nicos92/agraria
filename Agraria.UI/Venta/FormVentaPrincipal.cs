@@ -53,7 +53,7 @@ namespace Agraria.UI.Venta
                 uc.Dock = DockStyle.Fill;
                 PanelMedio.Controls.Add(uc);
             }
-            
+
         }
 
         /// <summary>
@@ -119,5 +119,7 @@ namespace Agraria.UI.Venta
         {
             this.Dispose();
         }
+
+       
     }
 }

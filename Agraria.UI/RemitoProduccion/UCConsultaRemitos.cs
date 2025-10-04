@@ -603,8 +603,28 @@ namespace Agraria.UI.RemitoProduccion
                 motivo: LblDescripcion.Text,
                 montoTotal: LblTotal.Text,
                 fechaOperacion: LblFecha.Text,
-                tituloOperacion: "Remito Producción"
+                tituloOperacion: "Ticket de Producción"
             );
+        }
+
+        private void AsegurarConfiguracionColumnasDetalles()
+        {
+            // Ensure auto-generation is disabled
+            DgvDetalles.AutoGenerateColumns = false;
+
+            // Verify that hidden columns remain hidden
+            if (DgvDetalles.Columns["Id_Det_Remito"] != null)
+                DgvDetalles.Columns["Id_Det_Remito"].Visible = false;
+
+            if (DgvDetalles.Columns["Id_Remito"] != null)
+                DgvDetalles.Columns["Id_Remito"].Visible = false;
+
+
+        }
+
+        private void UCConsultaRemitos_Paint(object sender, PaintEventArgs e)
+        {
+            AsegurarConfiguracionColumnasDetalles();
         }
     }
 }

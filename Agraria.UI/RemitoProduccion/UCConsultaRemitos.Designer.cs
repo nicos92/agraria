@@ -60,6 +60,7 @@ namespace Agraria.UI.RemitoProduccion
             groupBox1 = new GroupBox();
             DgvDetalles = new DataGridView();
             tableLayoutPanel8 = new TableLayoutPanel();
+            BtnImprimir = new Button();
             label7 = new Label();
             LblIdRemito = new Label();
             tableLayoutPanel9 = new TableLayoutPanel();
@@ -74,7 +75,6 @@ namespace Agraria.UI.RemitoProduccion
             BtnEliminar = new Button();
             BtnActualizar = new Button();
             tableLayoutPanel4 = new TableLayoutPanel();
-            BtnImprimir = new Button();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
             splitContainer1.Panel1.SuspendLayout();
             splitContainer1.Panel2.SuspendLayout();
@@ -543,6 +543,22 @@ namespace Agraria.UI.RemitoProduccion
             tableLayoutPanel8.Size = new Size(373, 42);
             tableLayoutPanel8.TabIndex = 10;
             // 
+            // BtnImprimir
+            // 
+            BtnImprimir.Anchor = AnchorStyles.None;
+            BtnImprimir.BackColor = Color.FromArgb(65, 0, 2);
+            BtnImprimir.FlatAppearance.BorderColor = Color.FromArgb(203, 230, 255);
+            BtnImprimir.FlatStyle = FlatStyle.Flat;
+            BtnImprimir.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            BtnImprimir.ForeColor = Color.FromArgb(255, 218, 214);
+            BtnImprimir.Location = new Point(237, 3);
+            BtnImprimir.Name = "BtnImprimir";
+            BtnImprimir.Size = new Size(128, 36);
+            BtnImprimir.TabIndex = 17;
+            BtnImprimir.Text = "Exportar a PDF";
+            BtnImprimir.UseVisualStyleBackColor = false;
+            BtnImprimir.Click += BtnImprimir_Click;
+            // 
             // label7
             // 
             label7.Anchor = AnchorStyles.Right;
@@ -733,22 +749,6 @@ namespace Agraria.UI.RemitoProduccion
             tableLayoutPanel4.Size = new Size(200, 100);
             tableLayoutPanel4.TabIndex = 0;
             // 
-            // BtnImprimir
-            // 
-            BtnImprimir.Anchor = AnchorStyles.None;
-            BtnImprimir.BackColor = Color.FromArgb(65, 0, 2);
-            BtnImprimir.FlatAppearance.BorderColor = Color.FromArgb(203, 230, 255);
-            BtnImprimir.FlatStyle = FlatStyle.Flat;
-            BtnImprimir.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
-            BtnImprimir.ForeColor = Color.FromArgb(255, 218, 214);
-            BtnImprimir.Location = new Point(237, 3);
-            BtnImprimir.Name = "BtnImprimir";
-            BtnImprimir.Size = new Size(128, 36);
-            BtnImprimir.TabIndex = 17;
-            BtnImprimir.Text = "Exportar a PDF";
-            BtnImprimir.UseVisualStyleBackColor = false;
-            BtnImprimir.Click += BtnImprimir_Click;
-            // 
             // UCConsultaRemitos
             // 
             AutoScaleMode = AutoScaleMode.None;
@@ -760,6 +760,7 @@ namespace Agraria.UI.RemitoProduccion
             Padding = new Padding(16);
             Size = new Size(804, 561);
             Load += UCConsultaRemitos_Load;
+            Paint += UCConsultaRemitos_Paint;
             splitContainer1.Panel1.ResumeLayout(false);
             splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)splitContainer1).EndInit();

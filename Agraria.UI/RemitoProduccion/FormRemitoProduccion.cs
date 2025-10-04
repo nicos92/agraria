@@ -53,7 +53,7 @@ namespace Agraria.UI.RemitoProduccion
                 uc.Dock = DockStyle.Fill;
                 PanelMedio.Controls.Add(uc);
             }
-            
+
         }
 
         /// <summary>
@@ -119,5 +119,6 @@ namespace Agraria.UI.RemitoProduccion
         {
             this.Dispose();
         }
+
     }
 }
