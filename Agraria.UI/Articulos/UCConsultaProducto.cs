@@ -335,6 +335,9 @@ namespace Agraria.UI.Articulos
 
                     CargarArticulosDataGridView();
 
+                    // Inicializar controles de filtro
+                    InicializarControlesFiltro();
+
                     // Verificar si hay artículos y activar/desactivar formulario según corresponda
                     if (_listaArticulos == null || _listaArticulos.Count == 0)
                     {
@@ -349,6 +352,60 @@ namespace Agraria.UI.Articulos
                     }
                 });
             
+        }
+
+        /// <summary>
+        /// Inicializa los controles de filtro con los valores correspondientes
+        /// </summary>
+        private void InicializarControlesFiltro()
+        {
+            try
+            {
+                // Cargar proveedores en el ComboBox de filtro
+                CargarProveedoresEnFiltro();
+
+                // Limpiar los campos de texto de filtro
+                TxtFiltroCodigo.Clear();
+                TxtFiltroDescripcion.Clear();
+
+                // Seleccionar "Todos" en los ComboBox de filtro
+                if (CmbFiltroProveedor.Items.Count > 0)
+                {
+                    CmbFiltroProveedor.SelectedIndex = 0;
+                }
+
+                if (CmbFiltroEnVenta.Items.Count > 0)
+                {
+                    CmbFiltroEnVenta.SelectedIndex = 0; // "Todos"
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al inicializar los controles de filtro: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        /// <summary>
+        /// Carga los proveedores en el ComboBox de filtro
+        /// </summary>
+        private void CargarProveedoresEnFiltro()
+        {
+            try
+            {
+                // Aseguramos que la lista de proveedores esté disponible
+                var listaConTodos = new List<Modelo.Entidades.Proveedores>();
+                listaConTodos.Add(new Modelo.Entidades.Proveedores { Id_Proveedor = 0, Proveedor = "Todos" }); // Opción "Todos"
+                listaConTodos.AddRange(_listaProveedores ?? []);
+
+                CmbFiltroProveedor.DataSource = listaConTodos;
+                CmbFiltroProveedor.DisplayMember = "Proveedor";
+                CmbFiltroProveedor.ValueMember = "Id_Proveedor";
+                CmbFiltroProveedor.SelectedIndex = 0; // Seleccionamos "Todos" por defecto
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al cargar proveedores en el filtro: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void CargarCMBs()
@@ -733,6 +790,127 @@ namespace Agraria.UI.Articulos
         {
             MessageBox.Show(mensaje, titulo, MessageBoxButtons.OK, icono);
         }
+
+        /// <summary>
+        /// Maneja los eventos de cambio de texto o selección en los controles de filtro
+        /// </summary>
+        /// <param name="sender">El objeto que generó el evento</param>
+        /// <param name="e">Los datos del evento</param>
+        private void Filtros_TextChanged(object sender, EventArgs e)
+        {
+            FiltrarDatos();
+        }
+
+        /// <summary>
+        /// Filtra la lista de productos según los valores de los controles de filtro
+        /// </summary>
+        private void FiltrarDatos()
+        {
+            try
+            {
+                // Obtener la lista completa de artículos
+                var listaCompleta = _listaArticulos ?? [];
+                var listaFiltrada = new List<Modelo.Entidades.Productos>();
+
+                foreach (var producto in listaCompleta)
+                {
+                    bool coincide = true;
+
+                    // Filtrar por código
+                    if (!string.IsNullOrEmpty(TxtFiltroCodigo.Text))
+                    {
+                        if (producto.Cod_Producto == null || !producto.Cod_Producto.ToLower().Contains(TxtFiltroCodigo.Text.ToLower()))
+                        {
+                            coincide = false;
+                        }
+                    }
+
+                    // Filtrar por descripción
+                    if (coincide && !string.IsNullOrEmpty(TxtFiltroDescripcion.Text))
+                    {
+                        if (producto.Producto_Desc == null || !producto.Producto_Desc.ToLower().Contains(TxtFiltroDescripcion.Text.ToLower()))
+                        {
+                            coincide = false;
+                        }
+                    }
+
+                    // Filtrar por proveedor
+                    if (coincide && CmbFiltroProveedor.SelectedItem != null && CmbFiltroProveedor.SelectedIndex > 0)
+                    {
+                        var proveedorSeleccionado = CmbFiltroProveedor.SelectedItem as Modelo.Entidades.Proveedores;
+                        if (producto.Id_Proveedor != proveedorSeleccionado.Id_Proveedor)
+                        {
+                            coincide = false;
+                        }
+                    }
+
+                    // Filtrar por estado "En Venta"
+                    if (coincide && CmbFiltroEnVenta.SelectedIndex > 0)
+                    {
+                        bool enVentaSeleccionado = CmbFiltroEnVenta.SelectedIndex == 1; // "Sí" = índice 1
+                        if (producto.En_Venta != enVentaSeleccionado)
+                        {
+                            coincide = false;
+                        }
+                    }
+
+                    if (coincide)
+                    {
+                        listaFiltrada.Add(producto);
+                    }
+                }
+
+                // Actualizar el DataGridView con la lista filtrada
+                ActualizarDataGridViewConFiltros(listaFiltrada);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al filtrar los datos: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        /// <summary>
+        /// Actualiza el DataGridView con la lista filtrada
+        /// </summary>
+        /// <param name="listaFiltrada">La lista de productos ya filtrada</param>
+        private void ActualizarDataGridViewConFiltros(List<Modelo.Entidades.Productos> listaFiltrada)
+        {
+            try
+            {
+                // Suspendemos el dibujado para evitar actualizaciones parciales
+                ListBArticulos.SuspendLayout();
+                ListBArticulos.DataSource = null;
+
+                // Creamos una lista de objetos con solo las propiedades que queremos mostrar
+                var datosParaMostrar = listaFiltrada.Select(p => new
+                {
+                    Cod_Producto = p.Cod_Producto,
+                    Producto_Desc = p.Producto_Desc
+                }).ToList();
+
+                ListBArticulos.DataSource = datosParaMostrar;
+
+                // Aseguramos que las columnas tengan los encabezados correctos
+                if (ListBArticulos.Columns["Cod_Producto"] != null)
+                {
+                    ListBArticulos.Columns["Cod_Producto"].HeaderText = "CÓDIGO";
+                }
+
+                if (ListBArticulos.Columns["Producto_Desc"] != null)
+                {
+                    ListBArticulos.Columns["Producto_Desc"].HeaderText = "DESCRIPCIÓN";
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al actualizar el DataGridView: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                ListBArticulos.ResumeLayout();
+            }
+        }
+
 
         #endregion
 
