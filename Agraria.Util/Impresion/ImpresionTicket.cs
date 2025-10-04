@@ -14,6 +14,7 @@ using iTextSharp.text.pdf;
 using iTextSharp.text.html.simpleparser;
 using iTextSharp.text;
 using iTextSharp.tool.xml;
+using BitMiracle.LibTiff.Classic;
 
 
 
@@ -33,12 +34,7 @@ namespace Agraria.Utilidades.Impresion
             _saveFileDialog1.Title = "Guardar archivo";
             _rutaImg = Path.Combine(Application.StartupPath, "Impresion", "EAC256.png");
             _htmlFinal = string.Empty;
-            // SAVE FILE
-            _saveFileDialog1.FileOk += (s, e) =>
-            {
-            GenerarPDF(_rutaImg, _htmlFinal, _saveFileDialog1);
-
-            };
+           
         }
 
        
@@ -68,8 +64,17 @@ namespace Agraria.Utilidades.Impresion
 
 
             _saveFileDialog1.FileName = tituloOperacion + " N°" + numeroOperacion;
-            _saveFileDialog1.ShowDialog();
-            
+             DialogResult result = _saveFileDialog1.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                TareasLargas tareas = new TareasLargas();
+                tareas.RecibirTarea(() =>
+                {
+                    GenerarPDF(_rutaImg, _htmlFinal, _saveFileDialog1);
+                });
+
+            }
+
 
 
 

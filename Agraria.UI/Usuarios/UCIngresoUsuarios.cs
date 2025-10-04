@@ -116,7 +116,6 @@ namespace Agraria.UI.Usuarios
             {
                 CMBPregunta.SelectedIndex = 0;
             }
-            TxtContra_PassqordChar();
         }
 
         /// <summary>
@@ -261,12 +260,6 @@ namespace Agraria.UI.Usuarios
             }
         }
 
-        private void TxtContra_PassqordChar()
-        {
-            TxtContra.PasswordChar = '\uFFFD';
-            TxtContraDos.PasswordChar = '\uFFFD';
-
-        }
 
         private void LblContra_Click(object sender, EventArgs e)
         {

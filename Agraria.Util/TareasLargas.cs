@@ -13,7 +13,7 @@ namespace Agraria.Utilidades
         private readonly ProgressBar _barraDeProgreso;
         private readonly Func<Task> _tareaDeLargaDuracion;
         private readonly Action _tareaCompletada;
-        private readonly Action _tareaDeLargaDuracionAction;
+        private Action _tareaDeLargaDuracionAction;
 
 
         /// <summary>
@@ -36,6 +36,9 @@ namespace Agraria.Utilidades
             DoWork += HacerTrabajo;
             ProgressChanged += ProgresoCambiado;
             RunWorkerCompleted += TrabajoCompletado;
+            _panelADesactivar.Enabled = false;
+            _barraDeProgreso.Visible = true;
+            _barraDeProgreso.Style = ProgressBarStyle.Marquee;
         }
 
         public TareasLargas(Panel panelADesactivar, ProgressBar barraDeProgreso, Action tareaDeLargaDuracion, Action tareaCompletada)
@@ -51,6 +54,9 @@ namespace Agraria.Utilidades
             DoWork += HacerTrabajo;
             ProgressChanged += ProgresoCambiado;
             RunWorkerCompleted += TrabajoCompletado;
+            _panelADesactivar.Enabled = false;
+            _barraDeProgreso.Visible = true;
+            _barraDeProgreso.Style = ProgressBarStyle.Marquee;
         }
 
         public TareasLargas( Action tareaDeLargaDuracion)
@@ -65,6 +71,9 @@ namespace Agraria.Utilidades
             DoWork += HacerTrabajo;
             ProgressChanged += ProgresoCambiado;
             RunWorkerCompleted += TrabajoCompletado;
+            _panelADesactivar.Enabled = false;
+            _barraDeProgreso.Visible = true;
+            _barraDeProgreso.Style = ProgressBarStyle.Marquee;
         }
 
         /// <summary>
@@ -83,6 +92,20 @@ namespace Agraria.Utilidades
             DoWork += HacerTrabajo;
             ProgressChanged += ProgresoCambiado;
             RunWorkerCompleted += TrabajoCompletado;
+            _panelADesactivar.Enabled = false;
+            _barraDeProgreso.Visible = true;
+            _barraDeProgreso.Style = ProgressBarStyle.Marquee;
+        }
+
+        public TareasLargas()
+        {
+
+            WorkerReportsProgress = true;
+            WorkerSupportsCancellation = true;
+            DoWork += HacerTrabajo;
+            ProgressChanged += ProgresoCambiado;
+            RunWorkerCompleted += TrabajoCompletado;
+
         }
 
         /// <summary>
@@ -91,9 +114,7 @@ namespace Agraria.Utilidades
         public void Iniciar()
         {
 
-            _panelADesactivar.Enabled = false;
-            _barraDeProgreso.Visible = true;
-            _barraDeProgreso.Style = ProgressBarStyle.Marquee;
+            
             RunWorkerAsync();
         }
 
@@ -151,8 +172,12 @@ namespace Agraria.Utilidades
         /// <param name="e">La instancia de <see cref="RunWorkerCompletedEventArgs"/> que contiene los datos del evento.</param>
         private async void TrabajoCompletado(object sender, RunWorkerCompletedEventArgs e)
         {
+            if (_panelADesactivar != null && _barraDeProgreso != null)
+            {
+
             _panelADesactivar.Enabled = true;
             _barraDeProgreso.Visible = false;
+            }
 
             if (e.Error != null)
             {
@@ -170,6 +195,12 @@ namespace Agraria.Utilidades
                     ()=> { _tareaCompletada?.Invoke(); }
                     );
             }
+        }
+
+        internal void RecibirTarea(Action value)
+        {
+            _tareaDeLargaDuracionAction = value;
+            Iniciar();
         }
     }
 }
