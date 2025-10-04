@@ -99,11 +99,12 @@ namespace Agraria.UI.Inventario
         private void UCConsultaInventario_Load(object sender, EventArgs e)
         {
             CargarUnidadesMedida();
+            ConfigurarDgv();
             var taskHelper = new TareasLargas(
                 PanelMedio,
                 ProgressBar,
                 CargaInicial,
-                CargarDataGrid);
+                CargarCombosYDataGrid);
             taskHelper.Iniciar();
         }
 
@@ -287,6 +288,17 @@ namespace Agraria.UI.Inventario
                 var unidades = Enum.GetValues<UnidadMedida>()
                     .Cast<UnidadMedida>()
                     .ToList();
+                
+                // Agregar opción "Todos" al principio para el filtro
+                var filtroOptions = new[] { new { Value = (UnidadMedida)(-1), Text = "Todos" } }
+                    .Concat(unidades.Select(u => new { Value = u, Text = u.ToString() }))
+                    .ToList();
+
+                CmbFiltroUnidadMedida.DataSource = filtroOptions;
+                CmbFiltroUnidadMedida.DisplayMember = "Text";
+                CmbFiltroUnidadMedida.ValueMember = "Value";
+                CmbFiltroUnidadMedida.SelectedIndex = 0; // Seleccionar "Todos" por defecto
+
                 CMBUnidadMedida.DataSource = unidades;
                 CMBUnidadMedida.DisplayMember = "ToString";
             }
@@ -312,7 +324,70 @@ namespace Agraria.UI.Inventario
                 MostrarMensaje(resultado.Error, "Error al cargar artículos", MessageBoxIcon.Error);
             }
         }
+        private void ConfigurarDgv()
+        {
+            // Configurar DataGridView de ventas
+            ListBArticulos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            ListBArticulos.MultiSelect = false;
+            ListBArticulos.ReadOnly = true;
+            ListBArticulos.AllowUserToAddRows = false;
+            ListBArticulos.AllowUserToDeleteRows = false;
+            ListBArticulos.RowHeadersVisible = false;
+            ListBArticulos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            ListBArticulos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            ListBArticulos.AllowUserToResizeRows = false;
+            ListBArticulos.AllowUserToResizeColumns = true;
+            ListBArticulos.AutoGenerateColumns = false;
 
+            // Asegurar que el DataGridView puede recibir el foco y selecciones
+            ListBArticulos.TabStop = true;
+            ListBArticulos.Enabled = true;
+            ConfigurarColumnasDataGridView();
+        }
+
+        private void ConfigurarColumnasDataGridView()
+        {
+            // Limpiar columnas existentes
+            ListBArticulos.Columns.Clear();
+
+            // Configurar columnas para DgvVentas
+            var ventasColumns = new[]
+            {
+                new DataGridViewTextBoxColumn
+                {
+                    Name = "Art_Cod",
+                    DataPropertyName = "Art_Cod",
+                    HeaderText = "Codigo",
+                    Visible = true,
+                    FillWeight = 20f,
+                    AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
+                },
+                new DataGridViewTextBoxColumn
+                {
+                    Name = "Art_Nombre",
+                    DataPropertyName = "Art_Nombre",
+                    HeaderText = "Nombre",
+                    Visible = true,
+                    FillWeight = 30f,
+                    AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
+                },
+                new DataGridViewTextBoxColumn
+                {
+                    Name = "Art_Descripcion",
+                    DataPropertyName = "Art_Descripcion",
+                    HeaderText = "Descripcion",
+                    Visible = true,
+                    AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
+                }
+            };
+
+            foreach (var column in ventasColumns)
+            {
+                ListBArticulos.Columns.Add(column);
+            }
+
+          
+        }
         /// <summary>
         /// Carga los datos de los artículos en el DataGridView.
         /// </summary>
@@ -357,6 +432,58 @@ namespace Agraria.UI.Inventario
                         ListBArticulos.ResumeLayout();
                     }
                 });
+        }
+
+        /// <summary>
+        /// Carga los ComboBoxes y el DataGridView con los datos iniciales.
+        /// </summary>
+        private void CargarCombosYDataGrid()
+        {
+            this.Invoke(
+                () =>
+                {
+                    CargarDataGrid();
+
+                    // Inicializar controles de filtro
+                    InicializarControlesFiltro();
+
+                    // Verificar si hay artículos y activar/desactivar formulario según corresponda
+                    if (_listaArticulos == null || _listaArticulos.Count == 0)
+                    {
+                        // No hay artículos, desactivar formulario
+                        Utilidades.Util.LimpiarForm(TLPForm, TxtNombre);
+                        Utilidades.Util.BloquearBtns(ListBArticulos, TLPForm);
+                    }
+                    else
+                    {
+                        // Hay artículos, activar formulario
+                        Utilidades.Util.DesbloquearTLPForm(TLPForm);
+                    }
+                });
+        }
+
+        /// <summary>
+        /// Inicializa los controles de filtro con los valores correspondientes
+        /// </summary>
+        private void InicializarControlesFiltro()
+        {
+            try
+            {
+                // Limpiar los campos de texto de filtro
+                TxtFiltroCodigo.Clear();
+                TxtFiltroNombre.Clear();
+                TxtFiltroDescripcion.Clear();
+
+                // Seleccionar "Todos" en los ComboBox de filtro
+                if (CmbFiltroUnidadMedida.Items.Count > 0)
+                {
+                    CmbFiltroUnidadMedida.SelectedIndex = 0; // "Todos"
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al inicializar los controles de filtro: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         #endregion
@@ -559,17 +686,155 @@ namespace Agraria.UI.Inventario
             MessageBox.Show(mensaje, titulo, MessageBoxButtons.OK, icono);
         }
 
+        /// <summary>
+        /// Maneja los eventos de cambio de texto o selección en los controles de filtro
+        /// </summary>
+        /// <param name="sender">El objeto que generó el evento</param>
+        /// <param name="e">Los datos del evento</param>
+        private void Filtros_TextChanged(object sender, EventArgs e)
+        {
+            FiltrarDatos();
+        }
+
+        /// <summary>
+        /// Filtra la lista de artículos generales según los valores de los controles de filtro
+        /// </summary>
+        private void FiltrarDatos()
+        {
+            try
+            {
+                // Obtener la lista completa de artículos generales
+                var listaCompleta = _listaArticulos ?? [];
+                var listaFiltrada = new List<ArticulosGral>();
+
+                foreach (var articulo in listaCompleta)
+                {
+                    bool coincide = true;
+
+                    // Filtrar por código
+                    if (!string.IsNullOrEmpty(TxtFiltroCodigo.Text))
+                    {
+                        if (articulo.Art_Cod == null || !articulo.Art_Cod.ToLower().Contains(TxtFiltroCodigo.Text.ToLower()))
+                        {
+                            coincide = false;
+                        }
+                    }
+
+                    // Filtrar por nombre
+                    if (coincide && !string.IsNullOrEmpty(TxtFiltroNombre.Text))
+                    {
+                        if (articulo.Art_Nombre == null || !articulo.Art_Nombre.ToLower().Contains(TxtFiltroNombre.Text.ToLower()))
+                        {
+                            coincide = false;
+                        }
+                    }
+
+                    // Filtrar por descripción
+                    if (coincide && !string.IsNullOrEmpty(TxtFiltroDescripcion.Text))
+                    {
+                        if (articulo.Art_Descripcion == null || !articulo.Art_Descripcion.ToLower().Contains(TxtFiltroDescripcion.Text.ToLower()))
+                        {
+                            coincide = false;
+                        }
+                    }
+
+                    // Filtrar por unidad de medida
+                    if (coincide && CmbFiltroUnidadMedida.SelectedItem != null && CmbFiltroUnidadMedida.SelectedIndex > 0)
+                    {
+                        var itemSeleccionado = CmbFiltroUnidadMedida.SelectedItem;
+                        if (itemSeleccionado != null)
+                        {
+                            var unidadMedidaSeleccionada = (UnidadMedida)CmbFiltroUnidadMedida.SelectedValue;
+                            // El valor -1 representa "Todos", por lo que no se considera una unidad de medida válida para filtrar
+                            if (unidadMedidaSeleccionada != (UnidadMedida)(-1) && articulo.Art_Uni_Med != unidadMedidaSeleccionada)
+                            {
+                                coincide = false;
+                            }
+                        }
+                    }
+
+                    if (coincide)
+                    {
+                        listaFiltrada.Add(articulo);
+                    }
+                }
+
+                // Actualizar el DataGridView con la lista filtrada
+                ActualizarDataGridViewConFiltros(listaFiltrada);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al filtrar los datos: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        /// <summary>
+        /// Actualiza el DataGridView con la lista filtrada
+        /// </summary>
+        /// <param name="listaFiltrada">La lista de artículos generales ya filtrada</param>
+        private void ActualizarDataGridViewConFiltros(List<ArticulosGral> listaFiltrada)
+        {
+            try
+            {
+                // Suspendemos el dibujado para evitar actualizaciones parciales
+                ListBArticulos.SuspendLayout();
+                ListBArticulos.DataSource = null;
+
+                ListBArticulos.DataSource = listaFiltrada;
+
+                // Aseguramos que las columnas tengan los encabezados correctos
+                if (ListBArticulos.Columns["Art_Cod"] != null)
+                {
+                    ListBArticulos.Columns["Art_Cod"].HeaderText = "CÓDIGO";
+                }
+
+                if (ListBArticulos.Columns["Art_Nombre"] != null)
+                {
+                    ListBArticulos.Columns["Art_Nombre"].HeaderText = "NOMBRE";
+                }
+
+                if (ListBArticulos.Columns["Art_Descripcion"] != null)
+                {
+                    ListBArticulos.Columns["Art_Descripcion"].HeaderText = "DESCRIPCIÓN";
+                }
+
+                if (ListBArticulos.Columns["Art_Uni_Med"] != null)
+                {
+                    ListBArticulos.Columns["Art_Uni_Med"].HeaderText = "UNIDAD MEDIDA";
+                }
+
+                if (ListBArticulos.Columns["Art_Precio"] != null)
+                {
+                    ListBArticulos.Columns["Art_Precio"].HeaderText = "PRECIO";
+                }
+
+                if (ListBArticulos.Columns["Art_Stock"] != null)
+                {
+                    ListBArticulos.Columns["Art_Stock"].HeaderText = "STOCK";
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al actualizar el DataGridView: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                ListBArticulos.ResumeLayout();
+            }
+        }
+
         #endregion
 
         private void UCConsultaInventario_VisibleChanged(object sender, EventArgs e)
         {
             if (Visible)
             {
+                ConfigurarDgv();
                 var taskHelper = new TareasLargas(
                PanelMedio,
                ProgressBar,
                CargaInicial,
-               CargarDataGrid);
+               CargarCombosYDataGrid);
                 taskHelper.Iniciar();
             }
         }

@@ -32,9 +32,17 @@ namespace Agraria.UI.Inventario
             PanelLista = new Panel();
             tableLayoutPanel1 = new TableLayoutPanel();
             LblLista = new Label();
+            PanelFiltros = new Panel();
+            tableLayoutPanelFiltros = new TableLayoutPanel();
+            label3 = new Label();
+            LblCodigo = new Label();
+            TxtFiltroCodigo = new TextBox();
+            TxtFiltroNombre = new TextBox();
+            LblDescripcion = new Label();
+            TxtFiltroDescripcion = new TextBox();
+            LblUnidadMedida = new Label();
+            CmbFiltroUnidadMedida = new ComboBox();
             ListBArticulos = new DataGridView();
-            Codigo = new DataGridViewTextBoxColumn();
-            Nombre = new DataGridViewTextBoxColumn();
             PanelMedio = new Panel();
             tableLayoutPanel4 = new TableLayoutPanel();
             groupBox1 = new GroupBox();
@@ -56,6 +64,8 @@ namespace Agraria.UI.Inventario
             tableLayoutPanel3.SuspendLayout();
             PanelLista.SuspendLayout();
             tableLayoutPanel1.SuspendLayout();
+            PanelFiltros.SuspendLayout();
+            tableLayoutPanelFiltros.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)ListBArticulos).BeginInit();
             PanelMedio.SuspendLayout();
             tableLayoutPanel4.SuspendLayout();
@@ -98,12 +108,14 @@ namespace Agraria.UI.Inventario
             tableLayoutPanel1.ColumnCount = 1;
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
             tableLayoutPanel1.Controls.Add(LblLista, 0, 0);
-            tableLayoutPanel1.Controls.Add(ListBArticulos, 0, 1);
+            tableLayoutPanel1.Controls.Add(PanelFiltros, 0, 1);
+            tableLayoutPanel1.Controls.Add(ListBArticulos, 0, 2);
             tableLayoutPanel1.Dock = DockStyle.Fill;
             tableLayoutPanel1.Location = new Point(0, 16);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
-            tableLayoutPanel1.RowCount = 2;
+            tableLayoutPanel1.RowCount = 3;
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 32F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle());
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             tableLayoutPanel1.Size = new Size(315, 507);
             tableLayoutPanel1.TabIndex = 2;
@@ -120,6 +132,130 @@ namespace Agraria.UI.Inventario
             LblLista.Text = "Lista de Inventario";
             LblLista.TextAlign = ContentAlignment.MiddleCenter;
             // 
+            // PanelFiltros
+            // 
+            PanelFiltros.BackColor = Color.FromArgb(240, 240, 240);
+            PanelFiltros.Controls.Add(tableLayoutPanelFiltros);
+            PanelFiltros.Dock = DockStyle.Top;
+            PanelFiltros.Location = new Point(3, 35);
+            PanelFiltros.Name = "PanelFiltros";
+            PanelFiltros.Padding = new Padding(8);
+            PanelFiltros.Size = new Size(309, 100);
+            PanelFiltros.TabIndex = 3;
+            // 
+            // tableLayoutPanelFiltros
+            // 
+            tableLayoutPanelFiltros.ColumnCount = 4;
+            tableLayoutPanelFiltros.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
+            tableLayoutPanelFiltros.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
+            tableLayoutPanelFiltros.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
+            tableLayoutPanelFiltros.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
+            tableLayoutPanelFiltros.Controls.Add(label3, 2, 0);
+            tableLayoutPanelFiltros.Controls.Add(LblCodigo, 0, 0);
+            tableLayoutPanelFiltros.Controls.Add(TxtFiltroCodigo, 1, 0);
+            tableLayoutPanelFiltros.Controls.Add(TxtFiltroNombre, 3, 0);
+            tableLayoutPanelFiltros.Controls.Add(LblDescripcion, 0, 1);
+            tableLayoutPanelFiltros.Controls.Add(TxtFiltroDescripcion, 1, 1);
+            tableLayoutPanelFiltros.Controls.Add(LblUnidadMedida, 2, 1);
+            tableLayoutPanelFiltros.Controls.Add(CmbFiltroUnidadMedida, 3, 1);
+            tableLayoutPanelFiltros.Dock = DockStyle.Fill;
+            tableLayoutPanelFiltros.Location = new Point(8, 8);
+            tableLayoutPanelFiltros.Name = "tableLayoutPanelFiltros";
+            tableLayoutPanelFiltros.RowCount = 2;
+            tableLayoutPanelFiltros.RowStyles.Add(new RowStyle());
+            tableLayoutPanelFiltros.RowStyles.Add(new RowStyle());
+            tableLayoutPanelFiltros.Size = new Size(293, 84);
+            tableLayoutPanelFiltros.TabIndex = 0;
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Dock = DockStyle.Fill;
+            label3.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            label3.Location = new Point(149, 0);
+            label3.Name = "label3";
+            label3.Size = new Size(67, 29);
+            label3.TabIndex = 8;
+            label3.Text = "Nombre:";
+            label3.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // LblCodigo
+            // 
+            LblCodigo.AutoSize = true;
+            LblCodigo.Dock = DockStyle.Fill;
+            LblCodigo.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            LblCodigo.Location = new Point(3, 0);
+            LblCodigo.Name = "LblCodigo";
+            LblCodigo.Size = new Size(67, 29);
+            LblCodigo.TabIndex = 0;
+            LblCodigo.Text = "Código:";
+            LblCodigo.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // TxtFiltroCodigo
+            // 
+            TxtFiltroCodigo.Dock = DockStyle.Fill;
+            TxtFiltroCodigo.Font = new Font("Segoe UI", 9F);
+            TxtFiltroCodigo.Location = new Point(76, 3);
+            TxtFiltroCodigo.Name = "TxtFiltroCodigo";
+            TxtFiltroCodigo.Size = new Size(67, 23);
+            TxtFiltroCodigo.TabIndex = 1;
+            TxtFiltroCodigo.TextChanged += Filtros_TextChanged;
+            // 
+            // TxtFiltroNombre
+            // 
+            TxtFiltroNombre.Dock = DockStyle.Fill;
+            TxtFiltroNombre.Font = new Font("Segoe UI", 9F);
+            TxtFiltroNombre.Location = new Point(222, 3);
+            TxtFiltroNombre.Name = "TxtFiltroNombre";
+            TxtFiltroNombre.Size = new Size(68, 23);
+            TxtFiltroNombre.TabIndex = 3;
+            TxtFiltroNombre.TextChanged += Filtros_TextChanged;
+            // 
+            // LblDescripcion
+            // 
+            LblDescripcion.AutoSize = true;
+            LblDescripcion.Dock = DockStyle.Fill;
+            LblDescripcion.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            LblDescripcion.Location = new Point(3, 29);
+            LblDescripcion.Name = "LblDescripcion";
+            LblDescripcion.Size = new Size(67, 55);
+            LblDescripcion.TabIndex = 4;
+            LblDescripcion.Text = "Descripción:";
+            LblDescripcion.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // TxtFiltroDescripcion
+            // 
+            TxtFiltroDescripcion.Dock = DockStyle.Fill;
+            TxtFiltroDescripcion.Font = new Font("Segoe UI", 9F);
+            TxtFiltroDescripcion.Location = new Point(76, 32);
+            TxtFiltroDescripcion.Name = "TxtFiltroDescripcion";
+            TxtFiltroDescripcion.Size = new Size(67, 23);
+            TxtFiltroDescripcion.TabIndex = 5;
+            TxtFiltroDescripcion.TextChanged += Filtros_TextChanged;
+            // 
+            // LblUnidadMedida
+            // 
+            LblUnidadMedida.AutoSize = true;
+            LblUnidadMedida.Dock = DockStyle.Fill;
+            LblUnidadMedida.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            LblUnidadMedida.Location = new Point(149, 29);
+            LblUnidadMedida.Name = "LblUnidadMedida";
+            LblUnidadMedida.Size = new Size(67, 55);
+            LblUnidadMedida.TabIndex = 6;
+            LblUnidadMedida.Text = "Unidad Medida:";
+            LblUnidadMedida.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // CmbFiltroUnidadMedida
+            // 
+            CmbFiltroUnidadMedida.Dock = DockStyle.Fill;
+            CmbFiltroUnidadMedida.DropDownStyle = ComboBoxStyle.DropDownList;
+            CmbFiltroUnidadMedida.Font = new Font("Segoe UI", 9F);
+            CmbFiltroUnidadMedida.Location = new Point(222, 32);
+            CmbFiltroUnidadMedida.Name = "CmbFiltroUnidadMedida";
+            CmbFiltroUnidadMedida.Size = new Size(68, 23);
+            CmbFiltroUnidadMedida.TabIndex = 7;
+            CmbFiltroUnidadMedida.SelectedIndexChanged += Filtros_TextChanged;
+            // 
             // ListBArticulos
             // 
             ListBArticulos.AllowUserToAddRows = false;
@@ -127,34 +263,16 @@ namespace Agraria.UI.Inventario
             ListBArticulos.AllowUserToResizeColumns = false;
             ListBArticulos.AllowUserToResizeRows = false;
             ListBArticulos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            ListBArticulos.Columns.AddRange(new DataGridViewColumn[] { Codigo, Nombre });
             ListBArticulos.Dock = DockStyle.Fill;
-            ListBArticulos.Location = new Point(3, 35);
+            ListBArticulos.Location = new Point(3, 141);
             ListBArticulos.Name = "ListBArticulos";
             ListBArticulos.ReadOnly = true;
             ListBArticulos.RowHeadersVisible = false;
             ListBArticulos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            ListBArticulos.Size = new Size(309, 469);
+            ListBArticulos.Size = new Size(309, 363);
             ListBArticulos.TabIndex = 2;
             ListBArticulos.DataError += ListBArticulos_DataError;
             ListBArticulos.SelectionChanged += ListBArticulos_SelectedIndexChanged;
-            // 
-            // Codigo
-            // 
-            Codigo.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            Codigo.DataPropertyName = "Art_Id";
-            Codigo.HeaderText = "CÓDIGO";
-            Codigo.Name = "Codigo";
-            Codigo.ReadOnly = true;
-            Codigo.Width = 95;
-            // 
-            // Nombre
-            // 
-            Nombre.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            Nombre.DataPropertyName = "Art_Nombre";
-            Nombre.HeaderText = "NOMBRE";
-            Nombre.Name = "Nombre";
-            Nombre.ReadOnly = true;
             // 
             // PanelMedio
             // 
@@ -237,6 +355,7 @@ namespace Agraria.UI.Inventario
             LblNombre.Size = new Size(71, 21);
             LblNombre.TabIndex = 0;
             LblNombre.Text = "Nombre:";
+            LblNombre.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // TxtPrecio
             // 
@@ -426,6 +545,9 @@ namespace Agraria.UI.Inventario
             tableLayoutPanel3.ResumeLayout(false);
             PanelLista.ResumeLayout(false);
             tableLayoutPanel1.ResumeLayout(false);
+            PanelFiltros.ResumeLayout(false);
+            tableLayoutPanelFiltros.ResumeLayout(false);
+            tableLayoutPanelFiltros.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)ListBArticulos).EndInit();
             PanelMedio.ResumeLayout(false);
             tableLayoutPanel4.ResumeLayout(false);
@@ -448,6 +570,8 @@ namespace Agraria.UI.Inventario
         private TableLayoutPanel TLPForm;
         private Label label1;
         private Label LblNombre;
+        private Label LblFiltroNombre;
+        private TextBox TxtFiltroNombre;
         private TextBox TxtPrecio;
         private TextBox TxtCantidad;
         private TextBox TxtNombre;
@@ -459,9 +583,16 @@ namespace Agraria.UI.Inventario
         private Button BtnEliminar;
         private ProgressBar ProgressBar;
         private DataGridView ListBArticulos;
-        private DataGridViewTextBoxColumn Codigo;
-        private DataGridViewTextBoxColumn Nombre;
         private ComboBox CMBUnidadMedida;
         private TextBox TxtDescripcion;
+        private Panel PanelFiltros;
+        private TableLayoutPanel tableLayoutPanelFiltros;
+        private Label LblCodigo;
+        private TextBox TxtFiltroCodigo;
+        private Label LblDescripcion;
+        private TextBox TxtFiltroDescripcion;
+        private Label LblUnidadMedida;
+        private ComboBox CmbFiltroUnidadMedida;
+        private Label label3;
     }
 }
