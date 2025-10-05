@@ -65,6 +65,18 @@ namespace Agraria.UI.Usuarios
             DNI = new DataGridViewTextBoxColumn();
             ColumnApellido = new DataGridViewTextBoxColumn();
             ColumnNombre = new DataGridViewTextBoxColumn();
+            PanelFiltros = new Panel();
+            tableLayoutPanelFiltros = new TableLayoutPanel();
+            labelFiltroDNI = new Label();
+            TxtFiltroDNI = new TextBox();
+            labelFiltroNombre = new Label();
+            TxtFiltroNombre = new TextBox();
+            labelFiltroApellido = new Label();
+            TxtFiltroApellido = new TextBox();
+            labelFiltroTipo = new Label();
+            CmbFiltroTipo = new ComboBox();
+            BtnLimpiarFiltro = new Button();
+            BtnAplicarFiltro = new Button();
             tableLayoutPanel3 = new TableLayoutPanel();
             PanelMedio.SuspendLayout();
             tableLayoutPanel4.SuspendLayout();
@@ -74,6 +86,8 @@ namespace Agraria.UI.Usuarios
             PanelLista.SuspendLayout();
             tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)ListBUsuarios).BeginInit();
+            PanelFiltros.SuspendLayout();
+            tableLayoutPanelFiltros.SuspendLayout();
             tableLayoutPanel3.SuspendLayout();
             SuspendLayout();
             // 
@@ -477,6 +491,7 @@ namespace Agraria.UI.Usuarios
             // 
             PanelLista.BackColor = Color.FromArgb(218, 218, 220);
             PanelLista.Controls.Add(tableLayoutPanel1);
+            PanelLista.Controls.Add(PanelFiltros);
             PanelLista.Dock = DockStyle.Fill;
             PanelLista.Location = new Point(3, 3);
             PanelLista.Name = "PanelLista";
@@ -491,12 +506,12 @@ namespace Agraria.UI.Usuarios
             tableLayoutPanel1.Controls.Add(LblLista, 0, 0);
             tableLayoutPanel1.Controls.Add(ListBUsuarios, 0, 1);
             tableLayoutPanel1.Dock = DockStyle.Fill;
-            tableLayoutPanel1.Location = new Point(0, 16);
+            tableLayoutPanel1.Location = new Point(0, 176);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.RowCount = 2;
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 32F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanel1.Size = new Size(315, 523);
+            tableLayoutPanel1.Size = new Size(315, 363);
             tableLayoutPanel1.TabIndex = 2;
             // 
             // LblLista
@@ -526,7 +541,7 @@ namespace Agraria.UI.Usuarios
             ListBUsuarios.ReadOnly = true;
             ListBUsuarios.RowHeadersVisible = false;
             ListBUsuarios.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            ListBUsuarios.Size = new Size(309, 485);
+            ListBUsuarios.Size = new Size(309, 325);
             ListBUsuarios.TabIndex = 2;
             ListBUsuarios.SelectionChanged += ListBUsuarios_SelectionChanged;
             // 
@@ -557,6 +572,170 @@ namespace Agraria.UI.Usuarios
             ColumnNombre.MaxInputLength = 50;
             ColumnNombre.Name = "ColumnNombre";
             ColumnNombre.ReadOnly = true;
+            // 
+            // PanelFiltros
+            // 
+            PanelFiltros.BackColor = Color.FromArgb(218, 218, 220);
+            PanelFiltros.Controls.Add(tableLayoutPanelFiltros);
+            PanelFiltros.Dock = DockStyle.Top;
+            PanelFiltros.Location = new Point(0, 16);
+            PanelFiltros.Name = "PanelFiltros";
+            PanelFiltros.Padding = new Padding(0, 8, 0, 8);
+            PanelFiltros.Size = new Size(315, 160);
+            PanelFiltros.TabIndex = 4;
+            // 
+            // tableLayoutPanelFiltros
+            // 
+            tableLayoutPanelFiltros.ColumnCount = 2;
+            tableLayoutPanelFiltros.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 35F));
+            tableLayoutPanelFiltros.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 65F));
+            tableLayoutPanelFiltros.Controls.Add(labelFiltroDNI, 0, 0);
+            tableLayoutPanelFiltros.Controls.Add(TxtFiltroDNI, 1, 0);
+            tableLayoutPanelFiltros.Controls.Add(labelFiltroNombre, 0, 1);
+            tableLayoutPanelFiltros.Controls.Add(TxtFiltroNombre, 1, 1);
+            tableLayoutPanelFiltros.Controls.Add(labelFiltroApellido, 0, 2);
+            tableLayoutPanelFiltros.Controls.Add(TxtFiltroApellido, 1, 2);
+            tableLayoutPanelFiltros.Controls.Add(labelFiltroTipo, 0, 3);
+            tableLayoutPanelFiltros.Controls.Add(CmbFiltroTipo, 1, 3);
+            tableLayoutPanelFiltros.Controls.Add(BtnLimpiarFiltro, 0, 4);
+            tableLayoutPanelFiltros.Controls.Add(BtnAplicarFiltro, 1, 4);
+            tableLayoutPanelFiltros.Dock = DockStyle.Fill;
+            tableLayoutPanelFiltros.Location = new Point(0, 8);
+            tableLayoutPanelFiltros.Name = "tableLayoutPanelFiltros";
+            tableLayoutPanelFiltros.RowCount = 5;
+            tableLayoutPanelFiltros.RowStyles.Add(new RowStyle(SizeType.Percent, 20F));
+            tableLayoutPanelFiltros.RowStyles.Add(new RowStyle(SizeType.Percent, 20F));
+            tableLayoutPanelFiltros.RowStyles.Add(new RowStyle(SizeType.Percent, 20F));
+            tableLayoutPanelFiltros.RowStyles.Add(new RowStyle(SizeType.Percent, 20F));
+            tableLayoutPanelFiltros.RowStyles.Add(new RowStyle(SizeType.Percent, 20F));
+            tableLayoutPanelFiltros.Size = new Size(315, 144);
+            tableLayoutPanelFiltros.TabIndex = 0;
+            // 
+            // labelFiltroDNI
+            // 
+            labelFiltroDNI.Anchor = AnchorStyles.Right;
+            labelFiltroDNI.AutoSize = true;
+            labelFiltroDNI.Font = new Font("Segoe UI", 12F);
+            labelFiltroDNI.Location = new Point(67, 3);
+            labelFiltroDNI.Name = "labelFiltroDNI";
+            labelFiltroDNI.Size = new Size(40, 21);
+            labelFiltroDNI.TabIndex = 0;
+            labelFiltroDNI.Text = "DNI:";
+            // 
+            // TxtFiltroDNI
+            // 
+            TxtFiltroDNI.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            TxtFiltroDNI.BackColor = Color.FromArgb(238, 237, 240);
+            TxtFiltroDNI.Font = new Font("Segoe UI", 12F);
+            TxtFiltroDNI.ForeColor = Color.FromArgb(26, 28, 30);
+            TxtFiltroDNI.Location = new Point(113, 4);
+            TxtFiltroDNI.Margin = new Padding(3, 4, 3, 4);
+            TxtFiltroDNI.Name = "TxtFiltroDNI";
+            TxtFiltroDNI.Size = new Size(199, 29);
+            TxtFiltroDNI.TabIndex = 1;
+            // 
+            // labelFiltroNombre
+            // 
+            labelFiltroNombre.Anchor = AnchorStyles.Right;
+            labelFiltroNombre.AutoSize = true;
+            labelFiltroNombre.Font = new Font("Segoe UI", 12F);
+            labelFiltroNombre.Location = new Point(36, 31);
+            labelFiltroNombre.Name = "labelFiltroNombre";
+            labelFiltroNombre.Size = new Size(71, 21);
+            labelFiltroNombre.TabIndex = 2;
+            labelFiltroNombre.Text = "Nombre:";
+            // 
+            // TxtFiltroNombre
+            // 
+            TxtFiltroNombre.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            TxtFiltroNombre.BackColor = Color.FromArgb(238, 237, 240);
+            TxtFiltroNombre.Font = new Font("Segoe UI", 12F);
+            TxtFiltroNombre.ForeColor = Color.FromArgb(26, 28, 30);
+            TxtFiltroNombre.Location = new Point(113, 32);
+            TxtFiltroNombre.Margin = new Padding(3, 4, 3, 4);
+            TxtFiltroNombre.Name = "TxtFiltroNombre";
+            TxtFiltroNombre.Size = new Size(199, 29);
+            TxtFiltroNombre.TabIndex = 3;
+            // 
+            // labelFiltroApellido
+            // 
+            labelFiltroApellido.Anchor = AnchorStyles.Right;
+            labelFiltroApellido.AutoSize = true;
+            labelFiltroApellido.Font = new Font("Segoe UI", 12F);
+            labelFiltroApellido.Location = new Point(37, 59);
+            labelFiltroApellido.Name = "labelFiltroApellido";
+            labelFiltroApellido.Size = new Size(70, 21);
+            labelFiltroApellido.TabIndex = 4;
+            labelFiltroApellido.Text = "Apellido:";
+            // 
+            // TxtFiltroApellido
+            // 
+            TxtFiltroApellido.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            TxtFiltroApellido.BackColor = Color.FromArgb(238, 237, 240);
+            TxtFiltroApellido.Font = new Font("Segoe UI", 12F);
+            TxtFiltroApellido.ForeColor = Color.FromArgb(26, 28, 30);
+            TxtFiltroApellido.Location = new Point(113, 60);
+            TxtFiltroApellido.Margin = new Padding(3, 4, 3, 4);
+            TxtFiltroApellido.Name = "TxtFiltroApellido";
+            TxtFiltroApellido.Size = new Size(199, 29);
+            TxtFiltroApellido.TabIndex = 5;
+            // 
+            // labelFiltroTipo
+            // 
+            labelFiltroTipo.Anchor = AnchorStyles.Right;
+            labelFiltroTipo.AutoSize = true;
+            labelFiltroTipo.Font = new Font("Segoe UI", 12F);
+            labelFiltroTipo.Location = new Point(64, 87);
+            labelFiltroTipo.Name = "labelFiltroTipo";
+            labelFiltroTipo.Size = new Size(43, 21);
+            labelFiltroTipo.TabIndex = 6;
+            labelFiltroTipo.Text = "Tipo:";
+            // 
+            // CmbFiltroTipo
+            // 
+            CmbFiltroTipo.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            CmbFiltroTipo.DropDownStyle = ComboBoxStyle.DropDownList;
+            CmbFiltroTipo.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            CmbFiltroTipo.FormattingEnabled = true;
+            CmbFiltroTipo.Location = new Point(113, 88);
+            CmbFiltroTipo.Margin = new Padding(3, 4, 3, 4);
+            CmbFiltroTipo.Name = "CmbFiltroTipo";
+            CmbFiltroTipo.Size = new Size(199, 29);
+            CmbFiltroTipo.TabIndex = 7;
+            // 
+            // BtnLimpiarFiltro
+            // 
+            BtnLimpiarFiltro.Anchor = AnchorStyles.Right;
+            BtnLimpiarFiltro.BackColor = Color.FromArgb(101, 89, 119);
+            BtnLimpiarFiltro.FlatAppearance.BorderColor = Color.FromArgb(203, 230, 255);
+            BtnLimpiarFiltro.FlatStyle = FlatStyle.Flat;
+            BtnLimpiarFiltro.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            BtnLimpiarFiltro.ForeColor = Color.FromArgb(255, 255, 255);
+            BtnLimpiarFiltro.Location = new Point(16, 116);
+            BtnLimpiarFiltro.Margin = new Padding(3, 4, 3, 4);
+            BtnLimpiarFiltro.Name = "BtnLimpiarFiltro";
+            BtnLimpiarFiltro.Size = new Size(91, 24);
+            BtnLimpiarFiltro.TabIndex = 8;
+            BtnLimpiarFiltro.Text = "Limpiar";
+            BtnLimpiarFiltro.UseVisualStyleBackColor = false;
+            BtnLimpiarFiltro.Click += BtnLimpiarFiltro_Click;
+            // 
+            // BtnAplicarFiltro
+            // 
+            BtnAplicarFiltro.Anchor = AnchorStyles.Left;
+            BtnAplicarFiltro.BackColor = Color.FromArgb(101, 89, 119);
+            BtnAplicarFiltro.FlatAppearance.BorderColor = Color.FromArgb(203, 230, 255);
+            BtnAplicarFiltro.FlatStyle = FlatStyle.Flat;
+            BtnAplicarFiltro.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            BtnAplicarFiltro.ForeColor = Color.FromArgb(255, 255, 255);
+            BtnAplicarFiltro.Location = new Point(113, 116);
+            BtnAplicarFiltro.Margin = new Padding(3, 4, 3, 4);
+            BtnAplicarFiltro.Name = "BtnAplicarFiltro";
+            BtnAplicarFiltro.Size = new Size(91, 24);
+            BtnAplicarFiltro.TabIndex = 9;
+            BtnAplicarFiltro.Text = "Aplicar";
+            BtnAplicarFiltro.UseVisualStyleBackColor = false;
+            BtnAplicarFiltro.Click += BtnAplicarFiltro_Click;
             // 
             // tableLayoutPanel3
             // 
@@ -594,6 +773,9 @@ namespace Agraria.UI.Usuarios
             PanelLista.ResumeLayout(false);
             tableLayoutPanel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)ListBUsuarios).EndInit();
+            PanelFiltros.ResumeLayout(false);
+            tableLayoutPanelFiltros.ResumeLayout(false);
+            tableLayoutPanelFiltros.PerformLayout();
             tableLayoutPanel3.ResumeLayout(false);
             ResumeLayout(false);
         }
@@ -636,5 +818,17 @@ namespace Agraria.UI.Usuarios
         private TableLayoutPanel tableLayoutPanel2;
         private Button BtnGuardar;
         private CheckBox ChkActivo;
+        private Panel PanelFiltros;
+        private TableLayoutPanel tableLayoutPanelFiltros;
+        private Label labelFiltroDNI;
+        private TextBox TxtFiltroDNI;
+        private Label labelFiltroNombre;
+        private TextBox TxtFiltroNombre;
+        private Label labelFiltroApellido;
+        private TextBox TxtFiltroApellido;
+        private Label labelFiltroTipo;
+        private ComboBox CmbFiltroTipo;
+        private Button BtnLimpiarFiltro;
+        private Button BtnAplicarFiltro;
     }
 }

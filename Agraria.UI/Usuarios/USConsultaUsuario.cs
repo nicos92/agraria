@@ -20,6 +20,7 @@ namespace Agraria.UI.Usuarios
         private readonly IPreguntasSeguridadService _preguntasSeguridadService;
 
         private Modelo.Entidades.Usuarios _usuarioSeleccionado;
+        private List<Modelo.Entidades.Usuarios> _todosLosUsuarios;
         private int indiceSeleccionado;
         private readonly ValidadorTextBox _vTxtDni;
         private readonly ValidadorTextBox _vTxtApellido;
@@ -103,6 +104,7 @@ namespace Agraria.UI.Usuarios
 
             await Task.WhenAll(
                 CargarTiposUsuarios(),
+                CargarTiposUsuariosParaFiltro(),
                 CargarPreguntasSeguridad(),
                 CargarUsuarios()
             );
@@ -250,6 +252,7 @@ namespace Agraria.UI.Usuarios
 
 
 
+
                 Result<Modelo.Entidades.Usuarios> resultado = _usuariosService.Update(_usuarioSeleccionado);
 
                 if (resultado.IsSuccess)
@@ -281,9 +284,10 @@ namespace Agraria.UI.Usuarios
 
             if (datos.IsSuccess)
             {
+                _todosLosUsuarios = datos.Value.OrderBy(u => u.Apellido).ToList();
 
                 ListBUsuarios.AutoGenerateColumns = false; // Desactivar la generación automática de columnas
-                ListBUsuarios.DataSource = datos.Value.OrderBy(u => u.Apellido).ToList();
+                ListBUsuarios.DataSource = _todosLosUsuarios;
 
             }
             else
@@ -401,6 +405,7 @@ namespace Agraria.UI.Usuarios
         private void CargarFormularioEdicion()
         {
 
+
             if (ListBUsuarios.Rows[indiceSeleccionado].DataBoundItem is Modelo.Entidades.Usuarios usuario)
             {
                 _usuarioSeleccionado = usuario;
@@ -443,6 +448,8 @@ namespace Agraria.UI.Usuarios
             if (sender is Button btn && btn.Tag is Color color) btn.BackColor = btn.Enabled ? color : AppColorsBlue.Secondary;
 
 
+
+
         }
         /// <summary>
         /// Configura los botones.
@@ -459,7 +466,114 @@ namespace Agraria.UI.Usuarios
             TxtContraDos.PasswordChar = '\uFFFD';
 
         }
+
+        /// <summary>
+        /// Handles the Click event of the BtnAplicarFiltro control to apply filters to the user list.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        private void BtnAplicarFiltro_Click(object sender, EventArgs e)
+        {
+            FiltrarUsuarios();
+        }
+
+        /// <summary>
+        /// Handles the Click event of the BtnLimpiarFiltro control to clear all filters.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        private void BtnLimpiarFiltro_Click(object sender, EventArgs e)
+        {
+            LimpiarFiltros();
+        }
+
+        /// <summary>
+        /// Filters the users based on the values in the filter controls.
+        /// </summary>
+        private void FiltrarUsuarios()
+        {
+            if (_todosLosUsuarios == null) return;
+
+            var usuariosFiltrados = _todosLosUsuarios.AsEnumerable();
+
+            // Filter by DNI
+            if (!string.IsNullOrWhiteSpace(TxtFiltroDNI.Text))
+            {
+                usuariosFiltrados = usuariosFiltrados.Where(u => u.DNI != null && u.DNI.Contains(TxtFiltroDNI.Text, StringComparison.OrdinalIgnoreCase));
+            }
+
+            // Filter by Name
+            if (!string.IsNullOrWhiteSpace(TxtFiltroNombre.Text))
+            {
+                usuariosFiltrados = usuariosFiltrados.Where(u => u.Nombre != null && u.Nombre.Contains(TxtFiltroNombre.Text, StringComparison.OrdinalIgnoreCase));
+            }
+
+            // Filter by Last Name
+            if (!string.IsNullOrWhiteSpace(TxtFiltroApellido.Text))
+            {
+                usuariosFiltrados = usuariosFiltrados.Where(u => u.Apellido != null && u.Apellido.Contains(TxtFiltroApellido.Text, StringComparison.OrdinalIgnoreCase));
+            }
+
+            // Filter by User Type
+            if (CmbFiltroTipo.SelectedItem != null && CmbFiltroTipo.SelectedIndex != -1)
+            {
+                if (CmbFiltroTipo.SelectedValue is int tipoSeleccionado)
+                {
+                    usuariosFiltrados = usuariosFiltrados.Where(u => u.Id_Tipo == tipoSeleccionado);
+                }
+            }
+
+            // Update the DataGridView with filtered results
+            ListBUsuarios.DataSource = usuariosFiltrados.ToList();
+            Utilidades.Util.CalcularDGVVacio(ListBUsuarios, LblLista, "Usuarios");
+        }
+
+        /// <summary>
+        /// Clears all filter controls and shows all users.
+        /// </summary>
+        private void LimpiarFiltros()
+        {
+            TxtFiltroDNI.Clear();
+            TxtFiltroNombre.Clear();
+            TxtFiltroApellido.Clear();
+            CmbFiltroTipo.SelectedIndex = -1;
+
+            // Show all users after clearing filters
+            ListBUsuarios.DataSource = _todosLosUsuarios;
+            Utilidades.Util.CalcularDGVVacio(ListBUsuarios, LblLista, "Usuarios");
+        }
+
+        /// <summary>
+        /// Loads user types into the filter combo box from the main combo box data source.
+        /// </summary>
+        private async Task CargarTiposUsuariosParaFiltro()
+        {
+            try
+            {
+                var tiposUsuarios = await _usuariosTipoService.GetAll();
+
+                if (tiposUsuarios.IsSuccess && tiposUsuarios.Value != null)
+                {
+                    // Create a new list with an empty item for "All" selection
+                    var tiposConTodos = tiposUsuarios.Value.ToList();
+                    tiposConTodos.Insert(0, new Modelo.Entidades.UsuariosTipo { Id_Usuario_Tipo = 0, Descripcion = "Todos" });
+
+                    CmbFiltroTipo.DataSource = tiposConTodos;
+                    CmbFiltroTipo.DisplayMember = "Descripcion";
+                    CmbFiltroTipo.ValueMember = "Tipo";
+
+                    // Set default selection to "Todos"
+                    CmbFiltroTipo.SelectedIndex = 0;
+                }
+                else
+                {
+                    MessageBox.Show("Error al cargar los tipos de usuarios para el filtro: " + tiposUsuarios.Error, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch (ArgumentException ex)
+            {
+                MessageBox.Show("Error al cargar los tipos de usuarios para el filtro: " + ex.Message, "Error de Ejecucion");
+            }
+        }
     }
-
-
 }
