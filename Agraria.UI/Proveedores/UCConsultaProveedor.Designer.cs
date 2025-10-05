@@ -57,6 +57,18 @@ namespace Agraria.UI.Proveedores
             label5 = new Label();
             TxtObservacion = new TextBox();
             tableLayoutPanel3 = new TableLayoutPanel();
+            PanelFiltros = new Panel();
+            tableLayoutPanelFiltros = new TableLayoutPanel();
+            labelFiltroCUIT = new Label();
+            TxtFiltroCUIT = new TextBox();
+            labelFiltroProveedor = new Label();
+            TxtFiltroProveedor = new TextBox();
+            labelFiltroNombre = new Label();
+            TxtFiltroNombre = new TextBox();
+            labelFiltroTelefono = new Label();
+            TxtFiltroTelefono = new TextBox();
+            BtnLimpiarFiltro = new Button();
+            BtnAplicarFiltro = new Button();
             PanelLista.SuspendLayout();
             TLPLista.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)ListBProveedores).BeginInit();
@@ -66,18 +78,185 @@ namespace Agraria.UI.Proveedores
             TLPForm.SuspendLayout();
             tableLayoutPanel2.SuspendLayout();
             tableLayoutPanel3.SuspendLayout();
+            PanelFiltros.SuspendLayout();
+            tableLayoutPanelFiltros.SuspendLayout();
             SuspendLayout();
             // 
             // PanelLista
             // 
             PanelLista.BackColor = Color.FromArgb(218, 218, 220);
             PanelLista.Controls.Add(TLPLista);
+            PanelLista.Controls.Add(PanelFiltros);
             PanelLista.Dock = DockStyle.Fill;
             PanelLista.Location = new Point(3, 3);
             PanelLista.Name = "PanelLista";
             PanelLista.Padding = new Padding(0, 16, 0, 16);
             PanelLista.Size = new Size(315, 555);
             PanelLista.TabIndex = 0;
+            // 
+            // PanelFiltros
+            // 
+            PanelFiltros.BackColor = Color.FromArgb(218, 218, 220);
+            PanelFiltros.Controls.Add(tableLayoutPanelFiltros);
+            PanelFiltros.Dock = DockStyle.Top;
+            PanelFiltros.Location = new Point(0, 16);
+            PanelFiltros.Name = "PanelFiltros";
+            PanelFiltros.Padding = new Padding(0, 8, 0, 8);
+            PanelFiltros.Size = new Size(315, 160);
+            PanelFiltros.TabIndex = 4;
+            // 
+            // tableLayoutPanelFiltros
+            // 
+            tableLayoutPanelFiltros.ColumnCount = 2;
+            tableLayoutPanelFiltros.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 35F));
+            tableLayoutPanelFiltros.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 65F));
+            tableLayoutPanelFiltros.Controls.Add(labelFiltroCUIT, 0, 0);
+            tableLayoutPanelFiltros.Controls.Add(TxtFiltroCUIT, 1, 0);
+            tableLayoutPanelFiltros.Controls.Add(labelFiltroProveedor, 0, 1);
+            tableLayoutPanelFiltros.Controls.Add(TxtFiltroProveedor, 1, 1);
+            tableLayoutPanelFiltros.Controls.Add(labelFiltroNombre, 0, 2);
+            tableLayoutPanelFiltros.Controls.Add(TxtFiltroNombre, 1, 2);
+            tableLayoutPanelFiltros.Controls.Add(labelFiltroTelefono, 0, 3);
+            tableLayoutPanelFiltros.Controls.Add(TxtFiltroTelefono, 1, 3);
+            tableLayoutPanelFiltros.Controls.Add(BtnLimpiarFiltro, 0, 4);
+            tableLayoutPanelFiltros.Controls.Add(BtnAplicarFiltro, 1, 4);
+            tableLayoutPanelFiltros.Dock = DockStyle.Fill;
+            tableLayoutPanelFiltros.Location = new Point(0, 8);
+            tableLayoutPanelFiltros.Name = "tableLayoutPanelFiltros";
+            tableLayoutPanelFiltros.RowCount = 5;
+            tableLayoutPanelFiltros.RowStyles.Add(new RowStyle(SizeType.Percent, 20F));
+            tableLayoutPanelFiltros.RowStyles.Add(new RowStyle(SizeType.Percent, 20F));
+            tableLayoutPanelFiltros.RowStyles.Add(new RowStyle(SizeType.Percent, 20F));
+            tableLayoutPanelFiltros.RowStyles.Add(new RowStyle(SizeType.Percent, 20F));
+            tableLayoutPanelFiltros.RowStyles.Add(new RowStyle(SizeType.Percent, 20F));
+            tableLayoutPanelFiltros.Size = new Size(315, 144);
+            tableLayoutPanelFiltros.TabIndex = 0;
+            // 
+            // labelFiltroCUIT
+            // 
+            labelFiltroCUIT.Anchor = AnchorStyles.Right;
+            labelFiltroCUIT.AutoSize = true;
+            labelFiltroCUIT.Font = new Font("Segoe UI", 12F);
+            labelFiltroCUIT.Location = new Point(32, 7);
+            labelFiltroCUIT.Name = "labelFiltroCUIT";
+            labelFiltroCUIT.Size = new Size(50, 21);
+            labelFiltroCUIT.TabIndex = 0;
+            labelFiltroCUIT.Text = "CUIT:";
+            // 
+            // TxtFiltroCUIT
+            // 
+            TxtFiltroCUIT.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            TxtFiltroCUIT.BackColor = Color.FromArgb(238, 237, 240);
+            TxtFiltroCUIT.Font = new Font("Segoe UI", 12F);
+            TxtFiltroCUIT.ForeColor = Color.FromArgb(26, 28, 30);
+            TxtFiltroCUIT.Location = new Point(113, 4);
+            TxtFiltroCUIT.Margin = new Padding(3, 4, 3, 4);
+            TxtFiltroCUIT.Name = "TxtFiltroCUIT";
+            TxtFiltroCUIT.Size = new Size(199, 29);
+            TxtFiltroCUIT.TabIndex = 1;
+            // 
+            // labelFiltroProveedor
+            // 
+            labelFiltroProveedor.Anchor = AnchorStyles.Right;
+            labelFiltroProveedor.AutoSize = true;
+            labelFiltroProveedor.Font = new Font("Segoe UI", 12F);
+            labelFiltroProveedor.Location = new Point(3, 35);
+            labelFiltroProveedor.Name = "labelFiltroProveedor";
+            labelFiltroProveedor.Size = new Size(79, 21);
+            labelFiltroProveedor.TabIndex = 2;
+            labelFiltroProveedor.Text = "Proveedor:";
+            // 
+            // TxtFiltroProveedor
+            // 
+            TxtFiltroProveedor.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            TxtFiltroProveedor.BackColor = Color.FromArgb(238, 237, 240);
+            TxtFiltroProveedor.Font = new Font("Segoe UI", 12F);
+            TxtFiltroProveedor.ForeColor = Color.FromArgb(26, 28, 30);
+            TxtFiltroProveedor.Location = new Point(113, 32);
+            TxtFiltroProveedor.Margin = new Padding(3, 4, 3, 4);
+            TxtFiltroProveedor.Name = "TxtFiltroProveedor";
+            TxtFiltroProveedor.Size = new Size(199, 29);
+            TxtFiltroProveedor.TabIndex = 3;
+            // 
+            // labelFiltroNombre
+            // 
+            labelFiltroNombre.Anchor = AnchorStyles.Right;
+            labelFiltroNombre.AutoSize = true;
+            labelFiltroNombre.Font = new Font("Segoe UI", 12F);
+            labelFiltroNombre.Location = new Point(32, 63);
+            labelFiltroNombre.Name = "labelFiltroNombre";
+            labelFiltroNombre.Size = new Size(50, 21);
+            labelFiltroNombre.TabIndex = 4;
+            labelFiltroNombre.Text = "Nombre:";
+            // 
+            // TxtFiltroNombre
+            // 
+            TxtFiltroNombre.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            TxtFiltroNombre.BackColor = Color.FromArgb(238, 237, 240);
+            TxtFiltroNombre.Font = new Font("Segoe UI", 12F);
+            TxtFiltroNombre.ForeColor = Color.FromArgb(26, 28, 30);
+            TxtFiltroNombre.Location = new Point(113, 60);
+            TxtFiltroNombre.Margin = new Padding(3, 4, 3, 4);
+            TxtFiltroNombre.Name = "TxtFiltroNombre";
+            TxtFiltroNombre.Size = new Size(199, 29);
+            TxtFiltroNombre.TabIndex = 5;
+            // 
+            // labelFiltroTelefono
+            // 
+            labelFiltroTelefono.Anchor = AnchorStyles.Right;
+            labelFiltroTelefono.AutoSize = true;
+            labelFiltroTelefono.Font = new Font("Segoe UI", 12F);
+            labelFiltroTelefono.Location = new Point(10, 91);
+            labelFiltroTelefono.Name = "labelFiltroTelefono";
+            labelFiltroTelefono.Size = new Size(72, 21);
+            labelFiltroTelefono.TabIndex = 6;
+            labelFiltroTelefono.Text = "Teléfono:";
+            // 
+            // TxtFiltroTelefono
+            // 
+            TxtFiltroTelefono.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            TxtFiltroTelefono.BackColor = Color.FromArgb(238, 237, 240);
+            TxtFiltroTelefono.Font = new Font("Segoe UI", 12F);
+            TxtFiltroTelefono.ForeColor = Color.FromArgb(26, 28, 30);
+            TxtFiltroTelefono.Location = new Point(113, 88);
+            TxtFiltroTelefono.Margin = new Padding(3, 4, 3, 4);
+            TxtFiltroTelefono.Name = "TxtFiltroTelefono";
+            TxtFiltroTelefono.Size = new Size(199, 29);
+            TxtFiltroTelefono.TabIndex = 7;
+            // 
+            // BtnLimpiarFiltro
+            // 
+            BtnLimpiarFiltro.Anchor = AnchorStyles.Right;
+            BtnLimpiarFiltro.BackColor = Color.FromArgb(101, 89, 119);
+            BtnLimpiarFiltro.FlatAppearance.BorderColor = Color.FromArgb(203, 230, 255);
+            BtnLimpiarFiltro.FlatStyle = FlatStyle.Flat;
+            BtnLimpiarFiltro.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            BtnLimpiarFiltro.ForeColor = Color.FromArgb(255, 255, 255);
+            BtnLimpiarFiltro.Location = new Point(16, 112);
+            BtnLimpiarFiltro.Margin = new Padding(3, 4, 3, 4);
+            BtnLimpiarFiltro.Name = "BtnLimpiarFiltro";
+            BtnLimpiarFiltro.Size = new Size(91, 32);
+            BtnLimpiarFiltro.TabIndex = 8;
+            BtnLimpiarFiltro.Text = "Limpiar";
+            BtnLimpiarFiltro.UseVisualStyleBackColor = false;
+            BtnLimpiarFiltro.Click += BtnLimpiarFiltro_Click;
+            // 
+            // BtnAplicarFiltro
+            // 
+            BtnAplicarFiltro.Anchor = AnchorStyles.Left;
+            BtnAplicarFiltro.BackColor = Color.FromArgb(101, 89, 119);
+            BtnAplicarFiltro.FlatAppearance.BorderColor = Color.FromArgb(203, 230, 255);
+            BtnAplicarFiltro.FlatStyle = FlatStyle.Flat;
+            BtnAplicarFiltro.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            BtnAplicarFiltro.ForeColor = Color.FromArgb(255, 255, 255);
+            BtnAplicarFiltro.Location = new Point(113, 112);
+            BtnAplicarFiltro.Margin = new Padding(3, 4, 3, 4);
+            BtnAplicarFiltro.Name = "BtnAplicarFiltro";
+            BtnAplicarFiltro.Size = new Size(91, 32);
+            BtnAplicarFiltro.TabIndex = 9;
+            BtnAplicarFiltro.Text = "Aplicar";
+            BtnAplicarFiltro.UseVisualStyleBackColor = false;
+            BtnAplicarFiltro.Click += BtnAplicarFiltro_Click;
             // 
             // TLPLista
             // 
@@ -86,12 +265,12 @@ namespace Agraria.UI.Proveedores
             TLPLista.Controls.Add(LblLista, 0, 0);
             TLPLista.Controls.Add(ListBProveedores, 0, 1);
             TLPLista.Dock = DockStyle.Fill;
-            TLPLista.Location = new Point(0, 16);
+            TLPLista.Location = new Point(0, 176);
             TLPLista.Name = "TLPLista";
             TLPLista.RowCount = 2;
             TLPLista.RowStyles.Add(new RowStyle(SizeType.Absolute, 32F));
             TLPLista.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            TLPLista.Size = new Size(315, 523);
+            TLPLista.Size = new Size(315, 363);
             TLPLista.TabIndex = 2;
             // 
             // LblLista
@@ -459,6 +638,9 @@ namespace Agraria.UI.Proveedores
             TLPForm.PerformLayout();
             tableLayoutPanel2.ResumeLayout(false);
             tableLayoutPanel3.ResumeLayout(false);
+            tableLayoutPanelFiltros.ResumeLayout(false);
+            tableLayoutPanelFiltros.PerformLayout();
+            PanelFiltros.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -491,5 +673,17 @@ namespace Agraria.UI.Proveedores
         private DataGridViewTextBoxColumn Nombre;
         private Label label5;
         private TextBox TxtObservacion;
+        private Panel PanelFiltros;
+        private TableLayoutPanel tableLayoutPanelFiltros;
+        private Label labelFiltroCUIT;
+        private TextBox TxtFiltroCUIT;
+        private Label labelFiltroProveedor;
+        private TextBox TxtFiltroProveedor;
+        private Label labelFiltroNombre;
+        private TextBox TxtFiltroNombre;
+        private Label labelFiltroTelefono;
+        private TextBox TxtFiltroTelefono;
+        private Button BtnLimpiarFiltro;
+        private Button BtnAplicarFiltro;
     }
 }

@@ -19,6 +19,7 @@ namespace Agraria.UI.Proveedores
 
         private readonly IProveedoresService _proveedoresService;
         private Modelo.Entidades.Proveedores _proveedorSeleccionado;
+        private List<Modelo.Entidades.Proveedores> _todosLosProveedores;
         private int indiceSeleccionado;
 
         private readonly ValidadorTextBox _vTxtCuit;
@@ -100,8 +101,10 @@ namespace Agraria.UI.Proveedores
 
             if (datos.IsSuccess)
             {
+                _todosLosProveedores = datos.Value.OrderBy(p => p.Proveedor).ToList();
+
                 ListBProveedores.AutoGenerateColumns = false;
-                ListBProveedores.DataSource = datos.Value.OrderBy(p => p.Proveedor).ToList();
+                ListBProveedores.DataSource = _todosLosProveedores;
 
             }
             else
@@ -294,6 +297,79 @@ namespace Agraria.UI.Proveedores
         {
             BtnGuardar.Tag = AppColorsBlue.Tertiary;
             BtnEliminar.Tag = AppColorsBlue.Error;
+        }
+
+        /// <summary>
+        /// Handles the Click event of the BtnAplicarFiltro control to apply filters to the provider list.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        private void BtnAplicarFiltro_Click(object sender, EventArgs e)
+        {
+            FiltrarProveedores();
+        }
+
+        /// <summary>
+        /// Handles the Click event of the BtnLimpiarFiltro control to clear all filters.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        private void BtnLimpiarFiltro_Click(object sender, EventArgs e)
+        {
+            LimpiarFiltros();
+        }
+
+        /// <summary>
+        /// Filters the providers based on the values in the filter controls.
+        /// </summary>
+        private void FiltrarProveedores()
+        {
+            if (_todosLosProveedores == null) return;
+
+            var proveedoresFiltrados = _todosLosProveedores.AsEnumerable();
+
+            // Filter by CUIT
+            if (!string.IsNullOrWhiteSpace(TxtFiltroCUIT.Text))
+            {
+                proveedoresFiltrados = proveedoresFiltrados.Where(p => p.CUIT != null && p.CUIT.Contains(TxtFiltroCUIT.Text, StringComparison.OrdinalIgnoreCase));
+            }
+
+            // Filter by Proveedor
+            if (!string.IsNullOrWhiteSpace(TxtFiltroProveedor.Text))
+            {
+                proveedoresFiltrados = proveedoresFiltrados.Where(p => p.Proveedor != null && p.Proveedor.Contains(TxtFiltroProveedor.Text, StringComparison.OrdinalIgnoreCase));
+            }
+
+            // Filter by Name
+            if (!string.IsNullOrWhiteSpace(TxtFiltroNombre.Text))
+            {
+                proveedoresFiltrados = proveedoresFiltrados.Where(p => p.Nombre != null && p.Nombre.Contains(TxtFiltroNombre.Text, StringComparison.OrdinalIgnoreCase));
+            }
+
+            // Filter by Phone
+            if (!string.IsNullOrWhiteSpace(TxtFiltroTelefono.Text))
+            {
+                proveedoresFiltrados = proveedoresFiltrados.Where(p => p.Tel != null && p.Tel.Contains(TxtFiltroTelefono.Text, StringComparison.OrdinalIgnoreCase));
+            }
+
+            // Update the DataGridView with filtered results
+            ListBProveedores.DataSource = proveedoresFiltrados.ToList();
+            Utilidades.Util.CalcularDGVVacio(ListBProveedores, LblLista, "Proveedores");
+        }
+
+        /// <summary>
+        /// Clears all filter controls and shows all providers.
+        /// </summary>
+        private void LimpiarFiltros()
+        {
+            TxtFiltroCUIT.Clear();
+            TxtFiltroProveedor.Clear();
+            TxtFiltroNombre.Clear();
+            TxtFiltroTelefono.Clear();
+
+            // Show all providers after clearing filters
+            ListBProveedores.DataSource = _todosLosProveedores;
+            Utilidades.Util.CalcularDGVVacio(ListBProveedores, LblLista, "Proveedores");
         }
     }
 }
