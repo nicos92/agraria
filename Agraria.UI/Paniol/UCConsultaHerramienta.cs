@@ -278,14 +278,7 @@ namespace Agraria.UI.Paniol
                 herramientasFiltradas = herramientasFiltradas.Where(h => h.Descripcion != null && h.Descripcion.Contains(TxtFiltroDescripcion.Text, StringComparison.OrdinalIgnoreCase));
             }
 
-            // Filter by Cantidad
-            if (!string.IsNullOrWhiteSpace(TxtFiltroCantidad.Text))
-            {
-                if (int.TryParse(TxtFiltroCantidad.Text, out int cantidadFiltro))
-                {
-                    herramientasFiltradas = herramientasFiltradas.Where(h => h.Cantidad == cantidadFiltro);
-                }
-            }
+            
 
             // Update the DataGridView with filtered results
             ListBArticulos.DataSource = herramientasFiltradas.ToList();
@@ -298,7 +291,6 @@ namespace Agraria.UI.Paniol
         {
             TxtFiltroNombre.Clear();
             TxtFiltroDescripcion.Clear();
-            TxtFiltroCantidad.Clear();
 
             // Show all herramientas after clearing filters
             ListBArticulos.DataSource = _todosLasHerramientas;

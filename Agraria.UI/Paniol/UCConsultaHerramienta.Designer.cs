@@ -48,17 +48,15 @@
             label5 = new Label();
             TxtCantidad = new TextBox();
             label4 = new Label();
-            ProgressBar = new ProgressBar();
             PanelFiltros = new Panel();
             tableLayoutPanelFiltros = new TableLayoutPanel();
             labelFiltroNombre = new Label();
             TxtFiltroNombre = new TextBox();
             labelFiltroDescripcion = new Label();
             TxtFiltroDescripcion = new TextBox();
-            labelFiltroCantidad = new Label();
-            TxtFiltroCantidad = new TextBox();
             BtnLimpiarFiltro = new Button();
             BtnAplicarFiltro = new Button();
+            ProgressBar = new ProgressBar();
             tableLayoutPanel3.SuspendLayout();
             PanelLista.SuspendLayout();
             tableLayoutPanel1.SuspendLayout();
@@ -78,14 +76,16 @@
             tableLayoutPanel3.ColumnCount = 2;
             tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 40F));
             tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 60F));
-            tableLayoutPanel3.Controls.Add(PanelLista, 0, 1);
-            tableLayoutPanel3.Controls.Add(PanelMedio, 1, 1);
+            tableLayoutPanel3.Controls.Add(PanelLista, 0, 2);
+            tableLayoutPanel3.Controls.Add(PanelMedio, 1, 2);
+            tableLayoutPanel3.Controls.Add(PanelFiltros, 1, 0);
             tableLayoutPanel3.Controls.Add(ProgressBar, 0, 0);
             tableLayoutPanel3.Dock = DockStyle.Fill;
             tableLayoutPanel3.Location = new Point(0, 0);
             tableLayoutPanel3.Name = "tableLayoutPanel3";
-            tableLayoutPanel3.RowCount = 2;
+            tableLayoutPanel3.RowCount = 3;
             tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Absolute, 16F));
+            tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Absolute, 128F));
             tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             tableLayoutPanel3.Size = new Size(804, 561);
             tableLayoutPanel3.TabIndex = 3;
@@ -94,151 +94,12 @@
             // 
             PanelLista.BackColor = Color.FromArgb(218, 218, 220);
             PanelLista.Controls.Add(tableLayoutPanel1);
-            PanelLista.Controls.Add(PanelFiltros);
             PanelLista.Dock = DockStyle.Fill;
-            PanelLista.Location = new Point(3, 19);
+            PanelLista.Location = new Point(3, 147);
             PanelLista.Name = "PanelLista";
             PanelLista.Padding = new Padding(0, 16, 0, 16);
-            PanelLista.Size = new Size(315, 539);
+            PanelLista.Size = new Size(315, 411);
             PanelLista.TabIndex = 3;
-            // 
-            // PanelFiltros
-            // 
-            PanelFiltros.BackColor = Color.FromArgb(218, 218, 220);
-            PanelFiltros.Controls.Add(tableLayoutPanelFiltros);
-            PanelFiltros.Dock = DockStyle.Top;
-            PanelFiltros.Location = new Point(0, 16);
-            PanelFiltros.Name = "PanelFiltros";
-            PanelFiltros.Padding = new Padding(0, 8, 0, 8);
-            PanelFiltros.Size = new Size(315, 160);
-            PanelFiltros.TabIndex = 4;
-            // 
-            // tableLayoutPanelFiltros
-            // 
-            tableLayoutPanelFiltros.ColumnCount = 2;
-            tableLayoutPanelFiltros.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 35F));
-            tableLayoutPanelFiltros.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 65F));
-            tableLayoutPanelFiltros.Controls.Add(labelFiltroNombre, 0, 0);
-            tableLayoutPanelFiltros.Controls.Add(TxtFiltroNombre, 1, 0);
-            tableLayoutPanelFiltros.Controls.Add(labelFiltroDescripcion, 0, 1);
-            tableLayoutPanelFiltros.Controls.Add(TxtFiltroDescripcion, 1, 1);
-            tableLayoutPanelFiltros.Controls.Add(labelFiltroCantidad, 0, 2);
-            tableLayoutPanelFiltros.Controls.Add(TxtFiltroCantidad, 1, 2);
-            tableLayoutPanelFiltros.Controls.Add(BtnLimpiarFiltro, 0, 3);
-            tableLayoutPanelFiltros.Controls.Add(BtnAplicarFiltro, 1, 3);
-            tableLayoutPanelFiltros.Dock = DockStyle.Fill;
-            tableLayoutPanelFiltros.Location = new Point(0, 8);
-            tableLayoutPanelFiltros.Name = "tableLayoutPanelFiltros";
-            tableLayoutPanelFiltros.RowCount = 4;
-            tableLayoutPanelFiltros.RowStyles.Add(new RowStyle(SizeType.Percent, 25F));
-            tableLayoutPanelFiltros.RowStyles.Add(new RowStyle(SizeType.Percent, 25F));
-            tableLayoutPanelFiltros.RowStyles.Add(new RowStyle(SizeType.Percent, 25F));
-            tableLayoutPanelFiltros.RowStyles.Add(new RowStyle(SizeType.Percent, 25F));
-            tableLayoutPanelFiltros.Size = new Size(315, 144);
-            tableLayoutPanelFiltros.TabIndex = 0;
-            // 
-            // labelFiltroNombre
-            // 
-            labelFiltroNombre.Anchor = AnchorStyles.Right;
-            labelFiltroNombre.AutoSize = true;
-            labelFiltroNombre.Font = new Font("Segoe UI", 12F);
-            labelFiltroNombre.Location = new Point(24, 7);
-            labelFiltroNombre.Name = "labelFiltroNombre";
-            labelFiltroNombre.Size = new Size(71, 21);
-            labelFiltroNombre.TabIndex = 0;
-            labelFiltroNombre.Text = "Nombre:";
-            // 
-            // TxtFiltroNombre
-            // 
-            TxtFiltroNombre.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            TxtFiltroNombre.BackColor = Color.FromArgb(238, 237, 240);
-            TxtFiltroNombre.Font = new Font("Segoe UI", 12F);
-            TxtFiltroNombre.ForeColor = Color.FromArgb(26, 28, 30);
-            TxtFiltroNombre.Location = new Point(113, 4);
-            TxtFiltroNombre.Margin = new Padding(3, 4, 3, 4);
-            TxtFiltroNombre.Name = "TxtFiltroNombre";
-            TxtFiltroNombre.Size = new Size(199, 29);
-            TxtFiltroNombre.TabIndex = 1;
-            // 
-            // labelFiltroDescripcion
-            // 
-            labelFiltroDescripcion.Anchor = AnchorStyles.Right;
-            labelFiltroDescripcion.AutoSize = true;
-            labelFiltroDescripcion.Font = new Font("Segoe UI", 12F);
-            labelFiltroDescripcion.Location = new Point(3, 45);
-            labelFiltroDescripcion.Name = "labelFiltroDescripcion";
-            labelFiltroDescripcion.Size = new Size(92, 21);
-            labelFiltroDescripcion.TabIndex = 2;
-            labelFiltroDescripcion.Text = "Descripción:";
-            // 
-            // TxtFiltroDescripcion
-            // 
-            TxtFiltroDescripcion.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            TxtFiltroDescripcion.BackColor = Color.FromArgb(238, 237, 240);
-            TxtFiltroDescripcion.Font = new Font("Segoe UI", 12F);
-            TxtFiltroDescripcion.ForeColor = Color.FromArgb(26, 28, 30);
-            TxtFiltroDescripcion.Location = new Point(113, 42);
-            TxtFiltroDescripcion.Margin = new Padding(3, 4, 3, 4);
-            TxtFiltroDescripcion.Name = "TxtFiltroDescripcion";
-            TxtFiltroDescripcion.Size = new Size(199, 29);
-            TxtFiltroDescripcion.TabIndex = 3;
-            // 
-            // labelFiltroCantidad
-            // 
-            labelFiltroCantidad.Anchor = AnchorStyles.Right;
-            labelFiltroCantidad.AutoSize = true;
-            labelFiltroCantidad.Font = new Font("Segoe UI", 12F);
-            labelFiltroCantidad.Location = new Point(32, 83);
-            labelFiltroCantidad.Name = "labelFiltroCantidad";
-            labelFiltroCantidad.Size = new Size(63, 21);
-            labelFiltroCantidad.TabIndex = 4;
-            labelFiltroCantidad.Text = "Cantidad:";
-            // 
-            // TxtFiltroCantidad
-            // 
-            TxtFiltroCantidad.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            TxtFiltroCantidad.BackColor = Color.FromArgb(238, 237, 240);
-            TxtFiltroCantidad.Font = new Font("Segoe UI", 12F);
-            TxtFiltroCantidad.ForeColor = Color.FromArgb(26, 28, 30);
-            TxtFiltroCantidad.Location = new Point(113, 80);
-            TxtFiltroCantidad.Margin = new Padding(3, 4, 3, 4);
-            TxtFiltroCantidad.Name = "TxtFiltroCantidad";
-            TxtFiltroCantidad.Size = new Size(199, 29);
-            TxtFiltroCantidad.TabIndex = 5;
-            // 
-            // BtnLimpiarFiltro
-            // 
-            BtnLimpiarFiltro.Anchor = AnchorStyles.Right;
-            BtnLimpiarFiltro.BackColor = Color.FromArgb(101, 89, 119);
-            BtnLimpiarFiltro.FlatAppearance.BorderColor = Color.FromArgb(203, 230, 255);
-            BtnLimpiarFiltro.FlatStyle = FlatStyle.Flat;
-            BtnLimpiarFiltro.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            BtnLimpiarFiltro.ForeColor = Color.FromArgb(255, 255, 255);
-            BtnLimpiarFiltro.Location = new Point(16, 112);
-            BtnLimpiarFiltro.Margin = new Padding(3, 4, 3, 4);
-            BtnLimpiarFiltro.Name = "BtnLimpiarFiltro";
-            BtnLimpiarFiltro.Size = new Size(91, 32);
-            BtnLimpiarFiltro.TabIndex = 6;
-            BtnLimpiarFiltro.Text = "Limpiar";
-            BtnLimpiarFiltro.UseVisualStyleBackColor = false;
-            BtnLimpiarFiltro.Click += BtnLimpiarFiltro_Click;
-            // 
-            // BtnAplicarFiltro
-            // 
-            BtnAplicarFiltro.Anchor = AnchorStyles.Left;
-            BtnAplicarFiltro.BackColor = Color.FromArgb(101, 89, 119);
-            BtnAplicarFiltro.FlatAppearance.BorderColor = Color.FromArgb(203, 230, 255);
-            BtnAplicarFiltro.FlatStyle = FlatStyle.Flat;
-            BtnAplicarFiltro.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            BtnAplicarFiltro.ForeColor = Color.FromArgb(255, 255, 255);
-            BtnAplicarFiltro.Location = new Point(113, 112);
-            BtnAplicarFiltro.Margin = new Padding(3, 4, 3, 4);
-            BtnAplicarFiltro.Name = "BtnAplicarFiltro";
-            BtnAplicarFiltro.Size = new Size(91, 32);
-            BtnAplicarFiltro.TabIndex = 7;
-            BtnAplicarFiltro.Text = "Aplicar";
-            BtnAplicarFiltro.UseVisualStyleBackColor = false;
-            BtnAplicarFiltro.Click += BtnAplicarFiltro_Click;
             // 
             // tableLayoutPanel1
             // 
@@ -247,12 +108,12 @@
             tableLayoutPanel1.Controls.Add(LblLista, 0, 0);
             tableLayoutPanel1.Controls.Add(ListBArticulos, 0, 1);
             tableLayoutPanel1.Dock = DockStyle.Fill;
-            tableLayoutPanel1.Location = new Point(0, 176);
+            tableLayoutPanel1.Location = new Point(0, 16);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.RowCount = 2;
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 32F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanel1.Size = new Size(315, 347);
+            tableLayoutPanel1.Size = new Size(315, 379);
             tableLayoutPanel1.TabIndex = 2;
             // 
             // LblLista
@@ -281,7 +142,7 @@
             ListBArticulos.ReadOnly = true;
             ListBArticulos.RowHeadersVisible = false;
             ListBArticulos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            ListBArticulos.Size = new Size(309, 469);
+            ListBArticulos.Size = new Size(309, 341);
             ListBArticulos.TabIndex = 2;
             ListBArticulos.SelectionChanged += ListBArticulos_SelectionChanged;
             // 
@@ -306,9 +167,10 @@
             // 
             PanelMedio.Controls.Add(tableLayoutPanel4);
             PanelMedio.Dock = DockStyle.Fill;
-            PanelMedio.Location = new Point(324, 19);
+            PanelMedio.Location = new Point(324, 147);
             PanelMedio.Name = "PanelMedio";
-            PanelMedio.Size = new Size(477, 539);
+            PanelMedio.Padding = new Padding(0, 16, 0, 16);
+            PanelMedio.Size = new Size(477, 411);
             PanelMedio.TabIndex = 2;
             // 
             // tableLayoutPanel4
@@ -318,12 +180,12 @@
             tableLayoutPanel4.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
             tableLayoutPanel4.Controls.Add(groupBox1, 0, 0);
             tableLayoutPanel4.Dock = DockStyle.Fill;
-            tableLayoutPanel4.Location = new Point(0, 0);
+            tableLayoutPanel4.Location = new Point(0, 16);
             tableLayoutPanel4.Name = "tableLayoutPanel4";
             tableLayoutPanel4.RowCount = 1;
             tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
             tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            tableLayoutPanel4.Size = new Size(477, 539);
+            tableLayoutPanel4.Size = new Size(477, 379);
             tableLayoutPanel4.TabIndex = 2;
             // 
             // groupBox1
@@ -332,9 +194,9 @@
             groupBox1.Controls.Add(TLPForm);
             groupBox1.Font = new Font("Segoe UI Black", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             groupBox1.ForeColor = Color.FromArgb(7, 100, 147);
-            groupBox1.Location = new Point(3, 61);
+            groupBox1.Location = new Point(3, 3);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(471, 417);
+            groupBox1.Size = new Size(471, 373);
             groupBox1.TabIndex = 16;
             groupBox1.TabStop = false;
             groupBox1.Text = "Formulario de Edición de Herramientas";
@@ -366,7 +228,7 @@
             TLPForm.RowStyles.Add(new RowStyle(SizeType.Percent, 5.314438F));
             TLPForm.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
             TLPForm.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            TLPForm.Size = new Size(465, 385);
+            TLPForm.Size = new Size(465, 341);
             TLPForm.TabIndex = 0;
             // 
             // LblNombre
@@ -374,7 +236,7 @@
             LblNombre.Anchor = AnchorStyles.Right;
             LblNombre.AutoSize = true;
             LblNombre.Font = new Font("Segoe UI", 12F);
-            LblNombre.Location = new Point(56, 28);
+            LblNombre.Location = new Point(56, 25);
             LblNombre.Name = "LblNombre";
             LblNombre.Size = new Size(71, 21);
             LblNombre.TabIndex = 0;
@@ -386,7 +248,7 @@
             TxtNombre.BackColor = Color.FromArgb(238, 237, 240);
             TxtNombre.Font = new Font("Segoe UI", 12F);
             TxtNombre.ForeColor = Color.FromArgb(26, 28, 30);
-            TxtNombre.Location = new Point(133, 24);
+            TxtNombre.Location = new Point(133, 21);
             TxtNombre.MaxLength = 50;
             TxtNombre.Name = "TxtNombre";
             TxtNombre.Size = new Size(271, 29);
@@ -401,11 +263,11 @@
             tableLayoutPanel2.Controls.Add(BtnGuardar, 0, 0);
             tableLayoutPanel2.Controls.Add(BtnEliminar, 1, 0);
             tableLayoutPanel2.Dock = DockStyle.Fill;
-            tableLayoutPanel2.Location = new Point(133, 279);
+            tableLayoutPanel2.Location = new Point(133, 248);
             tableLayoutPanel2.Name = "tableLayoutPanel2";
             tableLayoutPanel2.RowCount = 1;
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableLayoutPanel2.Size = new Size(271, 80);
+            tableLayoutPanel2.Size = new Size(271, 70);
             tableLayoutPanel2.TabIndex = 18;
             // 
             // BtnGuardar
@@ -418,7 +280,7 @@
             BtnGuardar.ForeColor = Color.FromArgb(255, 255, 255);
             BtnGuardar.Image = Properties.Resources.guardar;
             BtnGuardar.ImageAlign = ContentAlignment.MiddleRight;
-            BtnGuardar.Location = new Point(0, 16);
+            BtnGuardar.Location = new Point(0, 11);
             BtnGuardar.Margin = new Padding(0);
             BtnGuardar.Name = "BtnGuardar";
             BtnGuardar.Size = new Size(135, 48);
@@ -438,7 +300,7 @@
             BtnEliminar.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             BtnEliminar.ForeColor = Color.FromArgb(255, 255, 255);
             BtnEliminar.Image = Properties.Resources.trash;
-            BtnEliminar.Location = new Point(179, 16);
+            BtnEliminar.Location = new Point(179, 11);
             BtnEliminar.Margin = new Padding(0);
             BtnEliminar.Name = "BtnEliminar";
             BtnEliminar.Size = new Size(48, 48);
@@ -452,11 +314,11 @@
             TxtDescripcion.Dock = DockStyle.Fill;
             TxtDescripcion.Font = new Font("Segoe UI", 12F);
             TxtDescripcion.ForeColor = Color.FromArgb(26, 28, 30);
-            TxtDescripcion.Location = new Point(133, 135);
+            TxtDescripcion.Location = new Point(133, 121);
             TxtDescripcion.MaxLength = 400;
             TxtDescripcion.Multiline = true;
             TxtDescripcion.Name = "TxtDescripcion";
-            TxtDescripcion.Size = new Size(271, 138);
+            TxtDescripcion.Size = new Size(271, 121);
             TxtDescripcion.TabIndex = 9;
             TxtDescripcion.TextChanged += TxtNombre_TextChanged;
             // 
@@ -465,7 +327,7 @@
             label5.Anchor = AnchorStyles.Right;
             label5.AutoSize = true;
             label5.Font = new Font("Segoe UI", 12F);
-            label5.Location = new Point(33, 193);
+            label5.Location = new Point(33, 171);
             label5.Name = "label5";
             label5.Size = new Size(94, 21);
             label5.TabIndex = 12;
@@ -477,7 +339,7 @@
             TxtCantidad.BackColor = Color.FromArgb(238, 237, 240);
             TxtCantidad.Font = new Font("Segoe UI", 12F);
             TxtCantidad.ForeColor = Color.FromArgb(26, 28, 30);
-            TxtCantidad.Location = new Point(133, 86);
+            TxtCantidad.Location = new Point(133, 76);
             TxtCantidad.MaxLength = 12;
             TxtCantidad.Name = "TxtCantidad";
             TxtCantidad.Size = new Size(271, 29);
@@ -489,11 +351,127 @@
             label4.Anchor = AnchorStyles.Right;
             label4.AutoSize = true;
             label4.Font = new Font("Segoe UI", 12F);
-            label4.Location = new Point(52, 90);
+            label4.Location = new Point(52, 80);
             label4.Name = "label4";
             label4.Size = new Size(75, 21);
             label4.TabIndex = 4;
             label4.Text = "Cantidad:";
+            // 
+            // PanelFiltros
+            // 
+            PanelFiltros.BackColor = Color.FromArgb(218, 218, 220);
+            tableLayoutPanel3.SetColumnSpan(PanelFiltros, 2);
+            PanelFiltros.Controls.Add(tableLayoutPanelFiltros);
+            PanelFiltros.Dock = DockStyle.Fill;
+            PanelFiltros.Location = new Point(3, 19);
+            PanelFiltros.Name = "PanelFiltros";
+            PanelFiltros.Padding = new Padding(0, 8, 0, 8);
+            PanelFiltros.Size = new Size(798, 122);
+            PanelFiltros.TabIndex = 4;
+            // 
+            // tableLayoutPanelFiltros
+            // 
+            tableLayoutPanelFiltros.ColumnCount = 6;
+            tableLayoutPanelFiltros.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 16F));
+            tableLayoutPanelFiltros.ColumnStyles.Add(new ColumnStyle());
+            tableLayoutPanelFiltros.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tableLayoutPanelFiltros.ColumnStyles.Add(new ColumnStyle());
+            tableLayoutPanelFiltros.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tableLayoutPanelFiltros.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 16F));
+            tableLayoutPanelFiltros.Controls.Add(TxtFiltroDescripcion, 4, 0);
+            tableLayoutPanelFiltros.Controls.Add(labelFiltroDescripcion, 3, 0);
+            tableLayoutPanelFiltros.Controls.Add(TxtFiltroNombre, 2, 0);
+            tableLayoutPanelFiltros.Controls.Add(labelFiltroNombre, 1, 0);
+            tableLayoutPanelFiltros.Controls.Add(BtnLimpiarFiltro, 2, 1);
+            tableLayoutPanelFiltros.Controls.Add(BtnAplicarFiltro, 4, 1);
+            tableLayoutPanelFiltros.Dock = DockStyle.Fill;
+            tableLayoutPanelFiltros.Location = new Point(0, 8);
+            tableLayoutPanelFiltros.Name = "tableLayoutPanelFiltros";
+            tableLayoutPanelFiltros.RowCount = 2;
+            tableLayoutPanelFiltros.RowStyles.Add(new RowStyle());
+            tableLayoutPanelFiltros.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            tableLayoutPanelFiltros.Size = new Size(798, 106);
+            tableLayoutPanelFiltros.TabIndex = 0;
+            // 
+            // labelFiltroNombre
+            // 
+            labelFiltroNombre.Anchor = AnchorStyles.Right;
+            labelFiltroNombre.AutoSize = true;
+            labelFiltroNombre.Font = new Font("Segoe UI", 12F);
+            labelFiltroNombre.Location = new Point(19, 8);
+            labelFiltroNombre.Name = "labelFiltroNombre";
+            labelFiltroNombre.Size = new Size(71, 21);
+            labelFiltroNombre.TabIndex = 0;
+            labelFiltroNombre.Text = "Nombre:";
+            // 
+            // TxtFiltroNombre
+            // 
+            TxtFiltroNombre.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            TxtFiltroNombre.BackColor = Color.FromArgb(238, 237, 240);
+            TxtFiltroNombre.Font = new Font("Segoe UI", 12F);
+            TxtFiltroNombre.ForeColor = Color.FromArgb(26, 28, 30);
+            TxtFiltroNombre.Location = new Point(96, 4);
+            TxtFiltroNombre.Margin = new Padding(3, 4, 3, 4);
+            TxtFiltroNombre.Name = "TxtFiltroNombre";
+            TxtFiltroNombre.Size = new Size(288, 29);
+            TxtFiltroNombre.TabIndex = 1;
+            // 
+            // labelFiltroDescripcion
+            // 
+            labelFiltroDescripcion.Anchor = AnchorStyles.Right;
+            labelFiltroDescripcion.AutoSize = true;
+            labelFiltroDescripcion.Font = new Font("Segoe UI", 12F);
+            labelFiltroDescripcion.Location = new Point(390, 8);
+            labelFiltroDescripcion.Name = "labelFiltroDescripcion";
+            labelFiltroDescripcion.Size = new Size(94, 21);
+            labelFiltroDescripcion.TabIndex = 2;
+            labelFiltroDescripcion.Text = "Descripción:";
+            // 
+            // TxtFiltroDescripcion
+            // 
+            TxtFiltroDescripcion.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            TxtFiltroDescripcion.BackColor = Color.FromArgb(238, 237, 240);
+            TxtFiltroDescripcion.Font = new Font("Segoe UI", 12F);
+            TxtFiltroDescripcion.ForeColor = Color.FromArgb(26, 28, 30);
+            TxtFiltroDescripcion.Location = new Point(490, 4);
+            TxtFiltroDescripcion.Margin = new Padding(3, 4, 3, 4);
+            TxtFiltroDescripcion.Name = "TxtFiltroDescripcion";
+            TxtFiltroDescripcion.Size = new Size(288, 29);
+            TxtFiltroDescripcion.TabIndex = 3;
+            // 
+            // BtnLimpiarFiltro
+            // 
+            BtnLimpiarFiltro.Anchor = AnchorStyles.None;
+            BtnLimpiarFiltro.BackColor = Color.FromArgb(101, 89, 119);
+            BtnLimpiarFiltro.FlatAppearance.BorderColor = Color.FromArgb(203, 230, 255);
+            BtnLimpiarFiltro.FlatStyle = FlatStyle.Flat;
+            BtnLimpiarFiltro.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            BtnLimpiarFiltro.ForeColor = Color.FromArgb(255, 255, 255);
+            BtnLimpiarFiltro.Location = new Point(194, 55);
+            BtnLimpiarFiltro.Margin = new Padding(3, 4, 3, 4);
+            BtnLimpiarFiltro.Name = "BtnLimpiarFiltro";
+            BtnLimpiarFiltro.Size = new Size(91, 32);
+            BtnLimpiarFiltro.TabIndex = 6;
+            BtnLimpiarFiltro.Text = "Limpiar";
+            BtnLimpiarFiltro.UseVisualStyleBackColor = false;
+            BtnLimpiarFiltro.Click += BtnLimpiarFiltro_Click;
+            // 
+            // BtnAplicarFiltro
+            // 
+            BtnAplicarFiltro.Anchor = AnchorStyles.None;
+            BtnAplicarFiltro.BackColor = Color.FromArgb(7, 100, 147);
+            BtnAplicarFiltro.FlatAppearance.BorderColor = Color.FromArgb(203, 230, 255);
+            BtnAplicarFiltro.FlatStyle = FlatStyle.Flat;
+            BtnAplicarFiltro.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            BtnAplicarFiltro.ForeColor = Color.FromArgb(255, 255, 255);
+            BtnAplicarFiltro.Location = new Point(588, 55);
+            BtnAplicarFiltro.Margin = new Padding(3, 4, 3, 4);
+            BtnAplicarFiltro.Name = "BtnAplicarFiltro";
+            BtnAplicarFiltro.Size = new Size(91, 32);
+            BtnAplicarFiltro.TabIndex = 7;
+            BtnAplicarFiltro.Text = "Aplicar";
+            BtnAplicarFiltro.UseVisualStyleBackColor = false;
+            BtnAplicarFiltro.Click += BtnAplicarFiltro_Click;
             // 
             // ProgressBar
             // 
@@ -528,9 +506,9 @@
             TLPForm.ResumeLayout(false);
             TLPForm.PerformLayout();
             tableLayoutPanel2.ResumeLayout(false);
+            PanelFiltros.ResumeLayout(false);
             tableLayoutPanelFiltros.ResumeLayout(false);
             tableLayoutPanelFiltros.PerformLayout();
-            PanelFiltros.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -563,8 +541,6 @@
         private TextBox TxtFiltroNombre;
         private Label labelFiltroDescripcion;
         private TextBox TxtFiltroDescripcion;
-        private Label labelFiltroCantidad;
-        private TextBox TxtFiltroCantidad;
         private Button BtnLimpiarFiltro;
         private Button BtnAplicarFiltro;
     }
