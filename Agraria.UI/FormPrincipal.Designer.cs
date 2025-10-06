@@ -46,10 +46,10 @@
             panel1 = new Panel();
             tableLayoutPanel1 = new TableLayoutPanel();
             LblModulo = new Label();
-            LblTipoUsuario = new Label();
-            label3 = new Label();
-            LblUsuario = new Label();
             label1 = new Label();
+            LblUsuario = new Label();
+            label3 = new Label();
+            LblTipoUsuario = new Label();
             PanelMenu.SuspendLayout();
             PanelLblMenu.SuspendLayout();
             panel1.SuspendLayout();
@@ -365,18 +365,33 @@
             LblModulo.Text = "Modulo";
             LblModulo.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // LblTipoUsuario
+            // label1
             // 
-            LblTipoUsuario.Anchor = AnchorStyles.Left;
-            LblTipoUsuario.AutoSize = true;
-            LblTipoUsuario.Font = new Font("Segoe UI", 12F);
-            LblTipoUsuario.ForeColor = SystemColors.ButtonHighlight;
-            LblTipoUsuario.Location = new Point(765, 5);
-            LblTipoUsuario.Name = "LblTipoUsuario";
-            LblTipoUsuario.Size = new Size(116, 21);
-            LblTipoUsuario.TabIndex = 4;
-            LblTipoUsuario.Text = "Escuela Agraria";
-            LblTipoUsuario.TextAlign = ContentAlignment.MiddleCenter;
+            label1.Anchor = AnchorStyles.Right;
+            label1.AutoSize = true;
+            label1.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label1.ForeColor = SystemColors.ButtonHighlight;
+            label1.Image = Properties.Resources.user16px;
+            label1.ImageAlign = ContentAlignment.MiddleLeft;
+            label1.Location = new Point(388, 5);
+            label1.Name = "label1";
+            label1.Size = new Size(85, 21);
+            label1.TabIndex = 1;
+            label1.Text = "    Usuario:";
+            label1.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // LblUsuario
+            // 
+            LblUsuario.Anchor = AnchorStyles.Left;
+            LblUsuario.AutoSize = true;
+            LblUsuario.Font = new Font("Segoe UI", 12F);
+            LblUsuario.ForeColor = SystemColors.ButtonHighlight;
+            LblUsuario.Location = new Point(479, 5);
+            LblUsuario.Name = "LblUsuario";
+            LblUsuario.Size = new Size(116, 21);
+            LblUsuario.TabIndex = 2;
+            LblUsuario.Text = "Escuela Agraria";
+            LblUsuario.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // label3
             // 
@@ -394,33 +409,18 @@
             label3.Text = "    Tipo de Usuario:";
             label3.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // LblUsuario
+            // LblTipoUsuario
             // 
-            LblUsuario.Anchor = AnchorStyles.Left;
-            LblUsuario.AutoSize = true;
-            LblUsuario.Font = new Font("Segoe UI", 12F);
-            LblUsuario.ForeColor = SystemColors.ButtonHighlight;
-            LblUsuario.Location = new Point(479, 5);
-            LblUsuario.Name = "LblUsuario";
-            LblUsuario.Size = new Size(116, 21);
-            LblUsuario.TabIndex = 2;
-            LblUsuario.Text = "Escuela Agraria";
-            LblUsuario.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // label1
-            // 
-            label1.Anchor = AnchorStyles.Right;
-            label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label1.ForeColor = SystemColors.ButtonHighlight;
-            label1.Image = Properties.Resources.user16px;
-            label1.ImageAlign = ContentAlignment.MiddleLeft;
-            label1.Location = new Point(388, 5);
-            label1.Name = "label1";
-            label1.Size = new Size(85, 21);
-            label1.TabIndex = 1;
-            label1.Text = "    Usuario:";
-            label1.TextAlign = ContentAlignment.MiddleCenter;
+            LblTipoUsuario.Anchor = AnchorStyles.Left;
+            LblTipoUsuario.AutoSize = true;
+            LblTipoUsuario.Font = new Font("Segoe UI", 12F);
+            LblTipoUsuario.ForeColor = SystemColors.ButtonHighlight;
+            LblTipoUsuario.Location = new Point(765, 5);
+            LblTipoUsuario.Name = "LblTipoUsuario";
+            LblTipoUsuario.Size = new Size(116, 21);
+            LblTipoUsuario.TabIndex = 4;
+            LblTipoUsuario.Text = "Escuela Agraria";
+            LblTipoUsuario.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // FormPrincipal
             // 
@@ -432,7 +432,7 @@
             Icon = (Icon)resources.GetObject("$this.Icon");
             IsMdiContainer = true;
             Margin = new Padding(4);
-            MinimumSize = new Size(1100, 700);
+            MinimumSize = new Size(1024, 700);
             Name = "FormPrincipal";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "FormPrincipal";

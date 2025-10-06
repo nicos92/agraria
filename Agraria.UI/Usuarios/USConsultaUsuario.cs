@@ -457,6 +457,8 @@ namespace Agraria.UI.Usuarios
         private void ConfigBtns()
         {
             BtnGuardar.Tag = AppColorsBlue.Tertiary;
+            
+
         }
 
 
