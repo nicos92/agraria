@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
             label1 = new Label();
             tableLayoutPanel3 = new TableLayoutPanel();
             PanelLista = new Panel();
@@ -160,28 +160,28 @@
             ListBArticulos.AllowUserToDeleteRows = false;
             ListBArticulos.AllowUserToResizeColumns = false;
             ListBArticulos.AllowUserToResizeRows = false;
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = SystemColors.Control;
-            dataGridViewCellStyle1.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
-            ListBArticulos.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = SystemColors.Control;
+            dataGridViewCellStyle5.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle5.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle5.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = DataGridViewTriState.True;
+            ListBArticulos.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
             ListBArticulos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             ListBArticulos.Dock = DockStyle.Fill;
             ListBArticulos.Location = new Point(4, 40);
             ListBArticulos.Margin = new Padding(4, 3, 4, 3);
             ListBArticulos.Name = "ListBArticulos";
             ListBArticulos.ReadOnly = true;
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = SystemColors.Control;
-            dataGridViewCellStyle2.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle2.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
-            ListBArticulos.RowHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = SystemColors.Control;
+            dataGridViewCellStyle6.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle6.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle6.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = DataGridViewTriState.True;
+            ListBArticulos.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
             ListBArticulos.RowHeadersVisible = false;
             ListBArticulos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             ListBArticulos.Size = new Size(482, 346);
@@ -358,11 +358,11 @@
             label2.Anchor = AnchorStyles.Right;
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 12F);
-            label2.Location = new Point(59, 28);
+            label2.Location = new Point(116, 28);
             label2.Name = "label2";
-            label2.Size = new Size(102, 21);
+            label2.Size = new Size(45, 21);
             label2.TabIndex = 1;
-            label2.Text = "Tipo Entorno:";
+            label2.Text = "Area:";
             // 
             // CMBEntornoFormativo
             // 
@@ -444,25 +444,29 @@
             // TLPFiltros
             // 
             TLPFiltros.BackColor = Color.FromArgb(249, 249, 251);
-            TLPFiltros.ColumnCount = 6;
-            TLPFiltros.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 16.666666F));
-            TLPFiltros.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 16.666666F));
-            TLPFiltros.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 16.666666F));
-            TLPFiltros.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 16.666666F));
-            TLPFiltros.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 16.666666F));
-            TLPFiltros.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 16.666666F));
-            TLPFiltros.Controls.Add(label6, 0, 0);
-            TLPFiltros.Controls.Add(label7, 2, 0);
-            TLPFiltros.Controls.Add(label8, 4, 0);
-            TLPFiltros.Controls.Add(label9, 0, 1);
-            TLPFiltros.Controls.Add(label10, 2, 1);
-            TLPFiltros.Controls.Add(DTPFechaDesde, 1, 0);
-            TLPFiltros.Controls.Add(DTPFechaHasta, 3, 0);
-            TLPFiltros.Controls.Add(CMFTipoEntorno, 5, 0);
-            TLPFiltros.Controls.Add(CMBFiltroEntorno, 1, 1);
-            TLPFiltros.Controls.Add(CMBFiltroEntornoFormativo, 3, 1);
-            TLPFiltros.Controls.Add(BtnAplicarFiltros, 4, 1);
-            TLPFiltros.Controls.Add(BtnLimpiarFiltros, 5, 1);
+            TLPFiltros.ColumnCount = 10;
+            TLPFiltros.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
+            TLPFiltros.ColumnStyles.Add(new ColumnStyle());
+            TLPFiltros.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333321F));
+            TLPFiltros.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
+            TLPFiltros.ColumnStyles.Add(new ColumnStyle());
+            TLPFiltros.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333321F));
+            TLPFiltros.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
+            TLPFiltros.ColumnStyles.Add(new ColumnStyle());
+            TLPFiltros.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333321F));
+            TLPFiltros.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
+            TLPFiltros.Controls.Add(DTPFechaDesde, 2, 0);
+            TLPFiltros.Controls.Add(CMBFiltroEntorno, 2, 1);
+            TLPFiltros.Controls.Add(label6, 1, 0);
+            TLPFiltros.Controls.Add(label9, 1, 1);
+            TLPFiltros.Controls.Add(CMFTipoEntorno, 8, 0);
+            TLPFiltros.Controls.Add(BtnLimpiarFiltros, 8, 1);
+            TLPFiltros.Controls.Add(label8, 7, 0);
+            TLPFiltros.Controls.Add(BtnAplicarFiltros, 7, 1);
+            TLPFiltros.Controls.Add(DTPFechaHasta, 5, 0);
+            TLPFiltros.Controls.Add(CMBFiltroEntornoFormativo, 5, 1);
+            TLPFiltros.Controls.Add(label7, 4, 0);
+            TLPFiltros.Controls.Add(label10, 4, 1);
             TLPFiltros.Dock = DockStyle.Fill;
             TLPFiltros.ForeColor = Color.FromArgb(26, 28, 30);
             TLPFiltros.Location = new Point(4, 26);
@@ -479,7 +483,7 @@
             label6.Anchor = AnchorStyles.Right;
             label6.AutoSize = true;
             label6.Font = new Font("Segoe UI", 12F);
-            label6.Location = new Point(138, 15);
+            label6.Location = new Point(35, 15);
             label6.Name = "label6";
             label6.Size = new Size(56, 21);
             label6.TabIndex = 24;
@@ -490,29 +494,30 @@
             label7.Anchor = AnchorStyles.Right;
             label7.AutoSize = true;
             label7.Font = new Font("Segoe UI", 12F);
-            label7.Location = new Point(536, 15);
+            label7.Location = new Point(400, 15);
             label7.Name = "label7";
             label7.Size = new Size(52, 21);
             label7.TabIndex = 25;
             label7.Text = "Hasta:";
+            label7.Click += label7_Click;
             // 
             // label8
             // 
             label8.Anchor = AnchorStyles.Right;
             label8.AutoSize = true;
             label8.Font = new Font("Segoe UI", 12F);
-            label8.Location = new Point(880, 15);
+            label8.Location = new Point(837, 15);
             label8.Name = "label8";
-            label8.Size = new Size(102, 21);
+            label8.Size = new Size(45, 21);
             label8.TabIndex = 26;
-            label8.Text = "Tipo Entorno:";
+            label8.Text = "Area:";
             // 
             // label9
             // 
             label9.Anchor = AnchorStyles.Right;
             label9.AutoSize = true;
             label9.Font = new Font("Segoe UI", 12F);
-            label9.Location = new Point(126, 68);
+            label9.Location = new Point(23, 68);
             label9.Name = "label9";
             label9.Size = new Size(68, 21);
             label9.TabIndex = 27;
@@ -523,7 +528,7 @@
             label10.Anchor = AnchorStyles.Right;
             label10.AutoSize = true;
             label10.Font = new Font("Segoe UI", 12F);
-            label10.Location = new Point(531, 68);
+            label10.Location = new Point(395, 68);
             label10.Name = "label10";
             label10.Size = new Size(57, 21);
             label10.TabIndex = 28;
@@ -535,9 +540,9 @@
             DTPFechaDesde.CustomFormat = "yyyy-MM-dd HH:mm:ss";
             DTPFechaDesde.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             DTPFechaDesde.Format = DateTimePickerFormat.Custom;
-            DTPFechaDesde.Location = new Point(200, 11);
+            DTPFechaDesde.Location = new Point(97, 11);
             DTPFechaDesde.Name = "DTPFechaDesde";
-            DTPFechaDesde.Size = new Size(191, 29);
+            DTPFechaDesde.Size = new Size(272, 29);
             DTPFechaDesde.TabIndex = 29;
             // 
             // DTPFechaHasta
@@ -546,9 +551,9 @@
             DTPFechaHasta.CustomFormat = "yyyy-MM-dd HH:mm:ss";
             DTPFechaHasta.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             DTPFechaHasta.Format = DateTimePickerFormat.Custom;
-            DTPFechaHasta.Location = new Point(594, 11);
+            DTPFechaHasta.Location = new Point(458, 11);
             DTPFechaHasta.Name = "DTPFechaHasta";
-            DTPFechaHasta.Size = new Size(191, 29);
+            DTPFechaHasta.Size = new Size(272, 29);
             DTPFechaHasta.TabIndex = 30;
             // 
             // CMFTipoEntorno
@@ -557,10 +562,10 @@
             CMFTipoEntorno.DropDownStyle = ComboBoxStyle.DropDownList;
             CMFTipoEntorno.Font = new Font("Segoe UI", 12F);
             CMFTipoEntorno.FormattingEnabled = true;
-            CMFTipoEntorno.Location = new Point(988, 11);
+            CMFTipoEntorno.Location = new Point(888, 11);
             CMFTipoEntorno.Margin = new Padding(3, 3, 8, 3);
             CMFTipoEntorno.Name = "CMFTipoEntorno";
-            CMFTipoEntorno.Size = new Size(190, 29);
+            CMFTipoEntorno.Size = new Size(267, 29);
             CMFTipoEntorno.TabIndex = 31;
             CMFTipoEntorno.SelectedIndexChanged += CMFTipoEntorno_SelectedIndexChanged;
             // 
@@ -570,9 +575,9 @@
             CMBFiltroEntorno.DropDownStyle = ComboBoxStyle.DropDownList;
             CMBFiltroEntorno.Font = new Font("Segoe UI", 12F);
             CMBFiltroEntorno.FormattingEnabled = true;
-            CMBFiltroEntorno.Location = new Point(200, 64);
+            CMBFiltroEntorno.Location = new Point(97, 64);
             CMBFiltroEntorno.Name = "CMBFiltroEntorno";
-            CMBFiltroEntorno.Size = new Size(191, 29);
+            CMBFiltroEntorno.Size = new Size(272, 29);
             CMBFiltroEntorno.TabIndex = 32;
             CMBFiltroEntorno.SelectedIndexChanged += CMBFiltroEntorno_SelectedIndexChanged;
             // 
@@ -582,9 +587,9 @@
             CMBFiltroEntornoFormativo.DropDownStyle = ComboBoxStyle.DropDownList;
             CMBFiltroEntornoFormativo.Font = new Font("Segoe UI", 12F);
             CMBFiltroEntornoFormativo.FormattingEnabled = true;
-            CMBFiltroEntornoFormativo.Location = new Point(594, 64);
+            CMBFiltroEntornoFormativo.Location = new Point(458, 64);
             CMBFiltroEntornoFormativo.Name = "CMBFiltroEntornoFormativo";
-            CMBFiltroEntornoFormativo.Size = new Size(191, 29);
+            CMBFiltroEntornoFormativo.Size = new Size(272, 29);
             CMBFiltroEntornoFormativo.TabIndex = 33;
             // 
             // BtnAplicarFiltros
@@ -595,7 +600,7 @@
             BtnAplicarFiltros.FlatStyle = FlatStyle.Flat;
             BtnAplicarFiltros.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             BtnAplicarFiltros.ForeColor = Color.FromArgb(255, 255, 255);
-            BtnAplicarFiltros.Location = new Point(820, 64);
+            BtnAplicarFiltros.Location = new Point(753, 64);
             BtnAplicarFiltros.Margin = new Padding(0);
             BtnAplicarFiltros.Name = "BtnAplicarFiltros";
             BtnAplicarFiltros.Size = new Size(132, 29);
@@ -612,7 +617,7 @@
             BtnLimpiarFiltros.FlatStyle = FlatStyle.Flat;
             BtnLimpiarFiltros.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             BtnLimpiarFiltros.ForeColor = Color.FromArgb(255, 255, 255);
-            BtnLimpiarFiltros.Location = new Point(1000, 64);
+            BtnLimpiarFiltros.Location = new Point(938, 64);
             BtnLimpiarFiltros.Margin = new Padding(0);
             BtnLimpiarFiltros.Name = "BtnLimpiarFiltros";
             BtnLimpiarFiltros.Size = new Size(171, 29);

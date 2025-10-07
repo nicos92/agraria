@@ -120,11 +120,11 @@ namespace Agraria.UI.Actividad
             label1.Anchor = AnchorStyles.Right;
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 12F);
-            label1.Location = new Point(41, 7);
+            label1.Location = new Point(98, 7);
             label1.Name = "label1";
-            label1.Size = new Size(102, 21);
+            label1.Size = new Size(45, 21);
             label1.TabIndex = 1;
-            label1.Text = "Tipo Entorno:";
+            label1.Text = "Area:";
             // 
             // CMBTipoEntorno
             // 

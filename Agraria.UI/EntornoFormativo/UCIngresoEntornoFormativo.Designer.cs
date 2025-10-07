@@ -141,11 +141,11 @@
             label1.Anchor = AnchorStyles.Right;
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 12F);
-            label1.Location = new Point(11, 8);
+            label1.Location = new Point(89, 8);
             label1.Name = "label1";
-            label1.Size = new Size(123, 21);
+            label1.Size = new Size(45, 21);
             label1.TabIndex = 1;
-            label1.Text = "Tipo de Entorno:";
+            label1.Text = "Area:";
             // 
             // CMBTipoEntorno
             // 

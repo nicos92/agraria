@@ -352,10 +352,10 @@ namespace Agraria.UI.Actividad
             var re = _listaEntorno.Where(e => e.Id_TipoEntorno == idTipoEntorno).ToList();
             //if (resultado.IsSuccess)
             //{
-                CMBEntorno.DataSource = null; // Clear previous data
-                CMBEntorno.DataSource = re;
-                CMBEntorno.DisplayMember = "Entorno_nombre";
-                CMBEntorno.ValueMember = "Id_Entorno";
+            CMBEntorno.DataSource = null; // Clear previous data
+            CMBEntorno.DataSource = re;
+            CMBEntorno.DisplayMember = "Entorno_nombre";
+            CMBEntorno.ValueMember = "Id_Entorno";
             //}
             //else
             //{
@@ -800,6 +800,11 @@ namespace Agraria.UI.Actividad
                 var taskHelper = new TareasLargas(PanelMedio, ProgressBar, CargaInicial, CargarGrilla);
                 taskHelper.Iniciar();
             }
+        }
+
+        private void label7_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

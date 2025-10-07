@@ -30,16 +30,16 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormPrincipal));
             PanelMenu = new Panel();
-            BtnEntornos = new Button();
-            BtnPaniol = new Button();
             BtnProveedores = new Button();
-            BtnRemitoProduccion = new Button();
             BtnUsuarios = new Button();
+            BtnPaniol = new Button();
+            BtnHojaVida = new Button();
+            BtnProduccion = new Button();
+            BtnInventario = new Button();
             BtnReporte = new Button();
             BtnVenta = new Button();
-            BtnInventario = new Button();
-            BtnHojaVida = new Button();
             BtnProductos = new Button();
+            BtnEntornos = new Button();
             BtnActividad = new Button();
             PanelLblMenu = new Panel();
             LblEscuelaAgraria = new Label();
@@ -64,7 +64,7 @@
             PanelMenu.Controls.Add(BtnUsuarios);
             PanelMenu.Controls.Add(BtnPaniol);
             PanelMenu.Controls.Add(BtnHojaVida);
-            PanelMenu.Controls.Add(BtnRemitoProduccion);
+            PanelMenu.Controls.Add(BtnProduccion);
             PanelMenu.Controls.Add(BtnInventario);
             PanelMenu.Controls.Add(BtnReporte);
             PanelMenu.Controls.Add(BtnVenta);
@@ -78,46 +78,6 @@
             PanelMenu.Name = "PanelMenu";
             PanelMenu.Size = new Size(200, 661);
             PanelMenu.TabIndex = 0;
-            // 
-            // BtnEntornos
-            // 
-            BtnEntornos.Cursor = Cursors.Hand;
-            BtnEntornos.Dock = DockStyle.Top;
-            BtnEntornos.FlatAppearance.BorderSize = 0;
-            BtnEntornos.FlatStyle = FlatStyle.Flat;
-            BtnEntornos.ForeColor = SystemColors.ButtonHighlight;
-            BtnEntornos.Image = Properties.Resources.entornos;
-            BtnEntornos.ImageAlign = ContentAlignment.MiddleLeft;
-            BtnEntornos.Location = new Point(0, 128);
-            BtnEntornos.Margin = new Padding(4);
-            BtnEntornos.Name = "BtnEntornos";
-            BtnEntornos.Padding = new Padding(8, 0, 0, 0);
-            BtnEntornos.Size = new Size(183, 64);
-            BtnEntornos.TabIndex = 11;
-            BtnEntornos.Text = "Entornos";
-            BtnEntornos.TextImageRelation = TextImageRelation.ImageBeforeText;
-            BtnEntornos.UseVisualStyleBackColor = true;
-            BtnEntornos.Click += BtnActividad_Click;
-            // 
-            // BtnPaniol
-            // 
-            BtnPaniol.Cursor = Cursors.Hand;
-            BtnPaniol.Dock = DockStyle.Top;
-            BtnPaniol.FlatAppearance.BorderSize = 0;
-            BtnPaniol.FlatStyle = FlatStyle.Flat;
-            BtnPaniol.ForeColor = SystemColors.ButtonHighlight;
-            BtnPaniol.Image = Properties.Resources.paniol32px;
-            BtnPaniol.ImageAlign = ContentAlignment.MiddleLeft;
-            BtnPaniol.Location = new Point(0, 576);
-            BtnPaniol.Margin = new Padding(4);
-            BtnPaniol.Name = "BtnPaniol";
-            BtnPaniol.Padding = new Padding(8, 0, 0, 0);
-            BtnPaniol.Size = new Size(183, 64);
-            BtnPaniol.TabIndex = 10;
-            BtnPaniol.Text = "Pañol";
-            BtnPaniol.TextImageRelation = TextImageRelation.ImageBeforeText;
-            BtnPaniol.UseVisualStyleBackColor = true;
-            BtnPaniol.Click += BtnActividad_Click;
             // 
             // BtnProveedores
             // 
@@ -139,26 +99,6 @@
             BtnProveedores.UseVisualStyleBackColor = true;
             BtnProveedores.Click += BtnActividad_Click;
             // 
-            // BtnRemitoProduccion
-            // 
-            BtnRemitoProduccion.Cursor = Cursors.Hand;
-            BtnRemitoProduccion.Dock = DockStyle.Top;
-            BtnRemitoProduccion.FlatAppearance.BorderSize = 0;
-            BtnRemitoProduccion.FlatStyle = FlatStyle.Flat;
-            BtnRemitoProduccion.ForeColor = SystemColors.ButtonHighlight;
-            BtnRemitoProduccion.Image = Properties.Resources.remito32px;
-            BtnRemitoProduccion.ImageAlign = ContentAlignment.MiddleLeft;
-            BtnRemitoProduccion.Location = new Point(0, 448);
-            BtnRemitoProduccion.Margin = new Padding(4);
-            BtnRemitoProduccion.Name = "BtnRemitoProduccion";
-            BtnRemitoProduccion.Padding = new Padding(8, 0, 0, 0);
-            BtnRemitoProduccion.Size = new Size(183, 64);
-            BtnRemitoProduccion.TabIndex = 9;
-            BtnRemitoProduccion.Text = "Remito Producción";
-            BtnRemitoProduccion.TextImageRelation = TextImageRelation.ImageBeforeText;
-            BtnRemitoProduccion.UseVisualStyleBackColor = true;
-            BtnRemitoProduccion.Click += BtnActividad_Click;
-            // 
             // BtnUsuarios
             // 
             BtnUsuarios.Cursor = Cursors.Hand;
@@ -178,6 +118,86 @@
             BtnUsuarios.TextImageRelation = TextImageRelation.ImageBeforeText;
             BtnUsuarios.UseVisualStyleBackColor = true;
             BtnUsuarios.Click += BtnActividad_Click;
+            // 
+            // BtnPaniol
+            // 
+            BtnPaniol.Cursor = Cursors.Hand;
+            BtnPaniol.Dock = DockStyle.Top;
+            BtnPaniol.FlatAppearance.BorderSize = 0;
+            BtnPaniol.FlatStyle = FlatStyle.Flat;
+            BtnPaniol.ForeColor = SystemColors.ButtonHighlight;
+            BtnPaniol.Image = Properties.Resources.paniol32px;
+            BtnPaniol.ImageAlign = ContentAlignment.MiddleLeft;
+            BtnPaniol.Location = new Point(0, 576);
+            BtnPaniol.Margin = new Padding(4);
+            BtnPaniol.Name = "BtnPaniol";
+            BtnPaniol.Padding = new Padding(8, 0, 0, 0);
+            BtnPaniol.Size = new Size(183, 64);
+            BtnPaniol.TabIndex = 10;
+            BtnPaniol.Text = "Pañol";
+            BtnPaniol.TextImageRelation = TextImageRelation.ImageBeforeText;
+            BtnPaniol.UseVisualStyleBackColor = true;
+            BtnPaniol.Click += BtnActividad_Click;
+            // 
+            // BtnHojaVida
+            // 
+            BtnHojaVida.Cursor = Cursors.Hand;
+            BtnHojaVida.Dock = DockStyle.Top;
+            BtnHojaVida.FlatAppearance.BorderSize = 0;
+            BtnHojaVida.FlatStyle = FlatStyle.Flat;
+            BtnHojaVida.ForeColor = SystemColors.ButtonHighlight;
+            BtnHojaVida.Image = Properties.Resources.hojadevida;
+            BtnHojaVida.ImageAlign = ContentAlignment.MiddleLeft;
+            BtnHojaVida.Location = new Point(0, 512);
+            BtnHojaVida.Margin = new Padding(4);
+            BtnHojaVida.Name = "BtnHojaVida";
+            BtnHojaVida.Padding = new Padding(8, 0, 0, 0);
+            BtnHojaVida.Size = new Size(183, 64);
+            BtnHojaVida.TabIndex = 3;
+            BtnHojaVida.Text = "Hoja de Vida";
+            BtnHojaVida.TextImageRelation = TextImageRelation.ImageBeforeText;
+            BtnHojaVida.UseVisualStyleBackColor = true;
+            BtnHojaVida.Click += BtnActividad_Click;
+            // 
+            // BtnProduccion
+            // 
+            BtnProduccion.Cursor = Cursors.Hand;
+            BtnProduccion.Dock = DockStyle.Top;
+            BtnProduccion.FlatAppearance.BorderSize = 0;
+            BtnProduccion.FlatStyle = FlatStyle.Flat;
+            BtnProduccion.ForeColor = SystemColors.ButtonHighlight;
+            BtnProduccion.Image = Properties.Resources.remito32px;
+            BtnProduccion.ImageAlign = ContentAlignment.MiddleLeft;
+            BtnProduccion.Location = new Point(0, 448);
+            BtnProduccion.Margin = new Padding(4);
+            BtnProduccion.Name = "BtnProduccion";
+            BtnProduccion.Padding = new Padding(8, 0, 0, 0);
+            BtnProduccion.Size = new Size(183, 64);
+            BtnProduccion.TabIndex = 9;
+            BtnProduccion.Text = "Producción";
+            BtnProduccion.TextImageRelation = TextImageRelation.ImageBeforeText;
+            BtnProduccion.UseVisualStyleBackColor = true;
+            BtnProduccion.Click += BtnActividad_Click;
+            // 
+            // BtnInventario
+            // 
+            BtnInventario.Cursor = Cursors.Hand;
+            BtnInventario.Dock = DockStyle.Top;
+            BtnInventario.FlatAppearance.BorderSize = 0;
+            BtnInventario.FlatStyle = FlatStyle.Flat;
+            BtnInventario.ForeColor = SystemColors.ButtonHighlight;
+            BtnInventario.Image = Properties.Resources.inventario;
+            BtnInventario.ImageAlign = ContentAlignment.MiddleLeft;
+            BtnInventario.Location = new Point(0, 384);
+            BtnInventario.Margin = new Padding(4);
+            BtnInventario.Name = "BtnInventario";
+            BtnInventario.Padding = new Padding(8, 0, 0, 0);
+            BtnInventario.Size = new Size(183, 64);
+            BtnInventario.TabIndex = 4;
+            BtnInventario.Text = "Inventario";
+            BtnInventario.TextImageRelation = TextImageRelation.ImageBeforeText;
+            BtnInventario.UseVisualStyleBackColor = true;
+            BtnInventario.Click += BtnActividad_Click;
             // 
             // BtnReporte
             // 
@@ -220,46 +240,6 @@
             BtnVenta.UseVisualStyleBackColor = true;
             BtnVenta.Click += BtnActividad_Click;
             // 
-            // BtnInventario
-            // 
-            BtnInventario.Cursor = Cursors.Hand;
-            BtnInventario.Dock = DockStyle.Top;
-            BtnInventario.FlatAppearance.BorderSize = 0;
-            BtnInventario.FlatStyle = FlatStyle.Flat;
-            BtnInventario.ForeColor = SystemColors.ButtonHighlight;
-            BtnInventario.Image = Properties.Resources.inventario;
-            BtnInventario.ImageAlign = ContentAlignment.MiddleLeft;
-            BtnInventario.Location = new Point(0, 384);
-            BtnInventario.Margin = new Padding(4);
-            BtnInventario.Name = "BtnInventario";
-            BtnInventario.Padding = new Padding(8, 0, 0, 0);
-            BtnInventario.Size = new Size(183, 64);
-            BtnInventario.TabIndex = 4;
-            BtnInventario.Text = "Inventario";
-            BtnInventario.TextImageRelation = TextImageRelation.ImageBeforeText;
-            BtnInventario.UseVisualStyleBackColor = true;
-            BtnInventario.Click += BtnActividad_Click;
-            // 
-            // BtnHojaVida
-            // 
-            BtnHojaVida.Cursor = Cursors.Hand;
-            BtnHojaVida.Dock = DockStyle.Top;
-            BtnHojaVida.FlatAppearance.BorderSize = 0;
-            BtnHojaVida.FlatStyle = FlatStyle.Flat;
-            BtnHojaVida.ForeColor = SystemColors.ButtonHighlight;
-            BtnHojaVida.Image = Properties.Resources.hojadevida;
-            BtnHojaVida.ImageAlign = ContentAlignment.MiddleLeft;
-            BtnHojaVida.Location = new Point(0, 512);
-            BtnHojaVida.Margin = new Padding(4);
-            BtnHojaVida.Name = "BtnHojaVida";
-            BtnHojaVida.Padding = new Padding(8, 0, 0, 0);
-            BtnHojaVida.Size = new Size(183, 64);
-            BtnHojaVida.TabIndex = 3;
-            BtnHojaVida.Text = "Hoja de Vida";
-            BtnHojaVida.TextImageRelation = TextImageRelation.ImageBeforeText;
-            BtnHojaVida.UseVisualStyleBackColor = true;
-            BtnHojaVida.Click += BtnActividad_Click;
-            // 
             // BtnProductos
             // 
             BtnProductos.Cursor = Cursors.Hand;
@@ -279,6 +259,26 @@
             BtnProductos.TextImageRelation = TextImageRelation.ImageBeforeText;
             BtnProductos.UseVisualStyleBackColor = true;
             BtnProductos.Click += BtnActividad_Click;
+            // 
+            // BtnEntornos
+            // 
+            BtnEntornos.Cursor = Cursors.Hand;
+            BtnEntornos.Dock = DockStyle.Top;
+            BtnEntornos.FlatAppearance.BorderSize = 0;
+            BtnEntornos.FlatStyle = FlatStyle.Flat;
+            BtnEntornos.ForeColor = SystemColors.ButtonHighlight;
+            BtnEntornos.Image = Properties.Resources.entornos;
+            BtnEntornos.ImageAlign = ContentAlignment.MiddleLeft;
+            BtnEntornos.Location = new Point(0, 128);
+            BtnEntornos.Margin = new Padding(4);
+            BtnEntornos.Name = "BtnEntornos";
+            BtnEntornos.Padding = new Padding(8, 0, 0, 0);
+            BtnEntornos.Size = new Size(183, 64);
+            BtnEntornos.TabIndex = 11;
+            BtnEntornos.Text = "Entornos";
+            BtnEntornos.TextImageRelation = TextImageRelation.ImageBeforeText;
+            BtnEntornos.UseVisualStyleBackColor = true;
+            BtnEntornos.Click += BtnActividad_Click;
             // 
             // BtnActividad
             // 
@@ -454,7 +454,7 @@
         private Button BtnActividad;
         private Panel PanelLblMenu;
         private Button BtnProveedores;
-        private Button BtnRemitoProduccion;
+        private Button BtnProduccion;
         private Button BtnUsuarios;
         private Button BtnReporte;
         private Button BtnVenta;

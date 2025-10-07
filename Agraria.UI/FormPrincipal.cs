@@ -222,7 +222,7 @@ namespace Agraria.UI
             BtnHojaVida.Tag = typeof(HojadeVida.FormHojadeVida);
             BtnInventario.Tag = typeof(Inventario.FormInventario);
             BtnVenta.Tag = typeof(FormVentaPrincipal);
-            BtnRemitoProduccion.Tag = typeof(FormRemitoProduccion);
+            BtnProduccion.Tag = typeof(FormRemitoProduccion);
             BtnReporte.Tag = typeof(Reporte.FormReporte);
             BtnUsuarios.Tag = typeof(Usuarios.FormUsuarios);
             BtnProveedores.Tag = typeof(Proveedores.FormProveedores);

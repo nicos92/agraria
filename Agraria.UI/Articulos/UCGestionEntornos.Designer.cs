@@ -89,7 +89,7 @@ namespace Agraria.UI.Articulos
             GNTipoEntornos.Size = new Size(394, 461);
             GNTipoEntornos.TabIndex = 0;
             GNTipoEntornos.TabStop = false;
-            GNTipoEntornos.Text = "Tipo de Entorno";
+            GNTipoEntornos.Text = "Areas";
             // 
             // tableLayoutPanel1
             // 
@@ -167,7 +167,7 @@ namespace Agraria.UI.Articulos
             GBFormEntornos.Size = new Size(382, 162);
             GBFormEntornos.TabIndex = 2;
             GBFormEntornos.TabStop = false;
-            GBFormEntornos.Text = "Formulario de Tipo de Entorno";
+            GBFormEntornos.Text = "Formulario de Areas";
             // 
             // tableLayoutPanel3
             // 
@@ -195,7 +195,7 @@ namespace Agraria.UI.Articulos
             label1.Name = "label1";
             label1.Size = new Size(370, 30);
             label1.TabIndex = 0;
-            label1.Text = "Nombre del Tipo de Entorno:";
+            label1.Text = "Nombre del Area";
             label1.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // TxtTipoEntorno
@@ -286,7 +286,7 @@ namespace Agraria.UI.Articulos
             GBEntornos.Size = new Size(374, 461);
             GBEntornos.TabIndex = 2;
             GBEntornos.TabStop = false;
-            GBEntornos.Text = "Entorno";
+            GBEntornos.Text = "Entornos";
             // 
             // tableLayoutPanel5
             // 
@@ -308,8 +308,8 @@ namespace Agraria.UI.Articulos
             // tableLayoutPanel6
             // 
             tableLayoutPanel6.ColumnCount = 2;
-            tableLayoutPanel6.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 48.6187859F));
-            tableLayoutPanel6.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 51.3812141F));
+            tableLayoutPanel6.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 29.2817688F));
+            tableLayoutPanel6.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 70.71823F));
             tableLayoutPanel6.Controls.Add(label3, 0, 0);
             tableLayoutPanel6.Controls.Add(LblEntornoSeleccionado, 1, 0);
             tableLayoutPanel6.Location = new Point(3, 3);
@@ -326,9 +326,9 @@ namespace Agraria.UI.Articulos
             label3.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label3.Location = new Point(3, 5);
             label3.Name = "label3";
-            label3.Size = new Size(170, 21);
+            label3.Size = new Size(92, 21);
             label3.TabIndex = 2;
-            label3.Text = "Tipo de Entorno Actual:";
+            label3.Text = "Area Actual:";
             label3.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // LblEntornoSeleccionado
@@ -336,7 +336,7 @@ namespace Agraria.UI.Articulos
             LblEntornoSeleccionado.Anchor = AnchorStyles.Left;
             LblEntornoSeleccionado.AutoSize = true;
             LblEntornoSeleccionado.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            LblEntornoSeleccionado.Location = new Point(179, 5);
+            LblEntornoSeleccionado.Location = new Point(109, 5);
             LblEntornoSeleccionado.Name = "LblEntornoSeleccionado";
             LblEntornoSeleccionado.Size = new Size(78, 21);
             LblEntornoSeleccionado.TabIndex = 1;
@@ -412,7 +412,7 @@ namespace Agraria.UI.Articulos
             label2.Name = "label2";
             label2.Size = new Size(350, 29);
             label2.TabIndex = 0;
-            label2.Text = "Nombre del SubEntorno:";
+            label2.Text = "Nombre del Entorno:";
             label2.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // TxtEntorno
