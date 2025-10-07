@@ -40,7 +40,7 @@ namespace Agraria.Utilidades.Impresion
        
        
        
-        public void ImprimiriTextSharp(List<ProductoVenta> productos, string numeroOperacion, string motivo, string montoTotal, string fechaOperacion, string tituloOperacion)
+        public void ImprimiriTextSharp(List<ProductoVenta> productos, string numeroOperacion, string motivo, string montoTotal, string fechaOperacion, string tituloOperacion, string descuento)
         {
             // ... (Pasos para generar htmlFinal se mantienen) ...
             string rutaPlantillaHtml = Path.Combine(Application.StartupPath, "Impresion", "impresionventados.html");
@@ -52,7 +52,8 @@ namespace Agraria.Utilidades.Impresion
                 numeroOperacion: numeroOperacion,
                 productos: productos,
                 fechaOperacion: fechaOperacion,
-                titulo: tituloOperacion
+                titulo: tituloOperacion,
+                descuento: descuento
             );
 
             if (_htmlFinal.StartsWith("Error:"))
@@ -96,13 +97,6 @@ namespace Agraria.Utilidades.Impresion
 
                         PdfWriter writer = PdfWriter.GetInstance(pdfDoc, stream);
                         pdfDoc.Open();
-
-                        using (StringReader srHtmlFinal = new StringReader(htmlFinal))
-                        {
-
-                            XMLWorkerHelper.GetInstance().ParseXHtml(writer, pdfDoc, srHtmlFinal);
-
-                        }
                         // Creamos la imagen y le ajustamos el tamaño
                         iTextSharp.text.Image imagen = iTextSharp.text.Image.GetInstance(rutaImg);
                         imagen.BorderWidth = 0;
@@ -111,12 +105,19 @@ namespace Agraria.Utilidades.Impresion
                         percentage = 80 / imagen.Width;
                         imagen.ScalePercent(percentage * 100);
 
-                        imagen.SetAbsolutePosition(40, pdfDoc.PageSize.Height - 100); // Ajusta la posición según sea necesario
+                        imagen.SetAbsolutePosition(40, pdfDoc.PageSize.Height - 110); // Ajusta la posición según sea necesario
 
 
 
                         // Insertamos la imagen en el documento
                         pdfDoc.Add(imagen);
+                        using (StringReader srHtmlFinal = new StringReader(htmlFinal))
+                        {
+
+                            XMLWorkerHelper.GetInstance().ParseXHtml(writer, pdfDoc, srHtmlFinal);
+
+                        }
+                       
                         pdfDoc.Close();
                         writer.Close();
                         DialogResult dialogResult = MessageBox.Show($"¿Desea abrir el archivo PDF guardado?", "Abrir carpeta", MessageBoxButtons.YesNo, MessageBoxIcon.Question);

@@ -23,6 +23,7 @@ namespace Agraria.UI.RemitoProduccion
         private List<HRemitoProduccion> _remitos = [];
         private List<HRemitoDetalleProduccion> _detallesRemito = [];
         private int _selectedRemitoId = -1;
+        private HRemitoProduccion? _remitoProduccionSeleccionado;
 
         public UCConsultaRemitos(
             IHRemitoProduccionService hRemitoProduccionService,
@@ -158,6 +159,7 @@ namespace Agraria.UI.RemitoProduccion
         {
             if (DgvRemitos.CurrentRow?.DataBoundItem is HRemitoProduccion remito)
             {
+                _remitoProduccionSeleccionado = remito;
                 _selectedRemitoId = remito.Id_Remito;
                 await CargarDetallesRemitoAsync(remito.Id_Remito);
                 MostrarDetallesRemito(remito);
@@ -585,6 +587,7 @@ namespace Agraria.UI.RemitoProduccion
 
         private void BtnImprimir_Click(object sender, EventArgs e)
         {
+            
             Utilidades.Impresion.ImpresionTicket imp = new();
             imp.ImprimiriTextSharp(
                 productos: _detallesRemito.Select(d => new Utilidades.Impresion.ProductoVenta
@@ -603,7 +606,8 @@ namespace Agraria.UI.RemitoProduccion
                 motivo: LblDescripcion.Text,
                 montoTotal: LblTotal.Text,
                 fechaOperacion: LblFecha.Text,
-                tituloOperacion: "Ticket de Producción"
+                tituloOperacion: "Ticket de Producción",
+                descuento: LblDescuento.Text
             );
         }
 

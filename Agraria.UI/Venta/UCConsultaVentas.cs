@@ -633,7 +633,8 @@ namespace Agraria.UI.Ventas
                 motivo: LblDescripcion.Text,
                 montoTotal: LblTotal.Text,
                 fechaOperacion: LblFecha.Text,
-                tituloOperacion: "Ticket de Venta"
+                tituloOperacion: "Ticket de Venta",
+                descuento: LblDescuento.Text
             );
         }
 

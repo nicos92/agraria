@@ -25,7 +25,7 @@ namespace Agraria.Utilidades.Impresion
             }
         }
 
-        public string GenerarHtmlTicket(string montoTotal, string motivo, string numeroOperacion, List<ProductoVenta> productos, string fechaOperacion, string titulo)
+        public string GenerarHtmlTicket(string montoTotal, string motivo, string numeroOperacion, List<ProductoVenta> productos, string fechaOperacion, string titulo, string descuento)
         {
             if (string.IsNullOrEmpty(plantillaHtml))
             {
@@ -40,6 +40,7 @@ namespace Agraria.Utilidades.Impresion
             htmlProcesado = htmlProcesado.Replace("{{motivo}}", motivo);
             htmlProcesado = htmlProcesado.Replace("{{numero_operacion}}", numeroOperacion);
             htmlProcesado = htmlProcesado.Replace("{{fecha_operacion}}", fechaOperacion);
+            htmlProcesado = htmlProcesado.Replace("{{descuento_total}}", descuento);
 
             // 2. Construir las filas de la tabla para los productos
             var filasHtml = new StringBuilder();
