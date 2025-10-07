@@ -35,6 +35,7 @@ namespace Agraria.UI.HojadeVida
         private readonly ErrorProvider _errorProviderEstadoSalud;
 
         private List<Modelo.Entidades.HojadeVida> _listaHojasVida;
+        private List<Modelo.Entidades.HojadeVida> _todosLasHojasVida;
 
         private int _indiceSeleccionado;
 
@@ -289,7 +290,8 @@ namespace Agraria.UI.HojadeVida
 
             if (resultado.IsSuccess)
             {
-                _listaHojasVida = resultado.Value;
+                _todosLasHojasVida = resultado.Value;
+                _listaHojasVida = _todosLasHojasVida.ToList(); // Initially set to all items
             }
             else
             {
@@ -340,6 +342,9 @@ namespace Agraria.UI.HojadeVida
                                        .ToList();
                     CMBSexo.ValueMember = "Value";
                     CMBSexo.DisplayMember = "Display";
+
+                    // Cargar tipos de animal y sexos en filtros
+                    CargarTiposYSexoParaFiltro();
                 });
             
         }
@@ -650,5 +655,142 @@ namespace Agraria.UI.HojadeVida
                 CargadeDatos);
             taskHelper.Iniciar();
         }
+
+        /// <summary>
+        /// Handles the Click event of the BtnAplicarFiltro control to apply filters to the hojas de vida list.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        private void BtnAplicarFiltro_Click(object sender, EventArgs e)
+        {
+            FiltrarHojasVida();
+        }
+
+        /// <summary>
+        /// Handles the Click event of the BtnLimpiarFiltro control to clear all filters.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        private void BtnLimpiarFiltro_Click(object sender, EventArgs e)
+        {
+            LimpiarFiltros();
+        }
+
+        /// <summary>
+        /// Filters the hojas de vida based on the values in the filter controls.
+        /// </summary>
+        private void FiltrarHojasVida()
+        {
+            if (_todosLasHojasVida == null) return;
+
+            var hojasVidaFiltradas = _todosLasHojasVida.AsEnumerable();
+
+            // Filter by Nombre
+            if (!string.IsNullOrWhiteSpace(TxtFiltroNombre.Text))
+            {
+                hojasVidaFiltradas = hojasVidaFiltradas.Where(h => h.Nombre != null && h.Nombre.Contains(TxtFiltroNombre.Text, StringComparison.OrdinalIgnoreCase));
+            }
+
+            // Filter by Tipo Animal
+            if (CmbFiltroTipoAnimal.SelectedItem != null && CmbFiltroTipoAnimal.SelectedIndex != -1)
+            {
+                if (CmbFiltroTipoAnimal.SelectedValue is TipoAnimal tipoAnimalFiltro)
+                {
+                    hojasVidaFiltradas = hojasVidaFiltradas.Where(h => h.TipoAnimal == tipoAnimalFiltro);
+                }
+            }
+
+            // Filter by Sexo
+            if (CmbFiltroSexo.SelectedItem != null && CmbFiltroSexo.SelectedIndex != -1)
+            {
+                if (CmbFiltroSexo.SelectedValue is Sexo sexoFiltro)
+                {
+                    hojasVidaFiltradas = hojasVidaFiltradas.Where(h => h.Sexo == sexoFiltro);
+                }
+            }
+
+            // Filter by Peso
+            if (!string.IsNullOrWhiteSpace(TxtFiltroPeso.Text))
+            {
+                if (decimal.TryParse(TxtFiltroPeso.Text, out decimal pesoFiltro))
+                {
+                    hojasVidaFiltradas = hojasVidaFiltradas.Where(h => h.Peso == pesoFiltro);
+                }
+            }
+
+            // Update the DataGridView with filtered results
+            CargarHojasVidaDataGridView(hojasVidaFiltradas.ToList());
+        }
+
+        /// <summary>
+        /// Clears all filter controls and shows all hojas de vida.
+        /// </summary>
+        private void LimpiarFiltros()
+        {
+            TxtFiltroNombre.Clear();
+            CmbFiltroTipoAnimal.SelectedIndex = -1;
+            CmbFiltroSexo.SelectedIndex = -1;
+            TxtFiltroPeso.Clear();
+
+            // Show all hojas de vida after clearing filters
+            CargarHojasVidaDataGridView(_todosLasHojasVida);
+        }
+
+        /// <summary>
+        /// Carga los datos de las hojas de vida filtradas en el DataGridView.
+        /// </summary>
+        private void CargarHojasVidaDataGridView(List<Modelo.Entidades.HojadeVida> hojasVida)
+        {
+            try
+            {
+                ListBHojasVida.SuspendLayout();
+                int primeraFilaVisible = ListBHojasVida.FirstDisplayedScrollingRowIndex;
+
+                ListBHojasVida.AutoGenerateColumns = false;
+                ListBHojasVida.DataSource = null;
+                ListBHojasVida.DataSource = hojasVida ?? [];
+
+                if (primeraFilaVisible >= 0 && primeraFilaVisible < ListBHojasVida.Rows.Count)
+                {
+                    ListBHojasVida.FirstDisplayedScrollingRowIndex = primeraFilaVisible;
+                }
+            }
+            catch (Exception ex)
+            {
+                MostrarMensaje($"Error al cargar DataGridView: {ex.Message}", "Error", MessageBoxIcon.Error);
+            }
+            finally
+            {
+                ListBHojasVida.ResumeLayout();
+            }
+        }
+
+        /// <summary>
+        /// Loads animal types and sex values into the filter combo boxes.
+        /// </summary>
+        private void CargarTiposYSexoParaFiltro()
+        {
+            // Cargar tipos de animal
+            CmbFiltroTipoAnimal.DataSource = Enum.GetValues<TipoAnimal>()
+                                           .Select(e => new { Value = e, Display = e.ToString() })
+                                           .ToList();
+            CmbFiltroTipoAnimal.ValueMember = "Value";
+            CmbFiltroTipoAnimal.DisplayMember = "Display";
+
+            // Cargar sexos
+            CmbFiltroSexo.DataSource = Enum.GetValues<Sexo>()
+                                       .Select(e => new { Value = e, Display = e.ToString() })
+                                       .ToList();
+            CmbFiltroSexo.ValueMember = "Value";
+            CmbFiltroSexo.DisplayMember = "Display";
+        }
+
+        ///// <summary>
+        ///// Overrides the original CargarHojasVidaDataGridView method to maintain compatibility.
+        ///// </summary>
+        //private void CargarHojasVidaDataGridView()
+        //{
+        //    CargarHojasVidaDataGridView(_listaHojasVida);
+        //}
     }
 }

@@ -433,7 +433,7 @@
             Icon = (Icon)resources.GetObject("$this.Icon");
             IsMdiContainer = true;
             Margin = new Padding(4);
-            MinimumSize = new Size(1100, 700);
+            MinimumSize = new Size(1024, 700);
             Name = "FormPrincipal";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "FormPrincipal";

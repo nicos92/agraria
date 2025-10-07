@@ -18,6 +18,7 @@ namespace Agraria.UI.Paniol
     {
         private readonly IHerramientasService _herramientasService;
         private List<Herramientas> _herramientasList;
+        private List<Herramientas> _todosLasHerramientas;
         private Herramientas _herramientaSeleccionada;
         private readonly ValidadorTextBox _vTxtNombre;
         private readonly ValidadorTextBox _vTxtCantidad;
@@ -68,7 +69,8 @@ namespace Agraria.UI.Paniol
 
                 if (resultado.IsSuccess)
                 {
-                    _herramientasList = resultado.Value;
+                    _todosLasHerramientas = resultado.Value;
+                    _herramientasList = _todosLasHerramientas.ToList(); // Initially set to all items
                     ListBArticulos.DataSource = _herramientasList;
                     LimpiarCamposEdicion();
                 }
@@ -233,6 +235,65 @@ namespace Agraria.UI.Paniol
         {
             if (this.Visible)
                 await CargarHerramientas();
+        }
+
+        /// <summary>
+        /// Handles the Click event of the BtnAplicarFiltro control to apply filters to the herramientas list.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        private void BtnAplicarFiltro_Click(object sender, EventArgs e)
+        {
+            FiltrarHerramientas();
+        }
+
+        /// <summary>
+        /// Handles the Click event of the BtnLimpiarFiltro control to clear all filters.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        private void BtnLimpiarFiltro_Click(object sender, EventArgs e)
+        {
+            LimpiarFiltros();
+        }
+
+        /// <summary>
+        /// Filters the herramientas based on the values in the filter controls.
+        /// </summary>
+        private void FiltrarHerramientas()
+        {
+            if (_todosLasHerramientas == null) return;
+
+            var herramientasFiltradas = _todosLasHerramientas.AsEnumerable();
+
+            // Filter by Nombre
+            if (!string.IsNullOrWhiteSpace(TxtFiltroNombre.Text))
+            {
+                herramientasFiltradas = herramientasFiltradas.Where(h => h.Nombre != null && h.Nombre.Contains(TxtFiltroNombre.Text, StringComparison.OrdinalIgnoreCase));
+            }
+
+            // Filter by Descripcion
+            if (!string.IsNullOrWhiteSpace(TxtFiltroDescripcion.Text))
+            {
+                herramientasFiltradas = herramientasFiltradas.Where(h => h.Descripcion != null && h.Descripcion.Contains(TxtFiltroDescripcion.Text, StringComparison.OrdinalIgnoreCase));
+            }
+
+            
+
+            // Update the DataGridView with filtered results
+            ListBArticulos.DataSource = herramientasFiltradas.ToList();
+        }
+
+        /// <summary>
+        /// Clears all filter controls and shows all herramientas.
+        /// </summary>
+        private void LimpiarFiltros()
+        {
+            TxtFiltroNombre.Clear();
+            TxtFiltroDescripcion.Clear();
+
+            // Show all herramientas after clearing filters
+            ListBArticulos.DataSource = _todosLasHerramientas;
         }
     }
 }
