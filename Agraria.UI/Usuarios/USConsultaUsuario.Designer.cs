@@ -46,8 +46,10 @@ namespace Agraria.UI.Usuarios
             label1 = new Label();
             TxtEmail = new TextBox();
             label6 = new Label();
+            LblContra = new Label();
             TxtContra = new TextBox();
             label7 = new Label();
+            LblContraDos = new Label();
             TxtContraDos = new TextBox();
             LblError = new Label();
             label9 = new Label();
@@ -839,5 +841,7 @@ namespace Agraria.UI.Usuarios
         private Button BtnLimpiarFiltro;
         private Button BtnAplicarFiltro;
         private Button BtnGuardar;
+        private Label LblContra;
+        private Label LblContraDos;
     }
 }

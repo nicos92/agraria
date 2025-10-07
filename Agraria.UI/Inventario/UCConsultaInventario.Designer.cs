@@ -34,7 +34,6 @@ namespace Agraria.UI.Inventario
             LblLista = new Label();
             PanelFiltros = new Panel();
             tableLayoutPanelFiltros = new TableLayoutPanel();
-            label3 = new Label();
             LblCodigo = new Label();
             TxtFiltroCodigo = new TextBox();
             TxtFiltroNombre = new TextBox();
@@ -60,9 +59,9 @@ namespace Agraria.UI.Inventario
             label1 = new Label();
             TxtDescripcion = new TextBox();
             label5 = new Label();
-            ProgressBar = new ProgressBar();
             CMBProveedor = new ComboBox();
             label3 = new Label();
+            ProgressBar = new ProgressBar();
             tableLayoutPanel3.SuspendLayout();
             PanelLista.SuspendLayout();
             tableLayoutPanel1.SuspendLayout();
@@ -152,7 +151,6 @@ namespace Agraria.UI.Inventario
             tableLayoutPanelFiltros.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
             tableLayoutPanelFiltros.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
             tableLayoutPanelFiltros.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
-            tableLayoutPanelFiltros.Controls.Add(label3, 2, 0);
             tableLayoutPanelFiltros.Controls.Add(LblCodigo, 0, 0);
             tableLayoutPanelFiltros.Controls.Add(TxtFiltroCodigo, 1, 0);
             tableLayoutPanelFiltros.Controls.Add(TxtFiltroNombre, 3, 0);
@@ -168,18 +166,6 @@ namespace Agraria.UI.Inventario
             tableLayoutPanelFiltros.RowStyles.Add(new RowStyle());
             tableLayoutPanelFiltros.Size = new Size(293, 84);
             tableLayoutPanelFiltros.TabIndex = 0;
-            // 
-            // label3
-            // 
-            label3.AutoSize = true;
-            label3.Dock = DockStyle.Fill;
-            label3.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            label3.Location = new Point(149, 0);
-            label3.Name = "label3";
-            label3.Size = new Size(67, 29);
-            label3.TabIndex = 8;
-            label3.Text = "Nombre:";
-            label3.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // LblCodigo
             // 
@@ -525,16 +511,6 @@ namespace Agraria.UI.Inventario
             label5.TabIndex = 12;
             label5.Text = "Descripción:";
             // 
-            // ProgressBar
-            // 
-            tableLayoutPanel3.SetColumnSpan(ProgressBar, 2);
-            ProgressBar.Dock = DockStyle.Fill;
-            ProgressBar.Location = new Point(0, 0);
-            ProgressBar.Margin = new Padding(0);
-            ProgressBar.Name = "ProgressBar";
-            ProgressBar.Size = new Size(804, 16);
-            ProgressBar.TabIndex = 4;
-            // 
             // CMBProveedor
             // 
             CMBProveedor.Anchor = AnchorStyles.Left | AnchorStyles.Right;
@@ -557,6 +533,17 @@ namespace Agraria.UI.Inventario
             label3.Size = new Size(85, 21);
             label3.TabIndex = 20;
             label3.Text = "Proveedor:";
+            label3.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // ProgressBar
+            // 
+            tableLayoutPanel3.SetColumnSpan(ProgressBar, 2);
+            ProgressBar.Dock = DockStyle.Fill;
+            ProgressBar.Location = new Point(0, 0);
+            ProgressBar.Margin = new Padding(0);
+            ProgressBar.Name = "ProgressBar";
+            ProgressBar.Size = new Size(804, 16);
+            ProgressBar.TabIndex = 4;
             // 
             // UCConsultaInventario
             // 
@@ -622,5 +609,6 @@ namespace Agraria.UI.Inventario
         private Label LblUnidadMedida;
         private ComboBox CmbFiltroUnidadMedida;
         private Label label3;
+        private ComboBox CMBProveedor;
     }
 }
