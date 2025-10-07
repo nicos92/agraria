@@ -496,7 +496,7 @@ namespace Agraria.UI.Usuarios
         {
             if (_todosLosUsuarios == null) return;
 
-            var usuariosFiltrados = _todosLosUsuarios.AsEnumerable();
+            IEnumerable<Modelo.Entidades.Usuarios> usuariosFiltrados = _todosLosUsuarios.AsEnumerable();
 
             // Filter by DNI
             if (!string.IsNullOrWhiteSpace(TxtFiltroDNI.Text))
@@ -519,7 +519,7 @@ namespace Agraria.UI.Usuarios
             // Filter by User Type
             if (CmbFiltroTipo.SelectedItem != null && CmbFiltroTipo.SelectedIndex != -1)
             {
-                if (CmbFiltroTipo.SelectedValue is int tipoSeleccionado)
+                if (CmbFiltroTipo.SelectedValue is int tipoSeleccionado && tipoSeleccionado != 0)
                 {
                     usuariosFiltrados = usuariosFiltrados.Where(u => u.Id_Tipo == tipoSeleccionado);
                 }
