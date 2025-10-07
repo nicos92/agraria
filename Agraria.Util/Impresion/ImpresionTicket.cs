@@ -49,7 +49,7 @@ namespace Agraria.Utilidades.Impresion
              _htmlFinal = generador.GenerarHtmlTicket(
                 montoTotal: montoTotal,
                 motivo: motivo,
-                numeroOperacion: numeroOperacion,
+                numeroOperacion:  numeroOperacion.Trim().PadLeft(8, '0'),
                 productos: productos,
                 fechaOperacion: fechaOperacion,
                 titulo: tituloOperacion,
