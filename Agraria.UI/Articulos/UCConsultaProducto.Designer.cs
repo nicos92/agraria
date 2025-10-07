@@ -29,9 +29,6 @@
         private void InitializeComponent()
         {
             tableLayoutPanel3 = new TableLayoutPanel();
-            PanelLista = new Panel();
-            tableLayoutPanel1 = new TableLayoutPanel();
-            LblLista = new Label();
             PanelFiltros = new Panel();
             tableLayoutPanelFiltros = new TableLayoutPanel();
             LblCodigo = new Label();
@@ -42,6 +39,9 @@
             CmbFiltroProveedor = new ComboBox();
             LblEnVenta = new Label();
             CmbFiltroEnVenta = new ComboBox();
+            PanelLista = new Panel();
+            tableLayoutPanel1 = new TableLayoutPanel();
+            LblLista = new Label();
             ListBArticulos = new DataGridView();
             Cantidad = new DataGridViewTextBoxColumn();
             Descripcion = new DataGridViewTextBoxColumn();
@@ -70,10 +70,10 @@
             LblPrecio = new Label();
             ProgressBar = new ProgressBar();
             tableLayoutPanel3.SuspendLayout();
-            PanelLista.SuspendLayout();
-            tableLayoutPanel1.SuspendLayout();
             PanelFiltros.SuspendLayout();
             tableLayoutPanelFiltros.SuspendLayout();
+            PanelLista.SuspendLayout();
+            tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)ListBArticulos).BeginInit();
             PanelMedio.SuspendLayout();
             tableLayoutPanel4.SuspendLayout();
@@ -88,27 +88,154 @@
             tableLayoutPanel3.ColumnCount = 2;
             tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 40F));
             tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 60F));
-            tableLayoutPanel3.Controls.Add(PanelLista, 0, 1);
-            tableLayoutPanel3.Controls.Add(PanelMedio, 1, 1);
+            tableLayoutPanel3.Controls.Add(PanelFiltros, 0, 1);
+            tableLayoutPanel3.Controls.Add(PanelLista, 0, 2);
+            tableLayoutPanel3.Controls.Add(PanelMedio, 1, 2);
             tableLayoutPanel3.Controls.Add(ProgressBar, 0, 0);
             tableLayoutPanel3.Dock = DockStyle.Fill;
             tableLayoutPanel3.Location = new Point(0, 0);
             tableLayoutPanel3.Name = "tableLayoutPanel3";
-            tableLayoutPanel3.RowCount = 2;
+            tableLayoutPanel3.RowCount = 3;
             tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Absolute, 16F));
-            tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 21.1009178F));
+            tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 78.899086F));
             tableLayoutPanel3.Size = new Size(804, 561);
             tableLayoutPanel3.TabIndex = 3;
+            // 
+            // PanelFiltros
+            // 
+            PanelFiltros.BackColor = Color.FromArgb(240, 240, 240);
+            tableLayoutPanel3.SetColumnSpan(PanelFiltros, 2);
+            PanelFiltros.Controls.Add(tableLayoutPanelFiltros);
+            PanelFiltros.Dock = DockStyle.Fill;
+            PanelFiltros.Location = new Point(3, 19);
+            PanelFiltros.Name = "PanelFiltros";
+            PanelFiltros.Padding = new Padding(8);
+            PanelFiltros.Size = new Size(798, 109);
+            PanelFiltros.TabIndex = 2;
+            // 
+            // tableLayoutPanelFiltros
+            // 
+            tableLayoutPanelFiltros.ColumnCount = 6;
+            tableLayoutPanelFiltros.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
+            tableLayoutPanelFiltros.ColumnStyles.Add(new ColumnStyle());
+            tableLayoutPanelFiltros.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tableLayoutPanelFiltros.ColumnStyles.Add(new ColumnStyle());
+            tableLayoutPanelFiltros.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tableLayoutPanelFiltros.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
+            tableLayoutPanelFiltros.Controls.Add(LblCodigo, 1, 0);
+            tableLayoutPanelFiltros.Controls.Add(TxtFiltroCodigo, 2, 0);
+            tableLayoutPanelFiltros.Controls.Add(LblDescripcion, 3, 0);
+            tableLayoutPanelFiltros.Controls.Add(TxtFiltroDescripcion, 4, 0);
+            tableLayoutPanelFiltros.Controls.Add(LblProveedor, 1, 1);
+            tableLayoutPanelFiltros.Controls.Add(CmbFiltroProveedor, 2, 1);
+            tableLayoutPanelFiltros.Controls.Add(LblEnVenta, 3, 1);
+            tableLayoutPanelFiltros.Controls.Add(CmbFiltroEnVenta, 4, 1);
+            tableLayoutPanelFiltros.Dock = DockStyle.Fill;
+            tableLayoutPanelFiltros.Location = new Point(8, 8);
+            tableLayoutPanelFiltros.Name = "tableLayoutPanelFiltros";
+            tableLayoutPanelFiltros.RowCount = 2;
+            tableLayoutPanelFiltros.RowStyles.Add(new RowStyle());
+            tableLayoutPanelFiltros.RowStyles.Add(new RowStyle());
+            tableLayoutPanelFiltros.Size = new Size(782, 93);
+            tableLayoutPanelFiltros.TabIndex = 0;
+            // 
+            // LblCodigo
+            // 
+            LblCodigo.Dock = DockStyle.Fill;
+            LblCodigo.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            LblCodigo.Location = new Point(23, 0);
+            LblCodigo.Name = "LblCodigo";
+            LblCodigo.Size = new Size(92, 35);
+            LblCodigo.TabIndex = 0;
+            LblCodigo.Text = "Código:";
+            LblCodigo.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // TxtFiltroCodigo
+            // 
+            TxtFiltroCodigo.Dock = DockStyle.Fill;
+            TxtFiltroCodigo.Font = new Font("Segoe UI", 12F);
+            TxtFiltroCodigo.Location = new Point(121, 3);
+            TxtFiltroCodigo.Name = "TxtFiltroCodigo";
+            TxtFiltroCodigo.Size = new Size(263, 29);
+            TxtFiltroCodigo.TabIndex = 1;
+            TxtFiltroCodigo.TextChanged += Filtros_TextChanged;
+            // 
+            // LblDescripcion
+            // 
+            LblDescripcion.Dock = DockStyle.Fill;
+            LblDescripcion.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            LblDescripcion.Location = new Point(390, 0);
+            LblDescripcion.Name = "LblDescripcion";
+            LblDescripcion.Size = new Size(100, 35);
+            LblDescripcion.TabIndex = 2;
+            LblDescripcion.Text = "Descripción:";
+            LblDescripcion.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // TxtFiltroDescripcion
+            // 
+            TxtFiltroDescripcion.Dock = DockStyle.Fill;
+            TxtFiltroDescripcion.Font = new Font("Segoe UI", 12F);
+            TxtFiltroDescripcion.Location = new Point(496, 3);
+            TxtFiltroDescripcion.Name = "TxtFiltroDescripcion";
+            TxtFiltroDescripcion.Size = new Size(263, 29);
+            TxtFiltroDescripcion.TabIndex = 3;
+            TxtFiltroDescripcion.TextChanged += Filtros_TextChanged;
+            // 
+            // LblProveedor
+            // 
+            LblProveedor.Dock = DockStyle.Fill;
+            LblProveedor.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            LblProveedor.Location = new Point(23, 35);
+            LblProveedor.Name = "LblProveedor";
+            LblProveedor.Size = new Size(92, 58);
+            LblProveedor.TabIndex = 4;
+            LblProveedor.Text = "Proveedor:";
+            LblProveedor.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // CmbFiltroProveedor
+            // 
+            CmbFiltroProveedor.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            CmbFiltroProveedor.DropDownStyle = ComboBoxStyle.DropDownList;
+            CmbFiltroProveedor.Font = new Font("Segoe UI", 12F);
+            CmbFiltroProveedor.Location = new Point(121, 49);
+            CmbFiltroProveedor.Name = "CmbFiltroProveedor";
+            CmbFiltroProveedor.Size = new Size(263, 29);
+            CmbFiltroProveedor.TabIndex = 5;
+            CmbFiltroProveedor.SelectedIndexChanged += Filtros_TextChanged;
+            // 
+            // LblEnVenta
+            // 
+            LblEnVenta.Dock = DockStyle.Fill;
+            LblEnVenta.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            LblEnVenta.Location = new Point(390, 35);
+            LblEnVenta.Name = "LblEnVenta";
+            LblEnVenta.Size = new Size(100, 58);
+            LblEnVenta.TabIndex = 6;
+            LblEnVenta.Text = "En Venta:";
+            LblEnVenta.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // CmbFiltroEnVenta
+            // 
+            CmbFiltroEnVenta.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            CmbFiltroEnVenta.DropDownStyle = ComboBoxStyle.DropDownList;
+            CmbFiltroEnVenta.Font = new Font("Segoe UI", 12F);
+            CmbFiltroEnVenta.Items.AddRange(new object[] { "Todos", "Sí", "No" });
+            CmbFiltroEnVenta.Location = new Point(496, 49);
+            CmbFiltroEnVenta.Name = "CmbFiltroEnVenta";
+            CmbFiltroEnVenta.Size = new Size(263, 29);
+            CmbFiltroEnVenta.TabIndex = 7;
+            CmbFiltroEnVenta.SelectedIndexChanged += Filtros_TextChanged;
             // 
             // PanelLista
             // 
             PanelLista.BackColor = Color.FromArgb(218, 218, 220);
             PanelLista.Controls.Add(tableLayoutPanel1);
             PanelLista.Dock = DockStyle.Fill;
-            PanelLista.Location = new Point(3, 19);
+            PanelLista.Location = new Point(3, 134);
             PanelLista.Name = "PanelLista";
             PanelLista.Padding = new Padding(0, 16, 0, 16);
-            PanelLista.Size = new Size(315, 539);
+            PanelLista.Size = new Size(315, 424);
             PanelLista.TabIndex = 3;
             // 
             // tableLayoutPanel1
@@ -116,7 +243,6 @@
             tableLayoutPanel1.ColumnCount = 1;
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
             tableLayoutPanel1.Controls.Add(LblLista, 0, 0);
-            tableLayoutPanel1.Controls.Add(PanelFiltros, 0, 1);
             tableLayoutPanel1.Controls.Add(ListBArticulos, 0, 2);
             tableLayoutPanel1.Dock = DockStyle.Fill;
             tableLayoutPanel1.Location = new Point(0, 16);
@@ -125,7 +251,7 @@
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 32F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle());
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanel1.Size = new Size(315, 507);
+            tableLayoutPanel1.Size = new Size(315, 392);
             tableLayoutPanel1.TabIndex = 2;
             // 
             // LblLista
@@ -140,132 +266,6 @@
             LblLista.Text = "Lista de Productos";
             LblLista.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // PanelFiltros
-            // 
-            PanelFiltros.BackColor = Color.FromArgb(240, 240, 240);
-            PanelFiltros.Controls.Add(tableLayoutPanelFiltros);
-            PanelFiltros.Dock = DockStyle.Top;
-            PanelFiltros.Location = new Point(3, 35);
-            PanelFiltros.Name = "PanelFiltros";
-            PanelFiltros.Padding = new Padding(8);
-            PanelFiltros.Size = new Size(309, 100);
-            PanelFiltros.TabIndex = 2;
-            // 
-            // tableLayoutPanelFiltros
-            // 
-            tableLayoutPanelFiltros.ColumnCount = 4;
-            tableLayoutPanelFiltros.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
-            tableLayoutPanelFiltros.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
-            tableLayoutPanelFiltros.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
-            tableLayoutPanelFiltros.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
-            tableLayoutPanelFiltros.Controls.Add(LblCodigo, 0, 0);
-            tableLayoutPanelFiltros.Controls.Add(TxtFiltroCodigo, 1, 0);
-            tableLayoutPanelFiltros.Controls.Add(LblDescripcion, 2, 0);
-            tableLayoutPanelFiltros.Controls.Add(TxtFiltroDescripcion, 3, 0);
-            tableLayoutPanelFiltros.Controls.Add(LblProveedor, 0, 1);
-            tableLayoutPanelFiltros.Controls.Add(CmbFiltroProveedor, 1, 1);
-            tableLayoutPanelFiltros.Controls.Add(LblEnVenta, 2, 1);
-            tableLayoutPanelFiltros.Controls.Add(CmbFiltroEnVenta, 3, 1);
-            tableLayoutPanelFiltros.Dock = DockStyle.Fill;
-            tableLayoutPanelFiltros.Location = new Point(8, 8);
-            tableLayoutPanelFiltros.Name = "tableLayoutPanelFiltros";
-            tableLayoutPanelFiltros.RowCount = 2;
-            tableLayoutPanelFiltros.RowStyles.Add(new RowStyle());
-            tableLayoutPanelFiltros.RowStyles.Add(new RowStyle());
-            tableLayoutPanelFiltros.Size = new Size(293, 84);
-            tableLayoutPanelFiltros.TabIndex = 0;
-            // 
-            // LblCodigo
-            // 
-            LblCodigo.AutoSize = true;
-            LblCodigo.Dock = DockStyle.Fill;
-            LblCodigo.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            LblCodigo.Location = new Point(3, 0);
-            LblCodigo.Name = "LblCodigo";
-            LblCodigo.Size = new Size(67, 30);
-            LblCodigo.TabIndex = 0;
-            LblCodigo.Text = "Código:";
-            LblCodigo.TextAlign = ContentAlignment.MiddleLeft;
-            // 
-            // TxtFiltroCodigo
-            // 
-            TxtFiltroCodigo.Dock = DockStyle.Fill;
-            TxtFiltroCodigo.Font = new Font("Segoe UI", 9F);
-            TxtFiltroCodigo.Location = new Point(76, 3);
-            TxtFiltroCodigo.Name = "TxtFiltroCodigo";
-            TxtFiltroCodigo.Size = new Size(67, 23);
-            TxtFiltroCodigo.TabIndex = 1;
-            TxtFiltroCodigo.TextChanged += Filtros_TextChanged;
-            // 
-            // LblDescripcion
-            // 
-            LblDescripcion.AutoSize = true;
-            LblDescripcion.Dock = DockStyle.Fill;
-            LblDescripcion.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            LblDescripcion.Location = new Point(149, 0);
-            LblDescripcion.Name = "LblDescripcion";
-            LblDescripcion.Size = new Size(67, 30);
-            LblDescripcion.TabIndex = 2;
-            LblDescripcion.Text = "Descripción:";
-            LblDescripcion.TextAlign = ContentAlignment.MiddleLeft;
-            // 
-            // TxtFiltroDescripcion
-            // 
-            TxtFiltroDescripcion.Dock = DockStyle.Fill;
-            TxtFiltroDescripcion.Font = new Font("Segoe UI", 9F);
-            TxtFiltroDescripcion.Location = new Point(222, 3);
-            TxtFiltroDescripcion.Name = "TxtFiltroDescripcion";
-            TxtFiltroDescripcion.Size = new Size(68, 23);
-            TxtFiltroDescripcion.TabIndex = 3;
-            TxtFiltroDescripcion.TextChanged += Filtros_TextChanged;
-            // 
-            // LblProveedor
-            // 
-            LblProveedor.AutoSize = true;
-            LblProveedor.Dock = DockStyle.Fill;
-            LblProveedor.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            LblProveedor.Location = new Point(3, 30);
-            LblProveedor.Name = "LblProveedor";
-            LblProveedor.Size = new Size(67, 54);
-            LblProveedor.TabIndex = 4;
-            LblProveedor.Text = "Proveedor:";
-            LblProveedor.TextAlign = ContentAlignment.MiddleLeft;
-            // 
-            // CmbFiltroProveedor
-            // 
-            CmbFiltroProveedor.Dock = DockStyle.Fill;
-            CmbFiltroProveedor.DropDownStyle = ComboBoxStyle.DropDownList;
-            CmbFiltroProveedor.Font = new Font("Segoe UI", 9F);
-            CmbFiltroProveedor.Location = new Point(76, 33);
-            CmbFiltroProveedor.Name = "CmbFiltroProveedor";
-            CmbFiltroProveedor.Size = new Size(67, 23);
-            CmbFiltroProveedor.TabIndex = 5;
-            CmbFiltroProveedor.SelectedIndexChanged += Filtros_TextChanged;
-            // 
-            // LblEnVenta
-            // 
-            LblEnVenta.AutoSize = true;
-            LblEnVenta.Dock = DockStyle.Fill;
-            LblEnVenta.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            LblEnVenta.Location = new Point(149, 30);
-            LblEnVenta.Name = "LblEnVenta";
-            LblEnVenta.Size = new Size(67, 54);
-            LblEnVenta.TabIndex = 6;
-            LblEnVenta.Text = "En Venta:";
-            LblEnVenta.TextAlign = ContentAlignment.MiddleLeft;
-            // 
-            // CmbFiltroEnVenta
-            // 
-            CmbFiltroEnVenta.Dock = DockStyle.Fill;
-            CmbFiltroEnVenta.DropDownStyle = ComboBoxStyle.DropDownList;
-            CmbFiltroEnVenta.Font = new Font("Segoe UI", 9F);
-            CmbFiltroEnVenta.Items.AddRange(new object[] { "Todos", "Sí", "No" });
-            CmbFiltroEnVenta.Location = new Point(222, 33);
-            CmbFiltroEnVenta.Name = "CmbFiltroEnVenta";
-            CmbFiltroEnVenta.Size = new Size(68, 23);
-            CmbFiltroEnVenta.TabIndex = 7;
-            CmbFiltroEnVenta.SelectedIndexChanged += Filtros_TextChanged;
-            // 
             // ListBArticulos
             // 
             ListBArticulos.AllowUserToAddRows = false;
@@ -275,12 +275,12 @@
             ListBArticulos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             ListBArticulos.Columns.AddRange(new DataGridViewColumn[] { Cantidad, Descripcion });
             ListBArticulos.Dock = DockStyle.Fill;
-            ListBArticulos.Location = new Point(3, 141);
+            ListBArticulos.Location = new Point(3, 35);
             ListBArticulos.Name = "ListBArticulos";
             ListBArticulos.ReadOnly = true;
             ListBArticulos.RowHeadersVisible = false;
             ListBArticulos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            ListBArticulos.Size = new Size(309, 363);
+            ListBArticulos.Size = new Size(309, 354);
             ListBArticulos.TabIndex = 2;
             ListBArticulos.DataError += ListBArticulos_DataError;
             ListBArticulos.SelectionChanged += ListBArticulos_SelectedIndexChanged;
@@ -306,9 +306,9 @@
             // 
             PanelMedio.Controls.Add(tableLayoutPanel4);
             PanelMedio.Dock = DockStyle.Fill;
-            PanelMedio.Location = new Point(324, 19);
+            PanelMedio.Location = new Point(324, 134);
             PanelMedio.Name = "PanelMedio";
-            PanelMedio.Size = new Size(477, 539);
+            PanelMedio.Size = new Size(477, 424);
             PanelMedio.TabIndex = 2;
             // 
             // tableLayoutPanel4
@@ -323,7 +323,7 @@
             tableLayoutPanel4.RowCount = 1;
             tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
             tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            tableLayoutPanel4.Size = new Size(477, 539);
+            tableLayoutPanel4.Size = new Size(477, 424);
             tableLayoutPanel4.TabIndex = 2;
             // 
             // groupBox1
@@ -332,7 +332,7 @@
             groupBox1.Controls.Add(TLPForm);
             groupBox1.Font = new Font("Segoe UI Black", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             groupBox1.ForeColor = Color.FromArgb(7, 100, 147);
-            groupBox1.Location = new Point(3, 61);
+            groupBox1.Location = new Point(3, 3);
             groupBox1.Name = "groupBox1";
             groupBox1.Size = new Size(471, 417);
             groupBox1.TabIndex = 16;
@@ -648,11 +648,11 @@
             Load += UCConsultaArticulos_Load;
             VisibleChanged += UCConsultaArticulos_VisibleChanged;
             tableLayoutPanel3.ResumeLayout(false);
-            PanelLista.ResumeLayout(false);
-            tableLayoutPanel1.ResumeLayout(false);
             PanelFiltros.ResumeLayout(false);
             tableLayoutPanelFiltros.ResumeLayout(false);
             tableLayoutPanelFiltros.PerformLayout();
+            PanelLista.ResumeLayout(false);
+            tableLayoutPanel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)ListBArticulos).EndInit();
             PanelMedio.ResumeLayout(false);
             tableLayoutPanel4.ResumeLayout(false);
