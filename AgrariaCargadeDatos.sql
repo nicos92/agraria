@@ -12,6 +12,7 @@ INSERT INTO Entorno (Nombre, Id_TipoEntorno) VALUES
 ('Huerta Escolar', 3),
 ('Laboratorio Urbano', 2);
 
+/*
 -- Poblar Usuarios_Tipo
 INSERT INTO Usuarios_Tipo (Tipo, Descripcion) VALUES
 (1, 'Director'),
@@ -25,7 +26,7 @@ INSERT INTO Preguntas_Seguridad (Pregunta) VALUES
 ('¿Nombre de tu primera mascota?'),
 ('¿Ciudad donde naciste?'),
 ('¿Comida favorita?');
-
+*/
 -- Poblar Usuarios
 INSERT INTO Usuarios (DNI, Nombre, Apellido, Tel, Mail, Contra, Respues, Id_Pregunta, Id_Tipo) VALUES
 ('12345678', 'Lucía', 'Gómez', '1122334455', 'lucia@mail.com', '@Pass123', 'Firulais', 1, 2),

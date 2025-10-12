@@ -217,7 +217,6 @@
             BtnReporte.Text = "Reporte";
             BtnReporte.TextImageRelation = TextImageRelation.ImageBeforeText;
             BtnReporte.UseVisualStyleBackColor = true;
-            BtnReporte.Visible = false;
             BtnReporte.Click += BtnActividad_Click;
             // 
             // BtnVenta
