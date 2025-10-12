@@ -4,7 +4,7 @@ using Agraria.Utilidades;
 
 namespace Agraria.Contrato.Repositorios
 {
-    public interface IArticulosRepository
+    public interface IProductosRepository
     {
         Task<Result<List<Productos>>> GetAll();
         Result<Productos> GetById(int id);
@@ -12,5 +12,14 @@ namespace Agraria.Contrato.Repositorios
         Task<Result<Productos>> Update(Productos producto);
         Result<bool> Delete(int id);
         Task<Result<int>> GetMaxCodArt();
+        Task<Result<List<ProductosMasVendidos>>> GetProductosMasVendidos(int top);
+    }
+    
+    public class ProductosMasVendidos
+    {
+        public string? Cod_Producto { get; set; }
+        public string? Producto_Desc { get; set; }
+        public decimal CantidadVendida { get; set; }
+        public decimal TotalVendido { get; set; }
     }
 }

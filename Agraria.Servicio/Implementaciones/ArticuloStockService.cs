@@ -36,5 +36,10 @@ namespace Agraria.Servicio.Implementaciones
         {
             return await _repo.Update(articulos, stock);
         }
+
+        public async Task<Result<List<ProductoStockConNombres>>> GetAllArticuloStockConNombres()
+        {
+            return await _repo.GetAllArticuloStockConNombres();
+        }
     }
 }

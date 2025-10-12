@@ -11,6 +11,7 @@
     <Compile Remove="Form1.Designer.cs" />
     <Compile Remove="Proveedores\ucConsultaProveedores.cs" />
     <Compile Remove="Proveedores\ucConsultaProveedores.Designer.cs" />
+    <Compile Remove="Reporte\DateTimePickerForm.cs" />
     <Compile Remove="Usuarios\ucConsultaUsuarios.cs" />
     <Compile Remove="Usuarios\ucConsultaUsuarios.Designer.cs" />
   </ItemGroup>

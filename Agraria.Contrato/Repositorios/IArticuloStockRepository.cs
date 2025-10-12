@@ -12,6 +12,7 @@ namespace Agraria.Contrato.Repositorios
     {
         Task<Result<(List<Productos> articulos, List<Stock> stock)>> GetAll();
         Task<Result<List<ProductoStock>>> GetAllArticuloStock();
+        Task<Result<List<ProductoStockConNombres>>> GetAllArticuloStockConNombres();
 
         Task<Result<bool>> Add(Productos articulo, Stock stock);
 

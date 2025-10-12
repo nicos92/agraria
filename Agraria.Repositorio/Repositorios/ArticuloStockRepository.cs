@@ -319,5 +319,61 @@ namespace Agraria.Repositorio.Repositorios
             }
 
         }
+
+        public async Task<Result<List<ProductoStockConNombres>>> GetAllArticuloStockConNombres()
+        {
+            var listaArticulos = new List<ProductoStockConNombres>();
+
+            using (SqlConnection conn = Conexion())
+            {
+                try
+                {
+                    await conn.OpenAsync();
+
+                    string sql = @"
+                        SELECT 
+                            a.Id_Producto, 
+                            a.Cod_Producto, 
+                            a.Producto_Desc, 
+                            te.Descripcion AS Area,
+                            e.Nombre AS Entorno,
+                            p.Proveedor AS Proveedor,
+                            s.cantidad, 
+                            s.costo, 
+                            s.ganancia 
+                        FROM Productos a 
+                        INNER JOIN Stock s ON a.Cod_Producto = s.Cod_Producto
+                        INNER JOIN TipoEntorno te ON a.Id_Tipoentorno = te.Id_TipoEntorno
+                        INNER JOIN Entorno e ON a.Id_Entorno = e.Id_Entorno
+                        INNER JOIN Proveedores p ON a.Id_Proveedor = p.Id_Proveedor";
+
+                    using SqlCommand cmd = new(sql, conn);
+                    using DbDataReader reader = await cmd.ExecuteReaderAsync();
+                    while (await reader.ReadAsync())
+                    {
+                        var articulo = new ProductoStockConNombres
+                        (
+                            Id_Producto: reader.GetInt32(0),
+                            Cod_Producto: reader.GetString(1),
+                            Producto_Desc: reader.GetString(2),
+                            Nombre_TipoEntorno: reader.IsDBNull(3) ? null : reader.GetString(3),
+                            Nombre_Entorno: reader.IsDBNull(4) ? null : reader.GetString(4),
+                            Nombre_Proveedor: reader.IsDBNull(5) ? null : reader.GetString(5),
+                            Cantidad: reader.GetDecimal(6),
+                            Costo: reader.GetDecimal(7),
+                            Ganancia: reader.GetDecimal(8)
+                        );
+                        listaArticulos.Add(articulo);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error inesperado al obtener datos: {ex.Message}");
+                    return Result<List<ProductoStockConNombres>>.Failure("No se pudieron obtener las listas con nombres");
+                }
+            }
+
+            return Result<List<ProductoStockConNombres>>.Success(listaArticulos);
+        }
     }
 }

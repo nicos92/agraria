@@ -12,7 +12,7 @@ using Agraria.Utilidades;
 namespace Agraria.Repositorio.Repositorios
 {
     [SupportedOSPlatform("windows")]
-    public class ProductoRepository : BaseRepositorio, IArticulosRepository
+    public class ProductoRepository : BaseRepositorio, IProductosRepository
     {
         public Result<Productos> Add(Productos articulo)
         {
@@ -98,6 +98,55 @@ namespace Agraria.Repositorio.Repositorios
             {
 
                 return Result<List<Productos>>.Failure($"Error al obtener los artículos: {ex.Message}");
+            }
+        }
+
+        public async Task<Result<List<ProductosMasVendidos>>> GetProductosMasVendidos(int top)
+        {
+            try
+            {
+                var productos = new List<ProductosMasVendidos>();
+                using var conn = Conexion();
+                await conn.OpenAsync();
+
+                // Query to get top selling products
+                // Join Productos with H_Ventas_Detalle to get sales information
+                string sql = @"
+                    SELECT TOP (@top)
+                        p.Cod_Producto,
+                        p.Producto_Desc,
+                        SUM(vd.Cant) as CantidadVendida,
+                        SUM(vd.P_X_Cant) as TotalVendido
+                    FROM Productos p
+                    INNER JOIN H_Ventas_Detalle vd ON p.Cod_Producto = vd.Cod_Art
+                    INNER JOIN H_Ventas v ON vd.Id_Remito = v.Id_Remito
+                    GROUP BY p.Cod_Producto, p.Producto_Desc
+                    ORDER BY SUM(vd.Cant) DESC";
+
+                using var cmd = new SqlCommand(sql, conn);
+                cmd.Parameters.AddWithValue("@top", top);
+
+                using var reader = await cmd.ExecuteReaderAsync();
+                while (await reader.ReadAsync())
+                {
+                    productos.Add(new ProductosMasVendidos
+                    {
+                        Cod_Producto = reader.IsDBNull(0) ? null : reader.GetString(0),
+                        Producto_Desc = reader.IsDBNull(1) ? null : reader.GetString(1),
+                        CantidadVendida = reader.GetDecimal(2),
+                        TotalVendido = reader.GetDecimal(3)
+                    });
+                }
+
+                return Result<List<ProductosMasVendidos>>.Success(productos);
+            }
+            catch (SqlException ex)
+            {
+                return Result<List<ProductosMasVendidos>>.Failure($"Error al obtener productos más vendidos: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                return Result<List<ProductosMasVendidos>>.Failure($"Error inesperado al obtener productos más vendidos: {ex.Message}");
             }
         }
 

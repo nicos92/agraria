@@ -13,5 +13,12 @@ namespace Agraria.Contrato.Repositorios
     {
         Task<Result<bool>> Add(HVentas hVentas, List<ProductoResumen> productoResumen);
         Task<Result<(List<HVentas> ventas, List<HVentasDetalle> detalles)>> GetAll();
+
+        // Report methods
+
+        Task<Result<List<HVentas>>> GetVentasGrandes(int top = 10);
     }
+    
+    
+   
 }

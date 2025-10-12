@@ -73,7 +73,7 @@
             btnHojaVida.TabIndex = 10;
             btnHojaVida.Text = "Reporte de Hojas de Vida";
             btnHojaVida.UseVisualStyleBackColor = true;
-            btnHojaVida.Click += btnHojaVida_Click;
+            btnHojaVida.Click += BtnHojaVida_Click;
             // 
             // btnEntornoFormativo
             // 
@@ -83,7 +83,7 @@
             btnEntornoFormativo.TabIndex = 9;
             btnEntornoFormativo.Text = "Reporte de Entornos Formativos";
             btnEntornoFormativo.UseVisualStyleBackColor = true;
-            btnEntornoFormativo.Click += btnEntornoFormativo_Click;
+            btnEntornoFormativo.Click += BtnEntornoFormativo_Click;
             // 
             // btnEntorno
             // 
@@ -93,7 +93,7 @@
             btnEntorno.TabIndex = 8;
             btnEntorno.Text = "Reporte de Entornos";
             btnEntorno.UseVisualStyleBackColor = true;
-            btnEntorno.Click += btnEntorno_Click;
+            btnEntorno.Click += BtnEntorno_Click;
             // 
             // btnHerramientas
             // 
@@ -103,7 +103,7 @@
             btnHerramientas.TabIndex = 7;
             btnHerramientas.Text = "Reporte de Herramientas";
             btnHerramientas.UseVisualStyleBackColor = true;
-            btnHerramientas.Click += btnHerramientas_Click;
+            btnHerramientas.Click += BtnHerramientas_Click;
             // 
             // btnProveedores
             // 
@@ -113,7 +113,7 @@
             btnProveedores.TabIndex = 6;
             btnProveedores.Text = "Reporte de Proveedores";
             btnProveedores.UseVisualStyleBackColor = true;
-            btnProveedores.Click += btnProveedores_Click;
+            btnProveedores.Click += BtnProveedores_Click;
             // 
             // btnUsuarios
             // 
@@ -123,7 +123,7 @@
             btnUsuarios.TabIndex = 5;
             btnUsuarios.Text = "Reporte de Usuarios";
             btnUsuarios.UseVisualStyleBackColor = true;
-            btnUsuarios.Click += btnUsuarios_Click;
+            btnUsuarios.Click += BtnUsuarios_Click;
             // 
             // btnProductos
             // 
@@ -133,7 +133,7 @@
             btnProductos.TabIndex = 4;
             btnProductos.Text = "Reporte de Productos";
             btnProductos.UseVisualStyleBackColor = true;
-            btnProductos.Click += btnProductos_Click;
+            btnProductos.Click += BtnProductos_Click;
             // 
             // btnActividades
             // 
@@ -143,7 +143,7 @@
             btnActividades.TabIndex = 3;
             btnActividades.Text = "Reporte de Actividades";
             btnActividades.UseVisualStyleBackColor = true;
-            btnActividades.Click += btnActividades_Click;
+            btnActividades.Click += BtnActividades_Click;
             // 
             // btnStock
             // 
@@ -153,7 +153,7 @@
             btnStock.TabIndex = 2;
             btnStock.Text = "Stock Actual";
             btnStock.UseVisualStyleBackColor = true;
-            btnStock.Click += btnStock_Click;
+            btnStock.Click += BtnStock_Click;
             // 
             // btnVentasGrandes
             // 
@@ -163,7 +163,7 @@
             btnVentasGrandes.TabIndex = 1;
             btnVentasGrandes.Text = "Ventas Grandes";
             btnVentasGrandes.UseVisualStyleBackColor = true;
-            btnVentasGrandes.Click += btnVentasGrandes_Click;
+            btnVentasGrandes.Click += BtnVentasGrandes_Click;
             // 
             // btnMasVendidos
             // 
@@ -173,7 +173,7 @@
             btnMasVendidos.TabIndex = 0;
             btnMasVendidos.Text = "Artículos más vendidos";
             btnMasVendidos.UseVisualStyleBackColor = true;
-            btnMasVendidos.Click += btnMasVendidos_Click;
+            btnMasVendidos.Click += BtnMasVendidos_Click;
             // 
             // dgvReporte
             // 

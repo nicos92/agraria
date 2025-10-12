@@ -24,11 +24,11 @@ namespace Agraria.Repositorio.Repositorios
                 using SqlConnection conn = Conexion();
                 await conn.OpenAsync();
 
-                 transaction =  (SqlTransaction) await conn.BeginTransactionAsync(); 
+                transaction = (SqlTransaction)await conn.BeginTransactionAsync();
 
 
                 string sqlArticulos = "INSERT INTO H_Ventas (Cod_Usuario, subtotal, descu, total, descripcion) VALUES (@cod_usuario, @subtotal, @descu, @total, @descripcion)";
-                using (SqlCommand cmdArticulos = new(sqlArticulos, conn, transaction)) 
+                using (SqlCommand cmdArticulos = new(sqlArticulos, conn, transaction))
                 {
 
                     cmdArticulos.Parameters.AddWithValue("@cod_usuario", hVentas.Cod_Usuario);
@@ -74,14 +74,14 @@ namespace Agraria.Repositorio.Repositorios
                     oleDbCommand1.Parameters.AddWithValue("@cod_art", item.Cod_Articulo);
                     await oleDbCommand1.ExecuteNonQueryAsync();
                 }
-               
+
 
                 await transaction.CommitAsync();
                 return Result<bool>.Success(true);
             }
             catch (SqlException ex)
             {
-                 transaction?.RollbackAsync(); 
+                transaction?.RollbackAsync();
                 return Result<bool>.Failure($"Error sqlserver al insertar la venta y los detalles: {ex.Message}");
             }
             catch (Exception ex)
@@ -137,7 +137,7 @@ namespace Agraria.Repositorio.Repositorios
                             P_Unit = reader.GetDecimal(4),
                             Cant = reader.GetInt32(5),
                             P_X_Cant = reader.GetDecimal(6),
-                            
+
                         });
                     }
                 }
@@ -151,6 +151,54 @@ namespace Agraria.Repositorio.Repositorios
             catch (Exception ex)
             {
                 return Result<(List<HVentas> ventas, List<HVentasDetalle> detalles)>.Failure($"Error inesperado al obtener las ventas: {ex.Message}");
+            }
+        }
+
+
+      
+
+        public async Task<Result<List<HVentas>>> GetVentasGrandes(int top = 10)
+        {
+            try
+            {
+                var ventas = new List<HVentas>();
+                using var conn = Conexion();
+                await conn.OpenAsync();
+
+                // Query to get top sales by total amount
+                string sql = @"
+                    SELECT TOP (@top)
+                        Id_Remito, Cod_Usuario, Fecha_Hora, Subtotal, Descu, Total, Descripcion
+                    FROM H_Ventas
+                    ORDER BY Total DESC";
+
+                using var cmd = new SqlCommand(sql, conn);
+                cmd.Parameters.AddWithValue("@top", top);
+
+                using var reader = await cmd.ExecuteReaderAsync();
+                while (await reader.ReadAsync())
+                {
+                    ventas.Add(new HVentas
+                    {
+                        Id_Remito = reader.GetInt32(0),
+                        Cod_Usuario = reader.GetInt32(1),
+                        Fecha_Hora = reader.GetDateTime(2),
+                        Subtotal = reader.GetDecimal(3),
+                        Descu = reader.GetDecimal(4),
+                        Total = reader.GetDecimal(5),
+                        Descripcion = reader.IsDBNull(6) ? null : reader.GetString(6)
+                    });
+                }
+
+                return Result<List<HVentas>>.Success(ventas);
+            }
+            catch (SqlException ex)
+            {
+                return Result<List<HVentas>>.Failure($"Error al obtener ventas grandes: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                return Result<List<HVentas>>.Failure($"Error inesperado al obtener ventas grandes: {ex.Message}");
             }
         }
     }

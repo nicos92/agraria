@@ -20,11 +20,13 @@ namespace Agraria.UI.Reporte
         private readonly IProductoStockService? _productoStockService;
         private readonly IEntornoService? _entornoService;
         private readonly IEntornoFormativoService? _entornoFormativoService;
-        private readonly IUsuariosService _usuariosService;
-        private readonly IProveedoresService _proveedorService;
-        private readonly IHojadeVidaService _hojadeVidaService;
-        private readonly IActividadService _actividadService;
-        private readonly IHerramientasService _herramientasService;
+        private readonly IUsuariosService? _usuariosService;
+        private readonly IProveedoresService? _proveedorService;
+        private readonly IHojadeVidaService? _hojadeVidaService;
+        private readonly IActividadService? _actividadService;
+        private readonly IHerramientasService? _herramientasService;
+        private readonly IVentaService? _ventaService;
+        private readonly IProductoService? _productosService;
 
         public FormReporte()
         {
@@ -39,7 +41,9 @@ namespace Agraria.UI.Reporte
             IUsuariosService? usuariosService = null,
             IProveedoresService? proveedorService = null,
             IHojadeVidaService? hojadeVidaService = null,
-            IActividadService? actividadService = null)
+            IActividadService? actividadService = null,
+            IVentaService? ventaService = null,
+            IProductoService? productosService = null)
         {
             InitializeComponent();
             _productoStockService = articuloStockService;
@@ -49,27 +53,83 @@ namespace Agraria.UI.Reporte
             _proveedorService = proveedorService;
             _hojadeVidaService = hojadeVidaService;
             _actividadService = actividadService;
+            _ventaService = ventaService;
+            _productosService = productosService;
+
         }
 
-        private void btnMasVendidos_Click(object sender, EventArgs e)
+        private async void BtnMasVendidos_Click(object sender, EventArgs e)
         {
-            // TODO: Implementar la lógica para cargar el reporte de artículos más vendidos
-            
+            try
+            {
+                var dt = new DataTable();
+                dt.Columns.Add("Código Artículo");
+                dt.Columns.Add("Descripción");
+                dt.Columns.Add("Cantidad Vendida");
+                dt.Columns.Add("Total Vendido");
+
+                // In a real implementation, this would come from _ventaService.GetArticulosMasVendidos()
+                var resultado = _ventaService != null ? await _productosService.GetArticulosMasVendidos(10) : null;
+                var articulosMasVendidos = resultado?.Value ?? [];
+
+                foreach (var articulo in articulosMasVendidos)
+                {
+                    dt.Rows.Add(
+                        articulo.Cod_Producto,
+                        articulo.CantidadVendida,
+                        articulo.TotalVendido,
+                        articulo.Producto_Desc);
+                }
+
+                dgvReporte.DataSource = dt;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al cargar el reporte de artículos más vendidos: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
-        private void btnVentasGrandes_Click(object sender, EventArgs e)
+        private async void BtnVentasGrandes_Click(object sender, EventArgs e)
         {
-            // TODO: Implementar la lógica para cargar el reporte de ventas por período
-           
+            try
+            {
+               
+
+                var dt = new DataTable();
+                dt.Columns.Add("ID Remito");
+                dt.Columns.Add("Fecha y Hora");
+                dt.Columns.Add("Total");
+                dt.Columns.Add("Descripción");
+
+                // In a real implementation, this would come from _ventaService.GetVentasGrandes()
+                var resultado = _ventaService != null ? await _ventaService.GetVentasGrandes( 10) : null;
+                var ventasGrandes = resultado?.Value ?? [];
+
+                foreach (var venta in ventasGrandes)
+                {
+                    dt.Rows.Add(
+                        venta.Id_Remito,
+                        venta.Fecha_Hora.ToString("yyyy-MM-dd HH:mm"),
+                        venta.Total,
+                        venta.Descripcion
+                    );
+                }
+
+                dgvReporte.DataSource = dt;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al cargar el reporte de ventas grandes: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
-        private void btnStock_Click(object sender, EventArgs e)
+        private void BtnStock_Click(object sender, EventArgs e)
         {
             // TODO: Implementar la lógica para cargar el reporte de stock actual
            
         }
 
-        private async void btnActividades_Click(object sender, EventArgs e)
+        private async void BtnActividades_Click(object sender, EventArgs e)
         {
             try
             {
@@ -83,7 +143,7 @@ namespace Agraria.UI.Reporte
 
                 // In a real implementation, this would come from _actividadService.GetAll()
                 var resultado = _actividadService != null ? await _actividadService.GetAll() : null;
-                var actividades = resultado?.Value ?? new List<Modelo.Entidades.Actividad>();
+                var actividades = resultado?.Value ?? [];
 
                 foreach (var actividad in actividades)
                 {
@@ -105,7 +165,7 @@ namespace Agraria.UI.Reporte
             }
         }
 
-        private async void btnProductos_Click(object sender, EventArgs e)
+        private async void BtnProductos_Click(object sender, EventArgs e)
         {
             try
             {
@@ -113,28 +173,29 @@ namespace Agraria.UI.Reporte
                 dt.Columns.Add("ID Producto");
                 dt.Columns.Add("Código Producto");
                 dt.Columns.Add("Descripción");
-                dt.Columns.Add("ID Área");
-                dt.Columns.Add("ID Entorno");
-                dt.Columns.Add("ID Proveedor");
-                dt.Columns.Add("Unidad de Medida");
+                dt.Columns.Add("Área");
+                dt.Columns.Add("Entorno");
+                dt.Columns.Add("Proveedor");
+                dt.Columns.Add("Ganancia");
+                dt.Columns.Add("Cantidad");
+                dt.Columns.Add("Costo");
 
                 // In a real implementation, this would come from _articuloStockService.GetAllProductos()
-                var resultado = _productoStockService != null ? await _productoStockService.GetAllArticuloStock() : null;
-                var productos = resultado?.Value ?? new List<ProductoStock>();
+                var resultado = _productoStockService != null ? await _productoStockService.GetAllArticuloStockConNombres() : null;
+                var productos = resultado?.Value ?? [];
 
                 foreach (var producto in productos)
                 {
                     dt.Rows.Add(
                         producto.Id_Producto,
                         producto.Cod_Producto,
-                        producto.Art_Desc,
-                        producto.Cod_TipoEntorno,
-                        producto.Cod_Entorno,
-                        producto.Id_Proveedor,
+                        producto.Producto_Desc,
+                        producto.Nombre_TipoEntorno,
+                        producto.Nombre_Entorno,
+                        producto.Nombre_Proveedor,
                         producto.Ganancia,
                         producto.Cantidad,
                         producto.Costo
-
                     );
                 }
 
@@ -146,7 +207,7 @@ namespace Agraria.UI.Reporte
             }
         }
 
-        private async void btnUsuarios_Click(object sender, EventArgs e)
+        private async void BtnUsuarios_Click(object sender, EventArgs e)
         {
             try
             {
@@ -158,11 +219,10 @@ namespace Agraria.UI.Reporte
                 dt.Columns.Add("Teléfono");
                 dt.Columns.Add("Email");
                 dt.Columns.Add("ID Tipo");
-                dt.Columns.Add("Descripción");
 
                 // In a real implementation, this would come from _usuariosService.GetAll()
                 var resultado = _usuariosService != null ? await _usuariosService.GetAll() : null;
-                var usuarios = resultado?.Value ?? new List<Modelo.Entidades.Usuarios>();
+                var usuarios = resultado?.Value ?? [];
 
                 foreach (var usuario in usuarios)
                 {
@@ -173,8 +233,7 @@ namespace Agraria.UI.Reporte
                         usuario.Apellido,
                         usuario.Tel,
                         usuario.Mail,
-                        usuario.Id_Tipo,
-                        usuario.Descripcion
+                        usuario.Id_Tipo
                     );
                 }
 
@@ -186,7 +245,7 @@ namespace Agraria.UI.Reporte
             }
         }
 
-        private async void btnProveedores_Click(object sender, EventArgs e)
+        private async void BtnProveedores_Click(object sender, EventArgs e)
         {
             try
             {
@@ -201,7 +260,7 @@ namespace Agraria.UI.Reporte
 
                 // In a real implementation, this would come from _proveedorService.GetAll()
                 var resultado = _proveedorService != null ? await _proveedorService.GetAll() : null;
-                var proveedores = resultado?.Value ?? new List<Modelo.Entidades.Proveedores>();
+                var proveedores = resultado?.Value ?? [];
 
                 foreach (var proveedor in proveedores)
                 {
@@ -224,7 +283,7 @@ namespace Agraria.UI.Reporte
             }
         }
 
-        private async void btnHerramientas_Click(object sender, EventArgs e)
+        private async void BtnHerramientas_Click(object sender, EventArgs e)
         {
             try
             {
@@ -239,16 +298,16 @@ namespace Agraria.UI.Reporte
                     await _herramientasService.GetAll() : 
                     null;
 
-                List<Herramientas> herramientas = resultado?.Value ?? new List<Herramientas>();
+                List<Herramientas> herramientas = resultado?.Value ?? [];
 
                 if (herramientas.Count == 0)
                 {
-              
-                    herramientas = new List<Herramientas>
-                    {
+
+                    herramientas =
+                    [
                         new Herramientas { Id_Herramienta = 1, Nombre = "Pala", Descripcion = "Pala de jardinería", Cantidad = 5 },
                         new Herramientas { Id_Herramienta = 2, Nombre = "Azada", Descripcion = "Azada para labranza", Cantidad = 3 }
-                    };
+                    ];
                 }
 
                 foreach (var herramienta in herramientas)
@@ -269,7 +328,7 @@ namespace Agraria.UI.Reporte
             }
         }
 
-        private async void btnEntorno_Click(object sender, EventArgs e)
+        private async void BtnEntorno_Click(object sender, EventArgs e)
         {
             try
             {
@@ -280,7 +339,7 @@ namespace Agraria.UI.Reporte
 
                 // In a real implementation, this would come from _entornoService.GetAll()
                 var resultado = _entornoService != null ? await _entornoService.GetAll() : null;
-                var entornos = resultado?.Value ?? new List<Entorno>();
+                var entornos = resultado?.Value ?? [];
 
                 foreach (var entorno in entornos)
                 {
@@ -299,7 +358,7 @@ namespace Agraria.UI.Reporte
             }
         }
 
-        private async void btnEntornoFormativo_Click(object sender, EventArgs e)
+        private async void BtnEntornoFormativo_Click(object sender, EventArgs e)
         {
             try
             {
@@ -343,7 +402,7 @@ namespace Agraria.UI.Reporte
             }
         }
 
-        private async void btnHojaVida_Click(object sender, EventArgs e)
+        private async void BtnHojaVida_Click(object sender, EventArgs e)
         {
             try
             {
@@ -377,7 +436,7 @@ namespace Agraria.UI.Reporte
                             hojaVida.Peso,
                             hojaVida.EstadoSalud,
                             hojaVida.Observaciones,
-                            hojaVida.Activo
+                            hojaVida.Activo ? "Sí" : "No"
                         );
                     }
 

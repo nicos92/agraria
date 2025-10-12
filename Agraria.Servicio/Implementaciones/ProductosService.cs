@@ -6,11 +6,11 @@ using Agraria.Utilidades;
 
 namespace Agraria.Servicio.Implementaciones
 {
-    public class ArticulosService : IProductoService
+    public class ProductosService : IProductoService
     {
-        private readonly IArticulosRepository _repo;
+        private readonly IProductosRepository _repo;
 
-        public ArticulosService(IArticulosRepository repo)
+        public ProductosService(IProductosRepository repo)
         {
             _repo = repo;
         }
@@ -44,6 +44,11 @@ namespace Agraria.Servicio.Implementaciones
         public async Task<Result<int>> GetMaxCodArt()
         {
             return await  _repo.GetMaxCodArt();
+        }
+
+        public async Task<Result<List<ProductosMasVendidos>>> GetArticulosMasVendidos(int v)
+        {
+            return await _repo.GetProductosMasVendidos(v);
         }
     }
 }
