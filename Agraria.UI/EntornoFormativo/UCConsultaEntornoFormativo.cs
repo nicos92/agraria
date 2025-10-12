@@ -227,8 +227,22 @@ namespace Agraria.UI.EntornoFormativo
             if (Visible)
             {
                 _logger.LogInformation("Visibilidad del control cambiada a: {Visible}", Visible);
-                TareasLargas tareasLargas = new(TLPForm, ProgressBar, CargaDeDatos, LLenarCMBGrilla);
-                tareasLargas.Iniciar();
+                // Only reload data if lists are empty (first load or after being cleared)
+                if (_listaTipoEntorno == null || _listaTipoEntorno.Count == 0 ||
+                    _listaUsuarios == null || _listaUsuarios.Count == 0)
+                {
+                    TareasLargas tareasLargas = new(TLPForm, ProgressBar, CargaDeDatos, LLenarCMBGrilla);
+                    tareasLargas.Iniciar();
+                }
+                else
+                {
+                    // If data is already loaded, just refill the combos and grid
+                    this.Invoke(() =>
+                    {
+                        CargarCMBs();
+                        CargarDGVEntornosFormativos();
+                    });
+                }
 
             }
 
