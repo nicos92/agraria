@@ -78,7 +78,7 @@ namespace Agraria.UI.EntornoFormativo
             _logger.LogInformation("Cambio de selección en ComboBox de categoría.");
             if (CMBTipoEntorno.SelectedItem is TipoEntorno tipoEntorno)
             {
-                await CargarEntornos(tipoEntorno.Id_Tipo_Entorno);
+                await CargarEntornos(tipoEntorno.Id_Area);
             }
         }
 
@@ -161,7 +161,7 @@ namespace Agraria.UI.EntornoFormativo
                 CMBTipoEntorno.SelectedIndex = 0;
                 // Load entornos for the default selected tipo entorno
                 var defaultTipoEntorno = _listaTipoEntorno[0];
-                _ = CargarEntornos(defaultTipoEntorno.Id_Tipo_Entorno);
+                _ = CargarEntornos(defaultTipoEntorno.Id_Area);
             }
             else
             {
@@ -202,8 +202,8 @@ namespace Agraria.UI.EntornoFormativo
                 () =>
             {
                 CMBTipoEntorno.DataSource = _listaTipoEntorno;
-                CMBTipoEntorno.DisplayMember = "Tipo_Entorno";
-                CMBTipoEntorno.ValueMember = "Id_Tipo_Entorno";
+                CMBTipoEntorno.DisplayMember = "Area";
+                CMBTipoEntorno.ValueMember = "Id_Area";
 
 
                 CMBUsuario.DataSource = _listaUsuarios;

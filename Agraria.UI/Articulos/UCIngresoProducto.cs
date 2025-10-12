@@ -93,7 +93,7 @@ namespace Agraria.UI.Articulos
         private async void CMBCategoria_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (CMBCategoria.SelectedItem is TipoEntorno categoria)
-                await CargarSubCategorias(categoria.Id_Tipo_Entorno);
+                await CargarSubCategorias(categoria.Id_Area);
         }
 
         #endregion Eventos
@@ -126,7 +126,7 @@ namespace Agraria.UI.Articulos
 
             _articuloSeleccionado.Producto_Desc = TxtDescripcion.Text;
             _articuloSeleccionado.Id_Proveedor = proveedor.Id_Proveedor;
-            _articuloSeleccionado.Id_TipoEntorno = categoria.Id_Tipo_Entorno;
+            _articuloSeleccionado.Id_Area = categoria.Id_Area;
             _articuloSeleccionado.Id_Entorno = subcategoria.Id_Entorno;
 
             return true;
@@ -175,8 +175,8 @@ namespace Agraria.UI.Articulos
                     CMBProveedor.ValueMember = "Id_Proveedor";
 
                     CMBCategoria.DataSource = ListaCategorias;
-                    CMBCategoria.DisplayMember = "Tipo_Entorno";
-                    CMBCategoria.ValueMember = "Id_Tipo_Entorno";
+                    CMBCategoria.DisplayMember = "Area";
+                    CMBCategoria.ValueMember = "Id_Area";
                 });
             
         }

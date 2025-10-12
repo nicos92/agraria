@@ -10,7 +10,7 @@ namespace Agraria.Modelo.Entidades
     {
         public int Id_Entorno { get; set; }
         public string? Entorno_nombre { get; set; }
-        public int Id_TipoEntorno { get; set; }
+        public int Id_Area { get; set; }
         public Entorno()
         {
             

@@ -25,8 +25,8 @@ namespace Agraria.Repositorio.Repositorios
                     {
                         categorias.Add(new TipoEntorno
                         {
-                            Id_Tipo_Entorno = reader.GetInt32(0),
-                            Tipo_Entorno = reader.GetString(1)
+                            Id_Area = reader.GetInt32(0),
+                            Area = reader.GetString(1)
                         });
                     }
                 }
@@ -55,8 +55,8 @@ namespace Agraria.Repositorio.Repositorios
                     {
                         var categoria = new TipoEntorno
                         {
-                            Id_Tipo_Entorno = reader.GetInt32(0),
-                            Tipo_Entorno = reader.GetString(1)
+                            Id_Area = reader.GetInt32(0),
+                            Area = reader.GetString(1)
                         };
                         return Result<TipoEntorno>.Success(categoria);
                     }
@@ -78,13 +78,13 @@ namespace Agraria.Repositorio.Repositorios
                     conexion.Open();
                     using var cmd = new SqlCommand(
                         "INSERT INTO TipoEntorno (Descripcion) VALUES (@descripcion)", conexion);
-                    cmd.Parameters.AddWithValue("@descripcion", categoria.Tipo_Entorno);
+                    cmd.Parameters.AddWithValue("@descripcion", categoria.Area);
                     cmd.ExecuteNonQuery();
 
                     // Obtener el ID de la categoría insertada
                     using var cmdId = new SqlCommand("SELECT @@IDENTITY", conexion);
                     var newId = Convert.ToInt32(cmdId.ExecuteScalar());
-                    categoria.Id_Tipo_Entorno = newId;
+                    categoria.Id_Area = newId;
                 }
                 return Result<TipoEntorno>.Success(categoria);
             }
@@ -102,8 +102,8 @@ namespace Agraria.Repositorio.Repositorios
                 conexion.Open();
                 using var cmd = new SqlCommand(
                     "UPDATE TipoEntorno SET Descripcion = @descripcion WHERE Id_TipoEntorno = @id_tipoentorno", conexion);
-                cmd.Parameters.AddWithValue("@descripcion", categoria.Tipo_Entorno);
-                cmd.Parameters.AddWithValue("@id_tipoentorno", categoria.Id_Tipo_Entorno);
+                cmd.Parameters.AddWithValue("@descripcion", categoria.Area);
+                cmd.Parameters.AddWithValue("@id_tipoentorno", categoria.Id_Area);
 
                 int rowsAffected = cmd.ExecuteNonQuery();
                 if (rowsAffected > 0)

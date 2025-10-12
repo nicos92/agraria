@@ -270,7 +270,7 @@ namespace Agraria.UI.Articulos
         {
             if (CMBTipoEntorno.SelectedItem is TipoEntorno categoria)
             {
-                await CargarEntornos(categoria.Id_Tipo_Entorno);
+                await CargarEntornos(categoria.Id_Area);
             }
         }
 
@@ -416,8 +416,8 @@ namespace Agraria.UI.Articulos
                     CMBProveedor.ValueMember = "Id_Proveedor";
 
                     CMBTipoEntorno.DataSource = _listaTipoEntorno ?? [];
-                    CMBTipoEntorno.DisplayMember = "Tipo_Entorno";
-                    CMBTipoEntorno.ValueMember = "Id_Tipo_Entorno";
+                    CMBTipoEntorno.DisplayMember = "Area";
+                    CMBTipoEntorno.ValueMember = "Id_Area";
                
             
         }
@@ -576,7 +576,7 @@ namespace Agraria.UI.Articulos
 
             _articuloSeleccionado.Producto_Desc = TxtDescripcion.Text;
             _articuloSeleccionado.Id_Proveedor = proveedor.Id_Proveedor;
-            _articuloSeleccionado.Id_TipoEntorno = categoria.Id_Tipo_Entorno;
+            _articuloSeleccionado.Id_Area = categoria.Id_Area;
             _articuloSeleccionado.Id_Entorno = subcategoria.Id_Entorno;
 
             return true;
@@ -647,7 +647,7 @@ namespace Agraria.UI.Articulos
         private void CargarCombosSeleccion()
         {
             if (CMBTipoEntorno.Items.Count > 0)
-                CMBTipoEntorno.SelectedValue = _articuloSeleccionado.Id_TipoEntorno;
+                CMBTipoEntorno.SelectedValue = _articuloSeleccionado.Id_Area;
 
             if (CMBProveedor.Items.Count > 0)
                 CMBProveedor.SelectedValue = _articuloSeleccionado.Id_Proveedor;

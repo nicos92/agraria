@@ -29,6 +29,7 @@ namespace Agraria.UI.EntornoFormativo
         private List<Modelo.Entidades.Usuarios> _listaUsuarios;
         private List<Modelo.Entidades.EntornoFormativo> _listaEntornosFormativos;
         private Modelo.Entidades.EntornoFormativo? _entornoFormativoSeleccionado;
+        private List<Modelo.Entidades.EntornoFormativo> _listaEntornosFormativosOriginal;
 
         private readonly ValidadorTextBox _vTxtCursoAnio;
         private readonly ValidadorTextBox _vTxtCursoDivision;
@@ -76,7 +77,7 @@ namespace Agraria.UI.EntornoFormativo
         {
             _logger.LogInformation("UCConsultaEntornoFormativo cargado.");
             ConfigurarDGV();
-            TareasLargas tareasLargas = new (TLPForm, ProgressBar, CargaDeDatos, LLenarCMBGrilla);
+            TareasLargas tareasLargas = new(TLPForm, ProgressBar, CargaDeDatos, LLenarCMBGrilla);
             tareasLargas.Iniciar();
 
             //CargarDGVEntornosFormativos();
@@ -95,9 +96,17 @@ namespace Agraria.UI.EntornoFormativo
 
                     CargarCMBs();
                     LimpiarFormulario();
+
+                    // Inicializar los filtros con valores por defecto
+                    CMFTipoEntorno.SelectedIndex = -1;
+                    CMBFiltroEntorno.DataSource = null;
+                    CMBFiltroEntorno.SelectedIndex = -1;
+                    CMBFiltroEntornoFormativo.DataSource = null;
+                    CMBFiltroEntornoFormativo.SelectedIndex = -1;
+
                     _logger.LogInformation("ComboBoxes y grilla llenados exitosamente.");
                 });
-            
+
         }
 
         private async Task CargaDeDatos()
@@ -137,18 +146,36 @@ namespace Agraria.UI.EntornoFormativo
             }
         }
 
+        private async void CMFTipoEntorno_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            _logger.LogInformation("Cambio de selección en ComboBox de filtro de tipo de entorno.");
+            if (CMFTipoEntorno.SelectedValue is int idTipoEntorno)
+            {
+                await CargarEntornosFiltro(idTipoEntorno);
+            }
+        }
+
+        private async void CMBFiltroEntorno_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            _logger.LogInformation("Cambio de selección en ComboBox de filtro de entorno.");
+            if (CMBFiltroEntorno.SelectedValue is int idEntorno)
+            {
+                await CargarEntornosFormativosFiltro(idEntorno);
+            }
+        }
+
 
 
         private async void BtnGuardar_Click(object sender, EventArgs e)
         {
             _logger.LogInformation("Botón Guardar clickeado.");
-            if (!ValidarCampos()) 
+            if (!ValidarCampos())
             {
                 _logger.LogWarning("Validación de campos fallida.");
                 return;
             }
             DialogResult dialogResult = MessageBox.Show("¿Esta seguro que quiere guardar los cambios?", "Guardar Cambios", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
-            if (dialogResult != DialogResult.OK) 
+            if (dialogResult != DialogResult.OK)
             {
                 _logger.LogInformation("Operación cancelada por el usuario.");
                 return;
@@ -196,18 +223,81 @@ namespace Agraria.UI.EntornoFormativo
 
         private void UCConsultaEntornoFormativo_VisibleChanged(object sender, EventArgs e)
         {
-            _logger.LogInformation("Visibilidad del control cambiada a: {Visible}", Visible);
+
             if (Visible)
             {
-                TareasLargas tareasLargas = new (TLPForm, ProgressBar, CargaDeDatos, LLenarCMBGrilla);
+                _logger.LogInformation("Visibilidad del control cambiada a: {Visible}", Visible);
+                TareasLargas tareasLargas = new(TLPForm, ProgressBar, CargaDeDatos, LLenarCMBGrilla);
                 tareasLargas.Iniciar();
 
             }
+
+
         }
 
         private void TxtCursoAnio_TextChanged(object sender, EventArgs e)
         {
             ValidadorMultiple.ValidacionMultiple(BtnGuardar, _vTxtCursoAnio, _vTxtCursoDivision, _vTxtCursoGrupo, _vTxtObservacion);
+        }
+
+        private async void BtnAplicarFiltros_Click(object sender, EventArgs e)
+        {
+            _logger.LogInformation("Botón Aplicar Filtros clickeado.");
+
+            // Obtener los valores seleccionados en los filtros
+            var idTipoEntorno = CMFTipoEntorno.SelectedValue as int?;
+            var idEntorno = CMBFiltroEntorno.SelectedValue as int?;
+            var nombreEntornoFormativo = CMBFiltroEntornoFormativo.SelectedValue as string;
+
+            // Filtrar la lista original según los criterios seleccionados
+            IEnumerable<Modelo.Entidades.EntornoFormativo> listaFiltrada = _listaEntornosFormativosOriginal.AsEnumerable();
+
+            if (idTipoEntorno.HasValue && idTipoEntorno.Value > 0)
+            {
+                // Para filtrar por tipo de entorno, necesitamos relacionar con los entornos
+                // Obtener la lista de IDs de entornos que pertenecen al tipo de entorno seleccionado
+                var resultadoEntornos = await _entornoService.GetAllxEntorno(idTipoEntorno.Value);
+                if (resultadoEntornos.IsSuccess)
+                {
+                    var idsEntornos = resultadoEntornos.Value.Select(e => e.Id_Entorno).ToList();
+                    listaFiltrada = listaFiltrada.Where(ef => idsEntornos.Contains(ef.Id_Entorno));
+                }
+            }
+
+            if (idEntorno.HasValue && idEntorno.Value > 0)
+            {
+                listaFiltrada = listaFiltrada.Where(ef => ef.Id_Entorno == idEntorno.Value);
+            }
+
+            if (!string.IsNullOrEmpty(nombreEntornoFormativo))
+            {
+                listaFiltrada = listaFiltrada.Where(ef =>
+                    (ef.Usuario_Nombre + " " + ef.Usuario_Apellido).Contains(nombreEntornoFormativo) ||
+                    ef.Entorno_Nombre.Contains(nombreEntornoFormativo) ||
+                    ef.Curso_anio.Contains(nombreEntornoFormativo) ||
+                    ef.Curso_Division.Contains(nombreEntornoFormativo) ||
+                    ef.Curso_Grupo.Contains(nombreEntornoFormativo)
+                );
+            }
+
+            _listaEntornosFormativos = listaFiltrada.ToList();
+            CargarDGVEntornosFormativos();
+        }
+
+        private void BtnLimpiarFiltros_Click(object sender, EventArgs e)
+        {
+            _logger.LogInformation("Botón Limpiar Filtros clickeado.");
+
+            // Limpiar los controles de filtro
+            CMFTipoEntorno.SelectedIndex = -1;
+            CMBFiltroEntorno.DataSource = null;
+            CMBFiltroEntorno.SelectedIndex = -1;
+            CMBFiltroEntornoFormativo.DataSource = null;
+            CMBFiltroEntornoFormativo.SelectedIndex = -1;
+
+            // Restaurar la lista original en el DataGridView
+            _listaEntornosFormativos = _listaEntornosFormativosOriginal.ToList();
+            CargarDGVEntornosFormativos();
         }
 
         #endregion
@@ -221,6 +311,15 @@ namespace Agraria.UI.EntornoFormativo
                 CargarTiposEntorno(),
                 CargarUsuarios()
             );
+
+            // Cargar también los tipos de entorno para los filtros
+            CMFTipoEntorno.DataSource = new List<TipoEntorno>(); // Inicializar con una lista vacía para evitar errores
+            CMFTipoEntorno.DisplayMember = "Tipo_Entorno";
+            CMFTipoEntorno.ValueMember = "Id_Tipo_Entorno";
+
+            // Ahora sí, cargar los tipos de entorno
+            CMFTipoEntorno.DataSource = _listaTipoEntorno;
+
             _logger.LogInformation("Carga inicial completada.");
         }
 
@@ -230,7 +329,8 @@ namespace Agraria.UI.EntornoFormativo
             var resultado = await _entornoFormativoService.GetAll();
             if (resultado.IsSuccess)
             {
-                _listaEntornosFormativos = resultado.Value;
+                _listaEntornosFormativosOriginal = resultado.Value;
+                _listaEntornosFormativos = _listaEntornosFormativosOriginal.ToList();
                 _logger.LogInformation("Grilla cargada exitosamente. Total de registros: {Count}", _listaEntornosFormativos.Count);
             }
             else
@@ -347,16 +447,23 @@ namespace Agraria.UI.EntornoFormativo
             CMBUsuario.DisplayMember = "Dato";
             CMBUsuario.ValueMember = "Id_Usuario";
 
+            CMBEntorno.DataSource = null;
             CMBTipoEntorno.DataSource = _listaTipoEntorno;
-            CMBTipoEntorno.DisplayMember = "Tipo_Entorno";
-            CMBTipoEntorno.ValueMember = "Id_Tipo_Entorno";
+            CMBTipoEntorno.DisplayMember = "Area";
+            CMBTipoEntorno.ValueMember = "Id_Area";
+
+            // También aseguramos que el combo de filtro esté inicializado
+            CMFTipoEntorno.DataSource = null;
+            CMFTipoEntorno.DataSource = _listaTipoEntorno;
+            CMFTipoEntorno.DisplayMember = "Area";
+            CMFTipoEntorno.ValueMember = "Id_Area";
         }
 
         private async Task CargarTiposEntorno()
         {
             _logger.LogInformation("Cargando tipos de entorno.");
             var resultado = await _tipoEntornoService.GetAll();
-            if (resultado.IsSuccess) 
+            if (resultado.IsSuccess)
             {
                 _listaTipoEntorno = resultado.Value;
                 _logger.LogInformation("Tipos de entorno cargados exitosamente. Total: {Count}", _listaTipoEntorno.Count);
@@ -371,7 +478,7 @@ namespace Agraria.UI.EntornoFormativo
         {
             _logger.LogInformation("Cargando usuarios.");
             var resultado = await _usuarioService.GetAll();
-            if (resultado.IsSuccess) 
+            if (resultado.IsSuccess)
             {
                 _listaUsuarios = resultado.Value;
                 _logger.LogInformation("Usuarios cargados exitosamente. Total: {Count}", _listaUsuarios.Count);
@@ -411,10 +518,10 @@ namespace Agraria.UI.EntornoFormativo
                 var entornoPadre = resultadoEntorno.Value;
 
                 // 1. Seleccionar el Tipo de Entorno
-                CMBTipoEntorno.SelectedValue = entornoPadre.Id_TipoEntorno;
+                CMBTipoEntorno.SelectedValue = entornoPadre.Id_Area;
 
                 // 2. Cargar los entornos hijos para ese tipo
-                await CargarEntornos(entornoPadre.Id_TipoEntorno);
+                await CargarEntornos(entornoPadre.Id_Area);
 
                 // 3. Seleccionar el Entorno específico
                 CMBEntorno.SelectedValue = entornoFormativo.Id_Entorno;
@@ -446,7 +553,7 @@ namespace Agraria.UI.EntornoFormativo
             CMBTipoEntorno.SelectedIndex = -1;
             CMBEntorno.DataSource = null;
             CMBUsuario.SelectedIndex = -1;
-            BtnGuardar.Enabled = true;
+            BtnGuardar.Enabled = false; // Cambiado de true a false, ya que no hay selección
             _logger.LogInformation("Formulario limpiado exitosamente.");
         }
 
@@ -467,8 +574,72 @@ namespace Agraria.UI.EntornoFormativo
             return true;
         }
 
+        private async Task CargarEntornosFiltro(int idTipoEntorno)
+        {
+            _logger.LogInformation("Cargando entornos para filtro de tipo de entorno ID: {IdTipoEntorno}", idTipoEntorno);
+            var resultado = await _entornoService.GetAllxEntorno(idTipoEntorno);
+            if (resultado.IsSuccess)
+            {
+                CMBFiltroEntorno.DataSource = resultado.Value;
+                CMBFiltroEntorno.DisplayMember = "Entorno_Nombre";
+                CMBFiltroEntorno.ValueMember = "Id_Entorno";
+                _logger.LogInformation("Entornos para filtro cargados exitosamente para tipo de entorno ID: {IdTipoEntorno}. Total: {Count}", idTipoEntorno, resultado.Value.Count);
+            }
+            else
+            {
+                _logger.LogError("Error al cargar entornos para filtro de tipo de entorno ID: {IdTipoEntorno}. Error: {ErrorMessage}", idTipoEntorno, resultado.Error);
+            }
+        }
+
+        private async Task CargarEntornosFormativosFiltro(int idEntorno)
+        {
+            _logger.LogInformation("Cargando entornos formativos para filtro de entorno ID: {IdEntorno}", idEntorno);
+
+            // Buscar entornos formativos que correspondan al entorno seleccionado
+            var entornosFormativosParaEntorno = _listaEntornosFormativosOriginal
+                .Where(ef => ef.Id_Entorno == idEntorno)
+                .Select(ef => new
+                {
+                    NombreCompleto = ef.Usuario_Nombre + " " + ef.Usuario_Apellido,
+                    CursoAnio = ef.Curso_anio,
+                    CursoDivision = ef.Curso_Division,
+                    CursoGrupo = ef.Curso_Grupo
+                })
+                .Distinct()
+                .ToList();
+
+            // Crear una lista de opciones para el combo
+            var opciones = new List<object>();
+            foreach (var ef in entornosFormativosParaEntorno)
+            {
+                opciones.Add(new
+                {
+                    Display = $"{ef.NombreCompleto} - {ef.CursoAnio} {ef.CursoDivision} {ef.CursoGrupo}",
+                    Value = ef.NombreCompleto
+                });
+            }
+
+            // Asegurarse de que haya un elemento seleccionado por defecto
+            if (opciones.Count > 0)
+            {
+
+
+                CMBFiltroEntornoFormativo.DataSource = opciones;
+                CMBFiltroEntornoFormativo.DisplayMember = "Display";
+                CMBFiltroEntornoFormativo.ValueMember = "Value";
+
+                CMBFiltroEntornoFormativo.SelectedIndex = 0;
+            }
+            else
+            {
+                CMBFiltroEntornoFormativo.DataSource = null;
+            }
+            _logger.LogInformation("Entornos formativos para filtro cargados exitosamente para entorno ID: {IdEntorno}. Total: {Count}", idEntorno, entornosFormativosParaEntorno.Count);
+        }
+
         #endregion
 
-      
+
+       
     }
 }

@@ -62,7 +62,7 @@ namespace Agraria.Repositorio.Repositorios
                   
                     cmdArticulos.Parameters.AddWithValue("@cod", nuevoCodProducto);
                     cmdArticulos.Parameters.AddWithValue("@Desc", articulo.Producto_Desc);
-                    cmdArticulos.Parameters.AddWithValue("@Tipo", articulo.Id_TipoEntorno);
+                    cmdArticulos.Parameters.AddWithValue("@Tipo", articulo.Id_Area);
                     cmdArticulos.Parameters.AddWithValue("@Entorno", articulo.Id_Entorno);
                     cmdArticulos.Parameters.AddWithValue("@proveedor", articulo.Id_Proveedor);
                     await cmdArticulos.ExecuteNonQueryAsync();
@@ -176,7 +176,7 @@ namespace Agraria.Repositorio.Repositorios
                                 Id_Producto = reader.GetInt32(0),
                                 Cod_Producto = reader.GetString(1),
                                 Producto_Desc = reader.GetString(2),
-                                Id_TipoEntorno = reader.GetInt32(3),
+                                Id_Area = reader.GetInt32(3),
                                 Id_Entorno = reader.GetInt32(4),
                                 Id_Proveedor = reader.GetInt32(5)
                             };
@@ -278,7 +278,7 @@ namespace Agraria.Repositorio.Repositorios
                 using (SqlCommand cmdArticulos = new(sqlArticulos, conn, transaction))
                 {
                     cmdArticulos.Parameters.AddWithValue("@Desc", articulos.Producto_Desc);
-                    cmdArticulos.Parameters.AddWithValue("@tipo", articulos.Id_TipoEntorno);
+                    cmdArticulos.Parameters.AddWithValue("@tipo", articulos.Id_Area);
                     cmdArticulos.Parameters.AddWithValue("@Entorno", articulos.Id_Entorno);
                     cmdArticulos.Parameters.AddWithValue("@id_proveedor", articulos.Id_Proveedor);
                     cmdArticulos.Parameters.AddWithValue("@cod_producto", articulos.Cod_Producto);

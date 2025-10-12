@@ -29,7 +29,7 @@ namespace Agraria.Repositorio.Repositorios
                     {
                         Id_Entorno = reader.GetInt32(0),
                         Entorno_nombre = reader.GetString(1),
-                        Id_TipoEntorno = reader.GetInt32(2)
+                        Id_Area = reader.GetInt32(2)
                     };
                     subcategorias.Add(subcategoria);
                 }
@@ -61,7 +61,7 @@ namespace Agraria.Repositorio.Repositorios
                     {
                         Id_Entorno = reader.GetInt32(0),
                         Entorno_nombre = reader.GetString(1),
-                        Id_TipoEntorno = reader.GetInt32(2)
+                        Id_Area = reader.GetInt32(2)
                     };
                     return Result<Entorno>.Success(subcategoria);
                 }
@@ -83,7 +83,7 @@ namespace Agraria.Repositorio.Repositorios
                 using SqlConnection conn = Conexion();
                 using SqlCommand cmd = new("INSERT INTO Entorno (Nombre, Id_TipoEntorno) VALUES (@Nombre, @Id_TipoEntorno)", conn);
                 cmd.Parameters.AddWithValue("@Nombre", subcategoria.Entorno_nombre);
-                cmd.Parameters.AddWithValue("@Id_TipoEntorno", subcategoria.Id_TipoEntorno);
+                cmd.Parameters.AddWithValue("@Id_TipoEntorno", subcategoria.Id_Area);
                 conn.Open();
                 int rowsAffected = cmd.ExecuteNonQuery();
                 if (rowsAffected > 0)
@@ -109,7 +109,7 @@ namespace Agraria.Repositorio.Repositorios
                 using SqlConnection conn = Conexion();
                 using SqlCommand cmd = new("UPDATE Entorno SET Nombre = @Nombre, Id_TipoEntorno = @Id_TipoEntorno WHERE Id_Entorno = @Id_Entorno", conn);
                 cmd.Parameters.AddWithValue("@Nombre", subcategoria.Entorno_nombre);
-                cmd.Parameters.AddWithValue("@Id_TipoEntorno", subcategoria.Id_TipoEntorno);
+                cmd.Parameters.AddWithValue("@Id_TipoEntorno", subcategoria.Id_Area);
                 cmd.Parameters.AddWithValue("@Id_Entorno", subcategoria.Id_Entorno);
                 conn.Open();
                 int rowsAffected = cmd.ExecuteNonQuery();
@@ -168,7 +168,7 @@ namespace Agraria.Repositorio.Repositorios
                     {
                         Id_Entorno = reader.GetInt32(0),
                         Entorno_nombre = reader.GetString(1),
-                        Id_TipoEntorno = reader.GetInt32(2)
+                        Id_Area = reader.GetInt32(2)
                     };
                     subcategorias.Add(subcategoria);
                 }

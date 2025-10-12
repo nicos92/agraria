@@ -8,8 +8,8 @@ namespace Agraria.Modelo.Entidades
 {
     public class TipoEntorno
     {
-        public int Id_Tipo_Entorno { get; set; }
-        public string? Tipo_Entorno { get; set; }
+        public int Id_Area { get; set; }
+        public string? Area { get; set; }
         public TipoEntorno()
         {
             

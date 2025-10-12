@@ -73,7 +73,7 @@ namespace Agraria.UI.Actividad
         private async void CMBTipoEntorno_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (CMBTipoEntorno.SelectedItem is TipoEntorno tipoEntorno)
-                await CargarEntornos(tipoEntorno.Id_Tipo_Entorno);
+                await CargarEntornos(tipoEntorno.Id_Area);
         }
 
         /// <summary>
@@ -115,7 +115,7 @@ namespace Agraria.UI.Actividad
                 return false;
             }
 
-            _actividadSeleccionada.Id_TipoEntorno = tipoEntorno.Id_Tipo_Entorno;
+            _actividadSeleccionada.Id_TipoEntorno = tipoEntorno.Id_Area;
             _actividadSeleccionada.Id_Entorno = entorno.Id_Entorno;
             _actividadSeleccionada.Id_EntornoFormativo = entornoFormativo.Id_Entorno_Formativo;
             _actividadSeleccionada.Fecha_Actividad = dateTimePicker1.Value;
@@ -156,8 +156,8 @@ namespace Agraria.UI.Actividad
                 () =>
                 {
                     CMBTipoEntorno.DataSource = ListaTiposEntorno;
-                    CMBTipoEntorno.DisplayMember = "Tipo_Entorno";
-                    CMBTipoEntorno.ValueMember = "Id_Tipo_Entorno";
+                    CMBTipoEntorno.DisplayMember = "Area";
+                    CMBTipoEntorno.ValueMember = "Id_Area";
 
                     // Configurar la fuente de datos del DataGridView con las últimas 10 actividades
                     ListBArticulos.DataSource = ListaActividades;

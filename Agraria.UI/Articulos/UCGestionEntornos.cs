@@ -218,9 +218,9 @@ namespace Agraria.UI.Articulos
         {
             if (DgvTipoEntornos.CurrentRow?.DataBoundItem is TipoEntorno tipoEntorno)
             {
-                _selectedTipoEntornoId = tipoEntorno.Id_Tipo_Entorno;
-                TxtTipoEntorno.Text = tipoEntorno.Tipo_Entorno ?? "";
-                LblEntornoSeleccionado.Text = tipoEntorno.Tipo_Entorno ?? "";
+                _selectedTipoEntornoId = tipoEntorno.Id_Area;
+                TxtTipoEntorno.Text = tipoEntorno.Area ?? "";
+                LblEntornoSeleccionado.Text = tipoEntorno.Area ?? "";
                 await CargarEntornosAsync();
             }
             else
@@ -263,7 +263,7 @@ namespace Agraria.UI.Articulos
 
             // Verificar si ya existe una categoría con el mismo nombre
             var tipoEntornoExistente = _tipoEntornos.FirstOrDefault(c =>
-                c.Tipo_Entorno.Equals(nombreTipoEntorno, StringComparison.OrdinalIgnoreCase));
+                c.Area.Equals(nombreTipoEntorno, StringComparison.OrdinalIgnoreCase));
 
             if (tipoEntornoExistente != null)
             {
@@ -280,7 +280,7 @@ namespace Agraria.UI.Articulos
                 // Crear nueva categoría
                 var tipoRntorno = new TipoEntorno
                 {
-                    Tipo_Entorno = nombreTipoEntorno
+                    Area = nombreTipoEntorno
                 };
 
                 var result = await TareasLargas.EjecutarAsync(
@@ -346,8 +346,8 @@ namespace Agraria.UI.Articulos
                 // Actualizar categoría existente
                 var entorno = new TipoEntorno
                 {
-                    Id_Tipo_Entorno = _selectedTipoEntornoId,
-                    Tipo_Entorno = nombreEntorno
+                    Id_Area = _selectedTipoEntornoId,
+                    Area = nombreEntorno
                 };
 
                 var result = await TareasLargas.EjecutarAsync(
@@ -483,7 +483,7 @@ namespace Agraria.UI.Articulos
                 var subEntorno = new Entorno
                 {
                     Entorno_nombre = nombreSubEntorno,
-                    Id_TipoEntorno = _selectedTipoEntornoId
+                    Id_Area = _selectedTipoEntornoId
                 };
 
                 var result = await TareasLargas.EjecutarAsync(
@@ -558,7 +558,7 @@ namespace Agraria.UI.Articulos
                 {
                     Id_Entorno = _selectedEntornoId,
                     Entorno_nombre = nombreSubEntorno,
-                    Id_TipoEntorno = _selectedTipoEntornoId
+                    Id_Area = _selectedTipoEntornoId
                 };
 
                 var result = await TareasLargas.EjecutarAsync(

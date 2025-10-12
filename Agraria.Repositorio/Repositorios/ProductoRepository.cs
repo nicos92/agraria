@@ -23,7 +23,7 @@ namespace Agraria.Repositorio.Repositorios
 
                 cmd.Parameters.AddWithValue("@Cod_Producto", articulo.Cod_Producto);
                 cmd.Parameters.AddWithValue("@Producto_Desc", articulo.Producto_Desc);
-                cmd.Parameters.AddWithValue("@Id_TipoEntorno", articulo.Id_TipoEntorno);
+                cmd.Parameters.AddWithValue("@Id_TipoEntorno", articulo.Id_Area);
                 cmd.Parameters.AddWithValue("@Id_Entorno", articulo.Id_Entorno);
                 cmd.Parameters.AddWithValue("@Id_Proveedor", articulo.Id_Proveedor);
                 conn.Open();
@@ -86,7 +86,7 @@ namespace Agraria.Repositorio.Repositorios
                         Id_Producto = reader.GetInt32(0),
                         Cod_Producto = reader.GetString(1),
                         Producto_Desc = reader.GetString(2),
-                        Id_TipoEntorno = reader.GetInt32(3),
+                        Id_Area = reader.GetInt32(3),
                         Id_Entorno = reader.GetInt32(4),
                         Id_Proveedor = reader.GetInt32(5)
                     };
@@ -117,7 +117,7 @@ namespace Agraria.Repositorio.Repositorios
                         Id_Producto = reader.GetInt32(0),
                         Cod_Producto = reader.GetString(1),
                         Producto_Desc = reader.GetString(2),
-                        Id_TipoEntorno = reader.GetInt32(3),
+                        Id_Area = reader.GetInt32(3),
                         Id_Entorno = reader.GetInt32(4),
                         Id_Proveedor = reader.GetInt32(5)
 
@@ -167,7 +167,7 @@ namespace Agraria.Repositorio.Repositorios
                 using var cmd = new SqlCommand("UPDATE Productos set Cod_Producto=@Cod_Producto, Producto_Desc=@Producto_Desc, Id_TipoEntorno=@Id_TipoEntorno, Id_Entorno=@Cod_Sucat, Id_Proveedor = @Id_Proveedor WHERE Id_Articulo = @Id_Articulo", conn);
                 cmd.Parameters.AddWithValue("@Cod_Producto", articulo.Cod_Producto);
                 cmd.Parameters.AddWithValue("@Producto_Desc", articulo.Producto_Desc);
-                cmd.Parameters.AddWithValue("@Id_TipoEntorno", articulo.Id_TipoEntorno);
+                cmd.Parameters.AddWithValue("@Id_TipoEntorno", articulo.Id_Area);
                 cmd.Parameters.AddWithValue("@Cod_Sucat", articulo.Id_Entorno);
                 cmd.Parameters.AddWithValue("@Id_Proveedor", articulo.Id_Proveedor);
                 cmd.Parameters.AddWithValue("@Id_Articulo", articulo.Id_Producto);

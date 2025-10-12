@@ -29,6 +29,18 @@ namespace Agraria.UI.EntornoFormativo
         private void InitializeComponent()
         {
             tableLayoutPanel3 = new TableLayoutPanel();
+            PanelTop = new Panel();
+            tableLayoutPanel5 = new TableLayoutPanel();
+            GrpFiltros = new GroupBox();
+            TLPFiltros = new TableLayoutPanel();
+            BtnLimpiarFiltros = new Button();
+            label10 = new Label();
+            CMFTipoEntorno = new ComboBox();
+            label9 = new Label();
+            CMBFiltroEntorno = new ComboBox();
+            label12 = new Label();
+            CMBFiltroEntornoFormativo = new ComboBox();
+            BtnAplicarFiltros = new Button();
             PanelLista = new Panel();
             tableLayoutPanel1 = new TableLayoutPanel();
             LblLista = new Label();
@@ -57,6 +69,10 @@ namespace Agraria.UI.EntornoFormativo
             ChkActivo = new CheckBox();
             ProgressBar = new ProgressBar();
             tableLayoutPanel3.SuspendLayout();
+            PanelTop.SuspendLayout();
+            tableLayoutPanel5.SuspendLayout();
+            GrpFiltros.SuspendLayout();
+            TLPFiltros.SuspendLayout();
             PanelLista.SuspendLayout();
             tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)DgvEntornosFormativos).BeginInit();
@@ -73,27 +89,208 @@ namespace Agraria.UI.EntornoFormativo
             tableLayoutPanel3.ColumnCount = 2;
             tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 40F));
             tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 60F));
-            tableLayoutPanel3.Controls.Add(PanelLista, 0, 1);
-            tableLayoutPanel3.Controls.Add(PanelMedio, 1, 1);
+            tableLayoutPanel3.Controls.Add(PanelTop, 0, 1);
+            tableLayoutPanel3.Controls.Add(PanelLista, 0, 2);
+            tableLayoutPanel3.Controls.Add(PanelMedio, 1, 2);
             tableLayoutPanel3.Controls.Add(ProgressBar, 0, 0);
             tableLayoutPanel3.Dock = DockStyle.Fill;
             tableLayoutPanel3.Location = new Point(0, 0);
             tableLayoutPanel3.Name = "tableLayoutPanel3";
-            tableLayoutPanel3.RowCount = 2;
+            tableLayoutPanel3.RowCount = 3;
             tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Absolute, 16F));
-            tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 23.3027515F));
+            tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 76.69725F));
+            tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
             tableLayoutPanel3.Size = new Size(804, 561);
             tableLayoutPanel3.TabIndex = 3;
+            // 
+            // PanelTop
+            // 
+            PanelTop.BackColor = Color.IndianRed;
+            tableLayoutPanel3.SetColumnSpan(PanelTop, 2);
+            PanelTop.Controls.Add(tableLayoutPanel5);
+            PanelTop.Dock = DockStyle.Fill;
+            PanelTop.Location = new Point(3, 19);
+            PanelTop.Name = "PanelTop";
+            PanelTop.Size = new Size(798, 121);
+            PanelTop.TabIndex = 5;
+            // 
+            // tableLayoutPanel5
+            // 
+            tableLayoutPanel5.BackColor = Color.FromArgb(218, 218, 220);
+            tableLayoutPanel5.ColumnCount = 1;
+            tableLayoutPanel5.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tableLayoutPanel5.Controls.Add(GrpFiltros, 0, 0);
+            tableLayoutPanel5.Dock = DockStyle.Fill;
+            tableLayoutPanel5.Location = new Point(0, 0);
+            tableLayoutPanel5.Margin = new Padding(0);
+            tableLayoutPanel5.Name = "tableLayoutPanel5";
+            tableLayoutPanel5.RowCount = 1;
+            tableLayoutPanel5.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            tableLayoutPanel5.RowStyles.Add(new RowStyle(SizeType.Absolute, 144F));
+            tableLayoutPanel5.Size = new Size(798, 121);
+            tableLayoutPanel5.TabIndex = 3;
+            // 
+            // GrpFiltros
+            // 
+            GrpFiltros.Controls.Add(TLPFiltros);
+            GrpFiltros.Dock = DockStyle.Fill;
+            GrpFiltros.Font = new Font("Segoe UI Black", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            GrpFiltros.ForeColor = Color.FromArgb(7, 100, 147);
+            GrpFiltros.Location = new Point(0, 0);
+            GrpFiltros.Margin = new Padding(0);
+            GrpFiltros.Name = "GrpFiltros";
+            GrpFiltros.Padding = new Padding(4, 0, 4, 3);
+            GrpFiltros.Size = new Size(798, 121);
+            GrpFiltros.TabIndex = 17;
+            GrpFiltros.TabStop = false;
+            GrpFiltros.Text = "Filtros";
+            // 
+            // TLPFiltros
+            // 
+            TLPFiltros.BackColor = Color.FromArgb(249, 249, 251);
+            TLPFiltros.ColumnCount = 10;
+            TLPFiltros.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
+            TLPFiltros.ColumnStyles.Add(new ColumnStyle());
+            TLPFiltros.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333321F));
+            TLPFiltros.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
+            TLPFiltros.ColumnStyles.Add(new ColumnStyle());
+            TLPFiltros.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333321F));
+            TLPFiltros.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
+            TLPFiltros.ColumnStyles.Add(new ColumnStyle());
+            TLPFiltros.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333321F));
+            TLPFiltros.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
+            TLPFiltros.Controls.Add(BtnLimpiarFiltros, 8, 1);
+            TLPFiltros.Controls.Add(label10, 1, 0);
+            TLPFiltros.Controls.Add(CMFTipoEntorno, 2, 0);
+            TLPFiltros.Controls.Add(label9, 4, 0);
+            TLPFiltros.Controls.Add(CMBFiltroEntorno, 5, 0);
+            TLPFiltros.Controls.Add(label12, 1, 1);
+            TLPFiltros.Controls.Add(CMBFiltroEntornoFormativo, 2, 1);
+            TLPFiltros.Controls.Add(BtnAplicarFiltros, 5, 1);
+            TLPFiltros.Dock = DockStyle.Fill;
+            TLPFiltros.ForeColor = Color.FromArgb(26, 28, 30);
+            TLPFiltros.Location = new Point(4, 26);
+            TLPFiltros.Margin = new Padding(0);
+            TLPFiltros.Name = "TLPFiltros";
+            TLPFiltros.RowCount = 2;
+            TLPFiltros.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            TLPFiltros.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            TLPFiltros.Size = new Size(790, 92);
+            TLPFiltros.TabIndex = 2;
+            // 
+            // BtnLimpiarFiltros
+            // 
+            BtnLimpiarFiltros.Anchor = AnchorStyles.None;
+            BtnLimpiarFiltros.BackColor = Color.FromArgb(101, 89, 119);
+            BtnLimpiarFiltros.FlatAppearance.BorderColor = Color.FromArgb(203, 230, 255);
+            BtnLimpiarFiltros.FlatStyle = FlatStyle.Flat;
+            BtnLimpiarFiltros.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            BtnLimpiarFiltros.ForeColor = Color.FromArgb(255, 255, 255);
+            BtnLimpiarFiltros.Location = new Point(589, 53);
+            BtnLimpiarFiltros.Margin = new Padding(0);
+            BtnLimpiarFiltros.Name = "BtnLimpiarFiltros";
+            BtnLimpiarFiltros.Size = new Size(171, 32);
+            BtnLimpiarFiltros.TabIndex = 35;
+            BtnLimpiarFiltros.Text = "Limpiar";
+            BtnLimpiarFiltros.UseVisualStyleBackColor = false;
+            BtnLimpiarFiltros.Click += BtnLimpiarFiltros_Click;
+            // 
+            // label10
+            // 
+            label10.Anchor = AnchorStyles.Right;
+            label10.AutoSize = true;
+            label10.Font = new Font("Segoe UI", 12F);
+            label10.Location = new Point(35, 12);
+            label10.Name = "label10";
+            label10.Size = new Size(45, 21);
+            label10.TabIndex = 26;
+            label10.Text = "Area:";
+            // 
+            // CMFTipoEntorno
+            // 
+            CMFTipoEntorno.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            CMFTipoEntorno.DropDownStyle = ComboBoxStyle.DropDownList;
+            CMFTipoEntorno.Font = new Font("Segoe UI", 12F);
+            CMFTipoEntorno.FormattingEnabled = true;
+            CMFTipoEntorno.Location = new Point(86, 8);
+            CMFTipoEntorno.Margin = new Padding(3, 3, 8, 3);
+            CMFTipoEntorno.Name = "CMFTipoEntorno";
+            CMFTipoEntorno.Size = new Size(180, 29);
+            CMFTipoEntorno.TabIndex = 31;
+            CMFTipoEntorno.SelectedIndexChanged += CMFTipoEntorno_SelectedIndexChanged;
+            // 
+            // label9
+            // 
+            label9.Anchor = AnchorStyles.Right;
+            label9.AutoSize = true;
+            label9.Font = new Font("Segoe UI", 12F);
+            label9.Location = new Point(297, 12);
+            label9.Name = "label9";
+            label9.Size = new Size(68, 21);
+            label9.TabIndex = 27;
+            label9.Text = "Entorno:";
+            // 
+            // CMBFiltroEntorno
+            // 
+            CMBFiltroEntorno.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            CMBFiltroEntorno.DropDownStyle = ComboBoxStyle.DropDownList;
+            CMBFiltroEntorno.Font = new Font("Segoe UI", 12F);
+            CMBFiltroEntorno.FormattingEnabled = true;
+            CMBFiltroEntorno.Location = new Point(371, 8);
+            CMBFiltroEntorno.Name = "CMBFiltroEntorno";
+            CMBFiltroEntorno.Size = new Size(185, 29);
+            CMBFiltroEntorno.TabIndex = 32;
+            CMBFiltroEntorno.SelectedIndexChanged += CMBFiltroEntorno_SelectedIndexChanged;
+            // 
+            // label12
+            // 
+            label12.Anchor = AnchorStyles.Right;
+            label12.AutoSize = true;
+            label12.Font = new Font("Segoe UI", 12F);
+            label12.Location = new Point(23, 58);
+            label12.Name = "label12";
+            label12.Size = new Size(57, 21);
+            label12.TabIndex = 28;
+            label12.Text = "Grupo:";
+            // 
+            // CMBFiltroEntornoFormativo
+            // 
+            CMBFiltroEntornoFormativo.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            CMBFiltroEntornoFormativo.DropDownStyle = ComboBoxStyle.DropDownList;
+            CMBFiltroEntornoFormativo.Font = new Font("Segoe UI", 12F);
+            CMBFiltroEntornoFormativo.FormattingEnabled = true;
+            CMBFiltroEntornoFormativo.Location = new Point(86, 54);
+            CMBFiltroEntornoFormativo.Name = "CMBFiltroEntornoFormativo";
+            CMBFiltroEntornoFormativo.Size = new Size(185, 29);
+            CMBFiltroEntornoFormativo.TabIndex = 33;
+            // 
+            // BtnAplicarFiltros
+            // 
+            BtnAplicarFiltros.Anchor = AnchorStyles.None;
+            BtnAplicarFiltros.BackColor = Color.FromArgb(7, 100, 147);
+            BtnAplicarFiltros.FlatAppearance.BorderColor = Color.FromArgb(203, 230, 255);
+            BtnAplicarFiltros.FlatStyle = FlatStyle.Flat;
+            BtnAplicarFiltros.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            BtnAplicarFiltros.ForeColor = Color.FromArgb(255, 255, 255);
+            BtnAplicarFiltros.Location = new Point(397, 53);
+            BtnAplicarFiltros.Margin = new Padding(0);
+            BtnAplicarFiltros.Name = "BtnAplicarFiltros";
+            BtnAplicarFiltros.Size = new Size(132, 32);
+            BtnAplicarFiltros.TabIndex = 34;
+            BtnAplicarFiltros.Text = "Aplicar";
+            BtnAplicarFiltros.UseVisualStyleBackColor = false;
+            BtnAplicarFiltros.Click += BtnAplicarFiltros_Click;
             // 
             // PanelLista
             // 
             PanelLista.BackColor = Color.FromArgb(218, 218, 220);
             PanelLista.Controls.Add(tableLayoutPanel1);
             PanelLista.Dock = DockStyle.Fill;
-            PanelLista.Location = new Point(3, 19);
+            PanelLista.Location = new Point(3, 146);
             PanelLista.Name = "PanelLista";
             PanelLista.Padding = new Padding(0, 16, 0, 16);
-            PanelLista.Size = new Size(315, 539);
+            PanelLista.Size = new Size(315, 412);
             PanelLista.TabIndex = 3;
             // 
             // tableLayoutPanel1
@@ -108,7 +305,7 @@ namespace Agraria.UI.EntornoFormativo
             tableLayoutPanel1.RowCount = 2;
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 32F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanel1.Size = new Size(315, 507);
+            tableLayoutPanel1.Size = new Size(315, 380);
             tableLayoutPanel1.TabIndex = 2;
             // 
             // LblLista
@@ -136,7 +333,7 @@ namespace Agraria.UI.EntornoFormativo
             DgvEntornosFormativos.ReadOnly = true;
             DgvEntornosFormativos.RowHeadersVisible = false;
             DgvEntornosFormativos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            DgvEntornosFormativos.Size = new Size(309, 469);
+            DgvEntornosFormativos.Size = new Size(309, 342);
             DgvEntornosFormativos.TabIndex = 2;
             DgvEntornosFormativos.SelectionChanged += DgvEntornosFormativos_SelectionChanged;
             // 
@@ -144,9 +341,9 @@ namespace Agraria.UI.EntornoFormativo
             // 
             PanelMedio.Controls.Add(tableLayoutPanel4);
             PanelMedio.Dock = DockStyle.Fill;
-            PanelMedio.Location = new Point(324, 19);
+            PanelMedio.Location = new Point(324, 146);
             PanelMedio.Name = "PanelMedio";
-            PanelMedio.Size = new Size(477, 539);
+            PanelMedio.Size = new Size(477, 412);
             PanelMedio.TabIndex = 2;
             // 
             // tableLayoutPanel4
@@ -161,7 +358,7 @@ namespace Agraria.UI.EntornoFormativo
             tableLayoutPanel4.RowCount = 1;
             tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
             tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            tableLayoutPanel4.Size = new Size(477, 539);
+            tableLayoutPanel4.Size = new Size(477, 412);
             tableLayoutPanel4.TabIndex = 2;
             // 
             // groupBox1
@@ -170,9 +367,9 @@ namespace Agraria.UI.EntornoFormativo
             groupBox1.Controls.Add(TLPForm);
             groupBox1.Font = new Font("Segoe UI Black", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             groupBox1.ForeColor = Color.FromArgb(7, 100, 147);
-            groupBox1.Location = new Point(3, 61);
+            groupBox1.Location = new Point(3, 14);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(471, 417);
+            groupBox1.Size = new Size(471, 384);
             groupBox1.TabIndex = 16;
             groupBox1.TabStop = false;
             groupBox1.Text = "Gestión de Entorno Formativo";
@@ -216,7 +413,7 @@ namespace Agraria.UI.EntornoFormativo
             TLPForm.RowStyles.Add(new RowStyle(SizeType.Percent, 6.49350643F));
             TLPForm.RowStyles.Add(new RowStyle(SizeType.Percent, 9.090909F));
             TLPForm.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            TLPForm.Size = new Size(465, 385);
+            TLPForm.Size = new Size(465, 352);
             TLPForm.TabIndex = 1;
             // 
             // label1
@@ -224,7 +421,7 @@ namespace Agraria.UI.EntornoFormativo
             label1.Anchor = AnchorStyles.Right;
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 12F);
-            label1.Location = new Point(85, 6);
+            label1.Location = new Point(85, 4);
             label1.Name = "label1";
             label1.Size = new Size(45, 21);
             label1.TabIndex = 1;
@@ -247,7 +444,7 @@ namespace Agraria.UI.EntornoFormativo
             label5.Anchor = AnchorStyles.Right;
             label5.AutoSize = true;
             label5.Font = new Font("Segoe UI", 12F);
-            label5.Location = new Point(62, 39);
+            label5.Location = new Point(62, 34);
             label5.Name = "label5";
             label5.Size = new Size(68, 21);
             label5.TabIndex = 12;
@@ -259,7 +456,7 @@ namespace Agraria.UI.EntornoFormativo
             CMBEntorno.DropDownStyle = ComboBoxStyle.DropDownList;
             CMBEntorno.Font = new Font("Segoe UI", 12F);
             CMBEntorno.FormattingEnabled = true;
-            CMBEntorno.Location = new Point(136, 36);
+            CMBEntorno.Location = new Point(136, 33);
             CMBEntorno.Name = "CMBEntorno";
             CMBEntorno.Size = new Size(257, 29);
             CMBEntorno.TabIndex = 12;
@@ -269,7 +466,7 @@ namespace Agraria.UI.EntornoFormativo
             label6.Anchor = AnchorStyles.Right;
             label6.AutoSize = true;
             label6.Font = new Font("Segoe UI", 12F);
-            label6.Location = new Point(29, 72);
+            label6.Location = new Point(29, 64);
             label6.Name = "label6";
             label6.Size = new Size(101, 21);
             label6.TabIndex = 17;
@@ -281,7 +478,7 @@ namespace Agraria.UI.EntornoFormativo
             CMBUsuario.DropDownStyle = ComboBoxStyle.DropDownList;
             CMBUsuario.Font = new Font("Segoe UI", 12F);
             CMBUsuario.FormattingEnabled = true;
-            CMBUsuario.Location = new Point(136, 69);
+            CMBUsuario.Location = new Point(136, 63);
             CMBUsuario.Name = "CMBUsuario";
             CMBUsuario.Size = new Size(257, 29);
             CMBUsuario.TabIndex = 13;
@@ -291,7 +488,7 @@ namespace Agraria.UI.EntornoFormativo
             label4.Anchor = AnchorStyles.Right;
             label4.AutoSize = true;
             label4.Font = new Font("Segoe UI", 12F);
-            label4.Location = new Point(46, 105);
+            label4.Location = new Point(46, 94);
             label4.Name = "label4";
             label4.Size = new Size(84, 21);
             label4.TabIndex = 4;
@@ -303,7 +500,7 @@ namespace Agraria.UI.EntornoFormativo
             TxtCursoAnio.BackColor = Color.FromArgb(238, 237, 240);
             TxtCursoAnio.Font = new Font("Segoe UI", 12F);
             TxtCursoAnio.ForeColor = Color.FromArgb(26, 28, 30);
-            TxtCursoAnio.Location = new Point(136, 102);
+            TxtCursoAnio.Location = new Point(136, 93);
             TxtCursoAnio.MaxLength = 12;
             TxtCursoAnio.Name = "TxtCursoAnio";
             TxtCursoAnio.Size = new Size(257, 29);
@@ -315,7 +512,7 @@ namespace Agraria.UI.EntornoFormativo
             label2.Anchor = AnchorStyles.Right;
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 12F);
-            label2.Location = new Point(18, 138);
+            label2.Location = new Point(18, 124);
             label2.Name = "label2";
             label2.Size = new Size(112, 21);
             label2.TabIndex = 2;
@@ -327,7 +524,7 @@ namespace Agraria.UI.EntornoFormativo
             TxtCursoDivision.BackColor = Color.FromArgb(238, 237, 240);
             TxtCursoDivision.Font = new Font("Segoe UI", 12F);
             TxtCursoDivision.ForeColor = Color.FromArgb(26, 28, 30);
-            TxtCursoDivision.Location = new Point(136, 135);
+            TxtCursoDivision.Location = new Point(136, 123);
             TxtCursoDivision.MaxLength = 12;
             TxtCursoDivision.Name = "TxtCursoDivision";
             TxtCursoDivision.Size = new Size(257, 29);
@@ -339,7 +536,7 @@ namespace Agraria.UI.EntornoFormativo
             label3.Anchor = AnchorStyles.Right;
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI", 12F);
-            label3.Location = new Point(28, 171);
+            label3.Location = new Point(28, 154);
             label3.Name = "label3";
             label3.Size = new Size(102, 21);
             label3.TabIndex = 3;
@@ -351,7 +548,7 @@ namespace Agraria.UI.EntornoFormativo
             TxtCursoGrupo.BackColor = Color.FromArgb(238, 237, 240);
             TxtCursoGrupo.Font = new Font("Segoe UI", 12F);
             TxtCursoGrupo.ForeColor = Color.FromArgb(26, 28, 30);
-            TxtCursoGrupo.Location = new Point(136, 168);
+            TxtCursoGrupo.Location = new Point(136, 153);
             TxtCursoGrupo.MaxLength = 12;
             TxtCursoGrupo.Name = "TxtCursoGrupo";
             TxtCursoGrupo.Size = new Size(257, 29);
@@ -363,7 +560,7 @@ namespace Agraria.UI.EntornoFormativo
             LblCuit.Anchor = AnchorStyles.Right;
             LblCuit.AutoSize = true;
             LblCuit.Font = new Font("Segoe UI", 12F);
-            LblCuit.Location = new Point(30, 241);
+            LblCuit.Location = new Point(30, 218);
             LblCuit.Name = "LblCuit";
             LblCuit.Size = new Size(100, 21);
             LblCuit.TabIndex = 0;
@@ -375,11 +572,11 @@ namespace Agraria.UI.EntornoFormativo
             TxtObservacion.Dock = DockStyle.Fill;
             TxtObservacion.Font = new Font("Segoe UI", 12F);
             TxtObservacion.ForeColor = Color.FromArgb(26, 28, 30);
-            TxtObservacion.Location = new Point(136, 201);
+            TxtObservacion.Location = new Point(136, 183);
             TxtObservacion.MaxLength = 255;
             TxtObservacion.Multiline = true;
             TxtObservacion.Name = "TxtObservacion";
-            TxtObservacion.Size = new Size(257, 101);
+            TxtObservacion.Size = new Size(257, 91);
             TxtObservacion.TabIndex = 17;
             TxtObservacion.TextChanged += TxtCursoAnio_TextChanged;
             // 
@@ -387,10 +584,10 @@ namespace Agraria.UI.EntornoFormativo
             // 
             flowLayoutPanel1.Controls.Add(BtnGuardar);
             flowLayoutPanel1.Dock = DockStyle.Fill;
-            flowLayoutPanel1.Location = new Point(136, 331);
+            flowLayoutPanel1.Location = new Point(136, 301);
             flowLayoutPanel1.Name = "flowLayoutPanel1";
             TLPForm.SetRowSpan(flowLayoutPanel1, 2);
-            flowLayoutPanel1.Size = new Size(257, 51);
+            flowLayoutPanel1.Size = new Size(257, 48);
             flowLayoutPanel1.TabIndex = 18;
             // 
             // BtnGuardar
@@ -418,7 +615,7 @@ namespace Agraria.UI.EntornoFormativo
             label7.Anchor = AnchorStyles.Right;
             label7.AutoSize = true;
             label7.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label7.Location = new Point(74, 306);
+            label7.Location = new Point(74, 277);
             label7.Name = "label7";
             label7.Size = new Size(56, 21);
             label7.TabIndex = 19;
@@ -426,9 +623,9 @@ namespace Agraria.UI.EntornoFormativo
             // 
             // ChkActivo
             // 
-            ChkActivo.Location = new Point(136, 308);
+            ChkActivo.Location = new Point(136, 280);
             ChkActivo.Name = "ChkActivo";
-            ChkActivo.Size = new Size(104, 17);
+            ChkActivo.Size = new Size(104, 15);
             ChkActivo.TabIndex = 18;
             // 
             // ProgressBar
@@ -454,6 +651,11 @@ namespace Agraria.UI.EntornoFormativo
             Load += UCConsultaEntornoFormativo_Load;
             VisibleChanged += UCConsultaEntornoFormativo_VisibleChanged;
             tableLayoutPanel3.ResumeLayout(false);
+            PanelTop.ResumeLayout(false);
+            tableLayoutPanel5.ResumeLayout(false);
+            GrpFiltros.ResumeLayout(false);
+            TLPFiltros.ResumeLayout(false);
+            TLPFiltros.PerformLayout();
             PanelLista.ResumeLayout(false);
             tableLayoutPanel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)DgvEntornosFormativos).EndInit();
@@ -496,5 +698,17 @@ namespace Agraria.UI.EntornoFormativo
         private Button BtnGuardar;
         private Label label7;
         private CheckBox ChkActivo;
+        private Panel PanelTop;
+        private TableLayoutPanel tableLayoutPanel5;
+        private GroupBox GrpFiltros;
+        private TableLayoutPanel TLPFiltros;
+        private ComboBox CMBFiltroEntorno;
+        private Label label9;
+        private ComboBox CMFTipoEntorno;
+        private Button BtnLimpiarFiltros;
+        private Label label10;
+        private Button BtnAplicarFiltros;
+        private ComboBox CMBFiltroEntornoFormativo;
+        private Label label12;
     }
 }

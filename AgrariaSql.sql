@@ -233,3 +233,22 @@ CREATE TABLE HRemitoDetalleProduccion (
     CONSTRAINT FK_HRemitoDetalleProduccion_ArticulosGral FOREIGN KEY (Art_Cod) REFERENCES ArticulosGral(Art_Cod)
 );
 GO
+
+-- Poblar Usuarios_Tipo
+INSERT INTO Usuarios_Tipo (Tipo, Descripcion) VALUES
+(1, 'Director'),
+(2, 'Docente'),
+(3, 'Jefe de Area');
+GO
+
+-- Poblar Preguntas_Seguridad
+INSERT INTO Preguntas_Seguridad (Pregunta) VALUES
+('¿Nombre de tu primera mascota?'),
+('¿Ciudad donde naciste?'),
+('¿Comida favorita?');
+GO
+
+-- Poblar Usuarios
+INSERT INTO Usuarios (DNI, Nombre, Apellido, Tel, Mail, Contra, Respues, Id_Pregunta, Id_Tipo) VALUES
+('11111111','Director','Dire','11111111','director@director.com','@Director123','director',1,1);
+GO

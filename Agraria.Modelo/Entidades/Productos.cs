@@ -11,7 +11,7 @@ namespace Agraria.Modelo.Entidades
         public int Id_Producto { get; set; }
         public string? Cod_Producto { get; set; }
         public string? Producto_Desc { get; set; }
-        public int Id_TipoEntorno { get; set; }
+        public int Id_Area { get; set; }
         public int Id_Entorno { get; set; }
         public int Id_Proveedor { get; set; }
         public string? Unidad_Medida { get; set; }

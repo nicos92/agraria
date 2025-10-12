@@ -151,14 +151,14 @@ namespace Agraria.UI.Actividad
 
                     // Configurar combo principal (Tipo Entorno)
                     CMBTipoEntorno.DataSource = _listaTipoEntorno ?? [];
-                    CMBTipoEntorno.DisplayMember = "Tipo_Entorno";
-                    CMBTipoEntorno.ValueMember = "Id_Tipo_Entorno";
+                    CMBTipoEntorno.DisplayMember = "Area";
+                    CMBTipoEntorno.ValueMember = "Id_Area";
 
                     // Configurar combos de filtros
-                    CMFTipoEntorno.DataSource = new List<TipoEntorno> { new TipoEntorno { Id_Tipo_Entorno = 0, Tipo_Entorno = "Todos" } }
+                    CMFTipoEntorno.DataSource = new List<TipoEntorno> { new TipoEntorno { Id_Area = 0, Area = "Todos" } }
                         .Concat(_listaTipoEntorno ?? []).ToList();
-                    CMFTipoEntorno.DisplayMember = "Tipo_Entorno";
-                    CMFTipoEntorno.ValueMember = "Id_Tipo_Entorno";
+                    CMFTipoEntorno.DisplayMember = "Area";
+                    CMFTipoEntorno.ValueMember = "Id_Area";
                     CMFTipoEntorno.SelectedIndex = 0; // Seleccionar "Todos" por defecto
 
                     // Configurar combos de filtro para entornos y entornos formativos inicialmente vacíos
@@ -349,7 +349,7 @@ namespace Agraria.UI.Actividad
         private async Task CargarEntornos(int idTipoEntorno)
         {
             //var resultado = await _entornoService.GetAllxEntorno(idTipoEntorno);
-            var re = _listaEntorno.Where(e => e.Id_TipoEntorno == idTipoEntorno).ToList();
+            var re = _listaEntorno.Where(e => e.Id_Area == idTipoEntorno).ToList();
             //if (resultado.IsSuccess)
             //{
             CMBEntorno.DataSource = null; // Clear previous data
@@ -418,7 +418,7 @@ namespace Agraria.UI.Actividad
                 return false;
             }
 
-            _actividadSeleccionada.Id_TipoEntorno = tipoEntorno.Id_Tipo_Entorno;
+            _actividadSeleccionada.Id_TipoEntorno = tipoEntorno.Id_Area;
             _actividadSeleccionada.Id_Entorno = entornoFormativo.Id_Entorno; // Use the entorno from the selected entorno formativo
             _actividadSeleccionada.Id_EntornoFormativo = entornoFormativo.Id_Entorno_Formativo;
             _actividadSeleccionada.Fecha_Actividad = dateTimePicker1.Value;
@@ -558,7 +558,7 @@ namespace Agraria.UI.Actividad
         {
             if (CMBTipoEntorno.SelectedItem is TipoEntorno tipoEntorno)
             {
-                await CargarEntornos(tipoEntorno.Id_Tipo_Entorno);
+                await CargarEntornos(tipoEntorno.Id_Area);
                 // Clear the subcategory combo since its contents depend on the selected entorno
                 //CMBEntorno.SelectedIndex = -1;
             }
@@ -579,10 +579,10 @@ namespace Agraria.UI.Actividad
 
         private async void CMFTipoEntorno_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (CMFTipoEntorno.SelectedItem is TipoEntorno tipoEntorno && tipoEntorno.Id_Tipo_Entorno != 0)
+            if (CMFTipoEntorno.SelectedItem is TipoEntorno tipoEntorno && tipoEntorno.Id_Area != 0)
             {
                 // Load entornos for the selected tipo entorno in the filter
-                var resultado = await _entornoService.GetAllxEntorno(tipoEntorno.Id_Tipo_Entorno);
+                var resultado = await _entornoService.GetAllxEntorno(tipoEntorno.Id_Area);
                 if (resultado.IsSuccess)
                 {
                     _listaFiltroEntorno = resultado.Value.ToList();
@@ -730,9 +730,9 @@ namespace Agraria.UI.Actividad
             actividadesFiltradas = actividadesFiltradas.Where(a => a.Fecha_Actividad.Date >= DTPFechaDesde.Value.Date && a.Fecha_Actividad.Date <= DTPFechaHasta.Value.Date);
 
             // Filtrar por tipo de entorno
-            if (CMFTipoEntorno.SelectedItem is TipoEntorno tipoEntorno && tipoEntorno.Id_Tipo_Entorno != 0)
+            if (CMFTipoEntorno.SelectedItem is TipoEntorno tipoEntorno && tipoEntorno.Id_Area != 0)
             {
-                actividadesFiltradas = actividadesFiltradas.Where(a => a.Id_TipoEntorno == tipoEntorno.Id_Tipo_Entorno);
+                actividadesFiltradas = actividadesFiltradas.Where(a => a.Id_TipoEntorno == tipoEntorno.Id_Area);
             }
 
             // Filtrar por entorno
