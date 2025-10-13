@@ -313,10 +313,11 @@ namespace Agraria.Repositorio.Repositorios
             try
             {
                 using SqlConnection conn = Conexion();
-                using SqlCommand cmd = new (@"SELECT a.Id_Actividad, te.Descripcion AS Nombre_TipoEntorno, e.Nombre AS Nombre_Entorno, a.id_EntornoFormativo, a.Fecha_Actividad, a.Descripcion_Actividad 
+                using SqlCommand cmd = new (@"SELECT a.Id_Actividad, te.Descripcion AS Nombre_TipoEntorno, e.Nombre AS Nombre_Entorno, a.id_EntornoFormativo, CONCAT(ef.Curso_Anio, ' - ', ef.Curso_Division, ' - ', ef.Curso_Grupo) AS Entorno_Formativo,  a.Fecha_Actividad, a.Descripcion_Actividad 
                                               FROM Actividad a 
                                               LEFT JOIN TipoEntorno te ON a.Id_TipoEntorno = te.Id_TipoEntorno
-                                              LEFT JOIN Entorno e ON a.Id_Entorno = e.Id_Entorno", conn);
+                                              LEFT JOIN Entorno e ON a.Id_Entorno = e.Id_Entorno
+                                                LEFT JOIN EntornoFormativo ef ON e.Id_Entorno = ef.Id_Entorno;", conn);
                 await conn.OpenAsync();
                 using DbDataReader reader = await cmd.ExecuteReaderAsync();
                 List<ActividadConNombres> actividades = [];
@@ -327,8 +328,9 @@ namespace Agraria.Repositorio.Repositorios
                         reader.IsDBNull(1) ? "N/A" : reader.GetString(1),
                         reader.IsDBNull(2) ? "N/A" : reader.GetString(2),
                         reader.GetInt32(3),
-                        reader.GetDateTime(4),
-                        reader.IsDBNull(5) ? null : reader.GetString(5)
+                        reader.GetString(4),
+                        reader.GetDateTime(5),
+                        reader.IsDBNull(6) ? null : reader.GetString(6)
                     );
                     actividades.Add(actividad);
                 }

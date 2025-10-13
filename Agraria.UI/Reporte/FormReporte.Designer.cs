@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle7 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle8 = new DataGridViewCellStyle();
             panelMenu = new Panel();
             flowLayoutPanel1 = new FlowLayoutPanel();
             btnHojaVida = new Button();
@@ -42,9 +42,15 @@
             btnHerramientas = new Button();
             btnEntornoFormativo = new Button();
             dgvReporte = new DataGridView();
+            panel1 = new Panel();
+            BtnImprimir = new Button();
+            tableLayoutPanel1 = new TableLayoutPanel();
+            button1 = new Button();
             panelMenu.SuspendLayout();
             flowLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvReporte).BeginInit();
+            panel1.SuspendLayout();
+            tableLayoutPanel1.SuspendLayout();
             SuspendLayout();
             // 
             // panelMenu
@@ -218,33 +224,88 @@
             dgvReporte.BackgroundColor = Color.FromArgb(0, 75, 113);
             dgvReporte.BorderStyle = BorderStyle.None;
             dgvReporte.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = Color.DimGray;
-            dataGridViewCellStyle1.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle1.ForeColor = Color.White;
-            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
-            dgvReporte.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle7.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle7.BackColor = Color.DimGray;
+            dataGridViewCellStyle7.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle7.ForeColor = Color.White;
+            dataGridViewCellStyle7.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle7.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle7.WrapMode = DataGridViewTriState.True;
+            dgvReporte.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
             dgvReporte.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = Color.FromArgb(83, 96, 108);
-            dataGridViewCellStyle2.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle2.ForeColor = Color.White;
-            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
-            dgvReporte.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle8.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle8.BackColor = Color.FromArgb(83, 96, 108);
+            dataGridViewCellStyle8.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle8.ForeColor = Color.White;
+            dataGridViewCellStyle8.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle8.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle8.WrapMode = DataGridViewTriState.False;
+            dgvReporte.DefaultCellStyle = dataGridViewCellStyle8;
             dgvReporte.Dock = DockStyle.Fill;
             dgvReporte.EnableHeadersVisualStyles = false;
-            dgvReporte.Location = new Point(227, 0);
+            dgvReporte.Location = new Point(227, 64);
             dgvReporte.Name = "dgvReporte";
             dgvReporte.ReadOnly = true;
             dgvReporte.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
             dgvReporte.RowHeadersVisible = false;
             dgvReporte.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvReporte.Size = new Size(597, 579);
+            dgvReporte.Size = new Size(597, 515);
             dgvReporte.TabIndex = 1;
+            // 
+            // panel1
+            // 
+            panel1.BackColor = Color.FromArgb(0, 75, 113);
+            panel1.Controls.Add(tableLayoutPanel1);
+            panel1.Dock = DockStyle.Top;
+            panel1.Location = new Point(227, 0);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(597, 64);
+            panel1.TabIndex = 11;
+            // 
+            // BtnImprimir
+            // 
+            BtnImprimir.Anchor = AnchorStyles.None;
+            BtnImprimir.BackColor = Color.FromArgb(65, 0, 2);
+            BtnImprimir.FlatAppearance.BorderColor = Color.FromArgb(203, 230, 255);
+            BtnImprimir.FlatStyle = FlatStyle.Flat;
+            BtnImprimir.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            BtnImprimir.ForeColor = Color.FromArgb(255, 218, 214);
+            BtnImprimir.Location = new Point(383, 16);
+            BtnImprimir.Name = "BtnImprimir";
+            BtnImprimir.Size = new Size(128, 32);
+            BtnImprimir.TabIndex = 10;
+            BtnImprimir.Text = "Exportar a PDF";
+            BtnImprimir.UseVisualStyleBackColor = false;
+            // 
+            // tableLayoutPanel1
+            // 
+            tableLayoutPanel1.ColumnCount = 2;
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tableLayoutPanel1.Controls.Add(button1, 0, 0);
+            tableLayoutPanel1.Controls.Add(BtnImprimir, 1, 0);
+            tableLayoutPanel1.Dock = DockStyle.Fill;
+            tableLayoutPanel1.Location = new Point(0, 0);
+            tableLayoutPanel1.Name = "tableLayoutPanel1";
+            tableLayoutPanel1.RowCount = 1;
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            tableLayoutPanel1.Size = new Size(597, 64);
+            tableLayoutPanel1.TabIndex = 11;
+            // 
+            // button1
+            // 
+            button1.Anchor = AnchorStyles.None;
+            button1.BackColor = Color.FromArgb(83, 96, 108);
+            button1.FlatAppearance.BorderColor = Color.FromArgb(203, 230, 255);
+            button1.FlatStyle = FlatStyle.Flat;
+            button1.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            button1.ForeColor = Color.White;
+            button1.Location = new Point(85, 16);
+            button1.Name = "button1";
+            button1.Size = new Size(128, 32);
+            button1.TabIndex = 11;
+            button1.Text = "Imprimir";
+            button1.UseVisualStyleBackColor = false;
             // 
             // FormReporte
             // 
@@ -253,6 +314,7 @@
             BackColor = Color.FromArgb(203, 230, 255);
             ClientSize = new Size(824, 579);
             Controls.Add(dgvReporte);
+            Controls.Add(panel1);
             Controls.Add(panelMenu);
             FormBorderStyle = FormBorderStyle.None;
             Name = "FormReporte";
@@ -260,6 +322,8 @@
             panelMenu.ResumeLayout(false);
             flowLayoutPanel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dgvReporte).EndInit();
+            panel1.ResumeLayout(false);
+            tableLayoutPanel1.ResumeLayout(false);
             ResumeLayout(false);
 
         }
@@ -278,5 +342,9 @@
         private System.Windows.Forms.Button btnEntornoFormativo;
         private System.Windows.Forms.Button btnHojaVida;
         private FlowLayoutPanel flowLayoutPanel1;
+        private Panel panel1;
+        private TableLayoutPanel tableLayoutPanel1;
+        private Button button1;
+        private Button BtnImprimir;
     }
 }

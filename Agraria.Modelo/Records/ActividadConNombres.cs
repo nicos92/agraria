@@ -7,6 +7,7 @@ namespace Agraria.Modelo.Records
         string Nombre_TipoEntorno,
         string Nombre_Entorno,
         int Id_EntornoFormativo,
+        string Nombre_EntornoFormativo,
         DateTime Fecha_Actividad,
         string Descripcion_Actividad
     );

@@ -71,7 +71,7 @@ namespace Agraria.UI.Reporte
             {
                 BtnClickeado(sender);
                 var dt = new DataTable();
-                dt.Columns.Add("Código Artículo");
+                dt.Columns.Add("Código Producto");
                 dt.Columns.Add("Descripción");
                 dt.Columns.Add("Cantidad Vendida", typeof(int));
                 dt.Columns.Add("Total $ Vendido");
@@ -121,7 +121,6 @@ namespace Agraria.UI.Reporte
                 dt.Columns.Add("Total $", typeof(decimal));
                 dt.Columns.Add("Descripción");
 
-                // In a real implementation, this would come from _ventaService.GetVentasGrandes()
                 var resultado = _ventaService != null ? await _ventaService.GetVentasGrandes( 10) : null;
                 var ventasGrandes = resultado?.Value ?? [];
 
@@ -145,7 +144,7 @@ namespace Agraria.UI.Reporte
 
         private void BtnStock_Click(object sender, EventArgs e)
         {
-            // TODO: Implementar la lógica para cargar el reporte de stock actual
+            // TODO: Implementar la lógica para cargar el reporte de stock actual de los ArticulosGral
             BtnClickeado(sender);
 
 
@@ -158,11 +157,10 @@ namespace Agraria.UI.Reporte
                 BtnClickeado(sender);
 
                 var dt = new DataTable();
-                dt.Columns.Add("ID Actividad", typeof(int));
                 dt.Columns.Add("Tipo Entorno", typeof(string));
                 dt.Columns.Add("Entorno", typeof(string));
-                dt.Columns.Add("ID Entorno Formativo", typeof(int));
-                dt.Columns.Add("Fecha Actividad");
+                dt.Columns.Add("Entorno Formativo");
+                dt.Columns.Add("Fecha Actividad", typeof(DateTime));
                 dt.Columns.Add("Descripción");
 
                 // Use the new method that returns area and environment names instead of IDs
@@ -172,11 +170,10 @@ namespace Agraria.UI.Reporte
                 foreach (var actividad in actividades)
                 {
                     dt.Rows.Add(
-                        actividad.Id_Actividad,
                         actividad.Nombre_TipoEntorno,
                         actividad.Nombre_Entorno,
-                        actividad.Id_EntornoFormativo,
-                        actividad.Fecha_Actividad.ToString("yyyy-MM-dd"),
+                        actividad.Nombre_EntornoFormativo,
+                        actividad.Fecha_Actividad.ToString("yyyy-MM-dd HH:mm"),
                         actividad.Descripcion_Actividad
                     );
                 }
