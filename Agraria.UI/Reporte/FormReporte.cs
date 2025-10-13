@@ -11,39 +11,40 @@ using Agraria.Modelo.Entidades;
 using Agraria.Modelo.Enums;
 using Agraria.Contrato.Servicios;
 using BitMiracle.LibTiff.Classic;
+using Agraria.Utilidades;
 
 namespace Agraria.UI.Reporte
 {
     public partial class FormReporte : Form
     {
         // Service dependencies (in a real implementation, these would be injected)
-        private readonly IProductoStockService? _productoStockService;
-        private readonly IEntornoService? _entornoService;
-        private readonly IEntornoFormativoService? _entornoFormativoService;
-        private readonly IUsuariosService? _usuariosService;
-        private readonly IProveedoresService? _proveedorService;
-        private readonly IHojadeVidaService? _hojadeVidaService;
-        private readonly IActividadService? _actividadService;
-        private readonly IHerramientasService? _herramientasService;
-        private readonly IVentaService? _ventaService;
-        private readonly IProductoService? _productosService;
+        private readonly IProductoStockService _productoStockService;
+        private readonly IEntornoService _entornoService;
+        private readonly IEntornoFormativoService _entornoFormativoService;
+        private readonly IUsuariosService _usuariosService;
+        private readonly IProveedoresService _proveedorService;
+        private readonly IHojadeVidaService _hojadeVidaService;
+        private readonly IActividadService _actividadService;
+        private readonly IHerramientasService _herramientasService;
+        private readonly IVentaService _ventaService;
+        private readonly IProductoService _productosService;
 
-        public FormReporte()
-        {
-            InitializeComponent();
-        }
+        private Button _btnClickeado;
+
+       
 
         // Constructor with service injection (for dependency injection pattern)
         public FormReporte(
-            IProductoStockService? articuloStockService = null,
-            IEntornoService? entornoService = null,
-            IEntornoFormativoService? entornoFormativoService = null,
-            IUsuariosService? usuariosService = null,
-            IProveedoresService? proveedorService = null,
-            IHojadeVidaService? hojadeVidaService = null,
-            IActividadService? actividadService = null,
-            IVentaService? ventaService = null,
-            IProductoService? productosService = null)
+            IProductoStockService articuloStockService ,
+            IEntornoService entornoService,
+            IEntornoFormativoService entornoFormativoService ,
+            IUsuariosService usuariosService,
+            IProveedoresService proveedorService,
+            IHojadeVidaService hojadeVidaService,
+            IActividadService actividadService,
+            IVentaService ventaService,
+            IProductoService productosService,
+            IHerramientasService herramientasService)
         {
             InitializeComponent();
             _productoStockService = articuloStockService;
@@ -55,6 +56,9 @@ namespace Agraria.UI.Reporte
             _actividadService = actividadService;
             _ventaService = ventaService;
             _productosService = productosService;
+            _herramientasService = herramientasService;
+            _btnClickeado = btnMasVendidos;
+            dgvReporte.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
 
         }
 
@@ -62,14 +66,15 @@ namespace Agraria.UI.Reporte
         {
             try
             {
+                BtnClickeado(sender);
                 var dt = new DataTable();
                 dt.Columns.Add("Código Artículo");
                 dt.Columns.Add("Descripción");
-                dt.Columns.Add("Cantidad Vendida");
+                dt.Columns.Add("Cantidad Vendida", typeof(int));
                 dt.Columns.Add("Total Vendido");
 
                 // In a real implementation, this would come from _ventaService.GetArticulosMasVendidos()
-                var resultado = _ventaService != null ? await _productosService.GetArticulosMasVendidos(10) : null;
+                var resultado = _ventaService != null ? await _productosService.GetArticulosMasVendidos(50) : null;
                 var articulosMasVendidos = resultado?.Value ?? [];
 
                 foreach (var articulo in articulosMasVendidos)
@@ -89,15 +94,26 @@ namespace Agraria.UI.Reporte
             }
         }
 
+        private void BtnClickeado(object sender)
+        {
+            _btnClickeado.BackColor = AppColorsBlue.Primary;
+            _btnClickeado.Font = new Font("Segoe UI", 12f, FontStyle.Regular);
+            _btnClickeado = (Button)sender;
+            _btnClickeado.BackColor = AppColorsBlue.OnPrimaryContainer;
+            _btnClickeado.Font = new Font("Segoe UI", 14f, FontStyle.Regular);
+
+        }
+
         private async void BtnVentasGrandes_Click(object sender, EventArgs e)
         {
             try
             {
-               
+
+                BtnClickeado(sender);
 
                 var dt = new DataTable();
-                dt.Columns.Add("ID Remito");
-                dt.Columns.Add("Fecha y Hora");
+                dt.Columns.Add("ID Remito", typeof(int));
+                dt.Columns.Add("Fecha y Hora", typeof(DateTime));
                 dt.Columns.Add("Total");
                 dt.Columns.Add("Descripción");
 
@@ -126,19 +142,23 @@ namespace Agraria.UI.Reporte
         private void BtnStock_Click(object sender, EventArgs e)
         {
             // TODO: Implementar la lógica para cargar el reporte de stock actual
-           
+            BtnClickeado(sender);
+
+
         }
 
         private async void BtnActividades_Click(object sender, EventArgs e)
         {
             try
             {
+                BtnClickeado(sender);
+
                 var dt = new DataTable();
-                dt.Columns.Add("ID Actividad");
-                dt.Columns.Add("ID Tipo Entorno");
-                dt.Columns.Add("ID Entorno");
-                dt.Columns.Add("ID Entorno Formativo");
-                dt.Columns.Add("Fecha Actividad");
+                dt.Columns.Add("ID Actividad", typeof(int));
+                dt.Columns.Add("ID Tipo Entorno", typeof(int));
+                dt.Columns.Add("ID Entorno", typeof(int));
+                dt.Columns.Add("ID Entorno Formativo", typeof(int));
+                dt.Columns.Add("Fecha Actividad", typeof(DateTime));
                 dt.Columns.Add("Descripción");
 
                 // In a real implementation, this would come from _actividadService.GetAll()
@@ -169,15 +189,16 @@ namespace Agraria.UI.Reporte
         {
             try
             {
+                BtnClickeado(sender);
+
                 var dt = new DataTable();
-                dt.Columns.Add("ID Producto");
                 dt.Columns.Add("Código Producto");
                 dt.Columns.Add("Descripción");
                 dt.Columns.Add("Área");
                 dt.Columns.Add("Entorno");
                 dt.Columns.Add("Proveedor");
                 dt.Columns.Add("Ganancia");
-                dt.Columns.Add("Cantidad");
+                dt.Columns.Add("Cantidad", typeof(decimal));
                 dt.Columns.Add("Costo");
 
                 // In a real implementation, this would come from _articuloStockService.GetAllProductos()
@@ -187,7 +208,6 @@ namespace Agraria.UI.Reporte
                 foreach (var producto in productos)
                 {
                     dt.Rows.Add(
-                        producto.Id_Producto,
                         producto.Cod_Producto,
                         producto.Producto_Desc,
                         producto.Nombre_TipoEntorno,
@@ -211,14 +231,15 @@ namespace Agraria.UI.Reporte
         {
             try
             {
+                BtnClickeado(sender);
+
                 var dt = new DataTable();
-                dt.Columns.Add("ID Usuario");
-                dt.Columns.Add("DNI");
+                dt.Columns.Add("DNI", typeof(int));
                 dt.Columns.Add("Nombre");
                 dt.Columns.Add("Apellido");
                 dt.Columns.Add("Teléfono");
                 dt.Columns.Add("Email");
-                dt.Columns.Add("ID Tipo");
+                dt.Columns.Add("ID Tipo", typeof(int));
 
                 // In a real implementation, this would come from _usuariosService.GetAll()
                 var resultado = _usuariosService != null ? await _usuariosService.GetAll() : null;
@@ -227,7 +248,6 @@ namespace Agraria.UI.Reporte
                 foreach (var usuario in usuarios)
                 {
                     dt.Rows.Add(
-                        usuario.Id_Usuario,
                         usuario.DNI,
                         usuario.Nombre,
                         usuario.Apellido,
@@ -249,9 +269,11 @@ namespace Agraria.UI.Reporte
         {
             try
             {
+                BtnClickeado(sender);
+
                 var dt = new DataTable();
-                dt.Columns.Add("ID Proveedor");
-                dt.Columns.Add("CUIT");
+                dt.Columns.Add("ID Proveedor", typeof(int));
+                dt.Columns.Add("CUIT", typeof(int));
                 dt.Columns.Add("Nombre Comercial");
                 dt.Columns.Add("Nombre");
                 dt.Columns.Add("Teléfono");
@@ -287,28 +309,20 @@ namespace Agraria.UI.Reporte
         {
             try
             {
-                var dt = new DataTable();
-                dt.Columns.Add("ID Herramienta");
-                dt.Columns.Add("Nombre");
-                dt.Columns.Add("Descripción");
-                dt.Columns.Add("Cantidad");
+                BtnClickeado(sender);
 
-              
-                var resultado = _herramientasService != null ? 
-                    await _herramientasService.GetAll() : 
-                    null;
+                var dt = new DataTable();
+
+                dt.Columns.Add("ID Herramienta", typeof(int));        // Entero
+                dt.Columns.Add("Nombre", typeof(string));              // Texto
+                dt.Columns.Add("Descripción", typeof(string));         // Texto
+                dt.Columns.Add("Cantidad", typeof(int));               // Entero
+
+
+                var resultado = await _herramientasService.GetAll();
 
                 List<Herramientas> herramientas = resultado?.Value ?? [];
 
-                if (herramientas.Count == 0)
-                {
-
-                    herramientas =
-                    [
-                        new Herramientas { Id_Herramienta = 1, Nombre = "Pala", Descripcion = "Pala de jardinería", Cantidad = 5 },
-                        new Herramientas { Id_Herramienta = 2, Nombre = "Azada", Descripcion = "Azada para labranza", Cantidad = 3 }
-                    ];
-                }
 
                 foreach (var herramienta in herramientas)
                 {
@@ -332,10 +346,12 @@ namespace Agraria.UI.Reporte
         {
             try
             {
+                BtnClickeado(sender);
+
                 var dt = new DataTable();
-                dt.Columns.Add("ID Entorno");
+                dt.Columns.Add("ID Entorno", typeof(int));
                 dt.Columns.Add("Nombre Entorno");
-                dt.Columns.Add("ID Área");
+                dt.Columns.Add("ID Área", typeof(int));
 
                 // In a real implementation, this would come from _entornoService.GetAll()
                 var resultado = _entornoService != null ? await _entornoService.GetAll() : null;
@@ -362,10 +378,12 @@ namespace Agraria.UI.Reporte
         {
             try
             {
+                BtnClickeado(sender);
+
                 var dt = new DataTable();
-                dt.Columns.Add("ID Entorno Formativo");
-                dt.Columns.Add("ID Entorno");
-                dt.Columns.Add("ID Usuario");
+                dt.Columns.Add("ID Entorno Formativo", typeof(int));
+                dt.Columns.Add("ID Entorno", typeof(int));
+                dt.Columns.Add("ID Usuario", typeof(int));
                 dt.Columns.Add("Curso Año");
                 dt.Columns.Add("Curso División");
                 dt.Columns.Add("Curso Grupo");
@@ -389,7 +407,7 @@ namespace Agraria.UI.Reporte
                             entornoFormativo.Curso_Division,
                             entornoFormativo.Curso_Grupo,
                             entornoFormativo.Observaciones,
-                            entornoFormativo.Activo
+                            entornoFormativo.Activo ? "Sí" : "No"
                         );
                     }
 
@@ -406,12 +424,14 @@ namespace Agraria.UI.Reporte
         {
             try
             {
+                BtnClickeado(sender);
+
                 var dt = new DataTable();
-                dt.Columns.Add("Código");
+                dt.Columns.Add("Código", typeof(int));
                 dt.Columns.Add("Nombre");
                 dt.Columns.Add("Tipo Animal");
                 dt.Columns.Add("Sexo");
-                dt.Columns.Add("Fecha Nacimiento");
+                dt.Columns.Add("Fecha Nacimiento", typeof(DateTime));
                 dt.Columns.Add("Peso");
                 dt.Columns.Add("Estado Salud");
                 dt.Columns.Add("Observaciones");
@@ -438,9 +458,11 @@ namespace Agraria.UI.Reporte
                             hojaVida.Observaciones,
                             hojaVida.Activo ? "Sí" : "No"
                         );
+
                     }
 
                     dgvReporte.DataSource = dt;
+                    
                 }
             }
             catch (Exception ex)
