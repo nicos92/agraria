@@ -71,19 +71,20 @@ namespace Agraria.UI.Reporte
                 dt.Columns.Add("Código Artículo");
                 dt.Columns.Add("Descripción");
                 dt.Columns.Add("Cantidad Vendida", typeof(int));
-                dt.Columns.Add("Total Vendido");
+                dt.Columns.Add("Total $ Vendido");
 
                 // In a real implementation, this would come from _ventaService.GetArticulosMasVendidos()
-                var resultado = _ventaService != null ? await _productosService.GetArticulosMasVendidos(50) : null;
+                var resultado =await _productosService.GetArticulosMasVendidos(50) ;
                 var articulosMasVendidos = resultado?.Value ?? [];
 
                 foreach (var articulo in articulosMasVendidos)
                 {
                     dt.Rows.Add(
                         articulo.Cod_Producto,
+                        articulo.Producto_Desc,
                         articulo.CantidadVendida,
-                        articulo.TotalVendido,
-                        articulo.Producto_Desc);
+                        articulo.TotalVendido
+                        );
                 }
 
                 dgvReporte.DataSource = dt;

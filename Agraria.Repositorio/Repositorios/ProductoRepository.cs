@@ -118,7 +118,7 @@ namespace Agraria.Repositorio.Repositorios
                         SUM(vd.Cant) as CantidadVendida,
                         SUM(vd.P_X_Cant) as TotalVendido
                     FROM Productos p
-                    INNER JOIN H_Ventas_Detalle vd ON p.Cod_Producto = vd.Cod_Art
+                    INNER JOIN H_Ventas_Detalle vd ON p.Cod_Producto = vd.Cod_Producto
                     INNER JOIN H_Ventas v ON vd.Id_Remito = v.Id_Remito
                     GROUP BY p.Cod_Producto, p.Producto_Desc
                     ORDER BY SUM(vd.Cant) DESC";
