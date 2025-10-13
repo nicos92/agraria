@@ -1,5 +1,6 @@
 using Agraria.Contrato.Repositorios;
 using Agraria.Modelo.Entidades;
+using Agraria.Modelo.Records;
 using Agraria.Utilidades;
 using Microsoft.Data.SqlClient;
 using System;
@@ -304,6 +305,42 @@ namespace Agraria.Repositorio.Repositorios
             catch (Exception ex)
             {
                 return Result<List<Actividad>>.Failure("Error al obtener las Actividades por rango de fechas: " + ex.Message);
+            }
+        }
+
+        public async Task<Result<List<ActividadConNombres>>> GetAllConNombres()
+        {
+            try
+            {
+                using SqlConnection conn = Conexion();
+                using SqlCommand cmd = new (@"SELECT a.Id_Actividad, te.Descripcion AS Nombre_TipoEntorno, e.Nombre AS Nombre_Entorno, a.id_EntornoFormativo, a.Fecha_Actividad, a.Descripcion_Actividad 
+                                              FROM Actividad a 
+                                              LEFT JOIN TipoEntorno te ON a.Id_TipoEntorno = te.Id_TipoEntorno
+                                              LEFT JOIN Entorno e ON a.Id_Entorno = e.Id_Entorno", conn);
+                await conn.OpenAsync();
+                using DbDataReader reader = await cmd.ExecuteReaderAsync();
+                List<ActividadConNombres> actividades = [];
+                while (await reader.ReadAsync())
+                {
+                    ActividadConNombres actividad = new (
+                        reader.GetInt32(0),
+                        reader.IsDBNull(1) ? "N/A" : reader.GetString(1),
+                        reader.IsDBNull(2) ? "N/A" : reader.GetString(2),
+                        reader.GetInt32(3),
+                        reader.GetDateTime(4),
+                        reader.IsDBNull(5) ? null : reader.GetString(5)
+                    );
+                    actividades.Add(actividad);
+                }
+                return Result<List<ActividadConNombres>>.Success(actividades);
+            }
+            catch (SqlException ex)
+            {
+                return Result<List<ActividadConNombres>>.Failure("Error en la base de datos al obtener las Actividades con nombres: " + ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return Result<List<ActividadConNombres>>.Failure("Error al obtener las Actividades con nombres: " + ex.Message);
             }
         }
     }

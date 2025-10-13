@@ -64,10 +64,10 @@
 
 #### Reportes
 
-- [ ] btnActividades: crear sql y crar un record para obtener los nobres de las areas y entornos en ves de mostrar el id
+- [ ] btnActividades: crear un metodo nuevo en el repositorio con un sql y crear un record para obtener los nobres de las areas y entornos en ves de mostrar el id
 
-- [ ] btnUsuarios: crear sql y crar un record para obtener los nombres del tipo de usuario en ves de mostrar el id
+- [ ] btnUsuarios: crear un metodo nuevo en el repositorio con un sql y crear un record para obtener los nombres del tipo de usuario en ves de mostrar el id
 
-- [ ] btnEntornos: crear sql y crar un record para obtener el nombre de los tipos de entornos(areas)
+- [ ] btnEntornos: crear un metodo nuevo en el repositorio con un sql y crear un record para obtener el nombre de los tipos de entornos(areas)
 
-- [ ] btnEntornoFormativo: crear sql y crar un record para obtener los nombres y apellidos de los usuarios y el nombre del entorno al que pertenecen en ves de los id.
+- [ ] btnEntornoFormativo: crear un metodo nuevo en el repositorio con un sql y crear un record para obtener los nombres y apellidos de los usuarios y el nombre del entorno al que pertenecen en ves de los id.

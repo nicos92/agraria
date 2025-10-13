@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Agraria.Modelo.Entidades;
+using Agraria.Modelo.Records;
 using Agraria.Contrato.Servicios;
 using Agraria.Contrato.Repositorios;
 using Agraria.Utilidades;
@@ -15,5 +16,10 @@ namespace Agraria.Servicio.Implementaciones
         public Result<TipoEntorno> Add(TipoEntorno categoria) => _repo.Add(categoria);
         public Result<TipoEntorno> Update(TipoEntorno categoria) => _repo.Update(categoria);
         public Result<bool> Delete(int id) => _repo.Delete(id);
+
+        public async Task<Result<List<TipoEntornoConNombre>>> GetAllConNombres()
+        {
+            return await _repo.GetAllConNombres();
+        }
     }
 }

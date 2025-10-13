@@ -28,6 +28,7 @@ namespace Agraria.UI.Reporte
         private readonly IHerramientasService _herramientasService;
         private readonly IVentaService _ventaService;
         private readonly IProductoService _productosService;
+        private readonly ITipoEntornosService _tipoEntornosService;
 
         private Button _btnClickeado;
 
@@ -44,7 +45,8 @@ namespace Agraria.UI.Reporte
             IActividadService actividadService,
             IVentaService ventaService,
             IProductoService productosService,
-            IHerramientasService herramientasService)
+            IHerramientasService herramientasService,
+            ITipoEntornosService tipoEntornosService)
         {
             InitializeComponent();
             _productoStockService = articuloStockService;
@@ -57,6 +59,7 @@ namespace Agraria.UI.Reporte
             _ventaService = ventaService;
             _productosService = productosService;
             _herramientasService = herramientasService;
+            _tipoEntornosService = tipoEntornosService;
             _btnClickeado = btnMasVendidos;
             dgvReporte.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
 
@@ -101,7 +104,7 @@ namespace Agraria.UI.Reporte
             _btnClickeado.Font = new Font("Segoe UI", 12f, FontStyle.Regular);
             _btnClickeado = (Button)sender;
             _btnClickeado.BackColor = AppColorsBlue.OnPrimaryContainer;
-            _btnClickeado.Font = new Font("Segoe UI", 14f, FontStyle.Regular);
+            _btnClickeado.Font = new Font("Segoe UI", 14f, FontStyle.Bold);
 
         }
 
@@ -113,9 +116,9 @@ namespace Agraria.UI.Reporte
                 BtnClickeado(sender);
 
                 var dt = new DataTable();
-                dt.Columns.Add("ID Remito", typeof(int));
+                dt.Columns.Add("ID Remito");
                 dt.Columns.Add("Fecha y Hora", typeof(DateTime));
-                dt.Columns.Add("Total");
+                dt.Columns.Add("Total $", typeof(decimal));
                 dt.Columns.Add("Descripción");
 
                 // In a real implementation, this would come from _ventaService.GetVentasGrandes()
@@ -125,7 +128,7 @@ namespace Agraria.UI.Reporte
                 foreach (var venta in ventasGrandes)
                 {
                     dt.Rows.Add(
-                        venta.Id_Remito,
+                        venta.Id_Remito.ToString().Trim().PadLeft(8, '0'),
                         venta.Fecha_Hora.ToString("yyyy-MM-dd HH:mm"),
                         venta.Total,
                         venta.Descripcion
@@ -156,22 +159,22 @@ namespace Agraria.UI.Reporte
 
                 var dt = new DataTable();
                 dt.Columns.Add("ID Actividad", typeof(int));
-                dt.Columns.Add("ID Tipo Entorno", typeof(int));
-                dt.Columns.Add("ID Entorno", typeof(int));
+                dt.Columns.Add("Tipo Entorno", typeof(string));
+                dt.Columns.Add("Entorno", typeof(string));
                 dt.Columns.Add("ID Entorno Formativo", typeof(int));
-                dt.Columns.Add("Fecha Actividad", typeof(DateTime));
+                dt.Columns.Add("Fecha Actividad");
                 dt.Columns.Add("Descripción");
 
-                // In a real implementation, this would come from _actividadService.GetAll()
-                var resultado = _actividadService != null ? await _actividadService.GetAll() : null;
+                // Use the new method that returns area and environment names instead of IDs
+                var resultado = await _actividadService.GetAllConNombres();
                 var actividades = resultado?.Value ?? [];
 
                 foreach (var actividad in actividades)
                 {
                     dt.Rows.Add(
                         actividad.Id_Actividad,
-                        actividad.Id_TipoEntorno,
-                        actividad.Id_Entorno,
+                        actividad.Nombre_TipoEntorno,
+                        actividad.Nombre_Entorno,
                         actividad.Id_EntornoFormativo,
                         actividad.Fecha_Actividad.ToString("yyyy-MM-dd"),
                         actividad.Descripcion_Actividad
@@ -240,10 +243,10 @@ namespace Agraria.UI.Reporte
                 dt.Columns.Add("Apellido");
                 dt.Columns.Add("Teléfono");
                 dt.Columns.Add("Email");
-                dt.Columns.Add("ID Tipo", typeof(int));
+                dt.Columns.Add("Tipo");
 
-                // In a real implementation, this would come from _usuariosService.GetAll()
-                var resultado = _usuariosService != null ? await _usuariosService.GetAll() : null;
+                // Use the new method that returns user type name instead of ID
+                var resultado = _usuariosService != null ? await _usuariosService.GetAllConTipo() : null;
                 var usuarios = resultado?.Value ?? [];
 
                 foreach (var usuario in usuarios)
@@ -254,7 +257,7 @@ namespace Agraria.UI.Reporte
                         usuario.Apellido,
                         usuario.Tel,
                         usuario.Mail,
-                        usuario.Id_Tipo
+                        usuario.Nombre_Tipo
                     );
                 }
 
@@ -273,8 +276,7 @@ namespace Agraria.UI.Reporte
                 BtnClickeado(sender);
 
                 var dt = new DataTable();
-                dt.Columns.Add("ID Proveedor", typeof(int));
-                dt.Columns.Add("CUIT", typeof(int));
+                dt.Columns.Add("CUIT");
                 dt.Columns.Add("Nombre Comercial");
                 dt.Columns.Add("Nombre");
                 dt.Columns.Add("Teléfono");
@@ -288,7 +290,6 @@ namespace Agraria.UI.Reporte
                 foreach (var proveedor in proveedores)
                 {
                     dt.Rows.Add(
-                        proveedor.Id_Proveedor,
                         proveedor.CUIT,
                         proveedor.Proveedor,
                         proveedor.Nombre,
@@ -352,10 +353,10 @@ namespace Agraria.UI.Reporte
                 var dt = new DataTable();
                 dt.Columns.Add("ID Entorno", typeof(int));
                 dt.Columns.Add("Nombre Entorno");
-                dt.Columns.Add("ID Área", typeof(int));
+                dt.Columns.Add("Área");
 
-                // In a real implementation, this would come from _entornoService.GetAll()
-                var resultado = _entornoService != null ? await _entornoService.GetAll() : null;
+                // Use the new method that returns area name instead of ID
+                var resultado =await _entornoService.GetAllConTipo();
                 var entornos = resultado?.Value ?? [];
 
                 foreach (var entorno in entornos)
@@ -363,7 +364,7 @@ namespace Agraria.UI.Reporte
                     dt.Rows.Add(
                         entorno.Id_Entorno,
                         entorno.Entorno_nombre,
-                        entorno.Id_Area
+                        entorno.Nombre_Area
                     );
                 }
 
@@ -375,6 +376,36 @@ namespace Agraria.UI.Reporte
             }
         }
 
+        private async void BtnEntornos_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                BtnClickeado(sender);
+
+                var dt = new DataTable();
+                dt.Columns.Add("ID Tipo Entorno", typeof(int));
+                dt.Columns.Add("Nombre Tipo Entorno");
+
+                // Get the environment types (areas) with their names
+                var resultado = _tipoEntornosService != null ? await _tipoEntornosService.GetAllConNombres() : null;
+                var tiposEntornos = resultado?.Value ?? [];
+
+                foreach (var tipoEntorno in tiposEntornos)
+                {
+                    dt.Rows.Add(
+                        tipoEntorno.Id_TipoEntorno,
+                        tipoEntorno.Nombre
+                    );
+                }
+
+                dgvReporte.DataSource = dt;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al cargar el reporte de tipos de entornos: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
         private async void BtnEntornoFormativo_Click(object sender, EventArgs e)
         {
             try
@@ -382,28 +413,27 @@ namespace Agraria.UI.Reporte
                 BtnClickeado(sender);
 
                 var dt = new DataTable();
-                dt.Columns.Add("ID Entorno Formativo", typeof(int));
-                dt.Columns.Add("ID Entorno", typeof(int));
-                dt.Columns.Add("ID Usuario", typeof(int));
+                dt.Columns.Add("Entorno");
+                dt.Columns.Add("Nombre Usuario");
+                dt.Columns.Add("Apellido Usuario");
                 dt.Columns.Add("Curso Año");
                 dt.Columns.Add("Curso División");
                 dt.Columns.Add("Curso Grupo");
                 dt.Columns.Add("Observaciones");
                 dt.Columns.Add("Activo");
 
-                var resultado = await _entornoFormativoService.GetAll();
+                // Use the new method that returns user names and environment names instead of IDs
+                var resultado = await _entornoFormativoService.GetAllConNombres();
                 if (resultado.IsSuccess)
                 {
-
-
                     var entornosFormativos = resultado?.Value ?? [];
 
                     foreach (var entornoFormativo in entornosFormativos)
                     {
                         dt.Rows.Add(
-                            entornoFormativo.Id_Entorno_Formativo,
-                            entornoFormativo.Id_Entorno,
-                            entornoFormativo.Id_Usuario,
+                            entornoFormativo.Nombre_Entorno,
+                            entornoFormativo.Nombre_Usuario,
+                            entornoFormativo.Apellido_Usuario,
                             entornoFormativo.Curso_anio,
                             entornoFormativo.Curso_Division,
                             entornoFormativo.Curso_Grupo,

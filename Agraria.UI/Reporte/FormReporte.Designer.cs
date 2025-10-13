@@ -40,7 +40,6 @@
             btnUsuarios = new Button();
             btnProveedores = new Button();
             btnHerramientas = new Button();
-            btnEntorno = new Button();
             btnEntornoFormativo = new Button();
             dgvReporte = new DataGridView();
             panelMenu.SuspendLayout();
@@ -70,7 +69,6 @@
             flowLayoutPanel1.Controls.Add(btnUsuarios);
             flowLayoutPanel1.Controls.Add(btnProveedores);
             flowLayoutPanel1.Controls.Add(btnHerramientas);
-            flowLayoutPanel1.Controls.Add(btnEntorno);
             flowLayoutPanel1.Controls.Add(btnEntornoFormativo);
             flowLayoutPanel1.Dock = DockStyle.Fill;
             flowLayoutPanel1.Location = new Point(0, 0);
@@ -87,7 +85,7 @@
             btnHojaVida.ForeColor = Color.White;
             btnHojaVida.Location = new Point(3, 3);
             btnHojaVida.Name = "btnHojaVida";
-            btnHojaVida.Size = new Size(191, 50);
+            btnHojaVida.Size = new Size(191, 56);
             btnHojaVida.TabIndex = 10;
             btnHojaVida.Text = "Hojas de Vida";
             btnHojaVida.UseVisualStyleBackColor = false;
@@ -100,9 +98,9 @@
             btnProductos.FlatStyle = FlatStyle.Flat;
             btnProductos.Font = new Font("Segoe UI", 12F);
             btnProductos.ForeColor = Color.White;
-            btnProductos.Location = new Point(3, 59);
+            btnProductos.Location = new Point(3, 65);
             btnProductos.Name = "btnProductos";
-            btnProductos.Size = new Size(191, 50);
+            btnProductos.Size = new Size(191, 56);
             btnProductos.TabIndex = 4;
             btnProductos.Text = "Productos";
             btnProductos.UseVisualStyleBackColor = false;
@@ -115,9 +113,9 @@
             btnMasVendidos.FlatStyle = FlatStyle.Flat;
             btnMasVendidos.Font = new Font("Segoe UI", 12F);
             btnMasVendidos.ForeColor = Color.White;
-            btnMasVendidos.Location = new Point(3, 115);
+            btnMasVendidos.Location = new Point(3, 127);
             btnMasVendidos.Name = "btnMasVendidos";
-            btnMasVendidos.Size = new Size(191, 50);
+            btnMasVendidos.Size = new Size(191, 56);
             btnMasVendidos.TabIndex = 0;
             btnMasVendidos.Text = "Más vendidos";
             btnMasVendidos.UseVisualStyleBackColor = false;
@@ -130,9 +128,9 @@
             btnVentasGrandes.FlatStyle = FlatStyle.Flat;
             btnVentasGrandes.Font = new Font("Segoe UI", 12F);
             btnVentasGrandes.ForeColor = Color.White;
-            btnVentasGrandes.Location = new Point(3, 171);
+            btnVentasGrandes.Location = new Point(3, 189);
             btnVentasGrandes.Name = "btnVentasGrandes";
-            btnVentasGrandes.Size = new Size(191, 50);
+            btnVentasGrandes.Size = new Size(191, 56);
             btnVentasGrandes.TabIndex = 1;
             btnVentasGrandes.Text = "Ventas Grandes";
             btnVentasGrandes.UseVisualStyleBackColor = false;
@@ -145,9 +143,9 @@
             btnActividades.FlatStyle = FlatStyle.Flat;
             btnActividades.Font = new Font("Segoe UI", 12F);
             btnActividades.ForeColor = Color.White;
-            btnActividades.Location = new Point(3, 227);
+            btnActividades.Location = new Point(3, 251);
             btnActividades.Name = "btnActividades";
-            btnActividades.Size = new Size(191, 50);
+            btnActividades.Size = new Size(191, 56);
             btnActividades.TabIndex = 3;
             btnActividades.Text = "Actividades";
             btnActividades.UseVisualStyleBackColor = false;
@@ -160,9 +158,9 @@
             btnUsuarios.FlatStyle = FlatStyle.Flat;
             btnUsuarios.Font = new Font("Segoe UI", 12F);
             btnUsuarios.ForeColor = Color.White;
-            btnUsuarios.Location = new Point(3, 283);
+            btnUsuarios.Location = new Point(3, 313);
             btnUsuarios.Name = "btnUsuarios";
-            btnUsuarios.Size = new Size(191, 50);
+            btnUsuarios.Size = new Size(191, 56);
             btnUsuarios.TabIndex = 5;
             btnUsuarios.Text = "Usuarios";
             btnUsuarios.UseVisualStyleBackColor = false;
@@ -175,9 +173,9 @@
             btnProveedores.FlatStyle = FlatStyle.Flat;
             btnProveedores.Font = new Font("Segoe UI", 12F);
             btnProveedores.ForeColor = Color.White;
-            btnProveedores.Location = new Point(3, 339);
+            btnProveedores.Location = new Point(3, 375);
             btnProveedores.Name = "btnProveedores";
-            btnProveedores.Size = new Size(191, 50);
+            btnProveedores.Size = new Size(191, 56);
             btnProveedores.TabIndex = 6;
             btnProveedores.Text = "Proveedores";
             btnProveedores.UseVisualStyleBackColor = false;
@@ -190,28 +188,13 @@
             btnHerramientas.FlatStyle = FlatStyle.Flat;
             btnHerramientas.Font = new Font("Segoe UI", 12F);
             btnHerramientas.ForeColor = Color.White;
-            btnHerramientas.Location = new Point(3, 395);
+            btnHerramientas.Location = new Point(3, 437);
             btnHerramientas.Name = "btnHerramientas";
-            btnHerramientas.Size = new Size(191, 50);
+            btnHerramientas.Size = new Size(191, 56);
             btnHerramientas.TabIndex = 7;
             btnHerramientas.Text = "Herramientas";
             btnHerramientas.UseVisualStyleBackColor = false;
             btnHerramientas.Click += BtnHerramientas_Click;
-            // 
-            // btnEntorno
-            // 
-            btnEntorno.BackColor = Color.FromArgb(7, 100, 147);
-            btnEntorno.FlatAppearance.BorderSize = 0;
-            btnEntorno.FlatStyle = FlatStyle.Flat;
-            btnEntorno.Font = new Font("Segoe UI", 12F);
-            btnEntorno.ForeColor = Color.White;
-            btnEntorno.Location = new Point(3, 451);
-            btnEntorno.Name = "btnEntorno";
-            btnEntorno.Size = new Size(191, 50);
-            btnEntorno.TabIndex = 8;
-            btnEntorno.Text = "Entornos";
-            btnEntorno.UseVisualStyleBackColor = false;
-            btnEntorno.Click += BtnEntorno_Click;
             // 
             // btnEntornoFormativo
             // 
@@ -220,9 +203,9 @@
             btnEntornoFormativo.FlatStyle = FlatStyle.Flat;
             btnEntornoFormativo.Font = new Font("Segoe UI", 12F);
             btnEntornoFormativo.ForeColor = Color.White;
-            btnEntornoFormativo.Location = new Point(3, 507);
+            btnEntornoFormativo.Location = new Point(3, 499);
             btnEntornoFormativo.Name = "btnEntornoFormativo";
-            btnEntornoFormativo.Size = new Size(191, 50);
+            btnEntornoFormativo.Size = new Size(191, 56);
             btnEntornoFormativo.TabIndex = 9;
             btnEntornoFormativo.Text = "Entornos Formativos";
             btnEntornoFormativo.UseVisualStyleBackColor = false;
@@ -292,7 +275,6 @@
         private System.Windows.Forms.Button btnUsuarios;
         private System.Windows.Forms.Button btnProveedores;
         private System.Windows.Forms.Button btnHerramientas;
-        private System.Windows.Forms.Button btnEntorno;
         private System.Windows.Forms.Button btnEntornoFormativo;
         private System.Windows.Forms.Button btnHojaVida;
         private FlowLayoutPanel flowLayoutPanel1;

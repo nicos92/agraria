@@ -7,6 +7,7 @@ using System.Runtime.Versioning;
 using System.Threading.Tasks;
 using Agraria.Contrato.Repositorios;
 using Agraria.Modelo.Entidades;
+using Agraria.Modelo.Records;
 using Agraria.Utilidades;
 
 namespace Agraria.Repositorio.Repositorios
@@ -182,6 +183,38 @@ namespace Agraria.Repositorio.Repositorios
             catch (Exception ex)
             {
                 return Result<List<Entorno>>.Failure("Error al obtener el Entorno: " + ex.Message);
+            }
+        }
+
+        public async Task<Result<List<EntornoConTipo>>> GetAllConTipo()
+        {
+            try
+            {
+                using SqlConnection conn = Conexion();
+                using SqlCommand cmd = new (@"SELECT e.Id_Entorno, e.Nombre, te.Descripcion AS Nombre_Area
+                                              FROM Entorno e
+                                              LEFT JOIN TipoEntorno te ON e.Id_TipoEntorno = te.Id_TipoEntorno", conn);
+                await conn.OpenAsync();
+                using DbDataReader reader = await cmd.ExecuteReaderAsync();
+                List<EntornoConTipo> entornos = [];
+                while (await reader.ReadAsync())
+                {
+                    EntornoConTipo entorno = new(
+                        reader.GetInt32(0),
+                        reader.GetString(1),
+                        reader.IsDBNull(2) ? "N/A" : reader.GetString(2)
+                    );
+                    entornos.Add(entorno);
+                }
+                return Result<List<EntornoConTipo>>.Success(entornos);
+            }
+            catch (SqlException ex)
+            {
+                return Result<List<EntornoConTipo>>.Failure("Error en la base de datos al obtener los entornos con tipo: " + ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return Result<List<EntornoConTipo>>.Failure("Error al obtener los entornos con tipo: " + ex.Message);
             }
         }
     }

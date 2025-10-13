@@ -7,6 +7,7 @@ using System.Runtime.Versioning;
 using System.Threading.Tasks;
 using Agraria.Contrato.Repositorios;
 using Agraria.Modelo.Entidades;
+using Agraria.Modelo.Records;
 using Agraria.Utilidades;
 
 namespace Agraria.Repositorio.Repositorios
@@ -304,6 +305,41 @@ namespace Agraria.Repositorio.Repositorios
             catch (System.Exception ex)
             {
                 return Result<bool>.Failure("Error inesperado al eliminar el usuario: " + ex.Message);
+            }
+        }
+
+        public async Task<Result<List<UsuarioConTipo>>> GetAllConTipo()
+        {
+            try
+            {
+                using SqlConnection conn = Conexion();
+                using SqlCommand cmd = new(@"SELECT u.DNI, u.Nombre, u.Apellido, u.Tel, u.Mail, ut.descripcion AS Nombre_Tipo
+                                              FROM Usuarios u
+                                              LEFT JOIN usuarios_tipo ut ON u.Id_Tipo = ut.Id_Usuario_Tipo", conn);
+                await conn.OpenAsync();
+                using DbDataReader reader = await cmd.ExecuteReaderAsync();
+                List<UsuarioConTipo> usuarios = [];
+                while (await reader.ReadAsync())
+                {
+                    UsuarioConTipo usuario = new(
+                        reader.GetString(0),
+                        reader.GetString(1),
+                        reader.GetString(2),
+                        reader.GetString(3),
+                        reader.GetString(4),
+                        reader.IsDBNull(5) ? "N/A" : reader.GetString(5)
+                    );
+                    usuarios.Add(usuario);
+                }
+                return Result<List<UsuarioConTipo>>.Success(usuarios);
+            }
+            catch (SqlException ex)
+            {
+                return Result<List<UsuarioConTipo>>.Failure("Error en la base de datos al obtener los usuarios con tipo: " + ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return Result<List<UsuarioConTipo>>.Failure("Error inesperado al obtener los usuarios con tipo: " + ex.Message);
             }
         }
     }

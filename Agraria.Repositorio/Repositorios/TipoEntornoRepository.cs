@@ -4,6 +4,7 @@ using Microsoft.Data.SqlClient;
 using System.Runtime.Versioning;
 using Agraria.Contrato.Repositorios;
 using Agraria.Modelo.Entidades;
+using Agraria.Modelo.Records;
 using Agraria.Utilidades;
 
 namespace Agraria.Repositorio.Repositorios
@@ -146,6 +147,33 @@ namespace Agraria.Repositorio.Repositorios
             }
         }
 
-       
+        public async Task<Result<List<TipoEntornoConNombre>>> GetAllConNombres()
+        {
+            try
+            {
+                var tipos = new List<TipoEntornoConNombre>();
+                using (SqlConnection conexion = Conexion())
+                {
+                    await conexion.OpenAsync();
+                    using var cmd = new SqlCommand("SELECT Id_TipoEntorno, Descripcion FROM TipoEntorno", conexion);
+                    using var reader = await cmd.ExecuteReaderAsync();
+                    while (await reader.ReadAsync())
+                    {
+                        tipos.Add(new TipoEntornoConNombre(
+                            reader.GetInt32(0),
+                            reader.GetString(1)
+                        ));
+                    }
+                }
+                return Result<List<TipoEntornoConNombre>>.Success(tipos);
+            }catch(SqlException ix)
+            {
+                return Result<List<TipoEntornoConNombre>>.Failure($"Error de base de dtos al obtener Tipo_Entorno: {ix.Message}");
+            }
+            catch (Exception ex)
+            {
+                return Result<List<TipoEntornoConNombre>>.Failure($"Error inesperado al obtener Tipo_Entorno: {ex.Message}");
+            }
+        }
     }
 }

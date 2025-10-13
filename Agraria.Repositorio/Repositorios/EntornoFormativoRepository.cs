@@ -1,5 +1,6 @@
 using Agraria.Contrato.Repositorios;
 using Agraria.Modelo.Entidades;
+using Agraria.Modelo.Records;
 using Agraria.Utilidades;
 using System;
 using System.Collections.Generic;
@@ -201,6 +202,48 @@ namespace Agraria.Repositorio.Repositorios
             catch (SqlException ex)
             {
                 return Result<EntornoFormativo>.Failure($"Error al actualizar el entorno formativo: \n {ex.Message}");
+            }
+        }
+
+        public async Task<Result<List<EntornoFormativoConNombres>>> GetAllConNombres()
+        {
+            try
+            {
+                using SqlConnection conn = Conexion();
+                using SqlCommand cmd = new (@"SELECT ef.Id_EntornoFormativo, e.Nombre AS Nombre_Entorno, 
+                                              u.Nombre AS Nombre_Usuario, u.Apellido AS Apellido_Usuario,
+                                              ef.Curso_anio, ef.Curso_Division, ef.Curso_Grupo, 
+                                              ef.Observaciones, ef.Activo
+                                              FROM EntornoFormativo ef
+                                              LEFT JOIN Entorno e ON ef.Id_Entorno = e.Id_Entorno
+                                              LEFT JOIN Usuarios u ON ef.Id_Usuario = u.Id_Usuario", conn);
+                await conn.OpenAsync();
+                using DbDataReader reader = await cmd.ExecuteReaderAsync();
+                List<EntornoFormativoConNombres> entornosFormativos = [];
+                while (await reader.ReadAsync())
+                {
+                    EntornoFormativoConNombres entornoFormativo = new(
+                        reader.GetInt32(0),
+                        reader.IsDBNull(1) ? "N/A" : reader.GetString(1),
+                        reader.IsDBNull(2) ? "N/A" : reader.GetString(2),
+                        reader.IsDBNull(3) ? "N/A" : reader.GetString(3),
+                        reader.IsDBNull(4) ? null : reader.GetString(4),
+                        reader.IsDBNull(5) ? null : reader.GetString(5),
+                        reader.IsDBNull(6) ? null : reader.GetString(6),
+                        reader.IsDBNull(7) ? null : reader.GetString(7),
+                        reader.GetBoolean(8)
+                    );
+                    entornosFormativos.Add(entornoFormativo);
+                }
+                return Result<List<EntornoFormativoConNombres>>.Success(entornosFormativos);
+            }
+            catch (SqlException ex)
+            {
+                return Result<List<EntornoFormativoConNombres>>.Failure("Error en la base de datos al obtener los Entornos Formativos con nombres: " + ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return Result<List<EntornoFormativoConNombres>>.Failure("Error al obtener los Entornos Formativos con nombres: " + ex.Message);
             }
         }
     }

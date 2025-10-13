@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Agraria.Modelo.Entidades;
+using Agraria.Modelo.Records;
 using Agraria.Contrato.Servicios;
 using Agraria.Contrato.Repositorios;
 using Agraria.Utilidades;
@@ -19,6 +20,11 @@ namespace Agraria.Servicio.Implementaciones
         public async Task<Result<List<Entorno>>> GetAllxEntorno(int idcategoria)
         {
             return await _repo.GetAllxCategoria(idcategoria);
+        }
+
+        public async Task<Result<List<EntornoConTipo>>> GetAllConTipo()
+        {
+            return await _repo.GetAllConTipo();
         }
     }
 }

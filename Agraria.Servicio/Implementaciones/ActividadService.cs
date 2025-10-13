@@ -1,6 +1,7 @@
 using Agraria.Contrato.Repositorios;
 using Agraria.Contrato.Servicios;
 using Agraria.Modelo.Entidades;
+using Agraria.Modelo.Records;
 using Agraria.Utilidades;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -54,6 +55,11 @@ namespace Agraria.Servicio.Implementaciones
         public async Task<Result<List<ActividadesCurso>>> GetTopDiez()
         {
             return await _repo.GetTopDiez();
+        }
+
+        public async Task<Result<List<ActividadConNombres>>> GetAllConNombres()
+        {
+            return await _repo.GetAllConNombres();
         }
     }
 }

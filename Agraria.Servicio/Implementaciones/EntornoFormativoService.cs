@@ -1,6 +1,7 @@
 using Agraria.Contrato.Repositorios;
 using Agraria.Contrato.Servicios;
 using Agraria.Modelo.Entidades;
+using Agraria.Modelo.Records;
 using Agraria.Utilidades;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -39,6 +40,11 @@ namespace Agraria.Servicio.Implementaciones
         public async Task<Result<List<EntornoFormativo>>> GetAllByIdEntorno(int idEntorno)
         {
             return await _repo.GetAllByIdEntorno(idEntorno);
+        }
+
+        public async Task<Result<List<EntornoFormativoConNombres>>> GetAllConNombres()
+        {
+            return await _repo.GetAllConNombres();
         }
     }
 }

@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Agraria.Modelo.Entidades;
 using Agraria.Utilidades;
 using System.Threading.Tasks;
+using Agraria.Modelo.Records;
 
 namespace Agraria.Contrato.Servicios
 {
@@ -9,6 +10,7 @@ namespace Agraria.Contrato.Servicios
     {
         Task<Result<List<Actividad>>> GetAll();
         Task<Result<List<ActividadesCurso>>> GetTopDiez();
+        Task<Result<List<ActividadConNombres>>> GetAllConNombres();
 
         Result<Actividad> GetById(int id);
         Task<Result<Actividad>> Add(Actividad actividad);

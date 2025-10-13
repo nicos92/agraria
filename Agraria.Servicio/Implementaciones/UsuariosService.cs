@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Agraria.Modelo.Entidades;
+using Agraria.Modelo.Records;
 using Agraria.Contrato.Servicios;
 using Agraria.Contrato.Repositorios;
 using System.Threading.Tasks;
@@ -22,6 +23,11 @@ namespace Agraria.Servicio.Implementaciones
         public async Task<Result<List<Usuarios>>> GetAllActive()
         {
             return await _repo.GetAllActive();
+        }
+
+        public async Task<Result<List<UsuarioConTipo>>> GetAllConTipo()
+        {
+            return await _repo.GetAllConTipo();
         }
     }
 }

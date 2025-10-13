@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Agraria.Modelo.Entidades;
 using System.Threading.Tasks;
 using Agraria.Utilidades;
+using Agraria.Modelo.Records;
 
 namespace Agraria.Contrato.Repositorios
 {
@@ -9,6 +10,7 @@ namespace Agraria.Contrato.Repositorios
     {
         Task<Result<List<Usuarios>>> GetAll();
         Task<Result<List<Usuarios>>> GetAllActive();
+        Task<Result<List<UsuarioConTipo>>> GetAllConTipo();
         Task<Result<Usuarios>> GetById(int id);
         Task<Result<Usuarios>> GetByDniAndPassword(string dni, string password);
         Task<Result<Usuarios>> GetByDniAndQuestionAndAnswer(string dni, int preguntaId, string respuesta);
