@@ -163,7 +163,7 @@ GO
 -- Tabla HojadeVida
 CREATE TABLE HojadeVida (
     Id_HojaVida INT IDENTITY(1,1) PRIMARY KEY,
-    Nombre NVARCHAR(255) NOT NULL,
+    Numero INT NOT NULL UNIQUE,
     Tipo_Animal INT NOT NULL,
     Sexo INT NOT NULL,
     Fecha_Nacimiento DATE,

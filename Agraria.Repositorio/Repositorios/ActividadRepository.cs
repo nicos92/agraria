@@ -313,11 +313,12 @@ namespace Agraria.Repositorio.Repositorios
             try
             {
                 using SqlConnection conn = Conexion();
-                using SqlCommand cmd = new (@"SELECT a.Id_Actividad, te.Descripcion AS Nombre_TipoEntorno, e.Nombre AS Nombre_Entorno, a.id_EntornoFormativo, CONCAT(ef.Curso_Anio, ' - ', ef.Curso_Division, ' - ', ef.Curso_Grupo) AS Entorno_Formativo,  a.Fecha_Actividad, a.Descripcion_Actividad 
+                using SqlCommand cmd = new (@"SELECT DISTINCT a.Id_Actividad, te.Descripcion AS Nombre_TipoEntorno, e.Nombre AS Nombre_Entorno, a.id_EntornoFormativo, CONCAT(ef.Curso_Anio, ' - ', ef.Curso_Division, ' - ', ef.Curso_Grupo) AS Entorno_Formativo,  a.Fecha_Actividad, a.Descripcion_Actividad 
                                               FROM Actividad a 
                                               LEFT JOIN TipoEntorno te ON a.Id_TipoEntorno = te.Id_TipoEntorno
                                               LEFT JOIN Entorno e ON a.Id_Entorno = e.Id_Entorno
-                                                LEFT JOIN EntornoFormativo ef ON e.Id_Entorno = ef.Id_Entorno;", conn);
+                                                LEFT JOIN EntornoFormativo ef ON a.id_EntornoFormativo = ef.Id_EntornoFormativo
+                                              ORDER BY a.Fecha_Actividad DESC;", conn);
                 await conn.OpenAsync();
                 using DbDataReader reader = await cmd.ExecuteReaderAsync();
                 List<ActividadConNombres> actividades = [];

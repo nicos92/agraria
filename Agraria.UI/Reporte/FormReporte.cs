@@ -456,7 +456,7 @@ namespace Agraria.UI.Reporte
 
                 var dt = new DataTable();
                 dt.Columns.Add("Código", typeof(int));
-                dt.Columns.Add("Nombre");
+                dt.Columns.Add("Numero", typeof(int));
                 dt.Columns.Add("Tipo Animal");
                 dt.Columns.Add("Sexo");
                 dt.Columns.Add("Fecha Nacimiento", typeof(DateTime));
@@ -477,7 +477,7 @@ namespace Agraria.UI.Reporte
                     {
                         dt.Rows.Add(
                             hojaVida.Codigo,
-                            hojaVida.Nombre,
+                            hojaVida.Numero,
                             hojaVida.TipoAnimal,
                             hojaVida.Sexo,
                             hojaVida.FechaNacimiento.ToString("yyyy-MM-dd"),

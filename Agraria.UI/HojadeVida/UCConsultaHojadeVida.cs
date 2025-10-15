@@ -397,7 +397,7 @@ namespace Agraria.UI.HojadeVida
             if (CMBTipoAnimal.SelectedValue is TipoAnimal tipoAnimal1 && CMBSexo.SelectedValue is Sexo sexo)
             {
 
-                _hojaVidaSeleccionada.Nombre = TxtNombre.Text;
+                _hojaVidaSeleccionada.Numero = Convert.ToInt32(TxtNombre.Text);
                 _hojaVidaSeleccionada.TipoAnimal = tipoAnimal1;
                 _hojaVidaSeleccionada.Sexo = sexo;
                 _hojaVidaSeleccionada.FechaNacimiento = DTPFechaNacimiento.Value;
@@ -431,7 +431,7 @@ namespace Agraria.UI.HojadeVida
                 _hojaVidaSeleccionada = hojaVida;
 
                 // Cargar datos en los controles
-                TxtNombre.Text = _hojaVidaSeleccionada.Nombre;
+                TxtNombre.Text = _hojaVidaSeleccionada.Numero.ToString();
                 CMBTipoAnimal.SelectedValue = _hojaVidaSeleccionada.TipoAnimal;
                 CMBSexo.SelectedValue = _hojaVidaSeleccionada.Sexo;
                 DTPFechaNacimiento.Value = _hojaVidaSeleccionada.FechaNacimiento;
@@ -688,7 +688,7 @@ namespace Agraria.UI.HojadeVida
             // Filter by Nombre
             if (!string.IsNullOrWhiteSpace(TxtFiltroNombre.Text))
             {
-                hojasVidaFiltradas = hojasVidaFiltradas.Where(h => h.Nombre != null && h.Nombre.Contains(TxtFiltroNombre.Text, StringComparison.OrdinalIgnoreCase));
+                hojasVidaFiltradas = hojasVidaFiltradas.Where(h => h.Numero.ToString().Contains(TxtFiltroNombre.Text, StringComparison.OrdinalIgnoreCase));
             }
 
             // Filter by Tipo Animal

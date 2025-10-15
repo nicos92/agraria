@@ -81,7 +81,7 @@ namespace Agraria.UI.HojadeVida
             if (CMBTipoAnimal.SelectedValue is TipoAnimal tipoAnimal1 && CMBSexo.SelectedValue is Sexo sexo)
             {
 
-            _hojaVidaSeleccionada.Nombre = TxtNombre.Text;
+            _hojaVidaSeleccionada.Numero = Convert.ToInt32(TxtNombre.Text);
             _hojaVidaSeleccionada.TipoAnimal = tipoAnimal1;
             _hojaVidaSeleccionada.Sexo = sexo;
             _hojaVidaSeleccionada.FechaNacimiento = DTPFechaNacimiento.Value;

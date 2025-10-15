@@ -216,7 +216,8 @@ namespace Agraria.Repositorio.Repositorios
                                               ef.Observaciones, ef.Activo
                                               FROM EntornoFormativo ef
                                               LEFT JOIN Entorno e ON ef.Id_Entorno = e.Id_Entorno
-                                              LEFT JOIN Usuarios u ON ef.Id_Usuario = u.Id_Usuario", conn);
+                                              LEFT JOIN Usuarios u ON ef.Id_Usuario = u.Id_Usuario
+                                                ORDER BY ef.Activo", conn);
                 await conn.OpenAsync();
                 using DbDataReader reader = await cmd.ExecuteReaderAsync();
                 List<EntornoFormativoConNombres> entornosFormativos = [];
