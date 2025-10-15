@@ -29,22 +29,22 @@ namespace Agraria.UI.HojadeVida
         private void InitializeComponent()
         {
             tableLayoutPanel3 = new TableLayoutPanel();
+            PanelFiltros = new Panel();
+            tableLayoutPanelFiltros = new TableLayoutPanel();
+            BtnLimpiarFiltro = new Button();
+            BtnAplicarFiltro = new Button();
+            CmbFiltroTipoAnimal = new ComboBox();
+            TxtFiltroPeso = new TextBox();
+            labelFiltroTipoAnimal = new Label();
+            labelFiltroPeso = new Label();
+            TxtFiltroNombre = new TextBox();
+            CmbFiltroSexo = new ComboBox();
+            labelFiltroNombre = new Label();
+            labelFiltroSexo = new Label();
             PanelLista = new Panel();
             tableLayoutPanel1 = new TableLayoutPanel();
             LblLista = new Label();
             ListBHojasVida = new DataGridView();
-            PanelFiltros = new Panel();
-            tableLayoutPanelFiltros = new TableLayoutPanel();
-            labelFiltroNombre = new Label();
-            TxtFiltroNombre = new TextBox();
-            labelFiltroTipoAnimal = new Label();
-            CmbFiltroTipoAnimal = new ComboBox();
-            labelFiltroSexo = new Label();
-            CmbFiltroSexo = new ComboBox();
-            labelFiltroPeso = new Label();
-            TxtFiltroPeso = new TextBox();
-            BtnLimpiarFiltro = new Button();
-            BtnAplicarFiltro = new Button();
             PanelMedio = new Panel();
             tableLayoutPanel4 = new TableLayoutPanel();
             groupBox1 = new GroupBox();
@@ -70,11 +70,11 @@ namespace Agraria.UI.HojadeVida
             label9 = new Label();
             ProgressBar = new ProgressBar();
             tableLayoutPanel3.SuspendLayout();
+            PanelFiltros.SuspendLayout();
+            tableLayoutPanelFiltros.SuspendLayout();
             PanelLista.SuspendLayout();
             tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)ListBHojasVida).BeginInit();
-            PanelFiltros.SuspendLayout();
-            tableLayoutPanelFiltros.SuspendLayout();
             PanelMedio.SuspendLayout();
             tableLayoutPanel4.SuspendLayout();
             groupBox1.SuspendLayout();
@@ -101,6 +101,171 @@ namespace Agraria.UI.HojadeVida
             tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 80.18349F));
             tableLayoutPanel3.Size = new Size(804, 561);
             tableLayoutPanel3.TabIndex = 3;
+            // 
+            // PanelFiltros
+            // 
+            PanelFiltros.BackColor = Color.FromArgb(218, 218, 220);
+            tableLayoutPanel3.SetColumnSpan(PanelFiltros, 2);
+            PanelFiltros.Controls.Add(tableLayoutPanelFiltros);
+            PanelFiltros.Dock = DockStyle.Fill;
+            PanelFiltros.Location = new Point(3, 19);
+            PanelFiltros.Name = "PanelFiltros";
+            PanelFiltros.Padding = new Padding(0, 8, 0, 8);
+            PanelFiltros.Size = new Size(798, 102);
+            PanelFiltros.TabIndex = 4;
+            // 
+            // tableLayoutPanelFiltros
+            // 
+            tableLayoutPanelFiltros.ColumnCount = 7;
+            tableLayoutPanelFiltros.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
+            tableLayoutPanelFiltros.ColumnStyles.Add(new ColumnStyle());
+            tableLayoutPanelFiltros.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 31.6609F));
+            tableLayoutPanelFiltros.ColumnStyles.Add(new ColumnStyle());
+            tableLayoutPanelFiltros.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 34.9480972F));
+            tableLayoutPanelFiltros.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333321F));
+            tableLayoutPanelFiltros.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
+            tableLayoutPanelFiltros.Controls.Add(BtnLimpiarFiltro, 5, 0);
+            tableLayoutPanelFiltros.Controls.Add(BtnAplicarFiltro, 5, 1);
+            tableLayoutPanelFiltros.Controls.Add(CmbFiltroTipoAnimal, 4, 0);
+            tableLayoutPanelFiltros.Controls.Add(TxtFiltroPeso, 4, 1);
+            tableLayoutPanelFiltros.Controls.Add(labelFiltroTipoAnimal, 3, 0);
+            tableLayoutPanelFiltros.Controls.Add(labelFiltroPeso, 3, 1);
+            tableLayoutPanelFiltros.Controls.Add(TxtFiltroNombre, 2, 0);
+            tableLayoutPanelFiltros.Controls.Add(CmbFiltroSexo, 2, 1);
+            tableLayoutPanelFiltros.Controls.Add(labelFiltroNombre, 1, 0);
+            tableLayoutPanelFiltros.Controls.Add(labelFiltroSexo, 1, 1);
+            tableLayoutPanelFiltros.Dock = DockStyle.Fill;
+            tableLayoutPanelFiltros.Location = new Point(0, 8);
+            tableLayoutPanelFiltros.Name = "tableLayoutPanelFiltros";
+            tableLayoutPanelFiltros.RowCount = 2;
+            tableLayoutPanelFiltros.RowStyles.Add(new RowStyle(SizeType.Percent, 52.32558F));
+            tableLayoutPanelFiltros.RowStyles.Add(new RowStyle(SizeType.Percent, 47.67442F));
+            tableLayoutPanelFiltros.Size = new Size(798, 86);
+            tableLayoutPanelFiltros.TabIndex = 0;
+            // 
+            // BtnLimpiarFiltro
+            // 
+            BtnLimpiarFiltro.Anchor = AnchorStyles.None;
+            BtnLimpiarFiltro.BackColor = Color.FromArgb(101, 89, 119);
+            BtnLimpiarFiltro.FlatAppearance.BorderColor = Color.FromArgb(203, 230, 255);
+            BtnLimpiarFiltro.FlatStyle = FlatStyle.Flat;
+            BtnLimpiarFiltro.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            BtnLimpiarFiltro.ForeColor = Color.FromArgb(255, 255, 255);
+            BtnLimpiarFiltro.Location = new Point(635, 8);
+            BtnLimpiarFiltro.Margin = new Padding(3, 4, 3, 4);
+            BtnLimpiarFiltro.Name = "BtnLimpiarFiltro";
+            BtnLimpiarFiltro.Size = new Size(91, 29);
+            BtnLimpiarFiltro.TabIndex = 8;
+            BtnLimpiarFiltro.Text = "Limpiar";
+            BtnLimpiarFiltro.UseVisualStyleBackColor = false;
+            BtnLimpiarFiltro.Click += BtnLimpiarFiltro_Click;
+            // 
+            // BtnAplicarFiltro
+            // 
+            BtnAplicarFiltro.Anchor = AnchorStyles.None;
+            BtnAplicarFiltro.BackColor = Color.FromArgb(7, 100, 147);
+            BtnAplicarFiltro.FlatAppearance.BorderColor = Color.FromArgb(203, 230, 255);
+            BtnAplicarFiltro.FlatStyle = FlatStyle.Flat;
+            BtnAplicarFiltro.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            BtnAplicarFiltro.ForeColor = Color.FromArgb(255, 255, 255);
+            BtnAplicarFiltro.Location = new Point(635, 51);
+            BtnAplicarFiltro.Margin = new Padding(3, 4, 3, 4);
+            BtnAplicarFiltro.Name = "BtnAplicarFiltro";
+            BtnAplicarFiltro.Size = new Size(91, 29);
+            BtnAplicarFiltro.TabIndex = 9;
+            BtnAplicarFiltro.Text = "Aplicar";
+            BtnAplicarFiltro.UseVisualStyleBackColor = false;
+            BtnAplicarFiltro.Click += BtnAplicarFiltro_Click;
+            // 
+            // CmbFiltroTipoAnimal
+            // 
+            CmbFiltroTipoAnimal.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            CmbFiltroTipoAnimal.DropDownStyle = ComboBoxStyle.DropDownList;
+            CmbFiltroTipoAnimal.Font = new Font("Segoe UI", 12F);
+            CmbFiltroTipoAnimal.FormattingEnabled = true;
+            CmbFiltroTipoAnimal.Location = new Point(385, 8);
+            CmbFiltroTipoAnimal.Name = "CmbFiltroTipoAnimal";
+            CmbFiltroTipoAnimal.Size = new Size(196, 29);
+            CmbFiltroTipoAnimal.TabIndex = 3;
+            // 
+            // TxtFiltroPeso
+            // 
+            TxtFiltroPeso.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            TxtFiltroPeso.BackColor = Color.FromArgb(238, 237, 240);
+            TxtFiltroPeso.Font = new Font("Segoe UI", 12F);
+            TxtFiltroPeso.ForeColor = Color.FromArgb(26, 28, 30);
+            TxtFiltroPeso.Location = new Point(385, 51);
+            TxtFiltroPeso.Margin = new Padding(3, 4, 3, 4);
+            TxtFiltroPeso.Name = "TxtFiltroPeso";
+            TxtFiltroPeso.Size = new Size(196, 29);
+            TxtFiltroPeso.TabIndex = 7;
+            // 
+            // labelFiltroTipoAnimal
+            // 
+            labelFiltroTipoAnimal.Anchor = AnchorStyles.Right;
+            labelFiltroTipoAnimal.AutoSize = true;
+            labelFiltroTipoAnimal.Font = new Font("Segoe UI", 12F);
+            labelFiltroTipoAnimal.Location = new Point(283, 12);
+            labelFiltroTipoAnimal.Name = "labelFiltroTipoAnimal";
+            labelFiltroTipoAnimal.Size = new Size(96, 21);
+            labelFiltroTipoAnimal.TabIndex = 2;
+            labelFiltroTipoAnimal.Text = "Tipo Animal:";
+            // 
+            // labelFiltroPeso
+            // 
+            labelFiltroPeso.Anchor = AnchorStyles.Right;
+            labelFiltroPeso.AutoSize = true;
+            labelFiltroPeso.Font = new Font("Segoe UI", 12F);
+            labelFiltroPeso.Location = new Point(334, 55);
+            labelFiltroPeso.Name = "labelFiltroPeso";
+            labelFiltroPeso.Size = new Size(45, 21);
+            labelFiltroPeso.TabIndex = 6;
+            labelFiltroPeso.Text = "Peso:";
+            // 
+            // TxtFiltroNombre
+            // 
+            TxtFiltroNombre.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            TxtFiltroNombre.BackColor = Color.FromArgb(238, 237, 240);
+            TxtFiltroNombre.Font = new Font("Segoe UI", 12F);
+            TxtFiltroNombre.ForeColor = Color.FromArgb(26, 28, 30);
+            TxtFiltroNombre.Location = new Point(100, 8);
+            TxtFiltroNombre.Margin = new Padding(3, 4, 3, 4);
+            TxtFiltroNombre.Name = "TxtFiltroNombre";
+            TxtFiltroNombre.Size = new Size(177, 29);
+            TxtFiltroNombre.TabIndex = 1;
+            // 
+            // CmbFiltroSexo
+            // 
+            CmbFiltroSexo.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+            CmbFiltroSexo.DropDownStyle = ComboBoxStyle.DropDownList;
+            CmbFiltroSexo.Font = new Font("Segoe UI", 12F);
+            CmbFiltroSexo.FormattingEnabled = true;
+            CmbFiltroSexo.Location = new Point(100, 51);
+            CmbFiltroSexo.Name = "CmbFiltroSexo";
+            CmbFiltroSexo.Size = new Size(177, 29);
+            CmbFiltroSexo.TabIndex = 5;
+            // 
+            // labelFiltroNombre
+            // 
+            labelFiltroNombre.Anchor = AnchorStyles.Right;
+            labelFiltroNombre.AutoSize = true;
+            labelFiltroNombre.Font = new Font("Segoe UI", 12F);
+            labelFiltroNombre.Location = new Point(23, 12);
+            labelFiltroNombre.Name = "labelFiltroNombre";
+            labelFiltroNombre.Size = new Size(71, 21);
+            labelFiltroNombre.TabIndex = 0;
+            labelFiltroNombre.Text = "Número:";
+            // 
+            // labelFiltroSexo
+            // 
+            labelFiltroSexo.Anchor = AnchorStyles.Right;
+            labelFiltroSexo.AutoSize = true;
+            labelFiltroSexo.Font = new Font("Segoe UI", 12F);
+            labelFiltroSexo.Location = new Point(48, 55);
+            labelFiltroSexo.Name = "labelFiltroSexo";
+            labelFiltroSexo.Size = new Size(46, 21);
+            labelFiltroSexo.TabIndex = 4;
+            labelFiltroSexo.Text = "Sexo:";
             // 
             // PanelLista
             // 
@@ -157,171 +322,6 @@ namespace Agraria.UI.HojadeVida
             ListBHojasVida.TabIndex = 2;
             ListBHojasVida.DataError += ListBHojasVida_DataError;
             ListBHojasVida.SelectionChanged += ListBHojasVida_SelectedIndexChanged;
-            // 
-            // PanelFiltros
-            // 
-            PanelFiltros.BackColor = Color.FromArgb(218, 218, 220);
-            tableLayoutPanel3.SetColumnSpan(PanelFiltros, 2);
-            PanelFiltros.Controls.Add(tableLayoutPanelFiltros);
-            PanelFiltros.Dock = DockStyle.Fill;
-            PanelFiltros.Location = new Point(3, 19);
-            PanelFiltros.Name = "PanelFiltros";
-            PanelFiltros.Padding = new Padding(0, 8, 0, 8);
-            PanelFiltros.Size = new Size(798, 102);
-            PanelFiltros.TabIndex = 4;
-            // 
-            // tableLayoutPanelFiltros
-            // 
-            tableLayoutPanelFiltros.ColumnCount = 7;
-            tableLayoutPanelFiltros.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
-            tableLayoutPanelFiltros.ColumnStyles.Add(new ColumnStyle());
-            tableLayoutPanelFiltros.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 31.6609F));
-            tableLayoutPanelFiltros.ColumnStyles.Add(new ColumnStyle());
-            tableLayoutPanelFiltros.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 34.9480972F));
-            tableLayoutPanelFiltros.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333321F));
-            tableLayoutPanelFiltros.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
-            tableLayoutPanelFiltros.Controls.Add(BtnLimpiarFiltro, 5, 0);
-            tableLayoutPanelFiltros.Controls.Add(BtnAplicarFiltro, 5, 1);
-            tableLayoutPanelFiltros.Controls.Add(CmbFiltroTipoAnimal, 4, 0);
-            tableLayoutPanelFiltros.Controls.Add(TxtFiltroPeso, 4, 1);
-            tableLayoutPanelFiltros.Controls.Add(labelFiltroTipoAnimal, 3, 0);
-            tableLayoutPanelFiltros.Controls.Add(labelFiltroPeso, 3, 1);
-            tableLayoutPanelFiltros.Controls.Add(TxtFiltroNombre, 2, 0);
-            tableLayoutPanelFiltros.Controls.Add(CmbFiltroSexo, 2, 1);
-            tableLayoutPanelFiltros.Controls.Add(labelFiltroNombre, 1, 0);
-            tableLayoutPanelFiltros.Controls.Add(labelFiltroSexo, 1, 1);
-            tableLayoutPanelFiltros.Dock = DockStyle.Fill;
-            tableLayoutPanelFiltros.Location = new Point(0, 8);
-            tableLayoutPanelFiltros.Name = "tableLayoutPanelFiltros";
-            tableLayoutPanelFiltros.RowCount = 2;
-            tableLayoutPanelFiltros.RowStyles.Add(new RowStyle(SizeType.Percent, 52.32558F));
-            tableLayoutPanelFiltros.RowStyles.Add(new RowStyle(SizeType.Percent, 47.67442F));
-            tableLayoutPanelFiltros.Size = new Size(798, 86);
-            tableLayoutPanelFiltros.TabIndex = 0;
-            // 
-            // labelFiltroNombre
-            // 
-            labelFiltroNombre.Anchor = AnchorStyles.Right;
-            labelFiltroNombre.AutoSize = true;
-            labelFiltroNombre.Font = new Font("Segoe UI", 12F);
-            labelFiltroNombre.Location = new Point(23, 12);
-            labelFiltroNombre.Name = "labelFiltroNombre";
-            labelFiltroNombre.Size = new Size(71, 21);
-            labelFiltroNombre.TabIndex = 0;
-            labelFiltroNombre.Text = "Nombre:";
-            // 
-            // TxtFiltroNombre
-            // 
-            TxtFiltroNombre.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            TxtFiltroNombre.BackColor = Color.FromArgb(238, 237, 240);
-            TxtFiltroNombre.Font = new Font("Segoe UI", 12F);
-            TxtFiltroNombre.ForeColor = Color.FromArgb(26, 28, 30);
-            TxtFiltroNombre.Location = new Point(100, 8);
-            TxtFiltroNombre.Margin = new Padding(3, 4, 3, 4);
-            TxtFiltroNombre.Name = "TxtFiltroNombre";
-            TxtFiltroNombre.Size = new Size(177, 29);
-            TxtFiltroNombre.TabIndex = 1;
-            // 
-            // labelFiltroTipoAnimal
-            // 
-            labelFiltroTipoAnimal.Anchor = AnchorStyles.Right;
-            labelFiltroTipoAnimal.AutoSize = true;
-            labelFiltroTipoAnimal.Font = new Font("Segoe UI", 12F);
-            labelFiltroTipoAnimal.Location = new Point(283, 12);
-            labelFiltroTipoAnimal.Name = "labelFiltroTipoAnimal";
-            labelFiltroTipoAnimal.Size = new Size(96, 21);
-            labelFiltroTipoAnimal.TabIndex = 2;
-            labelFiltroTipoAnimal.Text = "Tipo Animal:";
-            // 
-            // CmbFiltroTipoAnimal
-            // 
-            CmbFiltroTipoAnimal.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            CmbFiltroTipoAnimal.DropDownStyle = ComboBoxStyle.DropDownList;
-            CmbFiltroTipoAnimal.Font = new Font("Segoe UI", 12F);
-            CmbFiltroTipoAnimal.FormattingEnabled = true;
-            CmbFiltroTipoAnimal.Location = new Point(385, 8);
-            CmbFiltroTipoAnimal.Name = "CmbFiltroTipoAnimal";
-            CmbFiltroTipoAnimal.Size = new Size(196, 29);
-            CmbFiltroTipoAnimal.TabIndex = 3;
-            // 
-            // labelFiltroSexo
-            // 
-            labelFiltroSexo.Anchor = AnchorStyles.Right;
-            labelFiltroSexo.AutoSize = true;
-            labelFiltroSexo.Font = new Font("Segoe UI", 12F);
-            labelFiltroSexo.Location = new Point(48, 55);
-            labelFiltroSexo.Name = "labelFiltroSexo";
-            labelFiltroSexo.Size = new Size(46, 21);
-            labelFiltroSexo.TabIndex = 4;
-            labelFiltroSexo.Text = "Sexo:";
-            // 
-            // CmbFiltroSexo
-            // 
-            CmbFiltroSexo.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            CmbFiltroSexo.DropDownStyle = ComboBoxStyle.DropDownList;
-            CmbFiltroSexo.Font = new Font("Segoe UI", 12F);
-            CmbFiltroSexo.FormattingEnabled = true;
-            CmbFiltroSexo.Location = new Point(100, 51);
-            CmbFiltroSexo.Name = "CmbFiltroSexo";
-            CmbFiltroSexo.Size = new Size(177, 29);
-            CmbFiltroSexo.TabIndex = 5;
-            // 
-            // labelFiltroPeso
-            // 
-            labelFiltroPeso.Anchor = AnchorStyles.Right;
-            labelFiltroPeso.AutoSize = true;
-            labelFiltroPeso.Font = new Font("Segoe UI", 12F);
-            labelFiltroPeso.Location = new Point(334, 55);
-            labelFiltroPeso.Name = "labelFiltroPeso";
-            labelFiltroPeso.Size = new Size(45, 21);
-            labelFiltroPeso.TabIndex = 6;
-            labelFiltroPeso.Text = "Peso:";
-            // 
-            // TxtFiltroPeso
-            // 
-            TxtFiltroPeso.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            TxtFiltroPeso.BackColor = Color.FromArgb(238, 237, 240);
-            TxtFiltroPeso.Font = new Font("Segoe UI", 12F);
-            TxtFiltroPeso.ForeColor = Color.FromArgb(26, 28, 30);
-            TxtFiltroPeso.Location = new Point(385, 51);
-            TxtFiltroPeso.Margin = new Padding(3, 4, 3, 4);
-            TxtFiltroPeso.Name = "TxtFiltroPeso";
-            TxtFiltroPeso.Size = new Size(196, 29);
-            TxtFiltroPeso.TabIndex = 7;
-            // 
-            // BtnLimpiarFiltro
-            // 
-            BtnLimpiarFiltro.Anchor = AnchorStyles.None;
-            BtnLimpiarFiltro.BackColor = Color.FromArgb(101, 89, 119);
-            BtnLimpiarFiltro.FlatAppearance.BorderColor = Color.FromArgb(203, 230, 255);
-            BtnLimpiarFiltro.FlatStyle = FlatStyle.Flat;
-            BtnLimpiarFiltro.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            BtnLimpiarFiltro.ForeColor = Color.FromArgb(255, 255, 255);
-            BtnLimpiarFiltro.Location = new Point(635, 8);
-            BtnLimpiarFiltro.Margin = new Padding(3, 4, 3, 4);
-            BtnLimpiarFiltro.Name = "BtnLimpiarFiltro";
-            BtnLimpiarFiltro.Size = new Size(91, 29);
-            BtnLimpiarFiltro.TabIndex = 8;
-            BtnLimpiarFiltro.Text = "Limpiar";
-            BtnLimpiarFiltro.UseVisualStyleBackColor = false;
-            BtnLimpiarFiltro.Click += BtnLimpiarFiltro_Click;
-            // 
-            // BtnAplicarFiltro
-            // 
-            BtnAplicarFiltro.Anchor = AnchorStyles.None;
-            BtnAplicarFiltro.BackColor = Color.FromArgb(7, 100, 147);
-            BtnAplicarFiltro.FlatAppearance.BorderColor = Color.FromArgb(203, 230, 255);
-            BtnAplicarFiltro.FlatStyle = FlatStyle.Flat;
-            BtnAplicarFiltro.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            BtnAplicarFiltro.ForeColor = Color.FromArgb(255, 255, 255);
-            BtnAplicarFiltro.Location = new Point(635, 51);
-            BtnAplicarFiltro.Margin = new Padding(3, 4, 3, 4);
-            BtnAplicarFiltro.Name = "BtnAplicarFiltro";
-            BtnAplicarFiltro.Size = new Size(91, 29);
-            BtnAplicarFiltro.TabIndex = 9;
-            BtnAplicarFiltro.Text = "Aplicar";
-            BtnAplicarFiltro.UseVisualStyleBackColor = false;
-            BtnAplicarFiltro.Click += BtnAplicarFiltro_Click;
             // 
             // PanelMedio
             // 
@@ -411,7 +411,7 @@ namespace Agraria.UI.HojadeVida
             label1.Name = "label1";
             label1.Size = new Size(71, 21);
             label1.TabIndex = 0;
-            label1.Text = "Nombre:";
+            label1.Text = "Numero:";
             // 
             // label2
             // 
@@ -664,12 +664,12 @@ namespace Agraria.UI.HojadeVida
             Load += UCConsultaHojadeVida_Load;
             VisibleChanged += UCConsultaHojadeVida_VisibleChanged;
             tableLayoutPanel3.ResumeLayout(false);
-            PanelLista.ResumeLayout(false);
-            tableLayoutPanel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)ListBHojasVida).EndInit();
             PanelFiltros.ResumeLayout(false);
             tableLayoutPanelFiltros.ResumeLayout(false);
             tableLayoutPanelFiltros.PerformLayout();
+            PanelLista.ResumeLayout(false);
+            tableLayoutPanel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)ListBHojasVida).EndInit();
             PanelMedio.ResumeLayout(false);
             tableLayoutPanel4.ResumeLayout(false);
             groupBox1.ResumeLayout(false);

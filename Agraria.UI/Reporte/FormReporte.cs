@@ -455,7 +455,6 @@ namespace Agraria.UI.Reporte
                 BtnClickeado(sender);
 
                 var dt = new DataTable();
-                dt.Columns.Add("Código", typeof(int));
                 dt.Columns.Add("Numero", typeof(int));
                 dt.Columns.Add("Tipo Animal");
                 dt.Columns.Add("Sexo");
@@ -476,7 +475,6 @@ namespace Agraria.UI.Reporte
                     foreach (var hojaVida in hojasVida)
                     {
                         dt.Rows.Add(
-                            hojaVida.Codigo,
                             hojaVida.Numero,
                             hojaVida.TipoAnimal,
                             hojaVida.Sexo,

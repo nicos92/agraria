@@ -146,7 +146,7 @@ namespace Agraria.UI.HojadeVida
             label1.Name = "label1";
             label1.Size = new Size(71, 21);
             label1.TabIndex = 0;
-            label1.Text = "Nombre:";
+            label1.Text = "Número:";
             // 
             // label2
             // 
@@ -232,7 +232,7 @@ namespace Agraria.UI.HojadeVida
             TxtNombre.Font = new Font("Segoe UI", 12F);
             TxtNombre.ForeColor = Color.FromArgb(26, 28, 30);
             TxtNombre.Location = new Point(129, 11);
-            TxtNombre.MaxLength = 255;
+            TxtNombre.MaxLength = 9;
             TxtNombre.Name = "TxtNombre";
             TxtNombre.Size = new Size(402, 29);
             TxtNombre.TabIndex = 7;

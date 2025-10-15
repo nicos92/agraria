@@ -25,6 +25,7 @@
 
 - [x] mostrar cartel de confirmacion de proceso finalizado al guardar hojadevida
 - [ ] cambiar la columna de nombre por la de numero
+- [ ] al cargar la pantalla de ingreso de hoja de vida que cargue el ultimo número +1 como sugerencia
 
 #### Usuarios
 

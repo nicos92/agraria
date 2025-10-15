@@ -90,12 +90,38 @@ namespace Agraria.Repositorio.Repositorios
             }
         }
 
+        public async Task<Result<int>> GetMaxId()
+        {
+            try
+            {
+                using SqlConnection conn = Conexion();
+                using SqlCommand cmd = new("SELECT MAX(numero) FROM HojadeVida", conn);
+                
+                await conn.OpenAsync();
+                using DbDataReader reader = await cmd.ExecuteReaderAsync();
+                if (await reader.ReadAsync())
+                {
+                    
+                    return Result<int>.Success(reader.GetInt32(0));
+                }
+                return Result<int>.Failure("Max ID hoja de vida no encontrada");
+            }
+            catch (SqlException ex)
+            {
+                return Result<int>.Failure("Error en la base de datos al obtener el MAX ID de hoja de vida: " + ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return Result<int>.Failure("Error inesperado al obtener la hoja de vida: " + ex.Message);
+            }
+        }
+
         public async Task<Result<HojadeVida>> Add(HojadeVida hojaDeVida)
         {
             try
             {
                 using SqlConnection conn = Conexion();
-                using SqlCommand cmd = new("INSERT INTO HojadeVida (Numero, Tipo_Animal, Sexo, Fecha_Nacimiento, Peso, Estado_Salud, Observaciones, Activo) VALUES (@Nuemro, @TipoAnimal, @Sexo, @fechanacimiento, @Peso, @EstadoSalud, @Observaciones, @Activo)", conn);
+                using SqlCommand cmd = new("INSERT INTO HojadeVida (Numero, Tipo_Animal, Sexo, Fecha_Nacimiento, Peso, Estado_Salud, Observaciones, Activo) VALUES (@Numero, @TipoAnimal, @Sexo, @fechanacimiento, @Peso, @EstadoSalud, @Observaciones, @Activo)", conn);
                 cmd.Parameters.AddWithValue("@Numero", hojaDeVida.Numero);
                 cmd.Parameters.AddWithValue("@TipoAnimal", Convert.ToInt32(hojaDeVida.TipoAnimal));
                 cmd.Parameters.AddWithValue("@Sexo", Convert.ToInt32(hojaDeVida.Sexo));
@@ -114,6 +140,11 @@ namespace Agraria.Repositorio.Repositorios
             }
             catch (SqlException ex)
             {
+                if (ex.Message.Contains("UNIQUE KEY"))
+                {
+                    var numero = await GetMaxId();
+                    return Result<HojadeVida>.Failure("Error al agregar la hoja de vida: \nYa existe una hoja de vida con ese número\nPRUEBE CON EL NÚMERO: " + (numero.Value + 1));
+                }
                 return Result<HojadeVida>.Failure("Error en la base de datos al agregar la hoja de vida: " + ex.Message);
             }
             catch (Exception ex)

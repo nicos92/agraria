@@ -24,13 +24,15 @@ namespace Agraria.UI.HojadeVida
 
         private readonly Modelo.Entidades.HojadeVida _hojaVidaSeleccionada;
 
-        private readonly ValidadorTextBox _vTxtNombre;
+        private readonly ValidadorTextBox _vTxtNumero;
         private readonly ValidadorTextBox _vTxtPeso;
         private readonly ValidadorTextBox _vTxtEstadoSalud;
 
         private readonly ErrorProvider _epTxtCodigo;
         private readonly ErrorProvider _epTxtPeso;
         private readonly ErrorProvider _epTxtEstadoSalud;
+
+        private Result<Modelo.Entidades.HojadeVida>? _resultadoHojadeVida;
 
         #endregion Atributos y Propiedades
 
@@ -42,12 +44,14 @@ namespace Agraria.UI.HojadeVida
             _hojadeVidaService = hojadeVidaService;
 
             InitializeComponent();
-
+            _resultadoHojadeVida = null;
             _hojaVidaSeleccionada = new Modelo.Entidades.HojadeVida();
 
             _epTxtCodigo = new ErrorProvider();
-            _vTxtNombre = new ValidadorNombre(TxtNombre, _epTxtCodigo);
-            _vTxtNombre.MensajeError = "El nombre debe contener solo letras y espacios, y no puede estar vacío.";
+            _vTxtNumero = new ValidadorEntero(TxtNombre, _epTxtCodigo)
+            {
+                MensajeError = "El número no puede estar vacío."
+            };
 
             _epTxtPeso = new ErrorProvider();
             _vTxtPeso = new ValidadorNumeroDecimal(TxtPeso, _epTxtPeso) { MensajeError = "El peso debe ser un número válido" };
@@ -65,7 +69,7 @@ namespace Agraria.UI.HojadeVida
         /// <param name="e">El <see cref="EventArgs"/> instancia que contiene los datos del evento.</param>
         private void TxtCodigo_TextChanged(object sender, EventArgs e)
         {
-            ValidadorMultiple.ValidacionMultiple(BtnIngresar, _vTxtNombre, _vTxtPeso, _vTxtEstadoSalud);
+            ValidadorMultiple.ValidacionMultiple(BtnIngresar, _vTxtNumero, _vTxtPeso, _vTxtEstadoSalud);
         }
 
         #endregion Eventos
@@ -172,7 +176,11 @@ namespace Agraria.UI.HojadeVida
             this.Invoke(
                 () =>
                 {
-                    Utilidades.Util.LimpiarForm(TLPForm, TxtNombre);
+                    if (_resultadoHojadeVida != null && _resultadoHojadeVida.IsSuccess)
+                    {
+
+                        Utilidades.Util.LimpiarForm(TLPForm, TxtNombre);
+                    }
                 });
         }
 
@@ -181,10 +189,14 @@ namespace Agraria.UI.HojadeVida
         /// </summary>
         public async Task InsertarHojadeVida()
         {
-            var insercionResult = await _hojadeVidaService.Add(_hojaVidaSeleccionada);
+            _resultadoHojadeVida = await _hojadeVidaService.Add(_hojaVidaSeleccionada);
 
-            if (!insercionResult.IsSuccess)
-                MessageBox.Show(insercionResult.Error, "Error en la inserción", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            if (!_resultadoHojadeVida.IsSuccess) {
+                string[] resultadosplit = _resultadoHojadeVida.Error.Split(" ");
+                int numero = Convert.ToInt32(resultadosplit[resultadosplit.Length - 1]);
+                MessageBox.Show(_resultadoHojadeVida.Error, "Error en la inserción", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                TxtNombre.Text = numero.ToString();
+            }
             else
                 MessageBox.Show("Ingreso correcto", "Hoja de Vida", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }

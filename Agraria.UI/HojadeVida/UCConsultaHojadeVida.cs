@@ -26,7 +26,7 @@ namespace Agraria.UI.HojadeVida
 
         private Modelo.Entidades.HojadeVida _hojaVidaSeleccionada;
 
-        private readonly ValidadorTextBox _validadorNombre;
+        private readonly ValidadorTextBox _validadorNumero;
         private readonly ValidadorTextBox _validadorPeso;
         private readonly ValidadorTextBox _validadorEstadoSalud;
 
@@ -58,9 +58,9 @@ namespace Agraria.UI.HojadeVida
 
             // Inicialización de validadores y configuración de botones
             _errorProviderNombre = new ErrorProvider();
-            _validadorNombre = new ValidadorNombre(TxtNombre, _errorProviderNombre)
+            _validadorNumero = new ValidadorEntero(TxtNombre, _errorProviderNombre)
             {
-                MensajeError = "El nombre debe contener solo letras y espacios, y no puede estar vacío."
+                MensajeError = "El número no puede estar vacío."
             };
 
             _errorProviderPeso = new ErrorProvider();
@@ -232,7 +232,7 @@ namespace Agraria.UI.HojadeVida
         {
             ValidadorMultiple.ValidacionMultiple(
                 BtnGuardar,
-                _validadorNombre,
+                _validadorNumero,
                 _validadorPeso,
                 _validadorEstadoSalud);
         }
@@ -359,7 +359,7 @@ namespace Agraria.UI.HojadeVida
         /// <returns>True si el formulario es válido, de lo contrario False.</returns>
         private bool ValidarFormulario()
         {
-            return _validadorNombre.Validar() &&
+            return _validadorNumero.Validar() &&
                    _validadorPeso.Validar() &&
                    _validadorEstadoSalud.Validar();
         }
