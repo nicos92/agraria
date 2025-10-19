@@ -15,7 +15,8 @@ using iTextSharp.text.html.simpleparser;
 using iTextSharp.text;
 using iTextSharp.tool.xml;
 using BitMiracle.LibTiff.Classic;
-
+using Agraria.Modelo.Entidades; // Añadir esta referencia para HojadeVida
+using Agraria.Utilidades; // Para TareasLargas
 
 
 namespace Agraria.Utilidades.Impresion
@@ -26,7 +27,7 @@ namespace Agraria.Utilidades.Impresion
         private readonly SaveFileDialog _saveFileDialog1;
         private readonly string _rutaImg;
         private string _htmlFinal;
-        public ImpresionTicket() 
+        public ImpresionTicket()
         {
             _saveFileDialog1 = new SaveFileDialog();
             _saveFileDialog1.DefaultExt = "pdf";
@@ -34,12 +35,12 @@ namespace Agraria.Utilidades.Impresion
             _saveFileDialog1.Title = "Guardar archivo";
             _rutaImg = Path.Combine(Application.StartupPath, "Impresion", "EAC256.png");
             _htmlFinal = string.Empty;
-           
+
         }
 
-       
-       
-       
+
+
+
         public void ImprimiriTextSharp(List<ProductoVenta> productos, string numeroOperacion, string motivo, string montoTotal, string fechaOperacion, string tituloOperacion, string descuento)
         {
             // ... (Pasos para generar htmlFinal se mantienen) ...
@@ -75,11 +76,64 @@ namespace Agraria.Utilidades.Impresion
                 });
 
             }
+        }
 
+        public void ImprimirHojaVida(List<HojadeVida> hojasDeVida)
+        {
+            string rutaPlantillaHtml = Path.Combine(Application.StartupPath, "Impresion", "impresionhojavida.html");
 
+            var generador = new GeneradorTickets(rutaPlantillaHtml);
+            _htmlFinal = generador.GenerarHtmlHojaVida(
+                hojasDeVida: hojasDeVida,
+                totalHojasDeVida: hojasDeVida.Count.ToString(),
+                fechaGeneracion: DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss")
+            );
 
+            if (_htmlFinal.StartsWith("Error:"))
+            {
+                MessageBox.Show(_htmlFinal, "Error de Impresión de Hoja de Vida", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
 
+            _saveFileDialog1.FileName = "Reporte_Hojas_de_Vida_" + DateTime.Now.ToString("yyyyMMdd_HHmmss");
+            DialogResult result = _saveFileDialog1.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                TareasLargas tareas = new TareasLargas();
+                tareas.RecibirTarea(() =>
+                {
+                    GenerarPDF(_rutaImg, _htmlFinal, _saveFileDialog1);
+                });
+            }
+        }
 
+        public void ImprimirVentasGrandes(List<HVentasConUsuario> ventasGrandes)
+        {
+            string rutaPlantillaHtml = Path.Combine(Application.StartupPath, "Impresion", "impresionventasgrandes.html");
+
+            var generador = new GeneradorTickets(rutaPlantillaHtml);
+            _htmlFinal = generador.GenerarHtmlVentasGrandes(
+                ventasGrandes: ventasGrandes,
+                totalVentas: ventasGrandes.Count.ToString(),
+                fechaGeneracion: DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss")
+            );
+
+            if (_htmlFinal.StartsWith("Error:"))
+            {
+                MessageBox.Show(_htmlFinal, "Error de Impresión de Ventas Grandes", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            _saveFileDialog1.FileName = "Reporte_Ventas_Grandes_" + DateTime.Now.ToString("yyyyMMdd_HHmmss");
+            DialogResult result = _saveFileDialog1.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                TareasLargas tareas = new TareasLargas();
+                tareas.RecibirTarea(() =>
+                {
+                    GenerarPDF(_rutaImg, _htmlFinal, _saveFileDialog1);
+                });
+            }
         }
 
         private static void GenerarPDF(string rutaImg, string htmlFinal, SaveFileDialog saveFileDialog1)
@@ -117,7 +171,7 @@ namespace Agraria.Utilidades.Impresion
                             XMLWorkerHelper.GetInstance().ParseXHtml(writer, pdfDoc, srHtmlFinal);
 
                         }
-                       
+
                         pdfDoc.Close();
                         writer.Close();
                         DialogResult dialogResult = MessageBox.Show($"¿Desea abrir el archivo PDF guardado?", "Abrir carpeta", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
@@ -154,6 +208,6 @@ namespace Agraria.Utilidades.Impresion
         }
 
 
-      
+
     }
 }

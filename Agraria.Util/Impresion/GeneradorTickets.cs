@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Windows.Forms;
+using Agraria.Modelo.Entidades;
 
 namespace Agraria.Utilidades.Impresion
 {
@@ -59,6 +60,64 @@ namespace Agraria.Utilidades.Impresion
 
             // 3. Reemplazar el marcador de la tabla con las filas generadas
             htmlProcesado = htmlProcesado.Replace("{{tabla_items}}", filasHtml.ToString());
+
+            return htmlProcesado;
+        }
+
+        public string GenerarHtmlHojaVida(List<Agraria.Modelo.Entidades.HojadeVida> hojasDeVida, string totalHojasDeVida, string fechaGeneracion)
+        {
+            if (string.IsNullOrEmpty(plantillaHtml))
+            {
+                return "Error: La plantilla HTML no se pudo cargar.";
+            }
+
+            string htmlProcesado = plantillaHtml;
+            htmlProcesado = htmlProcesado.Replace("{{fecha_generacion}}", fechaGeneracion);
+            htmlProcesado = htmlProcesado.Replace("{{total_hojas_vida}}", totalHojasDeVida);
+
+            var filasHtml = new StringBuilder();
+            foreach (var hojaVida in hojasDeVida)
+            {
+                filasHtml.Append("<tr>");
+                filasHtml.Append($"<td>{hojaVida.Numero}</td>");
+                filasHtml.Append($"<td>{hojaVida.TipoAnimal}</td>");
+                filasHtml.Append($"<td>{hojaVida.Sexo}</td>");
+                filasHtml.Append($"<td>{hojaVida.FechaNacimiento.ToString("yyyy-MM-dd")}</td>");
+                filasHtml.Append($"<td>{hojaVida.Peso:N2}</td>");
+                filasHtml.Append($"<td>{hojaVida.EstadoSalud}</td>");
+                filasHtml.Append($"<td>{(hojaVida.Activo ? "Sí" : "No")}</td>");
+                filasHtml.Append("</tr>");
+            }
+
+            htmlProcesado = htmlProcesado.Replace("{{tabla_hojas_vida}}", filasHtml.ToString());
+
+            return htmlProcesado;
+        }
+
+        public string GenerarHtmlVentasGrandes(List<Agraria.Modelo.Entidades.HVentasConUsuario> ventasGrandes, string totalVentas, string fechaGeneracion)
+        {
+            if (string.IsNullOrEmpty(plantillaHtml))
+            {
+                return "Error: La plantilla HTML no se pudo cargar.";
+            }
+
+            string htmlProcesado = plantillaHtml;
+            htmlProcesado = htmlProcesado.Replace("{{fecha_generacion}}", fechaGeneracion);
+            htmlProcesado = htmlProcesado.Replace("{{total_ventas}}", totalVentas);
+
+            var filasHtml = new StringBuilder();
+            foreach (var venta in ventasGrandes)
+            {
+                filasHtml.Append("<tr>");
+                filasHtml.Append($"<td>{venta.Id_Remito.ToString().Trim().PadLeft(8, '0')}</td>");
+                filasHtml.Append($"<td>{venta.NombreUsuario} {venta.ApellidoUsuario}</td>");
+                filasHtml.Append($"<td>{venta.Fecha_Hora.ToString("yyyy-MM-dd HH:mm")}</td>");
+                filasHtml.Append($"<td>${venta.Total:N2}</td>");
+                filasHtml.Append($"<td>{venta.Descripcion}</td>");
+                filasHtml.Append("</tr>");
+            }
+
+            htmlProcesado = htmlProcesado.Replace("{{tabla_ventas_grandes}}", filasHtml.ToString());
 
             return htmlProcesado;
         }

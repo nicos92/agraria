@@ -12,6 +12,8 @@ using Agraria.Modelo.Enums;
 using Agraria.Contrato.Servicios;
 using BitMiracle.LibTiff.Classic;
 using Agraria.Utilidades;
+using Agraria.Utilidades.Impresion;
+using Agraria.Modelo.Records; // Añadir esta referencia
 
 namespace Agraria.UI.Reporte
 {
@@ -31,14 +33,30 @@ namespace Agraria.UI.Reporte
         private readonly ITipoEntornosService _tipoEntornosService;
 
         private Button _btnClickeado;
+        private List<Agraria.Modelo.Entidades.HojadeVida>? _currentHojasDeVida; // Variable para almacenar las hojas de vida actuales
+        private List<Agraria.Modelo.Entidades.HVentasConUsuario>? _currentVentasGrandes; // Variable para almacenar las ventas grandes actuales
 
 
+        private void ConfigBtnsTags()
+        {
+            btnActividades.Tag = typeof(ActividadConNombres);
+            btnEntornoFormativo.Tag = typeof(EntornoFormativoConNombres);
+            btnHerramientas.Tag = typeof(Herramientas);
+            btnMasVendidos.Tag = typeof(Contrato.Repositorios.ProductosMasVendidos);
+            btnHojaVida.Tag = typeof(Modelo.Entidades.HojadeVida);
+            btnProveedores.Tag = typeof(Modelo.Entidades.Proveedores);
+            btnProductos.Tag = typeof(ProductoStockConNombres);
+            btnUsuarios.Tag = typeof(UsuarioConTipo);
+            btnVentasGrandes.Tag = typeof(HVentasConUsuario);
+
+
+        }
 
         // Constructor with service injection (for dependency injection pattern)
         public FormReporte(
-            IProductoStockService articuloStockService ,
+            IProductoStockService articuloStockService,
             IEntornoService entornoService,
-            IEntornoFormativoService entornoFormativoService ,
+            IEntornoFormativoService entornoFormativoService,
             IUsuariosService usuariosService,
             IProveedoresService proveedorService,
             IHojadeVidaService hojadeVidaService,
@@ -77,7 +95,7 @@ namespace Agraria.UI.Reporte
                 dt.Columns.Add("Total $ Vendido");
 
                 // In a real implementation, this would come from _ventaService.GetArticulosMasVendidos()
-                var resultado =await _productosService.GetArticulosMasVendidos(50) ;
+                var resultado = await _productosService.GetArticulosMasVendidos(50);
                 var articulosMasVendidos = resultado?.Value ?? [];
 
                 foreach (var articulo in articulosMasVendidos)
@@ -123,9 +141,9 @@ namespace Agraria.UI.Reporte
                 dt.Columns.Add("Descripción");
 
                 var resultado = _ventaService != null ? await _ventaService.GetVentasGrandes(10) : null;
-                var ventasGrandes = resultado?.Value ?? [];
+                _currentVentasGrandes = resultado?.Value ?? [];
 
-                foreach (var venta in ventasGrandes)
+                foreach (var venta in _currentVentasGrandes)
                 {
                     dt.Rows.Add(
                         venta.Id_Remito.ToString().Trim().PadLeft(8, '0'),
@@ -355,7 +373,7 @@ namespace Agraria.UI.Reporte
                 dt.Columns.Add("Área");
 
                 // Use the new method that returns area name instead of ID
-                var resultado =await _entornoService.GetAllConTipo();
+                var resultado = await _entornoService.GetAllConTipo();
                 var entornos = resultado?.Value ?? [];
 
                 foreach (var entorno in entornos)
@@ -463,18 +481,15 @@ namespace Agraria.UI.Reporte
                 dt.Columns.Add("Fecha Nacimiento", typeof(DateTime));
                 dt.Columns.Add("Peso");
                 dt.Columns.Add("Estado Salud");
-                dt.Columns.Add("Observaciones");
                 dt.Columns.Add("Activo");
 
 
                 var resultado = await _hojadeVidaService.GetAll();
                 if (resultado.IsSuccess)
                 {
+                    _currentHojasDeVida = resultado.Value ?? [];
 
-
-                    var hojasVida = resultado.Value ?? [] ;
-
-                    foreach (var hojaVida in hojasVida)
+                    foreach (var hojaVida in _currentHojasDeVida)
                     {
                         dt.Rows.Add(
                             hojaVida.Numero,
@@ -483,14 +498,11 @@ namespace Agraria.UI.Reporte
                             hojaVida.FechaNacimiento.ToString("yyyy-MM-dd"),
                             hojaVida.Peso,
                             hojaVida.EstadoSalud,
-                            hojaVida.Observaciones,
                             hojaVida.Activo ? "Sí" : "No"
                         );
-
                     }
 
                     dgvReporte.DataSource = dt;
-
                 }
             }
             catch (Exception ex)
@@ -498,5 +510,66 @@ namespace Agraria.UI.Reporte
                 MessageBox.Show("Error al cargar el reporte de hojas de vida: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        private void BtnImprimir_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (_btnClickeado.Tag is not Type tipoReporte)
+                {
+                    MessageBox.Show("El botón seleccionado no tiene un tipo de reporte asociado para imprimir.");
+                    return;
+                }
+
+                IPrintStrategy? strategy = tipoReporte switch
+                {
+                    Type t when t == typeof(Modelo.Entidades.HojadeVida) =>
+                        new HojaVidaPrintStrategy(_currentHojasDeVida),
+
+                    Type t when t == typeof(Modelo.Entidades.HVentasConUsuario) =>
+                        new VentasGrandesPrintStrategy(_currentVentasGrandes),
+
+                    _ => null
+                };
+
+                if (strategy == null)
+                {
+                    MessageBox.Show("No se ha seleccionado un tipo de reporte válido para imprimir.");
+                    return;
+                }
+
+                if (!strategy.CanPrint())
+                {
+                    MessageBox.Show(strategy.GetEmptyMessage());
+                    return;
+                }
+
+                strategy.Print();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al imprimir el reporte: {ex.Message}");
+            }
+        }
+
+        private void FormReporte_Load(object sender, EventArgs e)
+        {
+            ConfigBtnsTags();
+
+        }
+
+        // Interfaces y implementaciones
+        public interface IPrintStrategy
+        {
+            bool CanPrint();
+            void Print();
+            string GetEmptyMessage();
+        }
+
+       
+
+
+
+
     }
 }
