@@ -16,9 +16,9 @@ namespace Agraria.Contrato.Repositorios
 
         // Report methods
 
-        Task<Result<List<HVentas>>> GetVentasGrandes(int top = 10);
+        Task<Result<List<HVentasConUsuario>>> GetVentasGrandes(int top = 10);
     }
-    
-    
-   
+
+
+
 }

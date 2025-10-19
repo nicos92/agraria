@@ -32,7 +32,7 @@ namespace Agraria.UI.Reporte
 
         private Button _btnClickeado;
 
-       
+
 
         // Constructor with service injection (for dependency injection pattern)
         public FormReporte(
@@ -117,17 +117,19 @@ namespace Agraria.UI.Reporte
 
                 var dt = new DataTable();
                 dt.Columns.Add("ID Remito");
+                dt.Columns.Add("Usuario"); // Nueva columna para el nombre del usuario
                 dt.Columns.Add("Fecha y Hora", typeof(DateTime));
                 dt.Columns.Add("Total $", typeof(decimal));
                 dt.Columns.Add("Descripción");
 
-                var resultado = _ventaService != null ? await _ventaService.GetVentasGrandes( 10) : null;
+                var resultado = _ventaService != null ? await _ventaService.GetVentasGrandes(10) : null;
                 var ventasGrandes = resultado?.Value ?? [];
 
                 foreach (var venta in ventasGrandes)
                 {
                     dt.Rows.Add(
                         venta.Id_Remito.ToString().Trim().PadLeft(8, '0'),
+                        $"{venta.NombreUsuario} {venta.ApellidoUsuario}", // Combinar nombre y apellido
                         venta.Fecha_Hora.ToString("yyyy-MM-dd HH:mm"),
                         venta.Total,
                         venta.Descripcion
@@ -464,7 +466,7 @@ namespace Agraria.UI.Reporte
                 dt.Columns.Add("Observaciones");
                 dt.Columns.Add("Activo");
 
-                
+
                 var resultado = await _hojadeVidaService.GetAll();
                 if (resultado.IsSuccess)
                 {
@@ -488,7 +490,7 @@ namespace Agraria.UI.Reporte
                     }
 
                     dgvReporte.DataSource = dt;
-                    
+
                 }
             }
             catch (Exception ex)

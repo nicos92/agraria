@@ -216,7 +216,7 @@ CREATE TABLE HRemitoProduccion (
     Descu DECIMAL(18,2) NOT NULL,
     Total DECIMAL(18,2) NOT NULL,
     CONSTRAINT FK_HRemitoProduccion_Usuarios FOREIGN KEY (Cod_Usuario) REFERENCES Usuarios(Id_Usuario),
-    
+
 );
 GO
 
@@ -256,4 +256,18 @@ GO
 -- Insertar un proveedor por defecto 'Sin Proveedor'
 INSERT INTO Proveedores (CUIT, Proveedor, Nombre, Tel, Email, Observacion) VALUES
 ('0000000001', 'Sin Proveedor', 'Sin Proveedor', '0000000000', 'sinproveedor@example.com', 'Sin Proveedor para productos sin proveedor asignado');
+GO
+
+-- Poblar TipoEntorno
+INSERT INTO TipoEntorno (Descripcion) VALUES
+('Vegetal'),
+('Animal'),
+('Industrial');
+GO
+
+-- Poblar Entorno
+INSERT INTO Entorno (Nombre, Id_TipoEntorno) VALUES
+('Invernadero 1', 1), -- Vegetal
+('Corral 1', 2),      -- Animal
+('Taller Mecanico', 3); -- Industrial)
 GO

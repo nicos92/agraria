@@ -14,9 +14,9 @@ namespace Agraria.Contrato.Servicios
         Task<Result<bool>> Add(HVentas hVentas, List<ProductoResumen> productoResumen);
         Task<Result<(List<HVentas> ventas, List<HVentasDetalle> detalles)>> GetAll();
 
-        Task<Result<List<HVentas>>> GetVentasGrandes(int top = 10);
+        Task<Result<List<HVentasConUsuario>>> GetVentasGrandes(int top = 10);
     }
 
-    
+
 
 }

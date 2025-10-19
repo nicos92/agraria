@@ -23,11 +23,11 @@ namespace Agraria.Servicio.Implementaciones
             return await _repo.GetAll();
         }
 
-       
 
-        
 
-        public async Task<Result<List<HVentas>>> GetVentasGrandes(int top)
+
+
+        public async Task<Result<List<HVentasConUsuario>>> GetVentasGrandes(int top)
         {
             return await _repo.GetVentasGrandes(top);
         }

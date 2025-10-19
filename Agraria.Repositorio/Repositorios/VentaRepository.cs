@@ -155,22 +155,24 @@ namespace Agraria.Repositorio.Repositorios
         }
 
 
-      
 
-        public async Task<Result<List<HVentas>>> GetVentasGrandes(int top = 10)
+
+        public async Task<Result<List<HVentasConUsuario>>> GetVentasGrandes(int top = 10)
         {
             try
             {
-                var ventas = new List<HVentas>();
+                var ventas = new List<HVentasConUsuario>();
                 using var conn = Conexion();
                 await conn.OpenAsync();
 
-                // Query to get top sales by total amount
+                // Query to get top sales by total amount, including user name
                 string sql = @"
                     SELECT TOP (@top)
-                        Id_Remito, Cod_Usuario, Fecha_Hora, Subtotal, Descu, Total, Descripcion
-                    FROM H_Ventas
-                    ORDER BY Total DESC";
+                        hv.Id_Remito, hv.Cod_Usuario, hv.Fecha_Hora, hv.Subtotal, hv.Descu, hv.Total, hv.Descripcion,
+                        u.Nombre AS NombreUsuario, u.Apellido AS ApellidoUsuario
+                    FROM H_Ventas hv
+                    INNER JOIN Usuarios u ON hv.Cod_Usuario = u.Id_Usuario
+                    ORDER BY hv.Total DESC";
 
                 using var cmd = new SqlCommand(sql, conn);
                 cmd.Parameters.AddWithValue("@top", top);
@@ -178,7 +180,7 @@ namespace Agraria.Repositorio.Repositorios
                 using var reader = await cmd.ExecuteReaderAsync();
                 while (await reader.ReadAsync())
                 {
-                    ventas.Add(new HVentas
+                    ventas.Add(new HVentasConUsuario
                     {
                         Id_Remito = reader.GetInt32(0),
                         Cod_Usuario = reader.GetInt32(1),
@@ -186,19 +188,21 @@ namespace Agraria.Repositorio.Repositorios
                         Subtotal = reader.GetDecimal(3),
                         Descu = reader.GetDecimal(4),
                         Total = reader.GetDecimal(5),
-                        Descripcion = reader.IsDBNull(6) ? null : reader.GetString(6)
+                        Descripcion = reader.IsDBNull(6) ? null : reader.GetString(6),
+                        NombreUsuario = reader.IsDBNull(7) ? null : reader.GetString(7),
+                        ApellidoUsuario = reader.IsDBNull(8) ? null : reader.GetString(8)
                     });
                 }
 
-                return Result<List<HVentas>>.Success(ventas);
+                return Result<List<HVentasConUsuario>>.Success(ventas);
             }
             catch (SqlException ex)
             {
-                return Result<List<HVentas>>.Failure($"Error al obtener ventas grandes: {ex.Message}");
+                return Result<List<HVentasConUsuario>>.Failure($"Error al obtener ventas grandes: {ex.Message}");
             }
             catch (Exception ex)
             {
-                return Result<List<HVentas>>.Failure($"Error inesperado al obtener ventas grandes: {ex.Message}");
+                return Result<List<HVentasConUsuario>>.Failure($"Error inesperado al obtener ventas grandes: {ex.Message}");
             }
         }
     }
