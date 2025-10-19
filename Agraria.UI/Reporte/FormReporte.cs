@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Agraria.Modelo.Entidades;
 using Agraria.Modelo.Enums;
+using Agraria.Contrato.Repositorios;
 using Agraria.Contrato.Servicios;
 using BitMiracle.LibTiff.Classic;
 using Agraria.Utilidades;
@@ -37,6 +38,7 @@ namespace Agraria.UI.Reporte
         private List<Agraria.Modelo.Entidades.HVentasConUsuario>? _currentVentasGrandes; // Variable para almacenar las ventas grandes actuales
         private List<Agraria.Modelo.Records.EntornoFormativoConNombres>? _currentEntornosFormativos; // Variable para almacenar los entornos formativos actuales
         private List<Agraria.Modelo.Entidades.ProductoStockConNombres>? _currentProductosStock; // Variable para almacenar los productos con stock actuales
+        private List<Agraria.Contrato.Repositorios.ProductosMasVendidos>? _currentProductosMasVendidos; // Variable para almacenar los productos más vendidos actuales
 
 
         private void ConfigBtnsTags()
@@ -99,6 +101,9 @@ namespace Agraria.UI.Reporte
                 // In a real implementation, this would come from _ventaService.GetArticulosMasVendidos()
                 var resultado = await _productosService.GetArticulosMasVendidos(50);
                 var articulosMasVendidos = resultado?.Value ?? [];
+                
+                // Store the current most sold products for printing
+                _currentProductosMasVendidos = new List<Agraria.Contrato.Repositorios.ProductosMasVendidos>(articulosMasVendidos);
 
                 foreach (var articulo in articulosMasVendidos)
                 {
@@ -537,6 +542,9 @@ namespace Agraria.UI.Reporte
 
                     Type t when t == typeof(Modelo.Entidades.ProductoStockConNombres) =>
                         new ProductosStockPrintStrategy(_currentProductosStock),
+
+                    Type t when t == typeof(Contrato.Repositorios.ProductosMasVendidos) =>
+                        new ProductosMasVendidosPrintStrategy(_currentProductosMasVendidos),
 
                     _ => null
                 };

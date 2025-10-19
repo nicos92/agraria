@@ -182,5 +182,32 @@ namespace Agraria.Utilidades.Impresion
 
             return htmlProcesado;
         }
+
+        public string GenerarHtmlProductosMasVendidos(List<> productos, string totalProductos, string fechaGeneracion)
+        {
+            if (string.IsNullOrEmpty(plantillaHtml))
+            {
+                return "Error: La plantilla HTML no se pudo cargar.";
+            }
+
+            string htmlProcesado = plantillaHtml;
+            htmlProcesado = htmlProcesado.Replace("{{fecha_generacion}}", fechaGeneracion);
+            htmlProcesado = htmlProcesado.Replace("{{total_productos}}", totalProductos);
+
+            var filasHtml = new StringBuilder();
+            foreach (var producto in productos)
+            {
+                filasHtml.Append("<tr>");
+                filasHtml.Append($"<td>{producto.Cod_Producto}</td>");
+                filasHtml.Append($"<td>{producto.Producto_Desc}</td>");
+                filasHtml.Append($"<td>{producto.CantidadVendida}</td>");
+                filasHtml.Append($"<td>${producto.TotalVendido:N2}</td>");
+                filasHtml.Append("</tr>");
+            }
+
+            htmlProcesado = htmlProcesado.Replace("{{tabla_productos_mas_vendidos}}", filasHtml.ToString());
+
+            return htmlProcesado;
+        }
     }
 }

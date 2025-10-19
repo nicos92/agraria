@@ -265,6 +265,35 @@ namespace Agraria.Utilidades.Impresion
             }
         }
 
+        public void ImprimirProductosMasVendidos(List<Agraria.Contrato.Repositorios.ProductosMasVendidos> productos)
+        {
+            string rutaPlantillaHtml = Path.Combine(Application.StartupPath, "Impresion", "impresionmasvendidos.html");
+
+            var generador = new GeneradorTickets(rutaPlantillaHtml);
+            _htmlFinal = generador.GenerarHtmlProductosMasVendidos(
+                productos: productos,
+                totalProductos: productos.Count.ToString(),
+                fechaGeneracion: DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss")
+            );
+
+            if (_htmlFinal.StartsWith("Error:"))
+            {
+                MessageBox.Show(_htmlFinal, "Error de Impresión de Productos Más Vendidos", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            _saveFileDialog1.FileName = "Reporte_Productos_Mas_Vendidos_" + DateTime.Now.ToString("yyyyMMdd_HHmmss");
+            DialogResult result = _saveFileDialog1.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                TareasLargas tareas = new TareasLargas();
+                tareas.RecibirTarea(() =>
+                {
+                    GenerarPDF(_rutaImg, _htmlFinal, _saveFileDialog1);
+                });
+            }
+        }
+
 
     }
 }
