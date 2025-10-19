@@ -36,6 +36,7 @@ namespace Agraria.UI.Reporte
         private List<Agraria.Modelo.Entidades.HojadeVida>? _currentHojasDeVida; // Variable para almacenar las hojas de vida actuales
         private List<Agraria.Modelo.Entidades.HVentasConUsuario>? _currentVentasGrandes; // Variable para almacenar las ventas grandes actuales
         private List<Agraria.Modelo.Records.EntornoFormativoConNombres>? _currentEntornosFormativos; // Variable para almacenar los entornos formativos actuales
+        private List<Agraria.Modelo.Entidades.ProductoStockConNombres>? _currentProductosStock; // Variable para almacenar los productos con stock actuales
 
 
         private void ConfigBtnsTags()
@@ -223,9 +224,10 @@ namespace Agraria.UI.Reporte
                 dt.Columns.Add("Cantidad", typeof(decimal));
                 dt.Columns.Add("Costo");
 
-                // In a real implementation, this would come from _articuloStockService.GetAllProductos()
                 var resultado = _productoStockService != null ? await _productoStockService.GetAllArticuloStockConNombres() : null;
                 var productos = resultado?.Value ?? [];
+                
+                _currentProductosStock = new List<Modelo.Entidades.ProductoStockConNombres>(productos);
 
                 foreach (var producto in productos)
                 {
@@ -532,6 +534,9 @@ namespace Agraria.UI.Reporte
 
                     Type t when t == typeof(Modelo.Records.EntornoFormativoConNombres) =>
                         new EntornoFormativoPrintStrategy(_currentEntornosFormativos),
+
+                    Type t when t == typeof(Modelo.Entidades.ProductoStockConNombres) =>
+                        new ProductosStockPrintStrategy(_currentProductosStock),
 
                     _ => null
                 };

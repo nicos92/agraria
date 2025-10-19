@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Impresión Ventas Grandes</title>
+    <title>Impresión Productos</title>
     <style>
         body {
             padding: 16px;
@@ -108,13 +108,13 @@
             background-color: #f0f0f0;
         }
         th, td {
-            padding: 8px;
+            padding: 8px ;
             text-align: left;
             border-bottom: 1px solid #ddd;
         }
-		td {
-			text-align: left;
-		}
+        td {
+            text-align: left;
+        }
         th:first-child, td:first-child {
             text-align: left;
         }
@@ -130,7 +130,7 @@
         <header>
             <p>Documento no válido como factura</p>
             <div>
-                <h1>Reporte de Ventas Grandes</h1>
+                <h1>Reporte de Productos</h1>
                 <h2>Fecha de Generación: {{fecha_generacion}}</h2>
             </div>
         </header>
@@ -139,7 +139,7 @@
 
         <section>
             <div>
-                <h3><span style="font-weight:bold;">Total Ventas: </span>{{total_ventas}}</h3>
+                <h3><span style="font-weight:bold;">Total Productos: </span>{{total_productos}}</h3>
             </div>
             <div>
                 <button onclick="window.print()">Imprimir Reporte</button>
@@ -152,15 +152,18 @@
             <table>
                 <thead>
                     <tr>
-                        <th>ID Remito</th>
-                        <th>Usuario</th>
-                        <th>Fecha y Hora</th>
-                        <th>Total $</th>
+                        <th>Código Producto</th>
                         <th>Descripción</th>
+                        <th>Área</th>
+                        <th>Entorno</th>
+                        <th>Proveedor</th>
+                        <th>Ganancia</th>
+                        <th>Cantidad</th>
+                        <th>Costo</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {{tabla_ventas_grandes}}
+                    {{tabla_productos}}
                 </tbody>
             </table>
         </section>

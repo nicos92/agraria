@@ -151,5 +151,36 @@ namespace Agraria.Utilidades.Impresion
 
             return htmlProcesado;
         }
+
+        public string GenerarHtmlProductosStock(List<Agraria.Modelo.Entidades.ProductoStockConNombres> productos, string totalProductos, string fechaGeneracion)
+        {
+            if (string.IsNullOrEmpty(plantillaHtml))
+            {
+                return "Error: La plantilla HTML no se pudo cargar.";
+            }
+
+            string htmlProcesado = plantillaHtml;
+            htmlProcesado = htmlProcesado.Replace("{{fecha_generacion}}", fechaGeneracion);
+            htmlProcesado = htmlProcesado.Replace("{{total_productos}}", totalProductos);
+
+            var filasHtml = new StringBuilder();
+            foreach (var producto in productos)
+            {
+                filasHtml.Append("<tr>");
+                filasHtml.Append($"<td>{producto.Cod_Producto}</td>");
+                filasHtml.Append($"<td>{producto.Producto_Desc}</td>");
+                filasHtml.Append($"<td>{producto.Cantidad}</td>");
+                filasHtml.Append($"<td>{producto.Costo:N2}</td>");
+                filasHtml.Append($"<td>{producto.Ganancia:N2}</td>");
+                filasHtml.Append($"<td>{producto.Nombre_TipoEntorno}</td>");
+                filasHtml.Append($"<td>{producto.Nombre_Entorno}</td>");
+                filasHtml.Append($"<td>{producto.Nombre_Proveedor}</td>");
+                filasHtml.Append("</tr>");
+            }
+
+            htmlProcesado = htmlProcesado.Replace("{{tabla_productos_stock}}", filasHtml.ToString());
+
+            return htmlProcesado;
+        }
     }
 }

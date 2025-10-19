@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Impresión Ventas Grandes</title>
+    <title>Impresión Productos Stock</title>
     <style>
         body {
             padding: 16px;
@@ -103,6 +103,7 @@
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
             background-color: #fff;
             min-width: 600px;
+            font-size: 14px;
         }
         thead {
             background-color: #f0f0f0;
@@ -130,7 +131,7 @@
         <header>
             <p>Documento no válido como factura</p>
             <div>
-                <h1>Reporte de Ventas Grandes</h1>
+                <h1>Reporte de Productos con Stock</h1>
                 <h2>Fecha de Generación: {{fecha_generacion}}</h2>
             </div>
         </header>
@@ -139,30 +140,34 @@
 
         <section>
             <div>
-                <h3><span style="font-weight:bold;">Total Ventas: </span>{{total_ventas}}</h3>
-            </div>
-            <div>
-                <button onclick="window.print()">Imprimir Reporte</button>
+                <h3><span style="font-weight:bold;">Total Productos: </span>{{total_productos}}</h3>
             </div>
         </section>
 
         <hr />
 
         <section style="width:100%; padding:0.5rem 1rem; overflow-x:auto;">
-            <table>
-                <thead>
+            <table style="width:100%; border-collapse:collapse; border-radius:10px; overflow:hidden; box-shadow:0 2px 8px rgba(0,0,0,0.1); background-color:#fff; min-width:600px;">
+                <thead style="background-color:#f0f0f0;">
                     <tr>
-                        <th>ID Remito</th>
-                        <th>Usuario</th>
-                        <th>Fecha y Hora</th>
-                        <th>Total $</th>
-                        <th>Descripción</th>
+                        <th style="padding: 8px; text-align: left; border-bottom:1px solid #ddd;">Código</th>
+                        <th style="padding: 8px; text-align: left; border-bottom:1px solid #ddd;">Descr</th>
+                        <th style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">Cant</th>
+                        <th style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd;">Costo</th>
+                        <th style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd; ">Ganancia %</th>
+                        <th style="padding: 8px; text-align: left; border-bottom:1px solid #ddd;">Área</th>
+                        <th style="padding: 8px; text-align: left; border-bottom:1px solid #ddd;">Entorno</th>
+                        <th style="padding: 8px; text-align: left; border-bottom:1px solid #ddd;">Proveedor</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {{tabla_ventas_grandes}}
+                    {{tabla_productos_stock}}
                 </tbody>
             </table>
+        </section>
+
+        <section style="display: flex; justify-content: center; padding: 1rem;">
+            <button onclick="window.print()" style="padding:1rem; background-color:#007bff; color:#fff; border:none; border-radius:6px; cursor:pointer;">Imprimir Reporte</button>
         </section>
     </main>
 </body>
