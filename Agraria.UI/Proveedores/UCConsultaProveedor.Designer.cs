@@ -39,8 +39,8 @@ namespace Agraria.UI.Proveedores
             Nombre = new DataGridViewTextBoxColumn();
             PanelFiltros = new Panel();
             tableLayoutPanelFiltros = new TableLayoutPanel();
-            labelFiltroCUIT = new Label();
             TxtFiltroCUIT = new TextBox();
+            labelFiltroCUIT = new Label();
             labelFiltroProveedor = new Label();
             TxtFiltroProveedor = new TextBox();
             labelFiltroNombre = new Label();
@@ -204,17 +204,6 @@ namespace Agraria.UI.Proveedores
             tableLayoutPanelFiltros.Size = new Size(798, 80);
             tableLayoutPanelFiltros.TabIndex = 0;
             // 
-            // labelFiltroCUIT
-            // 
-            labelFiltroCUIT.Anchor = AnchorStyles.Right;
-            labelFiltroCUIT.AutoSize = true;
-            labelFiltroCUIT.Font = new Font("Segoe UI", 12F);
-            labelFiltroCUIT.Location = new Point(48, 9);
-            labelFiltroCUIT.Name = "labelFiltroCUIT";
-            labelFiltroCUIT.Size = new Size(46, 21);
-            labelFiltroCUIT.TabIndex = 0;
-            labelFiltroCUIT.Text = "CUIT:";
-            // 
             // TxtFiltroCUIT
             // 
             TxtFiltroCUIT.Anchor = AnchorStyles.Left | AnchorStyles.Right;
@@ -226,6 +215,17 @@ namespace Agraria.UI.Proveedores
             TxtFiltroCUIT.Name = "TxtFiltroCUIT";
             TxtFiltroCUIT.Size = new Size(190, 29);
             TxtFiltroCUIT.TabIndex = 1;
+            // 
+            // labelFiltroCUIT
+            // 
+            labelFiltroCUIT.Anchor = AnchorStyles.Right;
+            labelFiltroCUIT.AutoSize = true;
+            labelFiltroCUIT.Font = new Font("Segoe UI", 12F);
+            labelFiltroCUIT.Location = new Point(48, 9);
+            labelFiltroCUIT.Name = "labelFiltroCUIT";
+            labelFiltroCUIT.Size = new Size(46, 21);
+            labelFiltroCUIT.TabIndex = 0;
+            labelFiltroCUIT.Text = "CUIT:";
             // 
             // labelFiltroProveedor
             // 
@@ -576,6 +576,7 @@ namespace Agraria.UI.Proveedores
             BtnEliminar.Size = new Size(64, 51);
             BtnEliminar.TabIndex = 11;
             BtnEliminar.UseVisualStyleBackColor = false;
+            BtnEliminar.Visible = false;
             BtnEliminar.EnabledChanged += BtnGuardar_EnabledChanged;
             BtnEliminar.Click += BtnEliminar_Click;
             // 

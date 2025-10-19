@@ -1,12 +1,12 @@
 
 
--- Cambia a la base de datos maestra para realizar la operación
+-- Cambia a la base de datos maestra para realizar la operaciï¿½n
 USE master;
 GO
 -- Eliminar la base de datos si ya existe
 IF EXISTS (SELECT name FROM sys.databases WHERE name = 'Agraria')
 BEGIN
-    ALTER DATABASE Agraria SET SINGLE_USER WITH ROLLBACK IMMEDIATE; -- Cierra todas las conexiones a la base de datos y la pone en modo de usuario único
+    ALTER DATABASE Agraria SET SINGLE_USER WITH ROLLBACK IMMEDIATE; -- Cierra todas las conexiones a la base de datos y la pone en modo de usuario ï¿½nico
     DROP DATABASE Agraria;
 END
 GO
@@ -243,12 +243,17 @@ GO
 
 -- Poblar Preguntas_Seguridad
 INSERT INTO Preguntas_Seguridad (Pregunta) VALUES
-('¿Nombre de tu primera mascota?'),
-('¿Ciudad donde naciste?'),
-('¿Comida favorita?');
+('ï¿½Nombre de tu primera mascota?'),
+('ï¿½Ciudad donde naciste?'),
+('ï¿½Comida favorita?');
 GO
 
 -- Poblar Usuarios
 INSERT INTO Usuarios (DNI, Nombre, Apellido, Tel, Mail, Contra, Respues, Id_Pregunta, Id_Tipo) VALUES
 ('11111111','Director','Dire','11111111','director@director.com','@Director123','director',1,1);
+GO
+
+-- Insertar un proveedor por defecto 'Sin Proveedor'
+INSERT INTO Proveedores (CUIT, Proveedor, Nombre, Tel, Email, Observacion) VALUES
+('0000000001', 'Sin Proveedor', 'Sin Proveedor', '0000000000', 'sinproveedor@example.com', 'Sin Proveedor para productos sin proveedor asignado');
 GO
