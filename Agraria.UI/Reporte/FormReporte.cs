@@ -35,6 +35,7 @@ namespace Agraria.UI.Reporte
         private Button _btnClickeado;
         private List<Agraria.Modelo.Entidades.HojadeVida>? _currentHojasDeVida; // Variable para almacenar las hojas de vida actuales
         private List<Agraria.Modelo.Entidades.HVentasConUsuario>? _currentVentasGrandes; // Variable para almacenar las ventas grandes actuales
+        private List<Agraria.Modelo.Records.EntornoFormativoConNombres>? _currentEntornosFormativos; // Variable para almacenar los entornos formativos actuales
 
 
         private void ConfigBtnsTags()
@@ -443,9 +444,9 @@ namespace Agraria.UI.Reporte
                 var resultado = await _entornoFormativoService.GetAllConNombres();
                 if (resultado.IsSuccess)
                 {
-                    var entornosFormativos = resultado?.Value ?? [];
+                    _currentEntornosFormativos = resultado?.Value ?? [];
 
-                    foreach (var entornoFormativo in entornosFormativos)
+                    foreach (var entornoFormativo in _currentEntornosFormativos)
                     {
                         dt.Rows.Add(
                             entornoFormativo.Nombre_Entorno,
@@ -529,6 +530,9 @@ namespace Agraria.UI.Reporte
                     Type t when t == typeof(Modelo.Entidades.HVentasConUsuario) =>
                         new VentasGrandesPrintStrategy(_currentVentasGrandes),
 
+                    Type t when t == typeof(Modelo.Records.EntornoFormativoConNombres) =>
+                        new EntornoFormativoPrintStrategy(_currentEntornosFormativos),
+
                     _ => null
                 };
 
@@ -567,8 +571,6 @@ namespace Agraria.UI.Reporte
         }
 
        
-
-
 
 
     }

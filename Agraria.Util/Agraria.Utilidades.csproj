@@ -9,6 +9,7 @@
     <None Remove="Impresion\impresionventados.html" />
     <None Remove="Impresion\impresionhojavida.html" />
     <None Remove="Impresion\impresionventasgrandes.html" />
+    <None Remove="Impresion\impresionentornoformativo.html" />
   </ItemGroup>
 
   <ItemGroup>
@@ -34,6 +35,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Impresion\impresionventasgrandes.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Impresion\impresionentornoformativo.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
   </ItemGroup>

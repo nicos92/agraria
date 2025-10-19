@@ -121,5 +121,35 @@ namespace Agraria.Utilidades.Impresion
 
             return htmlProcesado;
         }
+
+        public string GenerarHtmlEntornoFormativo(List<Agraria.Modelo.Records.EntornoFormativoConNombres> entornosFormativos, string totalEntornosFormativos, string fechaGeneracion)
+        {
+            if (string.IsNullOrEmpty(plantillaHtml))
+            {
+                return "Error: La plantilla HTML no se pudo cargar.";
+            }
+
+            string htmlProcesado = plantillaHtml;
+            htmlProcesado = htmlProcesado.Replace("{{fecha_generacion}}", fechaGeneracion);
+            htmlProcesado = htmlProcesado.Replace("{{total_entornos_formativos}}", totalEntornosFormativos);
+
+            var filasHtml = new StringBuilder();
+            foreach (var entornoFormativo in entornosFormativos)
+            {
+                filasHtml.Append("<tr>");
+                filasHtml.Append($"<td>{entornoFormativo.Nombre_Entorno}</td>");
+                filasHtml.Append($"<td>{entornoFormativo.Nombre_Usuario}</td>");
+                filasHtml.Append($"<td>{entornoFormativo.Apellido_Usuario}</td>");
+                filasHtml.Append($"<td>{entornoFormativo.Curso_anio}</td>");
+                filasHtml.Append($"<td>{entornoFormativo.Curso_Division}</td>");
+                filasHtml.Append($"<td>{entornoFormativo.Curso_Grupo}</td>");
+                filasHtml.Append($"<td>{(entornoFormativo.Activo ? "Sí" : "No")}</td>");
+                filasHtml.Append("</tr>");
+            }
+
+            htmlProcesado = htmlProcesado.Replace("{{tabla_entornos_formativos}}", filasHtml.ToString());
+
+            return htmlProcesado;
+        }
     }
 }
