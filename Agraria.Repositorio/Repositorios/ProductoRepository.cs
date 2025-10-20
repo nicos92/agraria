@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Agraria.Contrato.Repositorios;
 using Agraria.Modelo.Entidades;
 using Agraria.Utilidades;
+using Agraria.Modelo.Records;
 
 namespace Agraria.Repositorio.Repositorios
 {
@@ -130,12 +131,12 @@ namespace Agraria.Repositorio.Repositorios
                 while (await reader.ReadAsync())
                 {
                     productos.Add(new ProductosMasVendidos
-                    {
-                        Cod_Producto = reader.IsDBNull(0) ? null : reader.GetString(0),
-                        Producto_Desc = reader.IsDBNull(1) ? null : reader.GetString(1),
-                        CantidadVendida = reader.GetDecimal(2),
-                        TotalVendido = reader.GetDecimal(3)
-                    });
+                    (
+                         reader.IsDBNull(0) ? null : reader.GetString(0),
+                       reader.IsDBNull(1) ? null : reader.GetString(1),
+                       reader.GetDecimal(2),
+                        reader.GetDecimal(3)
+                    ));
                 }
 
                 return Result<List<ProductosMasVendidos>>.Success(productos);

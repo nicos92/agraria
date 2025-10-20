@@ -38,7 +38,7 @@ namespace Agraria.UI.Reporte
         private List<Agraria.Modelo.Entidades.HVentasConUsuario>? _currentVentasGrandes; // Variable para almacenar las ventas grandes actuales
         private List<Agraria.Modelo.Records.EntornoFormativoConNombres>? _currentEntornosFormativos; // Variable para almacenar los entornos formativos actuales
         private List<Agraria.Modelo.Entidades.ProductoStockConNombres>? _currentProductosStock; // Variable para almacenar los productos con stock actuales
-        private List<Agraria.Contrato.Repositorios.ProductosMasVendidos>? _currentProductosMasVendidos; // Variable para almacenar los productos más vendidos actuales
+        private List<ProductosMasVendidos>? _currentProductosMasVendidos; // Variable para almacenar los productos más vendidos actuales
 
 
         private void ConfigBtnsTags()
@@ -46,7 +46,7 @@ namespace Agraria.UI.Reporte
             btnActividades.Tag = typeof(ActividadConNombres);
             btnEntornoFormativo.Tag = typeof(EntornoFormativoConNombres);
             btnHerramientas.Tag = typeof(Herramientas);
-            btnMasVendidos.Tag = typeof(Contrato.Repositorios.ProductosMasVendidos);
+            btnMasVendidos.Tag = typeof(ProductosMasVendidos);
             btnHojaVida.Tag = typeof(Modelo.Entidades.HojadeVida);
             btnProveedores.Tag = typeof(Modelo.Entidades.Proveedores);
             btnProductos.Tag = typeof(ProductoStockConNombres);
@@ -103,7 +103,7 @@ namespace Agraria.UI.Reporte
                 var articulosMasVendidos = resultado?.Value ?? [];
                 
                 // Store the current most sold products for printing
-                _currentProductosMasVendidos = new List<Agraria.Contrato.Repositorios.ProductosMasVendidos>(articulosMasVendidos);
+                _currentProductosMasVendidos = [.. articulosMasVendidos];
 
                 foreach (var articulo in articulosMasVendidos)
                 {
@@ -232,7 +232,7 @@ namespace Agraria.UI.Reporte
                 var resultado = _productoStockService != null ? await _productoStockService.GetAllArticuloStockConNombres() : null;
                 var productos = resultado?.Value ?? [];
                 
-                _currentProductosStock = new List<Modelo.Entidades.ProductoStockConNombres>(productos);
+                _currentProductosStock = [.. productos];
 
                 foreach (var producto in productos)
                 {
@@ -543,7 +543,7 @@ namespace Agraria.UI.Reporte
                     Type t when t == typeof(Modelo.Entidades.ProductoStockConNombres) =>
                         new ProductosStockPrintStrategy(_currentProductosStock),
 
-                    Type t when t == typeof(Contrato.Repositorios.ProductosMasVendidos) =>
+                    Type t when t == typeof(ProductosMasVendidos) =>
                         new ProductosMasVendidosPrintStrategy(_currentProductosMasVendidos),
 
                     _ => null

@@ -16,7 +16,8 @@ using iTextSharp.text;
 using iTextSharp.tool.xml;
 using BitMiracle.LibTiff.Classic;
 using Agraria.Modelo.Entidades; // Añadir esta referencia para HojadeVida
-using Agraria.Utilidades; // Para TareasLargas
+using Agraria.Utilidades;
+using Agraria.Modelo.Records; // Para TareasLargas
 
 
 namespace Agraria.Utilidades.Impresion
@@ -29,11 +30,13 @@ namespace Agraria.Utilidades.Impresion
         private string _htmlFinal;
         public ImpresionTicket()
         {
-            _saveFileDialog1 = new SaveFileDialog();
-            _saveFileDialog1.DefaultExt = "pdf";
-            _saveFileDialog1.Filter = "Archivos de texto|*.pdf|Todos los archivos|*.*";
-            _saveFileDialog1.Title = "Guardar archivo";
-            _rutaImg = Path.Combine(Application.StartupPath, "Impresion", "EAC256.png");
+			_saveFileDialog1 = new SaveFileDialog
+			{
+				DefaultExt = "pdf",
+				Filter = "Archivos de texto|*.pdf|Todos los archivos|*.*",
+				Title = "Guardar archivo"
+			};
+			_rutaImg = Path.Combine(Application.StartupPath, "Impresion", "EAC256.png");
             _htmlFinal = string.Empty;
 
         }
@@ -69,7 +72,7 @@ namespace Agraria.Utilidades.Impresion
              DialogResult result = _saveFileDialog1.ShowDialog();
             if (result == DialogResult.OK)
             {
-                TareasLargas tareas = new TareasLargas();
+                TareasLargas tareas = new();
                 tareas.RecibirTarea(() =>
                 {
                     GenerarPDF(_rutaImg, _htmlFinal, _saveFileDialog1);
@@ -99,7 +102,7 @@ namespace Agraria.Utilidades.Impresion
             DialogResult result = _saveFileDialog1.ShowDialog();
             if (result == DialogResult.OK)
             {
-                TareasLargas tareas = new TareasLargas();
+                TareasLargas tareas = new();
                 tareas.RecibirTarea(() =>
                 {
                     GenerarPDF(_rutaImg, _htmlFinal, _saveFileDialog1);
@@ -128,7 +131,7 @@ namespace Agraria.Utilidades.Impresion
             DialogResult result = _saveFileDialog1.ShowDialog();
             if (result == DialogResult.OK)
             {
-                TareasLargas tareas = new TareasLargas();
+                TareasLargas tareas = new();
                 tareas.RecibirTarea(() =>
                 {
                     GenerarPDF(_rutaImg, _htmlFinal, _saveFileDialog1);
@@ -143,45 +146,43 @@ namespace Agraria.Utilidades.Impresion
             {
                 try
                 {
-                    // FIN SAVE FILE
-                    using (FileStream stream = (FileStream)saveFileDialog1.OpenFile())
-                    {
+					// FIN SAVE FILE
+					using FileStream stream = (FileStream)saveFileDialog1.OpenFile();
 
-                        iTextSharp.text.Document pdfDoc = new iTextSharp.text.Document(PageSize.A4, 25, 25, 30, 30);
+					iTextSharp.text.Document pdfDoc = new(PageSize.A4, 25, 25, 30, 30);
 
-                        PdfWriter writer = PdfWriter.GetInstance(pdfDoc, stream);
-                        pdfDoc.Open();
-                        // Creamos la imagen y le ajustamos el tamaño
-                        iTextSharp.text.Image imagen = iTextSharp.text.Image.GetInstance(rutaImg);
-                        imagen.BorderWidth = 0;
-                        imagen.Alignment = Element.ALIGN_LEFT;
-                        float percentage = 0.0f;
-                        percentage = 80 / imagen.Width;
-                        imagen.ScalePercent(percentage * 100);
+					PdfWriter writer = PdfWriter.GetInstance(pdfDoc, stream);
+					pdfDoc.Open();
+					// Creamos la imagen y le ajustamos el tamaño
+					iTextSharp.text.Image imagen = iTextSharp.text.Image.GetInstance(rutaImg);
+					imagen.BorderWidth = 0;
+					imagen.Alignment = Element.ALIGN_LEFT;
+					float percentage = 0.0f;
+					percentage = 80 / imagen.Width;
+					imagen.ScalePercent(percentage * 100);
 
-                        imagen.SetAbsolutePosition(40, pdfDoc.PageSize.Height - 110); // Ajusta la posición según sea necesario
-
+					imagen.SetAbsolutePosition(40, pdfDoc.PageSize.Height - 110); // Ajusta la posición según sea necesario
 
 
-                        // Insertamos la imagen en el documento
-                        pdfDoc.Add(imagen);
-                        using (StringReader srHtmlFinal = new StringReader(htmlFinal))
-                        {
 
-                            XMLWorkerHelper.GetInstance().ParseXHtml(writer, pdfDoc, srHtmlFinal);
+					// Insertamos la imagen en el documento
+					pdfDoc.Add(imagen);
+					using (StringReader srHtmlFinal = new(htmlFinal))
+					{
 
-                        }
+						XMLWorkerHelper.GetInstance().ParseXHtml(writer, pdfDoc, srHtmlFinal);
 
-                        pdfDoc.Close();
-                        writer.Close();
-                        DialogResult dialogResult = MessageBox.Show($"¿Desea abrir el archivo PDF guardado?", "Abrir carpeta", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                        if (dialogResult == DialogResult.Yes)
-                            AbrirCarpetaPdf(Path.GetFullPath(saveFileDialog1.FileName));
-                        Console.WriteLine("PDF generation completed successfully.");
-                    }
+					}
+
+					pdfDoc.Close();
+					writer.Close();
+					DialogResult dialogResult = MessageBox.Show($"¿Desea abrir el archivo PDF guardado?", "Abrir carpeta", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+					if (dialogResult == DialogResult.Yes)
+						AbrirCarpetaPdf(Path.GetFullPath(saveFileDialog1.FileName));
+					Console.WriteLine("PDF generation completed successfully.");
 
 
-                }
+				}
                 catch (IOException ex)
                 {
                     MessageBox.Show("El archivo está abierto en otro programa. Por favor, ciérrelo e intente de nuevo.\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -228,8 +229,8 @@ namespace Agraria.Utilidades.Impresion
             DialogResult result = _saveFileDialog1.ShowDialog();
             if (result == DialogResult.OK)
             {
-                TareasLargas tareas = new TareasLargas();
-                tareas.RecibirTarea(() =>
+				TareasLargas tareas = new();
+				tareas.RecibirTarea(() =>
                 {
                     GenerarPDF(_rutaImg, _htmlFinal, _saveFileDialog1);
                 });
@@ -257,7 +258,7 @@ namespace Agraria.Utilidades.Impresion
             DialogResult result = _saveFileDialog1.ShowDialog();
             if (result == DialogResult.OK)
             {
-                TareasLargas tareas = new TareasLargas();
+                TareasLargas tareas = new();
                 tareas.RecibirTarea(() =>
                 {
                     GenerarPDF(_rutaImg, _htmlFinal, _saveFileDialog1);
@@ -265,7 +266,7 @@ namespace Agraria.Utilidades.Impresion
             }
         }
 
-        public void ImprimirProductosMasVendidos(List<Agraria.Contrato.Repositorios.ProductosMasVendidos> productos)
+        public void ImprimirProductosMasVendidos(List<ProductosMasVendidos> productos)
         {
             string rutaPlantillaHtml = Path.Combine(Application.StartupPath, "Impresion", "impresionmasvendidos.html");
 
@@ -286,7 +287,7 @@ namespace Agraria.Utilidades.Impresion
             DialogResult result = _saveFileDialog1.ShowDialog();
             if (result == DialogResult.OK)
             {
-                TareasLargas tareas = new TareasLargas();
+                TareasLargas tareas = new ();
                 tareas.RecibirTarea(() =>
                 {
                     GenerarPDF(_rutaImg, _htmlFinal, _saveFileDialog1);

@@ -1,4 +1,5 @@
-﻿using Agraria.Utilidades.Impresion;
+﻿using Agraria.Modelo.Records;
+using Agraria.Utilidades.Impresion;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,16 +9,11 @@ using static Agraria.UI.Reporte.FormReporte;
 
 namespace Agraria.UI.Reporte
 {
-    public class ProductosMasVendidosPrintStrategy : IPrintStrategy
+    public class ProductosMasVendidosPrintStrategy(List<ProductosMasVendidos>? productos) : IPrintStrategy
     {
-        private readonly List<Agraria.Contrato.Repositorios.ProductosMasVendidos>? _productos;
+        private readonly List<ProductosMasVendidos>? _productos = productos;
 
-        public ProductosMasVendidosPrintStrategy(List<Agraria.Contrato.Repositorios.ProductosMasVendidos>? productos)
-        {
-            _productos = productos;
-        }
-
-        public bool CanPrint() => _productos != null && _productos.Any();
+		public bool CanPrint() => _productos != null && _productos.Count != 0;
 
         public void Print()
         {

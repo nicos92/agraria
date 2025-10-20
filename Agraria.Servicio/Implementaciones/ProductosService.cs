@@ -3,20 +3,15 @@ using Agraria.Modelo.Entidades;
 using Agraria.Contrato.Servicios;
 using Agraria.Contrato.Repositorios;
 using Agraria.Utilidades;
+using Agraria.Modelo.Records;
 
 namespace Agraria.Servicio.Implementaciones
 {
-    public class ProductosService : IProductoService
+    public class ProductosService(IProductosRepository repo) : IProductoService
     {
-        private readonly IProductosRepository _repo;
+        private readonly IProductosRepository _repo = repo;
 
-        public ProductosService(IProductosRepository repo)
-        {
-            _repo = repo;
-        }
-       
-
-        public async Task<Result<List<Productos>>> GetAll()
+		public async Task<Result<List<Productos>>> GetAll()
         {
             return await _repo.GetAll();
         }

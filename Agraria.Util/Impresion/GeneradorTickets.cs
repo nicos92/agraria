@@ -4,6 +4,7 @@ using System.IO;
 using System.Text;
 using System.Windows.Forms;
 using Agraria.Modelo.Entidades;
+using Agraria.Modelo.Records;
 
 namespace Agraria.Utilidades.Impresion
 {
@@ -183,7 +184,7 @@ namespace Agraria.Utilidades.Impresion
             return htmlProcesado;
         }
 
-        public string GenerarHtmlProductosMasVendidos(List<> productos, string totalProductos, string fechaGeneracion)
+        public string GenerarHtmlProductosMasVendidos(List<ProductosMasVendidos> productos, string totalProductos, string fechaGeneracion)
         {
             if (string.IsNullOrEmpty(plantillaHtml))
             {

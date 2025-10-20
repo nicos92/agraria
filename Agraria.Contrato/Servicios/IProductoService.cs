@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Agraria.Contrato.Repositorios;
 using Agraria.Modelo.Entidades;
+using Agraria.Modelo.Records;
 using Agraria.Utilidades;
 
 namespace Agraria.Contrato.Servicios

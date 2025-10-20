@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Agraria.Modelo.Entidades;
+using Agraria.Modelo.Records;
 using Agraria.Utilidades;
 
 namespace Agraria.Contrato.Repositorios
@@ -15,11 +16,5 @@ namespace Agraria.Contrato.Repositorios
         Task<Result<List<ProductosMasVendidos>>> GetProductosMasVendidos(int top);
     }
     
-    public class ProductosMasVendidos
-    {
-        public string? Cod_Producto { get; set; }
-        public string? Producto_Desc { get; set; }
-        public decimal CantidadVendida { get; set; }
-        public decimal TotalVendido { get; set; }
-    }
+    
 }
