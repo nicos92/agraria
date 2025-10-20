@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Impresión Usuarios</title>
+    <style>
+        body {
+            padding: 16px;
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: transparent;
+            color: #1a1c1e;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            border: 1px solid black;
+        }
+        main {
+            width: 90vw;
+            max-width: 800px;
+            border: 1px solid #1a1c1e;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 1rem;
+        }
+        header {
+            width: auto;
+            padding: 0.5rem 2rem;
+            display: inline;
+            text-align: right;
+            background-color: transparent;
+            margin-right: 64px;
+        }
+        header p {
+            color: #555;
+            margin: 0;
+            padding-top: 0.4em;
+            font-size: 8pt;
+        }
+        header div {
+            flex: 2 1 300px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 0.25rem;
+        }
+        header h1 {
+            font-weight: bold;
+            margin: 0;
+        }
+        header h2 {
+            color: #555;
+            margin: 0;
+            padding-top: 0.4em;
+        }
+        hr {
+            border: 0;
+            height: 1px;
+            background-color: #ddd;
+            width: 99%;
+        }
+        section {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            padding: 0.5em;
+        }
+        section div {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            text-align: left;
+        }
+        section h3 {
+            margin: 0;
+            font-weight: normal;
+        }
+        section h3 span {
+            font-weight: bold;
+        }
+        button {
+            padding: 1rem;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            background-color: #fff;
+            min-width: 600px;
+            font-size: 14px;
+        }
+        thead {
+            background-color: #f0f0f0;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        td {
+            text-align: left;
+        }
+        th:first-child, td:first-child {
+            text-align: left;
+        }
+        @media print {
+            button {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <header>
+            <p>Documento no válido como factura</p>
+            <div>
+                <h1>Reporte de Usuarios</h1>
+                <h2>Fecha de Generación: {{fecha_generacion}}</h2>
+            </div>
+        </header>
+
+        <hr />
+
+        <section>
+            <div>
+                <h3><span style="font-weight:bold;">Total Usuarios: </span>{{total_usuarios}}</h3>
+            </div>
+        </section>
+
+        <hr />
+
+        <section style="width:100%; padding:0.5rem 1rem; overflow-x:auto;">
+            <table style="width:100%; border-collapse:collapse; border-radius:10px; overflow:hidden; box-shadow:0 2px 8px rgba(0,0,0,0.1); background-color:#fff; min-width:600px;">
+                <thead style="background-color:#f0f0f0;">
+                    <tr>
+                        <th style="padding: 8px; text-align: left; border-bottom:1px solid #ddd;">DNI</th>
+                        <th style="padding: 8px; text-align: left; border-bottom:1px solid #ddd;">Nombre</th>
+                        <th style="padding: 8px; text-align: left; border-bottom:1px solid #ddd;">Apellido</th>
+                        <th style="padding: 8px; text-align: left; border-bottom:1px solid #ddd;">Teléfono</th>
+                        <th style="padding: 8px; text-align: left; border-bottom:1px solid #ddd;">Email</th>
+                        <th style="padding: 8px; text-align: left; border-bottom:1px solid #ddd;">Tipo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{tabla_usuarios}}
+                </tbody>
+            </table>
+        </section>
+
+        <section style="display: flex; justify-content: center; padding: 1rem;">
+            <button onclick="window.print()" style="padding:1rem; background-color:#007bff; color:#fff; border:none; border-radius:6px; cursor:pointer;">Imprimir Reporte</button>
+        </section>
+    </main>
+</body>
+</html>

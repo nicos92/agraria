@@ -40,6 +40,7 @@ namespace Agraria.UI.Reporte
         private List<Agraria.Modelo.Entidades.ProductoStockConNombres>? _currentProductosStock; // Variable para almacenar los productos con stock actuales
         private List<ProductosMasVendidos>? _currentProductosMasVendidos; // Variable para almacenar los productos más vendidos actuales
         private List<Agraria.Modelo.Records.ActividadConNombres>? _currentActividades; // Variable para almacenar las actividades actuales
+        private List<Agraria.Modelo.Records.UsuarioConTipo>? _currentUsuarios; // Variable para almacenar los usuarios actuales
 
 
         private void ConfigBtnsTags()
@@ -277,6 +278,9 @@ namespace Agraria.UI.Reporte
                 // Use the new method that returns user type name instead of ID
                 var resultado = _usuariosService != null ? await _usuariosService.GetAllConTipo() : null;
                 var usuarios = resultado?.Value ?? [];
+                
+                // Store the current users for printing
+                _currentUsuarios = [.. usuarios];
 
                 foreach (var usuario in usuarios)
                 {
@@ -552,6 +556,9 @@ namespace Agraria.UI.Reporte
 
                     Type t when t == typeof(ActividadConNombres) =>
                         new ActividadesPrintStrategy(_currentActividades),
+
+                    Type t when t == typeof(UsuarioConTipo) =>
+                        new UsuariosPrintStrategy(_currentUsuarios),
 
                     _ => null
                 };

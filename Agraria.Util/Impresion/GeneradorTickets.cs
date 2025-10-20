@@ -238,5 +238,34 @@ namespace Agraria.Utilidades.Impresion
 
             return htmlProcesado;
         }
+
+        public string GenerarHtmlUsuarios(List<Agraria.Modelo.Records.UsuarioConTipo> usuarios, string totalUsuarios, string fechaGeneracion)
+        {
+            if (string.IsNullOrEmpty(plantillaHtml))
+            {
+                return "Error: La plantilla HTML no se pudo cargar.";
+            }
+
+            string htmlProcesado = plantillaHtml;
+            htmlProcesado = htmlProcesado.Replace("{{fecha_generacion}}", fechaGeneracion);
+            htmlProcesado = htmlProcesado.Replace("{{total_usuarios}}", totalUsuarios);
+
+            var filasHtml = new StringBuilder();
+            foreach (var usuario in usuarios)
+            {
+                filasHtml.Append("<tr>");
+                filasHtml.Append($"<td>{usuario.DNI}</td>");
+                filasHtml.Append($"<td>{usuario.Nombre}</td>");
+                filasHtml.Append($"<td>{usuario.Apellido}</td>");
+                filasHtml.Append($"<td>{usuario.Tel}</td>");
+                filasHtml.Append($"<td>{usuario.Mail}</td>");
+                filasHtml.Append($"<td>{usuario.Nombre_Tipo}</td>");
+                filasHtml.Append("</tr>");
+            }
+
+            htmlProcesado = htmlProcesado.Replace("{{tabla_usuarios}}", filasHtml.ToString());
+
+            return htmlProcesado;
+        }
     }
 }
