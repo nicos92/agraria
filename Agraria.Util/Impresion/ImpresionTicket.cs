@@ -295,6 +295,35 @@ namespace Agraria.Utilidades.Impresion
             }
         }
 
+        public void ImprimirActividades(List<Agraria.Modelo.Records.ActividadConNombres> actividades)
+        {
+            string rutaPlantillaHtml = Path.Combine(Application.StartupPath, "Impresion", "impresionactividades.html");
+
+            var generador = new GeneradorTickets(rutaPlantillaHtml);
+            _htmlFinal = generador.GenerarHtmlActividades(
+                actividades: actividades,
+                totalActividades: actividades.Count.ToString(),
+                fechaGeneracion: DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss")
+            );
+
+            if (_htmlFinal.StartsWith("Error:"))
+            {
+                MessageBox.Show(_htmlFinal, "Error de Impresión de Actividades", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            _saveFileDialog1.FileName = "Reporte_Actividades_" + DateTime.Now.ToString("yyyyMMdd_HHmmss");
+            DialogResult result = _saveFileDialog1.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                TareasLargas tareas = new();
+                tareas.RecibirTarea(() =>
+                {
+                    GenerarPDF(_rutaImg, _htmlFinal, _saveFileDialog1);
+                });
+            }
+        }
+
 
     }
 }

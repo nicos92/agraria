@@ -39,6 +39,7 @@ namespace Agraria.UI.Reporte
         private List<Agraria.Modelo.Records.EntornoFormativoConNombres>? _currentEntornosFormativos; // Variable para almacenar los entornos formativos actuales
         private List<Agraria.Modelo.Entidades.ProductoStockConNombres>? _currentProductosStock; // Variable para almacenar los productos con stock actuales
         private List<ProductosMasVendidos>? _currentProductosMasVendidos; // Variable para almacenar los productos más vendidos actuales
+        private List<Agraria.Modelo.Records.ActividadConNombres>? _currentActividades; // Variable para almacenar las actividades actuales
 
 
         private void ConfigBtnsTags()
@@ -193,6 +194,9 @@ namespace Agraria.UI.Reporte
                 // Use the new method that returns area and environment names instead of IDs
                 var resultado = await _actividadService.GetAllConNombres();
                 var actividades = resultado?.Value ?? [];
+                
+                // Store the current activities for printing
+                _currentActividades = [.. actividades];
 
                 foreach (var actividad in actividades)
                 {
@@ -545,6 +549,9 @@ namespace Agraria.UI.Reporte
 
                     Type t when t == typeof(ProductosMasVendidos) =>
                         new ProductosMasVendidosPrintStrategy(_currentProductosMasVendidos),
+
+                    Type t when t == typeof(ActividadConNombres) =>
+                        new ActividadesPrintStrategy(_currentActividades),
 
                     _ => null
                 };

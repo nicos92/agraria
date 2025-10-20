@@ -210,5 +210,33 @@ namespace Agraria.Utilidades.Impresion
 
             return htmlProcesado;
         }
+
+        public string GenerarHtmlActividades(List<Agraria.Modelo.Records.ActividadConNombres> actividades, string totalActividades, string fechaGeneracion)
+        {
+            if (string.IsNullOrEmpty(plantillaHtml))
+            {
+                return "Error: La plantilla HTML no se pudo cargar.";
+            }
+
+            string htmlProcesado = plantillaHtml;
+            htmlProcesado = htmlProcesado.Replace("{{fecha_generacion}}", fechaGeneracion);
+            htmlProcesado = htmlProcesado.Replace("{{total_actividades}}", totalActividades);
+
+            var filasHtml = new StringBuilder();
+            foreach (var actividad in actividades)
+            {
+                filasHtml.Append("<tr>");
+                filasHtml.Append($"<td>{actividad.Nombre_TipoEntorno}</td>");
+                filasHtml.Append($"<td>{actividad.Nombre_Entorno}</td>");
+                filasHtml.Append($"<td>{actividad.Nombre_EntornoFormativo}</td>");
+                filasHtml.Append($"<td>{actividad.Fecha_Actividad:yyyy-MM-dd HH:mm}</td>");
+                filasHtml.Append($"<td>{actividad.Descripcion_Actividad}</td>");
+                filasHtml.Append("</tr>");
+            }
+
+            htmlProcesado = htmlProcesado.Replace("{{tabla_actividades}}", filasHtml.ToString());
+
+            return htmlProcesado;
+        }
     }
 }

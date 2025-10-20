@@ -5,6 +5,7 @@
     <None Remove="Impresion\EAC256.png" />
     <None Remove="Impresion\impresion.css" />
     <None Remove="Impresion\Impresion.html" />
+    <None Remove="Impresion\impresionactividades.html" />
     <None Remove="Impresion\impresionmasvendidos.html" />
     <None Remove="Impresion\impresionproductosstock.html" />
     <None Remove="Impresion\impresionventa.html" />
@@ -26,6 +27,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Impresion\Impresion.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Impresion\impresionactividades.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Impresion\impresionmasvendidos.html">
