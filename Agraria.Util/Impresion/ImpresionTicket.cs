@@ -353,6 +353,35 @@ namespace Agraria.Utilidades.Impresion
             }
         }
 
+        public void ImprimirProveedores(List<Agraria.Modelo.Entidades.Proveedores> proveedores)
+        {
+            string rutaPlantillaHtml = Path.Combine(Application.StartupPath, "Impresion", "impresionproveedores.html");
+
+            var generador = new GeneradorTickets(rutaPlantillaHtml);
+            _htmlFinal = generador.GenerarHtmlProveedores(
+                proveedores: proveedores,
+                totalProveedores: proveedores.Count.ToString(),
+                fechaGeneracion: DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss")
+            );
+
+            if (_htmlFinal.StartsWith("Error:"))
+            {
+                MessageBox.Show(_htmlFinal, "Error de Impresión de Proveedores", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            _saveFileDialog1.FileName = "Reporte_Proveedores_" + DateTime.Now.ToString("yyyyMMdd_HHmmss");
+            DialogResult result = _saveFileDialog1.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                TareasLargas tareas = new();
+                tareas.RecibirTarea(() =>
+                {
+                    GenerarPDF(_rutaImg, _htmlFinal, _saveFileDialog1);
+                });
+            }
+        }
+
 
     }
 }

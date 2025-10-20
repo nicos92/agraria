@@ -267,5 +267,33 @@ namespace Agraria.Utilidades.Impresion
 
             return htmlProcesado;
         }
+
+        public string GenerarHtmlProveedores(List<Agraria.Modelo.Entidades.Proveedores> proveedores, string totalProveedores, string fechaGeneracion)
+        {
+            if (string.IsNullOrEmpty(plantillaHtml))
+            {
+                return "Error: La plantilla HTML no se pudo cargar.";
+            }
+
+            string htmlProcesado = plantillaHtml;
+            htmlProcesado = htmlProcesado.Replace("{{fecha_generacion}}", fechaGeneracion);
+            htmlProcesado = htmlProcesado.Replace("{{total_proveedores}}", totalProveedores);
+
+            var filasHtml = new StringBuilder();
+            foreach (var proveedor in proveedores)
+            {
+                filasHtml.Append("<tr>");
+                filasHtml.Append($"<td>{proveedor.CUIT}</td>");
+                filasHtml.Append($"<td>{proveedor.Proveedor}</td>");
+                filasHtml.Append($"<td>{proveedor.Nombre}</td>");
+                filasHtml.Append($"<td>{proveedor.Tel}</td>");
+                filasHtml.Append($"<td>{proveedor.Email}</td>");
+                filasHtml.Append("</tr>");
+            }
+
+            htmlProcesado = htmlProcesado.Replace("{{tabla_proveedores}}", filasHtml.ToString());
+
+            return htmlProcesado;
+        }
     }
 }

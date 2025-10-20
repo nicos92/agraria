@@ -41,6 +41,7 @@ namespace Agraria.UI.Reporte
         private List<ProductosMasVendidos>? _currentProductosMasVendidos; // Variable para almacenar los productos más vendidos actuales
         private List<Agraria.Modelo.Records.ActividadConNombres>? _currentActividades; // Variable para almacenar las actividades actuales
         private List<Agraria.Modelo.Records.UsuarioConTipo>? _currentUsuarios; // Variable para almacenar los usuarios actuales
+        private List<Agraria.Modelo.Entidades.Proveedores>? _currentProveedores; // Variable para almacenar los proveedores actuales
 
 
         private void ConfigBtnsTags()
@@ -319,6 +320,9 @@ namespace Agraria.UI.Reporte
                 // In a real implementation, this would come from _proveedorService.GetAll()
                 var resultado = _proveedorService != null ? await _proveedorService.GetAll() : null;
                 var proveedores = resultado?.Value ?? [];
+                
+                // Store the current providers for printing
+                _currentProveedores = [.. proveedores];
 
                 foreach (var proveedor in proveedores)
                 {
@@ -559,6 +563,9 @@ namespace Agraria.UI.Reporte
 
                     Type t when t == typeof(UsuarioConTipo) =>
                         new UsuariosPrintStrategy(_currentUsuarios),
+
+                    Type t when t == typeof(Modelo.Entidades.Proveedores) =>
+                        new ProveedoresPrintStrategy(_currentProveedores),
 
                     _ => null
                 };
