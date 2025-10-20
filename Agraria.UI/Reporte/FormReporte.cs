@@ -42,6 +42,7 @@ namespace Agraria.UI.Reporte
         private List<Agraria.Modelo.Records.ActividadConNombres>? _currentActividades; // Variable para almacenar las actividades actuales
         private List<Agraria.Modelo.Records.UsuarioConTipo>? _currentUsuarios; // Variable para almacenar los usuarios actuales
         private List<Agraria.Modelo.Entidades.Proveedores>? _currentProveedores; // Variable para almacenar los proveedores actuales
+        private List<Agraria.Modelo.Entidades.Herramientas>? _currentHerramientas; // Variable para almacenar las herramientas actuales
 
 
         private void ConfigBtnsTags()
@@ -361,6 +362,9 @@ namespace Agraria.UI.Reporte
                 var resultado = await _herramientasService.GetAll();
 
                 List<Herramientas> herramientas = resultado?.Value ?? [];
+                
+                // Store the current tools for printing
+                _currentHerramientas = [.. herramientas];
 
 
                 foreach (var herramienta in herramientas)
@@ -566,6 +570,9 @@ namespace Agraria.UI.Reporte
 
                     Type t when t == typeof(Modelo.Entidades.Proveedores) =>
                         new ProveedoresPrintStrategy(_currentProveedores),
+
+                    Type t when t == typeof(Modelo.Entidades.Herramientas) =>
+                        new HerramientasPrintStrategy(_currentHerramientas),
 
                     _ => null
                 };

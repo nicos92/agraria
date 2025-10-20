@@ -6,6 +6,7 @@
     <None Remove="Impresion\impresion.css" />
     <None Remove="Impresion\Impresion.html" />
     <None Remove="Impresion\impresionactividades.html" />
+    <None Remove="Impresion\impresionherramientas.html" />
     <None Remove="Impresion\impresionmasvendidos.html" />
     <None Remove="Impresion\impresionproductosstock.html" />
     <None Remove="Impresion\impresionproveedores.html" />
@@ -32,6 +33,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Impresion\impresionactividades.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Impresion\impresionherramientas.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Impresion\impresionmasvendidos.html">

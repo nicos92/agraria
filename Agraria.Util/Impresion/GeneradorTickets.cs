@@ -295,5 +295,32 @@ namespace Agraria.Utilidades.Impresion
 
             return htmlProcesado;
         }
+
+        public string GenerarHtmlHerramientas(List<Agraria.Modelo.Entidades.Herramientas> herramientas, string totalHerramientas, string fechaGeneracion)
+        {
+            if (string.IsNullOrEmpty(plantillaHtml))
+            {
+                return "Error: La plantilla HTML no se pudo cargar.";
+            }
+
+            string htmlProcesado = plantillaHtml;
+            htmlProcesado = htmlProcesado.Replace("{{fecha_generacion}}", fechaGeneracion);
+            htmlProcesado = htmlProcesado.Replace("{{total_herramientas}}", totalHerramientas);
+
+            var filasHtml = new StringBuilder();
+            foreach (var herramienta in herramientas)
+            {
+                filasHtml.Append("<tr>");
+                filasHtml.Append($"<td>{herramienta.Id_Herramienta}</td>");
+                filasHtml.Append($"<td>{herramienta.Nombre}</td>");
+                filasHtml.Append($"<td>{herramienta.Descripcion}</td>");
+                filasHtml.Append($"<td style=\"text-align: right;\">{herramienta.Cantidad}</td>");
+                filasHtml.Append("</tr>");
+            }
+
+            htmlProcesado = htmlProcesado.Replace("{{tabla_herramientas}}", filasHtml.ToString());
+
+            return htmlProcesado;
+        }
     }
 }

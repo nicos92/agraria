@@ -382,6 +382,35 @@ namespace Agraria.Utilidades.Impresion
             }
         }
 
+        public void ImprimirHerramientas(List<Agraria.Modelo.Entidades.Herramientas> herramientas)
+        {
+            string rutaPlantillaHtml = Path.Combine(Application.StartupPath, "Impresion", "impresionherramientas.html");
+
+            var generador = new GeneradorTickets(rutaPlantillaHtml);
+            _htmlFinal = generador.GenerarHtmlHerramientas(
+                herramientas: herramientas,
+                totalHerramientas: herramientas.Count.ToString(),
+                fechaGeneracion: DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss")
+            );
+
+            if (_htmlFinal.StartsWith("Error:"))
+            {
+                MessageBox.Show(_htmlFinal, "Error de Impresión de Herramientas", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            _saveFileDialog1.FileName = "Reporte_Herramientas_" + DateTime.Now.ToString("yyyyMMdd_HHmmss");
+            DialogResult result = _saveFileDialog1.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                TareasLargas tareas = new();
+                tareas.RecibirTarea(() =>
+                {
+                    GenerarPDF(_rutaImg, _htmlFinal, _saveFileDialog1);
+                });
+            }
+        }
+
 
     }
 }
