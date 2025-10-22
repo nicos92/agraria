@@ -10,8 +10,13 @@
 - [ ] verificar que carguen bien los controles cuando se usan Tareas Largas
 - [ ] mejorar mensajes de errores depende de la excepcion ocurrida
 - [ ] verificar que todos los data grid view solo se seleccionen de a una fila
+- [ ] cambiar color de exportacion a pdf por uno mas rojo pdf
 
 #### Proveedores
+
+#### Pañol
+
+- [ ] Revisar que cargue los datos de la primer herramienta
 
 #### Actividades
 
@@ -24,7 +29,7 @@
 #### hoja de vida
 
 - [x] mostrar cartel de confirmacion de proceso finalizado al guardar hojadevida
-- [ ] cambiar la columna de nombre por la de numero
+- [x] cambiar la columna de nombre por la de numero
 - [ ] al cargar la pantalla de ingreso de hoja de vida que cargue el ultimo número +1 como sugerencia
 
 #### Usuarios
@@ -73,4 +78,4 @@
 
 - [x] btnEntornoFormativo: crear un metodo nuevo en el repositorio con un sql y crear un record para obtener los nombres y apellidos de los usuarios y el nombre del entorno al que pertenecen en ves de los id.
 
-- [ ] agregar boton para exportar a PDF. crear html para cada caso
+- [x] agregar boton para exportar a PDF. crear html para cada caso

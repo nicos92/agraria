@@ -35,9 +35,11 @@ namespace Agraria.UI.RemitoProduccion
             _usuariosService = usuariosService;
 
             InitializeComponent();
-        }
+			Utilidades.Util.ToolTipPdf(BtnImprimir, "Generar Reporte en PDF");
 
-        private async void UCConsultaRemitos_Load(object sender, EventArgs e)
+		}
+
+		private async void UCConsultaRemitos_Load(object sender, EventArgs e)
         {
             try
             {

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -212,5 +212,11 @@ namespace Agraria.Utilidades
             btn.ForeColor = AppColorsBlue.OnPrimary;
             btn.Font = new Font("Segoe UI", 12f, FontStyle.Bold);
         }
-    }
+
+		public static void ToolTipPdf(Control control, string mensaje)
+		{
+			ToolTip toolTipPdf = new ToolTip();
+			toolTipPdf.SetToolTip(control, mensaje);
+		}
+	}
 }

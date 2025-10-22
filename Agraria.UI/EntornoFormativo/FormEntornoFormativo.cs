@@ -1,4 +1,4 @@
-﻿using Agraria.UI.Articulos;
+using Agraria.UI.Articulos;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System;

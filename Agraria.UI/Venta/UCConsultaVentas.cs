@@ -38,9 +38,11 @@ namespace Agraria.UI.Ventas
             _logger = logger;
 
             InitializeComponent();
-        }
+			Utilidades.Util.ToolTipPdf(BtnImprimir, "Generar Reporte en PDF");
 
-        private async void UCConsultaVentas_Load(object sender, EventArgs e)
+		}
+
+		private async void UCConsultaVentas_Load(object sender, EventArgs e)
         {
             // TODO: CAMBIAR TEXTBOX DE CLIENTE POR UN COMBO BOX
             try

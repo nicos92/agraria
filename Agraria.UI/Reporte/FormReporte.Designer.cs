@@ -1,4 +1,4 @@
-﻿namespace Agraria.UI.Reporte
+namespace Agraria.UI.Reporte
 {
     partial class FormReporte
     {
@@ -44,7 +44,7 @@
 			dgvReporte = new DataGridView();
 			panel1 = new Panel();
 			tableLayoutPanel1 = new TableLayoutPanel();
-			button1 = new Button();
+			LblTituloReporte = new Label();
 			BtnImprimir = new Button();
 			panelMenu.SuspendLayout();
 			flowLayoutPanel1.SuspendLayout();
@@ -123,7 +123,7 @@
 			btnMasVendidos.Name = "btnMasVendidos";
 			btnMasVendidos.Size = new Size(191, 56);
 			btnMasVendidos.TabIndex = 0;
-			btnMasVendidos.Text = "Más vendidos";
+			btnMasVendidos.Text = "Productos Más vendidos";
 			btnMasVendidos.UseVisualStyleBackColor = false;
 			btnMasVendidos.Click += BtnMasVendidos_Click;
 			// 
@@ -264,48 +264,53 @@
 			// 
 			// tableLayoutPanel1
 			// 
-			tableLayoutPanel1.ColumnCount = 2;
-			tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-			tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-			tableLayoutPanel1.Controls.Add(button1, 0, 0);
-			tableLayoutPanel1.Controls.Add(BtnImprimir, 1, 0);
+			tableLayoutPanel1.ColumnCount = 4;
+			tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 64F));
+			tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333321F));
+			tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333321F));
+			tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333321F));
+			tableLayoutPanel1.Controls.Add(LblTituloReporte, 1, 0);
+			tableLayoutPanel1.Controls.Add(BtnImprimir, 0, 0);
 			tableLayoutPanel1.Dock = DockStyle.Fill;
 			tableLayoutPanel1.Location = new Point(0, 0);
 			tableLayoutPanel1.Name = "tableLayoutPanel1";
 			tableLayoutPanel1.RowCount = 1;
-			tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+			tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
 			tableLayoutPanel1.Size = new Size(597, 64);
 			tableLayoutPanel1.TabIndex = 11;
 			// 
-			// button1
+			// LblTituloReporte
 			// 
-			button1.Anchor = AnchorStyles.None;
-			button1.BackColor = Color.FromArgb(83, 96, 108);
-			button1.FlatAppearance.BorderColor = Color.FromArgb(203, 230, 255);
-			button1.FlatStyle = FlatStyle.Flat;
-			button1.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
-			button1.ForeColor = Color.White;
-			button1.Location = new Point(85, 16);
-			button1.Name = "button1";
-			button1.Size = new Size(128, 32);
-			button1.TabIndex = 11;
-			button1.Text = "Imprimir";
-			button1.UseVisualStyleBackColor = false;
+			LblTituloReporte.Anchor = AnchorStyles.None;
+			LblTituloReporte.AutoSize = true;
+			tableLayoutPanel1.SetColumnSpan(LblTituloReporte, 2);
+			LblTituloReporte.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+			LblTituloReporte.ForeColor = Color.FromArgb(203, 230, 255);
+			LblTituloReporte.Location = new Point(143, 19);
+			LblTituloReporte.Name = "LblTituloReporte";
+			LblTituloReporte.Size = new Size(195, 25);
+			LblTituloReporte.TabIndex = 11;
+			LblTituloReporte.Text = "<- ELIJA EL REPORTE";
 			// 
 			// BtnImprimir
 			// 
 			BtnImprimir.Anchor = AnchorStyles.None;
-			BtnImprimir.BackColor = Color.FromArgb(65, 0, 2);
+			BtnImprimir.AutoSize = true;
+			BtnImprimir.BackColor = Color.FromArgb(83, 96, 108);
+			BtnImprimir.Cursor = Cursors.Hand;
+			BtnImprimir.Enabled = false;
 			BtnImprimir.FlatAppearance.BorderColor = Color.FromArgb(203, 230, 255);
 			BtnImprimir.FlatStyle = FlatStyle.Flat;
 			BtnImprimir.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
-			BtnImprimir.ForeColor = Color.FromArgb(255, 218, 214);
-			BtnImprimir.Location = new Point(383, 16);
+			BtnImprimir.ForeColor = Color.White;
+			BtnImprimir.Image = Properties.Resources.file_pdf24x24;
+			BtnImprimir.Location = new Point(3, 8);
 			BtnImprimir.Name = "BtnImprimir";
-			BtnImprimir.Size = new Size(128, 32);
+			BtnImprimir.Size = new Size(58, 48);
 			BtnImprimir.TabIndex = 10;
-			BtnImprimir.Text = "Exportar a PDF";
+			BtnImprimir.TextImageRelation = TextImageRelation.TextBeforeImage;
 			BtnImprimir.UseVisualStyleBackColor = false;
+			BtnImprimir.EnabledChanged += BtnImprimir_EnabledChanged;
 			BtnImprimir.Click += BtnImprimir_Click;
 			// 
 			// FormReporte
@@ -326,6 +331,7 @@
 			((System.ComponentModel.ISupportInitialize)dgvReporte).EndInit();
 			panel1.ResumeLayout(false);
 			tableLayoutPanel1.ResumeLayout(false);
+			tableLayoutPanel1.PerformLayout();
 			ResumeLayout(false);
 
 		}
@@ -346,7 +352,7 @@
         private FlowLayoutPanel flowLayoutPanel1;
         private Panel panel1;
         private TableLayoutPanel tableLayoutPanel1;
-        private Button button1;
         private Button BtnImprimir;
-    }
+		private Label LblTituloReporte;
+	}
 }
