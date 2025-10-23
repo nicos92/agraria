@@ -42,9 +42,9 @@ namespace Agraria.UI.Acerca
 			tableLayoutPanel3 = new TableLayoutPanel();
 			label8 = new Label();
 			linkLabel1 = new LinkLabel();
-			label5 = new Label();
-			label7 = new Label();
-			label6 = new Label();
+			linkLabel2 = new LinkLabel();
+			linkLabel3 = new LinkLabel();
+			linkLabel4 = new LinkLabel();
 			tableLayoutPanel1.SuspendLayout();
 			groupBox1.SuspendLayout();
 			tableLayoutPanel2.SuspendLayout();
@@ -189,11 +189,11 @@ namespace Agraria.UI.Acerca
 			// 
 			tableLayoutPanel3.ColumnCount = 1;
 			tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+			tableLayoutPanel3.Controls.Add(linkLabel4, 0, 4);
+			tableLayoutPanel3.Controls.Add(linkLabel3, 0, 3);
 			tableLayoutPanel3.Controls.Add(label8, 0, 0);
-			tableLayoutPanel3.Controls.Add(linkLabel1, 0, 2);
-			tableLayoutPanel3.Controls.Add(label5, 0, 10);
-			tableLayoutPanel3.Controls.Add(label7, 0, 3);
-			tableLayoutPanel3.Controls.Add(label6, 0, 4);
+			tableLayoutPanel3.Controls.Add(linkLabel2, 0, 2);
+			tableLayoutPanel3.Controls.Add(linkLabel1, 0, 1);
 			tableLayoutPanel3.Dock = DockStyle.Fill;
 			tableLayoutPanel3.Location = new Point(3, 25);
 			tableLayoutPanel3.Name = "tableLayoutPanel3";
@@ -240,38 +240,47 @@ namespace Agraria.UI.Acerca
 			linkLabel1.VisitedLinkColor = Color.White;
 			linkLabel1.LinkClicked += linkLabel1_LinkClicked;
 			// 
-			// label5
+			// linkLabel2
 			// 
-			label5.AutoSize = true;
-			label5.Font = new Font("Segoe UI", 14.25F);
-			label5.Location = new Point(4, 128);
-			label5.Margin = new Padding(4);
-			label5.Name = "label5";
-			label5.Size = new Size(141, 25);
-			label5.TabIndex = 4;
-			label5.Text = "Matias Sposaro";
+			linkLabel2.ActiveLinkColor = Color.White;
+			linkLabel2.AutoSize = true;
+			linkLabel2.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+			linkLabel2.LinkColor = Color.White;
+			linkLabel2.Location = new Point(3, 58);
+			linkLabel2.Name = "linkLabel2";
+			linkLabel2.Size = new Size(157, 25);
+			linkLabel2.TabIndex = 6;
+			linkLabel2.TabStop = true;
+			linkLabel2.Text = "Federico Feressin";
+			linkLabel2.VisitedLinkColor = Color.White;
 			// 
-			// label7
+			// linkLabel3
 			// 
-			label7.AutoSize = true;
-			label7.Font = new Font("Segoe UI", 14.25F);
-			label7.Location = new Point(4, 62);
-			label7.Margin = new Padding(4);
-			label7.Name = "label7";
-			label7.Size = new Size(157, 25);
-			label7.TabIndex = 2;
-			label7.Text = "Federico Feressin";
+			linkLabel3.ActiveLinkColor = Color.White;
+			linkLabel3.AutoSize = true;
+			linkLabel3.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+			linkLabel3.LinkColor = Color.White;
+			linkLabel3.Location = new Point(3, 83);
+			linkLabel3.Name = "linkLabel3";
+			linkLabel3.Size = new Size(125, 25);
+			linkLabel3.TabIndex = 7;
+			linkLabel3.TabStop = true;
+			linkLabel3.Text = "Luciano Nitto";
+			linkLabel3.VisitedLinkColor = Color.White;
 			// 
-			// label6
+			// linkLabel4
 			// 
-			label6.AutoSize = true;
-			label6.Font = new Font("Segoe UI", 14.25F);
-			label6.Location = new Point(4, 95);
-			label6.Margin = new Padding(4);
-			label6.Name = "label6";
-			label6.Size = new Size(125, 25);
-			label6.TabIndex = 3;
-			label6.Text = "Luciano Nitto";
+			linkLabel4.ActiveLinkColor = Color.White;
+			linkLabel4.AutoSize = true;
+			linkLabel4.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+			linkLabel4.LinkColor = Color.White;
+			linkLabel4.Location = new Point(3, 108);
+			linkLabel4.Name = "linkLabel4";
+			linkLabel4.Size = new Size(141, 25);
+			linkLabel4.TabIndex = 8;
+			linkLabel4.TabStop = true;
+			linkLabel4.Text = "Matias Sposaro";
+			linkLabel4.VisitedLinkColor = Color.White;
 			// 
 			// FormAcercaDe
 			// 
@@ -317,12 +326,12 @@ namespace Agraria.UI.Acerca
 		private Label LblDescripcion;
 		private Label LblNombreProducto;
 		private TableLayoutPanel tableLayoutPanel3;
-		private Label label5;
-		private Label label6;
-		private Label label7;
 		private Label label8;
 		private GroupBox groupBox1;
 		private GroupBox groupBox2;
 		private LinkLabel linkLabel1;
+		private LinkLabel linkLabel4;
+		private LinkLabel linkLabel3;
+		private LinkLabel linkLabel2;
 	}
 }

@@ -10,7 +10,8 @@
 - [ ] verificar que carguen bien los controles cuando se usan Tareas Largas
 - [ ] mejorar mensajes de errores depende de la excepcion ocurrida
 - [ ] verificar que todos los data grid view solo se seleccionen de a una fila
-- [ ] cambiar color de exportacion a pdf por uno mas rojo pdf
+- [x] cambiar color de exportacion a pdf por uno mas rojo pdf
+- [ ] Agregar exportar base de datos a las herramientas.
 
 #### Proveedores
 

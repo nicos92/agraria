@@ -118,6 +118,10 @@ namespace Agraria.Repositorio.Repositorios
             }
             catch (Exception ex)
             {
+				if (ex.Message.Contains("UNIQUE KEY"))
+				{
+					return Result<TipoEntorno>.Failure($"\nYa existe un area con ese nombre");
+				}
                 return Result<TipoEntorno>.Failure($"Error al actualizar Tipo_Entorno: {ex.Message}");
             }
         }

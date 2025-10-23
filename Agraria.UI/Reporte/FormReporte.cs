@@ -11,7 +11,6 @@ using Agraria.Modelo.Entidades;
 using Agraria.Modelo.Enums;
 using Agraria.Contrato.Repositorios;
 using Agraria.Contrato.Servicios;
-using BitMiracle.LibTiff.Classic;
 using Agraria.Utilidades;
 using Agraria.Utilidades.Impresion;
 using Agraria.Modelo.Records; // Añadir esta referencia
@@ -194,7 +193,7 @@ namespace Agraria.UI.Reporte
 				BtnClickeado(sender);
 
 				var dt = new DataTable();
-				dt.Columns.Add("Tipo Entorno", typeof(string));
+				dt.Columns.Add("Area", typeof(string));
 				dt.Columns.Add("Entorno", typeof(string));
 				dt.Columns.Add("Entorno Formativo");
 				dt.Columns.Add("Fecha Actividad", typeof(DateTime));

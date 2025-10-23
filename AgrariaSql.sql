@@ -243,14 +243,14 @@ GO
 
 -- Poblar Preguntas_Seguridad
 INSERT INTO Preguntas_Seguridad (Pregunta) VALUES
-('�Nombre de tu primera mascota?'),
-('�Ciudad donde naciste?'),
-('�Comida favorita?');
+('¿Nombre de tu primera mascota?'),
+('¿Ciudad donde naciste?'),
+('¿Comida favorita?');
 GO
 
 -- Poblar Usuarios
 INSERT INTO Usuarios (DNI, Nombre, Apellido, Tel, Mail, Contra, Respues, Id_Pregunta, Id_Tipo) VALUES
-('11111111','Director','Dire','11111111','director@director.com','@Director123','director',1,1);
+('11111111','Director','Dire','11111111','director@director.com','@Director1234','director',1,1);
 GO
 
 -- Insertar un proveedor por defecto 'Sin Proveedor'
@@ -262,12 +262,12 @@ GO
 INSERT INTO TipoEntorno (Descripcion) VALUES
 ('Vegetal'),
 ('Animal'),
-('Industrial');
+('Industria');
 GO
 
 -- Poblar Entorno
 INSERT INTO Entorno (Nombre, Id_TipoEntorno) VALUES
 ('Invernadero 1', 1), -- Vegetal
 ('Corral 1', 2),      -- Animal
-('Taller Mecanico', 3); -- Industrial)
+('Taller Mecanico', 3); -- Industria
 GO

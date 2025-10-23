@@ -121,6 +121,10 @@ namespace Agraria.Repositorio.Repositorios
                 return Result<Entorno>.Failure("No se pudo actualizar el Entorno.");
             }catch (SqlException ex)
             {
+				if (ex.Message.Contains("UNIQUE KEY"))
+				{
+					return Result<Entorno>.Failure("Ya hay un entorno con ese nombre: ");
+				}
                 return Result<Entorno>.Failure("Error en la base de datos al actualizar el Entorno: " + ex.Message);
             }
             catch (System.Exception ex)

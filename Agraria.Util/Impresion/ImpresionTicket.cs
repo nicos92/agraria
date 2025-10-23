@@ -14,7 +14,6 @@ using iTextSharp.text.pdf;
 using iTextSharp.text.html.simpleparser;
 using iTextSharp.text;
 using iTextSharp.tool.xml;
-using BitMiracle.LibTiff.Classic;
 using Agraria.Modelo.Entidades; // Añadir esta referencia para HojadeVida
 using Agraria.Utilidades;
 using Agraria.Modelo.Records; // Para TareasLargas
