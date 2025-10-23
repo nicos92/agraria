@@ -1,4 +1,4 @@
-﻿using Agraria.Contrato.Servicios;
+using Agraria.Contrato.Servicios;
 using Agraria.Modelo.Entidades;
 using Agraria.Util.Validaciones;
 using Agraria.Utilidades;
