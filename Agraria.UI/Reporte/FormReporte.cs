@@ -577,7 +577,7 @@ namespace Agraria.UI.Reporte
 						new ProveedoresPrintStrategy(_currentProveedores),
 
 					Type t when t == typeof(Modelo.Entidades.Herramientas) =>
-						new HerramientasPrintStrategy(_currentHerramientas),
+						new HerramientasPrintStrategy(ImprimirHerramientas()),
 
 					_ => null
 				};
@@ -600,6 +600,21 @@ namespace Agraria.UI.Reporte
 			{
 				MessageBox.Show($"Error al imprimir el reporte: {ex.Message}");
 			}
+		}
+
+		private List<Herramientas> ImprimirHerramientas()
+		{
+			return dgvReporte.Rows
+		.Cast<DataGridViewRow>()
+		.Where(fila => !fila.IsNewRow)
+		.Select(fila => new Herramientas
+		{
+			Id_Herramienta = Convert.ToInt32(fila.Cells["ID Herramienta"].Value),
+			Nombre = fila.Cells["Nombre"].Value?.ToString() ?? string.Empty,
+			Descripcion = fila.Cells["Descripción"].Value?.ToString() ?? string.Empty,
+			Cantidad = Convert.ToInt32(fila.Cells["Cantidad"].Value)
+		})
+		.ToList();
 		}
 
 		private void FormReporte_Load(object sender, EventArgs e)
