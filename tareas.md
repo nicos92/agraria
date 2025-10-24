@@ -11,7 +11,7 @@
 - [ ] mejorar mensajes de errores depende de la excepcion ocurrida
 - [ ] verificar que todos los data grid view solo se seleccionen de a una fila
 - [x] cambiar color de exportacion a pdf por uno mas rojo pdf
-- [ ] Agregar exportar base de datos a las herramientas.
+- [ ] Agregar exportar base de datos a las herramientas del menu.
 
 #### Proveedores
 
@@ -80,3 +80,5 @@
 - [x] btnEntornoFormativo: crear un metodo nuevo en el repositorio con un sql y crear un record para obtener los nombres y apellidos de los usuarios y el nombre del entorno al que pertenecen en ves de los id.
 
 - [x] agregar boton para exportar a PDF. crear html para cada caso
+
+- [ ] agregar metodos para enviar las filas del data grid view para exportar a pdf

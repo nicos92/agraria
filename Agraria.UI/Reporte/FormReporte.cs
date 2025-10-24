@@ -92,7 +92,7 @@ namespace Agraria.UI.Reporte
 
 		}
 
-		
+
 
 		private async void BtnMasVendidos_Click(object sender, EventArgs e)
 		{
@@ -568,7 +568,7 @@ namespace Agraria.UI.Reporte
 						new ProductosMasVendidosPrintStrategy(_currentProductosMasVendidos),
 
 					Type t when t == typeof(ActividadConNombres) =>
-						new ActividadesPrintStrategy(_currentActividades),
+						new ActividadesPrintStrategy(ImprimirActividades()),
 
 					Type t when t == typeof(UsuarioConTipo) =>
 						new UsuariosPrintStrategy(_currentUsuarios),
@@ -604,17 +604,37 @@ namespace Agraria.UI.Reporte
 
 		private List<Herramientas> ImprimirHerramientas()
 		{
-			return dgvReporte.Rows
-		.Cast<DataGridViewRow>()
-		.Where(fila => !fila.IsNewRow)
-		.Select(fila => new Herramientas
+			return [.. dgvReporte.Rows
+				.Cast<DataGridViewRow>()
+				.Where(fila => !fila.IsNewRow)
+				.Select(fila => new Herramientas
+				{
+					Id_Herramienta = Convert.ToInt32(fila.Cells["ID Herramienta"].Value),
+					Nombre = fila.Cells["Nombre"].Value?.ToString() ?? string.Empty,
+					Descripcion = fila.Cells["Descripción"].Value?.ToString() ?? string.Empty,
+					Cantidad = Convert.ToInt32(fila.Cells["Cantidad"].Value)
+				})
+				];
+		}
+
+		private List<ActividadConNombres> ImprimirActividades()
 		{
-			Id_Herramienta = Convert.ToInt32(fila.Cells["ID Herramienta"].Value),
-			Nombre = fila.Cells["Nombre"].Value?.ToString() ?? string.Empty,
-			Descripcion = fila.Cells["Descripción"].Value?.ToString() ?? string.Empty,
-			Cantidad = Convert.ToInt32(fila.Cells["Cantidad"].Value)
-		})
-		.ToList();
+			return [..
+				dgvReporte.Rows
+				.Cast<DataGridViewRow>()
+				.Where(fila => !fila.IsNewRow)
+				.Select(fila => new ActividadConNombres(
+						0,
+						fila.Cells["Area"].Value?.ToString() ?? string.Empty,
+						fila.Cells["Entorno"].Value?.ToString() ?? string.Empty,
+						0,
+						fila.Cells["Entorno Formativo"].Value?.ToString() ?? string.Empty,
+						DateTime.Parse(fila.Cells["Fecha Actividad"].Value?.ToString() ?? string.Empty),
+						fila.Cells["Descripción"].Value?.ToString() ?? string.Empty
+
+					))
+
+				];
 		}
 
 		private void FormReporte_Load(object sender, EventArgs e)
