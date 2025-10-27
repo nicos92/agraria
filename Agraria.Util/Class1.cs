@@ -1,6 +1,3 @@
-﻿namespace Agraria.Utilidades;
+namespace Agraria.Utilidades;
 
-public class Class1
-{
 
-}

@@ -237,8 +237,8 @@ GO
 -- Poblar Usuarios_Tipo
 INSERT INTO Usuarios_Tipo (Tipo, Descripcion) VALUES
 (1, 'Director'),
-(2, 'Docente'),
-(3, 'Jefe de Area');
+(2, 'Jefe de Area'),
+(3, 'Docente');
 GO
 
 -- Poblar Preguntas_Seguridad

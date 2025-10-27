@@ -1,4 +1,5 @@
-﻿using Agraria.Contrato.Servicios;
+using Agraria.Contrato.Servicios;
+using Agraria.Servicio;
 using Agraria.Util.Validaciones;
 using Agraria.Utilidades;
 using System;
@@ -104,9 +105,9 @@ namespace Agraria.UI.Usuarios
         {
             TxtDni.Focus();
             ConfigBtns();
+			CargarTiposUsuarios();
             await Task.WhenAll(
 
-                CargarTiposUsuarios(),
                 CargarPreguntasSeguridad()
             );
 
@@ -121,22 +122,25 @@ namespace Agraria.UI.Usuarios
         /// <summary>
         /// Carga los tipos de usuario en el ComboBox.
         /// </summary>
-        private async Task CargarTiposUsuarios()
+        private  void CargarTiposUsuarios()
         {
-            var tiposUsuarios = await _usuariosTipoService.GetAll();
+			//var tiposUsuarios = await _usuariosTipoService.GetAll();
 
-            if (tiposUsuarios.IsSuccess && tiposUsuarios.Value != null)
-            {
+			//if (tiposUsuarios.IsSuccess && tiposUsuarios.Value != null)
+			//{
+			
+
+			
                 CMBTipoUsuario.DataSource = null;
-                CMBTipoUsuario.DataSource = tiposUsuarios.Value;
+                CMBTipoUsuario.DataSource = SingleListas.Instance.UsuariosTipos;
                 CMBTipoUsuario.DisplayMember = "Descripcion";
                 CMBTipoUsuario.ValueMember = "Tipo";
 
-            }
-            else
-            {
-                MessageBox.Show("Error al cargar los tipos de usuarios: " + tiposUsuarios.Error, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            //}
+            //else
+            //{
+            //    MessageBox.Show("Error al cargar los tipos de usuarios: " + tiposUsuarios.Error, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //}
         }
 
         /// <summary>

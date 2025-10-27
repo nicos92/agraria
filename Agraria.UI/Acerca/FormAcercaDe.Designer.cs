@@ -40,11 +40,14 @@ namespace Agraria.UI.Acerca
 			LblVersion = new Label();
 			groupBox2 = new GroupBox();
 			tableLayoutPanel3 = new TableLayoutPanel();
-			label8 = new Label();
-			linkLabel1 = new LinkLabel();
-			linkLabel2 = new LinkLabel();
-			linkLabel3 = new LinkLabel();
 			linkLabel4 = new LinkLabel();
+			linkLabel3 = new LinkLabel();
+			label8 = new Label();
+			linkLabel2 = new LinkLabel();
+			linkLabel1 = new LinkLabel();
+			linkLabel5 = new LinkLabel();
+			linkLabel6 = new LinkLabel();
+			linkLabel7 = new LinkLabel();
 			tableLayoutPanel1.SuspendLayout();
 			groupBox1.SuspendLayout();
 			tableLayoutPanel2.SuspendLayout();
@@ -189,6 +192,9 @@ namespace Agraria.UI.Acerca
 			// 
 			tableLayoutPanel3.ColumnCount = 1;
 			tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+			tableLayoutPanel3.Controls.Add(linkLabel7, 0, 7);
+			tableLayoutPanel3.Controls.Add(linkLabel6, 0, 6);
+			tableLayoutPanel3.Controls.Add(linkLabel5, 0, 5);
 			tableLayoutPanel3.Controls.Add(linkLabel4, 0, 4);
 			tableLayoutPanel3.Controls.Add(linkLabel3, 0, 3);
 			tableLayoutPanel3.Controls.Add(label8, 0, 0);
@@ -212,6 +218,34 @@ namespace Agraria.UI.Acerca
 			tableLayoutPanel3.Size = new Size(358, 383);
 			tableLayoutPanel3.TabIndex = 1;
 			// 
+			// linkLabel4
+			// 
+			linkLabel4.ActiveLinkColor = Color.White;
+			linkLabel4.AutoSize = true;
+			linkLabel4.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+			linkLabel4.LinkColor = Color.White;
+			linkLabel4.Location = new Point(3, 108);
+			linkLabel4.Name = "linkLabel4";
+			linkLabel4.Size = new Size(141, 25);
+			linkLabel4.TabIndex = 8;
+			linkLabel4.TabStop = true;
+			linkLabel4.Text = "Matias Sposaro";
+			linkLabel4.VisitedLinkColor = Color.White;
+			// 
+			// linkLabel3
+			// 
+			linkLabel3.ActiveLinkColor = Color.White;
+			linkLabel3.AutoSize = true;
+			linkLabel3.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+			linkLabel3.LinkColor = Color.White;
+			linkLabel3.Location = new Point(3, 83);
+			linkLabel3.Name = "linkLabel3";
+			linkLabel3.Size = new Size(125, 25);
+			linkLabel3.TabIndex = 7;
+			linkLabel3.TabStop = true;
+			linkLabel3.Text = "Luciano Nitto";
+			linkLabel3.VisitedLinkColor = Color.White;
+			// 
 			// label8
 			// 
 			label8.Anchor = AnchorStyles.Left;
@@ -224,6 +258,20 @@ namespace Agraria.UI.Acerca
 			label8.TabIndex = 0;
 			label8.Text = "Desarrolladores";
 			label8.TextAlign = ContentAlignment.MiddleCenter;
+			// 
+			// linkLabel2
+			// 
+			linkLabel2.ActiveLinkColor = Color.White;
+			linkLabel2.AutoSize = true;
+			linkLabel2.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+			linkLabel2.LinkColor = Color.White;
+			linkLabel2.Location = new Point(3, 58);
+			linkLabel2.Name = "linkLabel2";
+			linkLabel2.Size = new Size(157, 25);
+			linkLabel2.TabIndex = 6;
+			linkLabel2.TabStop = true;
+			linkLabel2.Text = "Federico Feressin";
+			linkLabel2.VisitedLinkColor = Color.White;
 			// 
 			// linkLabel1
 			// 
@@ -240,47 +288,47 @@ namespace Agraria.UI.Acerca
 			linkLabel1.VisitedLinkColor = Color.White;
 			linkLabel1.LinkClicked += linkLabel1_LinkClicked;
 			// 
-			// linkLabel2
+			// linkLabel5
 			// 
-			linkLabel2.ActiveLinkColor = Color.White;
-			linkLabel2.AutoSize = true;
-			linkLabel2.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-			linkLabel2.LinkColor = Color.White;
-			linkLabel2.Location = new Point(3, 58);
-			linkLabel2.Name = "linkLabel2";
-			linkLabel2.Size = new Size(157, 25);
-			linkLabel2.TabIndex = 6;
-			linkLabel2.TabStop = true;
-			linkLabel2.Text = "Federico Feressin";
-			linkLabel2.VisitedLinkColor = Color.White;
+			linkLabel5.ActiveLinkColor = Color.White;
+			linkLabel5.AutoSize = true;
+			linkLabel5.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+			linkLabel5.LinkColor = Color.White;
+			linkLabel5.Location = new Point(3, 133);
+			linkLabel5.Name = "linkLabel5";
+			linkLabel5.Size = new Size(123, 25);
+			linkLabel5.TabIndex = 9;
+			linkLabel5.TabStop = true;
+			linkLabel5.Text = "Lautaro Arias";
+			linkLabel5.VisitedLinkColor = Color.White;
 			// 
-			// linkLabel3
+			// linkLabel6
 			// 
-			linkLabel3.ActiveLinkColor = Color.White;
-			linkLabel3.AutoSize = true;
-			linkLabel3.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-			linkLabel3.LinkColor = Color.White;
-			linkLabel3.Location = new Point(3, 83);
-			linkLabel3.Name = "linkLabel3";
-			linkLabel3.Size = new Size(125, 25);
-			linkLabel3.TabIndex = 7;
-			linkLabel3.TabStop = true;
-			linkLabel3.Text = "Luciano Nitto";
-			linkLabel3.VisitedLinkColor = Color.White;
+			linkLabel6.ActiveLinkColor = Color.White;
+			linkLabel6.AutoSize = true;
+			linkLabel6.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+			linkLabel6.LinkColor = Color.White;
+			linkLabel6.Location = new Point(3, 158);
+			linkLabel6.Name = "linkLabel6";
+			linkLabel6.Size = new Size(123, 25);
+			linkLabel6.TabIndex = 10;
+			linkLabel6.TabStop = true;
+			linkLabel6.Text = "Ulises Trujillo";
+			linkLabel6.VisitedLinkColor = Color.White;
 			// 
-			// linkLabel4
+			// linkLabel7
 			// 
-			linkLabel4.ActiveLinkColor = Color.White;
-			linkLabel4.AutoSize = true;
-			linkLabel4.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-			linkLabel4.LinkColor = Color.White;
-			linkLabel4.Location = new Point(3, 108);
-			linkLabel4.Name = "linkLabel4";
-			linkLabel4.Size = new Size(141, 25);
-			linkLabel4.TabIndex = 8;
-			linkLabel4.TabStop = true;
-			linkLabel4.Text = "Matias Sposaro";
-			linkLabel4.VisitedLinkColor = Color.White;
+			linkLabel7.ActiveLinkColor = Color.White;
+			linkLabel7.AutoSize = true;
+			linkLabel7.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+			linkLabel7.LinkColor = Color.White;
+			linkLabel7.Location = new Point(3, 183);
+			linkLabel7.Name = "linkLabel7";
+			linkLabel7.Size = new Size(81, 25);
+			linkLabel7.TabIndex = 11;
+			linkLabel7.TabStop = true;
+			linkLabel7.Text = "Lautaro ";
+			linkLabel7.VisitedLinkColor = Color.White;
 			// 
 			// FormAcercaDe
 			// 
@@ -333,5 +381,8 @@ namespace Agraria.UI.Acerca
 		private LinkLabel linkLabel4;
 		private LinkLabel linkLabel3;
 		private LinkLabel linkLabel2;
+		private LinkLabel linkLabel7;
+		private LinkLabel linkLabel6;
+		private LinkLabel linkLabel5;
 	}
 }

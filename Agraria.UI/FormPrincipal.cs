@@ -15,6 +15,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Agraria.Utilidades;
 using Agraria.UI.Acerca;
+using Agraria.Contrato.Repositorios;
+using Agraria.Contrato.Servicios;
+using Agraria.Servicio;
 
 namespace Agraria.UI
 {
@@ -104,6 +107,8 @@ namespace Agraria.UI
 			btn.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
 		}
 
+		
+
 		/// <summary>
 		/// Aplica el estilo visual de "activo" a un botón.
 		/// </summary>
@@ -188,9 +193,11 @@ namespace Agraria.UI
 		private void FormPrincipal_Load(object sender, EventArgs e)
 		{
 			_logger.LogInformation("FormPrincipal_Load iniciado.");
+			
 			ConfigBtnsMenu();
 			ConfigUsuario();
 			BtnActividad_Click(_btnActivo, e);
+			AplicarVistadeBotones();
 			_logger.LogInformation("FormPrincipal_Load finalizado.");
 		}
 
@@ -421,6 +428,17 @@ namespace Agraria.UI
 					this.Font = fd.Font;
 				}
 			}
+		}
+
+		private void AplicarVistadeBotones()
+		{
+			BtnActividad.Visible = ControlDeAccesos.PuedeVer(SingleListas.Instance.UsuariosTipos[2].Tipo);
+
+			BtnEntornos.Visible = ControlDeAccesos.PuedeVer(2);
+
+			BtnHojaVida.Visible = ControlDeAccesos.PuedeVer(2);
+
+			BtnInventario.Visible = ControlDeAccesos.PuedeVer(3);
 		}
 	}
 }

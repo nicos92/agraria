@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,13 +20,15 @@ namespace Agraria.Servicio
             Ventas = [];
             ProductosSeleccionados = [];
             ProductoResumen = [];
-        }
+			UsuariosTipos = [];
+		}
         public List<Proveedores> Proveedores { get; set; }
         public List<Productos> Productos { get; set; }
         public List<HVentas> Ventas { get; set; }
         public List<ProductoStock> ProductosSeleccionados { get; set; }
         public List<ProductoResumen> ProductoResumen { get; set; }
-    }
+		public List<UsuariosTipo> UsuariosTipos { get; set; }
+	}
 
 
 }

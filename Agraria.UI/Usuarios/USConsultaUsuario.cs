@@ -1,4 +1,5 @@
 using Agraria.Contrato.Servicios;
+using Agraria.Servicio;
 using Agraria.Util.Validaciones;
 using Agraria.Utilidades;
 using System;
@@ -13,591 +14,591 @@ using System.Windows.Forms;
 
 namespace Agraria.UI.Usuarios
 {
-    public partial class USConsultaUsuario : UserControl
-    {
-        private readonly IUsuariosService _usuariosService;
-        private readonly IUsuariosTipoService _usuariosTipoService;
-        private readonly IPreguntasSeguridadService _preguntasSeguridadService;
-
-        private Modelo.Entidades.Usuarios _usuarioSeleccionado;
-        private List<Modelo.Entidades.Usuarios> _todosLosUsuarios;
-        private int indiceSeleccionado;
-        private readonly ValidadorTextBox _vTxtDni;
-        private readonly ValidadorTextBox _vTxtApellido;
-        private readonly ValidadorTextBox _vTxtNombre;
-        private readonly ValidadorTextBox _vTxtTel;
-        private readonly ValidadorTextBox _vTxtEmail;
-        private readonly ValidadorTextBox _vTxtContra;
-        private readonly ValidadorTextBox _vTxtContraDos;
-        private readonly ValidadorTextBox _vTxtRespues;
-        private readonly ErrorProvider _epDni;
-        private readonly ErrorProvider _epApellido;
-        private readonly ErrorProvider _epNombre;
-        private readonly ErrorProvider _epTel;
-        private readonly ErrorProvider _epEmail;
-        private readonly ErrorProvider _epContra;
-        private readonly ErrorProvider _epContraDos;
-        private readonly ErrorProvider _epRespues;
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="USConsultaUsuario בו"/>.
-        /// </summary>
-        /// <param name="usuariosService">El servicio de usuarios.</param>
-        /// <param name="usuariosTipoService">El servicio de tipos de usuario.</param>
-        /// <param name="preguntasSeguridadService">El servicio de preguntas de seguridad.</param>
-        public USConsultaUsuario(IUsuariosService usuariosService, IUsuariosTipoService usuariosTipoService, IPreguntasSeguridadService preguntasSeguridadService)
-        {
-            _usuariosService = usuariosService;
-            _usuariosTipoService = usuariosTipoService;
-            _preguntasSeguridadService = preguntasSeguridadService;
-            InitializeComponent();
-            _usuarioSeleccionado = new Modelo.Entidades.Usuarios();
-
-            _epDni = new ErrorProvider();
-            _vTxtDni = new ValidadorDni(TxtDni, _epDni)
-            {
-                MensajeError = "El DNI ingresado no es válido.\nIngrese 8 digitos 12345678.\nSino tiene DNI ingrese cero (0)"
-            };
-
-            _epApellido = new ErrorProvider();
-            _vTxtApellido = new ValidadorNombre(TxtApellido, _epApellido)
-            {
-                MensajeError = "El apelido del proveedor no puede estar vacío."
-            };
-
-            _epNombre = new ErrorProvider();
-            _vTxtNombre = new ValidadorNombre(TxtNombre, _epNombre)
-            {
-                MensajeError = "El nombre no puede estar vacío."
-            };
-
-            _epTel = new ErrorProvider();
-            _vTxtTel = new ValidadorEntero(TxtTel, _epTel)
-            {
-                MensajeError = "El teléfono ingresado no es válido.\nSino tiene telefono ingrese cero (0)"
-            };
-
-            _epEmail = new ErrorProvider();
-            _vTxtEmail = new ValidadorEmail(TxtEmail, _epEmail)
-            {
-                MensajeError = "El email ingresado no es válido."
-            };
-
-            _epContra = new ErrorProvider();
-            _vTxtContra = new ValidadorPassword(TxtContra, _epContra);
-            _epContraDos = new ErrorProvider();
-            _vTxtContraDos = new ValidadorPassword(TxtContraDos, _epContraDos);
-            _epRespues = new ErrorProvider();
-            _vTxtRespues = new ValidadorNombre(TxtRespues, _epRespues)
-            {
-                MensajeError = "La respuesta no puede estar vacía."
-            };
-        }
-
-        /// <summary>
-        /// Maneja el evento Load del control USConsultaUsuario.
-        /// </summary>
-        /// <param name="sender">La fuente del evento.</param>
-        /// <param name="e">La instancia de <see cref="EventArgs"/> que contiene los datos del evento.</param>
-        private async void USConsultaUsuario_Load(object sender, EventArgs e)
-        {
-            TxtDni.Focus();
-
-            await Task.WhenAll(
-                CargarTiposUsuarios(),
-                CargarTiposUsuariosParaFiltro(),
-                CargarPreguntasSeguridad(),
-                CargarUsuarios()
-            );
-            ConfigBtns();
-
-            Utilidades.Util.BloquearBtns(ListBUsuarios, TLPForm);
-            Utilidades.Util.CalcularDGVVacio(ListBUsuarios, LblLista, "Usuarios");
-            CargarPermisos();
-            // Establecer un valor predeterminado para el combo box de preguntas
-            if (CMBPregunta.Items.Count > 0)
-            {
-                CMBPregunta.SelectedIndex = 0;
-            }
-        }
-
-        /// <summary>
-        /// Carga los tipos de usuario en el ComboBox.
-        /// </summary>
-        private async Task CargarTiposUsuarios()
-        {
-            try
-            {
-
-                var tiposUsuarios = await _usuariosTipoService.GetAll();
-
-                if (tiposUsuarios.IsSuccess && tiposUsuarios.Value != null)
-                {
-                    CMBTipoUsuario.DataSource = null;
-                    CMBTipoUsuario.DataSource = tiposUsuarios.Value;
-                    CMBTipoUsuario.DisplayMember = "Descripcion";
-                    CMBTipoUsuario.ValueMember = "Tipo";
-
-                }
-                else
-                {
-                    MessageBox.Show("Error al cargar los tipos de usuarios: " + tiposUsuarios.Error, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-            catch (ArgumentException ex)
-            {
-
-                MessageBox.Show("Error al cargar la pantalla, intente nuevamente" + ex.Message, "Error de Execucion");
-            }
-
-        }
-
-        /// <summary>
-        /// Carga las preguntas de seguridad en el ComboBox.
-        /// </summary>
-        private async Task CargarPreguntasSeguridad()
-        {
-            var preguntas = await _preguntasSeguridadService.GetAll();
-
-            if (preguntas.IsSuccess && preguntas.Value != null)
-            {
-                CMBPregunta.DataSource = null;
-                CMBPregunta.DataSource = preguntas.Value;
-                CMBPregunta.DisplayMember = "Pregunta";
-                CMBPregunta.ValueMember = "Id_Pregunta";
-
-            }
-            else
-            {
-                MessageBox.Show("Error al cargar las preguntas de seguridad: " + preguntas.Error, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        /// <summary>
-        /// Maneja el evento TextChanged del control TxtDni.
-        /// </summary>
-        /// <param name="sender">La fuente del evento.</param>
-        /// <param name="e">La instancia de <see cref="EventArgs"/> que contiene los datos del evento.</param>
-        private void TxtDni_TextChanged(object sender, EventArgs e)
-        {
-            ValidadorMultiple.ValidacionMultiple(BtnGuardar, _vTxtDni, _vTxtApellido, _vTxtNombre, _vTxtTel, _vTxtEmail, _vTxtContra, _vTxtContraDos, _vTxtRespues);
-            if (TxtContra.Text != TxtContraDos.Text)
-            {
-                LblError.Visible = true;
-            }
-            else
-            {
-                LblError.Visible = false;
-            }
-        }
-
-        /// <summary>
-        /// Crea un usuario a partir de los datos del formulario.
-        /// </summary>
-        private void CrearUsuario()
-        {
-            if (CMBTipoUsuario.SelectedValue is not int tipoUsuario)
-            {
-                MessageBox.Show("El tipo de usuario seleccionado no es válido.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-            int idPregunta = 0;
-            if (CMBPregunta.SelectedValue is int preguntaId)
-            {
-                idPregunta = preguntaId;
-            }
-
-            _usuarioSeleccionado = new Modelo.Entidades.Usuarios
-            {
-                Id_Usuario = _usuarioSeleccionado.Id_Usuario, // Mantener el Id_Usuario existente para actualizaciones
-                Apellido = TxtApellido.Text,
-                DNI = TxtDni.Text,
-                Nombre = TxtNombre.Text,
-                Tel = TxtTel.Text,
-                Mail = TxtEmail.Text,
-                Id_Tipo = tipoUsuario,
-                Contra = TxtContra.Text, // Contraseña por defecto al crear un nuevo usuario
-                Respues = TxtRespues.Text,
-                Id_Pregunta = idPregunta,
-                Activo = ChkActivo.Checked
-            };
-
-
-        }
-
-        /// <summary>
-        /// Maneja el evento Click del control BtnGuardar.
-        /// </summary>
-        /// <param name="sender">La fuente del evento.</param>
-        /// <param name="e">La instancia de <see cref="EventArgs"/> que contiene los datos del evento.</param>
-        private async void BtnGuardar_Click(object sender, EventArgs e)
-        {
-            DialogResult dialogResult = MessageBox.Show("¿Está seguro de que desea guardar los cambios?", "Confirmación de guardado", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if (dialogResult != DialogResult.Yes)
-            {
-                return; // Salir si el usuario no confirma
-            }
-            CrearUsuario();
-            await GuardarUsuario();
-        }
-
-        /// <summary>
-        /// Guarda el usuario.
-        /// </summary>
-        private async Task GuardarUsuario()
-        {
-            if (_usuarioSeleccionado != null && !string.IsNullOrEmpty(_usuarioSeleccionado.DNI))
-            {
-
-
-
-
-                Result<Modelo.Entidades.Usuarios> resultado = _usuariosService.Update(_usuarioSeleccionado);
-
-                if (resultado.IsSuccess)
-                {
-                    MessageBox.Show("Proveedor actualizado correctamente.\n" + resultado.Value.ToString(), "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                    string valor = _usuarioSeleccionado.DNI;
-                    await CargarUsuarios();
-                    Utilidades.Util.CalcularDGVVacio(ListBUsuarios, LblLista, "Usuarios");
-
-                    Utilidades.Util.SeleccionarFilaDGV(ListBUsuarios, valor, ListBUsuarios.Columns[0].HeaderText, ref indiceSeleccionado);
-                    CargarFormularioEdicion();
-
-
-                }
-                else
-                {
-                    MessageBox.Show(resultado.Error, "Error al actualizar proveedor", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-        }
-
-        /// <summary>
-        /// Carga los usuarios en el DataGridView.
-        /// </summary>
-        private async Task CargarUsuarios()
-        {
-            var datos = await _usuariosService.GetAll();
-
-            if (datos.IsSuccess)
-            {
-                _todosLosUsuarios = datos.Value.OrderBy(u => u.Apellido).ToList();
-
-                ListBUsuarios.AutoGenerateColumns = false; // Desactivar la generación automática de columnas
-                ListBUsuarios.DataSource = _todosLosUsuarios;
-
-            }
-            else
-            {
-                MessageBox.Show(datos.Error, "Error en UI", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-
-        /// <summary>
-        /// Carga los permisos para el usuario actual.
-        /// </summary>
-        private void CargarPermisos()
-        {
-
-            string rolUsuario = "admin"; // Aquí deberías obtener el rol del usuario actual
-            switch (rolUsuario)
-            {
-                case "admin":
-                    CargarAdmin();
-                    break;
-                case "compras":
-                    break;
-                case "ventas":
-                    break;
-                case "visitante":
-                    CargarVisitante();
-                    break;
-                default:
-                    break;
-            }
-        }
-
-        /// <summary>
-        /// Carga los permisos de visitante.
-        /// </summary>
-        private void CargarVisitante()
-        {
-            BtnGuardar.Visible = false;
-        }
-
-        /// <summary>
-        /// Carga los permisos de administrador.
-        /// </summary>
-        private void CargarAdmin()
-        {
-            BtnGuardar.Visible = true;
-        }
-
-
-
-
-
-        /// <summary>
-        /// Maneja el evento Click del control BtnEliminar.
-        /// </summary>
-        /// <param name="sender">La fuente del evento.</param>
-        /// <param name="e">La instancia de <see cref="EventArgs"/> que contiene los datos del evento.</param>
-        private async void BtnEliminar_Click(object sender, EventArgs e)
-        {
-            DialogResult dialogResult = MessageBox.Show("¿Está seguro de que desea eliminar este proveedor?", "Confirmación de eliminacion", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if (dialogResult != DialogResult.Yes)
-            {
-                return; // Salir si el usuario no confirma
-            }
-            CrearUsuario();
-            await EliminarUsuario();
-        }
-
-        /// <summary>
-        /// Elimina el usuario.
-        /// </summary>
-        private async Task EliminarUsuario()
-        {
-
-            var resultado = _usuariosService.Delete(_usuarioSeleccionado.Id_Usuario);
-            if (resultado.IsSuccess)
-            {
-                MessageBox.Show("Usuario eliminado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                await CargarUsuarios();
-
-                if (Utilidades.Util.CalcularDGVVacio(ListBUsuarios, LblLista, "Usuarios"))
-                {
-                    Utilidades.Util.LimpiarForm(TLPForm, TxtDni);
-
-                    Utilidades.Util.BloquearBtns(ListBUsuarios, TLPForm);
-
-                }
-
-
-            }
-            else
-            {
-                MessageBox.Show(resultado.Error, "Error al eliminar Usuario", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-
-        }
-
-
-        /// <summary>
-        /// Maneja el evento SelectionChanged del control ListBUsuarios.
-        /// </summary>
-        /// <param name="sender">La fuente del evento.</param>
-        /// <param name="e">La instancia de <see cref="EventArgs"/> que contiene los datos del evento.</param>
-        private void ListBUsuarios_SelectionChanged(object sender, EventArgs e)
-        {
-            indiceSeleccionado = ListBUsuarios.CurrentRow?.Index ?? -1; // Obtener el índice de la fila seleccionada o -1 si no hay selección
-            CargarFormularioEdicion();
-        }
-
-        /// <summary>
-        /// Carga el formulario de edición.
-        /// </summary>
-        private void CargarFormularioEdicion()
-        {
-
-
-            if (ListBUsuarios.Rows[indiceSeleccionado].DataBoundItem is Modelo.Entidades.Usuarios usuario)
-            {
-                _usuarioSeleccionado = usuario;
-
-                TxtDni.Text = _usuarioSeleccionado.DNI ?? string.Empty;
-                TxtApellido.Text = _usuarioSeleccionado.Apellido ?? string.Empty;
-                TxtNombre.Text = _usuarioSeleccionado.Nombre ?? string.Empty;
-                TxtTel.Text = _usuarioSeleccionado.Tel ?? string.Empty;
-                TxtEmail.Text = _usuarioSeleccionado.Mail ?? string.Empty;
-                CMBTipoUsuario.SelectedValue = _usuarioSeleccionado.Id_Tipo;
-                TxtContra.Text = _usuarioSeleccionado.Contra ?? string.Empty;
-                TxtContraDos.Text = _usuarioSeleccionado.Contra ?? string.Empty;
-                TxtRespues.Text = _usuarioSeleccionado.Respues ?? string.Empty;
-                CMBPregunta.SelectedValue = _usuarioSeleccionado.Id_Pregunta;
-                ChkActivo.Checked = _usuarioSeleccionado.Activo;
-
-            }
-            else
-            {
-                TxtDni.Clear();
-                TxtApellido.Clear();
-                TxtNombre.Clear();
-                TxtTel.Clear();
-                TxtEmail.Clear();
-                CMBTipoUsuario.SelectedIndex = -1;
-                TxtContra.Clear();
-                TxtContraDos.Clear();
-                TxtRespues.Clear();
-                CMBPregunta.SelectedIndex = -1;
-            }
-        }
-
-        /// <summary>
-        /// Maneja el evento EnabledChanged del control BtnGuardar.
-        /// </summary>
-        /// <param name="sender">La fuente del evento.</param>
-        /// <param name="e">La instancia de <see cref="EventArgs"/> que contiene los datos del evento.</param>
-        private void BtnGuardar_EnabledChanged(object sender, EventArgs e)
-        {
-            if (sender is Button btn && btn.Tag is Color color) btn.BackColor = btn.Enabled ? color : AppColorsBlue.Secondary;
-
-
-
-
-        }
-        /// <summary>
-        /// Configura los botones.
-        /// </summary>
-        private void ConfigBtns()
-        {
-            BtnGuardar.Tag = AppColorsBlue.Tertiary;
-            
-
-        }
-
-
-        
-
-        private void LblContra_Click(object sender, EventArgs e)
-        {
-            if (TxtContra.PasswordChar == '*')
-            {
-                TxtContra.PasswordChar = '\0';
-                LblContra.Image = Properties.Resources.eyeSecondary;
-            }
-            else
-            {
-                TxtContraDos.PasswordChar = '*';
-                LblContra.Image = Properties.Resources.eyeSecondary;
-            }
-        }
-
-        private void LblContraDos_Click(object sender, EventArgs e)
-        {
-            if (TxtContraDos.PasswordChar == '*')
-            {
-                TxtContraDos.PasswordChar = '\0';
-                LblContraDos.Image = Properties.Resources.eyeSecondary;
-            }
-            else
-            {
-                TxtContraDos.PasswordChar = '*';
-                LblContraDos.Image = Properties.Resources.eyeSecondary;
-            }
-        }
-
-        /// <summary>
-        /// Handles the Click event of the BtnAplicarFiltro control to apply filters to the user list.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        private void BtnAplicarFiltro_Click(object sender, EventArgs e)
-        {
-            FiltrarUsuarios();
-        }
-
-        /// <summary>
-        /// Handles the Click event of the BtnLimpiarFiltro control to clear all filters.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        private void BtnLimpiarFiltro_Click(object sender, EventArgs e)
-        {
-            LimpiarFiltros();
-        }
-
-        /// <summary>
-        /// Filters the users based on the values in the filter controls.
-        /// </summary>
-        private void FiltrarUsuarios()
-        {
-            if (_todosLosUsuarios == null) return;
-
-            IEnumerable<Modelo.Entidades.Usuarios> usuariosFiltrados = _todosLosUsuarios.AsEnumerable();
-
-            // Filter by DNI
-            if (!string.IsNullOrWhiteSpace(TxtFiltroDNI.Text))
-            {
-                usuariosFiltrados = usuariosFiltrados.Where(u => u.DNI != null && u.DNI.Contains(TxtFiltroDNI.Text, StringComparison.OrdinalIgnoreCase));
-            }
-
-            // Filter by Name
-            if (!string.IsNullOrWhiteSpace(TxtFiltroNombre.Text))
-            {
-                usuariosFiltrados = usuariosFiltrados.Where(u => u.Nombre != null && u.Nombre.Contains(TxtFiltroNombre.Text, StringComparison.OrdinalIgnoreCase));
-            }
-
-            // Filter by Last Name
-            if (!string.IsNullOrWhiteSpace(TxtFiltroApellido.Text))
-            {
-                usuariosFiltrados = usuariosFiltrados.Where(u => u.Apellido != null && u.Apellido.Contains(TxtFiltroApellido.Text, StringComparison.OrdinalIgnoreCase));
-            }
-
-            // Filter by User Type
-            if (CmbFiltroTipo.SelectedItem != null && CmbFiltroTipo.SelectedIndex != -1)
-            {
-                if (CmbFiltroTipo.SelectedValue is int tipoSeleccionado && tipoSeleccionado != 0)
-                {
-                    usuariosFiltrados = usuariosFiltrados.Where(u => u.Id_Tipo == tipoSeleccionado);
-                }
-            }
-
-            // Update the DataGridView with filtered results
-            ListBUsuarios.DataSource = usuariosFiltrados.ToList();
-            Utilidades.Util.CalcularDGVVacio(ListBUsuarios, LblLista, "Usuarios");
-        }
-
-        /// <summary>
-        /// Clears all filter controls and shows all users.
-        /// </summary>
-        private void LimpiarFiltros()
-        {
-            TxtFiltroDNI.Clear();
-            TxtFiltroNombre.Clear();
-            TxtFiltroApellido.Clear();
-            CmbFiltroTipo.SelectedIndex = -1;
-
-            // Show all users after clearing filters
-            ListBUsuarios.DataSource = _todosLosUsuarios;
-            Utilidades.Util.CalcularDGVVacio(ListBUsuarios, LblLista, "Usuarios");
-        }
-
-        /// <summary>
-        /// Loads user types into the filter combo box from the main combo box data source.
-        /// </summary>
-        private async Task CargarTiposUsuariosParaFiltro()
-        {
-            try
-            {
-                var tiposUsuarios = await _usuariosTipoService.GetAll();
-
-                if (tiposUsuarios.IsSuccess && tiposUsuarios.Value != null)
-                {
-                    // Create a new list with an empty item for "All" selection
-                    var tiposConTodos = tiposUsuarios.Value.ToList();
-                    tiposConTodos.Insert(0, new Modelo.Entidades.UsuariosTipo { Id_Usuario_Tipo = 0, Descripcion = "Todos" });
-
-                    CmbFiltroTipo.DataSource = tiposConTodos;
-                    CmbFiltroTipo.DisplayMember = "Descripcion";
-                    CmbFiltroTipo.ValueMember = "Tipo";
-
-                    // Set default selection to "Todos"
-                    CmbFiltroTipo.SelectedIndex = 0;
-                }
-                else
-                {
-                    MessageBox.Show("Error al cargar los tipos de usuarios para el filtro: " + tiposUsuarios.Error, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-            catch (ArgumentException ex)
-            {
-                MessageBox.Show("Error al cargar los tipos de usuarios para el filtro: " + ex.Message, "Error de Ejecucion");
-            }
-        }
-    }
+	public partial class USConsultaUsuario : UserControl
+	{
+		private readonly IUsuariosService _usuariosService;
+		private readonly IUsuariosTipoService _usuariosTipoService;
+		private readonly IPreguntasSeguridadService _preguntasSeguridadService;
+
+		private Modelo.Entidades.Usuarios _usuarioSeleccionado;
+		private List<Modelo.Entidades.Usuarios> _todosLosUsuarios;
+		private int indiceSeleccionado;
+		private readonly ValidadorTextBox _vTxtDni;
+		private readonly ValidadorTextBox _vTxtApellido;
+		private readonly ValidadorTextBox _vTxtNombre;
+		private readonly ValidadorTextBox _vTxtTel;
+		private readonly ValidadorTextBox _vTxtEmail;
+		private readonly ValidadorTextBox _vTxtContra;
+		private readonly ValidadorTextBox _vTxtContraDos;
+		private readonly ValidadorTextBox _vTxtRespues;
+		private readonly ErrorProvider _epDni;
+		private readonly ErrorProvider _epApellido;
+		private readonly ErrorProvider _epNombre;
+		private readonly ErrorProvider _epTel;
+		private readonly ErrorProvider _epEmail;
+		private readonly ErrorProvider _epContra;
+		private readonly ErrorProvider _epContraDos;
+		private readonly ErrorProvider _epRespues;
+		/// <summary>
+		/// Inicializa una nueva instancia de la clase <see cref="USConsultaUsuario בו"/>.
+		/// </summary>
+		/// <param name="usuariosService">El servicio de usuarios.</param>
+		/// <param name="usuariosTipoService">El servicio de tipos de usuario.</param>
+		/// <param name="preguntasSeguridadService">El servicio de preguntas de seguridad.</param>
+		public USConsultaUsuario(IUsuariosService usuariosService, IUsuariosTipoService usuariosTipoService, IPreguntasSeguridadService preguntasSeguridadService)
+		{
+			_usuariosService = usuariosService;
+			_usuariosTipoService = usuariosTipoService;
+			_preguntasSeguridadService = preguntasSeguridadService;
+			InitializeComponent();
+			_usuarioSeleccionado = new Modelo.Entidades.Usuarios();
+
+			_epDni = new ErrorProvider();
+			_vTxtDni = new ValidadorDni(TxtDni, _epDni)
+			{
+				MensajeError = "El DNI ingresado no es válido.\nIngrese 8 digitos 12345678.\nSino tiene DNI ingrese cero (0)"
+			};
+
+			_epApellido = new ErrorProvider();
+			_vTxtApellido = new ValidadorNombre(TxtApellido, _epApellido)
+			{
+				MensajeError = "El apelido del proveedor no puede estar vacío."
+			};
+
+			_epNombre = new ErrorProvider();
+			_vTxtNombre = new ValidadorNombre(TxtNombre, _epNombre)
+			{
+				MensajeError = "El nombre no puede estar vacío."
+			};
+
+			_epTel = new ErrorProvider();
+			_vTxtTel = new ValidadorEntero(TxtTel, _epTel)
+			{
+				MensajeError = "El teléfono ingresado no es válido.\nSino tiene telefono ingrese cero (0)"
+			};
+
+			_epEmail = new ErrorProvider();
+			_vTxtEmail = new ValidadorEmail(TxtEmail, _epEmail)
+			{
+				MensajeError = "El email ingresado no es válido."
+			};
+
+			_epContra = new ErrorProvider();
+			_vTxtContra = new ValidadorPassword(TxtContra, _epContra);
+			_epContraDos = new ErrorProvider();
+			_vTxtContraDos = new ValidadorPassword(TxtContraDos, _epContraDos);
+			_epRespues = new ErrorProvider();
+			_vTxtRespues = new ValidadorNombre(TxtRespues, _epRespues)
+			{
+				MensajeError = "La respuesta no puede estar vacía."
+			};
+		}
+
+		/// <summary>
+		/// Maneja el evento Load del control USConsultaUsuario.
+		/// </summary>
+		/// <param name="sender">La fuente del evento.</param>
+		/// <param name="e">La instancia de <see cref="EventArgs"/> que contiene los datos del evento.</param>
+		private async void USConsultaUsuario_Load(object sender, EventArgs e)
+		{
+			TxtDni.Focus();
+
+			CargarTiposUsuarios();
+			await Task.WhenAll(
+				CargarTiposUsuariosParaFiltro(),
+				CargarPreguntasSeguridad(),
+				CargarUsuarios()
+			);
+			ConfigBtns();
+
+			Utilidades.Util.BloquearBtns(ListBUsuarios, TLPForm);
+			Utilidades.Util.CalcularDGVVacio(ListBUsuarios, LblLista, "Usuarios");
+			CargarPermisos();
+			// Establecer un valor predeterminado para el combo box de preguntas
+			if (CMBPregunta.Items.Count > 0)
+			{
+				CMBPregunta.SelectedIndex = 0;
+			}
+		}
+
+		/// <summary>
+		/// Carga los tipos de usuario en el ComboBox.
+		/// </summary>
+		private void CargarTiposUsuarios()
+		{
+			//try
+			//{
+
+			//    var tiposUsuarios = await _usuariosTipoService.GetAll();
+
+			//    if (tiposUsuarios.IsSuccess && tiposUsuarios.Value != null)
+			//    {
+			CMBTipoUsuario.DataSource = null;
+			CMBTipoUsuario.DataSource = SingleListas.Instance.UsuariosTipos;
+			CMBTipoUsuario.DisplayMember = "Descripcion";
+			CMBTipoUsuario.ValueMember = "Tipo";
+
+			//    }
+			//    else
+			//    {
+			//        MessageBox.Show("Error al cargar los tipos de usuarios: " + tiposUsuarios.Error, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			//    }
+			//}
+			//catch (ArgumentException ex)
+			//{
+
+			//    MessageBox.Show("Error al cargar la pantalla, intente nuevamente" + ex.Message, "Error de Execucion");
+			//}
+
+		}
+
+		/// <summary>
+		/// Carga las preguntas de seguridad en el ComboBox.
+		/// </summary>
+		private async Task CargarPreguntasSeguridad()
+		{
+			var preguntas = await _preguntasSeguridadService.GetAll();
+
+			if (preguntas.IsSuccess && preguntas.Value != null)
+			{
+				CMBPregunta.DataSource = null;
+				CMBPregunta.DataSource = preguntas.Value;
+				CMBPregunta.DisplayMember = "Pregunta";
+				CMBPregunta.ValueMember = "Id_Pregunta";
+
+			}
+			else
+			{
+				MessageBox.Show("Error al cargar las preguntas de seguridad: " + preguntas.Error, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			}
+		}
+
+		/// <summary>
+		/// Maneja el evento TextChanged del control TxtDni.
+		/// </summary>
+		/// <param name="sender">La fuente del evento.</param>
+		/// <param name="e">La instancia de <see cref="EventArgs"/> que contiene los datos del evento.</param>
+		private void TxtDni_TextChanged(object sender, EventArgs e)
+		{
+			ValidadorMultiple.ValidacionMultiple(BtnGuardar, _vTxtDni, _vTxtApellido, _vTxtNombre, _vTxtTel, _vTxtEmail, _vTxtContra, _vTxtContraDos, _vTxtRespues);
+			if (TxtContra.Text != TxtContraDos.Text)
+			{
+				LblError.Visible = true;
+			}
+			else
+			{
+				LblError.Visible = false;
+			}
+		}
+
+		/// <summary>
+		/// Crea un usuario a partir de los datos del formulario.
+		/// </summary>
+		private void CrearUsuario()
+		{
+			if (CMBTipoUsuario.SelectedValue is not int tipoUsuario)
+			{
+				MessageBox.Show("El tipo de usuario seleccionado no es válido.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				return;
+			}
+
+			int idPregunta = 0;
+			if (CMBPregunta.SelectedValue is int preguntaId)
+			{
+				idPregunta = preguntaId;
+			}
+
+			_usuarioSeleccionado = new Modelo.Entidades.Usuarios
+			{
+				Id_Usuario = _usuarioSeleccionado.Id_Usuario, // Mantener el Id_Usuario existente para actualizaciones
+				Apellido = TxtApellido.Text,
+				DNI = TxtDni.Text,
+				Nombre = TxtNombre.Text,
+				Tel = TxtTel.Text,
+				Mail = TxtEmail.Text,
+				Id_Tipo = tipoUsuario,
+				Contra = TxtContra.Text, // Contraseña por defecto al crear un nuevo usuario
+				Respues = TxtRespues.Text,
+				Id_Pregunta = idPregunta,
+				Activo = ChkActivo.Checked
+			};
+
+
+		}
+
+		/// <summary>
+		/// Maneja el evento Click del control BtnGuardar.
+		/// </summary>
+		/// <param name="sender">La fuente del evento.</param>
+		/// <param name="e">La instancia de <see cref="EventArgs"/> que contiene los datos del evento.</param>
+		private async void BtnGuardar_Click(object sender, EventArgs e)
+		{
+			DialogResult dialogResult = MessageBox.Show("¿Está seguro de que desea guardar los cambios?", "Confirmación de guardado", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+			if (dialogResult != DialogResult.Yes)
+			{
+				return; // Salir si el usuario no confirma
+			}
+			CrearUsuario();
+			await GuardarUsuario();
+		}
+
+		/// <summary>
+		/// Guarda el usuario.
+		/// </summary>
+		private async Task GuardarUsuario()
+		{
+			if (_usuarioSeleccionado != null && !string.IsNullOrEmpty(_usuarioSeleccionado.DNI))
+			{
+
+
+
+
+				Result<Modelo.Entidades.Usuarios> resultado = _usuariosService.Update(_usuarioSeleccionado);
+
+				if (resultado.IsSuccess)
+				{
+					MessageBox.Show("Proveedor actualizado correctamente.\n" + resultado.Value.ToString(), "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+					string valor = _usuarioSeleccionado.DNI;
+					await CargarUsuarios();
+					Utilidades.Util.CalcularDGVVacio(ListBUsuarios, LblLista, "Usuarios");
+
+					Utilidades.Util.SeleccionarFilaDGV(ListBUsuarios, valor, ListBUsuarios.Columns[0].HeaderText, ref indiceSeleccionado);
+					CargarFormularioEdicion();
+
+
+				}
+				else
+				{
+					MessageBox.Show(resultado.Error, "Error al actualizar proveedor", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Carga los usuarios en el DataGridView.
+		/// </summary>
+		private async Task CargarUsuarios()
+		{
+			var datos = await _usuariosService.GetAll();
+
+			if (datos.IsSuccess)
+			{
+				_todosLosUsuarios = datos.Value.OrderBy(u => u.Apellido).ToList();
+
+				ListBUsuarios.AutoGenerateColumns = false; // Desactivar la generación automática de columnas
+				ListBUsuarios.DataSource = _todosLosUsuarios;
+
+			}
+			else
+			{
+				MessageBox.Show(datos.Error, "Error en UI", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			}
+		}
+
+
+		/// <summary>
+		/// Carga los permisos para el usuario actual.
+		/// </summary>
+		private void CargarPermisos()
+		{
+
+			string rolUsuario = "admin"; // Aquí deberías obtener el rol del usuario actual
+			switch (rolUsuario)
+			{
+				case "admin":
+					CargarAdmin();
+					break;
+				case "compras":
+					break;
+				case "ventas":
+					break;
+				case "visitante":
+					CargarVisitante();
+					break;
+				default:
+					break;
+			}
+		}
+
+		/// <summary>
+		/// Carga los permisos de visitante.
+		/// </summary>
+		private void CargarVisitante()
+		{
+			BtnGuardar.Visible = false;
+		}
+
+		/// <summary>
+		/// Carga los permisos de administrador.
+		/// </summary>
+		private void CargarAdmin()
+		{
+			BtnGuardar.Visible = true;
+		}
+
+
+
+
+
+		/// <summary>
+		/// Maneja el evento Click del control BtnEliminar.
+		/// </summary>
+		/// <param name="sender">La fuente del evento.</param>
+		/// <param name="e">La instancia de <see cref="EventArgs"/> que contiene los datos del evento.</param>
+		private async void BtnEliminar_Click(object sender, EventArgs e)
+		{
+			DialogResult dialogResult = MessageBox.Show("¿Está seguro de que desea eliminar este proveedor?", "Confirmación de eliminacion", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+			if (dialogResult != DialogResult.Yes)
+			{
+				return; // Salir si el usuario no confirma
+			}
+			CrearUsuario();
+			await EliminarUsuario();
+		}
+
+		/// <summary>
+		/// Elimina el usuario.
+		/// </summary>
+		private async Task EliminarUsuario()
+		{
+
+			var resultado = _usuariosService.Delete(_usuarioSeleccionado.Id_Usuario);
+			if (resultado.IsSuccess)
+			{
+				MessageBox.Show("Usuario eliminado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+				await CargarUsuarios();
+
+				if (Utilidades.Util.CalcularDGVVacio(ListBUsuarios, LblLista, "Usuarios"))
+				{
+					Utilidades.Util.LimpiarForm(TLPForm, TxtDni);
+
+					Utilidades.Util.BloquearBtns(ListBUsuarios, TLPForm);
+
+				}
+
+
+			}
+			else
+			{
+				MessageBox.Show(resultado.Error, "Error al eliminar Usuario", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			}
+
+		}
+
+
+		/// <summary>
+		/// Maneja el evento SelectionChanged del control ListBUsuarios.
+		/// </summary>
+		/// <param name="sender">La fuente del evento.</param>
+		/// <param name="e">La instancia de <see cref="EventArgs"/> que contiene los datos del evento.</param>
+		private void ListBUsuarios_SelectionChanged(object sender, EventArgs e)
+		{
+			indiceSeleccionado = ListBUsuarios.CurrentRow?.Index ?? -1; // Obtener el índice de la fila seleccionada o -1 si no hay selección
+			CargarFormularioEdicion();
+		}
+
+		/// <summary>
+		/// Carga el formulario de edición.
+		/// </summary>
+		private void CargarFormularioEdicion()
+		{
+
+
+			if (ListBUsuarios.Rows[indiceSeleccionado].DataBoundItem is Modelo.Entidades.Usuarios usuario)
+			{
+				_usuarioSeleccionado = usuario;
+
+				TxtDni.Text = _usuarioSeleccionado.DNI ?? string.Empty;
+				TxtApellido.Text = _usuarioSeleccionado.Apellido ?? string.Empty;
+				TxtNombre.Text = _usuarioSeleccionado.Nombre ?? string.Empty;
+				TxtTel.Text = _usuarioSeleccionado.Tel ?? string.Empty;
+				TxtEmail.Text = _usuarioSeleccionado.Mail ?? string.Empty;
+				CMBTipoUsuario.SelectedValue = _usuarioSeleccionado.Id_Tipo;
+				TxtContra.Text = _usuarioSeleccionado.Contra ?? string.Empty;
+				TxtContraDos.Text = _usuarioSeleccionado.Contra ?? string.Empty;
+				TxtRespues.Text = _usuarioSeleccionado.Respues ?? string.Empty;
+				CMBPregunta.SelectedValue = _usuarioSeleccionado.Id_Pregunta;
+				ChkActivo.Checked = _usuarioSeleccionado.Activo;
+
+			}
+			else
+			{
+				TxtDni.Clear();
+				TxtApellido.Clear();
+				TxtNombre.Clear();
+				TxtTel.Clear();
+				TxtEmail.Clear();
+				CMBTipoUsuario.SelectedIndex = -1;
+				TxtContra.Clear();
+				TxtContraDos.Clear();
+				TxtRespues.Clear();
+				CMBPregunta.SelectedIndex = -1;
+			}
+		}
+
+		/// <summary>
+		/// Maneja el evento EnabledChanged del control BtnGuardar.
+		/// </summary>
+		/// <param name="sender">La fuente del evento.</param>
+		/// <param name="e">La instancia de <see cref="EventArgs"/> que contiene los datos del evento.</param>
+		private void BtnGuardar_EnabledChanged(object sender, EventArgs e)
+		{
+			if (sender is Button btn && btn.Tag is Color color) btn.BackColor = btn.Enabled ? color : AppColorsBlue.Secondary;
+
+
+
+
+		}
+		/// <summary>
+		/// Configura los botones.
+		/// </summary>
+		private void ConfigBtns()
+		{
+			BtnGuardar.Tag = AppColorsBlue.Tertiary;
+
+
+		}
+
+
+
+
+		private void LblContra_Click(object sender, EventArgs e)
+		{
+			if (TxtContra.PasswordChar == '*')
+			{
+				TxtContra.PasswordChar = '\0';
+				LblContra.Image = Properties.Resources.eyeSecondary;
+			}
+			else
+			{
+				TxtContraDos.PasswordChar = '*';
+				LblContra.Image = Properties.Resources.eyeSecondary;
+			}
+		}
+
+		private void LblContraDos_Click(object sender, EventArgs e)
+		{
+			if (TxtContraDos.PasswordChar == '*')
+			{
+				TxtContraDos.PasswordChar = '\0';
+				LblContraDos.Image = Properties.Resources.eyeSecondary;
+			}
+			else
+			{
+				TxtContraDos.PasswordChar = '*';
+				LblContraDos.Image = Properties.Resources.eyeSecondary;
+			}
+		}
+
+		/// <summary>
+		/// Handles the Click event of the BtnAplicarFiltro control to apply filters to the user list.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+		private void BtnAplicarFiltro_Click(object sender, EventArgs e)
+		{
+			FiltrarUsuarios();
+		}
+
+		/// <summary>
+		/// Handles the Click event of the BtnLimpiarFiltro control to clear all filters.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+		private void BtnLimpiarFiltro_Click(object sender, EventArgs e)
+		{
+			LimpiarFiltros();
+		}
+
+		/// <summary>
+		/// Filters the users based on the values in the filter controls.
+		/// </summary>
+		private void FiltrarUsuarios()
+		{
+			if (_todosLosUsuarios == null) return;
+
+			IEnumerable<Modelo.Entidades.Usuarios> usuariosFiltrados = _todosLosUsuarios.AsEnumerable();
+
+			// Filter by DNI
+			if (!string.IsNullOrWhiteSpace(TxtFiltroDNI.Text))
+			{
+				usuariosFiltrados = usuariosFiltrados.Where(u => u.DNI != null && u.DNI.Contains(TxtFiltroDNI.Text, StringComparison.OrdinalIgnoreCase));
+			}
+
+			// Filter by Name
+			if (!string.IsNullOrWhiteSpace(TxtFiltroNombre.Text))
+			{
+				usuariosFiltrados = usuariosFiltrados.Where(u => u.Nombre != null && u.Nombre.Contains(TxtFiltroNombre.Text, StringComparison.OrdinalIgnoreCase));
+			}
+
+			// Filter by Last Name
+			if (!string.IsNullOrWhiteSpace(TxtFiltroApellido.Text))
+			{
+				usuariosFiltrados = usuariosFiltrados.Where(u => u.Apellido != null && u.Apellido.Contains(TxtFiltroApellido.Text, StringComparison.OrdinalIgnoreCase));
+			}
+
+			// Filter by User Type
+			if (CmbFiltroTipo.SelectedItem != null && CmbFiltroTipo.SelectedIndex != -1)
+			{
+				if (CmbFiltroTipo.SelectedValue is int tipoSeleccionado && tipoSeleccionado != 0)
+				{
+					usuariosFiltrados = usuariosFiltrados.Where(u => u.Id_Tipo == tipoSeleccionado);
+				}
+			}
+
+			// Update the DataGridView with filtered results
+			ListBUsuarios.DataSource = usuariosFiltrados.ToList();
+			Utilidades.Util.CalcularDGVVacio(ListBUsuarios, LblLista, "Usuarios");
+		}
+
+		/// <summary>
+		/// Clears all filter controls and shows all users.
+		/// </summary>
+		private void LimpiarFiltros()
+		{
+			TxtFiltroDNI.Clear();
+			TxtFiltroNombre.Clear();
+			TxtFiltroApellido.Clear();
+			CmbFiltroTipo.SelectedIndex = -1;
+
+			// Show all users after clearing filters
+			ListBUsuarios.DataSource = _todosLosUsuarios;
+			Utilidades.Util.CalcularDGVVacio(ListBUsuarios, LblLista, "Usuarios");
+		}
+
+		/// <summary>
+		/// Loads user types into the filter combo box from the main combo box data source.
+		/// </summary>
+		private async Task CargarTiposUsuariosParaFiltro()
+		{
+			try
+			{
+				var tiposUsuarios = await _usuariosTipoService.GetAll();
+
+				if (tiposUsuarios.IsSuccess && tiposUsuarios.Value != null)
+				{
+					// Create a new list with an empty item for "All" selection
+					var tiposConTodos = tiposUsuarios.Value.ToList();
+					tiposConTodos.Insert(0, new Modelo.Entidades.UsuariosTipo { Id_Usuario_Tipo = 0, Descripcion = "Todos" });
+
+					CmbFiltroTipo.DataSource = tiposConTodos;
+					CmbFiltroTipo.DisplayMember = "Descripcion";
+					CmbFiltroTipo.ValueMember = "Tipo";
+
+					// Set default selection to "Todos"
+					CmbFiltroTipo.SelectedIndex = 0;
+				}
+				else
+				{
+					MessageBox.Show("Error al cargar los tipos de usuarios para el filtro: " + tiposUsuarios.Error, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				}
+			}
+			catch (ArgumentException ex)
+			{
+				MessageBox.Show("Error al cargar los tipos de usuarios para el filtro: " + ex.Message, "Error de Ejecucion");
+			}
+		}
+	}
 }
