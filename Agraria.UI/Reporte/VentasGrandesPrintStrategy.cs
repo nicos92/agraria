@@ -1,4 +1,5 @@
-﻿using Agraria.Utilidades.Impresion;
+using Agraria.Modelo.Records;
+using Agraria.Utilidades.Impresion;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,9 +11,9 @@ namespace Agraria.UI.Reporte
 {
     public class VentasGrandesPrintStrategy : IPrintStrategy
     {
-        private readonly List<Modelo.Entidades.HVentasConUsuario> _ventasGrandes;
+        private readonly List<HVentasConUsuarioReporte> _ventasGrandes;
 
-        public VentasGrandesPrintStrategy(List<Modelo.Entidades.HVentasConUsuario> ventasGrandes)
+        public VentasGrandesPrintStrategy(List<HVentasConUsuarioReporte> ventasGrandes)
         {
             _ventasGrandes = ventasGrandes;
         }

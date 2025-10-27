@@ -103,7 +103,7 @@ namespace Agraria.UI.Reporte
 				dt.Columns.Add("Código Producto");
 				dt.Columns.Add("Descripción");
 				dt.Columns.Add("Cantidad Vendida", typeof(int));
-				dt.Columns.Add("Total $ Vendido");
+				dt.Columns.Add("Total $ Vendido", typeof(decimal));
 
 				// In a real implementation, this would come from _ventaService.GetArticulosMasVendidos()
 				var resultado = await _productosService.GetArticulosMasVendidos(50);
@@ -138,7 +138,7 @@ namespace Agraria.UI.Reporte
 			_btnClickeado.Font = new Font("Segoe UI", 12f, FontStyle.Regular);
 			_btnClickeado = (Button)sender;
 			_btnClickeado.BackColor = AppColorsBlue.OnPrimaryContainer;
-			_btnClickeado.Font = new Font("Segoe UI", 14f, FontStyle.Bold);
+			_btnClickeado.Font = new Font("Segoe UI", 12f, FontStyle.Bold);
 
 		}
 
@@ -553,30 +553,30 @@ namespace Agraria.UI.Reporte
 				IPrintStrategy? strategy = tipoReporte switch
 				{
 					Type t when t == typeof(Modelo.Entidades.HojadeVida) =>
-						new HojaVidaPrintStrategy(_currentHojasDeVida),
+						new HojaVidaPrintStrategy(ImprimirHojasDeVida()),
 
-					Type t when t == typeof(Modelo.Entidades.HVentasConUsuario) =>
-						new VentasGrandesPrintStrategy(_currentVentasGrandes),
+					Type t when t == typeof(HVentasConUsuario) =>
+						new VentasGrandesPrintStrategy(ImprimirVentasGrandes()),
 
-					Type t when t == typeof(Modelo.Records.EntornoFormativoConNombres) =>
-						new EntornoFormativoPrintStrategy(_currentEntornosFormativos),
+					Type t when t == typeof(EntornoFormativoConNombres) =>
+						new EntornoFormativoPrintStrategy(ImprimirEntornosFormativos()),
 
-					Type t when t == typeof(Modelo.Entidades.ProductoStockConNombres) =>
-						new ProductosStockPrintStrategy(_currentProductosStock),
+					Type t when t == typeof(ProductoStockConNombres) =>
+						new ProductosStockPrintStrategy(ImprimirProductosStock()),
 
 					Type t when t == typeof(ProductosMasVendidos) =>
-						new ProductosMasVendidosPrintStrategy(_currentProductosMasVendidos),
+						new ProductosMasVendidosPrintStrategy(ImprimirProductosMasVendidos()),
 
 					Type t when t == typeof(ActividadConNombres) =>
 						new ActividadesPrintStrategy(ImprimirActividades()),
 
 					Type t when t == typeof(UsuarioConTipo) =>
-						new UsuariosPrintStrategy(_currentUsuarios),
+						new UsuariosPrintStrategy(ImprimirUsuarios()),
 
 					Type t when t == typeof(Modelo.Entidades.Proveedores) =>
-						new ProveedoresPrintStrategy(_currentProveedores),
+						new ProveedoresPrintStrategy(ImprimirProveedores()),
 
-					Type t when t == typeof(Modelo.Entidades.Herramientas) =>
+					Type t when t == typeof(Herramientas) =>
 						new HerramientasPrintStrategy(ImprimirHerramientas()),
 
 					_ => null
@@ -636,6 +636,126 @@ namespace Agraria.UI.Reporte
 
 				];
 		}
+
+		private List<UsuarioConTipo> ImprimirUsuarios()
+		{
+			return [.. dgvReporte.Rows
+				.Cast<DataGridViewRow>()
+				.Where(fila => !fila.IsNewRow)
+				.Select(fila => new UsuarioConTipo(
+					fila.Cells["DNI"].Value?.ToString() ?? string.Empty,
+					fila.Cells["Nombre"].Value?.ToString() ?? string.Empty,
+					fila.Cells["Apellido"].Value?.ToString() ?? string.Empty,
+					fila.Cells["Teléfono"].Value?.ToString() ?? string.Empty,
+					fila.Cells["Email"].Value?.ToString() ?? string.Empty,
+					fila.Cells["Tipo"].Value?.ToString() ?? string.Empty 
+				))
+				];
+		}
+
+		private List<Modelo.Entidades.Proveedores> ImprimirProveedores()
+		{
+			return [.. dgvReporte.Rows
+				.Cast<DataGridViewRow>()
+				.Where(fila => !fila.IsNewRow)
+				.Select(fila => new Modelo.Entidades.Proveedores
+				{
+					CUIT = fila.Cells["CUIT"].Value?.ToString() ?? string.Empty,
+					Proveedor = fila.Cells["Nombre Comercial"].Value?.ToString() ?? string.Empty,
+					Nombre = fila.Cells["Nombre"].Value?.ToString() ?? string.Empty,
+					Tel = fila.Cells["Teléfono"].Value?.ToString() ?? string.Empty,
+					Email = fila.Cells["Email"].Value?.ToString() ?? string.Empty,
+					Observacion = fila.Cells["Observación"].Value?.ToString() ?? string.Empty
+				})
+				];
+		}
+
+		private List<ProductosMasVendidos> ImprimirProductosMasVendidos()
+		{
+			return [.. dgvReporte.Rows
+				.Cast<DataGridViewRow>()
+				.Where(fila => !fila.IsNewRow)
+				.Select(fila => new ProductosMasVendidos(
+					fila.Cells["Código Producto"].Value?.ToString() ?? string.Empty,
+					fila.Cells["Descripción"].Value?.ToString() ?? string.Empty,
+					Convert.ToInt32(fila.Cells["Cantidad Vendida"].Value),
+					Convert.ToDecimal(fila.Cells["Total $ Vendido"].Value)
+				))
+				];
+		}
+
+		private List<ProductoStockConNombres> ImprimirProductosStock()
+		{
+			return [.. dgvReporte.Rows
+				.Cast<DataGridViewRow>()
+				.Where(fila => !fila.IsNewRow)
+				.Select(fila => new ProductoStockConNombres(
+					0,
+					fila.Cells["Código Producto"].Value?.ToString() ?? string.Empty,
+					fila.Cells["Descripción"].Value?.ToString() ?? string.Empty,
+					fila.Cells["Área"].Value?.ToString() ?? string.Empty,
+					fila.Cells["Entorno"].Value?.ToString() ?? string.Empty,
+					fila.Cells["Proveedor"].Value?.ToString() ?? string.Empty,
+					Convert.ToDecimal(fila.Cells["Ganancia"].Value),
+					Convert.ToDecimal(fila.Cells["Cantidad"].Value),
+					Convert.ToDecimal(fila.Cells["Costo"].Value)
+				))
+				];
+		}
+
+		private List<EntornoFormativoConNombres> ImprimirEntornosFormativos()
+		{
+			return [.. dgvReporte.Rows
+				.Cast<DataGridViewRow>()
+				.Where(fila => !fila.IsNewRow)
+				.Select(fila => new EntornoFormativoConNombres(
+					0,
+					fila.Cells["Entorno"].Value?.ToString() ?? string.Empty,
+					fila.Cells["Nombre Usuario"].Value?.ToString() ?? string.Empty,
+					fila.Cells["Apellido Usuario"].Value?.ToString() ?? string.Empty,
+					fila.Cells["Curso Año"].Value?.ToString() ?? string.Empty,
+					fila.Cells["Curso División"].Value?.ToString() ?? string.Empty,
+					fila.Cells["Curso Grupo"].Value?.ToString() ?? string.Empty,
+					fila.Cells["Observaciones"].Value?.ToString() ?? string.Empty,
+					fila.Cells["Activo"].Value?.ToString() == "Sí" ? true : false
+				))
+				];
+		}
+
+		private List<HVentasConUsuarioReporte> ImprimirVentasGrandes()
+		{
+			return [.. dgvReporte.Rows
+				.Cast<DataGridViewRow>()
+				.Where(fila => !fila.IsNewRow)
+				.Select(fila => new HVentasConUsuarioReporte(
+					Convert.ToInt32(fila.Cells["ID Remito"].Value),
+					fila.Cells["Usuario"].Value?.ToString() ?? string.Empty,
+					Convert.ToDateTime(fila.Cells["Fecha y Hora"].Value),
+					Convert.ToDecimal(fila.Cells["Total $"].Value),
+					fila.Cells["Descripción"].Value?.ToString() ?? string.Empty
+				))
+				];
+		}
+
+		private List<HojaDeVidaReporte> ImprimirHojasDeVida()
+		{
+			return [.. dgvReporte.Rows
+				.Cast<DataGridViewRow>()
+				.Where(fila => !fila.IsNewRow)
+				.Select(fila => new HojaDeVidaReporte
+				(
+					fila.Cells["Numero"].Value?.ToString() ?? string.Empty,
+					fila.Cells["Tipo Animal"].Value ?.ToString() ?? string.Empty,
+					fila.Cells["Sexo"].Value?.ToString() ?? string.Empty,
+					Convert.ToDateTime(fila.Cells["Fecha Nacimiento"].Value),
+					Convert.ToDecimal(fila.Cells["Peso"].Value),
+					fila.Cells["Estado Salud"].Value?.ToString() ?? string.Empty,
+					fila.Cells["Activo"].Value?.ToString() ?? string.Empty
+				))
+				];
+		}
+
+		
 
 		private void FormReporte_Load(object sender, EventArgs e)
 		{

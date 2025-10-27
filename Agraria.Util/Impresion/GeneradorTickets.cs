@@ -65,7 +65,7 @@ namespace Agraria.Utilidades.Impresion
             return htmlProcesado;
         }
 
-        public string GenerarHtmlHojaVida(List<Agraria.Modelo.Entidades.HojadeVida> hojasDeVida, string totalHojasDeVida, string fechaGeneracion)
+        public string GenerarHtmlHojaVida(List<HojaDeVidaReporte> hojasDeVida, string totalHojasDeVida, string fechaGeneracion)
         {
             if (string.IsNullOrEmpty(plantillaHtml))
             {
@@ -86,7 +86,7 @@ namespace Agraria.Utilidades.Impresion
                 filasHtml.Append($"<td>{hojaVida.FechaNacimiento.ToString("yyyy-MM-dd")}</td>");
                 filasHtml.Append($"<td>{hojaVida.Peso:N2}</td>");
                 filasHtml.Append($"<td>{hojaVida.EstadoSalud}</td>");
-                filasHtml.Append($"<td>{(hojaVida.Activo ? "Sí" : "No")}</td>");
+                filasHtml.Append($"<td>{hojaVida.Activo}</td>");
                 filasHtml.Append("</tr>");
             }
 
@@ -95,7 +95,7 @@ namespace Agraria.Utilidades.Impresion
             return htmlProcesado;
         }
 
-        public string GenerarHtmlVentasGrandes(List<Agraria.Modelo.Entidades.HVentasConUsuario> ventasGrandes, string totalVentas, string fechaGeneracion)
+        public string GenerarHtmlVentasGrandes(List<HVentasConUsuarioReporte> ventasGrandes, string totalVentas, string fechaGeneracion)
         {
             if (string.IsNullOrEmpty(plantillaHtml))
             {
@@ -111,8 +111,8 @@ namespace Agraria.Utilidades.Impresion
             {
                 filasHtml.Append("<tr>");
                 filasHtml.Append($"<td>{venta.Id_Remito.ToString().Trim().PadLeft(8, '0')}</td>");
-                filasHtml.Append($"<td>{venta.NombreUsuario} {venta.ApellidoUsuario}</td>");
-                filasHtml.Append($"<td>{venta.Fecha_Hora.ToString("yyyy-MM-dd HH:mm")}</td>");
+                filasHtml.Append($"<td>{venta.Usuario} </td>");
+                filasHtml.Append($"<td>{venta.Fecha.ToString("yyyy-MM-dd HH:mm")}</td>");
                 filasHtml.Append($"<td>${venta.Total:N2}</td>");
                 filasHtml.Append($"<td>{venta.Descripcion}</td>");
                 filasHtml.Append("</tr>");

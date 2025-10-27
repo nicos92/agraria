@@ -80,7 +80,7 @@ namespace Agraria.Utilidades.Impresion
             }
         }
 
-        public void ImprimirHojaVida(List<HojadeVida> hojasDeVida)
+        public void ImprimirHojaVida(List<HojaDeVidaReporte> hojasDeVida)
         {
             string rutaPlantillaHtml = Path.Combine(Application.StartupPath, "Impresion", "impresionhojavida.html");
 
@@ -109,7 +109,7 @@ namespace Agraria.Utilidades.Impresion
             }
         }
 
-        public void ImprimirVentasGrandes(List<HVentasConUsuario> ventasGrandes)
+        public void ImprimirVentasGrandes(List<HVentasConUsuarioReporte> ventasGrandes)
         {
             string rutaPlantillaHtml = Path.Combine(Application.StartupPath, "Impresion", "impresionventasgrandes.html");
 
@@ -153,7 +153,7 @@ namespace Agraria.Utilidades.Impresion
 					PdfWriter writer = PdfWriter.GetInstance(pdfDoc, stream);
 					pdfDoc.Open();
 					// Creamos la imagen y le ajustamos el tamaño
-					iTextSharp.text.Image imagen = iTextSharp.text.Image.GetInstance(rutaImg);
+					Image imagen = Image.GetInstance(rutaImg);
 					imagen.BorderWidth = 0;
 					imagen.Alignment = Element.ALIGN_LEFT;
 					float percentage = 0.0f;
@@ -236,7 +236,7 @@ namespace Agraria.Utilidades.Impresion
             }
         }
 
-        public void ImprimirProductosStock(List<Agraria.Modelo.Entidades.ProductoStockConNombres> productos)
+        public void ImprimirProductosStock(List<ProductoStockConNombres> productos)
         {
             string rutaPlantillaHtml = Path.Combine(Application.StartupPath, "Impresion", "impresionproductosstock.html");
 
@@ -294,7 +294,7 @@ namespace Agraria.Utilidades.Impresion
             }
         }
 
-        public void ImprimirActividades(List<Agraria.Modelo.Records.ActividadConNombres> actividades)
+        public void ImprimirActividades(List<ActividadConNombres> actividades)
         {
             string rutaPlantillaHtml = Path.Combine(Application.StartupPath, "Impresion", "impresionactividades.html");
 
@@ -323,7 +323,7 @@ namespace Agraria.Utilidades.Impresion
             }
         }
 
-        public void ImprimirUsuarios(List<Agraria.Modelo.Records.UsuarioConTipo> usuarios)
+        public void ImprimirUsuarios(List<UsuarioConTipo> usuarios)
         {
             string rutaPlantillaHtml = Path.Combine(Application.StartupPath, "Impresion", "impresionusuarios.html");
 
@@ -352,7 +352,7 @@ namespace Agraria.Utilidades.Impresion
             }
         }
 
-        public void ImprimirProveedores(List<Agraria.Modelo.Entidades.Proveedores> proveedores)
+        public void ImprimirProveedores(List<Proveedores> proveedores)
         {
             string rutaPlantillaHtml = Path.Combine(Application.StartupPath, "Impresion", "impresionproveedores.html");
 
@@ -381,7 +381,7 @@ namespace Agraria.Utilidades.Impresion
             }
         }
 
-        public void ImprimirHerramientas(List<Agraria.Modelo.Entidades.Herramientas> herramientas)
+        public void ImprimirHerramientas(List<Herramientas> herramientas)
         {
             string rutaPlantillaHtml = Path.Combine(Application.StartupPath, "Impresion", "impresionherramientas.html");
 

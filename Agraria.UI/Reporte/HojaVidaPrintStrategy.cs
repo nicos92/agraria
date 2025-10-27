@@ -1,4 +1,5 @@
-﻿using Agraria.Utilidades.Impresion;
+using Agraria.Modelo.Records;
+using Agraria.Utilidades.Impresion;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,9 +11,9 @@ namespace Agraria.UI.Reporte
 {
     public class HojaVidaPrintStrategy : IPrintStrategy
     {
-        private readonly List<Modelo.Entidades.HojadeVida> _hojasDeVida;
+        private readonly List<HojaDeVidaReporte> _hojasDeVida;
 
-        public HojaVidaPrintStrategy(List<Modelo.Entidades.HojadeVida> hojasDeVida)
+        public HojaVidaPrintStrategy(List<HojaDeVidaReporte> hojasDeVida)
         {
             _hojasDeVida = hojasDeVida;
         }
