@@ -15,13 +15,13 @@ namespace Agraria.Utilidades
 		/// </summary>
 		/// <param name="minimoUsuario">El rol mínimo necesario para ver el control.</param>
 		/// <returns>True si el usuario actual puede ver el control.</returns>
-		public static bool PuedeVer(int minimoUsuario)
+		public static bool PuedeVer(int[] minimoUsuario)
 		{
 			// Obtiene el rol del usuario actual
-			int userRole = SessionManager.Instance.Usuario.Id_Tipo;
+			int tipoUsuario = SessionManager.Instance.Usuario.Id_Tipo;
 
 			
-			return userRole <=  minimoUsuario;
+			return minimoUsuario.Contains(tipoUsuario);
 		}
 	}
 }

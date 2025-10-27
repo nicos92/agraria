@@ -107,7 +107,7 @@ namespace Agraria.UI
 			btn.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
 		}
 
-		
+
 
 		/// <summary>
 		/// Aplica el estilo visual de "activo" a un botón.
@@ -193,11 +193,12 @@ namespace Agraria.UI
 		private void FormPrincipal_Load(object sender, EventArgs e)
 		{
 			_logger.LogInformation("FormPrincipal_Load iniciado.");
-			
+
 			ConfigBtnsMenu();
 			ConfigUsuario();
-			BtnActividad_Click(_btnActivo, e);
+			//BtnActividad_Click(_btnActivo, e);
 			AplicarVistadeBotones();
+			SeleccionarForm(typeof(FormInicio));
 			_logger.LogInformation("FormPrincipal_Load finalizado.");
 		}
 
@@ -432,13 +433,36 @@ namespace Agraria.UI
 
 		private void AplicarVistadeBotones()
 		{
-			BtnActividad.Visible = ControlDeAccesos.PuedeVer(SingleListas.Instance.UsuariosTipos[2].Tipo);
 
-			BtnEntornos.Visible = ControlDeAccesos.PuedeVer(2);
+			// Configurar la visibilidad de los botones según los permisos del usuario
+			/*
+			 
+			Director -> 1
 
-			BtnHojaVida.Visible = ControlDeAccesos.PuedeVer(2);
+			Jefe de Area -> 2
 
-			BtnInventario.Visible = ControlDeAccesos.PuedeVer(3);
+			Docente -> 3
+
+			Venta -> 4
+
+			 */
+			BtnActividad.Visible = ControlDeAccesos.PuedeVer([1, 2, 3]);
+			BtnEntornos.Visible = ControlDeAccesos.PuedeVer([1, 2]);
+			BtnProductos.Visible = ControlDeAccesos.PuedeVer([1, 2, 3]);
+			BtnVenta.Visible = ControlDeAccesos.PuedeVer([1, 2, 4]);
+			BtnReporte.Visible = ControlDeAccesos.PuedeVer([1, 2, 4]);
+			BtnInventario.Visible = ControlDeAccesos.PuedeVer([1, 2, 3, 4]);
+			BtnProduccion.Visible = ControlDeAccesos.PuedeVer([1, 2, 4]);
+			BtnHojaVida.Visible = ControlDeAccesos.PuedeVer([1, 2, 3]);
+			BtnPaniol.Visible = ControlDeAccesos.PuedeVer([1, 2, 3]);
+			BtnUsuarios.Visible = ControlDeAccesos.PuedeVer([1]);
+			BtnProveedores.Visible = ControlDeAccesos.PuedeVer([1, 2]);
+		}
+
+		private void LblEscuelaAgraria_Click(object sender, EventArgs e)
+		{
+			ResetearEstiloBoton(_btnActivo);
+			SeleccionarForm(typeof(FormInicio));
 		}
 	}
 }

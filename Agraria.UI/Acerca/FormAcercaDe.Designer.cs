@@ -40,14 +40,14 @@ namespace Agraria.UI.Acerca
 			LblVersion = new Label();
 			groupBox2 = new GroupBox();
 			tableLayoutPanel3 = new TableLayoutPanel();
+			linkLabel7 = new LinkLabel();
+			linkLabel6 = new LinkLabel();
+			linkLabel5 = new LinkLabel();
 			linkLabel4 = new LinkLabel();
 			linkLabel3 = new LinkLabel();
 			label8 = new Label();
 			linkLabel2 = new LinkLabel();
 			linkLabel1 = new LinkLabel();
-			linkLabel5 = new LinkLabel();
-			linkLabel6 = new LinkLabel();
-			linkLabel7 = new LinkLabel();
 			tableLayoutPanel1.SuspendLayout();
 			groupBox1.SuspendLayout();
 			tableLayoutPanel2.SuspendLayout();
@@ -117,40 +117,44 @@ namespace Agraria.UI.Acerca
 			// LblNombreProducto
 			// 
 			LblNombreProducto.AutoSize = true;
-			LblNombreProducto.Location = new Point(4, 169);
+			LblNombreProducto.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
+			LblNombreProducto.Location = new Point(4, 174);
 			LblNombreProducto.Margin = new Padding(4);
 			LblNombreProducto.Name = "LblNombreProducto";
-			LblNombreProducto.Size = new Size(93, 25);
+			LblNombreProducto.Size = new Size(95, 25);
 			LblNombreProducto.TabIndex = 5;
 			LblNombreProducto.Text = "Producto:";
 			// 
 			// LblSo
 			// 
 			LblSo.AutoSize = true;
-			LblSo.Location = new Point(4, 136);
+			LblSo.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
+			LblSo.Location = new Point(4, 141);
 			LblSo.Margin = new Padding(4);
 			LblSo.Name = "LblSo";
-			LblSo.Size = new Size(40, 25);
+			LblSo.Size = new Size(41, 25);
 			LblSo.TabIndex = 4;
 			LblSo.Text = "SO:";
 			// 
 			// LblNet
 			// 
 			LblNet.AutoSize = true;
-			LblNet.Location = new Point(4, 103);
+			LblNet.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
+			LblNet.Location = new Point(4, 108);
 			LblNet.Margin = new Padding(4);
 			LblNet.Name = "LblNet";
-			LblNet.Size = new Size(54, 25);
+			LblNet.Size = new Size(57, 25);
 			LblNet.TabIndex = 3;
 			LblNet.Text = ".NET:";
 			// 
 			// LblFecha
 			// 
 			LblFecha.AutoSize = true;
-			LblFecha.Location = new Point(4, 70);
+			LblFecha.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
+			LblFecha.Location = new Point(4, 75);
 			LblFecha.Margin = new Padding(4);
 			LblFecha.Name = "LblFecha";
-			LblFecha.Size = new Size(65, 25);
+			LblFecha.Size = new Size(67, 25);
 			LblFecha.TabIndex = 2;
 			LblFecha.Text = "Fecha:";
 			// 
@@ -158,11 +162,11 @@ namespace Agraria.UI.Acerca
 			// 
 			label1.Anchor = AnchorStyles.Left;
 			label1.AutoSize = true;
-			label1.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+			label1.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
 			label1.Location = new Point(3, 0);
 			label1.Margin = new Padding(3, 0, 3, 8);
 			label1.Name = "label1";
-			label1.Size = new Size(232, 25);
+			label1.Size = new Size(255, 30);
 			label1.TabIndex = 0;
 			label1.Text = "Proyecto Escuela Agraria";
 			label1.TextAlign = ContentAlignment.MiddleLeft;
@@ -170,11 +174,11 @@ namespace Agraria.UI.Acerca
 			// LblVersion
 			// 
 			LblVersion.AutoSize = true;
-			LblVersion.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-			LblVersion.Location = new Point(4, 37);
+			LblVersion.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
+			LblVersion.Location = new Point(4, 42);
 			LblVersion.Margin = new Padding(4);
 			LblVersion.Name = "LblVersion";
-			LblVersion.Size = new Size(79, 25);
+			LblVersion.Size = new Size(80, 25);
 			LblVersion.TabIndex = 1;
 			LblVersion.Text = "Version:";
 			// 
@@ -218,15 +222,57 @@ namespace Agraria.UI.Acerca
 			tableLayoutPanel3.Size = new Size(358, 383);
 			tableLayoutPanel3.TabIndex = 1;
 			// 
+			// linkLabel7
+			// 
+			linkLabel7.ActiveLinkColor = Color.White;
+			linkLabel7.AutoSize = true;
+			linkLabel7.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
+			linkLabel7.LinkColor = Color.White;
+			linkLabel7.Location = new Point(3, 188);
+			linkLabel7.Name = "linkLabel7";
+			linkLabel7.Size = new Size(82, 25);
+			linkLabel7.TabIndex = 11;
+			linkLabel7.TabStop = true;
+			linkLabel7.Text = "Lautaro ";
+			linkLabel7.VisitedLinkColor = Color.White;
+			// 
+			// linkLabel6
+			// 
+			linkLabel6.ActiveLinkColor = Color.White;
+			linkLabel6.AutoSize = true;
+			linkLabel6.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
+			linkLabel6.LinkColor = Color.White;
+			linkLabel6.Location = new Point(3, 163);
+			linkLabel6.Name = "linkLabel6";
+			linkLabel6.Size = new Size(123, 25);
+			linkLabel6.TabIndex = 10;
+			linkLabel6.TabStop = true;
+			linkLabel6.Text = "Ulises Trujillo";
+			linkLabel6.VisitedLinkColor = Color.White;
+			// 
+			// linkLabel5
+			// 
+			linkLabel5.ActiveLinkColor = Color.White;
+			linkLabel5.AutoSize = true;
+			linkLabel5.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
+			linkLabel5.LinkColor = Color.White;
+			linkLabel5.Location = new Point(3, 138);
+			linkLabel5.Name = "linkLabel5";
+			linkLabel5.Size = new Size(125, 25);
+			linkLabel5.TabIndex = 9;
+			linkLabel5.TabStop = true;
+			linkLabel5.Text = "Lautaro Arias";
+			linkLabel5.VisitedLinkColor = Color.White;
+			// 
 			// linkLabel4
 			// 
 			linkLabel4.ActiveLinkColor = Color.White;
 			linkLabel4.AutoSize = true;
-			linkLabel4.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+			linkLabel4.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
 			linkLabel4.LinkColor = Color.White;
-			linkLabel4.Location = new Point(3, 108);
+			linkLabel4.Location = new Point(3, 113);
 			linkLabel4.Name = "linkLabel4";
-			linkLabel4.Size = new Size(141, 25);
+			linkLabel4.Size = new Size(143, 25);
 			linkLabel4.TabIndex = 8;
 			linkLabel4.TabStop = true;
 			linkLabel4.Text = "Matias Sposaro";
@@ -236,11 +282,11 @@ namespace Agraria.UI.Acerca
 			// 
 			linkLabel3.ActiveLinkColor = Color.White;
 			linkLabel3.AutoSize = true;
-			linkLabel3.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+			linkLabel3.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
 			linkLabel3.LinkColor = Color.White;
-			linkLabel3.Location = new Point(3, 83);
+			linkLabel3.Location = new Point(3, 88);
 			linkLabel3.Name = "linkLabel3";
-			linkLabel3.Size = new Size(125, 25);
+			linkLabel3.Size = new Size(128, 25);
 			linkLabel3.TabIndex = 7;
 			linkLabel3.TabStop = true;
 			linkLabel3.Text = "Luciano Nitto";
@@ -250,11 +296,11 @@ namespace Agraria.UI.Acerca
 			// 
 			label8.Anchor = AnchorStyles.Left;
 			label8.AutoSize = true;
-			label8.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+			label8.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold | FontStyle.Underline, GraphicsUnit.Point, 0);
 			label8.Location = new Point(3, 0);
 			label8.Margin = new Padding(3, 0, 3, 8);
 			label8.Name = "label8";
-			label8.Size = new Size(152, 25);
+			label8.Size = new Size(165, 30);
 			label8.TabIndex = 0;
 			label8.Text = "Desarrolladores";
 			label8.TextAlign = ContentAlignment.MiddleCenter;
@@ -263,11 +309,11 @@ namespace Agraria.UI.Acerca
 			// 
 			linkLabel2.ActiveLinkColor = Color.White;
 			linkLabel2.AutoSize = true;
-			linkLabel2.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+			linkLabel2.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
 			linkLabel2.LinkColor = Color.White;
-			linkLabel2.Location = new Point(3, 58);
+			linkLabel2.Location = new Point(3, 63);
 			linkLabel2.Name = "linkLabel2";
-			linkLabel2.Size = new Size(157, 25);
+			linkLabel2.Size = new Size(159, 25);
 			linkLabel2.TabIndex = 6;
 			linkLabel2.TabStop = true;
 			linkLabel2.Text = "Federico Feressin";
@@ -277,58 +323,16 @@ namespace Agraria.UI.Acerca
 			// 
 			linkLabel1.ActiveLinkColor = Color.White;
 			linkLabel1.AutoSize = true;
-			linkLabel1.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+			linkLabel1.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
 			linkLabel1.LinkColor = Color.White;
-			linkLabel1.Location = new Point(3, 33);
+			linkLabel1.Location = new Point(3, 38);
 			linkLabel1.Name = "linkLabel1";
-			linkLabel1.Size = new Size(235, 25);
+			linkLabel1.Size = new Size(238, 25);
 			linkLabel1.TabIndex = 5;
 			linkLabel1.TabStop = true;
 			linkLabel1.Text = "Nicolás Salomón Sandoval";
 			linkLabel1.VisitedLinkColor = Color.White;
 			linkLabel1.LinkClicked += linkLabel1_LinkClicked;
-			// 
-			// linkLabel5
-			// 
-			linkLabel5.ActiveLinkColor = Color.White;
-			linkLabel5.AutoSize = true;
-			linkLabel5.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-			linkLabel5.LinkColor = Color.White;
-			linkLabel5.Location = new Point(3, 133);
-			linkLabel5.Name = "linkLabel5";
-			linkLabel5.Size = new Size(123, 25);
-			linkLabel5.TabIndex = 9;
-			linkLabel5.TabStop = true;
-			linkLabel5.Text = "Lautaro Arias";
-			linkLabel5.VisitedLinkColor = Color.White;
-			// 
-			// linkLabel6
-			// 
-			linkLabel6.ActiveLinkColor = Color.White;
-			linkLabel6.AutoSize = true;
-			linkLabel6.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-			linkLabel6.LinkColor = Color.White;
-			linkLabel6.Location = new Point(3, 158);
-			linkLabel6.Name = "linkLabel6";
-			linkLabel6.Size = new Size(123, 25);
-			linkLabel6.TabIndex = 10;
-			linkLabel6.TabStop = true;
-			linkLabel6.Text = "Ulises Trujillo";
-			linkLabel6.VisitedLinkColor = Color.White;
-			// 
-			// linkLabel7
-			// 
-			linkLabel7.ActiveLinkColor = Color.White;
-			linkLabel7.AutoSize = true;
-			linkLabel7.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-			linkLabel7.LinkColor = Color.White;
-			linkLabel7.Location = new Point(3, 183);
-			linkLabel7.Name = "linkLabel7";
-			linkLabel7.Size = new Size(81, 25);
-			linkLabel7.TabIndex = 11;
-			linkLabel7.TabStop = true;
-			linkLabel7.Text = "Lautaro ";
-			linkLabel7.VisitedLinkColor = Color.White;
 			// 
 			// FormAcercaDe
 			// 

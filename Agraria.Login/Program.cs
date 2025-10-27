@@ -109,7 +109,8 @@ static class Program
 
         services.AddTransient<FormPrincipal>();   // Este Form estaría en Agraria.UI.Principal
 
-        services.AddTransient<FormActividad>();   // Este Form estaría en Agraria.UI.Actividad
+		services.AddTransient<FormInicio>();      // Este Form estaría en Agraria.UI.Inicio
+		services.AddTransient<FormActividad>();   // Este Form estaría en Agraria.UI.Actividad
         services.AddTransient<ucIngresoActividad>();
         services.AddTransient<ucConsultaActividad>();
 

@@ -66,7 +66,7 @@ namespace Agraria.UI.Acerca
 		private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
 		{
 			// 1. Define la URL que quieres abrir
-			string url = "https://github.com/nicos92";
+			string url = "https://nicos92.github.io/CV-Nicolas-Sandoval/";
 
 			try
 			{

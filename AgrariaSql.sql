@@ -238,7 +238,8 @@ GO
 INSERT INTO Usuarios_Tipo (Tipo, Descripcion) VALUES
 (1, 'Director'),
 (2, 'Jefe de Area'),
-(3, 'Docente');
+(3, 'Docente'),
+(4, 'Cooperadora');
 GO
 
 -- Poblar Preguntas_Seguridad
@@ -250,7 +251,10 @@ GO
 
 -- Poblar Usuarios
 INSERT INTO Usuarios (DNI, Nombre, Apellido, Tel, Mail, Contra, Respues, Id_Pregunta, Id_Tipo) VALUES
-('11111111','Director','Dire','11111111','director@director.com','@Director1234','director',1,1);
+('11111111','Director','Dire','11111111','director@agraria.com','@Director1234','director',1,1),
+('22222222','Jefe de','Area','22222222','jefedearea@agraria.com','@Jefedearea1234','jefe de area',1,1),
+('33333333','Docente','Dire','33333333','docente@agraria.com','@Docente1234','docente',1,1),
+('44444444', 'Cooperadora', 'Cooperadora', '44444444', 'cooperadora@agraria.com', '@Cooperadora1234', 'venta', 1, 1);
 GO
 
 -- Insertar un proveedor por defecto 'Sin Proveedor'

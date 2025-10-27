@@ -148,8 +148,10 @@ namespace Agraria.UI.Usuarios
 			TLPForm.Controls.Add(TxtEmail, 1, 4);
 			TLPForm.Controls.Add(label6, 0, 5);
 			TLPForm.Controls.Add(TxtContra, 1, 5);
+			TLPForm.Controls.Add(LblContra, 2, 5);
 			TLPForm.Controls.Add(label7, 0, 6);
 			TLPForm.Controls.Add(TxtContraDos, 1, 6);
+			TLPForm.Controls.Add(LblContraDos, 2, 6);
 			TLPForm.Controls.Add(LblError, 1, 7);
 			TLPForm.Controls.Add(label9, 0, 8);
 			TLPForm.Controls.Add(CMBPregunta, 1, 8);

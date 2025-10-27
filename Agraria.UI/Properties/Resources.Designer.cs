@@ -143,6 +143,16 @@ namespace Agraria.UI.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap EA_C_256_ {
+            get {
+                object obj = ResourceManager.GetObject("EA C 256 ", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap entornos {
             get {
                 object obj = ResourceManager.GetObject("entornos", resourceCulture);

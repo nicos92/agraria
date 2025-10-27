@@ -334,6 +334,7 @@ namespace Agraria.UI
 			LblEscuelaAgraria.TabIndex = 0;
 			LblEscuelaAgraria.Text = "Escuela Agraria";
 			LblEscuelaAgraria.TextAlign = ContentAlignment.MiddleCenter;
+			LblEscuelaAgraria.Click += LblEscuelaAgraria_Click;
 			// 
 			// panel1
 			// 
@@ -525,7 +526,7 @@ namespace Agraria.UI
 			// sobreNosotrosToolStripMenuItem
 			// 
 			sobreNosotrosToolStripMenuItem.Name = "sobreNosotrosToolStripMenuItem";
-			sobreNosotrosToolStripMenuItem.Size = new Size(180, 22);
+			sobreNosotrosToolStripMenuItem.Size = new Size(138, 22);
 			sobreNosotrosToolStripMenuItem.Text = "Acerca de ...";
 			sobreNosotrosToolStripMenuItem.Click += sobreNosotrosToolStripMenuItem_Click;
 			// 

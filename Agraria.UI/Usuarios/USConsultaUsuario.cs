@@ -184,10 +184,13 @@ namespace Agraria.UI.Usuarios
 			if (TxtContra.Text != TxtContraDos.Text)
 			{
 				LblError.Visible = true;
+				BtnGuardar.Enabled = false;
 			}
 			else
 			{
 				LblError.Visible = false;
+				BtnGuardar.Enabled = true;
+
 			}
 		}
 
@@ -473,8 +476,8 @@ namespace Agraria.UI.Usuarios
 			}
 			else
 			{
-				TxtContraDos.PasswordChar = '*';
-				LblContra.Image = Properties.Resources.eyeSecondary;
+				TxtContra.PasswordChar = '*';
+				LblContra.Image = Properties.Resources.eyeLowVisionDarkSecondary;
 			}
 		}
 
@@ -488,7 +491,7 @@ namespace Agraria.UI.Usuarios
 			else
 			{
 				TxtContraDos.PasswordChar = '*';
-				LblContraDos.Image = Properties.Resources.eyeSecondary;
+				LblContraDos.Image = Properties.Resources.eyeLowVisionDarkSecondary;
 			}
 		}
 
