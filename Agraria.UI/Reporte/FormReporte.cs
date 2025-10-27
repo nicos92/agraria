@@ -31,6 +31,7 @@ namespace Agraria.UI.Reporte
 		private readonly IVentaService _ventaService;
 		private readonly IProductoService _productosService;
 		private readonly ITipoEntornosService _tipoEntornosService;
+		private readonly IArticulosGralService _articulosGralService;
 
 		private Button _btnClickeado;
 		private List<Agraria.Modelo.Entidades.HojadeVida>? _currentHojasDeVida; // Variable para almacenar las hojas de vida actuales
@@ -42,6 +43,7 @@ namespace Agraria.UI.Reporte
 		private List<Agraria.Modelo.Records.UsuarioConTipo>? _currentUsuarios; // Variable para almacenar los usuarios actuales
 		private List<Agraria.Modelo.Entidades.Proveedores>? _currentProveedores; // Variable para almacenar los proveedores actuales
 		private List<Agraria.Modelo.Entidades.Herramientas>? _currentHerramientas; // Variable para almacenar las herramientas actuales
+		private List<Agraria.Modelo.Entidades.ArticulosGral>? _currentArticulosGral; // Variable para almacenar los artículos generales actuales
 
 
 		private void ConfigBtnsTags()
@@ -55,6 +57,7 @@ namespace Agraria.UI.Reporte
 			btnProductos.Tag = typeof(ProductoStockConNombres);
 			btnUsuarios.Tag = typeof(UsuarioConTipo);
 			btnVentasGrandes.Tag = typeof(HVentasConUsuario);
+			BtnArticulosGral.Tag = typeof(Modelo.Entidades.ArticulosGral);
 
 
 		}
@@ -71,7 +74,8 @@ namespace Agraria.UI.Reporte
 			IVentaService ventaService,
 			IProductoService productosService,
 			IHerramientasService herramientasService,
-			ITipoEntornosService tipoEntornosService)
+			ITipoEntornosService tipoEntornosService,
+			IArticulosGralService articulosGralService)
 		{
 			InitializeComponent();
 			_productoStockService = articuloStockService;
@@ -85,6 +89,7 @@ namespace Agraria.UI.Reporte
 			_productosService = productosService;
 			_herramientasService = herramientasService;
 			_tipoEntornosService = tipoEntornosService;
+			_articulosGralService = articulosGralService;
 			_btnClickeado = btnMasVendidos;
 			dgvReporte.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
 			Utilidades.Util.ToolTipPdf(BtnImprimir, "Generar Reporte en PDF");
@@ -92,7 +97,48 @@ namespace Agraria.UI.Reporte
 
 		}
 
+		private async void BtnArticulosGral_Click_1(object sender, EventArgs e)
+		{
+			try
+			{
+				BtnClickeado(sender);
+				var dt = new DataTable();
+				dt.Columns.Add("Código");
+				dt.Columns.Add("Nombre");
 
+				dt.Columns.Add("Precio", typeof(decimal));
+				dt.Columns.Add("Descripción");
+				dt.Columns.Add("Stock", typeof(int));
+				dt.Columns.Add("Id Proveedor", typeof(int));
+
+
+
+				// In a real implementation, this would come from _ventaService.GetArticulosMasVendidos()
+				var resultado = await _articulosGralService.GetAll();
+				var articulosgral = resultado?.Value ?? [];
+
+				// Store the current most sold products for printing
+				_currentArticulosGral = [.. articulosgral];
+
+				foreach (var articulo in articulosgral)
+				{
+					dt.Rows.Add(
+						articulo.Art_Cod,
+						articulo.Art_Nombre,
+						articulo.Art_Precio,
+						articulo.Art_Descripcion,
+						articulo.Art_Stock,
+						articulo.Id_Proveedor
+						);
+				}
+
+				dgvReporte.DataSource = dt;
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show("Error al cargar el reporte de artículos : " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			}
+		}
 
 		private async void BtnMasVendidos_Click(object sender, EventArgs e)
 		{
@@ -390,6 +436,8 @@ namespace Agraria.UI.Reporte
 			}
 		}
 
+		
+
 		private async void BtnEntorno_Click(object sender, EventArgs e)
 		{
 			try
@@ -579,6 +627,9 @@ namespace Agraria.UI.Reporte
 					Type t when t == typeof(Herramientas) =>
 						new HerramientasPrintStrategy(ImprimirHerramientas()),
 
+					Type t when t == typeof(Modelo.Entidades.ArticulosGral) =>
+						new ArticulosGralPrintStrategy(ImprimirArticulosGral()),
+
 					_ => null
 				};
 
@@ -643,12 +694,14 @@ namespace Agraria.UI.Reporte
 				.Cast<DataGridViewRow>()
 				.Where(fila => !fila.IsNewRow)
 				.Select(fila => new UsuarioConTipo(
+					
 					fila.Cells["DNI"].Value?.ToString() ?? string.Empty,
 					fila.Cells["Nombre"].Value?.ToString() ?? string.Empty,
 					fila.Cells["Apellido"].Value?.ToString() ?? string.Empty,
 					fila.Cells["Teléfono"].Value?.ToString() ?? string.Empty,
 					fila.Cells["Email"].Value?.ToString() ?? string.Empty,
-					fila.Cells["Tipo"].Value?.ToString() ?? string.Empty 
+					
+					fila.Cells["Tipo"].Value?.ToString() ?? string.Empty // Nombre_Tipo
 				))
 				];
 		}
@@ -755,7 +808,26 @@ namespace Agraria.UI.Reporte
 				];
 		}
 
-		
+		private List<ArticulosGral> ImprimirArticulosGral()
+		{
+			return [.. dgvReporte.Rows
+				.Cast<DataGridViewRow>()
+				.Where(fila => !fila.IsNewRow)
+				.Select(fila => new ArticulosGral
+				{
+					Art_Id = 0,
+					Art_Cod = fila.Cells["Código"].Value?.ToString() ?? string.Empty,
+					Art_Nombre = fila.Cells["Nombre"].Value?.ToString() ?? string.Empty,
+					Art_Uni_Med = UnidadMedida.Kilogramo,
+					Art_Precio = Convert.ToDecimal(fila.Cells["Precio"].Value),
+					Art_Descripcion = fila.Cells["Descripción"].Value?.ToString() ?? string.Empty,
+					Art_Stock = Convert.ToDecimal(fila.Cells["Stock"].Value),
+					Id_Proveedor = Convert.ToInt32(fila.Cells["ID Proveedor"].Value)
+				})
+				];
+		}
+
+
 
 		private void FormReporte_Load(object sender, EventArgs e)
 		{
@@ -774,6 +846,8 @@ namespace Agraria.UI.Reporte
 				BtnImprimir.BackColor = AppColorsBlue.Secondary;
 			}
 		}
+
+		
 
 		// Interfaces y implementaciones
 		public interface IPrintStrategy

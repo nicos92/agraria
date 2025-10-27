@@ -211,35 +211,64 @@ namespace Agraria.Utilidades.Impresion
             return htmlProcesado;
         }
 
-        public string GenerarHtmlActividades(List<Agraria.Modelo.Records.ActividadConNombres> actividades, string totalActividades, string fechaGeneracion)
-        {
-            if (string.IsNullOrEmpty(plantillaHtml))
-            {
-                return "Error: La plantilla HTML no se pudo cargar.";
-            }
+		public string GenerarHtmlActividades(List<Agraria.Modelo.Records.ActividadConNombres> actividades, string totalActividades, string fechaGeneracion)
+		{
+			if (string.IsNullOrEmpty(plantillaHtml))
+			{
+				return "Error: La plantilla HTML no se pudo cargar.";
+			}
 
-            string htmlProcesado = plantillaHtml;
-            htmlProcesado = htmlProcesado.Replace("{{fecha_generacion}}", fechaGeneracion);
-            htmlProcesado = htmlProcesado.Replace("{{total_actividades}}", totalActividades);
+			string htmlProcesado = plantillaHtml;
+			htmlProcesado = htmlProcesado.Replace("{{fecha_generacion}}", fechaGeneracion);
+			htmlProcesado = htmlProcesado.Replace("{{total_actividades}}", totalActividades);
 
-            var filasHtml = new StringBuilder();
-            foreach (var actividad in actividades)
-            {
-                filasHtml.Append("<tr>");
-                filasHtml.Append($"<td>{actividad.Nombre_TipoEntorno}</td>");
-                filasHtml.Append($"<td>{actividad.Nombre_Entorno}</td>");
-                filasHtml.Append($"<td>{actividad.Nombre_EntornoFormativo}</td>");
-                filasHtml.Append($"<td>{actividad.Fecha_Actividad:yyyy-MM-dd HH:mm}</td>");
-                filasHtml.Append($"<td>{actividad.Descripcion_Actividad}</td>");
-                filasHtml.Append("</tr>");
-            }
+			var filasHtml = new StringBuilder();
+			foreach (var actividad in actividades)
+			{
+				filasHtml.Append("<tr>");
+				filasHtml.Append($"<td>{actividad.Nombre_TipoEntorno}</td>");
+				filasHtml.Append($"<td>{actividad.Nombre_Entorno}</td>");
+				filasHtml.Append($"<td>{actividad.Nombre_EntornoFormativo}</td>");
+				filasHtml.Append($"<td>{actividad.Fecha_Actividad:yyyy-MM-dd HH:mm}</td>");
+				filasHtml.Append($"<td>{actividad.Descripcion_Actividad}</td>");
+				filasHtml.Append("</tr>");
+			}
 
-            htmlProcesado = htmlProcesado.Replace("{{tabla_actividades}}", filasHtml.ToString());
+			htmlProcesado = htmlProcesado.Replace("{{tabla_actividades}}", filasHtml.ToString());
 
-            return htmlProcesado;
-        }
+			return htmlProcesado;
+		}
+		public string GenerarHtmlArticulosGral(List<ArticulosGral> articulosgral, string totalActividades, string fechaGeneracion)
+		{
+			if (string.IsNullOrEmpty(plantillaHtml))
+			{
+				return "Error: La plantilla HTML no se pudo cargar.";
+			}
 
-        public string GenerarHtmlUsuarios(List<Agraria.Modelo.Records.UsuarioConTipo> usuarios, string totalUsuarios, string fechaGeneracion)
+			string htmlProcesado = plantillaHtml;
+			htmlProcesado = htmlProcesado.Replace("{{fecha_generacion}}", fechaGeneracion);
+			htmlProcesado = htmlProcesado.Replace("{{total_articulosgral}}", totalActividades);
+
+			var filasHtml = new StringBuilder();
+			foreach (var actividad in articulosgral)
+			{
+				filasHtml.Append("<tr>");
+				filasHtml.Append($"<td>{actividad.Art_Cod}</td>");
+				filasHtml.Append($"<td>{actividad.Art_Nombre}</td>");
+				filasHtml.Append($"<td>{actividad.Art_Precio}</td>");
+				filasHtml.Append($"<td>{actividad.Art_Descripcion}</td>");
+				filasHtml.Append($"<td>{actividad.Art_Stock}</td>");
+				filasHtml.Append($"<td>{actividad.Id_Proveedor}</td>");
+
+				filasHtml.Append("</tr>");
+			}
+
+			htmlProcesado = htmlProcesado.Replace("{{tabla_articulosgral}}", filasHtml.ToString());
+
+			return htmlProcesado;
+		}
+
+		public string GenerarHtmlUsuarios(List<Agraria.Modelo.Records.UsuarioConTipo> usuarios, string totalUsuarios, string fechaGeneracion)
         {
             if (string.IsNullOrEmpty(plantillaHtml))
             {

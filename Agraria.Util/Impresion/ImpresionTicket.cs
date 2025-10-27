@@ -323,7 +323,36 @@ namespace Agraria.Utilidades.Impresion
             }
         }
 
-        public void ImprimirUsuarios(List<UsuarioConTipo> usuarios)
+		public void ImprimirArticulos(List<ArticulosGral> articulosGral)
+		{
+			string rutaPlantillaHtml = Path.Combine(Application.StartupPath, "Impresion", "impresionarticulosgral.html");
+
+			var generador = new GeneradorTickets(rutaPlantillaHtml);
+			_htmlFinal = generador.GenerarHtmlArticulosGral(
+				articulosgral: articulosGral,
+				totalActividades: articulosGral.Count.ToString(),
+				fechaGeneracion: DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss")
+			);
+
+			if (_htmlFinal.StartsWith("Error:"))
+			{
+				MessageBox.Show(_htmlFinal, "Error de Impresión de Articulos", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				return;
+			}
+
+			_saveFileDialog1.FileName = "Reporte_Articulos_" + DateTime.Now.ToString("yyyyMMdd_HHmmss");
+			DialogResult result = _saveFileDialog1.ShowDialog();
+			if (result == DialogResult.OK)
+			{
+				TareasLargas tareas = new();
+				tareas.RecibirTarea(() =>
+				{
+					GenerarPDF(_rutaImg, _htmlFinal, _saveFileDialog1);
+				});
+			}
+		}
+
+		public void ImprimirUsuarios(List<UsuarioConTipo> usuarios)
         {
             string rutaPlantillaHtml = Path.Combine(Application.StartupPath, "Impresion", "impresionusuarios.html");
 

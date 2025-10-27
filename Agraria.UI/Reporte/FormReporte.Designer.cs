@@ -33,6 +33,7 @@ namespace Agraria.UI.Reporte
 			panelMenu = new Panel();
 			flowLayoutPanel1 = new FlowLayoutPanel();
 			btnHojaVida = new Button();
+			BtnArticulosGral = new Button();
 			btnProductos = new Button();
 			btnMasVendidos = new Button();
 			btnVentasGrandes = new Button();
@@ -68,6 +69,7 @@ namespace Agraria.UI.Reporte
 			flowLayoutPanel1.AutoScroll = true;
 			flowLayoutPanel1.BackColor = Color.FromArgb(0, 75, 113);
 			flowLayoutPanel1.Controls.Add(btnHojaVida);
+			flowLayoutPanel1.Controls.Add(BtnArticulosGral);
 			flowLayoutPanel1.Controls.Add(btnProductos);
 			flowLayoutPanel1.Controls.Add(btnMasVendidos);
 			flowLayoutPanel1.Controls.Add(btnVentasGrandes);
@@ -97,6 +99,21 @@ namespace Agraria.UI.Reporte
 			btnHojaVida.UseVisualStyleBackColor = false;
 			btnHojaVida.Click += BtnHojaVida_Click;
 			// 
+			// BtnArticulosGral
+			// 
+			BtnArticulosGral.BackColor = Color.FromArgb(7, 100, 147);
+			BtnArticulosGral.FlatAppearance.BorderSize = 0;
+			BtnArticulosGral.FlatStyle = FlatStyle.Flat;
+			BtnArticulosGral.Font = new Font("Segoe UI", 12F);
+			BtnArticulosGral.ForeColor = Color.White;
+			BtnArticulosGral.Location = new Point(3, 65);
+			BtnArticulosGral.Name = "BtnArticulosGral";
+			BtnArticulosGral.Size = new Size(191, 56);
+			BtnArticulosGral.TabIndex = 11;
+			BtnArticulosGral.Text = "Articulos";
+			BtnArticulosGral.UseVisualStyleBackColor = false;
+			BtnArticulosGral.Click += BtnArticulosGral_Click_1;
+			// 
 			// btnProductos
 			// 
 			btnProductos.BackColor = Color.FromArgb(7, 100, 147);
@@ -104,7 +121,7 @@ namespace Agraria.UI.Reporte
 			btnProductos.FlatStyle = FlatStyle.Flat;
 			btnProductos.Font = new Font("Segoe UI", 12F);
 			btnProductos.ForeColor = Color.White;
-			btnProductos.Location = new Point(3, 65);
+			btnProductos.Location = new Point(3, 127);
 			btnProductos.Name = "btnProductos";
 			btnProductos.Size = new Size(191, 56);
 			btnProductos.TabIndex = 4;
@@ -119,7 +136,7 @@ namespace Agraria.UI.Reporte
 			btnMasVendidos.FlatStyle = FlatStyle.Flat;
 			btnMasVendidos.Font = new Font("Segoe UI", 12F);
 			btnMasVendidos.ForeColor = Color.White;
-			btnMasVendidos.Location = new Point(3, 127);
+			btnMasVendidos.Location = new Point(3, 189);
 			btnMasVendidos.Name = "btnMasVendidos";
 			btnMasVendidos.Size = new Size(191, 56);
 			btnMasVendidos.TabIndex = 0;
@@ -134,7 +151,7 @@ namespace Agraria.UI.Reporte
 			btnVentasGrandes.FlatStyle = FlatStyle.Flat;
 			btnVentasGrandes.Font = new Font("Segoe UI", 12F);
 			btnVentasGrandes.ForeColor = Color.White;
-			btnVentasGrandes.Location = new Point(3, 189);
+			btnVentasGrandes.Location = new Point(3, 251);
 			btnVentasGrandes.Name = "btnVentasGrandes";
 			btnVentasGrandes.Size = new Size(191, 56);
 			btnVentasGrandes.TabIndex = 1;
@@ -149,7 +166,7 @@ namespace Agraria.UI.Reporte
 			btnActividades.FlatStyle = FlatStyle.Flat;
 			btnActividades.Font = new Font("Segoe UI", 12F);
 			btnActividades.ForeColor = Color.White;
-			btnActividades.Location = new Point(3, 251);
+			btnActividades.Location = new Point(3, 313);
 			btnActividades.Name = "btnActividades";
 			btnActividades.Size = new Size(191, 56);
 			btnActividades.TabIndex = 3;
@@ -164,7 +181,7 @@ namespace Agraria.UI.Reporte
 			btnUsuarios.FlatStyle = FlatStyle.Flat;
 			btnUsuarios.Font = new Font("Segoe UI", 12F);
 			btnUsuarios.ForeColor = Color.White;
-			btnUsuarios.Location = new Point(3, 313);
+			btnUsuarios.Location = new Point(3, 375);
 			btnUsuarios.Name = "btnUsuarios";
 			btnUsuarios.Size = new Size(191, 56);
 			btnUsuarios.TabIndex = 5;
@@ -179,7 +196,7 @@ namespace Agraria.UI.Reporte
 			btnProveedores.FlatStyle = FlatStyle.Flat;
 			btnProveedores.Font = new Font("Segoe UI", 12F);
 			btnProveedores.ForeColor = Color.White;
-			btnProveedores.Location = new Point(3, 375);
+			btnProveedores.Location = new Point(3, 437);
 			btnProveedores.Name = "btnProveedores";
 			btnProveedores.Size = new Size(191, 56);
 			btnProveedores.TabIndex = 6;
@@ -194,7 +211,7 @@ namespace Agraria.UI.Reporte
 			btnHerramientas.FlatStyle = FlatStyle.Flat;
 			btnHerramientas.Font = new Font("Segoe UI", 12F);
 			btnHerramientas.ForeColor = Color.White;
-			btnHerramientas.Location = new Point(3, 437);
+			btnHerramientas.Location = new Point(3, 499);
 			btnHerramientas.Name = "btnHerramientas";
 			btnHerramientas.Size = new Size(191, 56);
 			btnHerramientas.TabIndex = 7;
@@ -209,7 +226,7 @@ namespace Agraria.UI.Reporte
 			btnEntornoFormativo.FlatStyle = FlatStyle.Flat;
 			btnEntornoFormativo.Font = new Font("Segoe UI", 12F);
 			btnEntornoFormativo.ForeColor = Color.White;
-			btnEntornoFormativo.Location = new Point(3, 499);
+			btnEntornoFormativo.Location = new Point(3, 561);
 			btnEntornoFormativo.Name = "btnEntornoFormativo";
 			btnEntornoFormativo.Size = new Size(191, 56);
 			btnEntornoFormativo.TabIndex = 9;
@@ -354,5 +371,6 @@ namespace Agraria.UI.Reporte
         private TableLayoutPanel tableLayoutPanel1;
         private Button BtnImprimir;
 		private Label LblTituloReporte;
+		private Button BtnArticulosGral;
 	}
 }
