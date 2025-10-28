@@ -103,8 +103,7 @@ namespace Agraria.UI.Articulos
                 PbProgreso.Style = ProgressBarStyle.Marquee;
 
                 var result = await TareasLargas.EjecutarAsync(
-                    () => _tipoEntornoService.GetAll().Result,
-                    "Cargando Tipo entornos...");
+                    () => _tipoEntornoService.GetAll().Result);
 
                 if (result.IsSuccess)
                 {
@@ -144,8 +143,7 @@ namespace Agraria.UI.Articulos
                 PbProgreso.Style = ProgressBarStyle.Marquee;
 
                 var result = await TareasLargas.EjecutarAsync(
-                    () => _entornoService.GetAllxEntorno(_selectedTipoEntornoId).Result,
-                    "Cargando Entornos...");
+                    () => _entornoService.GetAllxEntorno(_selectedTipoEntornoId).Result);
 
                 if (result.IsSuccess)
                 {
@@ -178,14 +176,14 @@ namespace Agraria.UI.Articulos
             // Configurar columnas
             if (DgvTipoEntornos.Columns.Contains("Id_categoria"))
             {
-                DgvTipoEntornos.Columns["Id_categoria"].HeaderText = "ID";
-                DgvTipoEntornos.Columns["Id_categoria"].FillWeight = 20;
+                DgvTipoEntornos.Columns["Id_categoria"]!.HeaderText = "ID";
+                DgvTipoEntornos.Columns["Id_categoria"]!.FillWeight = 20;
             }
 
             if (DgvTipoEntornos.Columns.Contains("Categoria"))
             {
-                DgvTipoEntornos.Columns["Categoria"].HeaderText = "Categoría";
-                DgvTipoEntornos.Columns["Categoria"].FillWeight = 80;
+                DgvTipoEntornos.Columns["Categoria"]!.HeaderText = "Categoría";
+                DgvTipoEntornos.Columns["Categoria"]!.FillWeight = 80;
             }
         }
 
@@ -197,20 +195,20 @@ namespace Agraria.UI.Articulos
             // Configurar columnas
             if (DgvEntornos.Columns.Contains("Id_Subcategoria"))
             {
-                DgvEntornos.Columns["Id_Subcategoria"].HeaderText = "ID";
-                DgvEntornos.Columns["Id_Subcategoria"].FillWeight = 20;
+                DgvEntornos.Columns["Id_Subcategoria"]!.HeaderText = "ID";
+                DgvEntornos.Columns["Id_Subcategoria"]!.FillWeight = 20;
             }
 
             if (DgvEntornos.Columns.Contains("Sub_categoria"))
             {
-                DgvEntornos.Columns["Sub_categoria"].HeaderText = "Subcategoría";
-                DgvEntornos.Columns["Sub_categoria"].FillWeight = 80;
+                DgvEntornos.Columns["Sub_categoria"]!.HeaderText = "Subcategoría";
+                DgvEntornos.Columns["Sub_categoria"]!.FillWeight = 80;
             }
 
             // Ocultar columnas innecesarias
             if (DgvEntornos.Columns.Contains("Id_Categoria"))
             {
-                DgvEntornos.Columns["Id_Categoria"].Visible = false;
+                DgvEntornos.Columns["Id_Categoria"]!.Visible = false;
             }
         }
 
@@ -284,8 +282,7 @@ namespace Agraria.UI.Articulos
                 };
 
                 var result = await TareasLargas.EjecutarAsync(
-                    () => _tipoEntornoService.Add(tipoRntorno),
-                    "Agregando Tipo Entorno...");
+                    () => _tipoEntornoService.Add(tipoRntorno));
 
                 if (result.IsSuccess)
                 {
@@ -351,8 +348,7 @@ namespace Agraria.UI.Articulos
                 };
 
                 var result = await TareasLargas.EjecutarAsync(
-                    () => _tipoEntornoService.Update(entorno),
-                    "Actualizando tipo de entorno...");
+                    () => _tipoEntornoService.Update(entorno));
 
                 if (result.IsSuccess)
                 {
@@ -410,8 +406,7 @@ namespace Agraria.UI.Articulos
 
                     // CORRECCIÓN: Usar await en lugar de .Result para evitar el congelamiento
                     var result = await TareasLargas.EjecutarAsync(
-                        () => _tipoEntornoService.Delete(_selectedTipoEntornoId),
-                        "Eliminando Entorno...");
+                        () => _tipoEntornoService.Delete(_selectedTipoEntornoId));
 
                     if (result.IsSuccess)
                     {
@@ -487,8 +482,7 @@ namespace Agraria.UI.Articulos
                 };
 
                 var result = await TareasLargas.EjecutarAsync(
-                    () => _entornoService.Add(subEntorno),
-                    "Agregando Entorno...");
+                    () => _entornoService.Add(subEntorno));
 
                 if (result.IsSuccess)
                 {
@@ -562,8 +556,7 @@ namespace Agraria.UI.Articulos
                 };
 
                 var result = await TareasLargas.EjecutarAsync(
-                    () => _entornoService.Update(subEntorno),
-                    "Actualizando Entorno...");
+                    () => _entornoService.Update(subEntorno));
 
                 if (result.IsSuccess)
                 {
@@ -612,8 +605,7 @@ namespace Agraria.UI.Articulos
 
                     // CORRECCIÓN: Usar await en lugar de .Result para evitar el congelamiento
                     var result = await TareasLargas.EjecutarAsync(
-                        () => _entornoService.Delete(_selectedEntornoId),
-                        "Eliminando Entorno...");
+                        () => _entornoService.Delete(_selectedEntornoId));
 
                     if (result.IsSuccess)
                     {

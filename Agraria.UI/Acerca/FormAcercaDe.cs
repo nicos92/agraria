@@ -41,20 +41,11 @@ namespace Agraria.UI.Acerca
 
 			// 2. Obtener la información del producto
 			string nombreProducto = assembly.GetCustomAttribute<AssemblyProductAttribute>()?.Product ?? "N/A";
-			string version2 = assembly.GetName().Version.ToString();
-			string descripcion = assembly.GetCustomAttribute<AssemblyDescriptionAttribute>()?.Description ?? "N/A";
+			
 
-			// 3. Obtener la información legal
-			string copyright = assembly.GetCustomAttribute<AssemblyCopyrightAttribute>()?.Copyright ?? "N/A";
-			string company = assembly.GetCustomAttribute<AssemblyCompanyAttribute>()?.Company ?? "N/A";
+			
 
-			// Otra forma de obtener la versión (opcional, FileVersionInfo)
-			FileVersionInfo fvi = FileVersionInfo.GetVersionInfo(assembly.Location);
-			// fvi.FileVersion; 
-			// fvi.ProductVersion; 
-			// fvi.CompanyName;
-			// Aquí puedes asignar estos valores a los controles de tu formulario
-			// Por ejemplo, un Label llamado lblVersion y otro lblSO
+			
 			LblVersion.Text = $"Versión: {version}";
 			LblFecha.Text = $"Fecha: {fechaCompilacion}";
 			LblNet.Text = $".NET Runtime: {netVersion}";
@@ -63,7 +54,7 @@ namespace Agraria.UI.Acerca
 
 		}
 
-		private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+		private void LinkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
 		{
 			// 1. Define la URL que quieres abrir
 			string url = "https://nicos92.github.io/CV-Nicolas-Sandoval/";

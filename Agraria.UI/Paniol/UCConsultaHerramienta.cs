@@ -19,7 +19,7 @@ namespace Agraria.UI.Paniol
         private readonly IHerramientasService _herramientasService;
         private List<Herramientas> _herramientasList;
         private List<Herramientas> _todosLasHerramientas;
-        private Herramientas _herramientaSeleccionada;
+        private Herramientas? _herramientaSeleccionada;
         private readonly ValidadorTextBox _vTxtNombre;
         private readonly ValidadorTextBox _vTxtCantidad;
         private readonly ValidadorTextBox _vTxtDescripcion;
@@ -70,7 +70,7 @@ namespace Agraria.UI.Paniol
                 if (resultado.IsSuccess)
                 {
                     _todosLasHerramientas = resultado.Value;
-                    _herramientasList = _todosLasHerramientas.ToList(); // Initially set to all items
+                    _herramientasList = [.. _todosLasHerramientas];
                     ListBArticulos.DataSource = _herramientasList;
                     LimpiarCamposEdicion();
                 }

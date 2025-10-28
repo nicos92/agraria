@@ -125,7 +125,7 @@ namespace Agraria.Utilidades
         /// <param name="funcion">La función a ejecutar.</param>
         /// <param name="mensaje">Mensaje descriptivo de la operación (opcional).</param>
         /// <returns>El resultado de la función ejecutada.</returns>
-        public static async Task<T> EjecutarAsync<T>(Func<T> funcion, string mensaje = "")
+        public static async Task<T> EjecutarAsync<T>(Func<T> funcion)
         {
             // Para operaciones simples que no requieren UI blocking
             return await Task.Run(funcion);

@@ -259,7 +259,7 @@ GO
 
 -- Insertar un proveedor por defecto 'Sin Proveedor'
 INSERT INTO Proveedores (CUIT, Proveedor, Nombre, Tel, Email, Observacion) VALUES
-('0000000001', 'Sin Proveedor', 'Sin Proveedor', '0000000000', 'sinproveedor@example.com', 'Sin Proveedor para productos sin proveedor asignado');
+('00000000001', 'Sin Proveedor', 'Sin Proveedor', '0000000000', 'sinproveedor@example.com', 'Sin Proveedor para productos sin proveedor asignado');
 GO
 
 -- Poblar TipoEntorno

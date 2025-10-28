@@ -756,7 +756,7 @@ namespace Agraria.UI.Inventario
                     // Filtrar por código
                     if (!string.IsNullOrEmpty(TxtFiltroCodigo.Text))
                     {
-                        if (articulo.Art_Cod == null || !articulo.Art_Cod.ToLower().Contains(TxtFiltroCodigo.Text.ToLower()))
+                        if (articulo.Art_Cod == null || !articulo.Art_Cod.Contains(TxtFiltroCodigo.Text, StringComparison.CurrentCultureIgnoreCase))
                         {
                             coincide = false;
                         }
@@ -765,7 +765,7 @@ namespace Agraria.UI.Inventario
                     // Filtrar por nombre
                     if (coincide && !string.IsNullOrEmpty(TxtFiltroNombre.Text))
                     {
-                        if (articulo.Art_Nombre == null || !articulo.Art_Nombre.ToLower().Contains(TxtFiltroNombre.Text.ToLower()))
+                        if (articulo.Art_Nombre == null || !articulo.Art_Nombre.Contains(TxtFiltroNombre.Text, StringComparison.CurrentCultureIgnoreCase))
                         {
                             coincide = false;
                         }
@@ -774,7 +774,7 @@ namespace Agraria.UI.Inventario
                     // Filtrar por descripción
                     if (coincide && !string.IsNullOrEmpty(TxtFiltroDescripcion.Text))
                     {
-                        if (articulo.Art_Descripcion == null || !articulo.Art_Descripcion.ToLower().Contains(TxtFiltroDescripcion.Text.ToLower()))
+                        if (articulo.Art_Descripcion == null || !articulo.Art_Descripcion.Contains(TxtFiltroDescripcion.Text, StringComparison.CurrentCultureIgnoreCase))
                         {
                             coincide = false;
                         }
@@ -827,32 +827,32 @@ namespace Agraria.UI.Inventario
                 // Aseguramos que las columnas tengan los encabezados correctos
                 if (ListBArticulos.Columns["Art_Cod"] != null)
                 {
-                    ListBArticulos.Columns["Art_Cod"].HeaderText = "CÓDIGO";
+                    ListBArticulos.Columns["Art_Cod"]!.HeaderText = "CÓDIGO";
                 }
 
                 if (ListBArticulos.Columns["Art_Nombre"] != null)
                 {
-                    ListBArticulos.Columns["Art_Nombre"].HeaderText = "NOMBRE";
+                    ListBArticulos.Columns["Art_Nombre"]!.HeaderText = "NOMBRE";
                 }
 
                 if (ListBArticulos.Columns["Art_Descripcion"] != null)
                 {
-                    ListBArticulos.Columns["Art_Descripcion"].HeaderText = "DESCRIPCIÓN";
+                    ListBArticulos.Columns["Art_Descripcion"]!.HeaderText = "DESCRIPCIÓN";
                 }
 
                 if (ListBArticulos.Columns["Art_Uni_Med"] != null)
                 {
-                    ListBArticulos.Columns["Art_Uni_Med"].HeaderText = "UNIDAD MEDIDA";
+                    ListBArticulos.Columns["Art_Uni_Med"]!.HeaderText = "UNIDAD MEDIDA";
                 }
 
                 if (ListBArticulos.Columns["Art_Precio"] != null)
                 {
-                    ListBArticulos.Columns["Art_Precio"].HeaderText = "PRECIO";
+                    ListBArticulos.Columns["Art_Precio"]!.HeaderText = "PRECIO";
                 }
 
                 if (ListBArticulos.Columns["Art_Stock"] != null)
                 {
-                    ListBArticulos.Columns["Art_Stock"].HeaderText = "STOCK";
+                    ListBArticulos.Columns["Art_Stock"]!.HeaderText = "STOCK";
                 }
             }
             catch (Exception ex)

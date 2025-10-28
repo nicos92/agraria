@@ -326,41 +326,7 @@ namespace Agraria.UI.Ventas
 			//async CargarInformacionAdicionalAsync(venta);
 		}
 
-		private static async Task CargarInformacionAdicionalAsync(HVentas venta)
-		{
-			// TODO: Descomentar cuando los servicios estén disponibles
-			//try
-			//{
-			//    // Cargar información del cliente
-			//    var clienteResult = await _clientesService.GetById(venta.Id_Cliente);
-			//    if (clienteResult.IsSuccess)
-			//    {
-			//        LblCliente.Text = clienteResult.Value?.Nombre ?? "Cliente no encontrado";
-			//    }
-			//    else
-			//    {
-			//        LblCliente.Text = "Error al cargar cliente";
-			//    }
-
-			//    // Cargar información del usuario
-			//    var usuarioResult = await _usuariosService.GetById(venta.Cod_Usuario);
-			//    if (usuarioResult.IsSuccess)
-			//    {
-			//        LblUsuario.Text = usuarioResult.Value?.Nombre ?? "Usuario no encontrado";
-			//    }
-			//    else
-			//    {
-			//        LblUsuario.Text = "Error al cargar usuario";
-			//    }
-			//}
-			//catch (Exception ex)
-			//{
-			//    _logger.LogError(ex, "Error al cargar información adicional para venta {IdRemito}", venta.Id_Remito);
-			//    LblCliente.Text = "Error al cargar";
-			//    LblUsuario.Text = "Error al cargar";
-			//}
-		}
-
+		
 		private void LimpiarDetallesVenta()
 		{
 			LblIdRemito.Text = "";
@@ -619,7 +585,7 @@ namespace Agraria.UI.Ventas
 		{
 			Utilidades.Impresion.ImpresionTicket imp = new();
 			imp.ImprimiriTextSharp(
-				productos: _detallesVenta.Select(d => new Utilidades.Impresion.ProductoVenta
+				productos: [.. _detallesVenta.Select(d => new Utilidades.Impresion.ProductoVenta
 				{
 					Nombre = d.Descr,
 					Cantidad = d.Cant,
@@ -629,7 +595,7 @@ namespace Agraria.UI.Ventas
 					Descuento = 0, // Ajustar según sea necesario
 					Total = d.P_X_Cant, // Ajustar según sea necesario
 
-				}).ToList(),
+				})],
 
 				numeroOperacion: _selectedVentaId.ToString(),
 				motivo: LblDescripcion.Text,
@@ -660,10 +626,10 @@ namespace Agraria.UI.Ventas
 
 			// Verify that hidden columns remain hidden
 			if (DgvDetalles.Columns["Id_Det_Remito"] != null)
-				DgvDetalles.Columns["Id_Det_Remito"].Visible = false;
+				DgvDetalles.Columns["Id_Det_Remito"]!.Visible = false;
 
 			if (DgvDetalles.Columns["Id_Remito"] != null)
-				DgvDetalles.Columns["Id_Remito"].Visible = false;
+				DgvDetalles.Columns["Id_Remito"]!.Visible = false;
 
 
 		}

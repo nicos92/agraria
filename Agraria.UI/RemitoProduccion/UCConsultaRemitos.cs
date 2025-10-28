@@ -238,40 +238,7 @@ namespace Agraria.UI.RemitoProduccion
 			//async CargarInformacionAdicionalAsync(remito);
 		}
 
-		private static async Task CargarInformacionAdicionalAsync(HRemitoProduccion remito)
-		{
-			// TODO: Descomentar cuando los servicios estén disponibles
-			//try
-			//{
-			//    // Cargar información del cliente
-			//    var clienteResult = await _clientesService.GetById(remito.Id_Cliente);
-			//    if (clienteResult.IsSuccess)
-			//    {
-			//        LblCliente.Text = clienteResult.Value?.Nombre ?? "Cliente no encontrado";
-			//    }
-			//    else
-			//    {
-			//        LblCliente.Text = "Error al cargar cliente";
-			//    }
-
-			//    // Cargar información del usuario
-			//    var usuarioResult = await _usuariosService.GetById(remito.Cod_Usuario);
-			//    if (usuarioResult.IsSuccess)
-			//    {
-			//        LblUsuario.Text = usuarioResult.Value?.Nombre ?? "Usuario no encontrado";
-			//    }
-			//    else
-			//    {
-			//        LblUsuario.Text = "Error al cargar usuario";
-			//    }
-			//}
-			//catch (Exception ex)
-			//{
-			//    _logger.LogError(ex, "Error al cargar información adicional para remito {IdRemito}", remito.Id_Remito);
-			//    LblCliente.Text = "Error al cargar";
-			//    LblUsuario.Text = "Error al cargar";
-			//}
-		}
+		
 
 		private void LimpiarDetallesRemito()
 		{
@@ -592,7 +559,7 @@ namespace Agraria.UI.RemitoProduccion
 
 			Utilidades.Impresion.ImpresionTicket imp = new();
 			imp.ImprimiriTextSharp(
-				productos: _detallesRemito.Select(d => new Utilidades.Impresion.ProductoVenta
+				productos: [.. _detallesRemito.Select(d => new Utilidades.Impresion.ProductoVenta
 				{
 					Nombre = d.Descr,
 					Cantidad = d.Cant,
@@ -602,7 +569,7 @@ namespace Agraria.UI.RemitoProduccion
 					Descuento = 0, // Ajustar según sea necesario
 					Total = d.P_X_Cant, // Ajustar según sea necesario
 
-				}).ToList(),
+				})],
 
 				numeroOperacion: LblIdRemito.Text,
 				motivo: LblDescripcion.Text,

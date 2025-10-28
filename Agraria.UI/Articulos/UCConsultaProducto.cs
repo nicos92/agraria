@@ -393,8 +393,10 @@ namespace Agraria.UI.Articulos
             try
             {
                 // Aseguramos que la lista de proveedores esté disponible
-                var listaConTodos = new List<Modelo.Entidades.Proveedores>();
-                listaConTodos.Add(new Modelo.Entidades.Proveedores { Id_Proveedor = 0, Proveedor = "Todos" }); // Opción "Todos"
+                var listaConTodos = new List<Modelo.Entidades.Proveedores>
+				{
+					new() { Id_Proveedor = 0, Proveedor = "Todos" } // Opción "Todos"
+				};
                 listaConTodos.AddRange(_listaProveedores ?? []);
 
                 CmbFiltroProveedor.DataSource = listaConTodos;
@@ -759,12 +761,12 @@ namespace Agraria.UI.Articulos
                 // Ensure column headers are set up correctly
                 if (ListBArticulos.Columns["Cod_Producto"] != null)
                 {
-                    ListBArticulos.Columns["Cod_Producto"].HeaderText = "CÓDIGO";
+                    ListBArticulos.Columns["Cod_Producto"]!.HeaderText = "CÓDIGO";
                 }
 
                 if (ListBArticulos.Columns["Producto_Desc"] != null)
                 {
-                    ListBArticulos.Columns["Producto_Desc"].HeaderText = "DESCRIPCIÓN";
+                    ListBArticulos.Columns["Producto_Desc"]!.HeaderText = "DESCRIPCIÓN";
                 }
 
                 if (primeraFilaVisible >= 0 && primeraFilaVisible < ListBArticulos.Rows.Count)
@@ -830,7 +832,7 @@ namespace Agraria.UI.Articulos
                     // Filtrar por código
                     if (!string.IsNullOrEmpty(TxtFiltroCodigo.Text))
                     {
-                        if (producto.Cod_Producto == null || !producto.Cod_Producto.ToLower().Contains(TxtFiltroCodigo.Text.ToLower()))
+                        if (producto.Cod_Producto == null || !producto.Cod_Producto.Contains(TxtFiltroCodigo.Text, StringComparison.CurrentCultureIgnoreCase))
                         {
                             coincide = false;
                         }
@@ -839,7 +841,7 @@ namespace Agraria.UI.Articulos
                     // Filtrar por descripción
                     if (coincide && !string.IsNullOrEmpty(TxtFiltroDescripcion.Text))
                     {
-                        if (producto.Producto_Desc == null || !producto.Producto_Desc.ToLower().Contains(TxtFiltroDescripcion.Text.ToLower()))
+                        if (producto.Producto_Desc == null || !producto.Producto_Desc.Contains(TxtFiltroDescripcion.Text, StringComparison.CurrentCultureIgnoreCase))
                         {
                             coincide = false;
                         }
@@ -898,12 +900,12 @@ namespace Agraria.UI.Articulos
                 // Aseguramos que las columnas tengan los encabezados correctos
                 if (ListBArticulos.Columns["Cod_Producto"] != null)
                 {
-                    ListBArticulos.Columns["Cod_Producto"].HeaderText = "CÓDIGO";
+                    ListBArticulos.Columns["Cod_Producto"]!.HeaderText = "CÓDIGO";
                 }
 
                 if (ListBArticulos.Columns["Producto_Desc"] != null)
                 {
-                    ListBArticulos.Columns["Producto_Desc"].HeaderText = "DESCRIPCIÓN";
+                    ListBArticulos.Columns["Producto_Desc"]!.HeaderText = "DESCRIPCIÓN";
                 }
             }
             catch (Exception ex)

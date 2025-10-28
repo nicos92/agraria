@@ -335,7 +335,7 @@ namespace Agraria.UI.Acerca
 			linkLabel1.TabStop = true;
 			linkLabel1.Text = "Nicolás Salomón Sandoval";
 			linkLabel1.VisitedLinkColor = Color.White;
-			linkLabel1.LinkClicked += linkLabel1_LinkClicked;
+			linkLabel1.LinkClicked += LinkLabel1_LinkClicked;
 			// 
 			// label2
 			// 

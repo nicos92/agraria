@@ -287,14 +287,14 @@ namespace Agraria.UI.EntornoFormativo
             {
                 listaFiltrada = listaFiltrada.Where(ef =>
                     (ef.Usuario_Nombre + " " + ef.Usuario_Apellido).Contains(nombreEntornoFormativo) ||
-                    ef.Entorno_Nombre.Contains(nombreEntornoFormativo) ||
-                    ef.Curso_anio.Contains(nombreEntornoFormativo) ||
-                    ef.Curso_Division.Contains(nombreEntornoFormativo) ||
-                    ef.Curso_Grupo.Contains(nombreEntornoFormativo)
+                    ef.Entorno_Nombre!.Contains(nombreEntornoFormativo) ||
+                    ef.Curso_anio!.Contains(nombreEntornoFormativo) ||
+                    ef.Curso_Division!.Contains(nombreEntornoFormativo) ||
+                    ef.Curso_Grupo!.Contains(nombreEntornoFormativo)
                 );
             }
 
-            _listaEntornosFormativos = listaFiltrada.ToList();
+            _listaEntornosFormativos = [.. listaFiltrada];
             CargarDGVEntornosFormativos();
         }
 
@@ -310,7 +310,7 @@ namespace Agraria.UI.EntornoFormativo
             CMBFiltroEntornoFormativo.SelectedIndex = -1;
 
             // Restaurar la lista original en el DataGridView
-            _listaEntornosFormativos = _listaEntornosFormativosOriginal.ToList();
+            _listaEntornosFormativos = [.. _listaEntornosFormativosOriginal];
             CargarDGVEntornosFormativos();
         }
 
@@ -344,7 +344,7 @@ namespace Agraria.UI.EntornoFormativo
             if (resultado.IsSuccess)
             {
                 _listaEntornosFormativosOriginal = resultado.Value;
-                _listaEntornosFormativos = _listaEntornosFormativosOriginal.ToList();
+                _listaEntornosFormativos = [.. _listaEntornosFormativosOriginal];
                 _logger.LogInformation("Grilla cargada exitosamente. Total de registros: {Count}", _listaEntornosFormativos.Count);
             }
             else
