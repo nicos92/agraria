@@ -562,6 +562,7 @@ namespace Agraria.UI.Ventas
 			BtnImprimir.TabIndex = 17;
 			BtnImprimir.TextImageRelation = TextImageRelation.TextBeforeImage;
 			BtnImprimir.UseVisualStyleBackColor = false;
+			BtnImprimir.Click += BtnImprimir_Click;
 			// 
 			// label7
 			// 
