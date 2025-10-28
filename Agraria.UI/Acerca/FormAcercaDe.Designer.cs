@@ -48,6 +48,7 @@ namespace Agraria.UI.Acerca
 			label8 = new Label();
 			linkLabel2 = new LinkLabel();
 			linkLabel1 = new LinkLabel();
+			label2 = new Label();
 			tableLayoutPanel1.SuspendLayout();
 			groupBox1.SuspendLayout();
 			tableLayoutPanel2.SuspendLayout();
@@ -63,13 +64,15 @@ namespace Agraria.UI.Acerca
 			tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
 			tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
 			tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
-			tableLayoutPanel1.Controls.Add(groupBox1, 1, 1);
-			tableLayoutPanel1.Controls.Add(groupBox2, 2, 1);
+			tableLayoutPanel1.Controls.Add(groupBox1, 1, 2);
+			tableLayoutPanel1.Controls.Add(groupBox2, 2, 2);
+			tableLayoutPanel1.Controls.Add(label2, 1, 1);
 			tableLayoutPanel1.Dock = DockStyle.Fill;
 			tableLayoutPanel1.Location = new Point(0, 0);
 			tableLayoutPanel1.Name = "tableLayoutPanel1";
-			tableLayoutPanel1.RowCount = 3;
+			tableLayoutPanel1.RowCount = 4;
 			tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+			tableLayoutPanel1.RowStyles.Add(new RowStyle());
 			tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
 			tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
 			tableLayoutPanel1.Size = new Size(780, 457);
@@ -80,9 +83,9 @@ namespace Agraria.UI.Acerca
 			groupBox1.Controls.Add(tableLayoutPanel2);
 			groupBox1.Dock = DockStyle.Fill;
 			groupBox1.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-			groupBox1.Location = new Point(23, 23);
+			groupBox1.Location = new Point(23, 65);
 			groupBox1.Name = "groupBox1";
-			groupBox1.Size = new Size(364, 411);
+			groupBox1.Size = new Size(364, 369);
 			groupBox1.TabIndex = 2;
 			groupBox1.TabStop = false;
 			// 
@@ -111,7 +114,7 @@ namespace Agraria.UI.Acerca
 			tableLayoutPanel2.RowStyles.Add(new RowStyle());
 			tableLayoutPanel2.RowStyles.Add(new RowStyle());
 			tableLayoutPanel2.RowStyles.Add(new RowStyle());
-			tableLayoutPanel2.Size = new Size(358, 379);
+			tableLayoutPanel2.Size = new Size(358, 337);
 			tableLayoutPanel2.TabIndex = 0;
 			// 
 			// LblNombreProducto
@@ -186,9 +189,9 @@ namespace Agraria.UI.Acerca
 			// 
 			groupBox2.Controls.Add(tableLayoutPanel3);
 			groupBox2.Dock = DockStyle.Fill;
-			groupBox2.Location = new Point(393, 23);
+			groupBox2.Location = new Point(393, 65);
 			groupBox2.Name = "groupBox2";
-			groupBox2.Size = new Size(364, 411);
+			groupBox2.Size = new Size(364, 369);
 			groupBox2.TabIndex = 3;
 			groupBox2.TabStop = false;
 			// 
@@ -219,7 +222,7 @@ namespace Agraria.UI.Acerca
 			tableLayoutPanel3.RowStyles.Add(new RowStyle());
 			tableLayoutPanel3.RowStyles.Add(new RowStyle());
 			tableLayoutPanel3.RowStyles.Add(new RowStyle());
-			tableLayoutPanel3.Size = new Size(358, 383);
+			tableLayoutPanel3.Size = new Size(358, 341);
 			tableLayoutPanel3.TabIndex = 1;
 			// 
 			// linkLabel7
@@ -334,6 +337,18 @@ namespace Agraria.UI.Acerca
 			linkLabel1.VisitedLinkColor = Color.White;
 			linkLabel1.LinkClicked += linkLabel1_LinkClicked;
 			// 
+			// label2
+			// 
+			label2.AutoSize = true;
+			tableLayoutPanel1.SetColumnSpan(label2, 2);
+			label2.Dock = DockStyle.Fill;
+			label2.Location = new Point(23, 20);
+			label2.Name = "label2";
+			label2.Size = new Size(734, 42);
+			label2.TabIndex = 4;
+			label2.Text = "Este Software fue desarrollado por estudiantes de a carrera de 'analistas, desarroladores y programadores' de aplicaciones. Agradecemos su difución.";
+			label2.TextAlign = ContentAlignment.MiddleLeft;
+			// 
 			// FormAcercaDe
 			// 
 			AutoScaleDimensions = new SizeF(9F, 21F);
@@ -356,6 +371,7 @@ namespace Agraria.UI.Acerca
 			Text = "Acerca de ...";
 			Load += FormAcercaDe_Load;
 			tableLayoutPanel1.ResumeLayout(false);
+			tableLayoutPanel1.PerformLayout();
 			groupBox1.ResumeLayout(false);
 			tableLayoutPanel2.ResumeLayout(false);
 			tableLayoutPanel2.PerformLayout();
@@ -388,5 +404,6 @@ namespace Agraria.UI.Acerca
 		private LinkLabel linkLabel7;
 		private LinkLabel linkLabel6;
 		private LinkLabel linkLabel5;
+		private Label label2;
 	}
 }
