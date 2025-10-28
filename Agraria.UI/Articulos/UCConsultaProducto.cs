@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -618,7 +618,7 @@ namespace Agraria.UI.Articulos
 
             var fila = ListBArticulos.Rows[_indiceSeleccionado];
 
-            if (fila.DataBoundItem is Modelo.Entidades.Productos articulo)
+            if (fila.DataBoundItem is Productos articulo)
             {
                 _articuloSeleccionado = articulo;
                 string? codigoArticuloNullable = _articuloSeleccionado.Cod_Producto;
@@ -756,6 +756,17 @@ namespace Agraria.UI.Articulos
                 ListBArticulos.DataSource = null;
                 ListBArticulos.DataSource = _listaArticulos ?? [];
 
+                // Ensure column headers are set up correctly
+                if (ListBArticulos.Columns["Cod_Producto"] != null)
+                {
+                    ListBArticulos.Columns["Cod_Producto"].HeaderText = "CÓDIGO";
+                }
+
+                if (ListBArticulos.Columns["Producto_Desc"] != null)
+                {
+                    ListBArticulos.Columns["Producto_Desc"].HeaderText = "DESCRIPCIÓN";
+                }
+
                 if (primeraFilaVisible >= 0 && primeraFilaVisible < ListBArticulos.Rows.Count)
                 {
                     ListBArticulos.FirstDisplayedScrollingRowIndex = primeraFilaVisible;
@@ -881,14 +892,8 @@ namespace Agraria.UI.Articulos
                 ListBArticulos.SuspendLayout();
                 ListBArticulos.DataSource = null;
 
-                // Creamos una lista de objetos con solo las propiedades que queremos mostrar
-                var datosParaMostrar = listaFiltrada.Select(p => new
-                {
-                    Cod_Producto = p.Cod_Producto,
-                    Producto_Desc = p.Producto_Desc
-                }).ToList();
-
-                ListBArticulos.DataSource = datosParaMostrar;
+                // Bind directly to the original entities to preserve full object access
+                ListBArticulos.DataSource = listaFiltrada;
 
                 // Aseguramos que las columnas tengan los encabezados correctos
                 if (ListBArticulos.Columns["Cod_Producto"] != null)

@@ -246,7 +246,7 @@ namespace Agraria.UI.RemitoProduccion
             decimal precioTotal = precioUnitario * cantidad;
 
             // Buscar si el producto ya existe en el carrito
-            var productoExistente = SingleListas.Instance.ProductoResumen
+            var productoExistente = SingleListas.Instance.ArticulosResumen
                 .FirstOrDefault(p => p.Cod_Articulo == producto.Art_Cod);
 
             if (productoExistente != null)
@@ -266,7 +266,7 @@ namespace Agraria.UI.RemitoProduccion
                     Producto_Cantidad = cantidad,
                     Producto_PrecioxCantidad = precioTotal
                 };
-                SingleListas.Instance.ProductoResumen.Add(nuevoProducto);
+                SingleListas.Instance.ArticulosResumen.Add(nuevoProducto);
             }
         }
 
@@ -277,13 +277,13 @@ namespace Agraria.UI.RemitoProduccion
 
             //ListaProductos(SingleListas.Instance.ProductosSeleccionados);
 
-            var (cantidad, total) = CalcularTotales(SingleListas.Instance.ProductoResumen);
+            var (cantidad, total) = CalcularTotales(SingleListas.Instance.ArticulosResumen);
             LblCantProductos.Text = cantidad.ToString();
             LblPrecioTotal.Text = DecimalFormatter.ToCurrency(total);
 
             // Limpiar y recargar la lista de productos resumen
             _productosResumen.Clear();
-            foreach (var item in SingleListas.Instance.ProductoResumen)
+            foreach (var item in SingleListas.Instance.ArticulosResumen)
             {
                 _productosResumen.Add(item);
             }
@@ -467,7 +467,7 @@ namespace Agraria.UI.RemitoProduccion
 
         private async Task ConfirmarRemitoAsync()
         {
-            if (SingleListas.Instance.ProductoResumen.Count == 0)
+            if (SingleListas.Instance.ArticulosResumen.Count == 0)
             {
                 MostrarMensajeAdvertencia("No hay productos seleccionados para el remito.");
                 return;
@@ -531,7 +531,7 @@ namespace Agraria.UI.RemitoProduccion
 
         private void LimpiarFormulario()
         {
-            SingleListas.Instance.ProductoResumen.Clear();
+            SingleListas.Instance.ArticulosResumen.Clear();
             _productosResumen.Clear();
 
             LimpiarSeleccion();
@@ -569,12 +569,12 @@ namespace Agraria.UI.RemitoProduccion
                 return;
             }
 
-            var articuloQuitar = SingleListas.Instance.ProductoResumen
+            var articuloQuitar = SingleListas.Instance.ArticulosResumen
                 .FirstOrDefault(p => p.Cod_Articulo == articulo.Cod_Articulo);
 
             if (articuloQuitar != null)
             {
-                SingleListas.Instance.ProductoResumen.Remove(articuloQuitar);
+                SingleListas.Instance.ArticulosResumen.Remove(articuloQuitar);
                 CargarDataGridView();
 
             }
@@ -587,12 +587,12 @@ namespace Agraria.UI.RemitoProduccion
                 return;
             }
 
-            var articuloQuitar = SingleListas.Instance.ProductoResumen
+            var articuloQuitar = SingleListas.Instance.ArticulosResumen
                 .FirstOrDefault(p => p.Cod_Articulo == articulo.Cod_Articulo);
 
             if (articuloQuitar != null)
             {
-                SingleListas.Instance.ProductoResumen.RemoveAll(p => p.Cod_Articulo == articulo.Cod_Articulo);
+                SingleListas.Instance.ArticulosResumen.RemoveAll(p => p.Cod_Articulo == articulo.Cod_Articulo);
                 CargarDataGridView();
 
             }
@@ -699,7 +699,7 @@ namespace Agraria.UI.RemitoProduccion
 
         private void UCIngresoRemito_Disposed(object sender, EventArgs e)
         {
-            SingleListas.Instance.ProductoResumen.Clear();
+            SingleListas.Instance.ArticulosResumen.Clear();
         }
 
         private void TxtBuscardor_TextChanged(object sender, EventArgs e)
