@@ -234,5 +234,27 @@ namespace Agraria.Repositorio.Repositorios
                 return Result<ArticulosGral>.Failure($"Error al actualizar el artículo general: {ex.Message}");
             }
         }
-    }
+
+		public async Task<Result<bool>> UpdateStock(string id, decimal nuevoStock)
+		{
+			try
+			{
+				using var conn = Conexion();
+				using var cmd = new SqlCommand("UPDATE ArticulosGral SET Art_Stock = Art_Stock - @Art_Stock WHERE Art_Cod = @Art_Id", conn);
+				cmd.Parameters.AddWithValue("@Art_Stock", nuevoStock);
+				cmd.Parameters.AddWithValue("@Art_Id", id);
+				await conn.OpenAsync();
+				if (await cmd.ExecuteNonQueryAsync() > 0)
+				{
+					return Result<bool>.Success(true);
+				}
+				return Result<bool>.Failure("No se actualizó el stock del artículo general");
+			}
+			catch (SqlException ex)
+			{
+				return Result<bool>.Failure($"Error al actualizar el stock del artículo general: {ex.Message}");
+			}
+		}
+
+	}
 }

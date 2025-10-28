@@ -12,5 +12,6 @@ namespace Agraria.Contrato.Repositorios
         Task<Result<ArticulosGral>> Update(ArticulosGral articulo);
         Result<bool> Delete(int id);
         Task<Result<int>> GetMaxCodArt();
-    }
+		Task<Result<bool>> UpdateStock(string id, decimal cantidad);
+	}
 }

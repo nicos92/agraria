@@ -39,5 +39,10 @@ namespace Agraria.Servicio.Implementaciones
         {
             return await _repo.GetMaxCodArt();
         }
-    }
+
+		public async Task<Result<bool>> UpdateStock(string codigo, decimal cantidad)
+		{
+			return await _repo.UpdateStock(codigo, cantidad);
+		}
+	}
 }

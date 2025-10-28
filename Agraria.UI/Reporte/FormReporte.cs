@@ -175,7 +175,7 @@ namespace Agraria.UI.Reporte
 				dt.Columns.Add("Código");
 				dt.Columns.Add("Nombre");
 
-				dt.Columns.Add("Precio", typeof(decimal));
+				dt.Columns.Add("Costo", typeof(decimal));
 				dt.Columns.Add("Descripción");
 				dt.Columns.Add("Stock", typeof(int));
 				dt.Columns.Add("Id Proveedor", typeof(int));
@@ -696,7 +696,7 @@ namespace Agraria.UI.Reporte
 					Type t when t == typeof(Herramientas) =>
 						new HerramientasPrintStrategy(ImprimirHerramientas()),
 
-					Type t when t == typeof(Modelo.Entidades.ArticulosGral) =>
+					Type t when t == typeof(ArticulosGral) =>
 						new ArticulosGralPrintStrategy(ImprimirArticulosGral()),
 
 					_ => null
@@ -818,9 +818,9 @@ namespace Agraria.UI.Reporte
 					fila.Cells["Área"].Value?.ToString() ?? string.Empty,
 					fila.Cells["Entorno"].Value?.ToString() ?? string.Empty,
 					fila.Cells["Proveedor"].Value?.ToString() ?? string.Empty,
-					Convert.ToDecimal(fila.Cells["Ganancia"].Value),
 					Convert.ToDecimal(fila.Cells["Cantidad"].Value),
-					Convert.ToDecimal(fila.Cells["Costo"].Value)
+					Convert.ToDecimal(fila.Cells["Costo"].Value),
+					Convert.ToDecimal(fila.Cells["Ganancia"].Value)
 				))
 				];
 		}
@@ -888,7 +888,7 @@ namespace Agraria.UI.Reporte
 					Art_Cod = fila.Cells["Código"].Value?.ToString() ?? string.Empty,
 					Art_Nombre = fila.Cells["Nombre"].Value?.ToString() ?? string.Empty,
 					Art_Uni_Med = UnidadMedida.Kilogramo,
-					Art_Precio = Convert.ToDecimal(fila.Cells["Precio"].Value),
+					Art_Precio = Convert.ToDecimal(fila.Cells["Costo"].Value),
 					Art_Descripcion = fila.Cells["Descripción"].Value?.ToString() ?? string.Empty,
 					Art_Stock = Convert.ToDecimal(fila.Cells["Stock"].Value),
 					Id_Proveedor = Convert.ToInt32(fila.Cells["ID Proveedor"].Value)

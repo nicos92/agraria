@@ -1,4 +1,4 @@
-﻿using Agraria.Utilidades.Impresion;
+using Agraria.Utilidades.Impresion;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,9 +10,9 @@ namespace Agraria.UI.Reporte
 {
     public class ProductosStockPrintStrategy : IPrintStrategy
     {
-        private readonly List<Agraria.Modelo.Entidades.ProductoStockConNombres>? _productos;
+        private readonly List<Modelo.Entidades.ProductoStockConNombres>? _productos;
 
-        public ProductosStockPrintStrategy(List<Agraria.Modelo.Entidades.ProductoStockConNombres>? productos)
+        public ProductosStockPrintStrategy(List<Modelo.Entidades.ProductoStockConNombres>? productos)
         {
             _productos = productos;
         }

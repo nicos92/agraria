@@ -503,7 +503,13 @@ namespace Agraria.UI.RemitoProduccion
                         var detalleResult = await AgregarDetallesRemito(latestRemito.Id_Remito);
                         if (detalleResult.IsSuccess)
                         {
-                            MostrarMensajeExito("Remito de producción procesado correctamente.");
+							foreach (var item in SingleListas.Instance.ArticulosResumen)
+							{
+								await _articulosGralService.UpdateStock(item.Cod_Articulo!, item.Producto_Cantidad);
+							}
+							
+                            MostrarMensajeExito("Orden de producción procesado correctamente.");
+
                             LimpiarFormulario();
                         }
                         else
