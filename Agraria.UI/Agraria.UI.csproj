@@ -23,6 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Resources\granero.png" />
     <None Remove="Resources\vegetal.png" />
   </ItemGroup>
 

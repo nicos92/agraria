@@ -143,6 +143,16 @@ namespace Agraria.UI.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap e732primarycontainer {
+            get {
+                object obj = ResourceManager.GetObject("e732primarycontainer", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap EA_C_256_ {
             get {
                 object obj = ResourceManager.GetObject("EA C 256 ", resourceCulture);
@@ -196,6 +206,26 @@ namespace Agraria.UI.Properties {
         internal static System.Drawing.Bitmap file_pdf24x24 {
             get {
                 object obj = ResourceManager.GetObject("file-pdf24x24", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap granero {
+            get {
+                object obj = ResourceManager.GetObject("granero", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap granero1 {
+            get {
+                object obj = ResourceManager.GetObject("granero1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -375,9 +375,9 @@ namespace Agraria.UI
 			LblModulo.ForeColor = SystemColors.ButtonHighlight;
 			LblModulo.Location = new Point(3, 5);
 			LblModulo.Name = "LblModulo";
-			LblModulo.Size = new Size(68, 21);
+			LblModulo.Size = new Size(50, 21);
 			LblModulo.TabIndex = 5;
-			LblModulo.Text = "Modulo";
+			LblModulo.Text = "Inicio";
 			LblModulo.TextAlign = ContentAlignment.MiddleCenter;
 			// 
 			// label1
@@ -554,6 +554,7 @@ namespace Agraria.UI
 			Controls.Add(panel1);
 			Controls.Add(PanelMenu);
 			Controls.Add(menuStrip1);
+			DoubleBuffered = true;
 			Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
 			Icon = (Icon)resources.GetObject("$this.Icon");
 			IsMdiContainer = true;

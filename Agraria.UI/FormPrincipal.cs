@@ -18,6 +18,7 @@ using Agraria.UI.Acerca;
 using Agraria.Contrato.Repositorios;
 using Agraria.Contrato.Servicios;
 using Agraria.Servicio;
+using Agraria.Modelo.Enums;
 
 namespace Agraria.UI
 {
@@ -446,21 +447,76 @@ namespace Agraria.UI
 			Venta -> 4
 
 			 */
-			BtnActividad.Visible = ControlDeAccesos.PuedeVer([1, 2, 3]);
-			BtnEntornos.Visible = ControlDeAccesos.PuedeVer([1, 2]);
-			BtnProductos.Visible = ControlDeAccesos.PuedeVer([1, 2, 3]);
-			BtnVenta.Visible = ControlDeAccesos.PuedeVer([1, 2, 4]);
-			BtnReporte.Visible = ControlDeAccesos.PuedeVer([1, 2, 4]);
-			BtnInventario.Visible = ControlDeAccesos.PuedeVer([1, 2, 3, 4]);
-			BtnProduccion.Visible = ControlDeAccesos.PuedeVer([1, 2, 4]);
-			BtnHojaVida.Visible = ControlDeAccesos.PuedeVer([1, 2, 3]);
-			BtnPaniol.Visible = ControlDeAccesos.PuedeVer([1, 2, 3]);
-			BtnUsuarios.Visible = ControlDeAccesos.PuedeVer([1]);
-			BtnProveedores.Visible = ControlDeAccesos.PuedeVer([1, 2]);
+			BtnActividad.Visible = ControlDeAccesos.PuedeVer([
+				Roles.Director,
+				Roles.JefeDeArea,
+				Roles.Docente
+				]);
+
+			BtnEntornos.Visible = ControlDeAccesos.PuedeVer([
+				Roles.Director,
+				Roles.JefeDeArea
+				]);
+
+			BtnProductos.Visible = ControlDeAccesos.PuedeVer([
+				Roles.Director,
+				Roles.JefeDeArea,
+				Roles.Docente
+				]);
+
+			BtnVenta.Visible = ControlDeAccesos.PuedeVer([
+				Roles.Director,
+				Roles.JefeDeArea,
+				Roles.Cooperadora
+				]);
+
+			BtnReporte.Visible = ControlDeAccesos.PuedeVer([
+				Roles.Director,
+				Roles.JefeDeArea,
+				Roles.Docente,
+				Roles.Cooperadora
+				]);
+
+			BtnInventario.Visible = ControlDeAccesos.PuedeVer([
+				Roles.Director,
+				Roles.JefeDeArea,
+				Roles.Docente,
+				Roles.Cooperadora
+				]);
+
+			BtnProduccion.Visible = ControlDeAccesos.PuedeVer([
+				Roles.Director,
+				Roles.JefeDeArea,
+				Roles.Cooperadora
+				]);
+
+			BtnHojaVida.Visible = ControlDeAccesos.PuedeVer([
+				Roles.Director,
+				Roles.JefeDeArea,
+				Roles.Docente
+				]);
+
+			BtnPaniol.Visible = ControlDeAccesos.PuedeVer([
+				Roles.Director,
+				Roles.JefeDeArea,
+				Roles.Docente
+				]);
+
+			BtnUsuarios.Visible = ControlDeAccesos.PuedeVer([
+				Roles.Director
+				]);
+
+			BtnProveedores.Visible = ControlDeAccesos.PuedeVer([
+				Roles.Director,
+				Roles.JefeDeArea
+				]);
 		}
+
+
 
 		private void LblEscuelaAgraria_Click(object sender, EventArgs e)
 		{
+			LblModulo.Text = "Inicio";
 			ResetearEstiloBoton(_btnActivo);
 			SeleccionarForm(typeof(FormInicio));
 		}

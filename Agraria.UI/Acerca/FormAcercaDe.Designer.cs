@@ -230,10 +230,10 @@ namespace Agraria.UI.Acerca
 			linkLabel7.LinkColor = Color.White;
 			linkLabel7.Location = new Point(3, 188);
 			linkLabel7.Name = "linkLabel7";
-			linkLabel7.Size = new Size(82, 25);
+			linkLabel7.Size = new Size(113, 25);
 			linkLabel7.TabIndex = 11;
 			linkLabel7.TabStop = true;
-			linkLabel7.Text = "Lautaro ";
+			linkLabel7.Text = "Lautaro Fen";
 			linkLabel7.VisitedLinkColor = Color.White;
 			// 
 			// linkLabel6

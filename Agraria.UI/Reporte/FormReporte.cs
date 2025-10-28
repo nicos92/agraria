@@ -96,7 +96,76 @@ namespace Agraria.UI.Reporte
 
 
 		}
+		private void AplicarVistadeBotones()
+		{
 
+			// Configurar la visibilidad de los botones según los permisos del usuario
+			/*
+			 
+			Director -> 1
+
+			Jefe de Area -> 2
+
+			Docente -> 3
+
+			Venta -> 4
+
+			 */
+
+			btnHojaVida.Visible = ControlDeAccesos.PuedeVer([
+				Roles.Director,
+				Roles.JefeDeArea,
+				Roles.Docente
+				]);
+
+			BtnArticulosGral.Visible = ControlDeAccesos.PuedeVer([
+				Roles.Director,
+				Roles.JefeDeArea,
+				Roles.Docente,
+				Roles.Cooperadora
+				]);
+			btnProductos.Visible = ControlDeAccesos.PuedeVer([
+				Roles.Director,
+				Roles.JefeDeArea,
+				Roles.Docente,
+				Roles.Cooperadora
+				]);
+			btnMasVendidos.Visible = ControlDeAccesos.PuedeVer([
+				Roles.Director,
+				Roles.JefeDeArea,
+				Roles.Docente,
+				Roles.Cooperadora
+				]);
+			btnVentasGrandes.Visible = ControlDeAccesos.PuedeVer([
+				Roles.Director,
+				Roles.JefeDeArea,
+				Roles.Cooperadora
+				]);
+			btnActividades.Visible = ControlDeAccesos.PuedeVer([
+				Roles.Director,
+				Roles.JefeDeArea,
+				Roles.Docente
+				]);
+			btnUsuarios.Visible = ControlDeAccesos.PuedeVer([
+				Roles.Director
+				]);
+
+			btnProveedores.Visible = ControlDeAccesos.PuedeVer([
+				Roles.Director,
+				Roles.JefeDeArea,
+				Roles.Cooperadora
+				]);
+			btnHerramientas.Visible = ControlDeAccesos.PuedeVer([
+				Roles.Director,
+				Roles.JefeDeArea,
+				Roles.Docente
+				]);
+			btnEntornoFormativo.Visible = ControlDeAccesos.PuedeVer([
+				Roles.Director,
+				Roles.JefeDeArea,
+				Roles.Docente
+				]);
+		}
 		private async void BtnArticulosGral_Click_1(object sender, EventArgs e)
 		{
 			try
@@ -832,6 +901,7 @@ namespace Agraria.UI.Reporte
 		private void FormReporte_Load(object sender, EventArgs e)
 		{
 			ConfigBtnsTags();
+			AplicarVistadeBotones();
 
 		}
 

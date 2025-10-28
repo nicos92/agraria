@@ -5,23 +5,21 @@ using System.Text;
 using System.Threading.Tasks;
 using Agraria.Modelo;
 using Agraria.Modelo.Entidades;
+using Agraria.Modelo.Enums;
+using Org.BouncyCastle.Asn1.X509;
 
 namespace Agraria.Utilidades
 {
     public static class ControlDeAccesos
     {
-		/// <summary>
-		/// Determina si el rol actual tiene permiso para ver un control.
-		/// </summary>
-		/// <param name="minimoUsuario">El rol mínimo necesario para ver el control.</param>
-		/// <returns>True si el usuario actual puede ver el control.</returns>
-		public static bool PuedeVer(int[] minimoUsuario)
+		
+		public static bool PuedeVer(Roles[] tiposusuario)
 		{
-			// Obtiene el rol del usuario actual
+			// Obtiene el tipo de usuario actual
 			int tipoUsuario = SessionManager.Instance.Usuario.Id_Tipo;
 
 			
-			return minimoUsuario.Contains(tipoUsuario);
+			return tiposusuario.Any( t => (int) t == tipoUsuario);
 		}
 	}
 }
