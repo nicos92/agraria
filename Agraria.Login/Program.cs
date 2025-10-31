@@ -196,7 +196,10 @@ static class Program
 
         // Registrar servicios (ejemplo)
 
-        services.AddScoped<IProveedoresService, ProveedoresService>();
+		services.AddScoped<IRespaldoRepositorio, RespaldoRepositorio>();
+		services.AddScoped<IRespaldoService, RespaldoService>();
+
+		services.AddScoped<IProveedoresService, ProveedoresService>();
         services.AddScoped<IProveedoresRepository, ProveedoresRepository>();
 
         services.AddScoped<IUsuariosService, UsuariosService>();

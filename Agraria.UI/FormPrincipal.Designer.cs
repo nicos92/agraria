@@ -63,6 +63,7 @@ namespace Agraria.UI
 			sobreNosotrosToolStripMenuItem = new ToolStripMenuItem();
 			herramientasToolStripMenuItem = new ToolStripMenuItem();
 			fuenteToolStripMenuItem = new ToolStripMenuItem();
+			exportarDatosToolStripMenuItem = new ToolStripMenuItem();
 			PanelMenu.SuspendLayout();
 			PanelLblMenu.SuspendLayout();
 			panel1.SuspendLayout();
@@ -526,25 +527,32 @@ namespace Agraria.UI
 			// sobreNosotrosToolStripMenuItem
 			// 
 			sobreNosotrosToolStripMenuItem.Name = "sobreNosotrosToolStripMenuItem";
-			sobreNosotrosToolStripMenuItem.Size = new Size(138, 22);
+			sobreNosotrosToolStripMenuItem.Size = new Size(180, 22);
 			sobreNosotrosToolStripMenuItem.Text = "Acerca de ...";
 			sobreNosotrosToolStripMenuItem.Click += sobreNosotrosToolStripMenuItem_Click;
 			// 
 			// herramientasToolStripMenuItem
 			// 
-			herramientasToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { fuenteToolStripMenuItem });
+			herramientasToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { fuenteToolStripMenuItem, exportarDatosToolStripMenuItem });
+			herramientasToolStripMenuItem.ForeColor = SystemColors.ActiveCaption;
 			herramientasToolStripMenuItem.Name = "herramientasToolStripMenuItem";
 			herramientasToolStripMenuItem.Size = new Size(90, 20);
 			herramientasToolStripMenuItem.Text = "Herramientas";
-			herramientasToolStripMenuItem.Visible = false;
 			// 
 			// fuenteToolStripMenuItem
 			// 
 			fuenteToolStripMenuItem.Name = "fuenteToolStripMenuItem";
 			fuenteToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.F;
-			fuenteToolStripMenuItem.Size = new Size(150, 22);
+			fuenteToolStripMenuItem.Size = new Size(180, 22);
 			fuenteToolStripMenuItem.Text = "Fuente";
 			fuenteToolStripMenuItem.Click += fuenteToolStripMenuItem_Click;
+			// 
+			// exportarDatosToolStripMenuItem
+			// 
+			exportarDatosToolStripMenuItem.Name = "exportarDatosToolStripMenuItem";
+			exportarDatosToolStripMenuItem.Size = new Size(180, 22);
+			exportarDatosToolStripMenuItem.Text = "Exportar Datos";
+			exportarDatosToolStripMenuItem.Click += ExportarDatosToolStripMenuItem_Click;
 			// 
 			// FormPrincipal
 			// 
@@ -614,5 +622,6 @@ namespace Agraria.UI
 		private ToolStripMenuItem rehacerToolStripMenuItem;
 		private ToolStripMenuItem herramientasToolStripMenuItem;
 		private ToolStripMenuItem fuenteToolStripMenuItem;
+		private ToolStripMenuItem exportarDatosToolStripMenuItem;
 	}
 }

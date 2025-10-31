@@ -26,6 +26,7 @@ namespace Agraria.UI
 	{
 		private readonly ILogger<FormPrincipal> _logger;
 		private readonly IServiceProvider _serviceProvider;
+		private readonly IRespaldoService _respaldoService;
 
 		private Button _btnActivo;
 
@@ -34,7 +35,7 @@ namespace Agraria.UI
 		/// </summary>
 		/// <param name="serviceProvider">El proveedor de servicios para la inyección de dependencias.</param>
 		/// <param name="logger">El logger para registrar eventos.</param>
-		public FormPrincipal(IServiceProvider serviceProvider, ILogger<FormPrincipal> logger)
+		public FormPrincipal(IServiceProvider serviceProvider, ILogger<FormPrincipal> logger, IRespaldoService respaldoService)
 		{
 			_logger = logger;
 			_serviceProvider = serviceProvider;
@@ -42,6 +43,7 @@ namespace Agraria.UI
 			_btnActivo = BtnActividad;
 
 			_logger.LogInformation("FormPrincipal inicializado.");
+			_respaldoService = respaldoService;
 		}
 
 		/// <summary>
@@ -510,6 +512,9 @@ namespace Agraria.UI
 				Roles.Director,
 				Roles.JefeDeArea
 				]);
+
+			herramientasToolStripMenuItem.Visible = ControlDeAccesos.PuedeVer([Roles.Director
+				]);
 		}
 
 
@@ -519,6 +524,65 @@ namespace Agraria.UI
 			LblModulo.Text = "Inicio";
 			ResetearEstiloBoton(_btnActivo);
 			SeleccionarForm(typeof(FormInicio));
+		}
+
+		private async void ExportarDatosToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			try
+			{
+				using (SaveFileDialog saveDialog = new SaveFileDialog())
+				{
+					saveDialog.Filter = "Archivos de respaldo (*.bak)|*.bak";
+					saveDialog.DefaultExt = "bak";
+					saveDialog.FileName = $"Agraria_Backup_{DateTime.Now:yyyyMMdd_HHmmss}.bak";
+					saveDialog.Title = "Guardar respaldo de base de datos";
+					saveDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+
+					if (saveDialog.ShowDialog() == DialogResult.OK)
+					{
+
+						using (FormProgreso formProgreso = new FormProgreso())
+						{
+							formProgreso.Show();
+							formProgreso.Refresh();
+
+							var progress = new Progress<int>(porcentaje =>
+							{
+								formProgreso.ActualizarProgreso(porcentaje);
+							});
+
+							// Usar el método seguro que crea el respaldo y lo copia
+							string rutaFinal = await _respaldoService.CrearRespaldoSeguroAsync(
+								saveDialog.FileName,
+								progress
+							);
+
+							formProgreso.ActualizarProgreso(100);
+							await Task.Delay(500);
+
+							FileInfo info = new FileInfo(rutaFinal);
+							MessageBox.Show(
+								$"Respaldo creado exitosamente:\n\n" +
+								$"Ubicación: {rutaFinal}\n" +
+								$"Tamaño: {info.Length / 1024.0 / 1024.0:F2} MB\n" +
+								$"Fecha: {info.CreationTime}",
+								"Respaldo Exitoso",
+								MessageBoxButtons.OK,
+								MessageBoxIcon.Information
+							);
+						}
+					}
+				}
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show(
+					$"Error al crear el respaldo:\n\n{ex.Message}",
+					"Error",
+					MessageBoxButtons.OK,
+					MessageBoxIcon.Error
+				);
+			}
 		}
 	}
 }
