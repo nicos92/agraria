@@ -13,7 +13,8 @@ using Agraria.Contrato.Repositorios;
 using Agraria.Contrato.Servicios;
 using Agraria.Utilidades;
 using Agraria.Utilidades.Impresion;
-using Agraria.Modelo.Records; // Añadir esta referencia
+using Agraria.Modelo.Records;
+using Agraria.Utilidades.Exportacion; // Añadir esta referencia
 
 namespace Agraria.UI.Reporte
 {
@@ -248,6 +249,7 @@ namespace Agraria.UI.Reporte
 		private void BtnClickeado(object sender)
 		{
 			BtnImprimir.Enabled = true;
+			BtnCsv.Enabled = true;
 			LblTituloReporte.Text = "Reporte de " + ((Button)sender).Text;
 			_btnClickeado.BackColor = AppColorsBlue.Primary;
 			_btnClickeado.Font = new Font("Segoe UI", 12f, FontStyle.Regular);
@@ -505,7 +507,7 @@ namespace Agraria.UI.Reporte
 			}
 		}
 
-		
+
 
 		private async void BtnEntorno_Click(object sender, EventArgs e)
 		{
@@ -763,13 +765,13 @@ namespace Agraria.UI.Reporte
 				.Cast<DataGridViewRow>()
 				.Where(fila => !fila.IsNewRow)
 				.Select(fila => new UsuarioConTipo(
-					
+
 					fila.Cells["DNI"].Value?.ToString() ?? string.Empty,
 					fila.Cells["Nombre"].Value?.ToString() ?? string.Empty,
 					fila.Cells["Apellido"].Value?.ToString() ?? string.Empty,
 					fila.Cells["Teléfono"].Value?.ToString() ?? string.Empty,
 					fila.Cells["Email"].Value?.ToString() ?? string.Empty,
-					
+
 					fila.Cells["Tipo"].Value?.ToString() ?? string.Empty // Nombre_Tipo
 				))
 				];
@@ -917,7 +919,24 @@ namespace Agraria.UI.Reporte
 			}
 		}
 
-		
+		private void BtnCsv_EnabledChanged(object sender, EventArgs e)
+		{
+			if (BtnCsv.Enabled)
+			{
+				BtnCsv.BackColor = Color.Green;
+			}
+			else
+			{
+				BtnCsv.BackColor = AppColorsBlue.Secondary;
+			}
+		}
+
+		private void BtnCsv_Click(object sender, EventArgs e)
+		{
+			DataGridViewCsv.ExportarACSVConDialogo(dgvReporte, _btnClickeado.Text);
+		}
+
+
 
 		// Interfaces y implementaciones
 		public interface IPrintStrategy

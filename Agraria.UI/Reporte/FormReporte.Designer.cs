@@ -45,8 +45,9 @@ namespace Agraria.UI.Reporte
 			dgvReporte = new DataGridView();
 			panel1 = new Panel();
 			tableLayoutPanel1 = new TableLayoutPanel();
-			LblTituloReporte = new Label();
+			BtnCsv = new Button();
 			BtnImprimir = new Button();
+			LblTituloReporte = new Label();
 			panelMenu.SuspendLayout();
 			flowLayoutPanel1.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)dgvReporte).BeginInit();
@@ -281,13 +282,15 @@ namespace Agraria.UI.Reporte
 			// 
 			// tableLayoutPanel1
 			// 
-			tableLayoutPanel1.ColumnCount = 4;
+			tableLayoutPanel1.ColumnCount = 5;
 			tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 64F));
-			tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333321F));
-			tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333321F));
-			tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333321F));
-			tableLayoutPanel1.Controls.Add(LblTituloReporte, 1, 0);
+			tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 63F));
+			tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+			tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+			tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
+			tableLayoutPanel1.Controls.Add(BtnCsv, 1, 0);
 			tableLayoutPanel1.Controls.Add(BtnImprimir, 0, 0);
+			tableLayoutPanel1.Controls.Add(LblTituloReporte, 2, 0);
 			tableLayoutPanel1.Dock = DockStyle.Fill;
 			tableLayoutPanel1.Location = new Point(0, 0);
 			tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -296,18 +299,26 @@ namespace Agraria.UI.Reporte
 			tableLayoutPanel1.Size = new Size(597, 64);
 			tableLayoutPanel1.TabIndex = 11;
 			// 
-			// LblTituloReporte
+			// BtnCsv
 			// 
-			LblTituloReporte.Anchor = AnchorStyles.None;
-			LblTituloReporte.AutoSize = true;
-			tableLayoutPanel1.SetColumnSpan(LblTituloReporte, 2);
-			LblTituloReporte.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-			LblTituloReporte.ForeColor = Color.FromArgb(203, 230, 255);
-			LblTituloReporte.Location = new Point(143, 19);
-			LblTituloReporte.Name = "LblTituloReporte";
-			LblTituloReporte.Size = new Size(195, 25);
-			LblTituloReporte.TabIndex = 11;
-			LblTituloReporte.Text = "<- ELIJA EL REPORTE";
+			BtnCsv.Anchor = AnchorStyles.None;
+			BtnCsv.AutoSize = true;
+			BtnCsv.BackColor = Color.FromArgb(83, 96, 108);
+			BtnCsv.Cursor = Cursors.Hand;
+			BtnCsv.Enabled = false;
+			BtnCsv.FlatAppearance.BorderColor = Color.FromArgb(203, 230, 255);
+			BtnCsv.FlatStyle = FlatStyle.Flat;
+			BtnCsv.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+			BtnCsv.ForeColor = Color.White;
+			BtnCsv.Image = Properties.Resources.filecsv24x24;
+			BtnCsv.Location = new Point(67, 8);
+			BtnCsv.Name = "BtnCsv";
+			BtnCsv.Size = new Size(57, 48);
+			BtnCsv.TabIndex = 12;
+			BtnCsv.TextImageRelation = TextImageRelation.TextBeforeImage;
+			BtnCsv.UseVisualStyleBackColor = false;
+			BtnCsv.EnabledChanged += BtnCsv_EnabledChanged;
+			BtnCsv.Click += BtnCsv_Click;
 			// 
 			// BtnImprimir
 			// 
@@ -329,6 +340,19 @@ namespace Agraria.UI.Reporte
 			BtnImprimir.UseVisualStyleBackColor = false;
 			BtnImprimir.EnabledChanged += BtnImprimir_EnabledChanged;
 			BtnImprimir.Click += BtnImprimir_Click;
+			// 
+			// LblTituloReporte
+			// 
+			LblTituloReporte.Anchor = AnchorStyles.None;
+			LblTituloReporte.AutoSize = true;
+			tableLayoutPanel1.SetColumnSpan(LblTituloReporte, 2);
+			LblTituloReporte.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+			LblTituloReporte.ForeColor = Color.FromArgb(203, 230, 255);
+			LblTituloReporte.Location = new Point(254, 19);
+			LblTituloReporte.Name = "LblTituloReporte";
+			LblTituloReporte.Size = new Size(195, 25);
+			LblTituloReporte.TabIndex = 11;
+			LblTituloReporte.Text = "<- ELIJA EL REPORTE";
 			// 
 			// FormReporte
 			// 
@@ -372,5 +396,6 @@ namespace Agraria.UI.Reporte
         private Button BtnImprimir;
 		private Label LblTituloReporte;
 		private Button BtnArticulosGral;
+		private Button BtnCsv;
 	}
 }
