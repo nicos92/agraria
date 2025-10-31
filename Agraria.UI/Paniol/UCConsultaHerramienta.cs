@@ -73,6 +73,14 @@ namespace Agraria.UI.Paniol
                     _herramientasList = [.. _todosLasHerramientas];
                     ListBArticulos.DataSource = _herramientasList;
                     LimpiarCamposEdicion();
+                    
+                    // Automatically select the first row if there are items
+                    if (ListBArticulos.Rows.Count > 0)
+                    {
+                        ListBArticulos.ClearSelection();
+                        ListBArticulos.CurrentCell = ListBArticulos.Rows[0].Cells[0]; // Select first cell of first row
+                        ListBArticulos.Rows[0].Selected = true; // Select the first row
+                    }
                 }
                 else
                 {
@@ -282,6 +290,14 @@ namespace Agraria.UI.Paniol
 
             // Update the DataGridView with filtered results
             ListBArticulos.DataSource = herramientasFiltradas.ToList();
+            
+            // Automatically select the first row if there are items
+            if (ListBArticulos.Rows.Count > 0)
+            {
+                ListBArticulos.ClearSelection();
+                ListBArticulos.CurrentCell = ListBArticulos.Rows[0].Cells[0]; // Select first cell of first row
+                ListBArticulos.Rows[0].Selected = true; // Select the first row
+            }
         }
 
         /// <summary>
@@ -294,6 +310,14 @@ namespace Agraria.UI.Paniol
 
             // Show all herramientas after clearing filters
             ListBArticulos.DataSource = _todosLasHerramientas;
+            
+            // Automatically select the first row if there are items
+            if (ListBArticulos.Rows.Count > 0)
+            {
+                ListBArticulos.ClearSelection();
+                ListBArticulos.CurrentCell = ListBArticulos.Rows[0].Cells[0]; // Select first cell of first row
+                ListBArticulos.Rows[0].Selected = true; // Select the first row
+            }
         }
     }
 }
