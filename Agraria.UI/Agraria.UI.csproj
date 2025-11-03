@@ -24,6 +24,8 @@
 
   <ItemGroup>
     <None Remove="Resources\granero.png" />
+    <None Remove="Resources\isft 500x500 r203g230b255.png" />
+    <None Remove="Resources\svm 500 r203g230b255.png" />
     <None Remove="Resources\vegetal.png" />
   </ItemGroup>
 

@@ -153,6 +153,26 @@ namespace Agraria.UI.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap e732primarycontainer_v1 {
+            get {
+                object obj = ResourceManager.GetObject("e732primarycontainer v1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap e732primarycontainer_v2 {
+            get {
+                object obj = ResourceManager.GetObject("e732primarycontainer v2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap EA_C_256_ {
             get {
                 object obj = ResourceManager.GetObject("EA C 256 ", resourceCulture);
@@ -293,6 +313,16 @@ namespace Agraria.UI.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap isft_500x500_r203g230b255_v4 {
+            get {
+                object obj = ResourceManager.GetObject("isft 500x500 r203g230b255 v4", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap paniol32px {
             get {
                 object obj = ResourceManager.GetObject("paniol32px", resourceCulture);
@@ -336,6 +366,16 @@ namespace Agraria.UI.Properties {
         internal static System.Drawing.Bitmap remito32px {
             get {
                 object obj = ResourceManager.GetObject("remito32px", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap svm_500_r203g230b255_v3 {
+            get {
+                object obj = ResourceManager.GetObject("svm 500 r203g230b255 v3", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

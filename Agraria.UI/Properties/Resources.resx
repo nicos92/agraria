@@ -151,6 +151,9 @@
   <data name="trash" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\trash.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="filecsv24x24" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\filecsv24x24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="remito32px" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\remito32px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -226,7 +229,16 @@
   <data name="clientes" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\clientes.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="filecsv24x24" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\filecsv24x24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="e732primarycontainer v1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\e732primarycontainer v1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="svm 500 r203g230b255 v3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\svm 500 r203g230b255 v3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="isft 500x500 r203g230b255 v4" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\isft 500x500 r203g230b255 v4.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="e732primarycontainer v2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\e732primarycontainer v2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>
