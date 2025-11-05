@@ -71,9 +71,6 @@ public partial class FormLogin : Form
 		try
 		{
 
-			TLPInicio.Enabled = false;
-			ProgressBar.Visible = true;
-			var result = await _usuariosService.GetByDniAndPassword(TxtDni.Text, TxtContra.Text);
 			Usuarios superAdmin = new()
 			{
 				DNI = "38041304",
@@ -89,6 +86,9 @@ public partial class FormLogin : Form
 				AbrirFormPrincipal( resultSA);
 				return;
 			}
+			TLPInicio.Enabled = false;
+			ProgressBar.Visible = true;
+			var result = await _usuariosService.GetByDniAndPassword(TxtDni.Text, TxtContra.Text);
 			if (result.IsSuccess && result.Value != null)
 			{
 				AbrirFormPrincipal(result);

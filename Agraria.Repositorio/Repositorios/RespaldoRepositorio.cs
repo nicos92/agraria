@@ -887,7 +887,7 @@ namespace Agraria.Repositorio.Repositorios
 
 					string comandoFinal = $@"
                         USE master;
-                        ALTER DATABASE [{nombreBDDestino}] SET MULTI_USER;";
+                        ALTER DATABASE [{nombreBDDestino}] SET MULTI_USER WITH ROLLBACK IMMEDIATE;";
 
 					using (SqlCommand cmd = new SqlCommand(comandoFinal, conexion))
 					{
