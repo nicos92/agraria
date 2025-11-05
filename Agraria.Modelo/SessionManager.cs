@@ -13,7 +13,7 @@ namespace Agraria.Modelo
         private SessionManager() 
         {
             Usuario = new Usuarios();
-            InicioSesion = false;
+			InicioSesion = false;
         }
 
         public static SessionManager Instance

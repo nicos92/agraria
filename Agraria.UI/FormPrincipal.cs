@@ -211,7 +211,7 @@ namespace Agraria.UI
 			try
 			{
 				LblUsuario.Text = SessionManager.Instance.Usuario.Apellido + ", " + SessionManager.Instance.Usuario.Nombre;
-				LblTipoUsuario.Text = SessionManager.Instance.Usuario.Descripcion;
+				LblTipoUsuario.Text = SessionManager.Instance.Usuario.Descripcion ?? "Super Admin";
 				_logger.LogInformation("Información de usuario configurada exitosamente para: {Apellido}, {Nombre}",
 					SessionManager.Instance.Usuario.Apellido, SessionManager.Instance.Usuario.Nombre);
 			}
@@ -448,8 +448,11 @@ namespace Agraria.UI
 
 			Venta -> 4
 
+			SuperAdmin -> 5
+
 			 */
 			BtnActividad.Visible = ControlDeAccesos.PuedeVer([
+
 				Roles.Director,
 				Roles.JefeDeArea,
 				Roles.Docente
@@ -513,7 +516,12 @@ namespace Agraria.UI
 				Roles.JefeDeArea
 				]);
 
-			herramientasToolStripMenuItem.Visible = ControlDeAccesos.PuedeVer([Roles.Director
+			herramientasToolStripMenuItem.Visible = ControlDeAccesos.PuedeVer([Roles.Director,
+				Roles.SuperAdmin
+				]);
+
+			restaurarDatosToolStripMenuItem.Visible = ControlDeAccesos.PuedeVer([
+				Roles.SuperAdmin
 				]);
 		}
 
@@ -625,6 +633,85 @@ namespace Agraria.UI
 			}
 		}
 
-	
+		private async void restaurarDatosToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			DialogResult confirmacion = MessageBox.Show(
+			   "¿Está ABSOLUTAMENTE SEGURO que desea restaurar?\n\n" +
+			   "Todos los datos actuales serán reemplazados.",
+			   "Confirmación Final",
+			   MessageBoxButtons.YesNo,
+			   MessageBoxIcon.Warning,
+			   MessageBoxDefaultButton.Button2
+		   );
+
+			if (confirmacion != DialogResult.Yes)
+				return;
+			try
+			{
+				using (OpenFileDialog openDialog = new OpenFileDialog())
+				{
+					openDialog.Filter = "Archivos de respaldo (*.bak)|*.bak";
+					openDialog.Title = "Seleccionar archivo de respaldo";
+					openDialog.InitialDirectory = @"C:\Program Files\Microsoft SQL Server\MSSQL*.MSSQLSERVER\MSSQL\Backup";
+
+					if (openDialog.ShowDialog() == DialogResult.OK)
+					{
+						// Preguntar el nombre de la base de datos (opcional)
+						string nombreBD = Microsoft.VisualBasic.Interaction.InputBox(
+							"Nombre de la base de datos:\n(Dejar en blanco para usar el nombre del respaldo)",
+							"Nombre de Base de Datos",
+							"Agraria"
+						);
+
+
+						// Mostrar información de archivos del respaldo
+						var archivos = _respaldoService.ObtenerArchivosRespaldo(openDialog.FileName);
+						string infoArchivos = "Archivos en el respaldo:\n\n";
+						foreach (var archivo in archivos)
+						{
+							infoArchivos += $"• {archivo.NombreLogico} ({archivo.TipoArchivo})\n";
+						}
+
+						MessageBox.Show(infoArchivos, "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+						using (FormProgreso formProgreso = new FormProgreso())
+						{
+							formProgreso.Text = "Restaurando...";
+							formProgreso.EstablecerProgresoIndeterminado();
+							formProgreso.Show();
+							formProgreso.Refresh();
+
+							var progress = new Progress<string>(msg =>
+							{
+								formProgreso.ActualizarMensaje(msg);
+							});
+
+							// Usar el nuevo método que crea la BD si no existe
+							bool exitoso = await _respaldoService.RestaurarOCrearBaseDatosAsync(
+								openDialog.FileName,
+								string.IsNullOrWhiteSpace(nombreBD) ? null : nombreBD,
+								progress
+							);
+
+							if (exitoso)
+							{
+								MessageBox.Show(
+									"Base de datos restaurada/creada exitosamente.\n" +
+									"La aplicación se cerrará.",
+									"Éxito",
+									MessageBoxButtons.OK,
+									MessageBoxIcon.Information
+								);
+								Application.Exit();
+							}
+						}
+					}
+				}
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show($"Error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			}
+		}
 	}
 }

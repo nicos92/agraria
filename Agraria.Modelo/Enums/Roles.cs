@@ -11,6 +11,7 @@ namespace Agraria.Modelo.Enums
 		Director = 1,
 		JefeDeArea = 2,
 		Docente = 3,
-		Cooperadora = 4
+		Cooperadora = 4,
+		SuperAdmin = 5
 	}
 }

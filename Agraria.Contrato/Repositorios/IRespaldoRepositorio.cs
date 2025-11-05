@@ -14,5 +14,10 @@ namespace Agraria.Contrato.Repositorios
 		bool RestaurarRespaldo(string rutaRespaldo, bool forzarReemplazo = false);
 		bool VerificarRespaldo(string rutaRespaldo);
 		Task<string> CrearRespaldoSeguroAsync(string rutaDestino = null, IProgress<int> progress = null);
+
+		string ObtenerInfoRespaldo(string rutaRespaldo);
+		Task<bool> RestaurarRespaldoAsync(string rutaRespaldo, bool forzarReemplazo = false, IProgress<string> progress = null);
+		Task<bool> RestaurarOCrearBaseDatosAsync(string rutaRespaldo, string nombreBaseDatos = null, IProgress<string> progress = null);
+		List<(string NombreLogico, string TipoArchivo, string NombreFisico)> ObtenerArchivosRespaldo(string rutaRespaldo);
 	}
 }

@@ -44,5 +44,10 @@ namespace Agraria.Repositorio
             return new SqlConnection(cadenaConexion);
         }
 
+		protected static SqlConnection ConexionRestaurarDB()
+		{
+			return new SqlConnection("Server=NicoS92T440;Database=master;Trusted_Connection=True;TrustServerCertificate=True;");
+		}
+
     }
 }

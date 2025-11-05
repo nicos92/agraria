@@ -30,9 +30,29 @@ namespace Agraria.Servicio.Implementaciones
 			return _respaldoRepositorio.GenerarNombreRespaldo(rutaCarpeta, prefijo);
 		}
 
+		public List<(string NombreLogico, string TipoArchivo, string NombreFisico)> ObtenerArchivosRespaldo(string rutaRespaldo)
+		{
+			return _respaldoRepositorio.ObtenerArchivosRespaldo(rutaRespaldo);
+		}
+
+		public string ObtenerInfoRespaldo(string rutaRespaldo)
+		{
+			return _respaldoRepositorio.ObtenerInfoRespaldo(rutaRespaldo);
+		}
+
+		public async Task<bool> RestaurarOCrearBaseDatosAsync(string rutaRespaldo, string nombreBaseDatos = null, IProgress<string> progress = null)
+		{
+			return await _respaldoRepositorio.RestaurarOCrearBaseDatosAsync(rutaRespaldo, nombreBaseDatos, progress);
+		}
+
 		public bool RestaurarRespaldo(string rutaRespaldo, bool forzarReemplazo = false)
 		{
 			return _respaldoRepositorio.RestaurarRespaldo(rutaRespaldo, forzarReemplazo);
+		}
+
+		public async Task<bool> RestaurarRespaldoAsync(string rutaRespaldo, bool forzarReemplazo = false, IProgress<string> progress = null)
+		{
+			return await _respaldoRepositorio.RestaurarRespaldoAsync(rutaRespaldo, forzarReemplazo, progress);
 		}
 
 		public bool VerificarRespaldo(string rutaRespaldo)

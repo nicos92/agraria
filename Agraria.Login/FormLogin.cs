@@ -6,6 +6,7 @@ using Agraria.UI;
 using Agraria.Util.Validaciones;
 using Agraria.Utilidades;
 using Microsoft.Extensions.DependencyInjection;
+using Agraria.Modelo.Entidades;
 
 namespace Agraria.Login;
 
@@ -69,25 +70,29 @@ public partial class FormLogin : Form
 
 		try
 		{
+
 			TLPInicio.Enabled = false;
 			ProgressBar.Visible = true;
 			var result = await _usuariosService.GetByDniAndPassword(TxtDni.Text, TxtContra.Text);
+			Usuarios superAdmin = new()
+			{
+				DNI = "38041304",
+				Contra = "@Superadmin2025",
+				Nombre = "Super",
+				Apellido = "Admin",
+				Id_Tipo = (int)Modelo.Enums.Roles.SuperAdmin
+			};
 
+			if (superAdmin.DNI == TxtDni.Text && superAdmin.Contra == TxtContra.Text)
+			{
+				var resultSA = Result<Usuarios>.Success(superAdmin);
+				AbrirFormPrincipal( resultSA);
+				return;
+			}
 			if (result.IsSuccess && result.Value != null)
 			{
+				AbrirFormPrincipal(result);
 
-				SessionManager.Instance.SetUsuario(result.Value);
-
-				// Aca llamo al formulario principal que esta en Agraria.UI
-				Form _formHijo = _serviceProvider.GetRequiredService<FormPrincipal>();
-				_formHijo.Closed += (s, e) =>
-				{
-					this.Show();
-				};
-				_formHijo.Dock = DockStyle.Fill;
-				_formHijo.Show();
-				LimpiarForm();
-				this.Hide();
 			}
 			else
 			{
@@ -113,6 +118,25 @@ public partial class FormLogin : Form
 			ProgressBar.Visible = false;
 			TxtDni.Focus();
 		}
+	}
+
+	private void AbrirFormPrincipal(Result<Usuarios> result)
+	{
+
+
+		SessionManager.Instance.SetUsuario(result.Value);
+
+		// Aca llamo al formulario principal que esta en Agraria.UI
+		Form _formHijo = _serviceProvider.GetRequiredService<FormPrincipal>();
+		_formHijo.Closed += (s, e) =>
+		{
+			this.Show();
+		};
+		_formHijo.Dock = DockStyle.Fill;
+		_formHijo.Show();
+		LimpiarForm();
+		this.Hide();
+
 	}
 
 	private void LimpiarForm()

@@ -503,6 +503,138 @@ namespace Agraria.Repositorio.Repositorios
 		}
 
 		/// <summary>
+		/// Restaura una base de datos desde un archivo de respaldo de forma asíncrona
+		/// PRECAUCIÓN: Esta operación sobrescribirá la base de datos actual
+		/// </summary>
+		/// <param name="rutaRespaldo">Ruta del archivo .bak a restaurar</param>
+		/// <param name="forzarReemplazo">Si es true, reemplaza la BD existente</param>
+		/// <param name="progress">Reporte de progreso (opcional)</param>
+		/// <returns>true si la restauración fue exitosa</returns>
+		public async Task<bool> RestaurarRespaldoAsync(string rutaRespaldo, bool forzarReemplazo = false, IProgress<string> progress = null)
+		{
+			return await Task.Run(() =>
+			{
+				SqlConnection conexion = null;
+				try
+				{
+					System.Diagnostics.Debug.WriteLine("=== INICIANDO RESTAURACIÓN ===");
+					progress?.Report("Verificando archivo de respaldo...");
+
+					if (!File.Exists(rutaRespaldo))
+					{
+						throw new FileNotFoundException("El archivo de respaldo no existe", rutaRespaldo);
+					}
+
+					System.Diagnostics.Debug.WriteLine($"Archivo de respaldo: {rutaRespaldo}");
+
+					conexion = Conexion();
+					conexion.Open();
+
+					string nombreBD = conexion.Database;
+					System.Diagnostics.Debug.WriteLine($"Base de datos a restaurar: {nombreBD}");
+
+					// Paso 1: Cerrar todas las conexiones activas
+					progress?.Report("Cerrando conexiones activas...");
+					System.Diagnostics.Debug.WriteLine("Paso 1: Cerrando conexiones");
+
+					string comandoCerrarConexiones = $@"
+                        ALTER DATABASE [{nombreBD}] SET SINGLE_USER WITH ROLLBACK IMMEDIATE;";
+
+					using (SqlCommand cmd = new SqlCommand(comandoCerrarConexiones, conexion))
+					{
+						cmd.ExecuteNonQuery();
+					}
+					System.Diagnostics.Debug.WriteLine("Conexiones cerradas");
+
+					// Paso 2: Restaurar la base de datos
+					progress?.Report("Restaurando base de datos...");
+					System.Diagnostics.Debug.WriteLine("Paso 2: Restaurando");
+
+					string comandoRestaurar = $@"
+                        RESTORE DATABASE [{nombreBD}] 
+                        FROM DISK = @RutaRespaldo 
+                        WITH {(forzarReemplazo ? "REPLACE," : "")} 
+                             STATS = 10;";
+
+					try
+					{
+						using (SqlCommand cmd = new SqlCommand(comandoRestaurar, conexion))
+						{
+							cmd.CommandTimeout = 600;
+							cmd.Parameters.AddWithValue("@RutaRespaldo", rutaRespaldo);
+
+							// Capturar mensajes de progreso
+							conexion.InfoMessage += (sender, e) =>
+							{
+								System.Diagnostics.Debug.WriteLine($"SQL Info: {e.Message}");
+								progress?.Report($"Restaurando... {e.Message}");
+							};
+							conexion.FireInfoMessageEventOnUserErrors = true;
+
+							cmd.ExecuteNonQuery();
+						}
+						System.Diagnostics.Debug.WriteLine("Restauración completada");
+
+						// Paso 3: Volver a modo multi-usuario
+						progress?.Report("Finalizando restauración...");
+						System.Diagnostics.Debug.WriteLine("Paso 3: Modo multi-usuario");
+
+						string comandoFinal = $@"
+                            ALTER DATABASE [{nombreBD}] SET MULTI_USER;";
+
+						using (SqlCommand cmd = new SqlCommand(comandoFinal, conexion))
+						{
+							cmd.ExecuteNonQuery();
+						}
+
+						System.Diagnostics.Debug.WriteLine("=== RESTAURACIÓN EXITOSA ===");
+						progress?.Report("Restauración completada exitosamente");
+						return true;
+					}
+					catch (Exception ex)
+					{
+						// Intentar volver a modo multi-usuario en caso de error
+						System.Diagnostics.Debug.WriteLine($"Error durante restauración: {ex.Message}");
+						progress?.Report("Error: Intentando recuperar...");
+
+						try
+						{
+							string comandoRecuperar = $@"
+                                ALTER DATABASE [{nombreBD}] SET MULTI_USER;";
+
+							using (SqlCommand cmd = new SqlCommand(comandoRecuperar, conexion))
+							{
+								cmd.ExecuteNonQuery();
+							}
+							System.Diagnostics.Debug.WriteLine("Base de datos vuelta a modo multi-usuario");
+						}
+						catch (Exception recEx)
+						{
+							System.Diagnostics.Debug.WriteLine($"Error al recuperar: {recEx.Message}");
+						}
+
+						throw;
+					}
+				}
+				catch (Exception ex)
+				{
+					System.Diagnostics.Debug.WriteLine($"=== ERROR EN RESTAURACIÓN ===");
+					System.Diagnostics.Debug.WriteLine($"Tipo: {ex.GetType().Name}");
+					System.Diagnostics.Debug.WriteLine($"Mensaje: {ex.Message}");
+					throw new Exception($"Error al restaurar el respaldo: {ex.Message}", ex);
+				}
+				finally
+				{
+					if (conexion != null && conexion.State == System.Data.ConnectionState.Open)
+					{
+						conexion.Close();
+						System.Diagnostics.Debug.WriteLine("Conexión cerrada");
+					}
+				}
+			});
+		}
+
+		/// <summary>
 		/// Verifica si un archivo de respaldo es válido
 		/// </summary>
 		/// <param name="rutaRespaldo">Ruta del archivo .bak a verificar</param>
@@ -594,5 +726,246 @@ namespace Agraria.Repositorio.Repositorios
 		{
 			throw new NotImplementedException();
 		}
+
+
+		/// <summary>
+		/// Restaura una base de datos desde un archivo de respaldo, creándola si no existe
+		/// PRECAUCIÓN: Esta operación sobrescribirá la base de datos actual si existe
+		/// </summary>
+		/// <param name="rutaRespaldo">Ruta del archivo .bak a restaurar</param>
+		/// <param name="nombreBaseDatos">Nombre de la base de datos (opcional, si no se especifica usa el nombre del respaldo)</param>
+		/// <param name="progress">Reporte de progreso (opcional)</param>
+		/// <returns>true si la restauración fue exitosa</returns>
+		public async Task<bool> RestaurarOCrearBaseDatosAsync(string rutaRespaldo, string nombreBaseDatos = "Agraria", IProgress<string> progress = null)
+		{
+			return await Task.Run(() =>
+			{
+				SqlConnection conexion = null;
+				try
+				{
+					System.Diagnostics.Debug.WriteLine("=== INICIANDO RESTAURACIÓN/CREACIÓN ===");
+					progress?.Report("Verificando archivo de respaldo...");
+
+					if (!File.Exists(rutaRespaldo))
+					{
+						throw new FileNotFoundException("El archivo de respaldo no existe", rutaRespaldo);
+					}
+
+					// Conectarse a master
+					SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder(ConexionRestaurarDB().ConnectionString);
+					string nombreBDDestino = nombreBaseDatos ?? builder.InitialCatalog;
+					builder.InitialCatalog = "master";
+
+					System.Diagnostics.Debug.WriteLine($"Archivo de respaldo: {rutaRespaldo}");
+					System.Diagnostics.Debug.WriteLine($"Base de datos destino: {nombreBDDestino}");
+
+					conexion = new SqlConnection(builder.ConnectionString);
+					conexion.Open();
+
+					// Verificar si la base de datos existe
+					bool existeBD = false;
+					using (SqlCommand cmdVerificar = new SqlCommand(
+						$"SELECT COUNT(*) FROM sys.databases WHERE name = '{nombreBDDestino}'",
+						conexion))
+					{
+						existeBD = (int)cmdVerificar.ExecuteScalar() > 0;
+					}
+
+					System.Diagnostics.Debug.WriteLine($"Base de datos existe: {existeBD}");
+
+					if (existeBD)
+					{
+						// Si existe, cerrar conexiones
+						progress?.Report("Base de datos existente. Cerrando conexiones...");
+						System.Diagnostics.Debug.WriteLine("Cerrando conexiones activas");
+
+						string comandoCerrar = $@"
+                            USE master;
+                            ALTER DATABASE [{nombreBDDestino}] SET SINGLE_USER WITH ROLLBACK IMMEDIATE;";
+
+						using (SqlCommand cmd = new SqlCommand(comandoCerrar, conexion))
+						{
+							cmd.ExecuteNonQuery();
+						}
+					}
+					else
+					{
+						progress?.Report("Base de datos no existe. Se creará desde el respaldo...");
+						System.Diagnostics.Debug.WriteLine("La base de datos no existe, se creará");
+					}
+
+					// Obtener los nombres lógicos de los archivos del respaldo
+					progress?.Report("Analizando estructura del respaldo...");
+					System.Diagnostics.Debug.WriteLine("Obteniendo información de archivos del respaldo");
+
+					string archivoLogico = "";
+					string archivoLogicoLog = "";
+
+					string comandoFileList = "RESTORE FILELISTONLY FROM DISK = @RutaRespaldo";
+					using (SqlCommand cmd = new SqlCommand(comandoFileList, conexion))
+					{
+						cmd.Parameters.AddWithValue("@RutaRespaldo", rutaRespaldo);
+						using (SqlDataReader reader = cmd.ExecuteReader())
+						{
+							while (reader.Read())
+							{
+								string logicalName = reader["LogicalName"].ToString();
+								string type = reader["Type"].ToString();
+
+								if (type == "D") // Data file
+								{
+									archivoLogico = logicalName;
+									System.Diagnostics.Debug.WriteLine($"Archivo de datos: {logicalName}");
+								}
+								else if (type == "L") // Log file
+								{
+									archivoLogicoLog = logicalName;
+									System.Diagnostics.Debug.WriteLine($"Archivo de log: {logicalName}");
+								}
+							}
+						}
+					}
+
+					// Obtener rutas predeterminadas de SQL Server
+					string rutaDatos = "";
+					string rutaLog = "";
+
+					using (SqlCommand cmd = new SqlCommand(
+						"SELECT SERVERPROPERTY('InstanceDefaultDataPath') AS DataPath, " +
+						"SERVERPROPERTY('InstanceDefaultLogPath') AS LogPath",
+						conexion))
+					{
+						using (SqlDataReader reader = cmd.ExecuteReader())
+						{
+							if (reader.Read())
+							{
+								rutaDatos = reader["DataPath"].ToString();
+								rutaLog = reader["LogPath"].ToString();
+							}
+						}
+					}
+
+					System.Diagnostics.Debug.WriteLine($"Ruta datos: {rutaDatos}");
+					System.Diagnostics.Debug.WriteLine($"Ruta log: {rutaLog}");
+
+					// Restaurar con MOVE para especificar nuevas ubicaciones
+					progress?.Report("Restaurando base de datos...");
+					System.Diagnostics.Debug.WriteLine("Ejecutando RESTORE DATABASE con MOVE");
+
+					string comandoRestaurar = $@"
+                        USE master;
+                        RESTORE DATABASE [{nombreBDDestino}] 
+                        FROM DISK = @RutaRespaldo 
+                        WITH REPLACE,
+                             MOVE '{archivoLogico}' TO '{Path.Combine(rutaDatos, nombreBDDestino + ".mdf")}',
+                             MOVE '{archivoLogicoLog}' TO '{Path.Combine(rutaLog, nombreBDDestino + "_log.ldf")}',
+                             STATS = 10;";
+
+					using (SqlCommand cmd = new SqlCommand(comandoRestaurar, conexion))
+					{
+						cmd.CommandTimeout = 600;
+						cmd.Parameters.AddWithValue("@RutaRespaldo", rutaRespaldo);
+
+						conexion.InfoMessage += (sender, e) =>
+						{
+							System.Diagnostics.Debug.WriteLine($"SQL Info: {e.Message}");
+							if (e.Message.Contains("percent processed") ||
+								e.Message.Contains("Processed") ||
+								e.Message.Contains("successfully"))
+							{
+								progress?.Report($"Restaurando... {e.Message}");
+							}
+						};
+						conexion.FireInfoMessageEventOnUserErrors = true;
+
+						cmd.ExecuteNonQuery();
+					}
+
+					// Establecer modo MULTI_USER
+					progress?.Report("Finalizando...");
+					System.Diagnostics.Debug.WriteLine("Estableciendo modo MULTI_USER");
+
+					string comandoFinal = $@"
+                        USE master;
+                        ALTER DATABASE [{nombreBDDestino}] SET MULTI_USER;";
+
+					using (SqlCommand cmd = new SqlCommand(comandoFinal, conexion))
+					{
+						cmd.ExecuteNonQuery();
+					}
+
+					System.Diagnostics.Debug.WriteLine("=== RESTAURACIÓN EXITOSA ===");
+					progress?.Report("Restauración completada exitosamente");
+					return true;
+				}
+				catch (Exception ex)
+				{
+					System.Diagnostics.Debug.WriteLine($"=== ERROR ===");
+					System.Diagnostics.Debug.WriteLine($"Mensaje: {ex.Message}");
+					throw new Exception($"Error al restaurar/crear base de datos: {ex.Message}", ex);
+				}
+				finally
+				{
+					if (conexion != null && conexion.State == System.Data.ConnectionState.Open)
+					{
+						conexion.Close();
+					}
+				}
+			});
+		}
+
+
+		/// <summary>
+		/// Obtiene información sobre los archivos contenidos en un respaldo
+		/// </summary>
+		/// <param name="rutaRespaldo">Ruta del archivo .bak</param>
+		/// <returns>Lista de archivos lógicos en el respaldo</returns>
+		public List<(string NombreLogico, string TipoArchivo, string NombreFisico)> ObtenerArchivosRespaldo(string rutaRespaldo)
+		{
+			List<(string, string, string)> archivos = new List<(string, string, string)>();
+
+			try
+			{
+				SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder(Conexion().ConnectionString);
+				builder.InitialCatalog = "master";
+
+				using (SqlConnection conexion = new SqlConnection(builder.ConnectionString))
+				{
+					conexion.Open();
+
+					string comando = "RESTORE FILELISTONLY FROM DISK = @RutaRespaldo";
+					using (SqlCommand cmd = new SqlCommand(comando, conexion))
+					{
+						cmd.Parameters.AddWithValue("@RutaRespaldo", rutaRespaldo);
+
+						using (SqlDataReader reader = cmd.ExecuteReader())
+						{
+							while (reader.Read())
+							{
+								string logicalName = reader["LogicalName"].ToString();
+								string type = reader["Type"].ToString();
+								string physicalName = reader["PhysicalName"].ToString();
+
+								string tipoTexto = type == "D" ? "Datos" :
+												  type == "L" ? "Log" :
+												  "Otro";
+
+								archivos.Add((logicalName, tipoTexto, physicalName));
+							}
+						}
+					}
+				}
+			}
+			catch (Exception ex)
+			{
+				System.Diagnostics.Debug.WriteLine($"Error al obtener archivos del respaldo: {ex.Message}");
+			}
+
+			return archivos;
+		}
+       
+
+
+
 	}
 }

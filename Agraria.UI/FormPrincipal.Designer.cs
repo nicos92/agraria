@@ -61,10 +61,11 @@ namespace Agraria.UI
 			rehacerToolStripMenuItem = new ToolStripMenuItem();
 			ayudaToolStripMenuItem = new ToolStripMenuItem();
 			sobreNosotrosToolStripMenuItem = new ToolStripMenuItem();
+			manualDeUsuarioToolStripMenuItem = new ToolStripMenuItem();
 			herramientasToolStripMenuItem = new ToolStripMenuItem();
 			fuenteToolStripMenuItem = new ToolStripMenuItem();
 			exportarDatosToolStripMenuItem = new ToolStripMenuItem();
-			manualDeUsuarioToolStripMenuItem = new ToolStripMenuItem();
+			restaurarDatosToolStripMenuItem = new ToolStripMenuItem();
 			PanelMenu.SuspendLayout();
 			PanelLblMenu.SuspendLayout();
 			panel1.SuspendLayout();
@@ -528,20 +529,20 @@ namespace Agraria.UI
 			// sobreNosotrosToolStripMenuItem
 			// 
 			sobreNosotrosToolStripMenuItem.Name = "sobreNosotrosToolStripMenuItem";
-			sobreNosotrosToolStripMenuItem.Size = new Size(180, 22);
+			sobreNosotrosToolStripMenuItem.Size = new Size(173, 22);
 			sobreNosotrosToolStripMenuItem.Text = "Acerca de ...";
 			sobreNosotrosToolStripMenuItem.Click += sobreNosotrosToolStripMenuItem_Click;
 			// 
 			// manualDeUsuarioToolStripMenuItem
 			// 
 			manualDeUsuarioToolStripMenuItem.Name = "manualDeUsuarioToolStripMenuItem";
-			manualDeUsuarioToolStripMenuItem.Size = new Size(180, 22);
+			manualDeUsuarioToolStripMenuItem.Size = new Size(173, 22);
 			manualDeUsuarioToolStripMenuItem.Text = "Manual de Usuario";
 			manualDeUsuarioToolStripMenuItem.Click += manualDeUsuarioToolStripMenuItem_Click;
 			// 
 			// herramientasToolStripMenuItem
 			// 
-			herramientasToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { fuenteToolStripMenuItem, exportarDatosToolStripMenuItem });
+			herramientasToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { fuenteToolStripMenuItem, exportarDatosToolStripMenuItem, restaurarDatosToolStripMenuItem });
 			herramientasToolStripMenuItem.ForeColor = SystemColors.ActiveCaption;
 			herramientasToolStripMenuItem.Name = "herramientasToolStripMenuItem";
 			herramientasToolStripMenuItem.Size = new Size(90, 20);
@@ -551,23 +552,23 @@ namespace Agraria.UI
 			// 
 			fuenteToolStripMenuItem.Name = "fuenteToolStripMenuItem";
 			fuenteToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.F;
-			fuenteToolStripMenuItem.Size = new Size(151, 22);
+			fuenteToolStripMenuItem.Size = new Size(180, 22);
 			fuenteToolStripMenuItem.Text = "Fuente";
 			fuenteToolStripMenuItem.Click += fuenteToolStripMenuItem_Click;
 			// 
 			// exportarDatosToolStripMenuItem
 			// 
 			exportarDatosToolStripMenuItem.Name = "exportarDatosToolStripMenuItem";
-			exportarDatosToolStripMenuItem.Size = new Size(151, 22);
+			exportarDatosToolStripMenuItem.Size = new Size(180, 22);
 			exportarDatosToolStripMenuItem.Text = "Exportar Datos";
 			exportarDatosToolStripMenuItem.Click += ExportarDatosToolStripMenuItem_Click;
 			// 
-			// manualDeUsuarioToolStripMenuItem
+			// restaurarDatosToolStripMenuItem
 			// 
-			manualDeUsuarioToolStripMenuItem.Name = "manualDeUsuarioToolStripMenuItem";
-			manualDeUsuarioToolStripMenuItem.Size = new Size(180, 22);
-			manualDeUsuarioToolStripMenuItem.Text = "Manual de Usuario";
-			manualDeUsuarioToolStripMenuItem.Click += manualDeUsuarioToolStripMenuItem_Click;
+			restaurarDatosToolStripMenuItem.Name = "restaurarDatosToolStripMenuItem";
+			restaurarDatosToolStripMenuItem.Size = new Size(180, 22);
+			restaurarDatosToolStripMenuItem.Text = "Restaurar Datos";
+			restaurarDatosToolStripMenuItem.Click += restaurarDatosToolStripMenuItem_Click;
 			// 
 			// FormPrincipal
 			// 
@@ -639,5 +640,6 @@ namespace Agraria.UI
 		private ToolStripMenuItem fuenteToolStripMenuItem;
 		private ToolStripMenuItem exportarDatosToolStripMenuItem;
 		private ToolStripMenuItem manualDeUsuarioToolStripMenuItem;
+		private ToolStripMenuItem restaurarDatosToolStripMenuItem;
 	}
 }
