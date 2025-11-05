@@ -64,6 +64,7 @@ namespace Agraria.UI
 			herramientasToolStripMenuItem = new ToolStripMenuItem();
 			fuenteToolStripMenuItem = new ToolStripMenuItem();
 			exportarDatosToolStripMenuItem = new ToolStripMenuItem();
+			manualDeUsuarioToolStripMenuItem = new ToolStripMenuItem();
 			PanelMenu.SuspendLayout();
 			PanelLblMenu.SuspendLayout();
 			panel1.SuspendLayout();
@@ -518,7 +519,7 @@ namespace Agraria.UI
 			// 
 			// ayudaToolStripMenuItem
 			// 
-			ayudaToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { sobreNosotrosToolStripMenuItem });
+			ayudaToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { sobreNosotrosToolStripMenuItem, manualDeUsuarioToolStripMenuItem });
 			ayudaToolStripMenuItem.ForeColor = SystemColors.ActiveCaption;
 			ayudaToolStripMenuItem.Name = "ayudaToolStripMenuItem";
 			ayudaToolStripMenuItem.Size = new Size(53, 20);
@@ -530,6 +531,13 @@ namespace Agraria.UI
 			sobreNosotrosToolStripMenuItem.Size = new Size(180, 22);
 			sobreNosotrosToolStripMenuItem.Text = "Acerca de ...";
 			sobreNosotrosToolStripMenuItem.Click += sobreNosotrosToolStripMenuItem_Click;
+			// 
+			// manualDeUsuarioToolStripMenuItem
+			// 
+			manualDeUsuarioToolStripMenuItem.Name = "manualDeUsuarioToolStripMenuItem";
+			manualDeUsuarioToolStripMenuItem.Size = new Size(180, 22);
+			manualDeUsuarioToolStripMenuItem.Text = "Manual de Usuario";
+			manualDeUsuarioToolStripMenuItem.Click += manualDeUsuarioToolStripMenuItem_Click;
 			// 
 			// herramientasToolStripMenuItem
 			// 
@@ -543,16 +551,23 @@ namespace Agraria.UI
 			// 
 			fuenteToolStripMenuItem.Name = "fuenteToolStripMenuItem";
 			fuenteToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.F;
-			fuenteToolStripMenuItem.Size = new Size(180, 22);
+			fuenteToolStripMenuItem.Size = new Size(151, 22);
 			fuenteToolStripMenuItem.Text = "Fuente";
 			fuenteToolStripMenuItem.Click += fuenteToolStripMenuItem_Click;
 			// 
 			// exportarDatosToolStripMenuItem
 			// 
 			exportarDatosToolStripMenuItem.Name = "exportarDatosToolStripMenuItem";
-			exportarDatosToolStripMenuItem.Size = new Size(180, 22);
+			exportarDatosToolStripMenuItem.Size = new Size(151, 22);
 			exportarDatosToolStripMenuItem.Text = "Exportar Datos";
 			exportarDatosToolStripMenuItem.Click += ExportarDatosToolStripMenuItem_Click;
+			// 
+			// manualDeUsuarioToolStripMenuItem
+			// 
+			manualDeUsuarioToolStripMenuItem.Name = "manualDeUsuarioToolStripMenuItem";
+			manualDeUsuarioToolStripMenuItem.Size = new Size(180, 22);
+			manualDeUsuarioToolStripMenuItem.Text = "Manual de Usuario";
+			manualDeUsuarioToolStripMenuItem.Click += manualDeUsuarioToolStripMenuItem_Click;
 			// 
 			// FormPrincipal
 			// 
@@ -623,5 +638,6 @@ namespace Agraria.UI
 		private ToolStripMenuItem herramientasToolStripMenuItem;
 		private ToolStripMenuItem fuenteToolStripMenuItem;
 		private ToolStripMenuItem exportarDatosToolStripMenuItem;
+		private ToolStripMenuItem manualDeUsuarioToolStripMenuItem;
 	}
 }

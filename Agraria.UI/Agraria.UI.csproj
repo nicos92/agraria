@@ -25,8 +25,15 @@
   <ItemGroup>
     <None Remove="Resources\granero.png" />
     <None Remove="Resources\isft 500x500 r203g230b255.png" />
+    <None Remove="Resources\Manual de usuario para el Sistema de Gestion de Escuelas Agrarias v2.pdf" />
     <None Remove="Resources\svm 500 r203g230b255.png" />
     <None Remove="Resources\vegetal.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Manual de usuario para el Sistema de Gestion de Escuelas Agrarias v2.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
   </ItemGroup>
 
   <ItemGroup>

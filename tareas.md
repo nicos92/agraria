@@ -4,20 +4,27 @@
 
 ### Secciones
 
+#### usuarios
+
+- [ ] desactivar botón si la contraseñas no coinciden
+- [ ] mostrar un cartel amigable cuando hay dni duplicado
+
 #### General
 
 - [x] investigar por que cuando la computadora esta activo la red de internet pero no hay internet tarda mas en cargar los datos de MS ACCESS
-- [ ] verificar que carguen bien los controles cuando se usan Tareas Largas
+- [x] verificar que carguen bien los controles cuando se usan Tareas Largas
 - [ ] mejorar mensajes de errores depende de la excepcion ocurrida
 - [ ] verificar que todos los data grid view solo se seleccionen de a una fila
 - [x] cambiar color de exportacion a pdf por uno mas rojo pdf
-- [ ] Agregar exportar base de datos a las herramientas del menu.
+- [x] Agregar exportar base de datos a las herramientas del menu.
+- [ ] cambiar la palabra remito por venta u orden
+- [ ] cambiar cantidad del los productos y articulos para que valla de uno en uno
 
 #### Proveedores
 
 #### Pañol
 
-- [ ] Revisar que cargue los datos de la primer herramienta
+- [x] Revisar que cargue los datos de la primer herramienta
 
 #### Actividades
 
@@ -32,6 +39,7 @@
 - [x] mostrar cartel de confirmacion de proceso finalizado al guardar hojadevida
 - [x] cambiar la columna de nombre por la de numero
 - [ ] al cargar la pantalla de ingreso de hoja de vida que cargue el ultimo número +1 como sugerencia
+- [ ] en el ingreso de hoja de vida marcar por defecto que esta activo
 
 #### Usuarios
 
@@ -69,6 +77,10 @@
 
 - [ ] agregar boton imprimir directo
 
+- [ ] cambiar donde dice producto por articulos
+
+- [ ] cambiar donde dice remito por orden
+
 #### Reportes
 
 - [x] btnActividades: crear un metodo nuevo en el repositorio con un sql y crear un record para obtener los nobres de las areas y entornos en ves de mostrar el id
@@ -81,4 +93,4 @@
 
 - [x] agregar boton para exportar a PDF. crear html para cada caso
 
-- [ ] agregar metodos para enviar las filas del data grid view para exportar a pdf
+- [x] agregar metodos para enviar las filas del data grid view para exportar a pdf

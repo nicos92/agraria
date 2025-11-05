@@ -526,6 +526,46 @@ namespace Agraria.UI
 			SeleccionarForm(typeof(FormInicio));
 		}
 
+		private void manualDeUsuarioToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			try
+			{
+				// Ruta del archivo PDF en la carpeta Resources
+				string pdfPath = Path.Combine(Application.StartupPath, "Resources", "Manual de usuario para el Sistema de Gestion de Escuelas Agrarias v2.pdf");
+
+				// Verificar si el archivo existe
+				if (File.Exists(pdfPath))
+				{
+					// Abrir el archivo PDF con la aplicación predeterminada
+					System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
+					{
+						FileName = pdfPath,
+						UseShellExecute = true
+					});
+				}
+				else
+				{
+					// Mostrar mensaje si el archivo no existe
+					MessageBox.Show(
+						"El manual de usuario ya no existe. Por favor, comuníquese con su administrador de sistemas.",
+						"Archivo no encontrado",
+						MessageBoxButtons.OK,
+						MessageBoxIcon.Warning
+					);
+				}
+			}
+			catch (Exception ex)
+			{
+				// Manejar cualquier error al intentar abrir el archivo
+				MessageBox.Show(
+					$"Error al intentar abrir el manual de usuario:\n\n{ex.Message}",
+					"Error",
+					MessageBoxButtons.OK,
+					MessageBoxIcon.Error
+				);
+			}
+		}
+
 		private async void ExportarDatosToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			try
@@ -584,5 +624,7 @@ namespace Agraria.UI
 				);
 			}
 		}
+
+	
 	}
 }
