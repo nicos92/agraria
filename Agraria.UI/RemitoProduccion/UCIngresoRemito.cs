@@ -170,7 +170,7 @@ namespace Agraria.UI.RemitoProduccion
         {
             if (_evitarBucleEventos) return;
 
-            if (LsvProductos.SelectedItem is ArticulosGral selectedItem)
+            if (LsvArticulos.SelectedItem is ArticulosGral selectedItem)
             {
                 LblProducto.Text = selectedItem.Art_Nombre;
                 // Usar el precio directamente desde ArticulosGral
@@ -204,7 +204,7 @@ namespace Agraria.UI.RemitoProduccion
         private void ActualizarTotalPrecioPorCantidad()
         {
             decimal precio = 0m;
-            if (LsvProductos.SelectedItem is ArticulosGral selectedItem)
+            if (LsvArticulos.SelectedItem is ArticulosGral selectedItem)
             {
                 precio = selectedItem.Art_Precio;
             }
@@ -220,7 +220,7 @@ namespace Agraria.UI.RemitoProduccion
 
         private void AgregarItem()
         {
-            if (LsvProductos.SelectedItem is ArticulosGral producto)
+            if (LsvArticulos.SelectedItem is ArticulosGral producto)
             {
                 decimal cantidad = NumericUpDown1.Value;
                 AgregarProductosAlCarrito(producto, cantidad);
@@ -345,7 +345,7 @@ namespace Agraria.UI.RemitoProduccion
         {
             _evitarBucleEventos = true;
 
-            LsvProductos.SelectedIndex = -1;
+            LsvArticulos.SelectedIndex = -1;
             DgvProductosSeleccionados.ClearSelection();
             LblProducto.Text = string.Empty;
             LblPrecio.Text = string.Empty;
@@ -381,9 +381,9 @@ namespace Agraria.UI.RemitoProduccion
         private void ConfigurarListBox()
         {
             // Configuración del control ListBox que reemplaza al ListView
-            LsvProductos.DisplayMember = "Art_Nombre";
-            LsvProductos.ValueMember = "Art_Cod";
-            LsvProductos.SelectionMode = SelectionMode.One;
+            LsvArticulos.DisplayMember = "Art_Nombre";
+            LsvArticulos.ValueMember = "Art_Cod";
+            LsvArticulos.SelectionMode = SelectionMode.One;
         }
 
         private void FiltrarYMostrarProductos()
@@ -398,28 +398,28 @@ namespace Agraria.UI.RemitoProduccion
                                (p.Art_Cod != null && p.Art_Cod.StartsWith(filtro)))
                     .ToList();
 
-                LsvProductos.BeginUpdate();
-                LsvProductos.Items.Clear();
+                LsvArticulos.BeginUpdate();
+                LsvArticulos.Items.Clear();
 
                 foreach (var articulo in productosFiltrados)
                 {
-                    LsvProductos.Items.Add(articulo);
+                    LsvArticulos.Items.Add(articulo);
                 }
 
                 // Seleccionar el primer item si existe
-                if (LsvProductos.Items.Count > 0)
+                if (LsvArticulos.Items.Count > 0)
                 {
-                    LsvProductos.SelectedIndex = 0;
+                    LsvArticulos.SelectedIndex = 0;
                 }
                 else
                 {
                     LsvProductos_SelectedIndexChanged(this, EventArgs.Empty);
                 }
 
-                LsvProductos.EndUpdate();
+                LsvArticulos.EndUpdate();
 
                 // Forzar redibujado
-                LsvProductos.Refresh();
+                LsvArticulos.Refresh();
             }
             catch (Exception ex)
             {
@@ -433,7 +433,7 @@ namespace Agraria.UI.RemitoProduccion
             try
             {
                 // Mostrar indicador de carga
-                LsvProductos.Visible = false;
+                LsvArticulos.Visible = false;
                 Cursor = Cursors.WaitCursor;
 
                 var result = await _articulosGralService.GetAll();
@@ -445,14 +445,14 @@ namespace Agraria.UI.RemitoProduccion
                     this.Invoke((MethodInvoker)delegate
                     {
                         FiltrarYMostrarProductos();
-                        LsvProductos.Visible = true;
+                        LsvArticulos.Visible = true;
                     });
                 }
                 else
                 {
                     MostrarMensajeError("Error al cargar los productos. " + result.Error);
                     _todosLosProductos.Clear();
-                    LsvProductos.Items.Clear();
+                    LsvArticulos.Items.Clear();
                 }
             }
             catch (Exception ex)
@@ -554,7 +554,7 @@ namespace Agraria.UI.RemitoProduccion
         {
             _evitarBucleEventos = true;
 
-            LsvProductos.SelectedIndex = -1;
+            LsvArticulos.SelectedIndex = -1;
             DgvProductosSeleccionados.ClearSelection();
             LblProducto.Text = string.Empty;
             LblPrecio.Text = string.Empty;
@@ -636,16 +636,16 @@ namespace Agraria.UI.RemitoProduccion
                 return;
             }
 
-            if (LsvProductos.Items.Count == 0) return;
+            if (LsvArticulos.Items.Count == 0) return;
 
             if (_evitarBucleEventos && !_procesandoSeleccion) return;
 
-            var itemASeleccionar = LsvProductos.Items.OfType<ArticulosGral>()
+            var itemASeleccionar = LsvArticulos.Items.OfType<ArticulosGral>()
                 .FirstOrDefault(a => a.Art_Cod == codigoArticulo);
 
-            LsvProductos.SelectedIndexChanged -= LsvProductos_SelectedIndexChanged;
+            LsvArticulos.SelectedIndexChanged -= LsvProductos_SelectedIndexChanged;
 
-            LsvProductos.SelectedItem = itemASeleccionar;
+            LsvArticulos.SelectedItem = itemASeleccionar;
 
             if (itemASeleccionar != null)
             {
@@ -661,7 +661,7 @@ namespace Agraria.UI.RemitoProduccion
                 ActualizarTotalPrecioPorCantidad();
             }
 
-            LsvProductos.SelectedIndexChanged += LsvProductos_SelectedIndexChanged;
+            LsvArticulos.SelectedIndexChanged += LsvProductos_SelectedIndexChanged;
         }
 
         #region Métodos de utilidad para mensajes
@@ -732,7 +732,7 @@ namespace Agraria.UI.RemitoProduccion
                     return true;
 
                 case Keys.Enter:
-                    if (TxtBuscardor.Focused || LsvProductos.Focused || NumericUpDown1.Focused)
+                    if (TxtBuscardor.Focused || LsvArticulos.Focused || NumericUpDown1.Focused)
                     {
                         BtnAceptar.PerformClick();
                         return true;

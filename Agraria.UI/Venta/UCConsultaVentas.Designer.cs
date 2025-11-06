@@ -233,7 +233,7 @@ namespace Agraria.UI.Ventas
 			DtpFechaDesde.Format = DateTimePickerFormat.Short;
 			DtpFechaDesde.Location = new Point(70, 3);
 			DtpFechaDesde.Name = "DtpFechaDesde";
-			DtpFechaDesde.Size = new Size(105, 29);
+			DtpFechaDesde.Size = new Size(111, 29);
 			DtpFechaDesde.TabIndex = 1;
 			// 
 			// label3
@@ -257,7 +257,7 @@ namespace Agraria.UI.Ventas
 			TxtCliente.ForeColor = Color.FromArgb(26, 28, 30);
 			TxtCliente.Location = new Point(70, 38);
 			TxtCliente.Name = "TxtCliente";
-			TxtCliente.Size = new Size(105, 29);
+			TxtCliente.Size = new Size(111, 29);
 			TxtCliente.TabIndex = 5;
 			TxtCliente.Visible = false;
 			// 
@@ -268,9 +268,9 @@ namespace Agraria.UI.Ventas
 			DtpFechaHasta.Dock = DockStyle.Fill;
 			DtpFechaHasta.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
 			DtpFechaHasta.Format = DateTimePickerFormat.Short;
-			DtpFechaHasta.Location = new Point(258, 3);
+			DtpFechaHasta.Location = new Point(252, 3);
 			DtpFechaHasta.Name = "DtpFechaHasta";
-			DtpFechaHasta.Size = new Size(105, 29);
+			DtpFechaHasta.Size = new Size(111, 29);
 			DtpFechaHasta.TabIndex = 3;
 			// 
 			// label2
@@ -279,7 +279,7 @@ namespace Agraria.UI.Ventas
 			label2.AutoSize = true;
 			label2.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
 			label2.ForeColor = Color.FromArgb(26, 28, 30);
-			label2.Location = new Point(201, 7);
+			label2.Location = new Point(195, 7);
 			label2.Name = "label2";
 			label2.Size = new Size(51, 21);
 			label2.TabIndex = 2;
@@ -291,9 +291,9 @@ namespace Agraria.UI.Ventas
 			TxtIdRemito.BackColor = Color.FromArgb(238, 237, 240);
 			TxtIdRemito.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
 			TxtIdRemito.ForeColor = Color.FromArgb(26, 28, 30);
-			TxtIdRemito.Location = new Point(258, 38);
+			TxtIdRemito.Location = new Point(252, 38);
 			TxtIdRemito.Name = "TxtIdRemito";
-			TxtIdRemito.Size = new Size(105, 29);
+			TxtIdRemito.Size = new Size(111, 29);
 			TxtIdRemito.TabIndex = 7;
 			// 
 			// label5
@@ -302,11 +302,11 @@ namespace Agraria.UI.Ventas
 			label5.AutoSize = true;
 			label5.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
 			label5.ForeColor = Color.FromArgb(26, 28, 30);
-			label5.Location = new Point(189, 42);
+			label5.Location = new Point(195, 42);
 			label5.Name = "label5";
-			label5.Size = new Size(63, 21);
+			label5.Size = new Size(51, 21);
 			label5.TabIndex = 6;
-			label5.Text = "Remito";
+			label5.Text = "Venta";
 			// 
 			// BtnBuscar
 			// 
@@ -317,7 +317,7 @@ namespace Agraria.UI.Ventas
 			BtnBuscar.FlatStyle = FlatStyle.Flat;
 			BtnBuscar.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
 			BtnBuscar.ForeColor = Color.White;
-			BtnBuscar.Location = new Point(212, 85);
+			BtnBuscar.Location = new Point(215, 85);
 			BtnBuscar.Name = "BtnBuscar";
 			BtnBuscar.Size = new Size(128, 32);
 			BtnBuscar.TabIndex = 8;
@@ -570,11 +570,11 @@ namespace Agraria.UI.Ventas
 			label7.AutoSize = true;
 			label7.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
 			label7.ForeColor = Color.FromArgb(26, 28, 30);
-			label7.Location = new Point(10, 11);
+			label7.Location = new Point(19, 11);
 			label7.Name = "label7";
-			label7.Size = new Size(114, 21);
+			label7.Size = new Size(105, 21);
 			label7.TabIndex = 16;
-			label7.Text = "Nº DE REMITO";
+			label7.Text = "Nº DE VENTA";
 			// 
 			// LblIdRemito
 			// 

@@ -4,7 +4,7 @@
 
 ### Secciones
 
-#### usuarios
+#### Usuarios
 
 - [ ] desactivar botón si la contraseñas no coinciden
 - [ ] mostrar un cartel amigable cuando hay dni duplicado
@@ -17,8 +17,8 @@
 - [ ] verificar que todos los data grid view solo se seleccionen de a una fila
 - [x] cambiar color de exportacion a pdf por uno mas rojo pdf
 - [x] Agregar exportar base de datos a las herramientas del menu.
-- [ ] cambiar la palabra remito por venta u orden
-- [ ] cambiar cantidad del los productos y articulos para que valla de uno en uno
+- [x] cambiar la palabra remito por venta u orden
+- [x] cambiar cantidad del los productos y articulos para que valla de uno en uno
 
 #### Proveedores
 
@@ -39,7 +39,7 @@
 - [x] mostrar cartel de confirmacion de proceso finalizado al guardar hojadevida
 - [x] cambiar la columna de nombre por la de numero
 - [ ] al cargar la pantalla de ingreso de hoja de vida que cargue el ultimo número +1 como sugerencia
-- [ ] en el ingreso de hoja de vida marcar por defecto que esta activo
+- [x] en el ingreso de hoja de vida marcar por defecto que esta activo
 
 #### Usuarios
 
@@ -77,9 +77,9 @@
 
 - [ ] agregar boton imprimir directo
 
-- [ ] cambiar donde dice producto por articulos
+- [x] cambiar donde dice producto por articulos
 
-- [ ] cambiar donde dice remito por orden
+- [x] cambiar donde dice remito por orden
 
 #### Reportes
 

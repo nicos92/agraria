@@ -402,7 +402,7 @@ namespace Agraria.UI.RemitoProduccion
 				{
 					Name = "Id_Remito",
 					DataPropertyName = "Id_Remito",
-					HeaderText = "Nº Remito",
+					HeaderText = "Nº Orden",
 					Visible = true,
 					FillWeight = 20f,
 					AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
@@ -485,7 +485,7 @@ namespace Agraria.UI.RemitoProduccion
 				{
 					Name = "Id_Remito",
 					DataPropertyName = "Id_Remito",
-					HeaderText = "ID Remito",
+					HeaderText = "ID Orden",
 					Visible = false,
 					AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
 				},

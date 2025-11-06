@@ -55,7 +55,7 @@ GO
 -- Tabla Usuarios
 CREATE TABLE Usuarios (
     Id_Usuario INT IDENTITY(1,1) PRIMARY KEY,
-    DNI NVARCHAR(255) UNIQUE,
+    DNI CHAR(8) UNIQUE,
     Nombre NVARCHAR(255) NOT NULL,
     Apellido NVARCHAR(255) NOT NULL,
     Tel NVARCHAR(255),
@@ -73,7 +73,7 @@ GO
 -- Tabla Proveedores
 CREATE TABLE Proveedores (
     Id_Proveedor INT IDENTITY(1,1) PRIMARY KEY,
-    CUIT NVARCHAR(255) UNIQUE,
+    CUIT CHAR(11) UNIQUE,
     Proveedor NVARCHAR(255) NOT NULL,
     Nombre NVARCHAR(255) NOT NULL,
     Tel NVARCHAR(255),
@@ -105,9 +105,9 @@ CREATE TABLE ArticulosGral (
     Art_Cod NVARCHAR(25) NOT NULL UNIQUE,
     Art_Nombre NVARCHAR(255),
     Art_Unidad_Medida INT NOT NULL,
-    Art_Precio DECIMAL(18,2) NOT NULL,
+    Art_Precio DECIMAL(10,2) NOT NULL,
     Art_Descripcion NVARCHAR(255),
-    Art_Stock DECIMAL(18,2) NOT NULL,
+    Art_Stock DECIMAL(10,2) NOT NULL,
 	Id_Proveedor INT NOT NULL,
 	CONSTRAINT FK_ArticulosGral_Proveedor FOREIGN KEY (Id_Proveedor) REFERENCES Proveedores (Id_Proveedor)
 );
@@ -129,9 +129,9 @@ CREATE TABLE H_Ventas (
     Descripcion NVARCHAR(255),
     Cod_Usuario INT NOT NULL,
     Fecha_Hora DATETIME2(7) DEFAULT SYSDATETIME(),
-    Subtotal DECIMAL(18,2) NOT NULL,
-    Descu DECIMAL(18,2) NOT NULL,
-    Total DECIMAL(18,2) NOT NULL,
+    Subtotal DECIMAL(10,2) NOT NULL,
+    Descu DECIMAL(10,2) NOT NULL,
+    Total DECIMAL(10,2) NOT NULL,
     CONSTRAINT FK_HVentas_Usuarios FOREIGN KEY (Cod_Usuario) REFERENCES Usuarios(Id_Usuario)
 );
 GO
@@ -142,9 +142,9 @@ CREATE TABLE H_Ventas_Detalle (
     Id_Remito INT NOT NULL,
     Cod_Producto NVARCHAR(25),
     Descr NVARCHAR(255),
-    P_Unit DECIMAL(18,2) NOT NULL,
-    Cant DECIMAL(18,2) NOT NULL,
-    P_X_Cant DECIMAL(18,2) NOT NULL,
+    P_Unit DECIMAL(10,2) NOT NULL,
+    Cant DECIMAL(10,2) NOT NULL,
+    P_X_Cant DECIMAL(10,2) NOT NULL,
     CONSTRAINT FK_HVentasDetalle_HVentas FOREIGN KEY (Id_Remito) REFERENCES H_Ventas(Id_Remito),
     CONSTRAINT FK_HVentasDetalle_Cod_Producto FOREIGN KEY (Cod_Producto) REFERENCES Productos(Cod_Producto)
 );
@@ -156,7 +156,7 @@ CREATE TABLE Herramientas (
     Id_Herramienta INT IDENTITY(1,1) PRIMARY KEY,
     Nombre NVARCHAR(255) NOT NULL,
     Descripcion NVARCHAR(255),
-    Cantidad INT NOT NULL
+    Cantidad SMALLINT NOT NULL
 );
 GO
 
@@ -167,7 +167,7 @@ CREATE TABLE HojadeVida (
     Tipo_Animal INT NOT NULL,
     Sexo INT NOT NULL,
     Fecha_Nacimiento DATE,
-    Peso DECIMAL(18,2) NOT NULL,
+    Peso DECIMAL(10,2) NOT NULL,
     Estado_Salud NVARCHAR(255),
     Activo BIT DEFAULT 1,
 	Observaciones NVARCHAR(255)
@@ -212,9 +212,9 @@ CREATE TABLE HRemitoProduccion (
     Descripcion NVARCHAR(255),
     Cod_Usuario INT NOT NULL,
     Fecha_Hora DATETIME2(7) DEFAULT SYSDATETIME(),
-    Subtotal DECIMAL(18,2) NOT NULL,
-    Descu DECIMAL(18,2) NOT NULL,
-    Total DECIMAL(18,2) NOT NULL,
+    Subtotal DECIMAL(10,2) NOT NULL,
+    Descu DECIMAL(10,2) NOT NULL,
+    Total DECIMAL(10,2) NOT NULL,
     CONSTRAINT FK_HRemitoProduccion_Usuarios FOREIGN KEY (Cod_Usuario) REFERENCES Usuarios(Id_Usuario),
 
 );
@@ -226,9 +226,9 @@ CREATE TABLE HRemitoDetalleProduccion (
     Id_Remito INT NOT NULL,
     Art_Cod NVARCHAR(25),
     Descr NVARCHAR(255),
-    P_Unit DECIMAL(18,2) NOT NULL,
-    Cant DECIMAL(18,2) NOT NULL,
-    P_X_Cant DECIMAL(18,2) NOT NULL,
+    P_Unit DECIMAL(10,2) NOT NULL,
+    Cant DECIMAL(10,2) NOT NULL,
+    P_X_Cant DECIMAL(10,2) NOT NULL,
     CONSTRAINT FK_HRemitoDetalleProduccion_HRemitoProduccion FOREIGN KEY (Id_Remito) REFERENCES HRemitoProduccion(Id_Remito),
     CONSTRAINT FK_HRemitoDetalleProduccion_ArticulosGral FOREIGN KEY (Art_Cod) REFERENCES ArticulosGral(Art_Cod)
 );

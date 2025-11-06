@@ -491,7 +491,7 @@ namespace Agraria.UI.RemitoProduccion
 			groupBox1.Size = new Size(373, 307);
 			groupBox1.TabIndex = 14;
 			groupBox1.TabStop = false;
-			groupBox1.Text = "Detalles del Remito";
+			groupBox1.Text = "Detalles de la Orden";
 			// 
 			// DgvDetalles
 			// 

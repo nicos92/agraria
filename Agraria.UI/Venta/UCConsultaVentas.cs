@@ -247,7 +247,7 @@ namespace Agraria.UI.Ventas
 		{
 			Name = "Id_Remito",
 			DataPropertyName = "Id_Remito",
-			HeaderText = "ID Remito",
+			HeaderText = "ID VENTA",
 			Visible = false
 		},
 		new DataGridViewTextBoxColumn
@@ -496,7 +496,7 @@ namespace Agraria.UI.Ventas
 				{
 					Name = "Id_Remito",
 					DataPropertyName = "Id_Remito",
-					HeaderText = "Nº Remito",
+					HeaderText = "Nº VENTA",
 					Visible = true,
 					FillWeight = 20f,
 					AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells

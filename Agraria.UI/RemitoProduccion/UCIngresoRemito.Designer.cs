@@ -28,8 +28,8 @@ namespace Agraria.UI.RemitoProduccion
 		/// </summary>
 		private void InitializeComponent()
 		{
-			DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-			DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+			DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+			DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
 			splitContainer1 = new SplitContainer();
 			GBForm = new GroupBox();
 			tableLayoutPanel1 = new TableLayoutPanel();
@@ -47,7 +47,7 @@ namespace Agraria.UI.RemitoProduccion
 			Lbl = new Label();
 			LblProducto = new Label();
 			label2 = new Label();
-			LsvProductos = new ListBox();
+			LsvArticulos = new ListBox();
 			tableLayoutPanel4 = new TableLayoutPanel();
 			LblLista = new Label();
 			panel1 = new Panel();
@@ -124,7 +124,7 @@ namespace Agraria.UI.RemitoProduccion
 			tableLayoutPanel1.Controls.Add(BtnAceptar, 0, 6);
 			tableLayoutPanel1.Controls.Add(groupBox1, 0, 4);
 			tableLayoutPanel1.Controls.Add(label2, 0, 2);
-			tableLayoutPanel1.Controls.Add(LsvProductos, 0, 3);
+			tableLayoutPanel1.Controls.Add(LsvArticulos, 0, 3);
 			tableLayoutPanel1.Dock = DockStyle.Fill;
 			tableLayoutPanel1.Location = new Point(4, 30);
 			tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -170,10 +170,8 @@ namespace Agraria.UI.RemitoProduccion
 			// 
 			NumericUpDown1.Anchor = AnchorStyles.None;
 			NumericUpDown1.BackColor = Color.FromArgb(238, 237, 240);
-			NumericUpDown1.DecimalPlaces = 2;
 			NumericUpDown1.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
 			NumericUpDown1.ForeColor = Color.FromArgb(26, 28, 30);
-			NumericUpDown1.Increment = new decimal(new int[] { 5, 0, 0, 131072 });
 			NumericUpDown1.Location = new Point(84, 7);
 			NumericUpDown1.Maximum = new decimal(new int[] { 10000, 0, 0, 0 });
 			NumericUpDown1.Name = "NumericUpDown1";
@@ -191,9 +189,9 @@ namespace Agraria.UI.RemitoProduccion
 			label1.ForeColor = Color.FromArgb(7, 100, 147);
 			label1.Location = new Point(3, 0);
 			label1.Name = "label1";
-			label1.Size = new Size(134, 21);
+			label1.Size = new Size(124, 21);
 			label1.TabIndex = 1;
-			label1.Text = "Buscar Producto:";
+			label1.Text = "Buscar Articulo:";
 			// 
 			// BtnQuitar
 			// 
@@ -208,7 +206,7 @@ namespace Agraria.UI.RemitoProduccion
 			BtnQuitar.Name = "BtnQuitar";
 			BtnQuitar.Size = new Size(265, 37);
 			BtnQuitar.TabIndex = 5;
-			BtnQuitar.Text = "QUITAR PRODUCTO (F8)";
+			BtnQuitar.Text = "QUITAR ARTICULO (F8)";
 			BtnQuitar.UseVisualStyleBackColor = false;
 			BtnQuitar.Click += BtnQuitar_Click;
 			// 
@@ -255,7 +253,7 @@ namespace Agraria.UI.RemitoProduccion
 			groupBox1.Size = new Size(285, 97);
 			groupBox1.TabIndex = 8;
 			groupBox1.TabStop = false;
-			groupBox1.Text = "Producto";
+			groupBox1.Text = "Articulo";
 			// 
 			// LblPrecioCant
 			// 
@@ -308,9 +306,9 @@ namespace Agraria.UI.RemitoProduccion
 			LblProducto.ForeColor = Color.FromArgb(26, 28, 30);
 			LblProducto.Location = new Point(19, 21);
 			LblProducto.Name = "LblProducto";
-			LblProducto.Size = new Size(93, 21);
+			LblProducto.Size = new Size(68, 21);
 			LblProducto.TabIndex = 5;
-			LblProducto.Text = "PRODUCTO";
+			LblProducto.Text = "Articulo";
 			// 
 			// label2
 			// 
@@ -319,22 +317,22 @@ namespace Agraria.UI.RemitoProduccion
 			label2.ForeColor = Color.FromArgb(7, 100, 147);
 			label2.Location = new Point(3, 56);
 			label2.Name = "label2";
-			label2.Size = new Size(149, 21);
+			label2.Size = new Size(139, 21);
 			label2.TabIndex = 3;
-			label2.Text = "Lista de Productos:";
+			label2.Text = "Lista de Articulos:";
 			// 
-			// LsvProductos
+			// LsvArticulos
 			// 
-			LsvProductos.BackColor = Color.FromArgb(238, 237, 240);
-			LsvProductos.Dock = DockStyle.Fill;
-			LsvProductos.Font = new Font("Segoe UI", 12F);
-			LsvProductos.ForeColor = Color.FromArgb(26, 28, 30);
-			LsvProductos.Location = new Point(3, 80);
-			LsvProductos.Name = "LsvProductos";
-			LsvProductos.Size = new Size(285, 169);
-			LsvProductos.TabIndex = 2;
-			LsvProductos.SelectedIndexChanged += LsvProductos_SelectedIndexChanged;
-			LsvProductos.DoubleClick += LsvProductos_DoubleClick;
+			LsvArticulos.BackColor = Color.FromArgb(238, 237, 240);
+			LsvArticulos.Dock = DockStyle.Fill;
+			LsvArticulos.Font = new Font("Segoe UI", 12F);
+			LsvArticulos.ForeColor = Color.FromArgb(26, 28, 30);
+			LsvArticulos.Location = new Point(3, 80);
+			LsvArticulos.Name = "LsvArticulos";
+			LsvArticulos.Size = new Size(285, 169);
+			LsvArticulos.TabIndex = 2;
+			LsvArticulos.SelectedIndexChanged += LsvProductos_SelectedIndexChanged;
+			LsvArticulos.DoubleClick += LsvProductos_DoubleClick;
 			// 
 			// tableLayoutPanel4
 			// 
@@ -365,7 +363,7 @@ namespace Agraria.UI.RemitoProduccion
 			LblLista.Name = "LblLista";
 			LblLista.Size = new Size(452, 26);
 			LblLista.TabIndex = 4;
-			LblLista.Text = "Lista de Productos Seleccionados";
+			LblLista.Text = "Lista de Articulos Seleccionados";
 			LblLista.TextAlign = ContentAlignment.MiddleCenter;
 			// 
 			// panel1
@@ -405,11 +403,11 @@ namespace Agraria.UI.RemitoProduccion
 			label3.AutoSize = true;
 			label3.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
 			label3.ForeColor = Color.FromArgb(26, 28, 30);
-			label3.Location = new Point(35, 16);
+			label3.Location = new Point(48, 16);
 			label3.Name = "label3";
-			label3.Size = new Size(77, 17);
+			label3.Size = new Size(64, 17);
 			label3.TabIndex = 8;
-			label3.Text = "Productos: ";
+			label3.Text = "Articulos:";
 			// 
 			// LblCantProductos
 			// 
@@ -468,23 +466,23 @@ namespace Agraria.UI.RemitoProduccion
 			DgvProductosSeleccionados.AllowUserToAddRows = false;
 			DgvProductosSeleccionados.AllowUserToDeleteRows = false;
 			DgvProductosSeleccionados.BackgroundColor = Color.FromArgb(249, 249, 251);
-			dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
-			dataGridViewCellStyle1.BackColor = Color.FromArgb(232, 232, 234);
-			dataGridViewCellStyle1.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-			dataGridViewCellStyle1.ForeColor = Color.FromArgb(69, 71, 73);
-			dataGridViewCellStyle1.SelectionBackColor = Color.FromArgb(203, 230, 255);
-			dataGridViewCellStyle1.SelectionForeColor = Color.FromArgb(0, 75, 113);
-			dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
-			DgvProductosSeleccionados.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+			dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
+			dataGridViewCellStyle3.BackColor = Color.FromArgb(232, 232, 234);
+			dataGridViewCellStyle3.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+			dataGridViewCellStyle3.ForeColor = Color.FromArgb(69, 71, 73);
+			dataGridViewCellStyle3.SelectionBackColor = Color.FromArgb(203, 230, 255);
+			dataGridViewCellStyle3.SelectionForeColor = Color.FromArgb(0, 75, 113);
+			dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
+			DgvProductosSeleccionados.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
 			DgvProductosSeleccionados.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-			dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
-			dataGridViewCellStyle2.BackColor = Color.FromArgb(249, 249, 251);
-			dataGridViewCellStyle2.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-			dataGridViewCellStyle2.ForeColor = Color.FromArgb(26, 28, 30);
-			dataGridViewCellStyle2.SelectionBackColor = Color.FromArgb(203, 230, 255);
-			dataGridViewCellStyle2.SelectionForeColor = Color.FromArgb(0, 75, 113);
-			dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
-			DgvProductosSeleccionados.DefaultCellStyle = dataGridViewCellStyle2;
+			dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
+			dataGridViewCellStyle4.BackColor = Color.FromArgb(249, 249, 251);
+			dataGridViewCellStyle4.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+			dataGridViewCellStyle4.ForeColor = Color.FromArgb(26, 28, 30);
+			dataGridViewCellStyle4.SelectionBackColor = Color.FromArgb(203, 230, 255);
+			dataGridViewCellStyle4.SelectionForeColor = Color.FromArgb(0, 75, 113);
+			dataGridViewCellStyle4.WrapMode = DataGridViewTriState.False;
+			DgvProductosSeleccionados.DefaultCellStyle = dataGridViewCellStyle4;
 			DgvProductosSeleccionados.Dock = DockStyle.Fill;
 			DgvProductosSeleccionados.GridColor = Color.FromArgb(190, 201, 209);
 			DgvProductosSeleccionados.Location = new Point(3, 87);
@@ -593,7 +591,7 @@ namespace Agraria.UI.RemitoProduccion
         private System.Windows.Forms.Label LblPPC;
         private Button BtnQuitar;
 
-        private ListBox LsvProductos;
+        private ListBox LsvArticulos;
         private TableLayoutPanel tableLayoutPanel1;
         private TableLayoutPanel tableLayoutPanel2;
         private Label label5;
