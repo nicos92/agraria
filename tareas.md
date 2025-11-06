@@ -7,7 +7,7 @@
 #### Usuarios
 
 - [ ] desactivar botón si la contraseñas no coinciden
-- [ ] mostrar un cartel amigable cuando hay dni duplicado
+- [x] mostrar un cartel amigable cuando hay dni duplicado
 
 #### General
 

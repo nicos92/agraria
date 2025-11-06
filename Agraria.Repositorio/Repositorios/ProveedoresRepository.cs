@@ -41,6 +41,10 @@ namespace Agraria.Repositorio.Repositorios
             }
             catch (SqlException ex)
             {
+				if (ex.Message.Contains("UNIQUE KEY"))
+				{
+					return Result<Proveedores>.Failure($"El Número de CUIT ya está ingresado, no se puede repetir");
+				}
                 return Result<Proveedores>.Failure($"Error al agregar el proveedor: {ex.Message}");
             }catch (Exception ex)
             {
@@ -140,7 +144,11 @@ namespace Agraria.Repositorio.Repositorios
             }
             catch (SqlException ex)
             {
-                return Result<Proveedores>.Failure($"Error al actualizar el proveedor: {ex.Message}");
+				if (ex.Message.Contains("UNIQUE KEY"))
+				{
+					return Result<Proveedores>.Failure($"El Número de CUIT ya está ingresado, no se puede repetir");
+				}
+				return Result<Proveedores>.Failure($"Error al actualizar el proveedor: {ex.Message}");
             }
             catch (Exception ex)
             {

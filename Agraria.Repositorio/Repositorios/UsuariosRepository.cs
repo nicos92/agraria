@@ -157,6 +157,11 @@ namespace Agraria.Repositorio.Repositorios
             }
             catch (SqlException ex)
             {
+
+				if (ex.Message.Contains("UNIQUE KEY"))
+				{
+					return Result<Usuarios>.Failure("El DNI ya está ingresado, no se pueden repetir");
+				}
                 return Result<Usuarios>.Failure("Error en la base de datos al agregar el usuario: " + ex.Message);
             }
             catch (System.Exception ex)
@@ -192,7 +197,11 @@ namespace Agraria.Repositorio.Repositorios
             }
             catch (SqlException ex)
             {
-                return Result<Usuarios>.Failure("Error en la base de datos al actualizar el usuario: " + ex.Message);
+				if (ex.Message.Contains("UNIQUE KEY"))
+				{
+					return Result<Usuarios>.Failure("El DNI ya está ingresado, no se pueden repetir");
+				}
+				return Result<Usuarios>.Failure("Error en la base de datos al actualizar el usuario: " + ex.Message);
             }
             catch (System.Exception ex)
             {

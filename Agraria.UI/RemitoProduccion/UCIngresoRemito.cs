@@ -124,7 +124,7 @@ namespace Agraria.UI.RemitoProduccion
                 {
                     Name = "ProductoNombre",
                     DataPropertyName = "Producto_Nombre",
-                    HeaderText = "Producto",
+                    HeaderText = "Articulo",
                     Width = 200,
                     AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill,
 
