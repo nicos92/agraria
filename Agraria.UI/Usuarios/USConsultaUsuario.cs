@@ -180,16 +180,14 @@ namespace Agraria.UI.Usuarios
 		/// <param name="e">La instancia de <see cref="EventArgs"/> que contiene los datos del evento.</param>
 		private void TxtDni_TextChanged(object sender, EventArgs e)
 		{
-			ValidadorMultiple.ValidacionMultiple(BtnGuardar, _vTxtDni, _vTxtApellido, _vTxtNombre, _vTxtTel, _vTxtEmail, _vTxtContra, _vTxtContraDos, _vTxtRespues);
+			BtnGuardar.Enabled = ValidadorMultiple.ValidacionMultiple(_vTxtDni, _vTxtApellido, _vTxtNombre, _vTxtTel, _vTxtEmail, _vTxtContra, _vTxtContraDos, _vTxtRespues) && TxtContra.Text == TxtContraDos.Text;
 			if (TxtContra.Text != TxtContraDos.Text)
 			{
 				LblError.Visible = true;
-				BtnGuardar.Enabled = false;
 			}
 			else
 			{
 				LblError.Visible = false;
-				BtnGuardar.Enabled = true;
 
 			}
 		}

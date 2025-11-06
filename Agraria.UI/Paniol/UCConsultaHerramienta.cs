@@ -14,310 +14,310 @@ using System.Windows.Forms;
 
 namespace Agraria.UI.Paniol
 {
-    public partial class UCConsultaHerramienta : UserControl
-    {
-        private readonly IHerramientasService _herramientasService;
-        private List<Herramientas> _herramientasList;
-        private List<Herramientas> _todosLasHerramientas;
-        private Herramientas? _herramientaSeleccionada;
-        private readonly ValidadorTextBox _vTxtNombre;
-        private readonly ValidadorTextBox _vTxtCantidad;
-        private readonly ValidadorTextBox _vTxtDescripcion;
+	public partial class UCConsultaHerramienta : UserControl
+	{
+		private readonly IHerramientasService _herramientasService;
+		private List<Herramientas> _herramientasList;
+		private List<Herramientas> _todosLasHerramientas;
+		private Herramientas? _herramientaSeleccionada;
+		private readonly ValidadorTextBox _vTxtNombre;
+		private readonly ValidadorTextBox _vTxtCantidad;
+		private readonly ValidadorTextBox _vTxtDescripcion;
 
-        public UCConsultaHerramienta(IHerramientasService herramientasService)
-        {
-            InitializeComponent();
-            _herramientasService = herramientasService;
-            _herramientasList = [];
-            ConfigurarDataGridView();
-            _vTxtNombre = new ValidadorNombre(TxtNombre, new ErrorProvider()) { MensajeError = "EL nombre no puede esta vacio" };
-            _vTxtCantidad = new ValidadorEntero(TxtCantidad, new ErrorProvider()) { MensajeError = "La cantidad debe ser un numero mayor o igual a 0" };
-            _vTxtDescripcion = new ValidadorDireccion(TxtDescripcion, new ErrorProvider()) { MensajeError = "La descripcion no puede estar vacia" };
-        }
+		public UCConsultaHerramienta(IHerramientasService herramientasService)
+		{
+			InitializeComponent();
+			_herramientasService = herramientasService;
+			_herramientasList = [];
+			ConfigurarDataGridView();
+			_vTxtNombre = new ValidadorNombre(TxtNombre, new ErrorProvider()) { MensajeError = "EL nombre no puede esta vacio" };
+			_vTxtCantidad = new ValidadorEntero(TxtCantidad, new ErrorProvider()) { MensajeError = "La cantidad debe ser un numero mayor o igual a 0" };
+			_vTxtDescripcion = new ValidadorDireccion(TxtDescripcion, new ErrorProvider()) { MensajeError = "La descripcion no puede estar vacia" };
+		}
 
 
 
-        private void ConfigurarDataGridView()
-        {
-            // Configurar las columnas del DataGridView
-            ListBArticulos.AutoGenerateColumns = false;
+		private void ConfigurarDataGridView()
+		{
+			// Configurar las columnas del DataGridView
+			ListBArticulos.AutoGenerateColumns = false;
 
-            // Configurar las columnas existentes
-            if (ListBArticulos.Columns["Codigo"] != null)
-            {
-                ListBArticulos.Columns["Codigo"].DataPropertyName = "Id_Herramienta";
-            }
+			// Configurar las columnas existentes
+			if (ListBArticulos.Columns["Codigo"] != null)
+			{
+				ListBArticulos.Columns["Codigo"].DataPropertyName = "Id_Herramienta";
+			}
 
-            if (ListBArticulos.Columns["Nombre"] != null)
-            {
-                ListBArticulos.Columns["Nombre"].DataPropertyName = "Nombre";
-            }
-        }
+			if (ListBArticulos.Columns["Nombre"] != null)
+			{
+				ListBArticulos.Columns["Nombre"].DataPropertyName = "Nombre";
+			}
+		}
 
-        private async void UCConsultaHerramienta_Load(object sender, EventArgs e)
-        {
-            await CargarHerramientas();
-        }
+		private async void UCConsultaHerramienta_Load(object sender, EventArgs e)
+		{
+			await CargarHerramientas();
+		}
 
-        private async Task CargarHerramientas()
-        {
-            try
-            {
-                ProgressBar.Visible = true;
+		private async Task CargarHerramientas()
+		{
+			try
+			{
+				ProgressBar.Visible = true;
 
-                var resultado = await _herramientasService.GetAll();
+				var resultado = await _herramientasService.GetAll();
 
-                if (resultado.IsSuccess)
-                {
-                    _todosLasHerramientas = resultado.Value;
-                    _herramientasList = [.. _todosLasHerramientas];
-                    ListBArticulos.DataSource = _herramientasList;
-                    LimpiarCamposEdicion();
-                    
-                    // Automatically select the first row if there are items
-                    if (ListBArticulos.Rows.Count > 0)
-                    {
-                        ListBArticulos.ClearSelection();
-                        ListBArticulos.CurrentCell = ListBArticulos.Rows[0].Cells[0]; // Select first cell of first row
-                        ListBArticulos.Rows[0].Selected = true; // Select the first row
-                    }
-                }
-                else
-                {
-                    MessageBox.Show($"Error al cargar las herramientas: {resultado.Error}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    Log.Error("Error al cargar herramientas: {Error}", resultado.Error);
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error inesperado: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Log.Error(ex, "Error inesperado al cargar herramientas");
-            }
-            finally
-            {
-                ProgressBar.Visible = false;
-            }
-        }
+				if (resultado.IsSuccess)
+				{
+					_todosLasHerramientas = resultado.Value;
+					_herramientasList = [.. _todosLasHerramientas];
+					ListBArticulos.DataSource = _herramientasList;
+					LimpiarCamposEdicion();
 
-        private async void ListBArticulos_SelectionChanged(object sender, EventArgs e)
-        {
-            if (ListBArticulos.SelectedRows.Count > 0)
-            {
-                _herramientaSeleccionada = (Herramientas)ListBArticulos.SelectedRows[0].DataBoundItem;
-                CargarDatosEnFormulario(_herramientaSeleccionada);
-            }
-            else
-            {
-                _herramientaSeleccionada = null;
-                LimpiarCamposEdicion();
-            }
+					// Automatically select the first row if there are items
+					if (ListBArticulos.Rows.Count > 0)
+					{
+						ListBArticulos.ClearSelection();
+						ListBArticulos.CurrentCell = ListBArticulos.Rows[0].Cells[0]; // Select first cell of first row
+						ListBArticulos.Rows[0].Selected = true; // Select the first row
+					}
+				}
+				else
+				{
+					MessageBox.Show($"Error al cargar las herramientas: {resultado.Error}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+					Log.Error("Error al cargar herramientas: {Error}", resultado.Error);
+				}
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show($"Error inesperado: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				Log.Error(ex, "Error inesperado al cargar herramientas");
+			}
+			finally
+			{
+				ProgressBar.Visible = false;
+			}
+		}
 
-            //ValidarCamposEdicion(sender, e);
-        }
+		private async void ListBArticulos_SelectionChanged(object sender, EventArgs e)
+		{
+			if (ListBArticulos.SelectedRows.Count > 0)
+			{
+				_herramientaSeleccionada = (Herramientas)ListBArticulos.SelectedRows[0].DataBoundItem;
+				CargarDatosEnFormulario(_herramientaSeleccionada);
+			}
+			else
+			{
+				_herramientaSeleccionada = null;
+				LimpiarCamposEdicion();
+			}
 
-        private void CargarDatosEnFormulario(Herramientas herramienta)
-        {
-            if (herramienta != null)
-            {
-                TxtNombre.Text = herramienta.Nombre;
-                TxtDescripcion.Text = herramienta.Descripcion;
-                TxtCantidad.Text = herramienta.Cantidad.ToString();
-            }
-            else
-            {
-                LimpiarCamposEdicion();
-            }
-        }
+			//ValidarCamposEdicion(sender, e);
+		}
 
-        private void LimpiarCamposEdicion()
-        {
-            TxtNombre.Clear();
-            TxtDescripcion.Clear();
-            TxtCantidad.Clear();
-            _herramientaSeleccionada = null;
-        }
+		private void CargarDatosEnFormulario(Herramientas herramienta)
+		{
+			if (herramienta != null)
+			{
+				TxtNombre.Text = herramienta.Nombre;
+				TxtDescripcion.Text = herramienta.Descripcion;
+				TxtCantidad.Text = herramienta.Cantidad.ToString();
+			}
+			else
+			{
+				LimpiarCamposEdicion();
+			}
+		}
 
-        private void ValidarCamposEdicion(object sender, EventArgs e)
-        {
-            bool haySeleccion = _herramientaSeleccionada != null;
-            bool nombreValido = !string.IsNullOrWhiteSpace(TxtNombre.Text);
-            bool cantidadValida = int.TryParse(TxtCantidad.Text, out int cantidad) && cantidad >= 0;
+		private void LimpiarCamposEdicion()
+		{
+			TxtNombre.Clear();
+			TxtDescripcion.Clear();
+			TxtCantidad.Clear();
+			_herramientaSeleccionada = null;
+		}
 
-            BtnGuardar.Enabled = haySeleccion && nombreValido && cantidadValida;
-            BtnEliminar.Enabled = haySeleccion;
-        }
+		private void ValidarCamposEdicion(object sender, EventArgs e)
+		{
+			bool haySeleccion = _herramientaSeleccionada != null;
+			bool nombreValido = !string.IsNullOrWhiteSpace(TxtNombre.Text);
+			bool cantidadValida = int.TryParse(TxtCantidad.Text, out int cantidad) && cantidad >= 0;
 
-        private async void BtnGuardar_Click(object sender, EventArgs e)
-        {
-            if (_herramientaSeleccionada == null) return;
+			BtnGuardar.Enabled = haySeleccion && nombreValido && cantidadValida;
+			BtnEliminar.Enabled = haySeleccion;
+		}
 
-            try
-            {
-                DialogResult dialogResult = MessageBox.Show("¿Estas Seguro que queres guardar la nueva herramienta?", "Gurdar al pañol", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                if (dialogResult == DialogResult.No)
-                {
-                    return;
-                }
-                ProgressBar.Visible = true;
-                BtnGuardar.Enabled = false;
+		private async void BtnGuardar_Click(object sender, EventArgs e)
+		{
+			if (_herramientaSeleccionada == null) return;
 
-                // Actualizar los datos de la herramienta seleccionada
-                _herramientaSeleccionada.Nombre = TxtNombre.Text.Trim();
-                _herramientaSeleccionada.Descripcion = TxtDescripcion.Text.Trim();
-                _herramientaSeleccionada.Cantidad = int.Parse(TxtCantidad.Text);
+			try
+			{
+				DialogResult dialogResult = MessageBox.Show("¿Estas Seguro que queres guardar la nueva herramienta?", "Gurdar al pañol", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+				if (dialogResult == DialogResult.No)
+				{
+					return;
+				}
+				ProgressBar.Visible = true;
+				BtnGuardar.Enabled = false;
 
-                var resultado = await _herramientasService.Update(_herramientaSeleccionada);
+				// Actualizar los datos de la herramienta seleccionada
+				_herramientaSeleccionada.Nombre = TxtNombre.Text.Trim();
+				_herramientaSeleccionada.Descripcion = TxtDescripcion.Text.Trim();
+				_herramientaSeleccionada.Cantidad = int.Parse(TxtCantidad.Text);
 
-                if (resultado.IsSuccess)
-                {
-                    MessageBox.Show("Herramienta actualizada correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    await CargarHerramientas(); // Recargar la lista
-                }
-                else
-                {
-                    MessageBox.Show($"Error al actualizar la herramienta: {resultado.Error}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    Log.Error("Error al actualizar herramienta: {Error}", resultado.Error);
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error inesperado: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Log.Error(ex, "Error inesperado al actualizar herramienta");
-            }
-            finally
-            {
-                ProgressBar.Visible = false;
-                BtnGuardar.Enabled = true;
-            }
-        }
+				var resultado = await _herramientasService.Update(_herramientaSeleccionada);
 
-        private async void BtnEliminar_Click(object sender, EventArgs e)
-        {
-            if (_herramientaSeleccionada == null) return;
+				if (resultado.IsSuccess)
+				{
+					MessageBox.Show("Herramienta actualizada correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+					await CargarHerramientas(); // Recargar la lista
+				}
+				else
+				{
+					MessageBox.Show($"Error al actualizar la herramienta: {resultado.Error}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+					Log.Error("Error al actualizar herramienta: {Error}", resultado.Error);
+				}
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show($"Error inesperado: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				Log.Error(ex, "Error inesperado al actualizar herramienta");
+			}
+			finally
+			{
+				ProgressBar.Visible = false;
+				BtnGuardar.Enabled = true;
+			}
+		}
 
-            DialogResult resultado = MessageBox.Show(
-                "¿Está seguro que desea eliminar esta herramienta?",
-                "Confirmar eliminación",
-                MessageBoxButtons.YesNo,
-                MessageBoxIcon.Question);
+		private async void BtnEliminar_Click(object sender, EventArgs e)
+		{
+			if (_herramientaSeleccionada == null) return;
 
-            if (resultado == DialogResult.Yes)
-            {
-                try
-                {
-                    ProgressBar.Visible = true;
-                    BtnEliminar.Enabled = false;
+			DialogResult resultado = MessageBox.Show(
+				"¿Está seguro que desea eliminar esta herramienta?",
+				"Confirmar eliminación",
+				MessageBoxButtons.YesNo,
+				MessageBoxIcon.Question);
 
-                    var resultadoEliminacion = _herramientasService.Delete(_herramientaSeleccionada.Id_Herramienta);
+			if (resultado == DialogResult.Yes)
+			{
+				try
+				{
+					ProgressBar.Visible = true;
+					BtnEliminar.Enabled = false;
 
-                    if (resultadoEliminacion.IsSuccess)
-                    {
-                        MessageBox.Show("Herramienta eliminada correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        await CargarHerramientas(); // Recargar la lista
-                    }
-                    else
-                    {
-                        MessageBox.Show($"Error al eliminar la herramienta: {resultadoEliminacion.Error}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        Log.Error("Error al eliminar herramienta: {Error}", resultadoEliminacion.Error);
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"Error inesperado: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    Log.Error(ex, "Error inesperado al eliminar herramienta");
-                }
-                finally
-                {
-                    ProgressBar.Visible = false;
-                    BtnEliminar.Enabled = true;
-                }
-            }
-        }
+					var resultadoEliminacion = _herramientasService.Delete(_herramientaSeleccionada.Id_Herramienta);
 
-        private void TxtNombre_TextChanged(object sender, EventArgs e)
-        {
-            ValidadorMultiple.ValidacionMultiple(BtnGuardar, _vTxtNombre, _vTxtCantidad, _vTxtDescripcion);
-        }
+					if (resultadoEliminacion.IsSuccess)
+					{
+						MessageBox.Show("Herramienta eliminada correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+						await CargarHerramientas(); // Recargar la lista
+					}
+					else
+					{
+						MessageBox.Show($"Error al eliminar la herramienta: {resultadoEliminacion.Error}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+						Log.Error("Error al eliminar herramienta: {Error}", resultadoEliminacion.Error);
+					}
+				}
+				catch (Exception ex)
+				{
+					MessageBox.Show($"Error inesperado: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+					Log.Error(ex, "Error inesperado al eliminar herramienta");
+				}
+				finally
+				{
+					ProgressBar.Visible = false;
+					BtnEliminar.Enabled = true;
+				}
+			}
+		}
 
-        private async void UCConsultaHerramienta_VisibleChanged(object sender, EventArgs e)
-        {
-            if (this.Visible)
-                await CargarHerramientas();
-        }
+		private void TxtNombre_TextChanged(object sender, EventArgs e)
+		{
+			BtnGuardar.Enabled = ValidadorMultiple.ValidacionMultiple(_vTxtNombre, _vTxtCantidad, _vTxtDescripcion);
+		}
 
-        /// <summary>
-        /// Handles the Click event of the BtnAplicarFiltro control to apply filters to the herramientas list.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        private void BtnAplicarFiltro_Click(object sender, EventArgs e)
-        {
-            FiltrarHerramientas();
-        }
+		private async void UCConsultaHerramienta_VisibleChanged(object sender, EventArgs e)
+		{
+			if (this.Visible)
+				await CargarHerramientas();
+		}
 
-        /// <summary>
-        /// Handles the Click event of the BtnLimpiarFiltro control to clear all filters.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        private void BtnLimpiarFiltro_Click(object sender, EventArgs e)
-        {
-            LimpiarFiltros();
-        }
+		/// <summary>
+		/// Handles the Click event of the BtnAplicarFiltro control to apply filters to the herramientas list.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+		private void BtnAplicarFiltro_Click(object sender, EventArgs e)
+		{
+			FiltrarHerramientas();
+		}
 
-        /// <summary>
-        /// Filters the herramientas based on the values in the filter controls.
-        /// </summary>
-        private void FiltrarHerramientas()
-        {
-            if (_todosLasHerramientas == null) return;
+		/// <summary>
+		/// Handles the Click event of the BtnLimpiarFiltro control to clear all filters.
+		/// </summary>
+		/// <param name="sender">The source of the event.</param>
+		/// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+		private void BtnLimpiarFiltro_Click(object sender, EventArgs e)
+		{
+			LimpiarFiltros();
+		}
 
-            var herramientasFiltradas = _todosLasHerramientas.AsEnumerable();
+		/// <summary>
+		/// Filters the herramientas based on the values in the filter controls.
+		/// </summary>
+		private void FiltrarHerramientas()
+		{
+			if (_todosLasHerramientas == null) return;
 
-            // Filter by Nombre
-            if (!string.IsNullOrWhiteSpace(TxtFiltroNombre.Text))
-            {
-                herramientasFiltradas = herramientasFiltradas.Where(h => h.Nombre != null && h.Nombre.Contains(TxtFiltroNombre.Text, StringComparison.OrdinalIgnoreCase));
-            }
+			var herramientasFiltradas = _todosLasHerramientas.AsEnumerable();
 
-            // Filter by Descripcion
-            if (!string.IsNullOrWhiteSpace(TxtFiltroDescripcion.Text))
-            {
-                herramientasFiltradas = herramientasFiltradas.Where(h => h.Descripcion != null && h.Descripcion.Contains(TxtFiltroDescripcion.Text, StringComparison.OrdinalIgnoreCase));
-            }
+			// Filter by Nombre
+			if (!string.IsNullOrWhiteSpace(TxtFiltroNombre.Text))
+			{
+				herramientasFiltradas = herramientasFiltradas.Where(h => h.Nombre != null && h.Nombre.Contains(TxtFiltroNombre.Text, StringComparison.OrdinalIgnoreCase));
+			}
 
-            
+			// Filter by Descripcion
+			if (!string.IsNullOrWhiteSpace(TxtFiltroDescripcion.Text))
+			{
+				herramientasFiltradas = herramientasFiltradas.Where(h => h.Descripcion != null && h.Descripcion.Contains(TxtFiltroDescripcion.Text, StringComparison.OrdinalIgnoreCase));
+			}
 
-            // Update the DataGridView with filtered results
-            ListBArticulos.DataSource = herramientasFiltradas.ToList();
-            
-            // Automatically select the first row if there are items
-            if (ListBArticulos.Rows.Count > 0)
-            {
-                ListBArticulos.ClearSelection();
-                ListBArticulos.CurrentCell = ListBArticulos.Rows[0].Cells[0]; // Select first cell of first row
-                ListBArticulos.Rows[0].Selected = true; // Select the first row
-            }
-        }
 
-        /// <summary>
-        /// Clears all filter controls and shows all herramientas.
-        /// </summary>
-        private void LimpiarFiltros()
-        {
-            TxtFiltroNombre.Clear();
-            TxtFiltroDescripcion.Clear();
 
-            // Show all herramientas after clearing filters
-            ListBArticulos.DataSource = _todosLasHerramientas;
-            
-            // Automatically select the first row if there are items
-            if (ListBArticulos.Rows.Count > 0)
-            {
-                ListBArticulos.ClearSelection();
-                ListBArticulos.CurrentCell = ListBArticulos.Rows[0].Cells[0]; // Select first cell of first row
-                ListBArticulos.Rows[0].Selected = true; // Select the first row
-            }
-        }
-    }
+			// Update the DataGridView with filtered results
+			ListBArticulos.DataSource = herramientasFiltradas.ToList();
+
+			// Automatically select the first row if there are items
+			if (ListBArticulos.Rows.Count > 0)
+			{
+				ListBArticulos.ClearSelection();
+				ListBArticulos.CurrentCell = ListBArticulos.Rows[0].Cells[0]; // Select first cell of first row
+				ListBArticulos.Rows[0].Selected = true; // Select the first row
+			}
+		}
+
+		/// <summary>
+		/// Clears all filter controls and shows all herramientas.
+		/// </summary>
+		private void LimpiarFiltros()
+		{
+			TxtFiltroNombre.Clear();
+			TxtFiltroDescripcion.Clear();
+
+			// Show all herramientas after clearing filters
+			ListBArticulos.DataSource = _todosLasHerramientas;
+
+			// Automatically select the first row if there are items
+			if (ListBArticulos.Rows.Count > 0)
+			{
+				ListBArticulos.ClearSelection();
+				ListBArticulos.CurrentCell = ListBArticulos.Rows[0].Cells[0]; // Select first cell of first row
+				ListBArticulos.Rows[0].Selected = true; // Select the first row
+			}
+		}
+	}
 }

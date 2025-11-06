@@ -16,943 +16,943 @@ using Agraria.Utilidades;
 
 namespace Agraria.UI.Articulos
 {
-    [SupportedOSPlatform("windows")]
-    public partial class UCConsultaProducto : UserControl
-    {
-        #region Campos y Servicios
+	[SupportedOSPlatform("windows")]
+	public partial class UCConsultaProducto : UserControl
+	{
+		#region Campos y Servicios
 
-        private readonly IProductoService _articulosService;
-        private readonly ITipoEntornosService _tipoEntornoService;
-        private readonly IEntornoService _subcategoriasService;
-        private readonly IProveedoresService _proveedoresService;
-        private readonly IStockService _stockService;
-        private readonly IProductoStockService _articuloStockService;
+		private readonly IProductoService _articulosService;
+		private readonly ITipoEntornosService _tipoEntornoService;
+		private readonly IEntornoService _subcategoriasService;
+		private readonly IProveedoresService _proveedoresService;
+		private readonly IStockService _stockService;
+		private readonly IProductoStockService _articuloStockService;
 
-        private Modelo.Entidades.Productos _articuloSeleccionado;
-        private Stock _stockSeleccionado;
+		private Modelo.Entidades.Productos _articuloSeleccionado;
+		private Stock _stockSeleccionado;
 
-        private readonly ValidadorTextBox _validadorDescripcion;
-        private readonly ValidadorTextBox _validadorCantidad;
-        private readonly ValidadorTextBox _validadorCosto;
-        private readonly ValidadorTextBox _validadorGanancia;
+		private readonly ValidadorTextBox _validadorDescripcion;
+		private readonly ValidadorTextBox _validadorCantidad;
+		private readonly ValidadorTextBox _validadorCosto;
+		private readonly ValidadorTextBox _validadorGanancia;
 
-        private readonly ErrorProvider _errorProviderDescripcion;
-        private readonly ErrorProvider _errorProviderCantidad;
-        private readonly ErrorProvider _errorProviderCosto;
-        private readonly ErrorProvider _errorProviderGanancia;
+		private readonly ErrorProvider _errorProviderDescripcion;
+		private readonly ErrorProvider _errorProviderCantidad;
+		private readonly ErrorProvider _errorProviderCosto;
+		private readonly ErrorProvider _errorProviderGanancia;
 
-        private List<TipoEntorno> _listaTipoEntorno;
-        private List<Modelo.Entidades.Proveedores> _listaProveedores;
-        private List<Modelo.Entidades.Productos> _listaArticulos;
-        private List<Stock> _listaStock;
+		private List<TipoEntorno> _listaTipoEntorno;
+		private List<Modelo.Entidades.Proveedores> _listaProveedores;
+		private List<Modelo.Entidades.Productos> _listaArticulos;
+		private List<Stock> _listaStock;
 
-        private int _indiceSeleccionado;
-
-
-        #endregion
-
-        #region Constructor
-
-        public UCConsultaProducto(
-            IProductoService articulosService,
-            ITipoEntornosService categoriasService,
-            IEntornoService subcategoriaService,
-            IProveedoresService proveedoresService,
-            IStockService stockService,
-            IProductoStockService articuloStockService)
-        {
-            InitializeComponent();
-
-            // Inyección de dependencias
-            _articulosService = articulosService;
-            _tipoEntornoService = categoriasService;
-            _subcategoriasService = subcategoriaService;
-            _proveedoresService = proveedoresService;
-            _stockService = stockService;
-            _articuloStockService = articuloStockService;
-
-            // Inicialización de campos
-            _articuloSeleccionado = new Modelo.Entidades.Productos();
-            _stockSeleccionado = new Stock();
-
-            _listaTipoEntorno = [];
-            _listaProveedores = [];
-            _listaArticulos = [];
-            _listaStock = [];
-
-            _indiceSeleccionado = -1;
+		private int _indiceSeleccionado;
 
 
-            // Inicialización de validadores y configuración de botones
-            // Configuración de validadores con proveedores de error
-            _errorProviderDescripcion = new ErrorProvider();
-            _validadorDescripcion = new ValidadorDireccion(TxtDescripcion, _errorProviderDescripcion)
-            {
-                MensajeError = "La descripción no puede estar vacía"
-            };
+		#endregion
 
-            _errorProviderCantidad = new ErrorProvider();
-            _validadorCantidad = new ValidadorNumeroDecimal(TxtCantidad, _errorProviderCantidad)
-            {
-                MensajeError = "Número ingresado no válido"
-            };
+		#region Constructor
 
-            _errorProviderCosto = new ErrorProvider();
-            _validadorCosto = new ValidadorNumeroDecimal(TxtCosto, _errorProviderCosto)
-            {
-                MensajeError = "Número ingresado no válido"
-            };
+		public UCConsultaProducto(
+			IProductoService articulosService,
+			ITipoEntornosService categoriasService,
+			IEntornoService subcategoriaService,
+			IProveedoresService proveedoresService,
+			IStockService stockService,
+			IProductoStockService articuloStockService)
+		{
+			InitializeComponent();
 
-            _errorProviderGanancia = new ErrorProvider();
-            _validadorGanancia = new ValidadorNumeroDecimal(TxtGanancia, _errorProviderGanancia)
-            {
-                MensajeError = "Número ingresado no válido"
-            };
-            ConfigurarBotones();
-        
+			// Inyección de dependencias
+			_articulosService = articulosService;
+			_tipoEntornoService = categoriasService;
+			_subcategoriasService = subcategoriaService;
+			_proveedoresService = proveedoresService;
+			_stockService = stockService;
+			_articuloStockService = articuloStockService;
 
-        }
+			// Inicialización de campos
+			_articuloSeleccionado = new Modelo.Entidades.Productos();
+			_stockSeleccionado = new Stock();
+
+			_listaTipoEntorno = [];
+			_listaProveedores = [];
+			_listaArticulos = [];
+			_listaStock = [];
+
+			_indiceSeleccionado = -1;
 
 
+			// Inicialización de validadores y configuración de botones
+			// Configuración de validadores con proveedores de error
+			_errorProviderDescripcion = new ErrorProvider();
+			_validadorDescripcion = new ValidadorDireccion(TxtDescripcion, _errorProviderDescripcion)
+			{
+				MensajeError = "La descripción no puede estar vacía"
+			};
+
+			_errorProviderCantidad = new ErrorProvider();
+			_validadorCantidad = new ValidadorNumeroDecimal(TxtCantidad, _errorProviderCantidad)
+			{
+				MensajeError = "Número ingresado no válido"
+			};
+
+			_errorProviderCosto = new ErrorProvider();
+			_validadorCosto = new ValidadorNumeroDecimal(TxtCosto, _errorProviderCosto)
+			{
+				MensajeError = "Número ingresado no válido"
+			};
+
+			_errorProviderGanancia = new ErrorProvider();
+			_validadorGanancia = new ValidadorNumeroDecimal(TxtGanancia, _errorProviderGanancia)
+			{
+				MensajeError = "Número ingresado no válido"
+			};
+			ConfigurarBotones();
+
+
+		}
 
 
 
-        /// <summary>
-        /// Configura las propiedades iniciales de los botones en el formulario.
-        /// </summary>
-        private void ConfigurarBotones()
-        {
-            BtnGuardar.Tag = AppColorsBlue.Tertiary;
-            BtnEliminar.Tag = AppColorsBlue.Error;
-        }
 
-        #endregion
 
-        #region Eventos de UI
+		/// <summary>
+		/// Configura las propiedades iniciales de los botones en el formulario.
+		/// </summary>
+		private void ConfigurarBotones()
+		{
+			BtnGuardar.Tag = AppColorsBlue.Tertiary;
+			BtnEliminar.Tag = AppColorsBlue.Error;
+		}
 
-        /// <summary>
-        /// Maneja el evento de carga del control de usuario. Inicia la carga de datos iniciales.
-        /// </summary>
-        /// <param name="sender">El objeto que generó el evento.</param>
-        /// <param name="e">Los datos del evento.</param>
-        private void UCConsultaArticulos_Load(object sender, EventArgs e)
-        {
-            var taskHelper = new TareasLargas(
-                PanelMedio,
-                ProgressBar,
-                CargaInicial,
-                CargarCombosYDataGrid);
-            taskHelper.Iniciar();
+		#endregion
 
-        }
+		#region Eventos de UI
 
-        /// <summary>
-        /// Maneja el evento de clic en el botón Guardar. Valida el formulario y guarda los datos del artículo y stock.
-        /// </summary>
-        /// <param name="sender">El objeto que generó el evento.</param>
-        /// <param name="e">Los datos del evento.</param>
-        private void BtnGuardar_Click(object sender, EventArgs e)
-        {
-            if (!ValidarFormulario())
-            {
-                MostrarMensaje("Por favor, complete todos los campos requeridos correctamente",
-                              "Datos incompletos",
-                              MessageBoxIcon.Warning);
-                return;
-            }
-            DialogResult dialogResult = MessageBox.Show("¿Estas seguro que queres guardar los cmabios?","Guardar Cambios", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if (dialogResult == DialogResult.No) return;
-            if (!CrearArticuloDesdeFormulario() || !CrearStockDesdeFormulario())
-            {
-                return;
-            }
+		/// <summary>
+		/// Maneja el evento de carga del control de usuario. Inicia la carga de datos iniciales.
+		/// </summary>
+		/// <param name="sender">El objeto que generó el evento.</param>
+		/// <param name="e">Los datos del evento.</param>
+		private void UCConsultaArticulos_Load(object sender, EventArgs e)
+		{
+			var taskHelper = new TareasLargas(
+				PanelMedio,
+				ProgressBar,
+				CargaInicial,
+				CargarCombosYDataGrid);
+			taskHelper.Iniciar();
 
-            var tarea = new TareasLargas(
-                PanelMedio,
-                ProgressBar,
-                GuardarArticuloStock,
-                FinBtnGuardar);
-            tarea.Iniciar();
-        }
+		}
 
-        private void FinBtnGuardar()
-        {
-            this.Invoke(
-                () =>
-                {
-            ActualizarListas();
-            ListBArticulos.Refresh();
+		/// <summary>
+		/// Maneja el evento de clic en el botón Guardar. Valida el formulario y guarda los datos del artículo y stock.
+		/// </summary>
+		/// <param name="sender">El objeto que generó el evento.</param>
+		/// <param name="e">Los datos del evento.</param>
+		private void BtnGuardar_Click(object sender, EventArgs e)
+		{
+			if (!ValidarFormulario())
+			{
+				MostrarMensaje("Por favor, complete todos los campos requeridos correctamente",
+							  "Datos incompletos",
+							  MessageBoxIcon.Warning);
+				return;
+			}
+			DialogResult dialogResult = MessageBox.Show("¿Estas seguro que queres guardar los cmabios?", "Guardar Cambios", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+			if (dialogResult == DialogResult.No) return;
+			if (!CrearArticuloDesdeFormulario() || !CrearStockDesdeFormulario())
+			{
+				return;
+			}
 
-                });
-        }
-        /// <summary>
-        /// Maneja el evento de clic en el botón Eliminar. Elimina el artículo y stock seleccionados.
-        /// </summary>
-        /// <param name="sender">El objeto que generó el evento.</param>
-        /// <param name="e">Los datos del evento.</param>
-        private void BtnEliminar_Click(object sender, EventArgs e)
-        {
-            if (!ValidarSeleccionParaEliminar())
-            {
-                MostrarMensaje("Por favor, seleccione un artículo de la lista para eliminar",
-                              "Ningún artículo seleccionado",
-                              MessageBoxIcon.Warning);
-                return;
-            }
+			var tarea = new TareasLargas(
+				PanelMedio,
+				ProgressBar,
+				GuardarArticuloStock,
+				FinBtnGuardar);
+			tarea.Iniciar();
+		}
 
-            if (!ConfirmarEliminacion()) return;
+		private void FinBtnGuardar()
+		{
+			this.Invoke(
+				() =>
+				{
+					ActualizarListas();
+					ListBArticulos.Refresh();
 
-            var tarea = new TareasLargas(
-                PanelMedio,
-                ProgressBar,
-                EliminarArticuloStock,
-                () =>
-                {
-                    LimpiarFormulario();
-                    ActualizarDataGridView();
-                    if (Utilidades.Util.CalcularDGVVacio(ListBArticulos, LblLista, "Articulos"))
-                    {
-                        Utilidades.Util.LimpiarForm(TLPForm, TxtDescripcion);
-                        Utilidades.Util.BloquearBtns(ListBArticulos, TLPForm);
+				});
+		}
+		/// <summary>
+		/// Maneja el evento de clic en el botón Eliminar. Elimina el artículo y stock seleccionados.
+		/// </summary>
+		/// <param name="sender">El objeto que generó el evento.</param>
+		/// <param name="e">Los datos del evento.</param>
+		private void BtnEliminar_Click(object sender, EventArgs e)
+		{
+			if (!ValidarSeleccionParaEliminar())
+			{
+				MostrarMensaje("Por favor, seleccione un artículo de la lista para eliminar",
+							  "Ningún artículo seleccionado",
+							  MessageBoxIcon.Warning);
+				return;
+			}
 
-                    }
-                });
-            tarea.Iniciar();
-        }
+			if (!ConfirmarEliminacion()) return;
 
-        /// <summary>
-        /// Maneja el evento de cambio de selección en la lista de artículos. Carga los datos del artículo seleccionado en el formulario.
-        /// </summary>
-        /// <param name="sender">El objeto que generó el evento.</param>
-        /// <param name="e">Los datos del evento.</param>
-        private void ListBArticulos_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (!HaySeleccionValida())
-            {
-                LimpiarFormulario();
-                return;
-            }
+			var tarea = new TareasLargas(
+				PanelMedio,
+				ProgressBar,
+				EliminarArticuloStock,
+				() =>
+				{
+					LimpiarFormulario();
+					ActualizarDataGridView();
+					if (Utilidades.Util.CalcularDGVVacio(ListBArticulos, LblLista, "Articulos"))
+					{
+						Utilidades.Util.LimpiarForm(TLPForm, TxtDescripcion);
+						Utilidades.Util.BloquearBtns(ListBArticulos, TLPForm);
 
-            _indiceSeleccionado = ListBArticulos.CurrentRow?.Index ?? -1;
+					}
+				});
+			tarea.Iniciar();
+		}
 
-            if (_indiceSeleccionado >= 0 && _indiceSeleccionado < ListBArticulos.Rows.Count)
-            {
-                CargarFormularioEdicion();
-            }
-            else
-            {
-                LimpiarFormulario();
-            }
-            CalcularPrecioVenta();
-        }
+		/// <summary>
+		/// Maneja el evento de cambio de selección en la lista de artículos. Carga los datos del artículo seleccionado en el formulario.
+		/// </summary>
+		/// <param name="sender">El objeto que generó el evento.</param>
+		/// <param name="e">Los datos del evento.</param>
+		private void ListBArticulos_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			if (!HaySeleccionValida())
+			{
+				LimpiarFormulario();
+				return;
+			}
 
-        /// <summary>
-        /// Maneja el evento de cambio de texto en el cuadro de texto de descripción. Valida el formulario.
-        /// </summary>
-        /// <param name="sender">El objeto que generó el evento.</param>
-        /// <param name="e">Los datos del evento.</param>
-        private void TxtDescripcion_TextChanged(object sender, EventArgs e)
-        {
-            ValidadorMultiple.ValidacionMultiple(
-                BtnGuardar,
-                _validadorDescripcion,
-                _validadorCantidad,
-                _validadorCosto,
-                _validadorGanancia);
-        }
+			_indiceSeleccionado = ListBArticulos.CurrentRow?.Index ?? -1;
 
-        /// <summary>
-        /// Maneja el evento de cambio de selección en el ComboBox de categorías. Carga las subcategorías correspondientes.
-        /// </summary>
-        /// <param name="sender">El objeto que generó el evento.</param>
-        /// <param name="e">Los datos del evento.</param>
-        private async void CMBCategoria_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (CMBTipoEntorno.SelectedItem is TipoEntorno categoria)
-            {
-                await CargarEntornos(categoria.Id_Area);
-            }
-        }
+			if (_indiceSeleccionado >= 0 && _indiceSeleccionado < ListBArticulos.Rows.Count)
+			{
+				CargarFormularioEdicion();
+			}
+			else
+			{
+				LimpiarFormulario();
+			}
+			CalcularPrecioVenta();
+		}
 
-        /// <summary>
-        /// Maneja los errores de datos en el DataGridView.
-        /// </summary>
-        /// <param name="sender">El objeto que generó el evento.</param>
-        /// <param name="e">Los datos del evento.</param>
-        private void ListBArticulos_DataError(object sender, DataGridViewDataErrorEventArgs e)
-        {
-            e.ThrowException = false;
-            // Solución CS8602: Comprobar si Exception es null antes de acceder a Message
-            if (e.Exception != null)
-            {
-                Console.WriteLine($"Error en DataGridView: {e.Exception.Message}");
-            }
-            else
-            {
-                Console.WriteLine("Error en DataGridView: excepción desconocida.");
-            }
-        }
+		/// <summary>
+		/// Maneja el evento de cambio de texto en el cuadro de texto de descripción. Valida el formulario.
+		/// </summary>
+		/// <param name="sender">El objeto que generó el evento.</param>
+		/// <param name="e">Los datos del evento.</param>
+		private void TxtDescripcion_TextChanged(object sender, EventArgs e)
+		{
+			BtnGuardar.Enabled = ValidadorMultiple.ValidacionMultiple(
 
-        /// <summary>
-        /// Maneja el evento de cambio de estado de habilitación del botón Guardar. Cambia el color de fondo del botón.
-        /// </summary>
-        /// <param name="sender">El objeto que generó el evento.</param>
-        /// <param name="e">Los datos del evento.</param>
-        private void BtnGuardar_EnabledChanged(object sender, EventArgs e)
-        {
-            if (sender is Button btn && btn.Tag is Color color)
-            {
-                btn.BackColor = btn.Enabled ? color : AppColorsBlue.Secondary;
-            }
-        }
+				_validadorDescripcion,
+				_validadorCantidad,
+				_validadorCosto,
+				_validadorGanancia);
+		}
 
-        #endregion
+		/// <summary>
+		/// Maneja el evento de cambio de selección en el ComboBox de categorías. Carga las subcategorías correspondientes.
+		/// </summary>
+		/// <param name="sender">El objeto que generó el evento.</param>
+		/// <param name="e">Los datos del evento.</param>
+		private async void CMBCategoria_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			if (CMBTipoEntorno.SelectedItem is TipoEntorno categoria)
+			{
+				await CargarEntornos(categoria.Id_Area);
+			}
+		}
 
-        #region Métodos de Carga de Datos
+		/// <summary>
+		/// Maneja los errores de datos en el DataGridView.
+		/// </summary>
+		/// <param name="sender">El objeto que generó el evento.</param>
+		/// <param name="e">Los datos del evento.</param>
+		private void ListBArticulos_DataError(object sender, DataGridViewDataErrorEventArgs e)
+		{
+			e.ThrowException = false;
+			// Solución CS8602: Comprobar si Exception es null antes de acceder a Message
+			if (e.Exception != null)
+			{
+				Console.WriteLine($"Error en DataGridView: {e.Exception.Message}");
+			}
+			else
+			{
+				Console.WriteLine("Error en DataGridView: excepción desconocida.");
+			}
+		}
 
-        /// <summary>
-        /// Realiza la carga inicial de datos de forma asíncrona.
-        /// </summary>
-        private async Task CargaInicial()
-        {
-            await Task.WhenAll(
-                CargarArticulos(),
-                CargarStocks(),
-                CargarTipoEntorno(),
-                CargarProveedores()
-            );
-        }
+		/// <summary>
+		/// Maneja el evento de cambio de estado de habilitación del botón Guardar. Cambia el color de fondo del botón.
+		/// </summary>
+		/// <param name="sender">El objeto que generó el evento.</param>
+		/// <param name="e">Los datos del evento.</param>
+		private void BtnGuardar_EnabledChanged(object sender, EventArgs e)
+		{
+			if (sender is Button btn && btn.Tag is Color color)
+			{
+				btn.BackColor = btn.Enabled ? color : AppColorsBlue.Secondary;
+			}
+		}
 
-        /// <summary>
-        /// Carga los ComboBoxes y el DataGridView con los datos iniciales.
-        /// </summary>
-        private void CargarCombosYDataGrid()
-        {
-            this.Invoke(
-                () =>
-                {
-                    CargarCMBs();
+		#endregion
 
-                    CargarArticulosDataGridView();
+		#region Métodos de Carga de Datos
 
-                    // Inicializar controles de filtro
-                    InicializarControlesFiltro();
+		/// <summary>
+		/// Realiza la carga inicial de datos de forma asíncrona.
+		/// </summary>
+		private async Task CargaInicial()
+		{
+			await Task.WhenAll(
+				CargarArticulos(),
+				CargarStocks(),
+				CargarTipoEntorno(),
+				CargarProveedores()
+			);
+		}
 
-                    // Verificar si hay artículos y activar/desactivar formulario según corresponda
-                    if (_listaArticulos == null || _listaArticulos.Count == 0)
-                    {
-                        // No hay artículos, desactivar formulario
-                        Utilidades.Util.LimpiarForm(TLPForm, TxtDescripcion);
-                        Utilidades.Util.BloquearBtns(ListBArticulos, TLPForm);
-                    }
-                    else
-                    {
-                        // Hay artículos, activar formulario
-                        Utilidades.Util.DesbloquearTLPForm(TLPForm);
-                    }
-                });
-            
-        }
+		/// <summary>
+		/// Carga los ComboBoxes y el DataGridView con los datos iniciales.
+		/// </summary>
+		private void CargarCombosYDataGrid()
+		{
+			this.Invoke(
+				() =>
+				{
+					CargarCMBs();
 
-        /// <summary>
-        /// Inicializa los controles de filtro con los valores correspondientes
-        /// </summary>
-        private void InicializarControlesFiltro()
-        {
-            try
-            {
-                // Cargar proveedores en el ComboBox de filtro
-                CargarProveedoresEnFiltro();
+					CargarArticulosDataGridView();
 
-                // Limpiar los campos de texto de filtro
-                TxtFiltroCodigo.Clear();
-                TxtFiltroDescripcion.Clear();
+					// Inicializar controles de filtro
+					InicializarControlesFiltro();
 
-                // Seleccionar "Todos" en los ComboBox de filtro
-                if (CmbFiltroProveedor.Items.Count > 0)
-                {
-                    CmbFiltroProveedor.SelectedIndex = 0;
-                }
+					// Verificar si hay artículos y activar/desactivar formulario según corresponda
+					if (_listaArticulos == null || _listaArticulos.Count == 0)
+					{
+						// No hay artículos, desactivar formulario
+						Utilidades.Util.LimpiarForm(TLPForm, TxtDescripcion);
+						Utilidades.Util.BloquearBtns(ListBArticulos, TLPForm);
+					}
+					else
+					{
+						// Hay artículos, activar formulario
+						Utilidades.Util.DesbloquearTLPForm(TLPForm);
+					}
+				});
 
-                if (CmbFiltroEnVenta.Items.Count > 0)
-                {
-                    CmbFiltroEnVenta.SelectedIndex = 0; // "Todos"
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error al inicializar los controles de filtro: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
+		}
 
-        /// <summary>
-        /// Carga los proveedores en el ComboBox de filtro
-        /// </summary>
-        private void CargarProveedoresEnFiltro()
-        {
-            try
-            {
-                // Aseguramos que la lista de proveedores esté disponible
-                var listaConTodos = new List<Modelo.Entidades.Proveedores>
+		/// <summary>
+		/// Inicializa los controles de filtro con los valores correspondientes
+		/// </summary>
+		private void InicializarControlesFiltro()
+		{
+			try
+			{
+				// Cargar proveedores en el ComboBox de filtro
+				CargarProveedoresEnFiltro();
+
+				// Limpiar los campos de texto de filtro
+				TxtFiltroCodigo.Clear();
+				TxtFiltroDescripcion.Clear();
+
+				// Seleccionar "Todos" en los ComboBox de filtro
+				if (CmbFiltroProveedor.Items.Count > 0)
+				{
+					CmbFiltroProveedor.SelectedIndex = 0;
+				}
+
+				if (CmbFiltroEnVenta.Items.Count > 0)
+				{
+					CmbFiltroEnVenta.SelectedIndex = 0; // "Todos"
+				}
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show($"Error al inicializar los controles de filtro: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			}
+		}
+
+		/// <summary>
+		/// Carga los proveedores en el ComboBox de filtro
+		/// </summary>
+		private void CargarProveedoresEnFiltro()
+		{
+			try
+			{
+				// Aseguramos que la lista de proveedores esté disponible
+				var listaConTodos = new List<Modelo.Entidades.Proveedores>
 				{
 					new() { Id_Proveedor = 0, Proveedor = "Todos" } // Opción "Todos"
 				};
-                listaConTodos.AddRange(_listaProveedores ?? []);
-
-                CmbFiltroProveedor.DataSource = listaConTodos;
-                CmbFiltroProveedor.DisplayMember = "Proveedor";
-                CmbFiltroProveedor.ValueMember = "Id_Proveedor";
-                CmbFiltroProveedor.SelectedIndex = 0; // Seleccionamos "Todos" por defecto
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error al cargar proveedores en el filtro: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        private void CargarCMBs()
-        {
-            
-                    CMBProveedor.DataSource = _listaProveedores ?? [];
-                    CMBProveedor.DisplayMember = "Proveedor";
-                    CMBProveedor.ValueMember = "Id_Proveedor";
-
-                    CMBTipoEntorno.DataSource = _listaTipoEntorno ?? [];
-                    CMBTipoEntorno.DisplayMember = "Area";
-                    CMBTipoEntorno.ValueMember = "Id_Area";
-               
-            
-        }
-
-        /// <summary>
-        /// Carga la lista de artículos desde el servicio de forma asíncrona.
-        /// </summary>
-        private async Task CargarArticulos()
-        {
-            var resultado = await _articulosService.GetAll();
-
-            if (resultado.IsSuccess)
-            {
-                _listaArticulos = resultado.Value;
-            }
-            else
-            {
-                MostrarMensaje(resultado.Error, "Error al cargar artículos", MessageBoxIcon.Error);
-            }
-        }
-
-        /// <summary>
-        /// Carga la lista de stocks desde el servicio de forma asíncrona.
-        /// </summary>
-        private async Task CargarStocks()
-        {
-            var resultado = await _stockService.GetAll();
-
-            if (resultado.IsSuccess)
-            {
-                _listaStock = resultado.Value;
-            }
-            else
-            {
-                MostrarMensaje(resultado.Error, "Error al cargar stocks", MessageBoxIcon.Error);
-            }
-        }
-
-        /// <summary>
-        /// Carga la lista de Tipo_Entorno desde el servicio de forma asíncrona.
-        /// </summary>
-        private async Task CargarTipoEntorno()
-        {
-            var resultado = await _tipoEntornoService.GetAll();
-
-            if (resultado.IsSuccess)
-            {
-                _listaTipoEntorno = resultado.Value;
-            }
-            else
-            {
-                MostrarMensaje(resultado.Error, "Error al cargar Tipo_Entorno", MessageBoxIcon.Error);
-            }
-        }
-
-        /// <summary>
-        /// Carga la lista de proveedores desde el servicio de forma asíncrona.
-        /// </summary>
-        private async Task CargarProveedores()
-        {
-            var resultado = await _proveedoresService.GetAll();
-
-            if (resultado.IsSuccess)
-            {
-                _listaProveedores = resultado.Value;
-            }
-            else
-            {
-                MostrarMensaje(resultado.Error, "Error al cargar proveedores", MessageBoxIcon.Error);
-            }
-        }
-
-        /// <summary>
-        /// Carga las entornos de una categoría específica de forma asíncrona.
-        /// </summary>
-        /// <param name="idEntorno">El ID del entorno.</param>
-        private async Task CargarEntornos(int idEntorno)
-        {
-            var resultado = await _subcategoriasService.GetAllxEntorno(idEntorno);
-
-            if (resultado.IsSuccess)
-            {
-                CMBEntorno.DataSource = resultado.Value;
-                CMBEntorno.DisplayMember = "Entorno_nombre";
-                CMBEntorno.ValueMember = "Id_Entorno";
-            }
-            else
-            {
-                MostrarMensaje(resultado.Error, "Error al cargar Entornos", MessageBoxIcon.Error);
-            }
-        }
-
-        #endregion
-
-        #region Métodos de Formulario y Validación
-
-        /// <summary>
-        /// Valida los campos del formulario.
-        /// </summary>
-        /// <returns>True si el formulario es válido, de lo contrario False.</returns>
-        private bool ValidarFormulario()
-        {
-            return _validadorDescripcion.Validar() &&
-                   _validadorCantidad.Validar() &&
-                   _validadorCosto.Validar() &&
-                   _validadorGanancia.Validar();
-        }
-
-        /// <summary>
-        /// Valida si hay un artículo seleccionado para eliminar.
-        /// </summary>
-        /// <returns>True si hay un artículo seleccionado, de lo contrario False.</returns>
-        private bool ValidarSeleccionParaEliminar()
-        {
-            return _articuloSeleccionado != null && _articuloSeleccionado.Id_Producto != 0;
-        }
-
-        /// <summary>
-        /// Muestra un cuadro de diálogo de confirmación de eliminación.
-        /// </summary>
-        /// <returns>True si el usuario confirma la eliminación, de lo contrario False.</returns>
-        private static bool ConfirmarEliminacion()
-        {
-            var resultado = MessageBox.Show(
-                "¿Está seguro de que desea eliminar este artículo?",
-                "Confirmación de eliminación",
-                MessageBoxButtons.YesNo,
-                MessageBoxIcon.Question);
-
-            return resultado == DialogResult.Yes;
-        }
-
-        /// <summary>
-        /// Crea o actualiza un objeto de artículo a partir de los datos del formulario.
-        /// </summary>
-        /// <returns>True si el objeto se creó o actualizó correctamente, de lo contrario False.</returns>
-        private bool CrearArticuloDesdeFormulario()
-        {
-            if (CMBProveedor.SelectedItem is not Modelo.Entidades.Proveedores proveedor)
-            {
-                MostrarMensaje("El proveedor seleccionado no es válido", "Error", MessageBoxIcon.Error);
-                return false;
-            }
-
-            if (CMBTipoEntorno.SelectedItem is not TipoEntorno categoria)
-            {
-                MostrarMensaje("La categoría seleccionada no es válida", "Error", MessageBoxIcon.Error);
-                return false;
-            }
-
-            if (CMBEntorno.SelectedItem is not Entorno subcategoria)
-            {
-                MostrarMensaje("La subcategoría seleccionada no es válida", "Error", MessageBoxIcon.Error);
-                return false;
-            }
-
-            _articuloSeleccionado.Producto_Desc = TxtDescripcion.Text;
-            _articuloSeleccionado.Id_Proveedor = proveedor.Id_Proveedor;
-            _articuloSeleccionado.Id_Area = categoria.Id_Area;
-            _articuloSeleccionado.Id_Entorno = subcategoria.Id_Entorno;
-
-            return true;
-        }
-
-        /// <summary>
-        /// Crea o actualiza un objeto de stock a partir de los datos del formulario.
-        /// </summary>
-        /// <returns>True si el objeto se creó o actualizó correctamente, de lo contrario False.</returns>
-        private bool CrearStockDesdeFormulario()
-        {
-            if (string.IsNullOrEmpty(TxtCantidad.Text) ||
-                string.IsNullOrEmpty(TxtCosto.Text) ||
-                string.IsNullOrEmpty(TxtGanancia.Text))
-            {
-                MostrarMensaje("Complete todos los campos de stock", "Datos incompletos", MessageBoxIcon.Error);
-                return false;
-            }
-
-            _stockSeleccionado.Cantidad = DecimalFormatter.ParseDecimal(TxtCantidad.Text);
-            _stockSeleccionado.Costo = DecimalFormatter.ParseDecimal(TxtCosto.Text);
-            _stockSeleccionado.Ganancia = DecimalFormatter.ParseDecimal(TxtGanancia.Text);
-
-            return true;
-        }
-
-        /// <summary>
-        /// Carga los datos del artículo seleccionado en el formulario para su edición.
-        /// </summary>
-        private void CargarFormularioEdicion()
-        {
-            if (!HaySeleccionValida() ||
-                _indiceSeleccionado < 0 ||
-                _indiceSeleccionado >= ListBArticulos.Rows.Count)
-            {
-                LimpiarFormulario();
-                return;
-            }
-
-            var fila = ListBArticulos.Rows[_indiceSeleccionado];
-
-            if (fila.DataBoundItem is Productos articulo)
-            {
-                _articuloSeleccionado = articulo;
-                string? codigoArticuloNullable = _articuloSeleccionado.Cod_Producto;
-                string codigoArticulo = codigoArticuloNullable ?? string.Empty;
-
-                _stockSeleccionado = _listaStock.FirstOrDefault(s => s.Cod_Articulo == codigoArticulo) ?? new Stock();
-
-                // Cargar datos en los controles
-                TxtDescripcion.Text = _articuloSeleccionado.Producto_Desc ?? string.Empty;
-                TxtCantidad.Text = DecimalFormatter.ToDecimal(_stockSeleccionado.Cantidad);
-                TxtCosto.Text = DecimalFormatter.ToDecimal(_stockSeleccionado.Costo);
-                TxtGanancia.Text = DecimalFormatter.ToDecimal(_stockSeleccionado.Ganancia);
-
-                // Cargar combos
-                CargarCombosSeleccion();
-            }
-            else
-            {
-                LimpiarFormulario();
-            }
-        }
-
-        /// <summary>
-        /// Carga los ComboBoxes con los valores seleccionados del artículo.
-        /// </summary>
-        private void CargarCombosSeleccion()
-        {
-            if (CMBTipoEntorno.Items.Count > 0)
-                CMBTipoEntorno.SelectedValue = _articuloSeleccionado.Id_Area;
-
-            if (CMBProveedor.Items.Count > 0)
-                CMBProveedor.SelectedValue = _articuloSeleccionado.Id_Proveedor;
-
-            if (CMBEntorno.Items.Count > 0)
-                CMBEntorno.SelectedValue = _articuloSeleccionado.Id_Entorno;
-        }
-
-        /// <summary>
-        /// Limpia los campos del formulario y restablece los objetos de artículo y stock seleccionados.
-        /// </summary>
-        private void LimpiarFormulario()
-        {
-            TxtDescripcion.Clear();
-            TxtCantidad.Clear();
-            TxtCosto.Clear();
-            TxtGanancia.Clear();
-            LblPrecio.Text = "$0,00";
-
-            _articuloSeleccionado = new Modelo.Entidades.Productos();
-            _stockSeleccionado = new Stock();
-        }
-
-        /// <summary>
-        /// Verifica si hay una selección válida en la lista de artículos.
-        /// </summary>
-        /// <returns>True si hay una selección válida, de lo contrario False.</returns>
-        private bool HaySeleccionValida()
-        {
-            return ListBArticulos.Rows.Count > 0 && ListBArticulos.SelectedRows.Count > 0;
-        }
-
-        #endregion
-
-        #region Métodos de Operaciones de Datos
-
-        /// <summary>
-        /// Guarda los cambios en el artículo y el stock de forma asíncrona.
-        /// </summary>
-        private async Task GuardarArticuloStock()
-        {
-            var resultado = await _articuloStockService.Update(_articuloSeleccionado, _stockSeleccionado);
-
-            if (resultado.IsSuccess)
-            {
-                MostrarMensaje("Artículo actualizado correctamente", "Éxito", MessageBoxIcon.Information);
-            }
-            else
-            {
-                MostrarMensaje(resultado.Error, "Error en la actualización", MessageBoxIcon.Error);
-            }
-        }
-
-        /// <summary>
-        /// Elimina el artículo y el stock seleccionados de forma asíncrona.
-        /// </summary>
-        private async Task EliminarArticuloStock()
-        {
-            var resultado = await _articuloStockService.Delete(_articuloSeleccionado, _stockSeleccionado);
-
-            if (resultado.IsSuccess)
-            {
-                MostrarMensaje("Artículo eliminado correctamente", "Éxito", MessageBoxIcon.Information);
-                EliminarDeListas();
-            }
-            else
-            {
-                MostrarMensaje(resultado.Error, "Error al eliminar artículo", MessageBoxIcon.Error);
-            }
-        }
-
-        /// <summary>
-        /// Actualiza las listas de artículos y stock.
-        /// </summary>
-        private void ActualizarListas()
-        {
-            Utilidades.Util.ActualizarEnLista(_listaArticulos, _articuloSeleccionado);
-            Utilidades.Util.ActualizarEnLista(_listaStock, _stockSeleccionado);
-            CargarArticulosDataGridView();
-        }
-
-        /// <summary>
-        /// Elimina el artículo y el stock seleccionados de las listas.
-        /// </summary>
-        private void EliminarDeListas()
-        {
-            Utilidades.Util.EliminarDeLista(_listaArticulos, _articuloSeleccionado);
-            Utilidades.Util.EliminarDeLista(_listaStock, _stockSeleccionado);
-        }
-
-        #endregion
-
-        #region Métodos de UI Helpers
-
-        /// <summary>
-        /// Carga los datos de los artículos en el DataGridView.
-        /// </summary>
-        private void CargarArticulosDataGridView()
-        {
-            try
-            {
-                ListBArticulos.SuspendLayout();
-                int primeraFilaVisible = ListBArticulos.FirstDisplayedScrollingRowIndex;
-
-                ListBArticulos.AutoGenerateColumns = false;
-                ListBArticulos.DataSource = null;
-                ListBArticulos.DataSource = _listaArticulos ?? [];
-
-                // Ensure column headers are set up correctly
-                if (ListBArticulos.Columns["Cod_Producto"] != null)
-                {
-                    ListBArticulos.Columns["Cod_Producto"]!.HeaderText = "CÓDIGO";
-                }
-
-                if (ListBArticulos.Columns["Producto_Desc"] != null)
-                {
-                    ListBArticulos.Columns["Producto_Desc"]!.HeaderText = "DESCRIPCIÓN";
-                }
-
-                if (primeraFilaVisible >= 0 && primeraFilaVisible < ListBArticulos.Rows.Count)
-                {
-                    ListBArticulos.FirstDisplayedScrollingRowIndex = primeraFilaVisible;
-                }
-            }
-            catch (Exception ex)
-            {
-                MostrarMensaje($"Error al cargar DataGridView: {ex.Message}", "Error", MessageBoxIcon.Error);
-            }
-            finally
-            {
-                ListBArticulos.ResumeLayout();
-            }
-        }
-
-        /// <summary>
-        /// Actualiza el DataGridView y borra la selección.
-        /// </summary>
-        private void ActualizarDataGridView()
-        {
-            CargarArticulosDataGridView();
-            ListBArticulos.ClearSelection();
-        }
-
-        /// <summary>
-        /// Muestra un cuadro de mensaje.
-        /// </summary>
-        /// <param name="mensaje">El mensaje a mostrar.</param>
-        /// <param name="titulo">El título del cuadro de mensaje.</param>
-        /// <param name="icono">El icono a mostrar en el cuadro de mensaje.</param>
-        private static void MostrarMensaje(string mensaje, string titulo, MessageBoxIcon icono)
-        {
-            MessageBox.Show(mensaje, titulo, MessageBoxButtons.OK, icono);
-        }
-
-        /// <summary>
-        /// Maneja los eventos de cambio de texto o selección en los controles de filtro
-        /// </summary>
-        /// <param name="sender">El objeto que generó el evento</param>
-        /// <param name="e">Los datos del evento</param>
-        private void Filtros_TextChanged(object sender, EventArgs e)
-        {
-            FiltrarDatos();
-        }
-
-        /// <summary>
-        /// Filtra la lista de productos según los valores de los controles de filtro
-        /// </summary>
-        private void FiltrarDatos()
-        {
-            try
-            {
-                // Obtener la lista completa de artículos
-                var listaCompleta = _listaArticulos ?? [];
-                var listaFiltrada = new List<Modelo.Entidades.Productos>();
-
-                foreach (var producto in listaCompleta)
-                {
-                    bool coincide = true;
-
-                    // Filtrar por código
-                    if (!string.IsNullOrEmpty(TxtFiltroCodigo.Text))
-                    {
-                        if (producto.Cod_Producto == null || !producto.Cod_Producto.Contains(TxtFiltroCodigo.Text, StringComparison.CurrentCultureIgnoreCase))
-                        {
-                            coincide = false;
-                        }
-                    }
-
-                    // Filtrar por descripción
-                    if (coincide && !string.IsNullOrEmpty(TxtFiltroDescripcion.Text))
-                    {
-                        if (producto.Producto_Desc == null || !producto.Producto_Desc.Contains(TxtFiltroDescripcion.Text, StringComparison.CurrentCultureIgnoreCase))
-                        {
-                            coincide = false;
-                        }
-                    }
-
-                    // Filtrar por proveedor
-                    if (coincide && CmbFiltroProveedor.SelectedItem != null && CmbFiltroProveedor.SelectedIndex > 0)
-                    {
-                        var proveedorSeleccionado = CmbFiltroProveedor.SelectedItem as Modelo.Entidades.Proveedores;
-                        if (producto.Id_Proveedor != proveedorSeleccionado.Id_Proveedor)
-                        {
-                            coincide = false;
-                        }
-                    }
-
-                    // Filtrar por estado "En Venta"
-                    if (coincide && CmbFiltroEnVenta.SelectedIndex > 0)
-                    {
-                        bool enVentaSeleccionado = CmbFiltroEnVenta.SelectedIndex == 1; // "Sí" = índice 1
-                        if (producto.En_Venta != enVentaSeleccionado)
-                        {
-                            coincide = false;
-                        }
-                    }
-
-                    if (coincide)
-                    {
-                        listaFiltrada.Add(producto);
-                    }
-                }
-
-                // Actualizar el DataGridView con la lista filtrada
-                ActualizarDataGridViewConFiltros(listaFiltrada);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error al filtrar los datos: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        /// <summary>
-        /// Actualiza el DataGridView con la lista filtrada
-        /// </summary>
-        /// <param name="listaFiltrada">La lista de productos ya filtrada</param>
-        private void ActualizarDataGridViewConFiltros(List<Modelo.Entidades.Productos> listaFiltrada)
-        {
-            try
-            {
-                // Suspendemos el dibujado para evitar actualizaciones parciales
-                ListBArticulos.SuspendLayout();
-                ListBArticulos.DataSource = null;
-
-                // Bind directly to the original entities to preserve full object access
-                ListBArticulos.DataSource = listaFiltrada;
-
-                // Aseguramos que las columnas tengan los encabezados correctos
-                if (ListBArticulos.Columns["Cod_Producto"] != null)
-                {
-                    ListBArticulos.Columns["Cod_Producto"]!.HeaderText = "CÓDIGO";
-                }
-
-                if (ListBArticulos.Columns["Producto_Desc"] != null)
-                {
-                    ListBArticulos.Columns["Producto_Desc"]!.HeaderText = "DESCRIPCIÓN";
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error al actualizar el DataGridView: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            finally
-            {
-                ListBArticulos.ResumeLayout();
-            }
-        }
-
-
-        #endregion
-
-        private void TxtCosto_KeyUp(object sender, KeyEventArgs e)
-        {
-            CalcularPrecioVenta();
-        }
-
-        private void CalcularPrecioVenta()
-        {
-            if (string.IsNullOrEmpty(TxtCosto.Text) || string.IsNullOrEmpty(TxtGanancia.Text))
-            {
-                return;
-            }
-            decimal costo = DecimalFormatter.ParseDecimal(TxtCosto.Text);
-            decimal ganancia = DecimalFormatter.ParseDecimal(TxtGanancia.Text);
-
-            LblPrecio.Text = DecimalFormatter.ToCurrency(costo + (costo * ganancia / 100));
-        }
-
-        private void UCConsultaArticulos_VisibleChanged(object sender, EventArgs e)
-        {
-            if (Visible)
-            {
-                var taskHelper = new TareasLargas(
-               PanelMedio,
-               ProgressBar,
-               CargaInicial,
-               CargarCombosYDataGrid);
-                taskHelper.Iniciar();
-            }
-
-        }
-        
-      
-
-    }
+				listaConTodos.AddRange(_listaProveedores ?? []);
+
+				CmbFiltroProveedor.DataSource = listaConTodos;
+				CmbFiltroProveedor.DisplayMember = "Proveedor";
+				CmbFiltroProveedor.ValueMember = "Id_Proveedor";
+				CmbFiltroProveedor.SelectedIndex = 0; // Seleccionamos "Todos" por defecto
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show($"Error al cargar proveedores en el filtro: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			}
+		}
+
+		private void CargarCMBs()
+		{
+
+			CMBProveedor.DataSource = _listaProveedores ?? [];
+			CMBProveedor.DisplayMember = "Proveedor";
+			CMBProveedor.ValueMember = "Id_Proveedor";
+
+			CMBTipoEntorno.DataSource = _listaTipoEntorno ?? [];
+			CMBTipoEntorno.DisplayMember = "Area";
+			CMBTipoEntorno.ValueMember = "Id_Area";
+
+
+		}
+
+		/// <summary>
+		/// Carga la lista de artículos desde el servicio de forma asíncrona.
+		/// </summary>
+		private async Task CargarArticulos()
+		{
+			var resultado = await _articulosService.GetAll();
+
+			if (resultado.IsSuccess)
+			{
+				_listaArticulos = resultado.Value;
+			}
+			else
+			{
+				MostrarMensaje(resultado.Error, "Error al cargar artículos", MessageBoxIcon.Error);
+			}
+		}
+
+		/// <summary>
+		/// Carga la lista de stocks desde el servicio de forma asíncrona.
+		/// </summary>
+		private async Task CargarStocks()
+		{
+			var resultado = await _stockService.GetAll();
+
+			if (resultado.IsSuccess)
+			{
+				_listaStock = resultado.Value;
+			}
+			else
+			{
+				MostrarMensaje(resultado.Error, "Error al cargar stocks", MessageBoxIcon.Error);
+			}
+		}
+
+		/// <summary>
+		/// Carga la lista de Tipo_Entorno desde el servicio de forma asíncrona.
+		/// </summary>
+		private async Task CargarTipoEntorno()
+		{
+			var resultado = await _tipoEntornoService.GetAll();
+
+			if (resultado.IsSuccess)
+			{
+				_listaTipoEntorno = resultado.Value;
+			}
+			else
+			{
+				MostrarMensaje(resultado.Error, "Error al cargar Tipo_Entorno", MessageBoxIcon.Error);
+			}
+		}
+
+		/// <summary>
+		/// Carga la lista de proveedores desde el servicio de forma asíncrona.
+		/// </summary>
+		private async Task CargarProveedores()
+		{
+			var resultado = await _proveedoresService.GetAll();
+
+			if (resultado.IsSuccess)
+			{
+				_listaProveedores = resultado.Value;
+			}
+			else
+			{
+				MostrarMensaje(resultado.Error, "Error al cargar proveedores", MessageBoxIcon.Error);
+			}
+		}
+
+		/// <summary>
+		/// Carga las entornos de una categoría específica de forma asíncrona.
+		/// </summary>
+		/// <param name="idEntorno">El ID del entorno.</param>
+		private async Task CargarEntornos(int idEntorno)
+		{
+			var resultado = await _subcategoriasService.GetAllxEntorno(idEntorno);
+
+			if (resultado.IsSuccess)
+			{
+				CMBEntorno.DataSource = resultado.Value;
+				CMBEntorno.DisplayMember = "Entorno_nombre";
+				CMBEntorno.ValueMember = "Id_Entorno";
+			}
+			else
+			{
+				MostrarMensaje(resultado.Error, "Error al cargar Entornos", MessageBoxIcon.Error);
+			}
+		}
+
+		#endregion
+
+		#region Métodos de Formulario y Validación
+
+		/// <summary>
+		/// Valida los campos del formulario.
+		/// </summary>
+		/// <returns>True si el formulario es válido, de lo contrario False.</returns>
+		private bool ValidarFormulario()
+		{
+			return _validadorDescripcion.Validar() &&
+				   _validadorCantidad.Validar() &&
+				   _validadorCosto.Validar() &&
+				   _validadorGanancia.Validar();
+		}
+
+		/// <summary>
+		/// Valida si hay un artículo seleccionado para eliminar.
+		/// </summary>
+		/// <returns>True si hay un artículo seleccionado, de lo contrario False.</returns>
+		private bool ValidarSeleccionParaEliminar()
+		{
+			return _articuloSeleccionado != null && _articuloSeleccionado.Id_Producto != 0;
+		}
+
+		/// <summary>
+		/// Muestra un cuadro de diálogo de confirmación de eliminación.
+		/// </summary>
+		/// <returns>True si el usuario confirma la eliminación, de lo contrario False.</returns>
+		private static bool ConfirmarEliminacion()
+		{
+			var resultado = MessageBox.Show(
+				"¿Está seguro de que desea eliminar este artículo?",
+				"Confirmación de eliminación",
+				MessageBoxButtons.YesNo,
+				MessageBoxIcon.Question);
+
+			return resultado == DialogResult.Yes;
+		}
+
+		/// <summary>
+		/// Crea o actualiza un objeto de artículo a partir de los datos del formulario.
+		/// </summary>
+		/// <returns>True si el objeto se creó o actualizó correctamente, de lo contrario False.</returns>
+		private bool CrearArticuloDesdeFormulario()
+		{
+			if (CMBProveedor.SelectedItem is not Modelo.Entidades.Proveedores proveedor)
+			{
+				MostrarMensaje("El proveedor seleccionado no es válido", "Error", MessageBoxIcon.Error);
+				return false;
+			}
+
+			if (CMBTipoEntorno.SelectedItem is not TipoEntorno categoria)
+			{
+				MostrarMensaje("La categoría seleccionada no es válida", "Error", MessageBoxIcon.Error);
+				return false;
+			}
+
+			if (CMBEntorno.SelectedItem is not Entorno subcategoria)
+			{
+				MostrarMensaje("La subcategoría seleccionada no es válida", "Error", MessageBoxIcon.Error);
+				return false;
+			}
+
+			_articuloSeleccionado.Producto_Desc = TxtDescripcion.Text;
+			_articuloSeleccionado.Id_Proveedor = proveedor.Id_Proveedor;
+			_articuloSeleccionado.Id_Area = categoria.Id_Area;
+			_articuloSeleccionado.Id_Entorno = subcategoria.Id_Entorno;
+
+			return true;
+		}
+
+		/// <summary>
+		/// Crea o actualiza un objeto de stock a partir de los datos del formulario.
+		/// </summary>
+		/// <returns>True si el objeto se creó o actualizó correctamente, de lo contrario False.</returns>
+		private bool CrearStockDesdeFormulario()
+		{
+			if (string.IsNullOrEmpty(TxtCantidad.Text) ||
+				string.IsNullOrEmpty(TxtCosto.Text) ||
+				string.IsNullOrEmpty(TxtGanancia.Text))
+			{
+				MostrarMensaje("Complete todos los campos de stock", "Datos incompletos", MessageBoxIcon.Error);
+				return false;
+			}
+
+			_stockSeleccionado.Cantidad = DecimalFormatter.ParseDecimal(TxtCantidad.Text);
+			_stockSeleccionado.Costo = DecimalFormatter.ParseDecimal(TxtCosto.Text);
+			_stockSeleccionado.Ganancia = DecimalFormatter.ParseDecimal(TxtGanancia.Text);
+
+			return true;
+		}
+
+		/// <summary>
+		/// Carga los datos del artículo seleccionado en el formulario para su edición.
+		/// </summary>
+		private void CargarFormularioEdicion()
+		{
+			if (!HaySeleccionValida() ||
+				_indiceSeleccionado < 0 ||
+				_indiceSeleccionado >= ListBArticulos.Rows.Count)
+			{
+				LimpiarFormulario();
+				return;
+			}
+
+			var fila = ListBArticulos.Rows[_indiceSeleccionado];
+
+			if (fila.DataBoundItem is Productos articulo)
+			{
+				_articuloSeleccionado = articulo;
+				string? codigoArticuloNullable = _articuloSeleccionado.Cod_Producto;
+				string codigoArticulo = codigoArticuloNullable ?? string.Empty;
+
+				_stockSeleccionado = _listaStock.FirstOrDefault(s => s.Cod_Articulo == codigoArticulo) ?? new Stock();
+
+				// Cargar datos en los controles
+				TxtDescripcion.Text = _articuloSeleccionado.Producto_Desc ?? string.Empty;
+				TxtCantidad.Text = DecimalFormatter.ToDecimal(_stockSeleccionado.Cantidad);
+				TxtCosto.Text = DecimalFormatter.ToDecimal(_stockSeleccionado.Costo);
+				TxtGanancia.Text = DecimalFormatter.ToDecimal(_stockSeleccionado.Ganancia);
+
+				// Cargar combos
+				CargarCombosSeleccion();
+			}
+			else
+			{
+				LimpiarFormulario();
+			}
+		}
+
+		/// <summary>
+		/// Carga los ComboBoxes con los valores seleccionados del artículo.
+		/// </summary>
+		private void CargarCombosSeleccion()
+		{
+			if (CMBTipoEntorno.Items.Count > 0)
+				CMBTipoEntorno.SelectedValue = _articuloSeleccionado.Id_Area;
+
+			if (CMBProveedor.Items.Count > 0)
+				CMBProveedor.SelectedValue = _articuloSeleccionado.Id_Proveedor;
+
+			if (CMBEntorno.Items.Count > 0)
+				CMBEntorno.SelectedValue = _articuloSeleccionado.Id_Entorno;
+		}
+
+		/// <summary>
+		/// Limpia los campos del formulario y restablece los objetos de artículo y stock seleccionados.
+		/// </summary>
+		private void LimpiarFormulario()
+		{
+			TxtDescripcion.Clear();
+			TxtCantidad.Clear();
+			TxtCosto.Clear();
+			TxtGanancia.Clear();
+			LblPrecio.Text = "$0,00";
+
+			_articuloSeleccionado = new Modelo.Entidades.Productos();
+			_stockSeleccionado = new Stock();
+		}
+
+		/// <summary>
+		/// Verifica si hay una selección válida en la lista de artículos.
+		/// </summary>
+		/// <returns>True si hay una selección válida, de lo contrario False.</returns>
+		private bool HaySeleccionValida()
+		{
+			return ListBArticulos.Rows.Count > 0 && ListBArticulos.SelectedRows.Count > 0;
+		}
+
+		#endregion
+
+		#region Métodos de Operaciones de Datos
+
+		/// <summary>
+		/// Guarda los cambios en el artículo y el stock de forma asíncrona.
+		/// </summary>
+		private async Task GuardarArticuloStock()
+		{
+			var resultado = await _articuloStockService.Update(_articuloSeleccionado, _stockSeleccionado);
+
+			if (resultado.IsSuccess)
+			{
+				MostrarMensaje("Artículo actualizado correctamente", "Éxito", MessageBoxIcon.Information);
+			}
+			else
+			{
+				MostrarMensaje(resultado.Error, "Error en la actualización", MessageBoxIcon.Error);
+			}
+		}
+
+		/// <summary>
+		/// Elimina el artículo y el stock seleccionados de forma asíncrona.
+		/// </summary>
+		private async Task EliminarArticuloStock()
+		{
+			var resultado = await _articuloStockService.Delete(_articuloSeleccionado, _stockSeleccionado);
+
+			if (resultado.IsSuccess)
+			{
+				MostrarMensaje("Artículo eliminado correctamente", "Éxito", MessageBoxIcon.Information);
+				EliminarDeListas();
+			}
+			else
+			{
+				MostrarMensaje(resultado.Error, "Error al eliminar artículo", MessageBoxIcon.Error);
+			}
+		}
+
+		/// <summary>
+		/// Actualiza las listas de artículos y stock.
+		/// </summary>
+		private void ActualizarListas()
+		{
+			Utilidades.Util.ActualizarEnLista(_listaArticulos, _articuloSeleccionado);
+			Utilidades.Util.ActualizarEnLista(_listaStock, _stockSeleccionado);
+			CargarArticulosDataGridView();
+		}
+
+		/// <summary>
+		/// Elimina el artículo y el stock seleccionados de las listas.
+		/// </summary>
+		private void EliminarDeListas()
+		{
+			Utilidades.Util.EliminarDeLista(_listaArticulos, _articuloSeleccionado);
+			Utilidades.Util.EliminarDeLista(_listaStock, _stockSeleccionado);
+		}
+
+		#endregion
+
+		#region Métodos de UI Helpers
+
+		/// <summary>
+		/// Carga los datos de los artículos en el DataGridView.
+		/// </summary>
+		private void CargarArticulosDataGridView()
+		{
+			try
+			{
+				ListBArticulos.SuspendLayout();
+				int primeraFilaVisible = ListBArticulos.FirstDisplayedScrollingRowIndex;
+
+				ListBArticulos.AutoGenerateColumns = false;
+				ListBArticulos.DataSource = null;
+				ListBArticulos.DataSource = _listaArticulos ?? [];
+
+				// Ensure column headers are set up correctly
+				if (ListBArticulos.Columns["Cod_Producto"] != null)
+				{
+					ListBArticulos.Columns["Cod_Producto"]!.HeaderText = "CÓDIGO";
+				}
+
+				if (ListBArticulos.Columns["Producto_Desc"] != null)
+				{
+					ListBArticulos.Columns["Producto_Desc"]!.HeaderText = "DESCRIPCIÓN";
+				}
+
+				if (primeraFilaVisible >= 0 && primeraFilaVisible < ListBArticulos.Rows.Count)
+				{
+					ListBArticulos.FirstDisplayedScrollingRowIndex = primeraFilaVisible;
+				}
+			}
+			catch (Exception ex)
+			{
+				MostrarMensaje($"Error al cargar DataGridView: {ex.Message}", "Error", MessageBoxIcon.Error);
+			}
+			finally
+			{
+				ListBArticulos.ResumeLayout();
+			}
+		}
+
+		/// <summary>
+		/// Actualiza el DataGridView y borra la selección.
+		/// </summary>
+		private void ActualizarDataGridView()
+		{
+			CargarArticulosDataGridView();
+			ListBArticulos.ClearSelection();
+		}
+
+		/// <summary>
+		/// Muestra un cuadro de mensaje.
+		/// </summary>
+		/// <param name="mensaje">El mensaje a mostrar.</param>
+		/// <param name="titulo">El título del cuadro de mensaje.</param>
+		/// <param name="icono">El icono a mostrar en el cuadro de mensaje.</param>
+		private static void MostrarMensaje(string mensaje, string titulo, MessageBoxIcon icono)
+		{
+			MessageBox.Show(mensaje, titulo, MessageBoxButtons.OK, icono);
+		}
+
+		/// <summary>
+		/// Maneja los eventos de cambio de texto o selección en los controles de filtro
+		/// </summary>
+		/// <param name="sender">El objeto que generó el evento</param>
+		/// <param name="e">Los datos del evento</param>
+		private void Filtros_TextChanged(object sender, EventArgs e)
+		{
+			FiltrarDatos();
+		}
+
+		/// <summary>
+		/// Filtra la lista de productos según los valores de los controles de filtro
+		/// </summary>
+		private void FiltrarDatos()
+		{
+			try
+			{
+				// Obtener la lista completa de artículos
+				var listaCompleta = _listaArticulos ?? [];
+				var listaFiltrada = new List<Modelo.Entidades.Productos>();
+
+				foreach (var producto in listaCompleta)
+				{
+					bool coincide = true;
+
+					// Filtrar por código
+					if (!string.IsNullOrEmpty(TxtFiltroCodigo.Text))
+					{
+						if (producto.Cod_Producto == null || !producto.Cod_Producto.Contains(TxtFiltroCodigo.Text, StringComparison.CurrentCultureIgnoreCase))
+						{
+							coincide = false;
+						}
+					}
+
+					// Filtrar por descripción
+					if (coincide && !string.IsNullOrEmpty(TxtFiltroDescripcion.Text))
+					{
+						if (producto.Producto_Desc == null || !producto.Producto_Desc.Contains(TxtFiltroDescripcion.Text, StringComparison.CurrentCultureIgnoreCase))
+						{
+							coincide = false;
+						}
+					}
+
+					// Filtrar por proveedor
+					if (coincide && CmbFiltroProveedor.SelectedItem != null && CmbFiltroProveedor.SelectedIndex > 0)
+					{
+						var proveedorSeleccionado = CmbFiltroProveedor.SelectedItem as Modelo.Entidades.Proveedores;
+						if (producto.Id_Proveedor != proveedorSeleccionado.Id_Proveedor)
+						{
+							coincide = false;
+						}
+					}
+
+					// Filtrar por estado "En Venta"
+					if (coincide && CmbFiltroEnVenta.SelectedIndex > 0)
+					{
+						bool enVentaSeleccionado = CmbFiltroEnVenta.SelectedIndex == 1; // "Sí" = índice 1
+						if (producto.En_Venta != enVentaSeleccionado)
+						{
+							coincide = false;
+						}
+					}
+
+					if (coincide)
+					{
+						listaFiltrada.Add(producto);
+					}
+				}
+
+				// Actualizar el DataGridView con la lista filtrada
+				ActualizarDataGridViewConFiltros(listaFiltrada);
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show($"Error al filtrar los datos: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			}
+		}
+
+		/// <summary>
+		/// Actualiza el DataGridView con la lista filtrada
+		/// </summary>
+		/// <param name="listaFiltrada">La lista de productos ya filtrada</param>
+		private void ActualizarDataGridViewConFiltros(List<Modelo.Entidades.Productos> listaFiltrada)
+		{
+			try
+			{
+				// Suspendemos el dibujado para evitar actualizaciones parciales
+				ListBArticulos.SuspendLayout();
+				ListBArticulos.DataSource = null;
+
+				// Bind directly to the original entities to preserve full object access
+				ListBArticulos.DataSource = listaFiltrada;
+
+				// Aseguramos que las columnas tengan los encabezados correctos
+				if (ListBArticulos.Columns["Cod_Producto"] != null)
+				{
+					ListBArticulos.Columns["Cod_Producto"]!.HeaderText = "CÓDIGO";
+				}
+
+				if (ListBArticulos.Columns["Producto_Desc"] != null)
+				{
+					ListBArticulos.Columns["Producto_Desc"]!.HeaderText = "DESCRIPCIÓN";
+				}
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show($"Error al actualizar el DataGridView: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			}
+			finally
+			{
+				ListBArticulos.ResumeLayout();
+			}
+		}
+
+
+		#endregion
+
+		private void TxtCosto_KeyUp(object sender, KeyEventArgs e)
+		{
+			CalcularPrecioVenta();
+		}
+
+		private void CalcularPrecioVenta()
+		{
+			if (string.IsNullOrEmpty(TxtCosto.Text) || string.IsNullOrEmpty(TxtGanancia.Text))
+			{
+				return;
+			}
+			decimal costo = DecimalFormatter.ParseDecimal(TxtCosto.Text);
+			decimal ganancia = DecimalFormatter.ParseDecimal(TxtGanancia.Text);
+
+			LblPrecio.Text = DecimalFormatter.ToCurrency(costo + (costo * ganancia / 100));
+		}
+
+		private void UCConsultaArticulos_VisibleChanged(object sender, EventArgs e)
+		{
+			if (Visible)
+			{
+				var taskHelper = new TareasLargas(
+			   PanelMedio,
+			   ProgressBar,
+			   CargaInicial,
+			   CargarCombosYDataGrid);
+				taskHelper.Iniciar();
+			}
+
+		}
+
+
+
+	}
 }

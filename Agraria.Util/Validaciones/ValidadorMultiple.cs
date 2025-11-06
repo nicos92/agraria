@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Versioning;
@@ -8,14 +8,14 @@ using System.Windows.Forms;
 
 namespace Agraria.Util.Validaciones
 {
-    [SupportedOSPlatform("windows")]
-    public static class ValidadorMultiple
-    {
-        public static void ValidacionMultiple(Button btn, params ValidadorTextBox[] validaciones )
-        {
+	[SupportedOSPlatform("windows")]
+	public static class ValidadorMultiple
+	{
+		public static bool ValidacionMultiple(params ValidadorTextBox[] validaciones)
+		{
 
-             btn.Enabled = validaciones.All(a => a.Validar());
-            
-        }
-    }
+			return validaciones.All(a => a.Validar());
+
+		}
+	}
 }

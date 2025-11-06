@@ -1,4 +1,4 @@
-﻿using Agraria.Contrato.Servicios;
+using Agraria.Contrato.Servicios;
 using Agraria.Modelo.Entidades;
 using Agraria.Util.Validaciones;
 using Agraria.Utilidades;
@@ -15,303 +15,303 @@ using System.Windows.Forms;
 
 namespace Agraria.UI.Articulos
 {
-    public partial class UCIngresoProducto : UserControl
-    {
-        // todo: ver la herramienta web browser para mostrar el html del ticket
-        #region Atributos y Propiedades
+	public partial class UCIngresoProducto : UserControl
+	{
+		// todo: ver la herramienta web browser para mostrar el html del ticket
+		#region Atributos y Propiedades
 
-        private readonly IProductoService _articulosService;
-        private readonly ITipoEntornosService _entornoService;
-        private readonly IEntornoService _subEntornoService;
-        private readonly IProveedoresService _proveedoresService;
-        private readonly IProductoStockService _articuloStockService;
+		private readonly IProductoService _articulosService;
+		private readonly ITipoEntornosService _entornoService;
+		private readonly IEntornoService _subEntornoService;
+		private readonly IProveedoresService _proveedoresService;
+		private readonly IProductoStockService _articuloStockService;
 
-        private readonly Modelo.Entidades.Productos _articuloSeleccionado;
-        private readonly Modelo.Entidades.Stock _stockSeleccionado;
+		private readonly Modelo.Entidades.Productos _articuloSeleccionado;
+		private readonly Modelo.Entidades.Stock _stockSeleccionado;
 
-        private readonly ValidadorTextBox _vTxtDescripcion;
-        private readonly ValidadorTextBox _vTxtCantidad;
-        private readonly ValidadorTextBox _vTxtCosto;
-        private readonly ValidadorTextBox _vTxtGanancia;
+		private readonly ValidadorTextBox _vTxtDescripcion;
+		private readonly ValidadorTextBox _vTxtCantidad;
+		private readonly ValidadorTextBox _vTxtCosto;
+		private readonly ValidadorTextBox _vTxtGanancia;
 
-        private readonly ErrorProvider _epTxtDescipcion;
-        private readonly ErrorProvider _epTxtCantidad;
-        private readonly ErrorProvider _epTxtCosto;
-        private readonly ErrorProvider _epTxtGanancia;
+		private readonly ErrorProvider _epTxtDescipcion;
+		private readonly ErrorProvider _epTxtCantidad;
+		private readonly ErrorProvider _epTxtCosto;
+		private readonly ErrorProvider _epTxtGanancia;
 
-        private List<TipoEntorno> ListaCategorias { get; set; } = [];
-        private List<Modelo.Entidades.Proveedores> ListaProveedores { get; set; } = [];
+		private List<TipoEntorno> ListaCategorias { get; set; } = [];
+		private List<Modelo.Entidades.Proveedores> ListaProveedores { get; set; } = [];
 
-        #endregion Atributos y Propiedades
+		#endregion Atributos y Propiedades
 
-        /// <summary>
-        /// Inicializa una nueva instancia de la clase <see cref="UCIngresoProducto"/>.
-        /// </summary>
-        public UCIngresoProducto(IProductoService articulosService, ITipoEntornosService entornoService, IEntornoService subEntornoService, IProveedoresService proveedoresService, IProductoStockService articuloStockService)
-        {
-            _articulosService = articulosService;
-            _entornoService = entornoService;
-            _subEntornoService = subEntornoService;
-            _proveedoresService = proveedoresService;
-            _articuloStockService = articuloStockService;
+		/// <summary>
+		/// Inicializa una nueva instancia de la clase <see cref="UCIngresoProducto"/>.
+		/// </summary>
+		public UCIngresoProducto(IProductoService articulosService, ITipoEntornosService entornoService, IEntornoService subEntornoService, IProveedoresService proveedoresService, IProductoStockService articuloStockService)
+		{
+			_articulosService = articulosService;
+			_entornoService = entornoService;
+			_subEntornoService = subEntornoService;
+			_proveedoresService = proveedoresService;
+			_articuloStockService = articuloStockService;
 
-            InitializeComponent();
+			InitializeComponent();
 
-            _articuloSeleccionado = new Modelo.Entidades.Productos();
-            _stockSeleccionado = new Modelo.Entidades.Stock();
+			_articuloSeleccionado = new Modelo.Entidades.Productos();
+			_stockSeleccionado = new Modelo.Entidades.Stock();
 
-            _epTxtDescipcion = new ErrorProvider();
-            _vTxtDescripcion = new ValidadorDireccion(TxtDescripcion, _epTxtDescipcion) { MensajeError = "La Descripción no puede estar vacía" };
+			_epTxtDescipcion = new ErrorProvider();
+			_vTxtDescripcion = new ValidadorDireccion(TxtDescripcion, _epTxtDescipcion) { MensajeError = "La Descripción no puede estar vacía" };
 
-            _epTxtCantidad = new ErrorProvider();
-            _vTxtCantidad = new ValidadorNumeroDecimal(TxtCantidad, _epTxtCantidad) { MensajeError = "Número ingresado no válido" };
+			_epTxtCantidad = new ErrorProvider();
+			_vTxtCantidad = new ValidadorNumeroDecimal(TxtCantidad, _epTxtCantidad) { MensajeError = "Número ingresado no válido" };
 
-            _epTxtCosto = new ErrorProvider();
-            _vTxtCosto = new ValidadorNumeroDecimal(TxtCosto, _epTxtCosto) { MensajeError = "Número ingresado no válido" };
+			_epTxtCosto = new ErrorProvider();
+			_vTxtCosto = new ValidadorNumeroDecimal(TxtCosto, _epTxtCosto) { MensajeError = "Número ingresado no válido" };
 
-            _epTxtGanancia = new ErrorProvider();
-            _vTxtGanancia = new ValidadorNumeroDecimal(TxtGanancia, _epTxtGanancia) { MensajeError = "Número ingresado no válido" };
-        }
+			_epTxtGanancia = new ErrorProvider();
+			_vTxtGanancia = new ValidadorNumeroDecimal(TxtGanancia, _epTxtGanancia) { MensajeError = "Número ingresado no válido" };
+		}
 
-        #region Eventos
+		#region Eventos
 
-        /// <summary>
-        /// Controla el evento TextChanged de los cuadros de texto.
-        /// </summary>
-        /// <param name="sender">El origen del evento.</param>
-        /// <param name="e">El <see cref="EventArgs"/> instancia que contiene los datos del evento.</param>
-        private void TxtDescripcion_TextChanged(object sender, EventArgs e)
-        {
-            ValidadorMultiple.ValidacionMultiple(BtnIngresar, _vTxtDescripcion, _vTxtCantidad, _vTxtCosto, _vTxtGanancia);
-        }
+		/// <summary>
+		/// Controla el evento TextChanged de los cuadros de texto.
+		/// </summary>
+		/// <param name="sender">El origen del evento.</param>
+		/// <param name="e">El <see cref="EventArgs"/> instancia que contiene los datos del evento.</param>
+		private void TxtDescripcion_TextChanged(object sender, EventArgs e)
+		{
+			BtnIngresar.Enabled = ValidadorMultiple.ValidacionMultiple(_vTxtDescripcion, _vTxtCantidad, _vTxtCosto, _vTxtGanancia);
+		}
 
-        /// <summary>
-        /// Controla el evento SelectedIndexChanged del ComboBox de categorías.
-        /// </summary>
-        /// <param name="sender">El origen del evento.</param>
-        /// <param name="e">El <see cref="EventArgs"/> instancia que contiene los datos del evento.</param>
-        private async void CMBCategoria_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (CMBCategoria.SelectedItem is TipoEntorno categoria)
-                await CargarSubCategorias(categoria.Id_Area);
-        }
+		/// <summary>
+		/// Controla el evento SelectedIndexChanged del ComboBox de categorías.
+		/// </summary>
+		/// <param name="sender">El origen del evento.</param>
+		/// <param name="e">El <see cref="EventArgs"/> instancia que contiene los datos del evento.</param>
+		private async void CMBCategoria_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			if (CMBCategoria.SelectedItem is TipoEntorno categoria)
+				await CargarSubCategorias(categoria.Id_Area);
+		}
 
-        #endregion Eventos
+		#endregion Eventos
 
-        #region Métodos Privados
+		#region Métodos Privados
 
-        /// <summary>
-        /// Crea un nuevo artículo a partir de los datos introducidos por el usuario.
-        /// </summary>
-        /// <returns>Verdadero si el artículo se creó correctamente, falso en caso contrario.</returns>
-        private bool CrearArticulo()
-        {
-            if (CMBProveedor.SelectedItem is not Modelo.Entidades.Proveedores proveedor)
-            {
-                MessageBox.Show("El tipo de Proveedor seleccionado no es válido.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
+		/// <summary>
+		/// Crea un nuevo artículo a partir de los datos introducidos por el usuario.
+		/// </summary>
+		/// <returns>Verdadero si el artículo se creó correctamente, falso en caso contrario.</returns>
+		private bool CrearArticulo()
+		{
+			if (CMBProveedor.SelectedItem is not Modelo.Entidades.Proveedores proveedor)
+			{
+				MessageBox.Show("El tipo de Proveedor seleccionado no es válido.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				return false;
+			}
 
-            if (CMBCategoria.SelectedItem is not Modelo.Entidades.TipoEntorno categoria)
-            {
-                MessageBox.Show("El tipo de Categoria seleccionado no es válido.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
+			if (CMBCategoria.SelectedItem is not Modelo.Entidades.TipoEntorno categoria)
+			{
+				MessageBox.Show("El tipo de Categoria seleccionado no es válido.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				return false;
+			}
 
-            if (CMBSubcategoria.SelectedItem is not Modelo.Entidades.Entorno subcategoria)
-            {
-                MessageBox.Show("El tipo de Sub-Categoria seleccionado no es válido.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
+			if (CMBSubcategoria.SelectedItem is not Modelo.Entidades.Entorno subcategoria)
+			{
+				MessageBox.Show("El tipo de Sub-Categoria seleccionado no es válido.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				return false;
+			}
 
-            _articuloSeleccionado.Producto_Desc = TxtDescripcion.Text;
-            _articuloSeleccionado.Id_Proveedor = proveedor.Id_Proveedor;
-            _articuloSeleccionado.Id_Area = categoria.Id_Area;
-            _articuloSeleccionado.Id_Entorno = subcategoria.Id_Entorno;
+			_articuloSeleccionado.Producto_Desc = TxtDescripcion.Text;
+			_articuloSeleccionado.Id_Proveedor = proveedor.Id_Proveedor;
+			_articuloSeleccionado.Id_Area = categoria.Id_Area;
+			_articuloSeleccionado.Id_Entorno = subcategoria.Id_Entorno;
 
-            return true;
-        }
+			return true;
+		}
 
-        /// <summary>
-        /// Crea un nuevo registro de stock a partir de los datos introducidos por el usuario.
-        /// </summary>
-        private void CrearStock()
-        {
-            _stockSeleccionado.Cantidad = Convert.ToDecimal(TxtCantidad.Text);
-            _stockSeleccionado.Costo = DecimalFormatter.ParseDecimal(TxtCosto.Text);
-            _stockSeleccionado.Ganancia = DecimalFormatter.ParseDecimal(TxtGanancia.Text);
-        }
+		/// <summary>
+		/// Crea un nuevo registro de stock a partir de los datos introducidos por el usuario.
+		/// </summary>
+		private void CrearStock()
+		{
+			_stockSeleccionado.Cantidad = Convert.ToDecimal(TxtCantidad.Text);
+			_stockSeleccionado.Costo = DecimalFormatter.ParseDecimal(TxtCosto.Text);
+			_stockSeleccionado.Ganancia = DecimalFormatter.ParseDecimal(TxtGanancia.Text);
+		}
 
-        /// <summary>
-        /// Maneja el evento Load del UserControl.
-        /// </summary>
-        /// <param name="sender">El origen del evento.</param>
-        /// <param name="e">El <see cref="EventArgs"/> instancia que contiene los datos del evento.</param>
-        private void UCIngresoArticulos_Load(object sender, EventArgs e)
-        {
-            var taskHelper = new TareasLargas(PanelMedio, ProgressBar, CargaInicial, CargarCMB);
-            taskHelper.Iniciar();
-        }
+		/// <summary>
+		/// Maneja el evento Load del UserControl.
+		/// </summary>
+		/// <param name="sender">El origen del evento.</param>
+		/// <param name="e">El <see cref="EventArgs"/> instancia que contiene los datos del evento.</param>
+		private void UCIngresoArticulos_Load(object sender, EventArgs e)
+		{
+			var taskHelper = new TareasLargas(PanelMedio, ProgressBar, CargaInicial, CargarCMB);
+			taskHelper.Iniciar();
+		}
 
-        /// <summary>
-        /// Realiza la carga inicial de datos de forma asíncrona.
-        /// </summary>
-        private async Task CargaInicial()
-        {
-            await Task.WhenAll(CargarCategorias(), CargarProveedores());
-        }
+		/// <summary>
+		/// Realiza la carga inicial de datos de forma asíncrona.
+		/// </summary>
+		private async Task CargaInicial()
+		{
+			await Task.WhenAll(CargarCategorias(), CargarProveedores());
+		}
 
-        /// <summary>
-        /// Carga los datos de proveedores y categorías en los ComboBox correspondientes.
-        /// Se configuran las propiedades DataSource, DisplayMember y ValueMember para cada control.
-        /// </summary>
-        private void CargarCMB()
-        {
-            this.Invoke(
-                () =>
-                {
-                    CMBProveedor.DataSource = ListaProveedores;
-                    CMBProveedor.DisplayMember = "Proveedor";
-                    CMBProveedor.ValueMember = "Id_Proveedor";
+		/// <summary>
+		/// Carga los datos de proveedores y categorías en los ComboBox correspondientes.
+		/// Se configuran las propiedades DataSource, DisplayMember y ValueMember para cada control.
+		/// </summary>
+		private void CargarCMB()
+		{
+			this.Invoke(
+				() =>
+				{
+					CMBProveedor.DataSource = ListaProveedores;
+					CMBProveedor.DisplayMember = "Proveedor";
+					CMBProveedor.ValueMember = "Id_Proveedor";
 
-                    CMBCategoria.DataSource = ListaCategorias;
-                    CMBCategoria.DisplayMember = "Area";
-                    CMBCategoria.ValueMember = "Id_Area";
-                });
-            
-        }
+					CMBCategoria.DataSource = ListaCategorias;
+					CMBCategoria.DisplayMember = "Area";
+					CMBCategoria.ValueMember = "Id_Area";
+				});
 
-        /// <summary>
-        /// Carga la lista de proveedores en el ComboBox.
-        /// </summary>
-        private async Task CargarProveedores()
-        {
-            var datos = await _proveedoresService.GetAll();
-            if (!datos.IsSuccess)
-                MessageBox.Show(datos.Error, "Error en UI", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            else
-                ListaProveedores = datos.Value;
-        }
+		}
 
-        /// <summary>
-        /// Carga la lista de subcategorías en el ComboBox.
-        /// </summary>
-        /// <param name="id">ID de la categoría para la cual cargar las subcategorías.</param>
-        private async Task CargarSubCategorias(int id)
-        {
-            try
-            {
-                var datos = await _subEntornoService.GetAllxEntorno(id);
-                if (!datos.IsSuccess)
-                    MessageBox.Show(datos.Error, "Error en UI", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                else
-                {
-                    var subcategorias = datos.Value;
-                    CMBSubcategoria.DataSource = null;
-                    CMBSubcategoria.DataSource = subcategorias;
-                    CMBSubcategoria.DisplayMember = "Entorno_Nombre";
-                    CMBSubcategoria.ValueMember = "Id_Entorno";
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Ocurrió un error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
+		/// <summary>
+		/// Carga la lista de proveedores en el ComboBox.
+		/// </summary>
+		private async Task CargarProveedores()
+		{
+			var datos = await _proveedoresService.GetAll();
+			if (!datos.IsSuccess)
+				MessageBox.Show(datos.Error, "Error en UI", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			else
+				ListaProveedores = datos.Value;
+		}
 
-        /// <summary>
-        /// Carga la lista de categorías en el ComboBox.
-        /// </summary>
-        private async Task CargarCategorias()
-        {
-            var datos = await _entornoService.GetAll();
-            if (!datos.IsSuccess)
-                MessageBox.Show(datos.Error, "Error en UI", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            else
-                ListaCategorias = datos.Value;
-        }
+		/// <summary>
+		/// Carga la lista de subcategorías en el ComboBox.
+		/// </summary>
+		/// <param name="id">ID de la categoría para la cual cargar las subcategorías.</param>
+		private async Task CargarSubCategorias(int id)
+		{
+			try
+			{
+				var datos = await _subEntornoService.GetAllxEntorno(id);
+				if (!datos.IsSuccess)
+					MessageBox.Show(datos.Error, "Error en UI", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				else
+				{
+					var subcategorias = datos.Value;
+					CMBSubcategoria.DataSource = null;
+					CMBSubcategoria.DataSource = subcategorias;
+					CMBSubcategoria.DisplayMember = "Entorno_Nombre";
+					CMBSubcategoria.ValueMember = "Id_Entorno";
+				}
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show($"Ocurrió un error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			}
+		}
 
-        #endregion Métodos Privados
+		/// <summary>
+		/// Carga la lista de categorías en el ComboBox.
+		/// </summary>
+		private async Task CargarCategorias()
+		{
+			var datos = await _entornoService.GetAll();
+			if (!datos.IsSuccess)
+				MessageBox.Show(datos.Error, "Error en UI", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			else
+				ListaCategorias = datos.Value;
+		}
 
-        #region Otros Metodos
+		#endregion Métodos Privados
 
-        /// <summary>
-        /// Controla el evento Click del botón Ingresar.
-        /// </summary>
-        /// <param name="sender">El origen del evento.</param>
-        /// <param name="e">El <see cref="EventArgs"/> instancia que contiene los datos del evento.</param>
-        private void BtnIngresar_Click(object sender, EventArgs e)
-        {
-            // TODO: consultar si se pueden ingresar articulos sin proveedor
-            DialogResult dialogResult = MessageBox.Show("¿Estas seguro que queres hacer el ingreso?", "Ingreso de Producto", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if (dialogResult == DialogResult.No)
-                return;
-            if (!CrearArticulo())
-            {
-                MessageBox.Show("Artículo no creado", "Artículo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
-            }
-            CrearStock();
+		#region Otros Metodos
 
-            var tarea = new TareasLargas(PanelMedio, ProgressBar, InsertarArticuloStock, LimpiarAsync );
-            tarea.Iniciar();
-        }
+		/// <summary>
+		/// Controla el evento Click del botón Ingresar.
+		/// </summary>
+		/// <param name="sender">El origen del evento.</param>
+		/// <param name="e">El <see cref="EventArgs"/> instancia que contiene los datos del evento.</param>
+		private void BtnIngresar_Click(object sender, EventArgs e)
+		{
+			// TODO: consultar si se pueden ingresar articulos sin proveedor
+			DialogResult dialogResult = MessageBox.Show("¿Estas seguro que queres hacer el ingreso?", "Ingreso de Producto", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+			if (dialogResult == DialogResult.No)
+				return;
+			if (!CrearArticulo())
+			{
+				MessageBox.Show("Artículo no creado", "Artículo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+				return;
+			}
+			CrearStock();
 
-        private void LimpiarAsync()
-        {
-            this.Invoke(
-                () =>
-                {
-            Utilidades.Util.LimpiarForm(TLPForm, TxtDescripcion);
+			var tarea = new TareasLargas(PanelMedio, ProgressBar, InsertarArticuloStock, LimpiarAsync);
+			tarea.Iniciar();
+		}
 
-                });
-        }
+		private void LimpiarAsync()
+		{
+			this.Invoke(
+				() =>
+				{
+					Utilidades.Util.LimpiarForm(TLPForm, TxtDescripcion);
 
-        /// <summary>
-        /// Inserta un nuevo artículo y su stock en la base de datos.
-        /// </summary>
-        public async Task InsertarArticuloStock()
-        {
-            //var ultimoCodigoResult = await _articulosService.GetMaxCodArt();
-            //int codigo = ultimoCodigoResult.IsSuccess ? ultimoCodigoResult.Value : 100000;
-            //string nuevoCodigo = (codigo + 1).ToString();
+				});
+		}
 
-            //_articuloSeleccionado.Cod_Producto = nuevoCodigo;
-            //_stockSeleccionado.Cod_Articulo = nuevoCodigo;
+		/// <summary>
+		/// Inserta un nuevo artículo y su stock en la base de datos.
+		/// </summary>
+		public async Task InsertarArticuloStock()
+		{
+			//var ultimoCodigoResult = await _articulosService.GetMaxCodArt();
+			//int codigo = ultimoCodigoResult.IsSuccess ? ultimoCodigoResult.Value : 100000;
+			//string nuevoCodigo = (codigo + 1).ToString();
 
-            var insercionResult = await _articuloStockService.Add(_articuloSeleccionado, _stockSeleccionado);
+			//_articuloSeleccionado.Cod_Producto = nuevoCodigo;
+			//_stockSeleccionado.Cod_Articulo = nuevoCodigo;
 
-            if (!insercionResult.IsSuccess)
-                MessageBox.Show(insercionResult.Error, "Error en la inserción", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            else
-                MessageBox.Show("Ingreso correcto", "Artículo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        }
+			var insercionResult = await _articuloStockService.Add(_articuloSeleccionado, _stockSeleccionado);
 
-        #endregion Otros Metodos
+			if (!insercionResult.IsSuccess)
+				MessageBox.Show(insercionResult.Error, "Error en la inserción", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			else
+				MessageBox.Show("Ingreso correcto", "Artículo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+		}
 
-        private void TxtCosto_KeyUp(object sender, KeyEventArgs e)
-        {
-            if (string.IsNullOrEmpty(TxtCosto.Text) || string.IsNullOrEmpty(TxtGanancia.Text))
-            {
-                return;
-            }
-            decimal costo = DecimalFormatter.ParseDecimal(TxtCosto.Text);
-            decimal ganancia = DecimalFormatter.ParseDecimal(TxtGanancia.Text);
+		#endregion Otros Metodos
 
-            LblPrecio.Text = DecimalFormatter.ToCurrency(costo + (costo * ganancia / 100));
-        }
+		private void TxtCosto_KeyUp(object sender, KeyEventArgs e)
+		{
+			if (string.IsNullOrEmpty(TxtCosto.Text) || string.IsNullOrEmpty(TxtGanancia.Text))
+			{
+				return;
+			}
+			decimal costo = DecimalFormatter.ParseDecimal(TxtCosto.Text);
+			decimal ganancia = DecimalFormatter.ParseDecimal(TxtGanancia.Text);
 
-
+			LblPrecio.Text = DecimalFormatter.ToCurrency(costo + (costo * ganancia / 100));
+		}
 
 
-        private void LblPrecio_MouseHover(object sender, EventArgs e)
-        {
-            ServicioToolTip.Mostrar(LblPrecio, "El precio de venta no se modifica, es de solo lectura");
-        }
 
-        private void LblPrecio_KeyDown_1(object sender, KeyEventArgs e)
-        {
-            ServicioToolTip.Mostrar(LblPrecio, "El precio de venta no se modifica, es de solo lectura");
-        }
-    }
+
+		private void LblPrecio_MouseHover(object sender, EventArgs e)
+		{
+			ServicioToolTip.Mostrar(LblPrecio, "El precio de venta no se modifica, es de solo lectura");
+		}
+
+		private void LblPrecio_KeyDown_1(object sender, KeyEventArgs e)
+		{
+			ServicioToolTip.Mostrar(LblPrecio, "El precio de venta no se modifica, es de solo lectura");
+		}
+	}
 }

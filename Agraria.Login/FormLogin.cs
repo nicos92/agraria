@@ -83,7 +83,7 @@ public partial class FormLogin : Form
 			if (superAdmin.DNI == TxtDni.Text && superAdmin.Contra == TxtContra.Text)
 			{
 				var resultSA = Result<Usuarios>.Success(superAdmin);
-				AbrirFormPrincipal( resultSA);
+				AbrirFormPrincipal(resultSA);
 				return;
 			}
 			TLPInicio.Enabled = false;
@@ -149,7 +149,7 @@ public partial class FormLogin : Form
 
 	private void TxtDni_TextChanged(object sender, EventArgs e)
 	{
-		ValidadorMultiple.ValidacionMultiple(BtnIngresar, _vTxtContra, _vTxtDni);
+		BtnIngresar.Enabled = ValidadorMultiple.ValidacionMultiple(_vTxtContra, _vTxtDni);
 	}
 
 	private void TxtContra_KeyPress(object sender, KeyPressEventArgs e)
