@@ -523,6 +523,8 @@ namespace Agraria.UI
 			restaurarDatosToolStripMenuItem.Visible = ControlDeAccesos.PuedeVer([
 				Roles.SuperAdmin
 				]);
+
+			fuenteToolStripMenuItem.Visible = false;
 		}
 
 
