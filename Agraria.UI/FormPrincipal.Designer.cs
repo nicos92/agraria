@@ -467,7 +467,7 @@ namespace Agraria.UI
 			cerrarToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.F4;
 			cerrarToolStripMenuItem.Size = new Size(152, 22);
 			cerrarToolStripMenuItem.Text = "Cerrar";
-			cerrarToolStripMenuItem.Click += cerrarToolStripMenuItem_Click;
+			cerrarToolStripMenuItem.Click += CerrarToolStripMenuItem_Click;
 			// 
 			// ediciónToolStripMenuItem
 			// 
@@ -476,7 +476,7 @@ namespace Agraria.UI
 			ediciónToolStripMenuItem.Name = "ediciónToolStripMenuItem";
 			ediciónToolStripMenuItem.Size = new Size(58, 20);
 			ediciónToolStripMenuItem.Text = "Edición";
-			ediciónToolStripMenuItem.DropDownOpening += ediciónToolStripMenuItem_DropDownOpening;
+			ediciónToolStripMenuItem.DropDownOpening += EdiciónToolStripMenuItem_DropDownOpening;
 			// 
 			// copiarToolStripMenuItem
 			// 
@@ -492,7 +492,7 @@ namespace Agraria.UI
 			pegarToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.V;
 			pegarToolStripMenuItem.Size = new Size(163, 22);
 			pegarToolStripMenuItem.Text = "Pegar";
-			pegarToolStripMenuItem.Click += pegarToolStripMenuItem_Click;
+			pegarToolStripMenuItem.Click += PegarToolStripMenuItem_Click;
 			// 
 			// cortarToolStripMenuItem
 			// 
@@ -500,7 +500,7 @@ namespace Agraria.UI
 			cortarToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.X;
 			cortarToolStripMenuItem.Size = new Size(163, 22);
 			cortarToolStripMenuItem.Text = "Cortar";
-			cortarToolStripMenuItem.Click += cortarToolStripMenuItem_Click;
+			cortarToolStripMenuItem.Click += CortarToolStripMenuItem_Click;
 			// 
 			// deshacerToolStripMenuItem
 			// 
@@ -508,7 +508,7 @@ namespace Agraria.UI
 			deshacerToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.Z;
 			deshacerToolStripMenuItem.Size = new Size(163, 22);
 			deshacerToolStripMenuItem.Text = "Deshacer";
-			deshacerToolStripMenuItem.Click += deshacerToolStripMenuItem_Click;
+			deshacerToolStripMenuItem.Click += DeshacerToolStripMenuItem_Click;
 			// 
 			// rehacerToolStripMenuItem
 			// 
@@ -516,7 +516,7 @@ namespace Agraria.UI
 			rehacerToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.Y;
 			rehacerToolStripMenuItem.Size = new Size(163, 22);
 			rehacerToolStripMenuItem.Text = "Rehacer";
-			rehacerToolStripMenuItem.Click += copiarToolStripMenuItem1_Click;
+			rehacerToolStripMenuItem.Click += CopiarToolStripMenuItem1_Click;
 			// 
 			// ayudaToolStripMenuItem
 			// 
@@ -531,14 +531,14 @@ namespace Agraria.UI
 			sobreNosotrosToolStripMenuItem.Name = "sobreNosotrosToolStripMenuItem";
 			sobreNosotrosToolStripMenuItem.Size = new Size(173, 22);
 			sobreNosotrosToolStripMenuItem.Text = "Acerca de ...";
-			sobreNosotrosToolStripMenuItem.Click += sobreNosotrosToolStripMenuItem_Click;
+			sobreNosotrosToolStripMenuItem.Click += SobreNosotrosToolStripMenuItem_Click;
 			// 
 			// manualDeUsuarioToolStripMenuItem
 			// 
 			manualDeUsuarioToolStripMenuItem.Name = "manualDeUsuarioToolStripMenuItem";
 			manualDeUsuarioToolStripMenuItem.Size = new Size(173, 22);
 			manualDeUsuarioToolStripMenuItem.Text = "Manual de Usuario";
-			manualDeUsuarioToolStripMenuItem.Click += manualDeUsuarioToolStripMenuItem_Click;
+			manualDeUsuarioToolStripMenuItem.Click += ManualDeUsuarioToolStripMenuItem_Click;
 			// 
 			// herramientasToolStripMenuItem
 			// 
@@ -554,7 +554,7 @@ namespace Agraria.UI
 			fuenteToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.F;
 			fuenteToolStripMenuItem.Size = new Size(180, 22);
 			fuenteToolStripMenuItem.Text = "Fuente";
-			fuenteToolStripMenuItem.Click += fuenteToolStripMenuItem_Click;
+			fuenteToolStripMenuItem.Click += FuenteToolStripMenuItem_Click;
 			// 
 			// exportarDatosToolStripMenuItem
 			// 
@@ -568,7 +568,7 @@ namespace Agraria.UI
 			restaurarDatosToolStripMenuItem.Name = "restaurarDatosToolStripMenuItem";
 			restaurarDatosToolStripMenuItem.Size = new Size(180, 22);
 			restaurarDatosToolStripMenuItem.Text = "Restaurar Datos";
-			restaurarDatosToolStripMenuItem.Click += restaurarDatosToolStripMenuItem_Click;
+			restaurarDatosToolStripMenuItem.Click += RestaurarDatosToolStripMenuItem_Click;
 			// 
 			// FormPrincipal
 			// 

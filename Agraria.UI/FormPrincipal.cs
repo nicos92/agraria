@@ -256,7 +256,7 @@ namespace Agraria.UI
 			_logger.LogInformation("Sesión limpiada exitosamente.");
 		}
 
-		private void cerrarToolStripMenuItem_Click(object sender, EventArgs e)
+		private void CerrarToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			this.Close();
 		}
@@ -272,10 +272,9 @@ namespace Agraria.UI
 				// Esto cubre TextBox, RichTextBox
 				textBox.Copy();
 			}
-			else if (controlConFoco is DataGridView dataGridView)
+			else if (controlConFoco is DataGridView)
 			{
-				// Copia las celdas seleccionadas en un DataGridView
-				// (el método .GetClipboardContent() es común para esto)
+				
 				System.Windows.Forms.SendKeys.Send("^c"); // Simula Ctrl+C
 			}
 			// Puedes agregar más tipos de controles aquí (ej. MaskedTextBox)
@@ -314,7 +313,7 @@ namespace Agraria.UI
 			return null; // No se encontró ningún control con foco en esta rama
 		}
 
-		private void cortarToolStripMenuItem_Click(object sender, EventArgs e)
+		private void CortarToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			Control controlConFoco = FindFocusedControl(this);
 
@@ -327,7 +326,7 @@ namespace Agraria.UI
 			// else if (controlConFoco is DataGridView) { System.Windows.Forms.SendKeys.Send("^x"); }
 		}
 
-		private void pegarToolStripMenuItem_Click(object sender, EventArgs e)
+		private void PegarToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			Control controlConFoco = FindFocusedControl(this);
 
@@ -340,18 +339,17 @@ namespace Agraria.UI
 			// else if (controlConFoco is DataGridView) { System.Windows.Forms.SendKeys.Send("^v"); }
 		}
 
-		private void deshacerToolStripMenuItem_Click(object sender, EventArgs e)
+		private void DeshacerToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			Control controlConFoco = FindFocusedControl(this);
 
 			if (controlConFoco is TextBoxBase textBox)
 			{
-				// El método Undo() funciona para TextBox y RichTextBox
 				textBox.Undo();
 			}
 		}
 
-		private void copiarToolStripMenuItem1_Click(object sender, EventArgs e)
+		private void CopiarToolStripMenuItem1_Click(object sender, EventArgs e)
 		{
 			Control controlConFoco = FindFocusedControl(this);
 
@@ -368,7 +366,7 @@ namespace Agraria.UI
 			}
 		}
 
-		private void ediciónToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
+		private void EdiciónToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
 		{
 
 			Control controlConFoco = FindFocusedControl(this);
@@ -395,7 +393,7 @@ namespace Agraria.UI
 			pegarToolStripMenuItem.Enabled = Clipboard.ContainsText();
 
 			// Condición especial para Rehacer (solo RichTextBox)
-			if (controlConFoco is RichTextBox richTextBox)
+			if (controlConFoco is RichTextBox)
 			{
 				// RichTextBox no tiene una propiedad CanRedo directa, se asume que si soporta Undo lo soporta.
 				// Por simplicidad, lo habilitamos si el control activo es un RichTextBox.
@@ -407,30 +405,28 @@ namespace Agraria.UI
 			}
 		}
 
-		private void sobreNosotrosToolStripMenuItem_Click(object sender, EventArgs e)
+		private void SobreNosotrosToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			FormAcercaDe formAcercaDe = new FormAcercaDe();
+			FormAcercaDe formAcercaDe = new();
 			formAcercaDe.ShowDialog();
 		}
 
-		private void fuenteToolStripMenuItem_Click(object sender, EventArgs e)
+		private void FuenteToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			// 1. Crear y configurar el FontDialog
-			using (FontDialog fd = new FontDialog())
+			using FontDialog fd = new();
+			// Mostrar la fuente actual del formulario como valor predeterminado
+			fd.Font = this.Font;
+			fd.ShowColor = false; // Solo necesitamos el tipo y el tamaño
+
+			if (fd.ShowDialog() == DialogResult.OK)
 			{
-				// Mostrar la fuente actual del formulario como valor predeterminado
-				fd.Font = this.Font;
-				fd.ShowColor = false; // Solo necesitamos el tipo y el tamaño
+				// 2. Llamar al método estático para aplicar la nueva fuente
+				// Pasamos la fuente seleccionada y una referencia al formulario principal (this).
+				FontManager.AplicarNuevaFuente(fd.Font, this);
 
-				if (fd.ShowDialog() == DialogResult.OK)
-				{
-					// 2. Llamar al método estático para aplicar la nueva fuente
-					// Pasamos la fuente seleccionada y una referencia al formulario principal (this).
-					FontManager.AplicarNuevaFuente(fd.Font, this);
-
-					// Opcional: Establecer también la fuente del Formulario principal
-					this.Font = fd.Font;
-				}
+				// Opcional: Establecer también la fuente del Formulario principal
+				this.Font = fd.Font;
 			}
 		}
 
@@ -536,7 +532,7 @@ namespace Agraria.UI
 			SeleccionarForm(typeof(FormInicio));
 		}
 
-		private void manualDeUsuarioToolStripMenuItem_Click(object sender, EventArgs e)
+		private void ManualDeUsuarioToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			try
 			{
@@ -580,48 +576,44 @@ namespace Agraria.UI
 		{
 			try
 			{
-				using (SaveFileDialog saveDialog = new SaveFileDialog())
+				using SaveFileDialog saveDialog = new();
+				saveDialog.Filter = "Archivos de respaldo (*.bak)|*.bak";
+				saveDialog.DefaultExt = "bak";
+				saveDialog.FileName = $"Agraria_Backup_{DateTime.Now:yyyyMMdd_HHmmss}.bak";
+				saveDialog.Title = "Guardar respaldo de base de datos";
+				saveDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+
+				if (saveDialog.ShowDialog() == DialogResult.OK)
 				{
-					saveDialog.Filter = "Archivos de respaldo (*.bak)|*.bak";
-					saveDialog.DefaultExt = "bak";
-					saveDialog.FileName = $"Agraria_Backup_{DateTime.Now:yyyyMMdd_HHmmss}.bak";
-					saveDialog.Title = "Guardar respaldo de base de datos";
-					saveDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
 
-					if (saveDialog.ShowDialog() == DialogResult.OK)
+					using FormProgreso formProgreso = new();
+					formProgreso.Show();
+					formProgreso.Refresh();
+
+					var progress = new Progress<int>(porcentaje =>
 					{
+						formProgreso.ActualizarProgreso(porcentaje);
+					});
 
-						using (FormProgreso formProgreso = new FormProgreso())
-						{
-							formProgreso.Show();
-							formProgreso.Refresh();
+					// Usar el método seguro que crea el respaldo y lo copia
+					string rutaFinal = await _respaldoService.CrearRespaldoSeguroAsync(
+						saveDialog.FileName,
+						progress
+					);
 
-							var progress = new Progress<int>(porcentaje =>
-							{
-								formProgreso.ActualizarProgreso(porcentaje);
-							});
+					formProgreso.ActualizarProgreso(100);
+					await Task.Delay(500);
 
-							// Usar el método seguro que crea el respaldo y lo copia
-							string rutaFinal = await _respaldoService.CrearRespaldoSeguroAsync(
-								saveDialog.FileName,
-								progress
-							);
-
-							formProgreso.ActualizarProgreso(100);
-							await Task.Delay(500);
-
-							FileInfo info = new FileInfo(rutaFinal);
-							MessageBox.Show(
-								$"Respaldo creado exitosamente:\n\n" +
-								$"Ubicación: {rutaFinal}\n" +
-								$"Tamaño: {info.Length / 1024.0 / 1024.0:F2} MB\n" +
-								$"Fecha: {info.CreationTime}",
-								"Respaldo Exitoso",
-								MessageBoxButtons.OK,
-								MessageBoxIcon.Information
-							);
-						}
-					}
+					FileInfo info = new(rutaFinal);
+					MessageBox.Show(
+						$"Respaldo creado exitosamente:\n\n" +
+						$"Ubicación: {rutaFinal}\n" +
+						$"Tamaño: {info.Length / 1024.0 / 1024.0:F2} MB\n" +
+						$"Fecha: {info.CreationTime}",
+						"Respaldo Exitoso",
+						MessageBoxButtons.OK,
+						MessageBoxIcon.Information
+					);
 				}
 			}
 			catch (Exception ex)
@@ -635,7 +627,7 @@ namespace Agraria.UI
 			}
 		}
 
-		private async void restaurarDatosToolStripMenuItem_Click(object sender, EventArgs e)
+		private async void RestaurarDatosToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			DialogResult confirmacion = MessageBox.Show(
 			   "¿Está ABSOLUTAMENTE SEGURO que desea restaurar?\n\n" +
@@ -650,63 +642,59 @@ namespace Agraria.UI
 				return;
 			try
 			{
-				using (OpenFileDialog openDialog = new OpenFileDialog())
+				using OpenFileDialog openDialog = new();
+				openDialog.Filter = "Archivos de respaldo (*.bak)|*.bak";
+				openDialog.Title = "Seleccionar archivo de respaldo";
+				openDialog.InitialDirectory = @"C:\Program Files\Microsoft SQL Server\MSSQL*.MSSQLSERVER\MSSQL\Backup";
+
+				if (openDialog.ShowDialog() == DialogResult.OK)
 				{
-					openDialog.Filter = "Archivos de respaldo (*.bak)|*.bak";
-					openDialog.Title = "Seleccionar archivo de respaldo";
-					openDialog.InitialDirectory = @"C:\Program Files\Microsoft SQL Server\MSSQL*.MSSQLSERVER\MSSQL\Backup";
+					// Preguntar el nombre de la base de datos (opcional)
+					string nombreBD = Microsoft.VisualBasic.Interaction.InputBox(
+						"Nombre de la base de datos:\n(Dejar en blanco para usar el nombre del respaldo)",
+						"Nombre de Base de Datos",
+						"Agraria"
+					);
 
-					if (openDialog.ShowDialog() == DialogResult.OK)
+
+					// Mostrar información de archivos del respaldo
+					var archivos = _respaldoService.ObtenerArchivosRespaldo(openDialog.FileName);
+					string infoArchivos = "Archivos en el respaldo:\n\n";
+					foreach (var archivo in archivos)
 					{
-						// Preguntar el nombre de la base de datos (opcional)
-						string nombreBD = Microsoft.VisualBasic.Interaction.InputBox(
-							"Nombre de la base de datos:\n(Dejar en blanco para usar el nombre del respaldo)",
-							"Nombre de Base de Datos",
-							"Agraria"
+						infoArchivos += $"• {archivo.NombreLogico} ({archivo.TipoArchivo})\n";
+					}
+
+					MessageBox.Show(infoArchivos, "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+					using FormProgreso formProgreso = new();
+					formProgreso.Text = "Restaurando...";
+					formProgreso.EstablecerProgresoIndeterminado();
+					formProgreso.Show();
+					formProgreso.Refresh();
+
+					var progress = new Progress<string>(msg =>
+					{
+						formProgreso.ActualizarMensaje(msg);
+					});
+
+					// Usar el nuevo método que crea la BD si no existe
+					bool exitoso = await _respaldoService.RestaurarOCrearBaseDatosAsync(
+						openDialog.FileName,
+						string.IsNullOrWhiteSpace(nombreBD) ? null : nombreBD,
+						progress
+					);
+
+					if (exitoso)
+					{
+						MessageBox.Show(
+							"Base de datos restaurada/creada exitosamente.\n" +
+							"La aplicación se cerrará.",
+							"Éxito",
+							MessageBoxButtons.OK,
+							MessageBoxIcon.Information
 						);
-
-
-						// Mostrar información de archivos del respaldo
-						var archivos = _respaldoService.ObtenerArchivosRespaldo(openDialog.FileName);
-						string infoArchivos = "Archivos en el respaldo:\n\n";
-						foreach (var archivo in archivos)
-						{
-							infoArchivos += $"• {archivo.NombreLogico} ({archivo.TipoArchivo})\n";
-						}
-
-						MessageBox.Show(infoArchivos, "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-						using (FormProgreso formProgreso = new FormProgreso())
-						{
-							formProgreso.Text = "Restaurando...";
-							formProgreso.EstablecerProgresoIndeterminado();
-							formProgreso.Show();
-							formProgreso.Refresh();
-
-							var progress = new Progress<string>(msg =>
-							{
-								formProgreso.ActualizarMensaje(msg);
-							});
-
-							// Usar el nuevo método que crea la BD si no existe
-							bool exitoso = await _respaldoService.RestaurarOCrearBaseDatosAsync(
-								openDialog.FileName,
-								string.IsNullOrWhiteSpace(nombreBD) ? null : nombreBD,
-								progress
-							);
-
-							if (exitoso)
-							{
-								MessageBox.Show(
-									"Base de datos restaurada/creada exitosamente.\n" +
-									"La aplicación se cerrará.",
-									"Éxito",
-									MessageBoxButtons.OK,
-									MessageBoxIcon.Information
-								);
-								Application.Exit();
-							}
-						}
+						Application.Exit();
 					}
 				}
 			}
